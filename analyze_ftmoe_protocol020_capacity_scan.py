@@ -27,8 +27,11 @@ ROOT = Path(__file__).resolve().parent
 SCAN = ROOT / "artifacts/ftmoe_online/protocol_020/capacity_scan"
 REPORT = SCAN / "capacity_scan_report.json"
 
-STEP_FLOOR = 150          # dominant host-steps per fault class (400x16 scored)
-EVENT_FLOOR = 30          # independent events per fault class
+STEP_FLOOR_REF = 150          # dominant host-steps per fault class (plan §11, @32000)
+EVENT_FLOOR_REF = 30          # independent events per fault class (plan §11, @32000)
+REF_HOST_STEPS = 32000        # plan §11 reference horizon (2000 x 16)
+PHASE_HOST_STEPS = 8000       # one drift phase (500 x 16), plan §13 floor = 100
+PHASE_DOMINANT_FLOOR = 100
 NORMAL_MIN, NORMAL_MAX = 0.80, 0.95
 DEPLOY_REJ_MAX, MIGRATE_REJ_MAX = 0.20, 0.40
 
@@ -119,35 +122,42 @@ def analyze_candidate(path):
     }
 
 
-def gate_check(entry):
+def gate_check(entry, horizon):
     counts = entry["raw_class_counts"]
     normal_share = entry["normal_share"]
+    fraction = horizon / REF_HOST_STEPS
+    step_floor = max(1, int(round(STEP_FLOOR_REF * fraction)))
+    event_floor = max(1, int(round(EVENT_FLOOR_REF * fraction)))
+    phase_projection = {name: int(round(counts[i] / horizon * PHASE_HOST_STEPS))
+                        for i, name in ((1, "cpu"), (2, "ram"), (3, "disk"))}
     checks = {
         "normal_share_in_[0.80,0.95]": NORMAL_MIN <= normal_share <= NORMAL_MAX,
-        "cpu_hoststeps>=150": counts[1] >= STEP_FLOOR,
-        "ram_hoststeps>=150": counts[2] >= STEP_FLOOR,
-        "disk_hoststeps>=150": counts[3] >= STEP_FLOOR,
-        "cpu_events>=30": entry["event_counts"]["1"] >= EVENT_FLOOR,
-        "ram_events>=30": entry["event_counts"]["2"] >= EVENT_FLOOR,
-        "disk_events>=30": entry["event_counts"]["3"] >= EVENT_FLOOR,
+        "cpu_hoststeps>=floor": counts[1] >= step_floor,
+        "ram_hoststeps>=floor": counts[2] >= step_floor,
+        "disk_hoststeps>=floor": counts[3] >= step_floor,
+        "cpu_events>=floor": entry["event_counts"]["1"] >= event_floor,
+        "ram_events>=floor": entry["event_counts"]["2"] >= event_floor,
+        "disk_events>=floor": entry["event_counts"]["3"] >= event_floor,
         "deployment_rejection<0.20": entry["deployment_rejection_rate"] < DEPLOY_REJ_MAX,
         "migration_rejection<0.40": entry["migration_rejection_rate"] < MIGRATE_REJ_MAX,
     }
-    return checks, all(checks.values())
+    per_phase = {name: (projection >= PHASE_DOMINANT_FLOOR)
+                 for name, projection in phase_projection.items()}
+    return checks, all(checks.values()), phase_projection, per_phase
 
 
 def axis_table(entries):
     lines = []
-    lines.append("axis  value   |  norm%  CPU  RAM  Disk | ev CPU RAM Disk | dep-rej mig-rej | gate")
+    lines.append("axis value  | norm%  CPU RAM Disk | ev C/R/D | phase-proj C/R/D | dep-rej mig-rej | gate")
     for e in entries:
         c = e["raw_class_counts"]
         ev = e["event_counts"]
-        checks, ok = gate_check(e)
-        lines.append("%-5s %-6s | %5.1f%% %4d %4d %4d | %3d %3d %3d %3d | %6.1f%% %6.1f%% | %s"
-                     % (e["profile"]["axis"] if "axis" in e["profile"] else "",
-                        str(e["profile"].get("value", "")),
+        checks, ok, proj, per_phase = gate_check(e, e["scored_host_steps"])
+        lines.append("%-5s %-5s | %5.1f%% %4d %3d %4d | %3d/%3d/%3d | %4d/%4d/%4d | %6.1f%% %6.1f%% | %s"
+                     % (e["profile"]["axis"], str(e["profile"]["value"]),
                         e["normal_share"] * 100, c[1], c[2], c[3],
-                        ev["1"], ev["2"], ev["3"], 0,
+                        ev["1"], ev["2"], ev["3"],
+                        proj["cpu"], proj["ram"], proj["disk"],
                         e["deployment_rejection_rate"] * 100,
                         e["migration_rejection_rate"] * 100,
                         "PASS" if ok else "FAIL"))
@@ -170,13 +180,21 @@ def main():
                     else "disk"
                 entry["profile"]["axis"] = axis
                 entry["profile"]["value"] = profile.get(axis, 1.0)
-                entry["gates"], entry["gate_pass"] = gate_check(entry)
+                horizon = entry["scored_host_steps"]
+                checks, ok, proj, per_phase = gate_check(entry, horizon)
+                entry["gates"] = checks
+                entry["gate_pass"] = ok
+                entry["phase_projection_per_8000"] = proj
+                entry["phase_projection_pass"] = per_phase
                 entries.append(entry)
     entries.sort(key=lambda e: (e["profile"]["axis"], e["profile"]["value"]))
     report = {"schema_version": 1, "protocol": "020", "phase": "S4",
               "gate_rules": {"normal_share": [NORMAL_MIN, NORMAL_MAX],
-                             "fault_hoststep_floor": STEP_FLOOR,
-                             "event_floor": EVENT_FLOOR,
+                             "fault_hoststep_floor_reference": STEP_FLOOR_REF,
+                             "event_floor_reference": EVENT_FLOOR_REF,
+                             "reference_horizon_host_steps": REF_HOST_STEPS,
+                             "phase_horizon_host_steps": PHASE_HOST_STEPS,
+                             "phase_dominant_floor": PHASE_DOMINANT_FLOOR,
                              "deployment_rejection_max": DEPLOY_REJ_MAX,
                              "migration_rejection_max": MIGRATE_REJ_MAX},
               "candidates": entries}
