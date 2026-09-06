@@ -1,3 +1,28 @@
+## 会话交接（2026-09-07 留档，用户关机，下次继续）
+
+**当前状态**：S0–S3 完成（代码已提交）；S4 data-only 全扫描 31 候选完成 → **P16 正式停止条件**
+（无候选满足相位主导×拒绝率双门禁），已停止 S5+；方向选项待用户拍板（P16 详细记录见下）。
+
+**下次恢复命令**（工作目录 F:\PreGANPlus-master，Python = D:\Anaconda\envs\dynmoe\python.exe，
+内存约束 3.0 GiB guard，勿并行多个采集进程）：
+- 回顾：`git log --oneline -12`；`docs/FTMOE_ONLINE_PROTOCOL_020.md`；本日志 P13–P16。
+- S4 报告：`python analyze_ftmoe_protocol020_capacity_scan.py`（读 capacity_scan/capacity_scan_report.json）。
+- 待用户选方向（P16 选项 a/b/c/d）→ 选定后按纪律先记录到本日志再执行：
+  (b) 需改 `simulator/workload/BitbrainWorkloadProtocol020.py` 的 demand adapter（新协议文件，
+  不动 019）；(a) 需重登记 §13 阈值；(c) 需重跑 `build_ftmoe_protocol020_vm_split.py`；
+  (d) 收尾存档。
+- 若走通 S4→S5 已备好工具：`prepare_ftmoe_protocol020_drift.py --config drift/drift_config.json`
+  （dev seed500，5 相位）+ `analyze_ftmoe_protocol020_drift.py`；
+  S6：`prepare_ftmoe_protocol020_adaptation_episodes.py` → `build_ftmoe_protocol020_adaptation_dataset.py`
+  → `train_ftmoe_protocol020_samedomain.py --model-seed 1`；
+  S7：`run_ftmoe_protocol020.py --method A/B/C`（已含 loss v3 与分层采样，测试 4/4）；
+  S8 触发逻辑已实现（测试 7/7），容器级 v3 集成待 S7 通过后继续。
+- 归一化注意：P20 工件 `artifacts/ftmoe_online/protocol_020/normalization_v2_time_scale.json`
+  由 `build_ftmoe_protocol020_adaptation_dataset.py` 生成（基于 019 工件 + train-cohort 覆盖），
+  S6 checkpoint 与 P20 runner 均须与其一致。
+
+---
+
 # FT-MoE Protocol 020 — 实验执行问题日志（Problem Log）
 
 > 本文件与 `FTMOE_PROTOCOL020_DETAILED_SOLUTION_PLAN.md` 同目录（`F:\PreGANPlus-master\指令\`）。

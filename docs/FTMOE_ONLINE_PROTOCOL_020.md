@@ -72,7 +72,7 @@ P20-S10 5 model seeds × 3 source-disjoint streams
 | S1 | 完成（RAM_CAP_SCALE，Test 1/2 等 5/5 通过；overload_mask/ratio 随 P20 采集器在 S4 工具中落地） | RPiEdge RAM_CAP_SCALE + test_ftmoe_protocol020_simulator.py | 2026-09-07 |
 | S2 | 完成（graph semantics v3 + per-sample capacities；Test 3–6 等 7/7 通过；019 legacy 回归 8/8、9/9 无退化） | ftmoe_ablation.py（ScheduleGraphEncoder v3）+ test_ftmoe_protocol020_graph.py | 2026-09-07 |
 | S3 | 完成（eligible 457 VM：train 277 / dev 86 / online 94；Test 9 不相交断言通过） | build_ftmoe_protocol020_vm_split.py + vm_split.json + BitbrainWorkloadProtocol020.py | 2026-09-07 |
-| S4 | 进行中（工具完成，smoke 通过；cpu×5 / ram×8 / disk×6 全量扫描后台运行中） | RPiCapacity.py + prepare/analyze_ftmoe_protocol020_capacity_scan.py | 2026-09-07 |
+| S4 | **停止（P16，等用户方向）**：31 候选全量 data-only 扫描完成，无候选同时满足相位主导（≥100/8000）与拒绝率门禁；机制=深度容量触发部署拒绝墙、中等容量事件率不足（GOBI 均衡+demand clip） | capacity_scan/31 候选 + capacity_scan_report.json + P16 问题日志记录 | 2026-09-07 |
 | S5 | 未开始 | — | — |
 | S6 | 未开始 | — | — |
 | S7 | 未开始 | — | — |
