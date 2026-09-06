@@ -1,0 +1,302 @@
+{
+  "schema_version": 3,
+  "protocol": "019",
+  "phase": "S4",
+  "scheme": "s4",
+  "checkpoint_mode": "s3_adapted",
+  "method": "B",
+  "model_seed": 1,
+  "replay_seed": 303,
+  "steps": 300,
+  "learning_rate": 3e-05,
+  "source_checkpoint": {
+    "path": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_019\\s3\\adapted_v4_seed1\\best.pt",
+    "sha256": "670c56fe94e738bd8a0f65dcacb0ca836960c1ce86dce6c1601a8c74f5078e3b",
+    "epoch": 7,
+    "mode": "s3_adapted"
+  },
+  "stream": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_019\\dev_streams\\seed303_steps300",
+  "stream_sha256": "ff0ea85e1a0fb58aee9f3696a31f8972fdecba60840eac9bdea9a92c2d47c8f4",
+  "stream_manifest_sha256": "826d5643d9921b9009c4bbb890b5470c9e381eac23caeec2ddb9b9eab18dc169",
+  "input_contract_version": 2,
+  "normalization_version": 2,
+  "graph_semantics_version": 2,
+  "normalization_v2": {
+    "scale": [
+      [
+        1860.0,
+        1995.0162353515625,
+        1.0,
+        1.0,
+        9000.0,
+        1.0,
+        1.0
+      ],
+      [
+        1860.0,
+        3241.35693359375,
+        1.0,
+        1.0,
+        5000.0,
+        1.0,
+        1.0
+      ],
+      [
+        1860.0,
+        6012.95166015625,
+        2.0,
+        2.0,
+        6000.0,
+        2.0,
+        2.0
+      ],
+      [
+        1860.0,
+        3241.35693359375,
+        1.0,
+        1.0,
+        6000.0,
+        1.0,
+        1.0
+      ],
+      [
+        1860.0,
+        5848.53564453125,
+        1.0,
+        1.0,
+        6000.0,
+        1.0,
+        1.0
+      ],
+      [
+        1860.0,
+        3241.35693359375,
+        1.0,
+        1.0,
+        9000.0,
+        1.0,
+        1.0
+      ],
+      [
+        5580.0,
+        7848.9345703125,
+        3.0,
+        3.0,
+        11000.0,
+        3.0,
+        3.0
+      ],
+      [
+        1860.0,
+        5848.53564453125,
+        1.0,
+        1.0,
+        7000.0,
+        1.0,
+        1.0
+      ],
+      [
+        1860.0,
+        3992.976318359375,
+        2.0,
+        2.0,
+        5000.0,
+        2.0,
+        2.0
+      ],
+      [
+        1860.0,
+        5527.5322265625,
+        1.0,
+        1.0,
+        6000.0,
+        1.0,
+        1.0
+      ],
+      [
+        5580.0,
+        7140.37890625,
+        4.0,
+        4.0,
+        13000.0,
+        4.0,
+        4.0
+      ],
+      [
+        3720.0,
+        6795.88720703125,
+        2.0,
+        2.0,
+        12000.0,
+        2.0,
+        2.0
+      ],
+      [
+        3720.0,
+        5527.5322265625,
+        3.0,
+        3.0,
+        6000.0,
+        3.0,
+        3.0
+      ],
+      [
+        3720.0,
+        5527.5322265625,
+        3.0,
+        3.0,
+        12000.0,
+        3.0,
+        3.0
+      ],
+      [
+        7440.0,
+        9735.8115234375,
+        4.0,
+        4.0,
+        16000.0,
+        4.0,
+        4.0
+      ],
+      [
+        5580.0,
+        5036.23583984375,
+        3.0,
+        3.0,
+        13000.0,
+        3.0,
+        3.0
+      ]
+    ],
+    "fallback_columns": [
+      {
+        "host": 13,
+        "feature": "cpu_demand",
+        "training_scale": 2.0,
+        "reason": [
+          "count_nonzero_lt_12(5)"
+        ],
+        "fallback_scale": 3720.0,
+        "group": "rpi8gb"
+      },
+      {
+        "host": 13,
+        "feature": "disk_read",
+        "training_scale": 1.0,
+        "reason": [
+          "count_nonzero_lt_12(5)"
+        ],
+        "fallback_scale": 3.0,
+        "group": "rpi8gb"
+      },
+      {
+        "host": 13,
+        "feature": "disk_space",
+        "training_scale": 9.99999993922529e-09,
+        "reason": [
+          "training_max_zero",
+          "count_nonzero_lt_12(0)",
+          "max_below_group_p95_fraction"
+        ],
+        "fallback_scale": 12000.0,
+        "group": "rpi8gb"
+      },
+      {
+        "host": 13,
+        "feature": "disk_write",
+        "training_scale": 1.0,
+        "reason": [
+          "count_nonzero_lt_12(5)"
+        ],
+        "fallback_scale": 3.0,
+        "group": "rpi8gb"
+      },
+      {
+        "host": 13,
+        "feature": "ram_read_or_network_rx",
+        "training_scale": 1.0,
+        "reason": [
+          "count_nonzero_lt_12(5)"
+        ],
+        "fallback_scale": 3.0,
+        "group": "rpi8gb"
+      },
+      {
+        "host": 13,
+        "feature": "ram_space",
+        "training_scale": 9.99999993922529e-09,
+        "reason": [
+          "training_max_zero",
+          "count_nonzero_lt_12(0)",
+          "max_below_group_p95_fraction"
+        ],
+        "fallback_scale": 5527.5322265625,
+        "group": "rpi8gb"
+      },
+      {
+        "host": 13,
+        "feature": "ram_write_or_network_tx",
+        "training_scale": 1.0,
+        "reason": [
+          "count_nonzero_lt_12(5)"
+        ],
+        "fallback_scale": 3.0,
+        "group": "rpi8gb"
+      }
+    ],
+    "artifact": "artifacts/ftmoe_online/protocol_019/normalization_v2_time_scale.json",
+    "normalized_abs_max_report": {
+      "nonfinite": 0,
+      "max": 3.0,
+      "p50": 0.2362050075584999,
+      "p95": 1.2627411216817845,
+      "p99": 2.0,
+      "fraction_abs_gt_5": 0.0,
+      "fraction_abs_gt_10": 0.0,
+      "abs_max_warning_threshold": 50.0,
+      "alarm": false
+    }
+  },
+  "s4_memory": {
+    "recent_maxlen": 128,
+    "recent_per_update": 24,
+    "anchor_per_update": 8,
+    "max_exposure": 3,
+    "anchor_seeds": [
+      401,
+      402,
+      403
+    ],
+    "anchor_rows": "272-399 of each 400-row episode",
+    "lambda_anchor": 0.25,
+    "lambda_distill": 0.1,
+    "teacher": "frozen starting checkpoint",
+    "lr_fast": 3e-05,
+    "lr_slow_factor": 0.1,
+    "slow_groups": [
+      "encoder.",
+      "graph_encoder.",
+      "cmha"
+    ],
+    "interval_stratification": "none (registered S4-dev choice)"
+  },
+  "threshold": 0.5,
+  "label_tolerance": 1,
+  "label_delay_intervals": 1,
+  "resource_guard_ram_gib": 3.0,
+  "code_sha256": {
+    "run_ftmoe_protocol019_s4.py": "c67793401c83ec56f685f9e2cb2cda80764ccf6b8d5045fa325edabfb9b184b0",
+    "run_ftmoe_protocol019.py": "25fe82d1900bbe4824b0b17872c1a0e1757199ea15ebcf4546b2b7f76d6627e6",
+    "run_ftmoe_online.py": "a306d439646067d4e3034588186e45fe233ff8d1ba03657fbaa302cc1ed28e3a",
+    "analyze_ftmoe_online.py": "0b509b05d96402995d9347d22d09f21fa4b542f9f5b42ecf432cbf7c1d0696f4",
+    "train_ftmoe_ablation_existing.py": "84c2b384ff18fbea02ce29f43e0ad1f4086b75bc2e6233cbff09483bb3622e1d",
+    "train_ftmoe_end_to_end.py": "b6c9c09d990ba02d31fa0c13326f7de45844c6926fcc097a40e8a0bcc723863a",
+    "train_ftmoe_protocol019_s3.py": "f0bb91e2f44f7cc330c077513fcd056fd0dbdff41b3e09504057921fd14aba90",
+    "recovery/PreGANSrc/src/ftmoe_online.py": "acd814a76b372add6f8392785628e1d2a58e0e796937765e6b91e2a23ccbb371",
+    "recovery/PreGANSrc/src/ftmoe_online_s4.py": "17ddf21a816446fa3898b6465ffa3861973f1b6a73d0ed0abe940521f915da3f",
+    "recovery/PreGANSrc/src/ftmoe_ablation.py": "b4254db6cfa3d0e030bdc40c7c1227c4b88499d6326e94385b133e0923d6fd76",
+    "recovery/PreGANSrc/src/ftmoe_end_to_end.py": "44b4f48979bf228994f9a088e18ccc0e534d1d97e37c28c17adde0417a65f6a0",
+    "recovery/PreGANSrc/src/ftmoe_normalization.py": "9abc44e9302e0aacc5c77bb172927567ca596aa7112cce30bc6f61ffe4508310",
+    "recovery/PreGANSrc/src/ftmoe_input_contract.py": "4a05f8b19f3aacf6d003f1a9f8f0dd497a52c0f8ebe6e21c3c459d35004ffa42"
+  }
+}

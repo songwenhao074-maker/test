@@ -187,12 +187,12 @@ class OnlineFTMoE(FTMoEEndToEnd):
     def state_hash(self):
         return tensor_hash(self.state_dict().items())
 
-    def predict_online(self, x, schedule, graph):
+    def predict_online(self, x, schedule, graph, graph_context=None):
         self.eval()
         self.eagate.record_enabled = True
         try:
             with torch.no_grad():
-                return self(x, schedule, graph)
+                return self(x, schedule, graph, graph_context=graph_context)
         finally:
             self.eagate.record_enabled = False
 

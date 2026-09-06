@@ -1,0 +1,9 @@
+{
+  "seed": 303,
+  "steps": 300,
+  "error": "RuntimeError: RAM guard below 4.5 GiB (available 3.991 GiB)",
+  "traceback": "Traceback (most recent call last):\n  File \"prepare_ftmoe_protocol019_dev_stream.py\", line 139, in collect\n    guard()\n  File \"prepare_ftmoe_protocol019_dev_stream.py\", line 72, in guard\n    raise RuntimeError(\"RAM guard below 4.5 GiB (available %.3f GiB)\" % available)\nRuntimeError: RAM guard below 4.5 GiB (available 3.991 GiB)\n",
+  "completed_steps": 0,
+  "simulator_behavior_modified": false,
+  "next_action": "Report before any scenario change"
+}

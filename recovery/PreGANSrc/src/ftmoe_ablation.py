@@ -225,8 +225,56 @@ class ScheduleGraphEncoder(nn.Module):
         nn.init.zeros_(self.class_adapter.weight)
         nn.init.zeros_(self.class_adapter.bias)
 
+    def graph_migration_and_occupancy(
+            self, schedule_windows: torch.Tensor,
+            graph_context: dict | None = None
+    ) -> tuple[torch.Tensor, torch.Tensor]:
+        """Return (occupancy [B,W,H,1], migrations [B,W-1,H,H]).
+
+        Occupancy is the number of *valid* containers scheduled onto each host
+        at each window position.  Migrations count container transitions
+        h -> k between consecutive window positions; with graph_context v2
+        only transitions of the same creation identity count.
+        """
+        previous = schedule_windows[:, :-1]
+        current = schedule_windows[:, 1:]
+        eye = torch.eye(
+            self.cfg.hosts, dtype=schedule_windows.dtype,
+            device=schedule_windows.device,
+        ).view(1, 1, self.cfg.hosts, self.cfg.hosts)
+        if graph_context is not None:
+            identity = graph_context["creation_ids"]
+            if identity.ndim != 3 or identity.shape[:2] != (
+                    schedule_windows.shape[0], schedule_windows.shape[1]):
+                raise ValueError(
+                    "graph_context creation_ids must have shape [B,W,C] matching "
+                    "schedule_windows"
+                )
+            valid = (identity >= 0).to(schedule_windows.dtype)
+            occupancy = torch.einsum(
+                "btch,btc->bth", schedule_windows, valid
+            ).unsqueeze(-1)
+            previous_identity = identity[:, :-1]
+            current_identity = identity[:, 1:]
+            same_identity = (
+                (previous_identity >= 0) & (previous_identity == current_identity)
+            ).to(schedule_windows.dtype)
+            previous_weighted = previous * same_identity.unsqueeze(-1)
+            migrations = torch.einsum(
+                "btch,btck->bthk", previous_weighted, current
+            )
+        else:
+            # Legacy v1 semantics: every slot row of the schedule contributes,
+            # so occupancy counts scheduled rows and slot replacements between
+            # consecutive intervals read as migrations.
+            occupancy = schedule_windows.sum(dim=2).unsqueeze(-1)
+            migrations = torch.einsum("btch,btck->bthk", previous, current)
+        migrations = migrations * (1.0 - eye)
+        return occupancy, migrations
+
     def forward(self, time_windows: torch.Tensor,
-                schedule_windows: torch.Tensor) -> torch.Tensor:
+                schedule_windows: torch.Tensor,
+                graph_context: dict | None = None) -> torch.Tensor:
         if schedule_windows.ndim != 4:
             raise ValueError("schedule_windows must have shape [B,W,C,H]")
         # The 16 resource groups are workload slots in the replay.  Aggregate
@@ -235,15 +283,9 @@ class ScheduleGraphEncoder(nn.Module):
         scheduled = torch.einsum(
             "btch,btcf->bthf", schedule_windows, slot_features
         )
-        occupancy = schedule_windows.sum(dim=2).unsqueeze(-1)
-
-        previous = schedule_windows[:, :-1]
-        current = schedule_windows[:, 1:]
-        migrations = torch.einsum("btch,btck->bthk", previous, current)
-        eye = torch.eye(
-            self.cfg.hosts, dtype=migrations.dtype, device=migrations.device,
-        ).view(1, 1, self.cfg.hosts, self.cfg.hosts)
-        migrations = migrations * (1.0 - eye)
+        occupancy, migrations = self.graph_migration_and_occupancy(
+            schedule_windows, graph_context
+        )
         incoming = migrations.sum(dim=(-3, -2)).unsqueeze(1).unsqueeze(-1)
         outgoing = migrations.sum(dim=(-3, -1)).unsqueeze(1).unsqueeze(-1)
         incoming = incoming.expand(-1, self.cfg.window, -1, -1)
@@ -328,7 +370,8 @@ class FTMoEAblation(nn.Module):
 
     def forward(self, time_windows: torch.Tensor,
                 schedule_windows: torch.Tensor | None = None,
-                graph_time_windows: torch.Tensor | None = None) -> dict[str, torch.Tensor]:
+                graph_time_windows: torch.Tensor | None = None,
+                graph_context: dict | None = None) -> dict[str, torch.Tensor]:
         z = self.encoder(time_windows)
         active_experts = None
         softmax_detection = None
@@ -366,7 +409,9 @@ class FTMoEAblation(nn.Module):
                 raise ValueError(f"{self.variant} requires schedule windows")
             graph_input = (time_windows if graph_time_windows is None
                            else graph_time_windows)
-            graph_features = self.graph_encoder(graph_input, schedule_windows)
+            graph_features = self.graph_encoder(
+                graph_input, schedule_windows, graph_context=graph_context
+            )
             z = z + self.graph_gain * graph_features
             graph_detection = self.graph_encoder.detection_adapter(graph_features)
             graph_class = self.graph_encoder.class_adapter(graph_features)

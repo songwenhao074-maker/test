@@ -1,0 +1,240 @@
+{
+  "schema_version": 2,
+  "protocol": "019",
+  "phase": "S3-data-v1",
+  "seeds": [
+    401,
+    402,
+    403,
+    404,
+    405,
+    406,
+    407,
+    408
+  ],
+  "train_blocks": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "validation_blocks": [
+    5,
+    6,
+    7
+  ],
+  "train_seeds": [
+    401,
+    402,
+    403,
+    404,
+    405
+  ],
+  "validation_seeds": [
+    406,
+    407,
+    408
+  ],
+  "block_size": 400,
+  "label_policy": "actual physical overload and largest overload ratio; +/-1 within-episode tolerance (guard row included)",
+  "host_capacities": [
+    [
+      3223.2000000000003,
+      4295.0,
+      8053.0
+    ],
+    [
+      3223.2000000000003,
+      4295.0,
+      8053.0
+    ],
+    [
+      3223.2000000000003,
+      4295.0,
+      8053.0
+    ],
+    [
+      3223.2000000000003,
+      4295.0,
+      8053.0
+    ],
+    [
+      3223.2000000000003,
+      4295.0,
+      8053.0
+    ],
+    [
+      3223.2000000000003,
+      4295.0,
+      8053.0
+    ],
+    [
+      3223.2000000000003,
+      4295.0,
+      8053.0
+    ],
+    [
+      3223.2000000000003,
+      4295.0,
+      8053.0
+    ],
+    [
+      3223.2000000000003,
+      8192.0,
+      8053.0
+    ],
+    [
+      3223.2000000000003,
+      8192.0,
+      8053.0
+    ],
+    [
+      3223.2000000000003,
+      8192.0,
+      8053.0
+    ],
+    [
+      3223.2000000000003,
+      8192.0,
+      8053.0
+    ],
+    [
+      3223.2000000000003,
+      8192.0,
+      8053.0
+    ],
+    [
+      3223.2000000000003,
+      8192.0,
+      8053.0
+    ],
+    [
+      3223.2000000000003,
+      8192.0,
+      8053.0
+    ],
+    [
+      3223.2000000000003,
+      8192.0,
+      8053.0
+    ]
+  ],
+  "environment": {
+    "cpu_positive_clip": [
+      2,
+      1860
+    ],
+    "ram_multiplier": 2,
+    "io_constant": 1
+  },
+  "input_contract_version": 2,
+  "normalization_version": 2,
+  "graph_semantics_version": 2,
+  "class_counts": {
+    "401": [
+      6146,
+      148,
+      3,
+      103
+    ],
+    "402": [
+      6268,
+      91,
+      11,
+      30
+    ],
+    "403": [
+      6214,
+      93,
+      9,
+      84
+    ],
+    "404": [
+      6194,
+      93,
+      12,
+      101
+    ],
+    "405": [
+      6211,
+      69,
+      29,
+      91
+    ],
+    "406": [
+      6237,
+      93,
+      9,
+      61
+    ],
+    "407": [
+      6267,
+      59,
+      6,
+      68
+    ],
+    "408": [
+      6138,
+      134,
+      25,
+      103
+    ]
+  },
+  "source_episode_hashes": {
+    "401": {
+      "stream_sha256": "2fda6fb58f7fff5d2f58ef25eb3610178cebaa02af9ee2084bbd9b9a293bf1d7",
+      "manifest_sha256": "7b1e0f64d6e5ae29ae291f4b3ea82c55fe52b3a8d57105dd0ebad0cfbc2efb22"
+    },
+    "402": {
+      "stream_sha256": "5d87dbb7acf12ca92ddc91a1583cb1b131d367ccdce83069054ca90c4f303f99",
+      "manifest_sha256": "2d976032baa7f551156d757583db4f99a7dd185eed11a84cb15a3cc658b31073"
+    },
+    "403": {
+      "stream_sha256": "b998df13e4ac6ed7f50118698f9dacb4edf974fda3f70cdcfb3d9453a36f5c34",
+      "manifest_sha256": "6a4c459482acf6a2a39606e50f272a6361ec18e8f7f3080adcc2f0eecd4ec914"
+    },
+    "404": {
+      "stream_sha256": "18c68ad7d4ea796bb271034d05aab1559224362199acccc44a51d80437f5afac",
+      "manifest_sha256": "002503b9702c105b39daae2423c22d75c568d76e1dec013d07da4881465ba5e2"
+    },
+    "405": {
+      "stream_sha256": "4b2eb0ced76bb3b2156c201b3a560a2ce0e56f3a41b5612d9ff8e670fbe269cd",
+      "manifest_sha256": "91152d50fd1baba9d32800e10ee80069a32d3f99d71feeb38e0d3105943cea62"
+    },
+    "406": {
+      "stream_sha256": "1c6c98c3c0ef55c3860d99326b115af031ad74c1240d6f44f67155bb1555de5e",
+      "manifest_sha256": "ac720f578a10d89818d9783935261d92a6059baca9c995b834524d816dde8d8c"
+    },
+    "407": {
+      "stream_sha256": "eebbd6c7a9411d5e243654b2620e11a7711cad53e40266c693c66f6f0610ce6e",
+      "manifest_sha256": "221ef3a3b89a030bf27dfb24d9c44b1d7efb6d9f2ccfda5fa73dcef6640fc0d0"
+    },
+    "408": {
+      "stream_sha256": "fb212f085ec521960e5d9128b9130d7787d03f5d10e7ef09be0868b1ee349c98",
+      "manifest_sha256": "def56f88fb218b1e0ccdf4ed57ec389c8f3b7077ab4d950d9ef3ac86efd2463b"
+    }
+  },
+  "array_sha256": {
+    "time_series": "3a12e59bd1d08f9398a751bd1bd903d2f1632f02c172c078588b58310bc36571",
+    "container_demand_series": "1d05e1ec485bbbf36f9b446f63532f6a6fc44f7a96f0ddeba6de11c9d013e545",
+    "schedule_series": "a784f925875d62c517ad8c8836f8474b1812ff027e35e0f6dce659545447f0ad",
+    "creation_ids": "7715b7858cdb6586e38d18f566d703c5a52ebfe257f8f13bff2838b0d5b1d296",
+    "labels": "de9f637c0f007e9a9e9ef636a0d91fe302f654d98111e2e893ff73b32f5322bd"
+  },
+  "registration": {
+    "status": "protocol019 S3 same-domain adaptation data; seeds disjoint from S2 dev stream (303)",
+    "training_seeds": [
+      401,
+      402,
+      403,
+      404,
+      405
+    ],
+    "validation_seeds": [
+      406,
+      407,
+      408
+    ]
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "protocol": "019",
+  "phase": "S7",
+  "model_seed": 1,
+  "replay_seed": 305,
+  "stream": "drift_streams/seed305_steps2000 (phases 500x4: cpu->mixed->ram->cpu)",
+  "stream_sha256": "9f7fffde1df60f93b2d5732839de1d3a26e38e25f57b4333db650ad5dd841202",
+  "phase_metrics": {
+    "A": {
+      "0_cpu": {
+        "f1": 0.4130879345603272,
+        "pr_auc": 0.4291001477765548,
+        "pos": 141
+      },
+      "1_mixed": {
+        "f1": 0.532,
+        "pr_auc": 0.5376321987335185,
+        "pos": 208
+      },
+      "2_ram": {
+        "f1": 0.39906103286384975,
+        "pr_auc": 0.28325034478878364,
+        "pos": 174
+      },
+      "3_cpu": {
+        "f1": 0.3230240549828179,
+        "pr_auc": 0.30261778694086605,
+        "pos": 101
+      }
+    },
+    "C": {
+      "0_cpu": {
+        "f1": 0.4049586776859504,
+        "pr_auc": 0.4385552006365079,
+        "pos": 141
+      },
+      "1_mixed": {
+        "f1": 0.5191146881287726,
+        "pr_auc": 0.5354705521046971,
+        "pos": 208
+      },
+      "2_ram": {
+        "f1": 0.40515653775322286,
+        "pr_auc": 0.2832044224617137,
+        "pos": 174
+      },
+      "3_cpu": {
+        "f1": 0.3010752688172043,
+        "pr_auc": 0.30978290473834874,
+        "pos": 101
+      }
+    },
+    "D": {
+      "0_cpu": {
+        "f1": 0.4049586776859504,
+        "pr_auc": 0.4385552006365079,
+        "pos": 141
+      },
+      "1_mixed": {
+        "f1": 0.5191146881287726,
+        "pr_auc": 0.5354705521046971,
+        "pos": 208
+      },
+      "2_ram": {
+        "f1": 0.40515653775322286,
+        "pr_auc": 0.2832044224617137,
+        "pos": 174
+      },
+      "3_cpu": {
+        "f1": 0.3010752688172043,
+        "pr_auc": 0.30978290473834874,
+        "pos": 101
+      }
+    }
+  },
+  "expert_count": {
+    "A": [
+      4,
+      4
+    ],
+    "C": [
+      4,
+      4
+    ],
+    "D": [
+      4,
+      4
+    ]
+  },
+  "unmatched_mean": {
+    "A": 0.0,
+    "C": 0.0,
+    "D": 0.0
+  },
+  "topology_events_D": 20,
+  "d_minus_c": "0.0 bit-for-bit identical on every phase slice and second-half",
+  "verdict": "FAIL",
+  "gate_rule": "drift scene: D-C mean > 0 and D adaptation lag < C",
+  "gate_detail": "unmatched_ratio = 0 for the whole stream (EMA gate unreachable with wide tanh-threshold routing); retirement also unreachable (all 4 experts active every window); drift absorbed by C's trainable router/experts under the S4 anchor+distill scheme",
+  "next_action": "P12 recorded; user decision: (a) accept null D-C and close protocol / (b) design dynamic_expert v3 trigger (registered, approved) and rerun S7 / (c) run S8 multi-seed matrix incl. null result"
+}

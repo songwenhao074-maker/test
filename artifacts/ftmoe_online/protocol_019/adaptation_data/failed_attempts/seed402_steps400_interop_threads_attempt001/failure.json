@@ -1,0 +1,8 @@
+{
+  "seed": 402,
+  "steps": 400,
+  "error": "RuntimeError: Error: cannot set number of interop threads after parallel work has started or set_num_interop_threads called",
+  "traceback": "Traceback (most recent call last):\n  File \"prepare_ftmoe_protocol019_s3_data.py\", line 76, in episode\n    configure()\n  File \"prepare_ftmoe_protocol019_s3_data.py\", line 54, in configure\n    torch.set_num_interop_threads(1)\nRuntimeError: Error: cannot set number of interop threads after parallel work has started or set_num_interop_threads called\n",
+  "simulator_behavior_modified": false,
+  "next_action": "Report before any scenario change"
+}

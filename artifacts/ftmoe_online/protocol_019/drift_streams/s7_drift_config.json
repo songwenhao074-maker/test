@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "protocol": "019",
+  "phase": "S7",
+  "name": "controlled drift stream",
+  "replay_seed": 305,
+  "steps": 2000,
+  "guard_steps": 1,
+  "workload": "adapted_BWGD2_phased_protocol019",
+  "interval_seconds": 300,
+  "input_contract_version": 2,
+  "normalization_version": 2,
+  "graph_semantics_version": 2,
+  "capacity_scales": {
+    "CPU_CAP_SCALE": 0.8,
+    "DISK_CAP_SCALE": 0.25
+  },
+  "demand_adapter": {
+    "cpu_positive_clip": [
+      2,
+      1860
+    ],
+    "ram_multiplier": 2,
+    "io_constant": 1
+  },
+  "phase_len": 500,
+  "schedule": [
+    "cpu",
+    "mixed",
+    "ram",
+    "cpu"
+  ],
+  "groups_source": "training/dev workload statistics only (s7_vm_groups.json)",
+  "groups_sha256": "1e0dd93aa2dba45993891fc1082e72463918bd3a0aa30772d81a2a3a96faff75",
+  "user_approval": "2026-09-06 controlled drift (The Plan §13.2)",
+  "execution_boundary": "VM groups fixed by data statistics; never by D-C results. Phase 4 recurrence tests retired-expert reactivation."
+}
