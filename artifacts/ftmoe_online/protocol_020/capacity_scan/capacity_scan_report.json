@@ -1,0 +1,2593 @@
+{
+ "schema_version": 1,
+ "protocol": "020",
+ "phase": "S4",
+ "gate_rules": {
+  "normal_share": [
+   0.8,
+   0.95
+  ],
+  "fault_hoststep_floor_reference": 150,
+  "event_floor_reference": 30,
+  "reference_horizon_host_steps": 32000,
+  "phase_horizon_host_steps": 8000,
+  "phase_dominant_floor": 100,
+  "deployment_rejection_max": 0.2,
+  "migration_rejection_max": 0.4
+ },
+ "candidates": [
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "ram": 1.0,
+    "disk": 0.3,
+    "cpu": 0.4,
+    "axis": "cpu",
+    "value": 0.4
+   },
+   "raw_class_counts": [
+    6393,
+    7,
+    0,
+    0
+   ],
+   "tolerance_class_counts": [
+    6387,
+    13,
+    0,
+    0
+   ],
+   "pure_fault_counts": [
+    0,
+    7,
+    0,
+    0
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.00109375,
+   "normal_share": 0.99890625,
+   "event_counts": {
+    "1": 3,
+    "2": 0,
+    "3": 0
+   },
+   "mean_event_duration": {
+    "1": 2.3333333333333335,
+    "2": 0.0,
+    "3": 0.0
+   },
+   "p95_event_duration": {
+    "1": 4.0,
+    "2": 0.0,
+    "3": 0.0
+   },
+   "deployment_attempts": 5470,
+   "deployment_rejected": 5325,
+   "deployment_rejection_rate": 0.973491773308958,
+   "migration_attempts": 16,
+   "migration_rejected": 4,
+   "migration_rejection_rate": 0.25,
+   "active_containers_mean": 11.857142857142858,
+   "host_occupancy_p95": 1.0,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": false,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 9,
+    "ram": 0,
+    "disk": 0
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "ram": 1.0,
+    "disk": 0.3,
+    "cpu": 0.45,
+    "axis": "cpu",
+    "value": 0.45
+   },
+   "raw_class_counts": [
+    6384,
+    16,
+    0,
+    0
+   ],
+   "tolerance_class_counts": [
+    6373,
+    27,
+    0,
+    0
+   ],
+   "pure_fault_counts": [
+    0,
+    16,
+    0,
+    0
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.0025,
+   "normal_share": 0.9975,
+   "event_counts": {
+    "1": 6,
+    "2": 0,
+    "3": 0
+   },
+   "mean_event_duration": {
+    "1": 2.6666666666666665,
+    "2": 0.0,
+    "3": 0.0
+   },
+   "p95_event_duration": {
+    "1": 11.0,
+    "2": 0.0,
+    "3": 0.0
+   },
+   "deployment_attempts": 5474,
+   "deployment_rejected": 5329,
+   "deployment_rejection_rate": 0.9735111435878699,
+   "migration_attempts": 17,
+   "migration_rejected": 0,
+   "migration_rejection_rate": 0.0,
+   "active_containers_mean": 10.5625,
+   "host_occupancy_p95": 1.0,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": true,
+    "ram_events>=floor": false,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 20,
+    "ram": 0,
+    "disk": 0
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "ram": 1.0,
+    "disk": 0.3,
+    "cpu": 0.5,
+    "axis": "cpu",
+    "value": 0.5
+   },
+   "raw_class_counts": [
+    6372,
+    12,
+    7,
+    9
+   ],
+   "tolerance_class_counts": [
+    6338,
+    30,
+    15,
+    17
+   ],
+   "pure_fault_counts": [
+    0,
+    12,
+    7,
+    9
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.004375,
+   "normal_share": 0.995625,
+   "event_counts": {
+    "1": 9,
+    "2": 4,
+    "3": 4
+   },
+   "mean_event_duration": {
+    "1": 1.3333333333333333,
+    "2": 1.75,
+    "3": 2.25
+   },
+   "p95_event_duration": {
+    "1": 3.0,
+    "2": 2.0,
+    "3": 4.0
+   },
+   "deployment_attempts": 706,
+   "deployment_rejected": 142,
+   "deployment_rejection_rate": 0.20113314447592068,
+   "migration_attempts": 143,
+   "migration_rejected": 50,
+   "migration_rejection_rate": 0.34965034965034963,
+   "active_containers_mean": 11.777777777777779,
+   "host_occupancy_p95": 0.9375,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": true,
+    "ram_events>=floor": false,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 15,
+    "ram": 9,
+    "disk": 11
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "ram": 1.0,
+    "disk": 0.3,
+    "cpu": 0.55,
+    "axis": "cpu",
+    "value": 0.55
+   },
+   "raw_class_counts": [
+    6372,
+    7,
+    5,
+    16
+   ],
+   "tolerance_class_counts": [
+    6342,
+    17,
+    11,
+    30
+   ],
+   "pure_fault_counts": [
+    0,
+    7,
+    5,
+    16
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.004375,
+   "normal_share": 0.995625,
+   "event_counts": {
+    "1": 5,
+    "2": 3,
+    "3": 7
+   },
+   "mean_event_duration": {
+    "1": 1.4,
+    "2": 1.6666666666666667,
+    "3": 2.2857142857142856
+   },
+   "p95_event_duration": {
+    "1": 2.0,
+    "2": 2.0,
+    "3": 6.0
+   },
+   "deployment_attempts": 680,
+   "deployment_rejected": 116,
+   "deployment_rejection_rate": 0.17058823529411765,
+   "migration_attempts": 198,
+   "migration_rejected": 60,
+   "migration_rejection_rate": 0.30303030303030304,
+   "active_containers_mean": 11.321428571428571,
+   "host_occupancy_p95": 0.875,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": false,
+    "disk_events>=floor": true,
+    "deployment_rejection<0.20": true,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 9,
+    "ram": 6,
+    "disk": 20
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "ram": 1.0,
+    "disk": 0.3,
+    "cpu": 0.6,
+    "axis": "cpu",
+    "value": 0.6
+   },
+   "raw_class_counts": [
+    6392,
+    1,
+    1,
+    6
+   ],
+   "tolerance_class_counts": [
+    6380,
+    3,
+    3,
+    14
+   ],
+   "pure_fault_counts": [
+    0,
+    1,
+    1,
+    6
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.00125,
+   "normal_share": 0.99875,
+   "event_counts": {
+    "1": 1,
+    "2": 1,
+    "3": 4
+   },
+   "mean_event_duration": {
+    "1": 1.0,
+    "2": 1.0,
+    "3": 1.5
+   },
+   "p95_event_duration": {
+    "1": 1.0,
+    "2": 1.0,
+    "3": 3.0
+   },
+   "deployment_attempts": 612,
+   "deployment_rejected": 48,
+   "deployment_rejection_rate": 0.0784313725490196,
+   "migration_attempts": 154,
+   "migration_rejected": 32,
+   "migration_rejection_rate": 0.2077922077922078,
+   "active_containers_mean": 9.75,
+   "host_occupancy_p95": 0.8156249999999972,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": false,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": true,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 1,
+    "ram": 1,
+    "disk": 8
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "ram": 1.0,
+    "disk": 0.3,
+    "cpu": 0.65,
+    "axis": "cpu",
+    "value": 0.65
+   },
+   "raw_class_counts": [
+    6349,
+    38,
+    5,
+    8
+   ],
+   "tolerance_class_counts": [
+    6324,
+    51,
+    11,
+    14
+   ],
+   "pure_fault_counts": [
+    0,
+    38,
+    5,
+    7
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 1,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 1
+   },
+   "anomaly_prevalence": 0.00796875,
+   "normal_share": 0.99203125,
+   "event_counts": {
+    "1": 7,
+    "2": 3,
+    "3": 4
+   },
+   "mean_event_duration": {
+    "1": 5.428571428571429,
+    "2": 1.6666666666666667,
+    "3": 2.0
+   },
+   "p95_event_duration": {
+    "1": 22.0,
+    "2": 2.0,
+    "3": 3.0
+   },
+   "deployment_attempts": 645,
+   "deployment_rejected": 80,
+   "deployment_rejection_rate": 0.12403100775193798,
+   "migration_attempts": 136,
+   "migration_rejected": 25,
+   "migration_rejection_rate": 0.18382352941176472,
+   "active_containers_mean": 9.823529411764707,
+   "host_occupancy_p95": 0.875,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": true,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": true,
+    "ram_events>=floor": false,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": true,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 48,
+    "ram": 6,
+    "disk": 10
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "ram": 1.0,
+    "disk": 0.3,
+    "cpu": 0.7,
+    "axis": "cpu",
+    "value": 0.7
+   },
+   "raw_class_counts": [
+    6347,
+    25,
+    9,
+    19
+   ],
+   "tolerance_class_counts": [
+    6307,
+    40,
+    21,
+    32
+   ],
+   "pure_fault_counts": [
+    0,
+    25,
+    9,
+    19
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.00828125,
+   "normal_share": 0.99171875,
+   "event_counts": {
+    "1": 8,
+    "2": 6,
+    "3": 7
+   },
+   "mean_event_duration": {
+    "1": 3.125,
+    "2": 1.5,
+    "3": 2.7142857142857144
+   },
+   "p95_event_duration": {
+    "1": 9.0,
+    "2": 2.0,
+    "3": 9.0
+   },
+   "deployment_attempts": 625,
+   "deployment_rejected": 60,
+   "deployment_rejection_rate": 0.096,
+   "migration_attempts": 154,
+   "migration_rejected": 33,
+   "migration_rejection_rate": 0.21428571428571427,
+   "active_containers_mean": 9.377358490566039,
+   "host_occupancy_p95": 0.8125,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": true,
+    "ram_events>=floor": true,
+    "disk_events>=floor": true,
+    "deployment_rejection<0.20": true,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 31,
+    "ram": 11,
+    "disk": 24
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "ram": 1.0,
+    "disk": 0.3,
+    "cpu": 0.75,
+    "axis": "cpu",
+    "value": 0.75
+   },
+   "raw_class_counts": [
+    6373,
+    9,
+    1,
+    17
+   ],
+   "tolerance_class_counts": [
+    6351,
+    16,
+    3,
+    30
+   ],
+   "pure_fault_counts": [
+    0,
+    9,
+    1,
+    17
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.00421875,
+   "normal_share": 0.99578125,
+   "event_counts": {
+    "1": 5,
+    "2": 1,
+    "3": 7
+   },
+   "mean_event_duration": {
+    "1": 1.8,
+    "2": 1.0,
+    "3": 2.4285714285714284
+   },
+   "p95_event_duration": {
+    "1": 4.0,
+    "2": 1.0,
+    "3": 6.0
+   },
+   "deployment_attempts": 624,
+   "deployment_rejected": 59,
+   "deployment_rejection_rate": 0.09455128205128205,
+   "migration_attempts": 156,
+   "migration_rejected": 36,
+   "migration_rejection_rate": 0.23076923076923078,
+   "active_containers_mean": 9.833333333333334,
+   "host_occupancy_p95": 0.7531249999999972,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": false,
+    "disk_events>=floor": true,
+    "deployment_rejection<0.20": true,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 11,
+    "ram": 1,
+    "disk": 21
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "ram": 1.0,
+    "disk": 0.3,
+    "cpu": 0.8,
+    "axis": "cpu",
+    "value": 0.8
+   },
+   "raw_class_counts": [
+    6364,
+    16,
+    4,
+    16
+   ],
+   "tolerance_class_counts": [
+    6339,
+    24,
+    10,
+    27
+   ],
+   "pure_fault_counts": [
+    0,
+    14,
+    4,
+    16
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 2,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 2
+   },
+   "anomaly_prevalence": 0.005625,
+   "normal_share": 0.994375,
+   "event_counts": {
+    "1": 4,
+    "2": 3,
+    "3": 6
+   },
+   "mean_event_duration": {
+    "1": 4.0,
+    "2": 1.3333333333333333,
+    "3": 2.6666666666666665
+   },
+   "p95_event_duration": {
+    "1": 12.0,
+    "2": 2.0,
+    "3": 4.0
+   },
+   "deployment_attempts": 597,
+   "deployment_rejected": 32,
+   "deployment_rejection_rate": 0.05360134003350084,
+   "migration_attempts": 137,
+   "migration_rejected": 19,
+   "migration_rejection_rate": 0.1386861313868613,
+   "active_containers_mean": 9.914285714285715,
+   "host_occupancy_p95": 0.8125,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": false,
+    "disk_events>=floor": true,
+    "deployment_rejection<0.20": true,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 20,
+    "ram": 5,
+    "disk": 20
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "ram": 1.0,
+    "disk": 0.3,
+    "cpu": 0.9,
+    "axis": "cpu",
+    "value": 0.9
+   },
+   "raw_class_counts": [
+    6385,
+    0,
+    4,
+    11
+   ],
+   "tolerance_class_counts": [
+    6373,
+    0,
+    8,
+    19
+   ],
+   "pure_fault_counts": [
+    0,
+    0,
+    4,
+    11
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.00234375,
+   "normal_share": 0.99765625,
+   "event_counts": {
+    "1": 0,
+    "2": 2,
+    "3": 4
+   },
+   "mean_event_duration": {
+    "1": 0.0,
+    "2": 2.0,
+    "3": 2.75
+   },
+   "p95_event_duration": {
+    "1": 0.0,
+    "2": 2.0,
+    "3": 4.0
+   },
+   "deployment_attempts": 614,
+   "deployment_rejected": 49,
+   "deployment_rejection_rate": 0.07980456026058631,
+   "migration_attempts": 147,
+   "migration_rejected": 19,
+   "migration_rejection_rate": 0.1292517006802721,
+   "active_containers_mean": 10.285714285714286,
+   "host_occupancy_p95": 0.75,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": false,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": true,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 0,
+    "ram": 5,
+    "disk": 14
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "ram": 1.0,
+    "disk": 0.12,
+    "axis": "disk",
+    "value": 0.12
+   },
+   "raw_class_counts": [
+    6356,
+    0,
+    2,
+    42
+   ],
+   "tolerance_class_counts": [
+    6342,
+    0,
+    4,
+    54
+   ],
+   "pure_fault_counts": [
+    0,
+    0,
+    2,
+    42
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.006875,
+   "normal_share": 0.993125,
+   "event_counts": {
+    "1": 0,
+    "2": 1,
+    "3": 6
+   },
+   "mean_event_duration": {
+    "1": 0.0,
+    "2": 2.0,
+    "3": 7.0
+   },
+   "p95_event_duration": {
+    "1": 0.0,
+    "2": 2.0,
+    "3": 20.0
+   },
+   "deployment_attempts": 5825,
+   "deployment_rejected": 5733,
+   "deployment_rejection_rate": 0.984206008583691,
+   "migration_attempts": 9,
+   "migration_rejected": 2,
+   "migration_rejection_rate": 0.2222222222222222,
+   "active_containers_mean": 15.181818181818182,
+   "host_occupancy_p95": 1.0,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": true,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": false,
+    "disk_events>=floor": true,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 0,
+    "ram": 2,
+    "disk": 52
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "ram": 1.0,
+    "disk": 0.15,
+    "axis": "disk",
+    "value": 0.15
+   },
+   "raw_class_counts": [
+    6334,
+    0,
+    4,
+    62
+   ],
+   "tolerance_class_counts": [
+    6312,
+    0,
+    8,
+    80
+   ],
+   "pure_fault_counts": [
+    0,
+    0,
+    4,
+    62
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.0103125,
+   "normal_share": 0.9896875,
+   "event_counts": {
+    "1": 0,
+    "2": 2,
+    "3": 9
+   },
+   "mean_event_duration": {
+    "1": 0.0,
+    "2": 2.0,
+    "3": 6.888888888888889
+   },
+   "p95_event_duration": {
+    "1": 0.0,
+    "2": 2.0,
+    "3": 20.0
+   },
+   "deployment_attempts": 5425,
+   "deployment_rejected": 5256,
+   "deployment_rejection_rate": 0.9688479262672811,
+   "migration_attempts": 23,
+   "migration_rejected": 15,
+   "migration_rejection_rate": 0.6521739130434783,
+   "active_containers_mean": 14.915254237288135,
+   "host_occupancy_p95": 1.0,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": true,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": false,
+    "disk_events>=floor": true,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": false
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 0,
+    "ram": 5,
+    "disk": 78
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "ram": 1.0,
+    "disk": 0.17,
+    "axis": "disk",
+    "value": 0.17
+   },
+   "raw_class_counts": [
+    6328,
+    0,
+    6,
+    66
+   ],
+   "tolerance_class_counts": [
+    6296,
+    0,
+    14,
+    90
+   ],
+   "pure_fault_counts": [
+    0,
+    0,
+    6,
+    66
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.01125,
+   "normal_share": 0.98875,
+   "event_counts": {
+    "1": 0,
+    "2": 4,
+    "3": 12
+   },
+   "mean_event_duration": {
+    "1": 0.0,
+    "2": 1.5,
+    "3": 5.5
+   },
+   "p95_event_duration": {
+    "1": 0.0,
+    "2": 2.0,
+    "3": 20.0
+   },
+   "deployment_attempts": 4705,
+   "deployment_rejected": 4426,
+   "deployment_rejection_rate": 0.9407013815090329,
+   "migration_attempts": 30,
+   "migration_rejected": 5,
+   "migration_rejection_rate": 0.16666666666666666,
+   "active_containers_mean": 13.625,
+   "host_occupancy_p95": 1.0,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": true,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": false,
+    "disk_events>=floor": true,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 0,
+    "ram": 8,
+    "disk": 82
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "ram": 1.0,
+    "disk": 0.1875,
+    "axis": "disk",
+    "value": 0.1875
+   },
+   "raw_class_counts": [
+    6358,
+    0,
+    10,
+    32
+   ],
+   "tolerance_class_counts": [
+    6324,
+    0,
+    20,
+    56
+   ],
+   "pure_fault_counts": [
+    0,
+    0,
+    10,
+    32
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.0065625,
+   "normal_share": 0.9934375,
+   "event_counts": {
+    "1": 0,
+    "2": 5,
+    "3": 12
+   },
+   "mean_event_duration": {
+    "1": 0.0,
+    "2": 2.0,
+    "3": 2.6666666666666665
+   },
+   "p95_event_duration": {
+    "1": 0.0,
+    "2": 5.0,
+    "3": 6.0
+   },
+   "deployment_attempts": 2042,
+   "deployment_rejected": 1485,
+   "deployment_rejection_rate": 0.7272282076395691,
+   "migration_attempts": 110,
+   "migration_rejected": 8,
+   "migration_rejection_rate": 0.07272727272727272,
+   "active_containers_mean": 12.68421052631579,
+   "host_occupancy_p95": 1.0,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": true,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": false,
+    "disk_events>=floor": true,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 0,
+    "ram": 12,
+    "disk": 40
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "ram": 1.0,
+    "disk": 0.2,
+    "axis": "disk",
+    "value": 0.2
+   },
+   "raw_class_counts": [
+    6358,
+    0,
+    10,
+    32
+   ],
+   "tolerance_class_counts": [
+    6324,
+    0,
+    20,
+    56
+   ],
+   "pure_fault_counts": [
+    0,
+    0,
+    10,
+    32
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.0065625,
+   "normal_share": 0.9934375,
+   "event_counts": {
+    "1": 0,
+    "2": 5,
+    "3": 12
+   },
+   "mean_event_duration": {
+    "1": 0.0,
+    "2": 2.0,
+    "3": 2.6666666666666665
+   },
+   "p95_event_duration": {
+    "1": 0.0,
+    "2": 5.0,
+    "3": 6.0
+   },
+   "deployment_attempts": 2042,
+   "deployment_rejected": 1485,
+   "deployment_rejection_rate": 0.7272282076395691,
+   "migration_attempts": 110,
+   "migration_rejected": 8,
+   "migration_rejection_rate": 0.07272727272727272,
+   "active_containers_mean": 12.68421052631579,
+   "host_occupancy_p95": 1.0,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": true,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": false,
+    "disk_events>=floor": true,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 0,
+    "ram": 12,
+    "disk": 40
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "ram": 1.0,
+    "disk": 0.22,
+    "axis": "disk",
+    "value": 0.22
+   },
+   "raw_class_counts": [
+    6361,
+    4,
+    2,
+    33
+   ],
+   "tolerance_class_counts": [
+    6332,
+    8,
+    6,
+    54
+   ],
+   "pure_fault_counts": [
+    0,
+    4,
+    2,
+    33
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.00609375,
+   "normal_share": 0.99390625,
+   "event_counts": {
+    "1": 2,
+    "2": 2,
+    "3": 11
+   },
+   "mean_event_duration": {
+    "1": 2.0,
+    "2": 1.0,
+    "3": 3.0
+   },
+   "p95_event_duration": {
+    "1": 2.0,
+    "2": 1.0,
+    "3": 11.0
+   },
+   "deployment_attempts": 1829,
+   "deployment_rejected": 1268,
+   "deployment_rejection_rate": 0.6932750136686714,
+   "migration_attempts": 124,
+   "migration_rejected": 24,
+   "migration_rejection_rate": 0.1935483870967742,
+   "active_containers_mean": 11.18918918918919,
+   "host_occupancy_p95": 1.0,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": true,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": false,
+    "disk_events>=floor": true,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 5,
+    "ram": 2,
+    "disk": 41
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "ram": 1.0,
+    "disk": 0.25,
+    "axis": "disk",
+    "value": 0.25
+   },
+   "raw_class_counts": [
+    6375,
+    2,
+    8,
+    15
+   ],
+   "tolerance_class_counts": [
+    6347,
+    6,
+    16,
+    31
+   ],
+   "pure_fault_counts": [
+    0,
+    2,
+    8,
+    15
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.00390625,
+   "normal_share": 0.99609375,
+   "event_counts": {
+    "1": 2,
+    "2": 4,
+    "3": 8
+   },
+   "mean_event_duration": {
+    "1": 1.0,
+    "2": 2.0,
+    "3": 1.875
+   },
+   "p95_event_duration": {
+    "1": 1.0,
+    "2": 3.0,
+    "3": 4.0
+   },
+   "deployment_attempts": 1416,
+   "deployment_rejected": 854,
+   "deployment_rejection_rate": 0.6031073446327684,
+   "migration_attempts": 130,
+   "migration_rejected": 12,
+   "migration_rejection_rate": 0.09230769230769231,
+   "active_containers_mean": 12.125,
+   "host_occupancy_p95": 0.9375,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": false,
+    "disk_events>=floor": true,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 2,
+    "ram": 10,
+    "disk": 19
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "ram": 1.0,
+    "disk": 0.3,
+    "cpu": 1.0,
+    "axis": "disk",
+    "value": 0.3
+   },
+   "raw_class_counts": [
+    6384,
+    0,
+    4,
+    12
+   ],
+   "tolerance_class_counts": [
+    6368,
+    0,
+    10,
+    22
+   ],
+   "pure_fault_counts": [
+    0,
+    0,
+    4,
+    12
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.0025,
+   "normal_share": 0.9975,
+   "event_counts": {
+    "1": 0,
+    "2": 3,
+    "3": 5
+   },
+   "mean_event_duration": {
+    "1": 0.0,
+    "2": 1.3333333333333333,
+    "3": 2.4
+   },
+   "p95_event_duration": {
+    "1": 0.0,
+    "2": 2.0,
+    "3": 5.0
+   },
+   "deployment_attempts": 589,
+   "deployment_rejected": 24,
+   "deployment_rejection_rate": 0.04074702886247878,
+   "migration_attempts": 148,
+   "migration_rejected": 12,
+   "migration_rejection_rate": 0.08108108108108109,
+   "active_containers_mean": 8.4375,
+   "host_occupancy_p95": 0.75,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": false,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": true,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 0,
+    "ram": 5,
+    "disk": 15
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "ram": 1.0,
+    "disk": 0.3,
+    "axis": "disk",
+    "value": 0.3
+   },
+   "raw_class_counts": [
+    6384,
+    0,
+    4,
+    12
+   ],
+   "tolerance_class_counts": [
+    6368,
+    0,
+    10,
+    22
+   ],
+   "pure_fault_counts": [
+    0,
+    0,
+    4,
+    12
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.0025,
+   "normal_share": 0.9975,
+   "event_counts": {
+    "1": 0,
+    "2": 3,
+    "3": 5
+   },
+   "mean_event_duration": {
+    "1": 0.0,
+    "2": 1.3333333333333333,
+    "3": 2.4
+   },
+   "p95_event_duration": {
+    "1": 0.0,
+    "2": 2.0,
+    "3": 5.0
+   },
+   "deployment_attempts": 589,
+   "deployment_rejected": 24,
+   "deployment_rejection_rate": 0.04074702886247878,
+   "migration_attempts": 148,
+   "migration_rejected": 12,
+   "migration_rejection_rate": 0.08108108108108109,
+   "active_containers_mean": 8.4375,
+   "host_occupancy_p95": 0.75,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": false,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": true,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 0,
+    "ram": 5,
+    "disk": 15
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "disk": 0.3,
+    "ram": 1.0,
+    "axis": "disk",
+    "value": 0.3
+   },
+   "raw_class_counts": [
+    6384,
+    0,
+    4,
+    12
+   ],
+   "tolerance_class_counts": [
+    6368,
+    0,
+    10,
+    22
+   ],
+   "pure_fault_counts": [
+    0,
+    0,
+    4,
+    12
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.0025,
+   "normal_share": 0.9975,
+   "event_counts": {
+    "1": 0,
+    "2": 3,
+    "3": 5
+   },
+   "mean_event_duration": {
+    "1": 0.0,
+    "2": 1.3333333333333333,
+    "3": 2.4
+   },
+   "p95_event_duration": {
+    "1": 0.0,
+    "2": 2.0,
+    "3": 5.0
+   },
+   "deployment_attempts": 589,
+   "deployment_rejected": 24,
+   "deployment_rejection_rate": 0.04074702886247878,
+   "migration_attempts": 148,
+   "migration_rejected": 12,
+   "migration_rejection_rate": 0.08108108108108109,
+   "active_containers_mean": 8.4375,
+   "host_occupancy_p95": 0.75,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": false,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": true,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 0,
+    "ram": 5,
+    "disk": 15
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "disk": 0.3,
+    "ram": 0.1,
+    "axis": "ram",
+    "value": 0.1
+   },
+   "raw_class_counts": [
+    6348,
+    0,
+    52,
+    0
+   ],
+   "tolerance_class_counts": [
+    6309,
+    0,
+    91,
+    0
+   ],
+   "pure_fault_counts": [
+    0,
+    0,
+    52,
+    0
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.008125,
+   "normal_share": 0.991875,
+   "event_counts": {
+    "1": 0,
+    "2": 20,
+    "3": 0
+   },
+   "mean_event_duration": {
+    "1": 0.0,
+    "2": 2.6,
+    "3": 0.0
+   },
+   "p95_event_duration": {
+    "1": 0.0,
+    "2": 8.0,
+    "3": 0.0
+   },
+   "deployment_attempts": 5396,
+   "deployment_rejected": 5226,
+   "deployment_rejection_rate": 0.9684951816160119,
+   "migration_attempts": 23,
+   "migration_rejected": 5,
+   "migration_rejection_rate": 0.21739130434782608,
+   "active_containers_mean": 12.0,
+   "host_occupancy_p95": 1.0,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": true,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": true,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 0,
+    "ram": 65,
+    "disk": 0
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "disk": 0.3,
+    "ram": 0.15,
+    "axis": "ram",
+    "value": 0.15
+   },
+   "raw_class_counts": [
+    6367,
+    0,
+    33,
+    0
+   ],
+   "tolerance_class_counts": [
+    6346,
+    0,
+    54,
+    0
+   ],
+   "pure_fault_counts": [
+    0,
+    0,
+    33,
+    0
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.00515625,
+   "normal_share": 0.99484375,
+   "event_counts": {
+    "1": 0,
+    "2": 12,
+    "3": 0
+   },
+   "mean_event_duration": {
+    "1": 0.0,
+    "2": 2.75,
+    "3": 0.0
+   },
+   "p95_event_duration": {
+    "1": 0.0,
+    "2": 7.0,
+    "3": 0.0
+   },
+   "deployment_attempts": 5093,
+   "deployment_rejected": 4881,
+   "deployment_rejection_rate": 0.958374239151777,
+   "migration_attempts": 38,
+   "migration_rejected": 6,
+   "migration_rejection_rate": 0.15789473684210525,
+   "active_containers_mean": 12.40625,
+   "host_occupancy_p95": 1.0,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": true,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": true,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 0,
+    "ram": 41,
+    "disk": 0
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "disk": 0.3,
+    "ram": 0.2,
+    "axis": "ram",
+    "value": 0.2
+   },
+   "raw_class_counts": [
+    6375,
+    0,
+    25,
+    0
+   ],
+   "tolerance_class_counts": [
+    6353,
+    0,
+    47,
+    0
+   ],
+   "pure_fault_counts": [
+    0,
+    0,
+    25,
+    0
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.00390625,
+   "normal_share": 0.99609375,
+   "event_counts": {
+    "1": 0,
+    "2": 12,
+    "3": 0
+   },
+   "mean_event_duration": {
+    "1": 0.0,
+    "2": 2.0833333333333335,
+    "3": 0.0
+   },
+   "p95_event_duration": {
+    "1": 0.0,
+    "2": 5.0,
+    "3": 0.0
+   },
+   "deployment_attempts": 5083,
+   "deployment_rejected": 4871,
+   "deployment_rejection_rate": 0.9582923470391501,
+   "migration_attempts": 20,
+   "migration_rejected": 0,
+   "migration_rejection_rate": 0.0,
+   "active_containers_mean": 10.68,
+   "host_occupancy_p95": 1.0,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": false,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": true,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 0,
+    "ram": 31,
+    "disk": 0
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "disk": 0.3,
+    "ram": 0.25,
+    "axis": "ram",
+    "value": 0.25
+   },
+   "raw_class_counts": [
+    6350,
+    0,
+    50,
+    0
+   ],
+   "tolerance_class_counts": [
+    6317,
+    0,
+    83,
+    0
+   ],
+   "pure_fault_counts": [
+    0,
+    0,
+    50,
+    0
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.0078125,
+   "normal_share": 0.9921875,
+   "event_counts": {
+    "1": 0,
+    "2": 20,
+    "3": 0
+   },
+   "mean_event_duration": {
+    "1": 0.0,
+    "2": 2.5,
+    "3": 0.0
+   },
+   "p95_event_duration": {
+    "1": 0.0,
+    "2": 6.0,
+    "3": 0.0
+   },
+   "deployment_attempts": 4841,
+   "deployment_rejected": 4589,
+   "deployment_rejection_rate": 0.9479446395372857,
+   "migration_attempts": 40,
+   "migration_rejected": 10,
+   "migration_rejection_rate": 0.25,
+   "active_containers_mean": 13.543478260869565,
+   "host_occupancy_p95": 1.0,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": true,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": true,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 0,
+    "ram": 62,
+    "disk": 0
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "disk": 0.3,
+    "ram": 0.3,
+    "axis": "ram",
+    "value": 0.3
+   },
+   "raw_class_counts": [
+    6199,
+    0,
+    197,
+    4
+   ],
+   "tolerance_class_counts": [
+    6054,
+    0,
+    339,
+    7
+   ],
+   "pure_fault_counts": [
+    0,
+    0,
+    197,
+    4
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.03140625,
+   "normal_share": 0.96859375,
+   "event_counts": {
+    "1": 0,
+    "2": 80,
+    "3": 2
+   },
+   "mean_event_duration": {
+    "1": 0.0,
+    "2": 2.4625,
+    "3": 2.0
+   },
+   "p95_event_duration": {
+    "1": 0.0,
+    "2": 6.0,
+    "3": 3.0
+   },
+   "deployment_attempts": 2954,
+   "deployment_rejected": 2474,
+   "deployment_rejection_rate": 0.8375084631008801,
+   "migration_attempts": 93,
+   "migration_rejected": 26,
+   "migration_rejection_rate": 0.27956989247311825,
+   "active_containers_mean": 11.944055944055943,
+   "host_occupancy_p95": 1.0,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": true,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": true,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 0,
+    "ram": 246,
+    "disk": 5
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": true,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "disk": 0.3,
+    "ram": 0.35,
+    "axis": "ram",
+    "value": 0.35
+   },
+   "raw_class_counts": [
+    6213,
+    0,
+    178,
+    9
+   ],
+   "tolerance_class_counts": [
+    6062,
+    0,
+    322,
+    16
+   ],
+   "pure_fault_counts": [
+    0,
+    0,
+    177,
+    8
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 2,
+    "triple": 0,
+    "any_multi": 2
+   },
+   "anomaly_prevalence": 0.02921875,
+   "normal_share": 0.97078125,
+   "event_counts": {
+    "1": 0,
+    "2": 83,
+    "3": 4
+   },
+   "mean_event_duration": {
+    "1": 0.0,
+    "2": 2.144578313253012,
+    "3": 2.25
+   },
+   "p95_event_duration": {
+    "1": 0.0,
+    "2": 5.0,
+    "3": 5.0
+   },
+   "deployment_attempts": 751,
+   "deployment_rejected": 187,
+   "deployment_rejection_rate": 0.24900133155792276,
+   "migration_attempts": 203,
+   "migration_rejected": 69,
+   "migration_rejection_rate": 0.3399014778325123,
+   "active_containers_mean": 8.774834437086092,
+   "host_occupancy_p95": 0.8125,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": true,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": true,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 0,
+    "ram": 222,
+    "disk": 11
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": true,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "disk": 0.3,
+    "ram": 0.4,
+    "axis": "ram",
+    "value": 0.4
+   },
+   "raw_class_counts": [
+    6283,
+    1,
+    111,
+    5
+   ],
+   "tolerance_class_counts": [
+    6170,
+    2,
+    216,
+    12
+   ],
+   "pure_fault_counts": [
+    0,
+    1,
+    109,
+    3
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 2,
+    "cpu_disk": 0,
+    "ram_disk": 2,
+    "triple": 0,
+    "any_multi": 4
+   },
+   "anomaly_prevalence": 0.01828125,
+   "normal_share": 0.98171875,
+   "event_counts": {
+    "1": 1,
+    "2": 61,
+    "3": 4
+   },
+   "mean_event_duration": {
+    "1": 1.0,
+    "2": 1.819672131147541,
+    "3": 1.25
+   },
+   "p95_event_duration": {
+    "1": 1.0,
+    "2": 4.0,
+    "3": 2.0
+   },
+   "deployment_attempts": 719,
+   "deployment_rejected": 155,
+   "deployment_rejection_rate": 0.21557719054242003,
+   "migration_attempts": 162,
+   "migration_rejected": 40,
+   "migration_rejection_rate": 0.24691358024691357,
+   "active_containers_mean": 9.073684210526316,
+   "host_occupancy_p95": 0.8125,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": true,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": true,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 1,
+    "ram": 139,
+    "disk": 6
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": true,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "disk": 0.3,
+    "ram": 0.45,
+    "axis": "ram",
+    "value": 0.45
+   },
+   "raw_class_counts": [
+    6344,
+    0,
+    54,
+    2
+   ],
+   "tolerance_class_counts": [
+    6278,
+    0,
+    117,
+    5
+   ],
+   "pure_fault_counts": [
+    0,
+    0,
+    53,
+    2
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 1,
+    "triple": 0,
+    "any_multi": 1
+   },
+   "anomaly_prevalence": 0.00875,
+   "normal_share": 0.99125,
+   "event_counts": {
+    "1": 0,
+    "2": 36,
+    "3": 2
+   },
+   "mean_event_duration": {
+    "1": 0.0,
+    "2": 1.5,
+    "3": 1.0
+   },
+   "p95_event_duration": {
+    "1": 0.0,
+    "2": 3.0,
+    "3": 1.0
+   },
+   "deployment_attempts": 736,
+   "deployment_rejected": 172,
+   "deployment_rejection_rate": 0.23369565217391305,
+   "migration_attempts": 138,
+   "migration_rejected": 28,
+   "migration_rejection_rate": 0.2028985507246377,
+   "active_containers_mean": 8.470588235294118,
+   "host_occupancy_p95": 0.8125,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": true,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": true,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 0,
+    "ram": 68,
+    "disk": 2
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "disk": 0.3,
+    "ram": 0.5,
+    "axis": "ram",
+    "value": 0.5
+   },
+   "raw_class_counts": [
+    6298,
+    0,
+    96,
+    6
+   ],
+   "tolerance_class_counts": [
+    6224,
+    0,
+    166,
+    10
+   ],
+   "pure_fault_counts": [
+    0,
+    0,
+    96,
+    6
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 0,
+    "triple": 0,
+    "any_multi": 0
+   },
+   "anomaly_prevalence": 0.0159375,
+   "normal_share": 0.9840625,
+   "event_counts": {
+    "1": 0,
+    "2": 41,
+    "3": 2
+   },
+   "mean_event_duration": {
+    "1": 0.0,
+    "2": 2.341463414634146,
+    "3": 3.0
+   },
+   "p95_event_duration": {
+    "1": 0.0,
+    "2": 5.0,
+    "3": 5.0
+   },
+   "deployment_attempts": 725,
+   "deployment_rejected": 161,
+   "deployment_rejection_rate": 0.22206896551724137,
+   "migration_attempts": 178,
+   "migration_rejected": 42,
+   "migration_rejection_rate": 0.23595505617977527,
+   "active_containers_mean": 8.623529411764705,
+   "host_occupancy_p95": 0.875,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": true,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": true,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": false,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 0,
+    "ram": 120,
+    "disk": 8
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": true,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "disk": 0.3,
+    "ram": 0.6,
+    "axis": "ram",
+    "value": 0.6
+   },
+   "raw_class_counts": [
+    6335,
+    3,
+    56,
+    6
+   ],
+   "tolerance_class_counts": [
+    6282,
+    7,
+    103,
+    8
+   ],
+   "pure_fault_counts": [
+    0,
+    3,
+    55,
+    6
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 1,
+    "triple": 0,
+    "any_multi": 1
+   },
+   "anomaly_prevalence": 0.01015625,
+   "normal_share": 0.98984375,
+   "event_counts": {
+    "1": 3,
+    "2": 27,
+    "3": 3
+   },
+   "mean_event_duration": {
+    "1": 1.0,
+    "2": 2.074074074074074,
+    "3": 2.0
+   },
+   "p95_event_duration": {
+    "1": 1.0,
+    "2": 4.0,
+    "3": 3.0
+   },
+   "deployment_attempts": 664,
+   "deployment_rejected": 100,
+   "deployment_rejection_rate": 0.15060240963855423,
+   "migration_attempts": 159,
+   "migration_rejected": 17,
+   "migration_rejection_rate": 0.1069182389937107,
+   "active_containers_mean": 9.862068965517242,
+   "host_occupancy_p95": 0.8125,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": true,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": true,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": true,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 4,
+    "ram": 70,
+    "disk": 8
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  },
+  {
+   "candidate": "seed410_steps400",
+   "profile": {
+    "cpu": 1.0,
+    "disk": 0.3,
+    "ram": 0.75,
+    "axis": "ram",
+    "value": 0.75
+   },
+   "raw_class_counts": [
+    6360,
+    1,
+    37,
+    2
+   ],
+   "tolerance_class_counts": [
+    6315,
+    3,
+    77,
+    5
+   ],
+   "pure_fault_counts": [
+    0,
+    1,
+    36,
+    2
+   ],
+   "multi_resource_overload_counts": {
+    "cpu_ram": 0,
+    "cpu_disk": 0,
+    "ram_disk": 1,
+    "triple": 0,
+    "any_multi": 1
+   },
+   "anomaly_prevalence": 0.00625,
+   "normal_share": 0.99375,
+   "event_counts": {
+    "1": 1,
+    "2": 23,
+    "3": 2
+   },
+   "mean_event_duration": {
+    "1": 1.0,
+    "2": 1.608695652173913,
+    "3": 1.0
+   },
+   "p95_event_duration": {
+    "1": 1.0,
+    "2": 3.0,
+    "3": 1.0
+   },
+   "deployment_attempts": 660,
+   "deployment_rejected": 96,
+   "deployment_rejection_rate": 0.14545454545454545,
+   "migration_attempts": 144,
+   "migration_rejected": 10,
+   "migration_rejection_rate": 0.06944444444444445,
+   "active_containers_mean": 8.81081081081081,
+   "host_occupancy_p95": 0.8125,
+   "scored_host_steps": 6400,
+   "gates": {
+    "normal_share_in_[0.80,0.95]": false,
+    "cpu_hoststeps>=floor": false,
+    "ram_hoststeps>=floor": true,
+    "disk_hoststeps>=floor": false,
+    "cpu_events>=floor": false,
+    "ram_events>=floor": true,
+    "disk_events>=floor": false,
+    "deployment_rejection<0.20": true,
+    "migration_rejection<0.40": true
+   },
+   "gate_pass": false,
+   "phase_projection_per_8000": {
+    "cpu": 1,
+    "ram": 46,
+    "disk": 2
+   },
+   "phase_projection_pass": {
+    "cpu": false,
+    "ram": false,
+    "disk": false
+   }
+  }
+ ]
+}
