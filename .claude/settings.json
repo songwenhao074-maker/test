@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(source activate dynmoe && cd \"F:/PreGANPlus-master\" && python *)"
+    ]
+  }
+}

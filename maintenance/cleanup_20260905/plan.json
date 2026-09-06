@@ -1,0 +1,2924 @@
+{
+  "root": "F:\\PreGANPlus-master",
+  "archive": "F:\\PreGANPlus-master\\docs\\archive\\2026-09-05_pre_cleanup.zip",
+  "archive_sha256": "c2cc35c29154cc75f17e7a8769828470a90d8748605d6b8f6d0dd2dc86e53748",
+  "archived_originals": [
+    {
+      "path": "EXPERIMENT_001_V0_V1_ROUTER.md",
+      "bytes": 7304,
+      "sha256": "7ff0344b07cf7ce0ddd2acfe372405c85e2c5adc5d1fe466c9176ab1e1c5e32d",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "EXPERIMENT_002_V0_V1_EXISTING_DATA.md",
+      "bytes": 3545,
+      "sha256": "e67e6ca35a9e409bd6dc058b4f50a80f4476aab704243facecb97ad6d610f4da",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "FTMOE_ABLATION_EXECUTION_PLAN.md",
+      "bytes": 9635,
+      "sha256": "1faf517659f6f931952bc5f1f0fadae4053dd65b496e5cfa90007836c4c1f958",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "FTMOE_ABLATION_EXECUTION_REPORT.md",
+      "bytes": 8036,
+      "sha256": "bd2acfcadb217cb0432d3a898d671d8eb41a4264c33d218795fc12fb1cfbaadd",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "MEMORY_INDEX.md",
+      "bytes": 1085,
+      "sha256": "60d65bd3fe7543c038a67758b3cb052d87c04c6b907ee89da7e549bbaf61bbf8",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "MEMORY_v9_BOOST.md",
+      "bytes": 1858,
+      "sha256": "60e9c9b9826dabdd74faf3136667d9f72cda0b9bcf43640cf7eda2b231c9cc53",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "notes_v9_experiment.md",
+      "bytes": 20163,
+      "sha256": "dd24ee7eb5bea836f87dda5487ade302ef4b6579fca318690edd86919b714fe3",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "PROJECT_CONTEXT.md",
+      "bytes": 6353,
+      "sha256": "db7348efb6b23246051645e674a032ee9b2142cc5dd4da06f9b7ad593f5be53d",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "PROJECT_CONTEXT_full.md",
+      "bytes": 3704,
+      "sha256": "093f644c435da0b4bfcc2d833744d4ef79ae773afdcfb65b8ea96150819ef5ef",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "PROJECT_CONTEXT_LATEST.md",
+      "bytes": 13788,
+      "sha256": "6fbd1e726ae5443730b0293c87ceee0d9fcd9c299f295ef9934849331f81d09e",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "FTMOE_END_TO_END_ABLATION_PLAN.md",
+      "bytes": 12999,
+      "sha256": "499cea951bdc9af3b692c9b27dc8e5b7d34dd666a5d7e70be3aac70a9a525823",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "FTMOE_END_TO_END_EXPERIMENT_LOG.md",
+      "bytes": 38352,
+      "sha256": "bd22d7c578d81e8555d044830b23a801b0cb906f68ac9d3c8d92323d8b01a6a9",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4403,
+      "sha256": "dcf2cf5d90d4bd49906aad304bd6ebbb55780d3eec3cbf5d829456683174ba45",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "bench_v0_one.log",
+      "bytes": 39060,
+      "sha256": "41c4462c0780562a85a25b78f47b7bb76fa0261b3fd0b14b68ef9bceede76cfd",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "COSCO.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "synth_v3b2_train.log",
+      "bytes": 633,
+      "sha256": "5d8d8153d4ad29d01861b508408eb0f6d24c771f751e5ebe7d2e0eb13f9ef5e3",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "synth2_v0.log",
+      "bytes": 72835,
+      "sha256": "d437b86502733c5f1ab889a7f6f145143b29e04cc6ca1743381aa5a0b84ec082",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "synth2_v2c2.log",
+      "bytes": 57572,
+      "sha256": "1847828209fee8fd55a85821bb0dac75785c6cfb24f65594a529c22814e7c1be",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "_candidate_final_sched.npy",
+      "bytes": 827520,
+      "sha256": "e4885aaeeb0d497bdb9b2add45cd20dabe547bf233e3c94db8f9d55d3ddc80b9",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "_candidate_final_test.npy",
+      "bytes": 362112,
+      "sha256": "3acc6d627d6dca1967521eb6beb8ab87aa5aae10ae2b087b25e89b10eb1280a6",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "paper_text.txt",
+      "bytes": 43433,
+      "sha256": "c8174c6b3023795417d887c08df5207d2d1d259d64a859554c35b27b0e828497",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "sim_timing.txt",
+      "bytes": 41,
+      "sha256": "9a98d3a35ce466723b7ce2ae936c5bfcca703938b4d4e35d891eb2e4e4fea1be",
+      "reason": "original preserved in verified archive"
+    }
+  ],
+  "delete_files": [
+    {
+      "path": "EXPERIMENT_001_V0_V1_ROUTER.md",
+      "bytes": 7304,
+      "sha256": "7ff0344b07cf7ce0ddd2acfe372405c85e2c5adc5d1fe466c9176ab1e1c5e32d",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "EXPERIMENT_002_V0_V1_EXISTING_DATA.md",
+      "bytes": 3545,
+      "sha256": "e67e6ca35a9e409bd6dc058b4f50a80f4476aab704243facecb97ad6d610f4da",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "FTMOE_ABLATION_EXECUTION_PLAN.md",
+      "bytes": 9635,
+      "sha256": "1faf517659f6f931952bc5f1f0fadae4053dd65b496e5cfa90007836c4c1f958",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "FTMOE_ABLATION_EXECUTION_REPORT.md",
+      "bytes": 8036,
+      "sha256": "bd2acfcadb217cb0432d3a898d671d8eb41a4264c33d218795fc12fb1cfbaadd",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "MEMORY_INDEX.md",
+      "bytes": 1085,
+      "sha256": "60d65bd3fe7543c038a67758b3cb052d87c04c6b907ee89da7e549bbaf61bbf8",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "MEMORY_v9_BOOST.md",
+      "bytes": 1858,
+      "sha256": "60e9c9b9826dabdd74faf3136667d9f72cda0b9bcf43640cf7eda2b231c9cc53",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "notes_v9_experiment.md",
+      "bytes": 20163,
+      "sha256": "dd24ee7eb5bea836f87dda5487ade302ef4b6579fca318690edd86919b714fe3",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "PROJECT_CONTEXT.md",
+      "bytes": 6353,
+      "sha256": "db7348efb6b23246051645e674a032ee9b2142cc5dd4da06f9b7ad593f5be53d",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "PROJECT_CONTEXT_full.md",
+      "bytes": 3704,
+      "sha256": "093f644c435da0b4bfcc2d833744d4ef79ae773afdcfb65b8ea96150819ef5ef",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "bench_v0_one.log",
+      "bytes": 39060,
+      "sha256": "41c4462c0780562a85a25b78f47b7bb76fa0261b3fd0b14b68ef9bceede76cfd",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "COSCO.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "synth_v3b2_train.log",
+      "bytes": 633,
+      "sha256": "5d8d8153d4ad29d01861b508408eb0f6d24c771f751e5ebe7d2e0eb13f9ef5e3",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "synth2_v0.log",
+      "bytes": 72835,
+      "sha256": "d437b86502733c5f1ab889a7f6f145143b29e04cc6ca1743381aa5a0b84ec082",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "synth2_v2c2.log",
+      "bytes": 57572,
+      "sha256": "1847828209fee8fd55a85821bb0dac75785c6cfb24f65594a529c22814e7c1be",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "_candidate_final_sched.npy",
+      "bytes": 827520,
+      "sha256": "e4885aaeeb0d497bdb9b2add45cd20dabe547bf233e3c94db8f9d55d3ddc80b9",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "_candidate_final_test.npy",
+      "bytes": 362112,
+      "sha256": "3acc6d627d6dca1967521eb6beb8ab87aa5aae10ae2b087b25e89b10eb1280a6",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "paper_text.txt",
+      "bytes": 43433,
+      "sha256": "c8174c6b3023795417d887c08df5207d2d1d259d64a859554c35b27b0e828497",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "sim_timing.txt",
+      "bytes": 41,
+      "sha256": "9a98d3a35ce466723b7ce2ae936c5bfcca703938b4d4e35d891eb2e4e4fea1be",
+      "reason": "original preserved in verified archive"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/context_global_lr003_e30/v1_seed1/resume.pt",
+      "bytes": 1809594,
+      "sha256": "f094eee47d8f6fa9c094c62832fd737ee05292a2ba713ba77e0a4d340d011b34",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/context_global_lr003_e30/v2_seed1/resume.pt",
+      "bytes": 2667258,
+      "sha256": "f2648adfe1f7f44376880de7c1ede5440d666d93cbebd3e57aa171dc8a1abf96",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/context_global_lr003_e30/v3_seed1/resume.pt",
+      "bytes": 2897210,
+      "sha256": "11a1b898c28e578dd3433dff6c6a5d1d344c7f6471a543dc8bce4a62a872136e",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/context_global_lr003_e30/v4_seed1/resume.pt",
+      "bytes": 3166778,
+      "sha256": "68b1861b5a2f7fba813c4d25acbceec0428cdf205fbb512a17d3999a89796d55",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/context_local_lr003_e30/v1_seed1/resume.pt",
+      "bytes": 1809594,
+      "sha256": "ef66622b895267cb4f820004dfbebbb0ca93864c9b89e64ccf3239129c8daecc",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/context_local_lr003_e30/v2_seed1/resume.pt",
+      "bytes": 2667258,
+      "sha256": "86e6b9c7c6b9f9b20b51ed88f96cdf9a369f7b3510b4a10319f86a2b1e47b1c8",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/context_local_lr003_e30/v3_seed1/resume.pt",
+      "bytes": 2897210,
+      "sha256": "e517bfc3996fde107aedc8a58d2b9bc17cc306cca3f780a623f9d1d6c05c4351",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/context_local_lr003_e30/v4_seed1/resume.pt",
+      "bytes": 3166778,
+      "sha256": "d03e0999d490860ac295acf91b9eb47d138ce087e638d812939d30e2b009b685",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout01_lr003_e30/v1_seed1/resume.pt",
+      "bytes": 1759290,
+      "sha256": "4bc7389504c1a909ec6cac0f3818d4beedaa256918dbb64a9323bc24f1285d7e",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout01_lr003_e30/v2_seed1/resume.pt",
+      "bytes": 2617018,
+      "sha256": "83d47d2bfad23320d11c44182d16411ba0fc0ffca473ce71f3f5da99191d67d4",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout01_lr003_e30/v3_seed1/resume.pt",
+      "bytes": 2846970,
+      "sha256": "192f9816ff2374dc2a4e1b45752922f91f108559ab4afd54bc45c7a0a84454a6",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout01_lr003_e30/v4_seed1/resume.pt",
+      "bytes": 3116474,
+      "sha256": "76030171c7f7c4a30e3a83e8a0506dcb4cf8e860e7638598828b7305df9220a4",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout01_lr003_e60/v1_seed1/resume.pt",
+      "bytes": 1769402,
+      "sha256": "76c7be6d5516dc567c0a34d44fc35977c2bc24dd57971171a637af998d88c771",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout01_lr003_e60/v1_seed2/resume.pt",
+      "bytes": 1769338,
+      "sha256": "416c76ed89c978709f933f5076573263cf53088b2985ca1938e569c11260d19b",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout01_lr003_e60/v1_seed6/resume.pt",
+      "bytes": 1769402,
+      "sha256": "2d7c830c3e96012c33c81b7477b9af93f220ca876423dbe30941dbb91106425a",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout01_lr003_e60/v2_seed1/resume.pt",
+      "bytes": 2628090,
+      "sha256": "9a5797d7cfdf9886f4b344b506106c7c4237ac179507582368821c3fb3db6360",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout01_lr003_e60/v2_seed2/resume.pt",
+      "bytes": 2628026,
+      "sha256": "bb43ccd2d8b9756d0a7e03053391b2ddd03aae00d4dcdf35eae37b3316581106",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout01_lr003_e60/v2_seed6/resume.pt",
+      "bytes": 2628090,
+      "sha256": "a73d6a82ed22d2003c89b22949bfd822ff615b584bdc2a87c1feae718d70fbca",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout01_lr003_e60/v3_seed1/resume.pt",
+      "bytes": 2858042,
+      "sha256": "a98982d29e883a9a68e6f3d90ef435fe8a2937de19f258b66405ef1663a2694d",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout01_lr003_e60/v3_seed2/resume.pt",
+      "bytes": 2857978,
+      "sha256": "3f65b05356954fec79711a1a4c53047f2d112b6f69bf850be29b7886ba0fdcec",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout01_lr003_e60/v3_seed6/resume.pt",
+      "bytes": 2858042,
+      "sha256": "23df5b40f467a4f8315011016a40e9735d71043530ae6cd0ba40f0a2889d876a",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout01_lr003_e60/v4_seed1/resume.pt",
+      "bytes": 3127546,
+      "sha256": "80630d71b65fc47457e54d08def839c5c10c2647e949e134db806ef6f494d427",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout01_lr003_e60/v4_seed2/resume.pt",
+      "bytes": 3127546,
+      "sha256": "42d918d1f930402826c51ba565b665c82f87794dd8a9513ef73446277618babc",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout01_lr003_e60/v4_seed6/resume.pt",
+      "bytes": 3127546,
+      "sha256": "9b89f687ea834e8911e3484f41f848fc9cc86b9466e5f2bc4a02eb9238809882",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout03_lr003_e30/v1_seed1/resume.pt",
+      "bytes": 1759290,
+      "sha256": "c50615118dd1316242ca62a80eb3c5e307720b7c7c12a11808d5198adc990255",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout03_lr003_e30/v2_seed1/resume.pt",
+      "bytes": 2617018,
+      "sha256": "482c18214758eaea1a13a7b5d2b60d7b611d1762bfc715bb7aca32d0202bab21",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout03_lr003_e30/v3_seed1/resume.pt",
+      "bytes": 2846970,
+      "sha256": "c652372f724eb0f68335d30544254b17ae53f579114cf0411546c672c546c521",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/expert_dropout03_lr003_e30/v4_seed1/resume.pt",
+      "bytes": 3116474,
+      "sha256": "b48842fea98d4aac82609af97f14a5a3539fcd5f4b9009dd23cf82a727d96ce8",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/gated_fusion_lr0003_e30/v4_seed1/resume.pt",
+      "bytes": 3121018,
+      "sha256": "284d4ceb5500193f4f726e5e3bda0614caf15af388396c6f2a59fa52b511b204",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/gated_fusion_lr0003_e30/v4_seed2/resume.pt",
+      "bytes": 3121018,
+      "sha256": "9735e72044344b7b674256c768682054421764f7e31b8c58a68cad27c4261437",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/gated_fusion_lr0003_e30/v4_seed6/resume.pt",
+      "bytes": 3121018,
+      "sha256": "56f36fed975d58d35567625417a5371a861f4c5e19fe807adf940dbc0a4c5881",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/gated_fusion_lr003_e60/v4_seed1/resume.pt",
+      "bytes": 3132090,
+      "sha256": "b53acf6f529e35bc53c2d778de592f03eecb110d6eb81fbbbf2054785d60cd1c",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/gated_fusion_lr003_e60/v4_seed2/resume.pt",
+      "bytes": 3132090,
+      "sha256": "6b577a2bd59adc0cdb4e5a66fcf4adf8b8d82a33235b6fbdf0c9e3b9d17401ae",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/gated_fusion_lr003_e60/v4_seed6/resume.pt",
+      "bytes": 3132090,
+      "sha256": "604a8a3f7e5def427edd6df63d6a1608202a7ba6edecae605a5eb658a8bd8862",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v0_seed17/resume.pt",
+      "bytes": 907578,
+      "sha256": "ff583e4a7dbbe0316292952817d86bf8798ed2047a8c34d5139a58ecef0d6373",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v0_seed42/resume.pt",
+      "bytes": 907514,
+      "sha256": "d87561e87dc13d4b041b0b4cdff006a63d44fc2defb48e6508e2c3b2108425a1",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v1_seed17/resume.pt",
+      "bytes": 1759354,
+      "sha256": "be7e06234238544642dcd6d36148b81f0d9e2925513028625eaa5346192c59ae",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v1_seed42/resume.pt",
+      "bytes": 1759354,
+      "sha256": "604e7cf77cda7255cd332a98b2fb952e147a5b58279f2683cc7e352fe0eb4cb8",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v2_seed17/resume.pt",
+      "bytes": 2617082,
+      "sha256": "77fb58f5f901863c7e8ffc82b4e3ee3c640654cfac761b81f9ea9d96d313362c",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v2_seed42/resume.pt",
+      "bytes": 2617018,
+      "sha256": "0cee3870749da02cb5222f56bb761d539d37377a88f7cd28447adbaa49d5f5a1",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v3_seed17/resume.pt",
+      "bytes": 2847034,
+      "sha256": "6f6f1218235148f0ecb07b5992665a05f6af4f8d098353072de59f63db35d056",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v3_seed42/resume.pt",
+      "bytes": 2846970,
+      "sha256": "0edd60936f45906158b3693d6ae506b60fc918a0f09b7fd1276a0fb72aec574d",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed17/resume.pt",
+      "bytes": 3116602,
+      "sha256": "e2eb8894abb55acd41553cb799366f68c8b3b968fbd101fb2e9f88326620e75d",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed42/resume.pt",
+      "bytes": 3116538,
+      "sha256": "1a15e3bdd519e5a17f4fae3e0cf132a3d4843543aa0cb22e2f9b5559121578f9",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/historical_gated_confirm_lr0003_e30/v4_seed17/resume.pt",
+      "bytes": 3121082,
+      "sha256": "068443b7690d4c62bc5ccc0cf5ea2f2f279a082542acaa42acfa7ff5936fcee7",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/historical_gated_confirm_lr0003_e30/v4_seed42/resume.pt",
+      "bytes": 3121018,
+      "sha256": "5ae3e6d48a0e6e8d0c59e4e3795c09e306dbc39d7add5d51de80cc90b9fbd6b7",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/initial_lr001/v0_seed1/resume.pt",
+      "bytes": 914106,
+      "sha256": "ea02c0a539996bb9859144105a694f06bc2fe210a49b6394591d7b807717a6a3",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/initial_lr001/v0_seed2/resume.pt",
+      "bytes": 914106,
+      "sha256": "b20b516f6de1c88b93f32a3201fd6075747a26a40e792f647eeb69cb89928623",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/initial_lr001/v0_seed6/resume.pt",
+      "bytes": 914106,
+      "sha256": "7461d513521761daf87d466e0d71c7c4263b1162a228c9c11b91803f02360327",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v0_seed1/resume.pt",
+      "bytes": 906362,
+      "sha256": "079596b810073df78fdf3061ccdd6c526c22412b1e6f5c384cf2adf2b87bc06e",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v0_seed2/resume.pt",
+      "bytes": 906362,
+      "sha256": "d42a4aef97d9ed06860add5a71b60a9b65b0e9997c49e43e665f5a10f56ed4b4",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v0_seed6/resume.pt",
+      "bytes": 906362,
+      "sha256": "00fb7c660fcc9a81d9afc10f04f18b121a1aecb6e2e66fcd160480185e9484b7",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v1_seed1/resume.pt",
+      "bytes": 1758202,
+      "sha256": "c37058c9a39f0b0b81a3f5f95d6b72a4bf39c6139cf4a24a6b37f05299f262cc",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v1_seed2/resume.pt",
+      "bytes": 1758202,
+      "sha256": "268473691bbe1e9a65d2ef51404c1b49a4fbdcfe32108c961f6551895e4f0d5f",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v1_seed6/resume.pt",
+      "bytes": 1758202,
+      "sha256": "a3f691000791e7aa18c88d874e86a546ea205ef9ddf93bb4c839cb0c9f78fd5c",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v2_seed1/resume.pt",
+      "bytes": 2615866,
+      "sha256": "245dbbbf83feca520a1e8535a3fd058ef976aab26ae9793f81a5b7ed539aa8c7",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v2_seed2/resume.pt",
+      "bytes": 2615866,
+      "sha256": "b95744f35e56b8c6cbebfaa231225eace2492f1dfeda23f8c418a29ad8d431fc",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v2_seed6/resume.pt",
+      "bytes": 2615866,
+      "sha256": "01ac772263b09b21c3f5957155687f250fcd28e7f52fc08bf811c66ca3637e98",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v3_seed1/resume.pt",
+      "bytes": 2845818,
+      "sha256": "70e2717cd5c740906ad4e51d66ebc4140d90d19b02cefec423fcb98c36337fb3",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v3_seed2/resume.pt",
+      "bytes": 2845818,
+      "sha256": "ddb28f95a6d5ddecb6fb1d4ec527852a486ba600d9abcdb43f19b37dbb80446c",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v3_seed6/resume.pt",
+      "bytes": 2845818,
+      "sha256": "ab7e7a92091548f7505e83c0e0a2cb4f4f94371a3a2d8e8678ef2cfc6fddd173",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed1/resume.pt",
+      "bytes": 3115386,
+      "sha256": "a4f0d78407f299218b7fc9dc1140dbfc23c078c11fc3c9bb5c643719be5d77e8",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed2/resume.pt",
+      "bytes": 3115386,
+      "sha256": "d5ac99b10c65b46cefd3b5defb6c0412cddace080f752b34eaa231120d8af7c9",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed6/resume.pt",
+      "bytes": 3115386,
+      "sha256": "6d44f6be8c135ddaeacf3be41d21ae47cac356d7e17ff229e0ff40f17fc02f53",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr001_e30/v0_seed1/resume.pt",
+      "bytes": 907386,
+      "sha256": "37bdfc0702a2955b75b9f279cec37cc1f48b2509b26523e8285f077ef873bf1e",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr001_e30/v0_seed2/resume.pt",
+      "bytes": 907386,
+      "sha256": "6ab7ac0f1c6d67e5bfe5415d810a9756d5eb96998c99c1e4651f96ffa6477ef4",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr001_e30/v0_seed6/resume.pt",
+      "bytes": 907386,
+      "sha256": "51d27a9ce65970c82e84a354c0e8f8588f59873fd4f06fee1fcb1cf786ff53d4",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr001_e30/v1_seed1/resume.pt",
+      "bytes": 1759226,
+      "sha256": "79ee9f51e29dbd6cf7660ec8113b29cd72f06e84f20a0e639eb7712ffb9de48b",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr001_e30/v1_seed2/resume.pt",
+      "bytes": 1759162,
+      "sha256": "81dde63ce6067a89698af8b199b8b5e0cf7819156a5dc7090abe358105a85a22",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr001_e30/v1_seed6/resume.pt",
+      "bytes": 1759162,
+      "sha256": "f92fb98aa54bbf671b5261a60ca596af1781efcf330533185758edcac4909dff",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr001_e30/v2_seed1/resume.pt",
+      "bytes": 2616890,
+      "sha256": "1fb7a31023c5012dcab370d61d845d66813259d04aa94e9b40941f29f8a90445",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr001_e30/v2_seed2/resume.pt",
+      "bytes": 2616890,
+      "sha256": "5b676b8d766ee3974c33b73866561ece0e7e64270120ddb578e1770d9068bac4",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr001_e30/v2_seed6/resume.pt",
+      "bytes": 2616890,
+      "sha256": "b16cb11c192edefcdfe0eeada8efa1fc2ea2a5a157d5f8f43fcdacea2f2f6336",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr001_e30/v3_seed1/resume.pt",
+      "bytes": 2846842,
+      "sha256": "60d3db67ab45aebc6e92e476ceb238c6f8b63597f5cbfbcac8911eb1c17dda35",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr001_e30/v3_seed2/resume.pt",
+      "bytes": 2846842,
+      "sha256": "e196b53897d7425807a1083f6b264ad08add0b572fe530e0869c476c2cd0cfa6",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr001_e30/v3_seed6/resume.pt",
+      "bytes": 2846842,
+      "sha256": "02fcf7bf8d900396fcb79197669530d2436da21c5d56eecb575745d89d0d9abf",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr001_e30/v4_seed1/resume.pt",
+      "bytes": 3116410,
+      "sha256": "e1d27d599d163902883158a20fdb4ddebe95795178f4ce8a40d05555f61d02c3",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr001_e30/v4_seed2/resume.pt",
+      "bytes": 3116346,
+      "sha256": "54f9c930d9ecd6451b5ec75e2514979a84e6fa695eec4ad070e63cff4a75feaa",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr001_e30/v4_seed6/resume.pt",
+      "bytes": 3116346,
+      "sha256": "557c7ad7f76385fa03122abad7fa7686a41a43f945136748e47ed6ecd555be0d",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e30/v0_seed1/resume.pt",
+      "bytes": 907386,
+      "sha256": "053428a67b4bb3d97695bfd3811087d41229a8cb2c3acacc60429daa8a268e62",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e30/v0_seed2/resume.pt",
+      "bytes": 907386,
+      "sha256": "dfb3af675b23ba229ecd8e7d104e5dcab3456778da5eb4f0c2631d5b4f885b20",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e30/v0_seed6/resume.pt",
+      "bytes": 907386,
+      "sha256": "6612655e9b72a29a2158a0dd5c2b59fa575c954390bb570a05658c6fbe614a21",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e30/v1_seed1/resume.pt",
+      "bytes": 1759226,
+      "sha256": "db0652137e26c48f4d561576883e586d6181e553033d92fb88be30634f2b2511",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e30/v1_seed2/resume.pt",
+      "bytes": 1759162,
+      "sha256": "f0e23f65faae5a07af650067d26cddd1f74041e0f994b33860b21619f68565e5",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e30/v1_seed6/resume.pt",
+      "bytes": 1759162,
+      "sha256": "e6ebd8a9361cfe41cd8b2117a08ef6c43bfa53ac5228d85177f7c814c0f0c0c5",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e30/v2_seed1/resume.pt",
+      "bytes": 2616890,
+      "sha256": "c9b545808f60378e4d4fe667c587b7d5885e27eecea897e34c2d1cd32954df06",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e30/v2_seed2/resume.pt",
+      "bytes": 2616890,
+      "sha256": "5a76790a8ea66d3eb5b052ddbbeaf6ccb54994d3d4cc46256c624d25ffb90078",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e30/v2_seed6/resume.pt",
+      "bytes": 2616890,
+      "sha256": "de99f1b0e5e4f5e9407840efda5b2188c111d2a144e3e746510ec32301a71733",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e30/v3_seed1/resume.pt",
+      "bytes": 2846842,
+      "sha256": "f49206fcfd0d42f1fba8fcc7ab57b3f742246ce62228896d3472944fb4959d0a",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e30/v3_seed2/resume.pt",
+      "bytes": 2846842,
+      "sha256": "962f0fbac6ac835f0c873de5128ee54973ab28409abdad908042b3070ae55ea4",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e30/v3_seed6/resume.pt",
+      "bytes": 2846842,
+      "sha256": "e1b1ac356867edb7fe002b11696aa8d43667391c6f2cc79f6e471b0fe126f715",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e30/v4_seed1/resume.pt",
+      "bytes": 3116410,
+      "sha256": "24ad12f51aaef120e211d2b83ca4e0bf15b0ed9da1426733482b2aad4ef62556",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e30/v4_seed2/resume.pt",
+      "bytes": 3116346,
+      "sha256": "88cca261ec227ccf0c701d27157e13382e972c438061786d6b2a1cf53e9f25d4",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e30/v4_seed6/resume.pt",
+      "bytes": 3116346,
+      "sha256": "7646703a137f200d9d0c88e1098273d298a1f4d31806c9afb9f74fbabd35b19c",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e60/v0_seed1/resume.pt",
+      "bytes": 916538,
+      "sha256": "8271ec4db4760c9e806461d343ef3b61a5cbd0405d760b98024961e40f2fa57a",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e60/v0_seed2/resume.pt",
+      "bytes": 916538,
+      "sha256": "243e3b81ec7a1952534b1b7a1cb360bb5c75bd40a5b246575ea9e1b81bc9333d",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e60/v0_seed6/resume.pt",
+      "bytes": 916538,
+      "sha256": "ebffcb27406a24ce7f6a3fdb1bb9ce200d9cf5dec9ae10e3a30ca8bd989642f0",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e60/v1_seed1/resume.pt",
+      "bytes": 1769274,
+      "sha256": "ce09c2e9aca3b9b5e4cacd665f58c709ba5ea506c5a4a23a8677cc1bf16419bb",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e60/v1_seed2/resume.pt",
+      "bytes": 1769274,
+      "sha256": "4e954bb25450af2a408513fbe74e3339b2ef89fd854e4c44c892744fc702673d",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e60/v1_seed6/resume.pt",
+      "bytes": 1769274,
+      "sha256": "83d67279a55bc30167111c1f83031e91c9bac8d20d01beb081469ed4504e01a4",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e60/v2_seed1/resume.pt",
+      "bytes": 2627962,
+      "sha256": "74b6341e8e15f02b617a7bab3ed369856e92c6c66f4e79e8f2941a469a5eb299",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e60/v2_seed2/resume.pt",
+      "bytes": 2627962,
+      "sha256": "1896bbcfd45c5c7a4016e12e331da5ce10b7258b607726d240e9a6851af61201",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e60/v2_seed6/resume.pt",
+      "bytes": 2627962,
+      "sha256": "1f795f5a819de0a77d115e53d27e0912310a5612bb4aa8937868eaa3df81569a",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e60/v3_seed1/resume.pt",
+      "bytes": 2857914,
+      "sha256": "24d0b6f038cdd56aced9bf5a135904597074d28dba36277370909f9e85845344",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e60/v3_seed2/resume.pt",
+      "bytes": 2857914,
+      "sha256": "582e5714151eb763445ab74adddb61d0247a14b813569143e53def709ac4558c",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e60/v3_seed6/resume.pt",
+      "bytes": 2857914,
+      "sha256": "efe1334cbc4dd3cb4b4b630efc4c7cc304a43d395190128964081c9f356c4f23",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e60/v4_seed1/resume.pt",
+      "bytes": 3127482,
+      "sha256": "5388faede6a0b18de1dd3d8c7c747bdbde2d5639f71f7ec2c50a9e6a1235afca",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e60/v4_seed2/resume.pt",
+      "bytes": 3127418,
+      "sha256": "e0613d6d0c57ae95f2b0decc17cebdbf85f67c3caf65bd748de3ddb671c6242e",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr003_e60/v4_seed6/resume.pt",
+      "bytes": 3127418,
+      "sha256": "9314b5de770c2a05f9d73def489278198b5a7db2c7164fdfde2e365a28148e36",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/source_attention_lr003_e60/v4_seed1/resume.pt",
+      "bytes": 3127674,
+      "sha256": "235396afa6b00042d748a5a0d305c021c89de5547e526eca5452ae443827e00e",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/source_attention_lr003_e60/v4_seed2/resume.pt",
+      "bytes": 3127674,
+      "sha256": "0cc0395e54c77eac2a7f4eeb11884b2229134ea31f52aaa391598879cf49a2be",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/source_attention_lr003_e60/v4_seed6/resume.pt",
+      "bytes": 3127674,
+      "sha256": "0c6b1b8164826a36e726010415a9bb637af9b705eb6cdc6cbb2390e4f7571d2d",
+      "reason": "completed training recovery state; last model verified identical; every epoch, best/last, configuration and metrics retained; optimizer/RNG state discarded"
+    },
+    {
+      "path": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/source_snapshot/__pycache__/train_ftmoe_end_to_end.cpython-38.pyc",
+      "bytes": 17949,
+      "sha256": "d8d7103bc3c7c95f2d89ca52ccda8067a2882c7bd6cbd0ee6759da1185cf43e8",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/agent/__pycache__/codes.cpython-310.pyc",
+      "bytes": 742,
+      "sha256": "6b9baf54429ff6c149109ad81ce89b4bda818b140504a91632c9345d3fe2cd71",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/agent/__pycache__/codes.cpython-312.pyc",
+      "bytes": 943,
+      "sha256": "0d619e65425cc4668643318a5b48fd449d37fd631bac17a63682e63db87b785d",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/agent/__pycache__/codes.cpython-38.pyc",
+      "bytes": 740,
+      "sha256": "c58a7df92898a839e8508adeb6ddeabd9eed0bfb6a5ad7414afce4499a454248",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/database/__pycache__/Database.cpython-310.pyc",
+      "bytes": 1404,
+      "sha256": "2dab0c92ebc906dadaadf343afae23a3f574c1cd4bcfca093da7abfb9a5acc18",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/database/__pycache__/Database.cpython-312.pyc",
+      "bytes": 2071,
+      "sha256": "86b2cd04d845c58ff870f88e4dec18f6424c11635f6cfdf851066f7b094c3c6f",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/database/__pycache__/Database.cpython-38.pyc",
+      "bytes": 1434,
+      "sha256": "297efec45b3edb92043a01d9d2d9b6c36bd30a262b4e29f272ab50144ed8ba4c",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/datacenter/__pycache__/Datacenter.cpython-310.pyc",
+      "bytes": 3084,
+      "sha256": "0ac6e8164235ee92be62fba40c5b52f3bf634ade53112f42003dca82068364f4",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/datacenter/__pycache__/Datacenter.cpython-312.pyc",
+      "bytes": 4783,
+      "sha256": "ce23c293db66124589f33f32b35d671f4841f34437f1685ccb2cc6c27bb7c672",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/datacenter/__pycache__/Datacenter.cpython-38.pyc",
+      "bytes": 3038,
+      "sha256": "bf0e618651bfe69e459c7ca09f87ffdfbe99a6902f2b4cf90a9eae17757e29c3",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/datacenter/__pycache__/Datacenter_Setup.cpython-310.pyc",
+      "bytes": 4617,
+      "sha256": "197ab2ff81165140b4fc453ba94501bc5d82370a6e38a6abe4d8e61ec77318a5",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/datacenter/__pycache__/Datacenter_Setup.cpython-312.pyc",
+      "bytes": 7197,
+      "sha256": "2153c91be871093eb8247f9746414786bba0e3728026415ff2a6592701660548",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/datacenter/__pycache__/Datacenter_Setup.cpython-38.pyc",
+      "bytes": 4500,
+      "sha256": "077fabc10d9ab1b48350611c8b6bdbd6065e8ea0b815fa7dcadd28efc4a6b2f6",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/node/__pycache__/Node.cpython-310.pyc",
+      "bytes": 4249,
+      "sha256": "dd8426b214e08cd5d41f0fb3eee15074c0a036cd2a16d8153062efcc4578173c",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/node/__pycache__/Node.cpython-312.pyc",
+      "bytes": 8691,
+      "sha256": "ac997244b5b24ab7795b466fdf6f8939c6086d59c076f097be6ec8b46ba9a6d8",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/node/__pycache__/Node.cpython-38.pyc",
+      "bytes": 4167,
+      "sha256": "1091ef2fbb3b806fb392dd4cfb56e92fde14e0c912b59c1eb6da3fda306f47a2",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/server/common/__pycache__/codes.cpython-310.pyc",
+      "bytes": 180,
+      "sha256": "90d72e0d0d516adce01af1ab747b297a68c10ca5a1802e8efe253b36aaa3da07",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/server/common/__pycache__/codes.cpython-312.pyc",
+      "bytes": 192,
+      "sha256": "c21516c2b8fe7a8f09424547750cf1dfe81d1d502a91bbcadef120834f051e05",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/server/common/__pycache__/codes.cpython-38.pyc",
+      "bytes": 178,
+      "sha256": "fd6b75bb7bc86cf18dfca70154178f725927e7fa2f476725190c673fc03475d5",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/server/__pycache__/controller.cpython-310.pyc",
+      "bytes": 3833,
+      "sha256": "95d6bc786d4e0db26f306571b34244eccd74275ceda4bdcde8f42569398f6156",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/server/__pycache__/controller.cpython-312.pyc",
+      "bytes": 6580,
+      "sha256": "7e611833b4870523e3a34b431aaa4076dacf54d598b9d5d21e64e90e9a8ef890",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/server/__pycache__/controller.cpython-38.pyc",
+      "bytes": 3853,
+      "sha256": "49e65093b3bd6ba80c33172617e89fb5507add84ec3aadcfea97dcc6532fb02b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/server/__pycache__/restClient.cpython-310.pyc",
+      "bytes": 1126,
+      "sha256": "1b60d52e92103127580140fdef05dbd3257d7ed8af480a5a8095ca36111a8bea",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/server/__pycache__/restClient.cpython-312.pyc",
+      "bytes": 1784,
+      "sha256": "ce8dfda95f1d56c130c697b87affb28feb7d490796794d807e05ea13399b6799",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/server/__pycache__/restClient.cpython-38.pyc",
+      "bytes": 1116,
+      "sha256": "55d1b507babb34e609242958293d9a58d2854a58bd18ca5e3157447cb320a82a",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/task/__pycache__/Task.cpython-310.pyc",
+      "bytes": 4759,
+      "sha256": "f8f1b738c50ba4a28ba16d7d55f3183d2b9a2e9bfa2334130abcd6246fd7f597",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/task/__pycache__/Task.cpython-312.pyc",
+      "bytes": 9544,
+      "sha256": "0a07a4cc5c6c0219cac2386a8636af9ff4bee0c2fd7599d14fde11f55a77a7c4",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/task/__pycache__/Task.cpython-38.pyc",
+      "bytes": 4715,
+      "sha256": "9ad75328254683ce50ed5f272a17c80d5db296ab25af32ad09fcd7e597f2ed0b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/workload/__pycache__/DeFogWorkload.cpython-310.pyc",
+      "bytes": 1380,
+      "sha256": "b93e6150b01f5bcfb92a5edc49473b8cfef6f2d409df1aed4a91b7201dc91ed2",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/workload/__pycache__/DeFogWorkload.cpython-312.pyc",
+      "bytes": 2051,
+      "sha256": "14f092d4013a686b0e75ade04fabd211cd43deb65bbf70ade5bb442f54ee8ca3",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/workload/__pycache__/DeFogWorkload.cpython-38.pyc",
+      "bytes": 1371,
+      "sha256": "c7cca05f1735ebc51eb439edceeee4cac998aeb3279aab1989b17eb01846105f",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/workload/__pycache__/Workload.cpython-310.pyc",
+      "bytes": 982,
+      "sha256": "0f86f0117f4715db28a712421c442640ad6e54484e7cd1c5650686c224e2a301",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/workload/__pycache__/Workload.cpython-312.pyc",
+      "bytes": 1283,
+      "sha256": "2b418653eaedc4e74c70c1fff2fee20ca47bae3a841ca5dc8515f0cfa3687772",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/workload/__pycache__/Workload.cpython-38.pyc",
+      "bytes": 990,
+      "sha256": "7e6d52d8310fee855484b30866897302146b48cc983bcf22ce2e83568539fd9f",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/__pycache__/Framework.cpython-310.pyc",
+      "bytes": 8980,
+      "sha256": "45e72e0a1017125723e655595c71c79c8dab9d95f36bbdc7e00a451404c67a01",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/__pycache__/Framework.cpython-312.pyc",
+      "bytes": 15318,
+      "sha256": "6f1ff28911a45c5851e251d67a3cae94f59e06cc417924c1d51410261ba7a741",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "framework/__pycache__/Framework.cpython-38.pyc",
+      "bytes": 9020,
+      "sha256": "f00fe55506ca7d3e85fd5f552d3452f5cd44eb1f8fe56ed48197e7b90539e40c",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PM.cpython-310.pyc",
+      "bytes": 829,
+      "sha256": "cab510a6d62b4cb8114f6ce1e6ffc831800a7bb98bef6afbd9864333853b4da3",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PM.cpython-312.pyc",
+      "bytes": 1069,
+      "sha256": "f7e2c4ef1439b5febb96d2a2389fd7c0d5fc0e9a7158a5fc21daf3328d4a7c84",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PM.cpython-38.pyc",
+      "bytes": 827,
+      "sha256": "0ee7e95056c5f6917b7259a8b7e3687d9312212cecd7f25b44840f54b3c7b164",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMB2s.cpython-310.pyc",
+      "bytes": 913,
+      "sha256": "9257ae3366da33f882467238d86afaa2ef4ae294d026c9db1ba774185777a94e",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMB2s.cpython-312.pyc",
+      "bytes": 1243,
+      "sha256": "eb4fcb97dcaab572a3adcfe7b7b0e6887dec496fa1fb8ccf596aebf8d317fcaa",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMB2s.cpython-38.pyc",
+      "bytes": 925,
+      "sha256": "8f02ab540442d33a474763969d2dbd2b9866ee804c1e29e4322c851cd0108189",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMB4ms.cpython-310.pyc",
+      "bytes": 917,
+      "sha256": "a1a17255a516b3beaf3e0f366d48faa8c26cd7974795e36581a261dcff6f1bea",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMB4ms.cpython-312.pyc",
+      "bytes": 1247,
+      "sha256": "c534408d0522fc26be49986f51f80774788ebc25fdc8da623a90262259c826cb",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMB4ms.cpython-38.pyc",
+      "bytes": 929,
+      "sha256": "4d9952e3bc7c39469873d77d05f5ed34f7e9446ca2d0adf8ed5a3370739a7cf5",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMB8ms.cpython-310.pyc",
+      "bytes": 917,
+      "sha256": "1213eeaa5e8b3a9ec4b888d2dfc5af09c0706cf1f87147c87e98bd7f30922066",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMB8ms.cpython-312.pyc",
+      "bytes": 1247,
+      "sha256": "67e0fa482e817b05cb775bb980e5079cdbe2e9fc8056f0f8f65b3f3d1c12bbed",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMB8ms.cpython-38.pyc",
+      "bytes": 929,
+      "sha256": "575519259eb5c2c51cd7182ecfcfdf690908bdab2775b264581a10fd3d8bffcb",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMConstant.cpython-310.pyc",
+      "bytes": 668,
+      "sha256": "7ef4fe0e4b8ee7feb5b495baab888314b388af48d00ffeba07e925ccfd84e6e5",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMConstant.cpython-312.pyc",
+      "bytes": 799,
+      "sha256": "3742b89470ffa20afb40d54f9cbd67ab63c683ada92a4f140ec3a0542db964a8",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMConstant.cpython-38.pyc",
+      "bytes": 664,
+      "sha256": "6a0928c790449ffdccae758d770b1bfe0a26eeae4d32898e62c0d84e4588ea15",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMRaspberryPi.cpython-310.pyc",
+      "bytes": 945,
+      "sha256": "df6f39b5fb3eb97baa4e9df72f29b5701609d2f6bf43b3ecfb4e4d05ef1717c3",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMRaspberryPi.cpython-312.pyc",
+      "bytes": 1275,
+      "sha256": "e4962a7b044f016939712a3d297b1b9f5dedc8555b98763a1bc6b352c9ef5e1e",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMRaspberryPi.cpython-38.pyc",
+      "bytes": 957,
+      "sha256": "2755bffda1a806fe9de2eb96b012c5819dc81bef25ee2e14fe3f2a1f9e7ad6ba",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMRaspberryPi4B.cpython-310.pyc",
+      "bytes": 953,
+      "sha256": "1c26feba70b8a4008c9920d2f43375b2725ca43626a4561ecd594afcc8b3fbea",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMRaspberryPi4B.cpython-312.pyc",
+      "bytes": 1283,
+      "sha256": "dbf9651baf048590d30c7fdfc8d3cf5e42dc9bd2162b47cc31a1a18083bb64ab",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMRaspberryPi4B.cpython-38.pyc",
+      "bytes": 965,
+      "sha256": "58502f351d2ea8ed51d2e7428571d863bc81e5c0a76e3d879f477d79025326af",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMRaspberryPi4B8G.cpython-310.pyc",
+      "bytes": 961,
+      "sha256": "873af37fb4ebace2fb5e2bf112492a992132dfa9944f9ede85c726081e9b8bc2",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMRaspberryPi4B8G.cpython-312.pyc",
+      "bytes": 1291,
+      "sha256": "5f3269d580b40f80cdbdf69f72e311c704ecfad0f6f3545aa72e8083c2269658",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMRaspberryPi4B8G.cpython-38.pyc",
+      "bytes": 973,
+      "sha256": "511c0d9eb8073b4293aa89a104b64b46d2136ccfddbd24b32296ea590de2afa1",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMXeon_X5570.cpython-310.pyc",
+      "bytes": 901,
+      "sha256": "32ebf7cfd4a7aa82ab3bf9c436f8786e7395ce770527c908fbfcb3db65707054",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMXeon_X5570.cpython-312.pyc",
+      "bytes": 1231,
+      "sha256": "62d25bc719961f3250311baa2bc65c68ea4a6a2eaaf467514bd0f63e0f80964a",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/powermodels/__pycache__/PMXeon_X5570.cpython-38.pyc",
+      "bytes": 913,
+      "sha256": "1e6e556351eb37262bf486cfc9d5c8a0bacd192e6ca85dcc3071807fbbe86962",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/__pycache__/Bandwidth.cpython-310.pyc",
+      "bytes": 453,
+      "sha256": "fdbc3d0cbd3836eb8f1d021dbba0b5cf58b495b9af94205f8a3565e42ef34d55",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/__pycache__/Bandwidth.cpython-312.pyc",
+      "bytes": 502,
+      "sha256": "338ab6e1ba6b92ae3fb7d6ba5a3ffca1771f64c349366a26885545513d85422f",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/__pycache__/Bandwidth.cpython-38.pyc",
+      "bytes": 449,
+      "sha256": "e9562748ffff008b0fd50fd8c205b0985b8e3e1727c64dc820af507998b721b0",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/__pycache__/Disk.cpython-310.pyc",
+      "bytes": 448,
+      "sha256": "e3f2333afda23fbd536258db1ad196d1d50baa9ee738d8e66fb60d3b91e14ca7",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/__pycache__/Disk.cpython-312.pyc",
+      "bytes": 511,
+      "sha256": "920ff2306d1bc34b3d537e49b458a6977af8c5f90a02ce91872e8170325987b2",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/__pycache__/Disk.cpython-38.pyc",
+      "bytes": 444,
+      "sha256": "18bcb7993801e775b3e953941f811f63f7d720133e2127fc84867106255002c3",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/__pycache__/evaluation.cpython-310.pyc",
+      "bytes": 6869,
+      "sha256": "92e1922c25989018caa93a38029e8e019347d577b3830f234826a49ffbf52f50",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/__pycache__/evaluation.cpython-38.pyc",
+      "bytes": 6900,
+      "sha256": "e79314e13c492d585a05eb7c0cb5c4279825f376ca8000693ee90145cf56aa92",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/__pycache__/RAM.cpython-310.pyc",
+      "bytes": 445,
+      "sha256": "13501f8e3981af518ebd97b10e35668db09e86a039c17ba77ef40c305d0d17fc",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/__pycache__/RAM.cpython-312.pyc",
+      "bytes": 508,
+      "sha256": "72966de047011280f2a605a7bd92fb562a72fbd5250e58bdde6fbdb475b4fddb",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "metrics/__pycache__/RAM.cpython-38.pyc",
+      "bytes": 441,
+      "sha256": "faab5bc556d01917fbd236ccde45ffa10112f3e69632a01dc7f14c7c3fa42eb8",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/CMODLBSrc/src/__pycache__/constants.cpython-310.pyc",
+      "bytes": 303,
+      "sha256": "a4e7212cd4f3090cad2008206adebdcfd4c97cdf6995f8cfd14af9c825b91e7e",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/CMODLBSrc/src/__pycache__/constants.cpython-38.pyc",
+      "bytes": 301,
+      "sha256": "44d385a7d1fea7ebbcd29a87707ec0e9f514c833c38460acf3ceb1e0c4411b26",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/CMODLBSrc/src/__pycache__/models.cpython-310.pyc",
+      "bytes": 1080,
+      "sha256": "e2c3208ff2085e749c8d9d0fdf9d8303704435043d36ec375ab57221c53ef647",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/CMODLBSrc/src/__pycache__/models.cpython-38.pyc",
+      "bytes": 1082,
+      "sha256": "3df2ccedb4c3b71d56809a5d21298c0363dbf1bd94e7599cefcac1a13655b3fe",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/CMODLBSrc/src/__pycache__/train.cpython-310.pyc",
+      "bytes": 755,
+      "sha256": "b98456bce744ee3c38428652d76998151fbeece35223d89fa91ac1cf31ff70b8",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/CMODLBSrc/src/__pycache__/train.cpython-38.pyc",
+      "bytes": 753,
+      "sha256": "2f0f902024790249e10be39388c757e54acdd23e2c892198f202e64cd930c09f",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/CMODLBSrc/src/__pycache__/utils.cpython-310.pyc",
+      "bytes": 3413,
+      "sha256": "9cd7e23c6bfe84fcc0a43e05a213f1e042401e202fcf38e34f6ade49edd632b8",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/CMODLBSrc/src/__pycache__/utils.cpython-38.pyc",
+      "bytes": 3426,
+      "sha256": "3a4cd8fce996f837824c22a0e14d6306e1335013ae286a847f6ff003316681f1",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/constants.cpython-310.pyc",
+      "bytes": 687,
+      "sha256": "7fab586d6719752ee8bd0174cebf1fbd4b94f292de68f12f567ecafe44fd5867",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/constants.cpython-38.pyc",
+      "bytes": 685,
+      "sha256": "5cf72465d9317f783be167f47a04b392eb0b9f2e9bb374534d12afa97c79222a",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/dlutils.cpython-310.pyc",
+      "bytes": 12629,
+      "sha256": "9a3239e2e567a7cfe15095560503eeffa326196176e8c1df63dff2fbe0ae91df",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/dlutils.cpython-38.pyc",
+      "bytes": 12647,
+      "sha256": "b53a03527f4b05563daca617283bf6c647182b41f4d50ea5448cd92a39b86895",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/ftmoe_ablation.cpython-38.pyc",
+      "bytes": 14725,
+      "sha256": "7d7fc578cbf9f889601190517da73c97eb833bbc15a734c3034c1b74c8c8a0ae",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/ftmoe_capacity_graph.cpython-38.pyc",
+      "bytes": 2269,
+      "sha256": "fcd9435e7e200046fe29b89ad4e392568034b4c427edf4b91eff47f5ddba9aa1",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/ftmoe_context.cpython-38.pyc",
+      "bytes": 1462,
+      "sha256": "98e949e5efb5f3f5738533925a170b52228dfebc3dc5eb7abf161fc5fe467f56",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/ftmoe_end_to_end.cpython-38.pyc",
+      "bytes": 1734,
+      "sha256": "5e0f9df33e02a550e62158e3cae76408bc7c03b756d83e200b45ba46d9199860",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/ftmoe_expert_regularization.cpython-38.pyc",
+      "bytes": 983,
+      "sha256": "3b341b224de21213ede0a0e8022c161b61b01090a8cefc80c5bd07635f4f20da",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/ftmoe_fusion_controls.cpython-38.pyc",
+      "bytes": 1666,
+      "sha256": "861595fc8e3c634dfb39284c3dbd1a413dffdd66c2a9659348bb5ca7779d3a4e",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/ftmoe_matched_routing.cpython-38.pyc",
+      "bytes": 4198,
+      "sha256": "894d6b4f70eb9e2320a9e6e60434e1ef7f74a9c3f883c3059ff88ca441f7b972",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/ftmoe_source_fusion.cpython-38.pyc",
+      "bytes": 2008,
+      "sha256": "bc7e270d2e376066e055f887138c39f6bf7ca645a8eb45c270764a7c96d1230f",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/models.cpython-310.pyc",
+      "bytes": 56623,
+      "sha256": "5959fa787fa0621af4f901ce9adaee673379899770b05e4c0a63a64f9f718561",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/models.cpython-38.pyc",
+      "bytes": 61607,
+      "sha256": "5a2e5f4c4b963ee4b4c9a2a54452008bba803c1bef3720857fbebc6b84df8aec",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/models_v2.cpython-310.pyc",
+      "bytes": 19469,
+      "sha256": "8e60ed82d88de1b4872f94b046881418a769accb65be630f9b56ca137932928d",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/models_v2.cpython-38.pyc",
+      "bytes": 19760,
+      "sha256": "6f5046baf0178041d316ef3f4f64d3768b3eb4dea1c021406797268c725e8f9a",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/plotter.cpython-310.pyc",
+      "bytes": 11904,
+      "sha256": "9c50ba35fdb9066a80a4771bf516cc90b01f6f00036bf662bdbef38d4b2ec8d8",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/plotter.cpython-38.pyc",
+      "bytes": 12281,
+      "sha256": "ba49104b4572ded618c666f2048a4494d747583163c54f98a322b95923d0e513",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/train.cpython-310.pyc",
+      "bytes": 4290,
+      "sha256": "6254f1b7c3ba44302cbb91f91698de30a9d453b29638d7e9bc7399cf343afe7b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/train.cpython-38.pyc",
+      "bytes": 4310,
+      "sha256": "a2f93336260b1aa8690596f278b2006015c121eb3c7220044bbce77d064f42a9",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/utils.cpython-310.pyc",
+      "bytes": 8462,
+      "sha256": "9af458c64a5bcc5f86545eec4ef82c674ec1d142f9a824a56b2ea1b6a64f2892",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/PreGANSrc/src/__pycache__/utils.cpython-38.pyc",
+      "bytes": 8540,
+      "sha256": "eaac60f487ccf571f573687d7de860877a041fd5b1b9068a6023e13166ceea07",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/CMODLB.cpython-310.pyc",
+      "bytes": 3451,
+      "sha256": "a45655a719dac915b653ab168ed6f457cc946ab69b1ec9c6ab92202059934a2e",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/CMODLB.cpython-38.pyc",
+      "bytes": 3511,
+      "sha256": "8555e5384f837c653bd0b90f285231bce58d01f9d5e4049f0a24f214fee5b1b0",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/DFTM.cpython-310.pyc",
+      "bytes": 2697,
+      "sha256": "9ee1d0399648f98aeb34cc900a3d843939384996a021712052dda96b3fb0339d",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/DFTM.cpython-38.pyc",
+      "bytes": 2693,
+      "sha256": "3611aafdcc53761566e1d6e7cf548b5c0e37a1ff810d35a9f0c74f67c6c1b60e",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/ECLB.cpython-310.pyc",
+      "bytes": 2821,
+      "sha256": "1368e70742c3a898b1623a53a72973289649d9461659704abab67192e557ac5b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/ECLB.cpython-38.pyc",
+      "bytes": 2809,
+      "sha256": "ee6241697fc3f08798e2a0f61a31300653b3eda2ae221b0521bd1be2f9a06549",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/FTMoE.cpython-310.pyc",
+      "bytes": 2710,
+      "sha256": "23dc1ce3d75cd8696edbcd3a6830556b0417ac334d04e43d527d008d4f599f7f",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/FTMoE.cpython-38.pyc",
+      "bytes": 2754,
+      "sha256": "fc7a6c0f93ba7e50e87751c72aeb7ca91a18daa91d93c6ac75b4d963f5d36948",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/FTMoEChain.cpython-310.pyc",
+      "bytes": 5239,
+      "sha256": "c69a4920993204b9e8898d51a1312a6249cb40e599736299154b50aee551f5be",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/FTMoEProgressive.cpython-310.pyc",
+      "bytes": 4410,
+      "sha256": "e923645ae8094327c274c1ed3e30c35de5fba688f4e8974efb78e82ff986dff9",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/FTMoEProgressive.cpython-38.pyc",
+      "bytes": 4276,
+      "sha256": "b2fae68272ce29f459df1ec20500a8437255e6c7a68eab9e7678f4114a3aa660",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/PCFT.cpython-310.pyc",
+      "bytes": 1647,
+      "sha256": "f6d231bf5e7a0246b4c36734366bfb200a90432921d3cc7a099791059da0c84e",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/PCFT.cpython-38.pyc",
+      "bytes": 1639,
+      "sha256": "5ca3fba287837ad7dd720dcda080138e04d3133537630ee3a11c3f91adf89fb3",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/PreGAN.cpython-310.pyc",
+      "bytes": 5528,
+      "sha256": "a1bf8c55c500e6a66ed4da9f8c4c98feb280ea92b575353bbb357176acd77090",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/PreGAN.cpython-38.pyc",
+      "bytes": 5232,
+      "sha256": "c963c41f8a333a835f213a84002ca1edb0662bf7cb4a5312d527357e16266001",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/PreGANPlus.cpython-310.pyc",
+      "bytes": 6223,
+      "sha256": "588265142e0c375eeb5f76d070a8eacbe52fb87a082523d8b4b84c6b1c2a56fd",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/PreGANPlus.cpython-38.pyc",
+      "bytes": 5703,
+      "sha256": "748147e724329fda5c70f88bc9602b709c0b606dcf082a31570a92257f0fbf30",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/Recovery.cpython-310.pyc",
+      "bytes": 813,
+      "sha256": "dca199a7cb3902bb735ca3acedc59cc66dcd28cf008125f6de89969057cf0522",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "recovery/__pycache__/Recovery.cpython-38.pyc",
+      "bytes": 809,
+      "sha256": "65613d9b8e86c491c9f9c0f4ef0b76c6da5db7e27b5a6fdc41c484a1ab2c13ad",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/A2C/__pycache__/constants.cpython-310.pyc",
+      "bytes": 244,
+      "sha256": "35fa480b30b3a2c689c5972b265c69ebda94bf1d1fb2483df49e7d7163d3dff0",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/A2C/__pycache__/constants.cpython-38.pyc",
+      "bytes": 242,
+      "sha256": "a627a2c8aeef67bae2926c8f1e88337e22253bf5d6e0e89c7024a748c063a4ea",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/A2C/__pycache__/models.cpython-310.pyc",
+      "bytes": 2372,
+      "sha256": "d0004d311462dad4ec08ab73bdea0a52ab20d2f3d58a51f5a1429d3ef7923644",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/A2C/__pycache__/models.cpython-38.pyc",
+      "bytes": 2810,
+      "sha256": "7e461263758e74cbf0f697a5680731de6278f157ee24565d2dc4eb764380ddc6",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/A2C/__pycache__/rl.cpython-310.pyc",
+      "bytes": 1750,
+      "sha256": "94234a5a4fdc5f397e5d15f30e46ffc68262d0d7befaf4f030bb88d2f8758597",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/A2C/__pycache__/rl.cpython-38.pyc",
+      "bytes": 1750,
+      "sha256": "cc7092106c0d40270ba3963b80a4e2b1b2db718aa5c9458978c79f507abb92c6",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/A2C/__pycache__/utils.cpython-310.pyc",
+      "bytes": 1888,
+      "sha256": "a6294d25aba30fb0870cb8c331ed06d60b645d6bd1c0b916eafc21a812fb66fe",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/A2C/__pycache__/utils.cpython-38.pyc",
+      "bytes": 1898,
+      "sha256": "5af7e2ce99dfa5f4fd31c5dfd64f84043b720f93b97ac8793f145d747b4f1897",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/BaGTI/src/__pycache__/adahessian.cpython-310.pyc",
+      "bytes": 4800,
+      "sha256": "7a343f14e1eedc9cfb8385bd1a01fa1437a21f0a21c09e601a5104b9399c8d2c",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/BaGTI/src/__pycache__/adahessian.cpython-38.pyc",
+      "bytes": 4796,
+      "sha256": "2c35190ba31852ea9925810d80a3c5d7bbd160b7fd657d3e2165ed98099492af",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/BaGTI/src/__pycache__/constants.cpython-310.pyc",
+      "bytes": 301,
+      "sha256": "fcfe6013c46498bcc580ab1267ed547dc2dcac0a594feec5c1bd97788098f218",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/BaGTI/src/__pycache__/constants.cpython-38.pyc",
+      "bytes": 299,
+      "sha256": "39bbf370c4be88875519ea83a1f1532eee74d65ae1203a95639c7c14616789ba",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/BaGTI/src/__pycache__/ga.cpython-310.pyc",
+      "bytes": 2241,
+      "sha256": "76793f191f700fe1ca552f04fa541a567d2d1d35e5f237b1d644a07d289f7358",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/BaGTI/src/__pycache__/ga.cpython-38.pyc",
+      "bytes": 2234,
+      "sha256": "83952bd059602d75e7f89fba9c19c560d355c0c115fad9c14c2af7433a6bdaa1",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/BaGTI/src/__pycache__/models.cpython-310.pyc",
+      "bytes": 1094,
+      "sha256": "36184333884978c5d062f4c3bf353ef60d2eb205b5b9efbd03afad34a87482d2",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/BaGTI/src/__pycache__/models.cpython-38.pyc",
+      "bytes": 1090,
+      "sha256": "49e04ee6324d730c3bd3b76b6697d7bab02b37bb493fb83be2caf2c1a7b9199d",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/BaGTI/src/__pycache__/npn.cpython-310.pyc",
+      "bytes": 5665,
+      "sha256": "691ce1d314d03eb1e4c1df31d4641e838a9225f8a42f6aabf9ebb3f1eecc6622",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/BaGTI/src/__pycache__/npn.cpython-38.pyc",
+      "bytes": 5762,
+      "sha256": "792a3d3385bad70b55631eb87fd1f120cee03e38110622b704e66dc413260214",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/BaGTI/src/__pycache__/opt.cpython-310.pyc",
+      "bytes": 1987,
+      "sha256": "97fcd13db76e2d38661661042c3147aca734856ac577874d38814b7b0e0531b7",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/BaGTI/src/__pycache__/opt.cpython-38.pyc",
+      "bytes": 2017,
+      "sha256": "71aca44209c8abd8054184a681599f7127919e224dc943e5e10c11bf4f2c0d89",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/BaGTI/src/__pycache__/utils.cpython-310.pyc",
+      "bytes": 5380,
+      "sha256": "f04ce343f303b03bbfa23ca05628d48a3fb39e35ffd769b81b27d55621bba653",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/BaGTI/src/__pycache__/utils.cpython-38.pyc",
+      "bytes": 5438,
+      "sha256": "e22edb1bb4961185f795393be870fd683331f2ec276b265dbedc8d50b72012eb",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/BaGTI/__pycache__/train.cpython-310.pyc",
+      "bytes": 3482,
+      "sha256": "eac44c98456568e73d4f4788309ae78458bcb3abea3e5bba917fbb2450933ec7",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/BaGTI/__pycache__/train.cpython-38.pyc",
+      "bytes": 3484,
+      "sha256": "80f2ecc98674779db4ccec91da6136bba7d8c2ab05d8ceecadd68a695f2f4296",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/HGP/src/__pycache__/custom_kernels.cpython-310.pyc",
+      "bytes": 5858,
+      "sha256": "a88e157b4d05f0e605c9e2ddd86f83a3ec38b28658a22e5426a3c1949f67092f",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/HGP/src/__pycache__/custom_kernels.cpython-312.pyc",
+      "bytes": 8486,
+      "sha256": "834aee168eb0c0e651f9607b572fdff030d70cc1f2b28a2c6490268ccfac846d",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/HGP/src/__pycache__/custom_kernels.cpython-38.pyc",
+      "bytes": 5904,
+      "sha256": "d6e28dbce103effafdbfcb09bb4d9892cff384d67a7bb8e088da04ee8403cc1e",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/HGP/src/__pycache__/HGPopt.cpython-310.pyc",
+      "bytes": 1342,
+      "sha256": "59795e6cfc9b8da493cc7c6a90c6c93caf4fda8b8700bd22ae68318cd788959c",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/HGP/src/__pycache__/HGPopt.cpython-38.pyc",
+      "bytes": 1346,
+      "sha256": "20025c6027bf82e341d08afcb6cd2131ee6c74908dd6dcc50abe5043af7b3cbe",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/HGP/src/__pycache__/hgp_constants.cpython-310.pyc",
+      "bytes": 220,
+      "sha256": "b514e0849681e3419d5b29118e8e83e0bc7647cc813e60fb85de75e3528ca3aa",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/HGP/src/__pycache__/hgp_constants.cpython-38.pyc",
+      "bytes": 218,
+      "sha256": "b260d6087fd77c536b1e40c0035948f84563d4528b5ba2903779ddca499ca351",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/HGP/src/__pycache__/utils.cpython-310.pyc",
+      "bytes": 1643,
+      "sha256": "50c98da276c79d1afd189216be26fa7125aac029e91f1ec48f920915ce6c8ffc",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/HGP/src/__pycache__/utils.cpython-312.pyc",
+      "bytes": 3291,
+      "sha256": "dedd98ed157f5f0dcdb82ae5ba9b251236859a5c146b518cb4c7765d2d63ada4",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/HGP/src/__pycache__/utils.cpython-38.pyc",
+      "bytes": 1645,
+      "sha256": "79648980cccec579b8131ff0e524ef7d98629f92d0bd5d43d4e5428c2f210b3e",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/HGP/__pycache__/train.cpython-310.pyc",
+      "bytes": 2829,
+      "sha256": "ccd3636e6a711bb1959dde9406434874ca04ff9ef0e2c23e364a1b7ceab6ecfb",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/HGP/__pycache__/train.cpython-312.pyc",
+      "bytes": 4517,
+      "sha256": "b1ffa2923578df14188f0bfd685780c1cb6ce0fc962ca06bad45e9d7cdf49842",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/HGP/__pycache__/train.cpython-38.pyc",
+      "bytes": 2781,
+      "sha256": "c7306df2f3059c60bc7b7dc9aded71f7f1b3567716287b98c95b509708183af4",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/DQL.cpython-310.pyc",
+      "bytes": 4418,
+      "sha256": "200203cb9cb093b5d702f67e7cbbcab6ab38d0b739b2547092dc9bc4dd641a30",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/DQL.cpython-38.pyc",
+      "bytes": 4412,
+      "sha256": "314f10bbec70d4efd2d5d8825d271f06caef26d8ffdcda44215d0655b378af5b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/DRL.cpython-310.pyc",
+      "bytes": 4418,
+      "sha256": "725010acf67a30b919580442cef698bba2652c8374de9fec8665b5e42a4b5e0b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/DRL.cpython-38.pyc",
+      "bytes": 4412,
+      "sha256": "1dfe3e277a422f7336c4c743a260e0e9ef58fa0902a2c5bfd2a6a9c15e66e80d",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/GA.cpython-310.pyc",
+      "bytes": 2544,
+      "sha256": "bea70a3ae7bfbd63d6f159431ed8ce3b4803a83201b921410e64b8dc39ac9d27",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/GA.cpython-38.pyc",
+      "bytes": 2558,
+      "sha256": "8421099405449d841eeb99b3a8051807b25de110a79d54c0e0b974db1a6d852b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/GOBI.cpython-310.pyc",
+      "bytes": 2615,
+      "sha256": "d1b8357fb72e9ec119d6241f0e08df97cdcefaaa289982f9efc97174ec5e9767",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/GOBI.cpython-38.pyc",
+      "bytes": 2627,
+      "sha256": "96989960b17a58efaa0d8c87c26bd5e3a1ed190cb0d62f83d48e9d7047c9fef5",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/GOBI2.cpython-310.pyc",
+      "bytes": 2753,
+      "sha256": "a2394370054eb1da1897b550f57decac11c9c95e09c193033da07206bdb8fa39",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/GOBI2.cpython-38.pyc",
+      "bytes": 2769,
+      "sha256": "a2fe00126a8470e15e8774d93f9ad66417d39d9fae9d9bf9a6a31814b59a6fd2",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/HGOBI.cpython-310.pyc",
+      "bytes": 2573,
+      "sha256": "01424eed63f3638941d05d32c80f73c0bbde1cc242dbe03da5464ed6fb88a6a7",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/HGOBI.cpython-38.pyc",
+      "bytes": 2585,
+      "sha256": "ae99d1505c05cdfe6a6d49bf50554c01a07ab5a5d89e3c65395488cf2c36ed1c",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/HGOBI2.cpython-310.pyc",
+      "bytes": 2814,
+      "sha256": "3a471f98d55cc5a1aa1acf34b672e2232bc7b4d4bf344a27db83528baa7036e1",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/HGOBI2.cpython-38.pyc",
+      "bytes": 2830,
+      "sha256": "9a0ade3885bc24c3176ccf23c4f17d5024fd7e8e30806183757f77f83240b900",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/HGP_LBFGS.cpython-310.pyc",
+      "bytes": 2272,
+      "sha256": "13bc286806741741b37002fc337aa1f728bbcb4ef9ddb00ed9d6756851dd642c",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/HGP_LBFGS.cpython-312.pyc",
+      "bytes": 3751,
+      "sha256": "d37ac9bcfc78d9779302f6807ae0d257a3e581bda0a654f33363d1ecee4ee70f",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/HGP_LBFGS.cpython-38.pyc",
+      "bytes": 2284,
+      "sha256": "09ace11b8db10301461ca31957a69bb8397106863405931aeb6858427b3bd567",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/HSOGOBI.cpython-310.pyc",
+      "bytes": 2598,
+      "sha256": "cb0e4e0ee18bb6f7dff9db93b73489962e02d5ca9c6cb308e7d05c074b6448c5",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/HSOGOBI.cpython-38.pyc",
+      "bytes": 2610,
+      "sha256": "b03be0472e3d300c5bbc4e0968fb27469066530ae16c88b5d5d134f49d3dfbf5",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/HSOGOBI2.cpython-310.pyc",
+      "bytes": 2839,
+      "sha256": "574c07cacb1246d2553654117ab3a6f9d6dbea01709c1ac6c49a6168951d7a58",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/HSOGOBI2.cpython-38.pyc",
+      "bytes": 2855,
+      "sha256": "34ff9188b3efe127a21bea284582f888e650a52b52b7252076b1a4d1803f01fb",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/IQR_MMT_Random.cpython-310.pyc",
+      "bytes": 1185,
+      "sha256": "a47d8c934d6debd5ae7d21de1410ee660cd63b6f67730d9e0c061d6a7cc99d47",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/IQR_MMT_Random.cpython-312.pyc",
+      "bytes": 1645,
+      "sha256": "112b9912b82b77957af1cc8af729b5c9fadf3ed1dc0d038b34882d82ffbcb04b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/IQR_MMT_Random.cpython-38.pyc",
+      "bytes": 1181,
+      "sha256": "7cdc625eb7cbbafbe32336ae3f78bb27fe00dbd74b3967fbcffdb8972f88c163",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/LR_MMT_Random.cpython-310.pyc",
+      "bytes": 1241,
+      "sha256": "4957f12bec3417ab43a5ebc6422c926e40e25e145f088d5f8feacfa3e860a4ea",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/LR_MMT_Random.cpython-312.pyc",
+      "bytes": 1703,
+      "sha256": "736f3fde976c8beb257d25ea88257905f9e7e14effa281f5db5b149341cf9a9b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/LR_MMT_Random.cpython-38.pyc",
+      "bytes": 1237,
+      "sha256": "8de3d0651b6d8df019b5dd4b1480cdbcaba810c9bd93c2d7bfa19e1c71030bbc",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/MAD_MC_Random.cpython-310.pyc",
+      "bytes": 1713,
+      "sha256": "1a12b87f2ef9f233fb9d8b836b8dcfec8fcbc2e6fc3eba6232ae7fe2726218bc",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/MAD_MC_Random.cpython-312.pyc",
+      "bytes": 2231,
+      "sha256": "671000d1943047970fcf282abb6307215e3e59fe1e38e544d04f2c0bdd5f8c2d",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/MAD_MC_Random.cpython-38.pyc",
+      "bytes": 1711,
+      "sha256": "bb1a137e7cff33e19d0cfafd182df830b08206b6574773f0ea8780300c98ac0f",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/MAD_MMT_Random.cpython-310.pyc",
+      "bytes": 1248,
+      "sha256": "bd713f364d72a515a7d57d7bde984ced0cca599e7748dab91c7e8a65ccbccd9f",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/MAD_MMT_Random.cpython-312.pyc",
+      "bytes": 1710,
+      "sha256": "40396a9b199dc71a5745c618b00c23faec93461774d3a443f23354d9b773dfde",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/MAD_MMT_Random.cpython-38.pyc",
+      "bytes": 1244,
+      "sha256": "e82849ec34e23a85083ca9aa12a842284a43a4880263c1f42023eb7480354a87",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/POND.cpython-310.pyc",
+      "bytes": 3485,
+      "sha256": "f54832457e2afc784d3e46da6cfee089d0f7f9a51ed95023d87440d09ad9a0a5",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/POND.cpython-38.pyc",
+      "bytes": 3528,
+      "sha256": "786285b757ab02ed59917439a4ca6515c800ac706589e2ac47490125b2e0eb32",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/Random_Random_FirstFit.cpython-310.pyc",
+      "bytes": 883,
+      "sha256": "c74bef054d77fb272ef0f435af8683b8fecaff965f256513d306e6e6a741e59f",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/Random_Random_FirstFit.cpython-312.pyc",
+      "bytes": 1036,
+      "sha256": "192aff15efc3ad1b1ff796fbe293ab65e96e554d3ac314a55f2b05a6a974a30c",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/Random_Random_FirstFit.cpython-38.pyc",
+      "bytes": 879,
+      "sha256": "af764539feee49f152317f2ce3bd860beb80e0bf8d6e6e9cc9677ff46ca7106e",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/Random_Random_LeastFull.cpython-310.pyc",
+      "bytes": 883,
+      "sha256": "b75afe9a6be16e92e4979894599c7c484d14b8e3dbc778f3e48d951aab0423f2",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/Random_Random_LeastFull.cpython-312.pyc",
+      "bytes": 1036,
+      "sha256": "ccc047d7d459980efb1cd812f4b6ef2ed6e3c7c2270291b6fa2e80a22b6cf7b9",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/Random_Random_LeastFull.cpython-38.pyc",
+      "bytes": 879,
+      "sha256": "c07ab7f103b83c4812afd3e1c89bfa89dffe10d44b0c2de7d03d0e29ad07c1be",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/Random_Random_Random.cpython-310.pyc",
+      "bytes": 895,
+      "sha256": "dff1a7e82bb43bac9a3ddf94838aaee4e288c1074a65a6dc4c8f5df276cc8e0e",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/Random_Random_Random.cpython-312.pyc",
+      "bytes": 1048,
+      "sha256": "88a3919d038c4ed23a2dfb6ace60e7558ac7c90bc875bf69aeb2101d89843a78",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/Random_Random_Random.cpython-38.pyc",
+      "bytes": 891,
+      "sha256": "fa2b731d7234d432a7e6e1a050132f41ed5aed49e427a7a7dc55521d40a6514a",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/RLR_MMT_Random.cpython-310.pyc",
+      "bytes": 1248,
+      "sha256": "943e1c96bd7d4ba91d82d62387587099fa4ac4d89b0f89c0ff9c3ad5839ed09f",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/RLR_MMT_Random.cpython-312.pyc",
+      "bytes": 1710,
+      "sha256": "6da05b0f646db8d6309412ddaaa63afc36ddb1d0b8397f8c5731fc310f01c572",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/RLR_MMT_Random.cpython-38.pyc",
+      "bytes": 1244,
+      "sha256": "9b07d9a61cce500fcae75d51bfca6d967752f8713cf851dc13e06882117c3dba",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/Scheduler.cpython-310.pyc",
+      "bytes": 8186,
+      "sha256": "101e67dff381ffdd6e2fb53f52a76934c6814f5e56f5f7943b83ad7b8f71e6d0",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/Scheduler.cpython-312.pyc",
+      "bytes": 13086,
+      "sha256": "274440fc882d078b55c22e49ac6c11310e83b5b6b6d6dfc5d767aee319f4f469",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/Scheduler.cpython-38.pyc",
+      "bytes": 8456,
+      "sha256": "f5fc97410464941206f8333100368ef908296e122e3878688438416b1d958d93",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/SOGOBI.cpython-310.pyc",
+      "bytes": 2564,
+      "sha256": "d465f06275d71e34060fbe14639650a7c19b09763415a1199b3127be22ea84a6",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/SOGOBI.cpython-38.pyc",
+      "bytes": 2576,
+      "sha256": "a67948da6a21f4e269000d1120890381e8c08c435f00c0bad9ce0d4930f772dc",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/SOGOBI2.cpython-310.pyc",
+      "bytes": 2805,
+      "sha256": "8e86ac6056385f08cf16ea3cd6566586fe3617700bf9475277dc344c0e3c1da4",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/SOGOBI2.cpython-38.pyc",
+      "bytes": 2821,
+      "sha256": "a77645de6596404d9ccaaa19b463e13d8079aa3c360a5372fb395eafc1664d92",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/Threshold_MC_Random.cpython-310.pyc",
+      "bytes": 1443,
+      "sha256": "df2aeb3f7d7a11a7c3f31544af65f0994a2df73799068b238f9a18e473d3794e",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/Threshold_MC_Random.cpython-312.pyc",
+      "bytes": 1755,
+      "sha256": "f711ac93cebf9a4a16b4afe8ccae7fe2ae90c6801b96c14a2bbb2c5f50cd5923",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "scheduler/__pycache__/Threshold_MC_Random.cpython-38.pyc",
+      "bytes": 1441,
+      "sha256": "60df5bcdd3a39a9be2f55ad478aad86c1773e77620b463137154cdbc44291560",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/DiskModels/__pycache__/DM.cpython-310.pyc",
+      "bytes": 558,
+      "sha256": "bcaf23d63d2b116344cc57046689ff1e729b0216ff9b26b3dfbddc77f397c005",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/DiskModels/__pycache__/DM.cpython-312.pyc",
+      "bytes": 608,
+      "sha256": "b9d574433caef10f619f96953571081d75ab080e250f6b12c9ae4d5ac89dc702",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/DiskModels/__pycache__/DM.cpython-38.pyc",
+      "bytes": 556,
+      "sha256": "6d394b632791cf235f5f9629c4841a7aa28f39ed2853994db9386cbfce331f39",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/DiskModels/__pycache__/DMBitbrain.cpython-310.pyc",
+      "bytes": 866,
+      "sha256": "8a7bbae31608550e33a623e13b5b9ddca2da5c75821256bf617c3cea725e5fba",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/DiskModels/__pycache__/DMBitbrain.cpython-312.pyc",
+      "bytes": 1433,
+      "sha256": "4434bfb4a760a5dc5497aa13677e4d3482c5a94a4f272c5ff24ab2f813d68b33",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/DiskModels/__pycache__/DMBitbrain.cpython-38.pyc",
+      "bytes": 862,
+      "sha256": "a1983afc0c523bb5608c81daec36143300586d06590288948a6b83afd295bbd3",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/DiskModels/__pycache__/DMConstant.cpython-310.pyc",
+      "bytes": 731,
+      "sha256": "253a0628146c7313e5c9f0e7561a1c896fe8d010af5519fb7211a3ed7741ea42",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/DiskModels/__pycache__/DMConstant.cpython-38.pyc",
+      "bytes": 727,
+      "sha256": "c1ceb9f9607880720bdd7726999fabb1fd9599d89917aa9e5a3cec94a90ed4ed",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/IPSModels/__pycache__/IPSM.cpython-310.pyc",
+      "bytes": 565,
+      "sha256": "df7f292d360d21f6b93fa1a38a8308e30a89e7e4e3909c3fcb7ed306b7e32e04",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/IPSModels/__pycache__/IPSM.cpython-312.pyc",
+      "bytes": 615,
+      "sha256": "18fbd9879f7e0acbc9b039a180aac0927fd2824db5548af9a64285c5dd335363",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/IPSModels/__pycache__/IPSM.cpython-38.pyc",
+      "bytes": 563,
+      "sha256": "37bc657ef1f55b407a554fa52fccf6a0b6acdeba83e44439bbd09f70c035de71",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/IPSModels/__pycache__/IPSMBitbrain.cpython-310.pyc",
+      "bytes": 1099,
+      "sha256": "7374e7db446a8d07505ac97029334b86acdbca8c1005ba8fd96e520125306c81",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/IPSModels/__pycache__/IPSMBitbrain.cpython-312.pyc",
+      "bytes": 1760,
+      "sha256": "154beeab5858ddceced695da9a46642b4478cb4dbab1aba7b8c11bd32b51862c",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/IPSModels/__pycache__/IPSMBitbrain.cpython-38.pyc",
+      "bytes": 1097,
+      "sha256": "4a964af14c6bd68bf80f5317bca757566ad32c634de53874d6fb3821818f3022",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/IPSModels/__pycache__/IPSMConstant.cpython-310.pyc",
+      "bytes": 997,
+      "sha256": "ffc2d0771e23713d8e0ed41215e0a4073f588e50cfdb8b383252b48d03d0fe80",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/IPSModels/__pycache__/IPSMConstant.cpython-38.pyc",
+      "bytes": 993,
+      "sha256": "b4c6bed4d4145667f8df6c1afca43b2387a3a52c0dc069467960fe315cdd2027",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/RAMModels/__pycache__/RM.cpython-310.pyc",
+      "bytes": 557,
+      "sha256": "8e2a6e4208ad2fac105b0a9c1460a8d8616faae4d71f4569548fbe826d4aefe3",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/RAMModels/__pycache__/RM.cpython-312.pyc",
+      "bytes": 607,
+      "sha256": "7c56f537647ae5fd7be12ffdfd02647473a73b91b36e5ef7cd9e0ba6782bf5cd",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/RAMModels/__pycache__/RM.cpython-38.pyc",
+      "bytes": 555,
+      "sha256": "1d6b05752416aa44361e93cac3874b229552b75c20743c198c7aa47df2ea0602",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/RAMModels/__pycache__/RMBitbrain.cpython-310.pyc",
+      "bytes": 910,
+      "sha256": "6769a8bc78cb84647824a0154d09c1bc78bc0072678da7036d64d36115633871",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/RAMModels/__pycache__/RMBitbrain.cpython-312.pyc",
+      "bytes": 1659,
+      "sha256": "9b0c76f5083d9c308785187e9f8e0ba9cd9ec15fffc339c9a7b9d52c93cc761a",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/RAMModels/__pycache__/RMBitbrain.cpython-38.pyc",
+      "bytes": 906,
+      "sha256": "6a125f9636ede5360b7800aeafb45f3849204f43a1defc0d6fcad54b970da389",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/RAMModels/__pycache__/RMConstant.cpython-310.pyc",
+      "bytes": 732,
+      "sha256": "2ce51c50afcd94d25624eec72dfe9f4db50955dce67300b23c3033fd4cddf268",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/RAMModels/__pycache__/RMConstant.cpython-38.pyc",
+      "bytes": 728,
+      "sha256": "6f5e99b29bb285f8476bad46917cc537f9b24b67e262b411bb38509d7b0db613",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/__pycache__/Container.cpython-310.pyc",
+      "bytes": 3098,
+      "sha256": "4fdf0e0d2f0a9282b2dc3194a098cd819cecd8378ba7c4aad28709e4c589137c",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/__pycache__/Container.cpython-312.pyc",
+      "bytes": 5326,
+      "sha256": "fd14e49cbdc87234809ccb4132345677cd275ded1051382c56d81516e2dac473",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/container/__pycache__/Container.cpython-38.pyc",
+      "bytes": 3124,
+      "sha256": "6c40d796bf8626b60a035e61f1a26f093020cc101f76ae071067897580a612bf",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/environment/__pycache__/AzureFog.cpython-310.pyc",
+      "bytes": 1881,
+      "sha256": "48692021a44e629b9bb22a0611959e0055455ac5fcc119d1c039f66edc467eb4",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/environment/__pycache__/AzureFog.cpython-312.pyc",
+      "bytes": 2730,
+      "sha256": "110b25357c68339198222004f4716ea69c0a55631ea4805aec159c44a53f3db6",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/environment/__pycache__/AzureFog.cpython-38.pyc",
+      "bytes": 1856,
+      "sha256": "6a9b574d358ff9fd1a18eeb4abf2215e55545ee3e73f625af272835618d9c1ee",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/environment/__pycache__/BitbrainFog.cpython-310.pyc",
+      "bytes": 1663,
+      "sha256": "2b40285cf9bc84a979e98e8dac200275cd34c0ea3696fae890667ee2fdc1ed73",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/environment/__pycache__/BitbrainFog.cpython-312.pyc",
+      "bytes": 2383,
+      "sha256": "7012284fffe1630878978264058c2e134c504d7a62d02da9406af9bb35d4e82b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/environment/__pycache__/BitbrainFog.cpython-38.pyc",
+      "bytes": 1613,
+      "sha256": "45638bcccc3e5ed3ea8f8239d2dd77b4042fb13ba1f7bceaa7a0711c0bdb59fd",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/environment/__pycache__/RPiEdge.cpython-310.pyc",
+      "bytes": 1860,
+      "sha256": "4c0d20b41e74aea01c25c57f0ef9d213124b59565ec098962a8a3fe2d419a1fb",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/environment/__pycache__/RPiEdge.cpython-312.pyc",
+      "bytes": 2715,
+      "sha256": "fe9b03e5e7750ec33d8b4b22ef307f74b3b608c6f74b0726526b61a014b16332",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/environment/__pycache__/RPiEdge.cpython-38.pyc",
+      "bytes": 1994,
+      "sha256": "2c3b83ef5ad37718530d044d8db9285277ac1e0ea1ee0e4f49783e73b56aff76",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/host/__pycache__/Bandwidth.cpython-310.pyc",
+      "bytes": 460,
+      "sha256": "a9c59062c6fdf3e6e8f0dd26377e815bc59b247d2dbcdfe5ff7a6b6f21dcb9a8",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/host/__pycache__/Bandwidth.cpython-312.pyc",
+      "bytes": 509,
+      "sha256": "b25a8e2f167fe5de8b7ffa3aaf594fc1609f0e275e194aff5041fd660f234e02",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/host/__pycache__/Bandwidth.cpython-38.pyc",
+      "bytes": 456,
+      "sha256": "3e56fa7fd648840637544e9414978fe3109d356a7361f41fd6e5429d4959f6e6",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/host/__pycache__/Disk.cpython-310.pyc",
+      "bytes": 455,
+      "sha256": "87d47e2c77dd4c78b01457c9828bea47807c2f2c13a61c2263f646f25a8b19e8",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/host/__pycache__/Disk.cpython-312.pyc",
+      "bytes": 518,
+      "sha256": "3b31cc79f2ca9abd365551a820c4e13d17575ececb8fb75e5b437dac0b786362",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/host/__pycache__/Disk.cpython-38.pyc",
+      "bytes": 451,
+      "sha256": "cbc41328a44d1e73050353c962d666bfec702442217ec89c6fe039201e79504c",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/host/__pycache__/Host.cpython-310.pyc",
+      "bytes": 2790,
+      "sha256": "c178666ea30b0f2daf0c2c97b2063f697fd4fb00ffa3352d648e405625b10394",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/host/__pycache__/Host.cpython-312.pyc",
+      "bytes": 5007,
+      "sha256": "02b12012798cdd1c2adb3678866b597491342930695a0cfe27f3cb89e14fc74a",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/host/__pycache__/Host.cpython-38.pyc",
+      "bytes": 2751,
+      "sha256": "bd761dd3334fb1f805c8fcec0f2219d8b330ed1dd666ad074cacd396099269b7",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/host/__pycache__/RAM.cpython-310.pyc",
+      "bytes": 452,
+      "sha256": "6fbf3de7b2ec4d05da8aefa023541967ac173e7b171997a7316ea70488517e9d",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/host/__pycache__/RAM.cpython-312.pyc",
+      "bytes": 515,
+      "sha256": "2090122c0f6deb0d66aa6d69e387c163aa4b7549ca5577b6f1e79ab735812f9d",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/host/__pycache__/RAM.cpython-38.pyc",
+      "bytes": 448,
+      "sha256": "0d8daba5726b85b4c7e9fd07b5b85565217340ead0785f26d313b58c1be7eb7d",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/workload/__pycache__/BitbrainWorkload2.cpython-310.pyc",
+      "bytes": 3019,
+      "sha256": "ba8613ba8af89208e4e86eeed4119df5c4828120df6a0af1060004049282bc90",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/workload/__pycache__/BitbrainWorkload2.cpython-312.pyc",
+      "bytes": 5525,
+      "sha256": "4983bf063d6c253ea52e90201e5bc7371af467ce666846d753523ac417ac15f0",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/workload/__pycache__/BitbrainWorkload2.cpython-38.pyc",
+      "bytes": 3020,
+      "sha256": "4a5fc32e9f8c5298c4891dd7ace79ef44b34ea683f64159a54435f7fb1abe449",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/workload/__pycache__/BitbrainWorkload_GaussianDistribution.cpython-310.pyc",
+      "bytes": 2789,
+      "sha256": "e30d3401512df5636d959f683f3f40a88cdcb7cea0e1ea9932104d04e1ddf085",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/workload/__pycache__/BitbrainWorkload_GaussianDistribution.cpython-312.pyc",
+      "bytes": 4837,
+      "sha256": "8a5bd8751870dbc59a1117ba171d0758df57605380b50ce6c5c7b9e8bc6f5696",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/workload/__pycache__/BitbrainWorkload_GaussianDistribution.cpython-38.pyc",
+      "bytes": 2803,
+      "sha256": "41f4c3cb31881484de185ff69efc070f27f29cc66fe57510864db54f214a5686",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/workload/__pycache__/OfflineTraceWorkload.cpython-310.pyc",
+      "bytes": 8535,
+      "sha256": "4d6af0ca5711a24af4a996a5d2b45fee951d946c0a8f9d00fefb4986801e9bc4",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/workload/__pycache__/OfflineTraceWorkloadV2.cpython-310.pyc",
+      "bytes": 7457,
+      "sha256": "6014ae7046d7dc3cddf7f013a99cca9421bc1fc235963800dc11060ce686286b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/workload/__pycache__/OfflineTraceWorkloadV2.cpython-38.pyc",
+      "bytes": 7627,
+      "sha256": "dc33c3a9a435add4f4d887110603e4531a3a7b8b328b7f3248672599f36256aa",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/workload/__pycache__/Workload.cpython-310.pyc",
+      "bytes": 982,
+      "sha256": "d0142ec5ea3f64c603a24a375de46a797d3ab2f2f2b37bd01a7606f479b743d8",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/workload/__pycache__/Workload.cpython-312.pyc",
+      "bytes": 1283,
+      "sha256": "af0ffa966a8589aea80d051f07f58b510fa195ac56294be889e202ee43c2d267",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/workload/__pycache__/Workload.cpython-38.pyc",
+      "bytes": 990,
+      "sha256": "ae2970fd0d6838a91bc1b5363333b0456bc3b4c6c211aae25c6e4c2fd9f78361",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/__pycache__/Simulator.cpython-310.pyc",
+      "bytes": 7607,
+      "sha256": "cb230cf3b109cdafeb11b5c2e9c5cf8c21a056408d615c9926b457c84738b152",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/__pycache__/Simulator.cpython-312.pyc",
+      "bytes": 12550,
+      "sha256": "5658cd86930bd7288517f8d1036b154fa5ff30af0e46d4bc8fa2706e0dabc77f",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "simulator/__pycache__/Simulator.cpython-38.pyc",
+      "bytes": 7655,
+      "sha256": "644e38ef255588118e36a76c319d10448003ed21c48a9204108f47b0eb21dfe2",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "stats/__pycache__/Stats.cpython-310.pyc",
+      "bytes": 18975,
+      "sha256": "6dfa9fe535daea10277c0c6f20553ef844a6bdf3e8f129a394187fc7ca31d5e9",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "stats/__pycache__/Stats.cpython-38.pyc",
+      "bytes": 19953,
+      "sha256": "0d47671958213b706fe87614ec5a927081d251373f986f2de670246ae67cf357",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "utils/__pycache__/ColorUtils.cpython-310.pyc",
+      "bytes": 899,
+      "sha256": "80730374478f8e5988a31c127224c6f755331191960f5cf9f87e3254bead2ebf",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "utils/__pycache__/ColorUtils.cpython-312.pyc",
+      "bytes": 1249,
+      "sha256": "c9f5b3e1639dec383cdfb6c102f63c66a3abfb50f9127a96680989f8b10a785b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "utils/__pycache__/ColorUtils.cpython-38.pyc",
+      "bytes": 897,
+      "sha256": "2b185e160f81810c91162803f9366374448212e6a2f57a64a59e97cd2c43dbea",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "utils/__pycache__/MathConstants.cpython-310.pyc",
+      "bytes": 218,
+      "sha256": "b876d6a1aac532ae1b8f49deb56e119153346ade6e5e6e81e10a85683ad6d10e",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "utils/__pycache__/MathConstants.cpython-312.pyc",
+      "bytes": 234,
+      "sha256": "020e94069261d4bc4d5d358b927b99a7890b0003d384f061d8de9504ea92234a",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "utils/__pycache__/MathConstants.cpython-38.pyc",
+      "bytes": 216,
+      "sha256": "2f227c3473d8df62825f71c9d76369098982542439819289aff5fe2be6204467",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "utils/__pycache__/MathUtils.cpython-310.pyc",
+      "bytes": 5623,
+      "sha256": "ab87cb6876645bccf12e6885759a490b9413c7faa002ae18541b2b46704a17b3",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "utils/__pycache__/MathUtils.cpython-312.pyc",
+      "bytes": 8557,
+      "sha256": "e50f7a3899490a5ea7fb3e2b9eb4062fa8d82b35f01beaa67c2e4b44229fbbc4",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "utils/__pycache__/MathUtils.cpython-38.pyc",
+      "bytes": 5632,
+      "sha256": "4703c4846418e8889f7a5a77ba431c1c161882412e7b7431693a185d2d132312",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "utils/__pycache__/Utils.cpython-310.pyc",
+      "bytes": 885,
+      "sha256": "6cc583da84c082474c6277b79001b5af36761cad07799bb35ed75aafef0aff7d",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "utils/__pycache__/Utils.cpython-312.pyc",
+      "bytes": 1356,
+      "sha256": "e6bf6b96dff99709f25452d3f6e7260a8163d5d06f26993c9b3accf694f2c34b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "utils/__pycache__/Utils.cpython-38.pyc",
+      "bytes": 879,
+      "sha256": "dd5d3e0f053d0fd72220840401b1575b184e2bbbb8a980bcb15c3f9ce352cfd5",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/audit_ftmoe_history.cpython-38.pyc",
+      "bytes": 13756,
+      "sha256": "cc3d6df25fcab7ee4981e6a6964d01cb42fe066b11b996799518576c0325a14b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/build_ftmoe_ablation_screening_data.cpython-38.pyc",
+      "bytes": 5717,
+      "sha256": "3d2ab5734f737f63592b6f5ea0929dc7c4078c0b33906208d74ca2a5320a06a6",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/build_ftmoe_formal_dataset.cpython-38.pyc",
+      "bytes": 3942,
+      "sha256": "ec885efc0c8e1c9f8d24c94915a4dcedd39c9b4ba14c2e95939cf3d36517727b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/build_ftmoe_replay_holdout_dataset.cpython-38.pyc",
+      "bytes": 6227,
+      "sha256": "8f292d7850fc7940e18a2558247daf226a1411db22f128259ac6f1133426de49",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/build_ftmoe_tol1_demand_dataset.cpython-38.pyc",
+      "bytes": 3030,
+      "sha256": "56c0294feeff89fe7b86cb0a2e99d4aa9c2db83663af745afd956ac1841d1a22",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/calibrate_ftmoe_validation.cpython-38.pyc",
+      "bytes": 7170,
+      "sha256": "cad482bdd1edebdeadf1d58def01ee6a34813aae00c58b4a87fc7822a3bcc248",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/diagnose_ftmoe_physical.cpython-38.pyc",
+      "bytes": 3553,
+      "sha256": "c00d1d2ffae81e37cb9ba4ded83e67c99952a8899ffb239d21187a7ecc10f52b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/diag_v8_gap.cpython-310.pyc",
+      "bytes": 6584,
+      "sha256": "2958051e86e18eec89ad22f3273933b5a1c7ce13565528c304f16be0025c14cf",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/dump_replay.cpython-38.pyc",
+      "bytes": 6688,
+      "sha256": "12449a765d9ade6d81a30d62ffc11cb9c6054803ed929002e68129c7627c4dc1",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/evaluate_ftmoe_branch_development.cpython-38.pyc",
+      "bytes": 6388,
+      "sha256": "aefa844e58a58b8cdd4c87959bba491d9a285d41968e47ef0adab882e40ce28e",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/evaluate_ftmoe_end_to_end.cpython-38.pyc",
+      "bytes": 14314,
+      "sha256": "56403de26d089ac57370a2eae04b6e6b438a89d73cace063981ead47ee90257d",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/evaluate_ftmoe_final_multireplay.cpython-38.pyc",
+      "bytes": 8424,
+      "sha256": "494a7e825cf1700bf4d870f20a244541b3c9bdff4f30008ab2b296d06467bd43",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/evaluate_ftmoe_formal.cpython-38.pyc",
+      "bytes": 6253,
+      "sha256": "542696c6c08ba7297999f3356fc114b82cd27fc66390666be15dd50a909cb660",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/evaluate_ftmoe_seed17.cpython-38.pyc",
+      "bytes": 6909,
+      "sha256": "d5e89dfa1b63b7a7d6148a8478059176f521220c6c5e8fafc1fee25db4dde1c0",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/evaluate_ftmoe_seed23.cpython-38.pyc",
+      "bytes": 6905,
+      "sha256": "e4f7e6e31138b2d0fbe08ac4c82a6cf1cb22bd4878f3685b7a73e8ccff4f1cd0",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/evaluate_ftmoe_seed31.cpython-38.pyc",
+      "bytes": 6965,
+      "sha256": "a650dd22a0c0d0bcaa33e84925dd13b02276e0fb20ed7d4f75c46a9fdafc6af7",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/eval_holdout.cpython-310.pyc",
+      "bytes": 13129,
+      "sha256": "744b36391172f3079a7f58020627f2b8e7059880b4a613bc0efd4aa3cd53113f",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/eval_holdout.cpython-38.pyc",
+      "bytes": 14253,
+      "sha256": "3d1b23abaa82ac73c2aea3a3adc311b9cd9e25472418a38c009498ad8da4189f",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/eval_replay_detection.cpython-310.pyc",
+      "bytes": 6239,
+      "sha256": "9ae1da13a93e29f65f5610dab570e02a7d65f9c1759a4b0669ff5cd9bc6a24ad",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/gen_expand_final_swap.cpython-310.pyc",
+      "bytes": 13628,
+      "sha256": "2727a9668bed145e6281f31492f1bc69aec1d26f10c0e0260ef9868fef4279d4",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/prepare_ftmoe_end_to_end.cpython-38.pyc",
+      "bytes": 4741,
+      "sha256": "24fcd3d220c2be7be863bd2ad9be22caf8f16d30672c0a51d3ebb166ccf3a43b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/run_chain_overload.cpython-38.pyc",
+      "bytes": 2927,
+      "sha256": "18928fbb471d073a691685050172fa6bdde93dcfe8d9a65cf91df4797ea0686c",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/select_ftmoe_context_pilot.cpython-38.pyc",
+      "bytes": 3441,
+      "sha256": "1380bede0e1fcafab03f3666a7373dd172d20d031cad3ca2d3f36d68b68a739b",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/test_ftmoe_capacity_graph.cpython-38.pyc",
+      "bytes": 2286,
+      "sha256": "3035408743a289a2de9884fed571ee7c162c21554ef8bd725995c7bc4b93fe46",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/train_ftmoe_ablation_existing.cpython-38.pyc",
+      "bytes": 14682,
+      "sha256": "1e32f472a366e1f057201eeabd8dd75d9a6350f27bef3c8dec39b9d3387c3aa2",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/train_ftmoe_ablation_screening.cpython-38.pyc",
+      "bytes": 11327,
+      "sha256": "5e47d9baacc3717726cb5966330c55b9f7a92c7bfb5ad3ed66453e7d6750393e",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/train_ftmoe_end_to_end.cpython-38.pyc",
+      "bytes": 19525,
+      "sha256": "560b02b8ba21756a0d88164cebe77c12c4c4b6552e8ca2b438c2adac8cea4bc2",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/train_progressive_v2.cpython-310.pyc",
+      "bytes": 15320,
+      "sha256": "fc456110c50c572e4a7586d2967c105a3297196853f9ff29a7e55bcb9a895c3a",
+      "reason": "regenerable Python bytecode cache"
+    },
+    {
+      "path": "__pycache__/train_progressive_v2.cpython-38.pyc",
+      "bytes": 15375,
+      "sha256": "df33f0b94303d673e611bdec803a7321cb625db3f3fabe614a8eeffd4bd6655d",
+      "reason": "regenerable Python bytecode cache"
+    }
+  ],
+  "preserved_incomplete_or_partial_resume": [
+    "artifacts\\ftmoe_end_to_end\\runs\\initial_lr0003\\v0_seed1\\resume.pt",
+    "artifacts\\ftmoe_end_to_end\\runs\\initial_lr0003\\v0_seed2\\resume.pt",
+    "artifacts\\ftmoe_end_to_end\\runs\\initial_lr0003\\v0_seed6\\resume.pt",
+    "artifacts\\ftmoe_end_to_end\\runs\\initial_lr0003\\v1_seed1\\resume.pt",
+    "artifacts\\ftmoe_end_to_end\\runs\\initial_lr0003\\v1_seed2\\resume.pt",
+    "artifacts\\ftmoe_end_to_end\\runs\\initial_lr0003\\v1_seed6\\resume.pt",
+    "artifacts\\ftmoe_end_to_end\\runs\\initial_lr0003\\v2_seed1\\resume.pt",
+    "artifacts\\ftmoe_end_to_end\\runs\\initial_lr0003\\v2_seed2\\resume.pt",
+    "artifacts\\ftmoe_end_to_end\\runs\\initial_lr0003\\v2_seed6\\resume.pt",
+    "artifacts\\ftmoe_end_to_end\\runs\\initial_lr0003\\v3_seed1\\resume.pt",
+    "artifacts\\ftmoe_end_to_end\\runs\\initial_lr0003\\v3_seed2\\resume.pt",
+    "artifacts\\ftmoe_end_to_end\\runs\\initial_lr0003\\v3_seed6\\resume.pt",
+    "artifacts\\ftmoe_end_to_end\\runs\\initial_lr0003\\v4_seed1\\resume.pt",
+    "artifacts\\ftmoe_end_to_end\\runs\\initial_lr0003\\v4_seed2\\resume.pt",
+    "artifacts\\ftmoe_end_to_end\\runs\\initial_lr0003\\v4_seed6\\resume.pt",
+    "artifacts\\ftmoe_end_to_end\\runs\\initial_lr001\\v1_seed1\\resume.pt"
+  ],
+  "empty_directories": [
+    "artifacts\\ftmoe_end_to_end\\runs\\physical_lr0003_e30\\source_snapshot\\__pycache__",
+    "simulator\\container\\DiskModels\\__pycache__",
+    "simulator\\container\\RAMModels\\__pycache__",
+    "simulator\\container\\IPSModels\\__pycache__",
+    "framework\\server\\common\\__pycache__",
+    "recovery\\PreGANSrc\\src\\__pycache__",
+    "recovery\\CMODLBSrc\\src\\__pycache__",
+    "simulator\\environment\\__pycache__",
+    "framework\\datacenter\\__pycache__",
+    "simulator\\container\\__pycache__",
+    "metrics\\powermodels\\__pycache__",
+    "scheduler\\BaGTI\\src\\__pycache__",
+    "simulator\\workload\\__pycache__",
+    "framework\\workload\\__pycache__",
+    "framework\\database\\__pycache__",
+    "scheduler\\HGP\\src\\__pycache__",
+    "framework\\server\\__pycache__",
+    "framework\\agent\\__pycache__",
+    "scheduler\\BaGTI\\__pycache__",
+    "framework\\node\\__pycache__",
+    "simulator\\host\\__pycache__",
+    "framework\\task\\__pycache__",
+    "scheduler\\HGP\\__pycache__",
+    "scheduler\\A2C\\__pycache__",
+    "simulator\\__pycache__",
+    "scheduler\\__pycache__",
+    "framework\\__pycache__",
+    "recovery\\__pycache__",
+    "metrics\\__pycache__",
+    "utils\\__pycache__",
+    "stats\\__pycache__",
+    "__pycache__",
+    "torchinductor_Lenovo"
+  ],
+  "protected_files": 7361,
+  "protected_manifest_sha256": "7d9ca76a07be1807c8453f71564aa096976496463a94df18da0a77611eed52a7",
+  "root_markdown_before": {
+    "files": 17,
+    "bytes": 148562
+  }
+}

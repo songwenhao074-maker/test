@@ -1,0 +1,16 @@
+{
+  "deleted_files": 454,
+  "deleted_file_bytes": 270338984,
+  "archive_bytes": 406191,
+  "protected_files_verified": 7361,
+  "all_retained_code_checkpoints_data_metrics_unchanged": true,
+  "root_markdown_before": {
+    "files": 17,
+    "bytes": 148562
+  },
+  "root_markdown_after": {
+    "files": 8,
+    "bytes": 37399
+  },
+  "scope": "Maintenance only; no training, test evaluation, model-selection change, or QoS run."
+}
