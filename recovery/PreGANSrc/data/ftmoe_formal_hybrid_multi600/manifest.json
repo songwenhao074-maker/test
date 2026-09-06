@@ -1,0 +1,99 @@
+{
+  "name": "ftmoe_formal_hybrid_multi600",
+  "shape": {
+    "time_series": [
+      606,
+      112
+    ],
+    "container_demand_series": [
+      606,
+      112
+    ],
+    "schedule_series": [
+      606,
+      16,
+      16
+    ],
+    "labels": [
+      606,
+      16
+    ]
+  },
+  "graph_feature_semantics": [
+    "container_base_ips",
+    "container_ram_size",
+    "container_ram_read",
+    "container_ram_write",
+    "container_disk_size",
+    "container_disk_read",
+    "container_disk_write"
+  ],
+  "label_semantics": {
+    "0": "normal",
+    "1": "CPU capacity violation",
+    "2": "RAM capacity violation",
+    "3": "disk capacity violation"
+  },
+  "simulator_configuration": {
+    "RAM_SCALE": 3.5,
+    "DISK_SCALE": 600.0,
+    "DISK_CAP_SCALE": 0.15,
+    "LOAD_SCALE": 1.5
+  },
+  "replay_order": [
+    42,
+    1,
+    6
+  ],
+  "validation_protocol": {
+    "development_blocks": [
+      42,
+      1
+    ],
+    "train_positions_per_block": [
+      0,
+      162
+    ],
+    "validation_positions_per_block": [
+      162,
+      202
+    ],
+    "locked_test_block": 6
+  },
+  "sources": [
+    {
+      "seed": 42,
+      "directory": "recovery\\PreGANSrc\\data\\qos_overload_formal_multi600_s42",
+      "replay_sha256": "4f94f1bd768f47c6550ba88d8ffb1b7d8737060c51caa3e2b3ddb5752c888a3f",
+      "positive_host_steps": 317,
+      "class_counts": {
+        "1": 115,
+        "2": 154,
+        "3": 48
+      }
+    },
+    {
+      "seed": 1,
+      "directory": "recovery\\PreGANSrc\\data\\qos_overload_formal_multi600_s1",
+      "replay_sha256": "3aaae5b952cf266fc06a64dfea55b91414a18032beb2e278c1f1f975aba01250",
+      "positive_host_steps": 358,
+      "class_counts": {
+        "1": 152,
+        "2": 191,
+        "3": 15
+      }
+    },
+    {
+      "seed": 6,
+      "directory": "recovery\\PreGANSrc\\data\\qos_overload_formal_multi600_s6",
+      "replay_sha256": "48898cbe3cf21b7692caab25314a930333f76b5029f701983a8aaccc27226392",
+      "positive_host_steps": 482,
+      "class_counts": {
+        "1": 252,
+        "2": 109,
+        "3": 121
+      }
+    }
+  ],
+  "warning": "Disk capacity and demand scales are simulator configuration, not post-hoc label edits. Features contain pre-execution container demands; labels contain post-placement physical capacity outcomes."
+}

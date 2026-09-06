@@ -1,0 +1,82 @@
+{
+  "name": "ftmoe_replay_holdout_s17",
+  "block_size": 202,
+  "block_order": [
+    42,
+    1,
+    6,
+    17
+  ],
+  "split": {
+    "training_blocks": [
+      42,
+      1
+    ],
+    "development_validation_block": 6,
+    "locked_final_test_block": 17
+  },
+  "label_policy": {
+    "detection": "simulator overload dilated by one step within each block",
+    "classification": "profile class at nearest exact overload",
+    "threshold_fit_blocks": [
+      42,
+      1
+    ],
+    "percentile": 98,
+    "ram_amplification": 1.5,
+    "disk_amplification": 1.5
+  },
+  "causality": "Container demands and schedules are sampled before simulationStep; overload labels are sampled after placement.  Dilation never crosses a replay boundary.",
+  "sources": [
+    {
+      "seed": 42,
+      "directory": "recovery\\PreGANSrc\\data\\qos_overload_fixed_rs35_s42",
+      "replay_sha256": "4227a88d94180c1cbc5aab119fec9b5e30a345ebc3137fa3fa3624691955c6b1"
+    },
+    {
+      "seed": 1,
+      "directory": "recovery\\PreGANSrc\\data\\qos_overload_fixed_rs35_s1",
+      "replay_sha256": "a966cead5d1902cf6a7b1cef67b18acfa34495b490ce735c175a65b58d2740e2"
+    },
+    {
+      "seed": 6,
+      "directory": "recovery\\PreGANSrc\\data\\qos_overload_fixed_rs35_s6",
+      "replay_sha256": "cddbb52e14dada337c970daa4ed07b2873dac23ef0f27f64c4034c31beb4b256"
+    },
+    {
+      "seed": 17,
+      "directory": "recovery\\PreGANSrc\\data\\qos_overload_formal_rs35_s17",
+      "replay_sha256": "e60a07544fd8db342511c0c56b49b5ce4e83c15dc17e213dbbe3ec3b79a4351a"
+    }
+  ],
+  "array_shapes": {
+    "time_series.npy": [
+      808,
+      112
+    ],
+    "schedule_series.npy": [
+      808,
+      16,
+      16
+    ],
+    "labels_overload.npy": [
+      808,
+      16
+    ],
+    "labels_overload_class.npy": [
+      808,
+      16
+    ],
+    "container_demand_series.npy": [
+      808,
+      112
+    ]
+  },
+  "array_sha256": {
+    "time_series.npy": "9657e2d8dada3bd4b670b58b45787ead70c195ff2090b08cca3beb7c452af40f",
+    "schedule_series.npy": "a07172f9cfb96d49dfa83ff3dd7bede932aa4dc3555448cb5c18295711b2a3ab",
+    "labels_overload.npy": "aa07c9eac7119a9f83cbd4cbe3aee41b87b48e0460c42820b1387fb01ba3c437",
+    "labels_overload_class.npy": "1781da75cbbba1797a96ae54d6643ecf0086f7580b19ff3e1c36a5ce65f0abd9",
+    "container_demand_series.npy": "61415c9f91c4f8a3cafc0d04bb95c6ac99315c1585472403aa119140f9d85758"
+  }
+}

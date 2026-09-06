@@ -1,0 +1,49 @@
+{
+  "name": "ftmoe_tol1_with_demands",
+  "base_dataset": "recovery\\PreGANSrc\\data\\qos_overload_ms_tol1",
+  "base_file_sha256": {
+    "time_series.npy": "0051efa6ff7c8df75b34e28f0ba6f979e35a43c3bbd0ddaa1b1d6f9f42bc7e11",
+    "schedule_series.npy": "1ceda12770fd8175fc216f3db46da96310639c8ebe826bc96d95f7cbe61e7211",
+    "labels_overload.npy": "d2ce29394b7c4c5695e439b2692fe326bebfea0ea697e0cac62b9cdb4fa715a4",
+    "labels_overload_class.npy": "ab1abb3bbe1c67cb42de806cc3e2c3d6f526cbe218589b87d7405c7ba16fb8ee"
+  },
+  "container_demand_shape": [
+    606,
+    112
+  ],
+  "fixed_schedule_replays": [
+    {
+      "seed": 42,
+      "directory": "recovery\\PreGANSrc\\data\\qos_overload_fixed_rs35_s42",
+      "replay_sha256": "4227a88d94180c1cbc5aab119fec9b5e30a345ebc3137fa3fa3624691955c6b1"
+    },
+    {
+      "seed": 1,
+      "directory": "recovery\\PreGANSrc\\data\\qos_overload_fixed_rs35_s1",
+      "replay_sha256": "a966cead5d1902cf6a7b1cef67b18acfa34495b490ce735c175a65b58d2740e2"
+    },
+    {
+      "seed": 6,
+      "directory": "recovery\\PreGANSrc\\data\\qos_overload_fixed_rs35_s6",
+      "replay_sha256": "cddbb52e14dada337c970daa4ed07b2873dac23ef0f27f64c4034c31beb4b256"
+    }
+  ],
+  "simulator_configuration": {
+    "RAM_SCALE": 3.5,
+    "DISK_SCALE": 1.0,
+    "DISK_CAP_SCALE": 1.0,
+    "LOAD_SCALE": 1.5
+  },
+  "split": {
+    "train_positions_per_development_block": [
+      0,
+      162
+    ],
+    "validation_positions_per_development_block": [
+      162,
+      202
+    ],
+    "locked_test_block": 6
+  },
+  "causality": "Graph features are container demands sampled before execution. Schedules are the original decisions. Exact replay labels match the original source before the existing tol1 dilation."
+}

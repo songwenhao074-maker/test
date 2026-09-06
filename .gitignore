@@ -139,10 +139,10 @@ todo.txt
 *.pdf
 graphernew.py
 
-# --- Added for GitHub upload: experiment artifacts & generated data (too large for VCS) ---
+# --- Excluded for GitHub: large artifacts & generated data (dir-level rules only) ---
+# NOTE: recovery/*.py, recovery/PreGANSrc/src|data|checkpointsplus ARE tracked on purpose
 backup/
 artifacts/
-recovery/
-*.ckpt
-*.pt
+recovery/PreGANSrc/checkpoints_qos_overload_ms_tol1/
+recovery/PreGANSrc/plots/
 framework/install_scripts/ssh_keys/
