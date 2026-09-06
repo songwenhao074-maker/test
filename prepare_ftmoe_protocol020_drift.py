@@ -1,27 +1,28 @@
-"""Protocol 020 S4 — data-only capacity scan collector (no model is loaded).
+"""Protocol 020 S5 — fault-mode drift stream collector (capacity phases).
 
-Runs one single-factor capacity axis (cpu / ram / disk) over its
-pre-registered candidate grid (plan §8.4 / §46) on the source-disjoint
-*training* VM cohort and saves, per candidate:
+Collects a single 5-phase stream on one source-disjoint VM cohort:
 
-- stream.npz: host_features, demands, schedules, creation_ids,
-  before/after_placement, after_creation_ids, per-interval capacities
-  [T+1,16,3], post_totals, overload_ratio [T+1,16,3], overload_mask
-  [T+1,16,3] (plan §10), raw dominant labels, per-interval deployment /
-  migration attempt & rejection counts, simulator intervals;
-- manifest.json: profile, cohort, sources + hashes, stream hash,
-  scored class counts, rejection rates, event summary.
+    Phase 0  baseline      (registered from the S4 data-only scan)
+    Phase 1  cpu_fault
+    Phase 2  ram_fault
+    Phase 3  disk_fault
+    Phase 4  cpu_recurrence (same scales as Phase 1)
 
-Candidate grids (registered before any result was inspected):
-    cpu:  RAM=1.00 Disk=0.30  CPU in [0.70, 0.75, 0.80, 0.90, 1.00]
-    ram:  CPU=1.00 Disk=0.30  RAM in [0.30, 0.35, 0.40, 0.45, 0.50, 0.60, 0.75, 1.00]
-    disk: CPU=1.00 RAM =1.00  DISK in [0.17, 0.1875, 0.20, 0.22, 0.25, 0.30]
+At every phase boundary the CapacityController rewrites the live host
+capacity fields (effective-quota interpretation, plan §5.1/§14-A).  The
+change is visible to the scheduler (Scheme B1) and recorded in the stream
+(per-interval capacities + transition events with capacity before/after,
+plan §42).  No model is involved.
 
-The cpu/ram corner candidate (1.00,1.00,0.30) is identical in both families;
-it is collected once under the cpu axis and referenced by the analyzer.
+Phase scales come from the registered drift config
+(artifacts/ftmoe_online/protocol_020/drift/drift_config.json), whose values
+are chosen strictly from the S4 data-only scan report (never from model
+scores).  The per-phase dominance gate (§13) is evaluated by
+analyze_ftmoe_protocol020_drift.py on this stream.
 
 Usage:
-    python prepare_ftmoe_protocol020_capacity_scan.py --axis cpu [--steps 400]
+    python prepare_ftmoe_protocol020_drift.py --seed 500 --cohort dev \
+        [--steps 2000] [--output-root artifacts/ftmoe_online/protocol_020/drift_streams]
 """
 import argparse
 import contextlib
@@ -30,26 +31,15 @@ import json
 import os
 from pathlib import Path
 import random
-import shutil
 import sys
 import time
 import traceback
 
 ROOT = Path(__file__).resolve().parent
-OUT = ROOT / "artifacts/ftmoe_online/protocol_020/capacity_scan"
-ALLOWED_STEPS = {400, 60}  # 60 only via --smoke (validation, excluded from gates)
-ALLOWED_SEEDS = {410}
-COHORT = "train"
-
-GRIDS = {
-    "cpu": {"cpu": [0.70, 0.75, 0.80, 0.90, 1.00],
-            "fixed": {"ram": 1.00, "disk": 0.30}},
-    "ram": {"ram": [0.30, 0.35, 0.40, 0.45, 0.50, 0.60, 0.75, 1.00],
-            "fixed": {"cpu": 1.00, "disk": 0.30}},
-    "disk": {"disk": [0.17, 0.1875, 0.20, 0.22, 0.25, 0.30],
-             "fixed": {"cpu": 1.00, "ram": 1.00}},
-}
-
+OUT = ROOT / "artifacts/ftmoe_online/protocol_020/drift_streams"
+CONFIG_PATH = ROOT / "artifacts/ftmoe_online/protocol_020/drift/drift_config.json"
+ALLOWED_SEEDS = {500, 501}
+ALLOWED_STEPS = {2000}
 RAM_GUARD_GIB = float(os.environ.get("FTMOE020_RAM_GUARD_GIB", "3.0"))
 DISK_GUARD_GIB = 20.0
 
@@ -99,11 +89,8 @@ def guard():
 
 
 def event_summary(labels, steps):
-    """Host-level run-length events of identical dominant fault classes."""
-    scored = labels[:steps]  # [T,16]
-    events, durations = {}, {}
-    for r in (1, 2, 3):
-        durations[r] = []
+    scored = labels[:steps]
+    durations = {r: [] for r in (1, 2, 3)}
     for h in range(16):
         run_class, run_len = 0, 0
         for t in range(steps):
@@ -116,27 +103,31 @@ def event_summary(labels, steps):
                 run_class, run_len = lab, (1 if lab > 0 else 0)
         if run_class > 0 and run_len:
             durations[run_class].append(run_len)
+    out = {}
     for r, values in durations.items():
-        events[r] = {"count": len(values),
-                     "mean_duration": float(sum(values) / len(values))
-                     if values else 0.0,
-                     "p95_duration": float(sorted(values)[
-                         min(len(values) - 1, int(0.95 * len(values)))])
-                     if values else 0.0}
-    return events
+        out[str(r)] = {"count": len(values),
+                       "mean_duration": float(sum(values) / len(values))
+                       if values else 0.0}
+    return out
 
 
-def collect(axis, value, steps, seed, output):
-    if steps not in ALLOWED_STEPS or seed not in ALLOWED_SEEDS:
-        raise ValueError("Unregistered scan steps/seed: %d/%d" % (steps, seed))
-    profile = dict(GRIDS[axis]["fixed"])
-    profile[axis] = float(value)
-    smoke = steps == 60
+def collect(seed, steps, cohort, output):
+    if seed not in ALLOWED_SEEDS:
+        raise ValueError(f"Unregistered drift seed: {seed}")
+    if steps not in ALLOWED_STEPS:
+        raise ValueError(f"Unregistered drift horizon: {steps}")
+    if cohort not in ("train", "dev", "online"):
+        raise ValueError(f"Unknown cohort: {cohort}")
+    if not CONFIG_PATH.is_file():
+        raise FileNotFoundError("Registered drift config missing: %s" % CONFIG_PATH)
+    config = json.loads(CONFIG_PATH.read_text(encoding="utf8"))
+    phase_len = int(config["phase_len"])
+    phases = config["phases"]
+    schedule_len = len(phases)
+    if phase_len * schedule_len != steps:
+        raise ValueError("config phase_len*len(phases) must equal steps")
     if output.exists():
-        if (output / "failure.json").is_file():
-            shutil.rmtree(output)  # stale failed attempt: clean retry
-        else:
-            raise FileExistsError(output)
+        raise FileExistsError(output)
     output.mkdir(parents=True)
     console = sys.stdout
     started = time.perf_counter()
@@ -171,7 +162,7 @@ def collect(axis, value, steps, seed, output):
             np.random.seed(seed)
             torch.manual_seed(seed)
             dc = RPiEdge(16)
-            workload = Protocol020AdaptedBWGD2(1, 1.5, seed, cohort=COHORT)
+            workload = Protocol020AdaptedBWGD2(1, 1.5, seed, cohort=cohort)
             scheduler = GOBIScheduler("energy_latency_16")
             recovery = Recovery()
             stats = Stats(workload, dc, scheduler)
@@ -179,7 +170,8 @@ def collect(axis, value, steps, seed, output):
             env = Simulator(1000, 10000, scheduler, recovery, stats, 16, 300,
                             dc.generateHosts())
             controller = RPiCapacity(env.hostlist)
-            controller.apply(profile["cpu"], profile["ram"], profile["disk"])
+            controller.apply(phases[0]["cpu_scale"], phases[0]["ram_scale"],
+                             phases[0]["disk_scale"])
             initial = workload.generateNewContainers(env.interval)
             deployed = env.addContainersInit(initial)
             decision = scheduler.placement(deployed)
@@ -199,13 +191,32 @@ def collect(axis, value, steps, seed, output):
             creation = before.copy()
             after_creation = before.copy()
             intervals = np.zeros(count, np.int64)
+            phase_ids = np.zeros(count, np.int64)
             deploy_attempts = np.zeros(count, np.int64)
             deploy_rejected = np.zeros(count, np.int64)
             migrate_attempts = np.zeros(count, np.int64)
             migrate_rejected = np.zeros(count, np.int64)
+            transitions = []
+            current_phase = 0
+            current_scales = tuple(controller.current_scales)
             for t in range(count):
                 if t % 50 == 0:
                     guard()
+                phase = min(int(t) // phase_len, schedule_len - 1)
+                if phase != current_phase:
+                    transitions.append({
+                        "interval": t, "from": phases[current_phase]["name"],
+                        "to": phases[phase]["name"],
+                        "capacity_before": [current_scales, caps[t - 1].tolist()],
+                    })
+                    current_phase = phase
+                    scales = (phases[phase]["cpu_scale"], phases[phase]["ram_scale"],
+                              phases[phase]["disk_scale"])
+                    controller.apply(*scales)
+                    current_scales = tuple(controller.current_scales)
+                    transitions[-1]["capacity_after"] = [list(current_scales),
+                                                         controller.current().tolist()]
+                phase_ids[t] = phase
                 caps[t] = controller.current()
                 new = workload.generateNewContainers(env.interval)
                 deployed, destroyed = env.addContainers(new)
@@ -246,10 +257,7 @@ def collect(axis, value, steps, seed, output):
                         continue
                     container = env.containerlist[cid] \
                         if 0 <= cid < len(env.containerlist) else None
-                    if container is None:
-                        # released slot == rejected initial deployment
-                        deploy_rejected[t] += 1
-                    elif container.getHostID() == -1:
+                    if container is None or container.getHostID() == -1:
                         deploy_rejected[t] += 1
                     else:
                         migrate_rejected[t] += 1
@@ -271,8 +279,8 @@ def collect(axis, value, steps, seed, output):
                                      ratio[t].argmax(-1) + 1, 0)
                 stats.saveStats(deployed, migrations, destroyed, selected,
                                 decision, 0)
-                if (t + 1) % 100 == 0:
-                    print(json.dumps({"candidate": output.name,
+                if (t + 1) % 250 == 0:
+                    print(json.dumps({"seed": seed, "cohort": cohort,
                                       "collected": t + 1, "total": count,
                                       "elapsed_seconds": time.perf_counter()
                                       - started}), file=console, flush=True)
@@ -280,12 +288,26 @@ def collect(axis, value, steps, seed, output):
             scored_counts = np.bincount(labels[:steps].ravel(),
                                         minlength=4).tolist()
             events = event_summary(labels, steps)
-            attempted_deploy = int(deploy_attempts.sum())
-            attempted_migrate = int(migrate_attempts.sum())
-            deployment_rejection_rate = float(deploy_rejected.sum() /
-                                              max(attempted_deploy, 1))
-            migration_rejection_rate = float(migrate_rejected.sum() /
-                                             max(attempted_migrate, 1))
+            # per-phase scored class counts (phase p covers
+            # [p*phase_len, (p+1)*phase_len) of the scored horizon)
+            per_phase = []
+            for p, ph in enumerate(phases):
+                seg = labels[p * phase_len:(p + 1) * phase_len]
+                counts = np.bincount(seg.ravel(), minlength=4).tolist()
+                anomalous = int(seg[seg > 0].size)
+                per_phase.append({
+                    "phase": ph["name"], "scales": {k: ph[k] for k in
+                                                    ("cpu_scale", "ram_scale",
+                                                     "disk_scale")},
+                    "raw_class_counts": counts,
+                    "anomalous_hoststeps": anomalous,
+                    "target_share_of_anomalous":
+                        float(counts[[0] + [1, 2, 3][["cpu_fault", "ram_fault",
+                                                     "disk_fault"].index(ph["name"])]
+                              if ph["name"] in ("cpu_fault", "ram_fault",
+                                                "disk_fault") else 0] /
+                              max(anomalous, 1)) if anomalous else 0.0,
+                })
             np.savez_compressed(output / "stream.npz",
                                 host_features=host, demands=demands,
                                 schedules=schedules, raw_labels=labels,
@@ -295,59 +317,62 @@ def collect(axis, value, steps, seed, output):
                                 after_placement=after, creation_ids=creation,
                                 after_creation_ids=after_creation,
                                 simulator_intervals=intervals,
+                                phase_ids=phase_ids,
                                 deploy_attempts=deploy_attempts,
                                 deploy_rejected=deploy_rejected,
                                 migrate_attempts=migrate_attempts,
                                 migrate_rejected=migrate_rejected)
-            sources = [ROOT / "prepare_ftmoe_protocol020_capacity_scan.py",
+            sources = [ROOT / "prepare_ftmoe_protocol020_drift.py",
                        ROOT / "artifacts/ftmoe_online/adapted_bwgd2_016/disk_law.json",
                        ROOT / "artifacts/ftmoe_online/protocol_020/vm_split.json",
-                       scheduler_weight]
+                       CONFIG_PATH, scheduler_weight]
             for base in ("simulator", "scheduler", "metrics", "stats", "utils"):
                 sources.extend(p for p in (ROOT / base).rglob("*.py")
                                if "__pycache__" not in p.parts)
             sources.extend((ROOT / "scheduler/BaGTI").rglob("*.npy"))
             source_hashes = {str(p.relative_to(ROOT)): sha(p)
                              for p in sorted(set(sources))}
-            manifest = {"schema_version": 1, "protocol": "020", "phase": "S4",
-                        "name": "data-only capacity scan candidate",
+            manifest = {"schema_version": 1, "protocol": "020", "phase": "S5",
+                        "name": "capacity-driven fault-mode drift stream",
                         "seed": seed, "steps": steps, "guard_steps": 1,
-                        "smoke": smoke,
-                        "workload": "protocol020_adapted_BWGD2",
-                        "cohort": COHORT,
-                        "cohort_vm_ids": list(workload.possible_indices),
-                        "profile": profile, "axis": axis,
+                        "cohort": cohort, "cohort_vm_ids": list(workload.possible_indices),
+                        "phase_len": phase_len,
+                        "phases": [{"name": p["name"],
+                                    "cpu_scale": p["cpu_scale"],
+                                    "ram_scale": p["ram_scale"],
+                                    "disk_scale": p["disk_scale"]}
+                                   for p in phases],
                         "capacity_control_version": 1,
-                        "controller": "RPiCapacity(apply scales to live hosts)",
                         "interval_seconds": 300, "hosts": 16, "containers": 16,
                         "arrival_mean": 1, "arrival_sigma": 1.5,
                         "recovery": "no_op", "scheduler": "GOBI_energy_latency_16",
-                        "capacities_row0": caps[0].tolist(),
-                        "selected_vm_indices": workload.possible_indices,
+                        "config_sha256": sha(CONFIG_PATH),
+                        "drift_config_sha256": sha(CONFIG_PATH),
                         "raw_class_counts_scored": scored_counts,
+                        "per_phase": per_phase,
                         "events": events,
-                        "deployment_attempts": attempted_deploy,
+                        "transitions": transitions,
+                        "deployment_attempts": int(deploy_attempts.sum()),
                         "deployment_rejected": int(deploy_rejected.sum()),
-                        "deployment_rejection_rate": deployment_rejection_rate,
-                        "migration_attempts": attempted_migrate,
+                        "deployment_rejection_rate":
+                            float(deploy_rejected.sum() / max(deploy_attempts.sum(), 1)),
+                        "migration_attempts": int(migrate_attempts.sum()),
                         "migration_rejected": int(migrate_rejected.sum()),
-                        "migration_rejection_rate": migration_rejection_rate,
+                        "migration_rejection_rate":
+                            float(migrate_rejected.sum() / max(migrate_attempts.sum(), 1)),
                         "source_sha256": source_hashes,
                         "stream_sha256": sha(output / "stream.npz"),
                         "elapsed_seconds": time.perf_counter() - started,
                         "rss_gib": psutil.Process().memory_info().rss / 2**30}
             (output / "manifest.json").write_text(
                 json.dumps(manifest, indent=2) + "\n", encoding="utf8")
-        print(json.dumps({"candidate": output.name, "profile": profile,
+        print(json.dumps({"completed": str(output),
                           "stream_sha256": manifest["stream_sha256"],
-                          "class_counts": scored_counts,
-                          "events": events,
-                          "deployment_rejection_rate": deployment_rejection_rate,
-                          "migration_rejection_rate": migration_rejection_rate,
+                          "per_phase": per_phase,
                           "elapsed_seconds": manifest["elapsed_seconds"]}),
               file=console, flush=True)
     except Exception as exc:
-        failure = {"candidate": output.name, "profile": profile,
+        failure = {"seed": seed, "steps": steps, "cohort": cohort,
                    "error": type(exc).__name__ + ": " + str(exc),
                    "traceback": traceback.format_exc(),
                    "next_action": "Report before any scenario change"}
@@ -359,28 +384,13 @@ def collect(axis, value, steps, seed, output):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--axis", choices=sorted(GRIDS), required=True)
-    parser.add_argument("--steps", type=int, default=400)
-    parser.add_argument("--seed", type=int, default=410)
-    parser.add_argument("--smoke", action="store_true",
-                        help="validation run with 60 steps (excluded from gates)")
-    parser.add_argument("--value", type=float, default=None,
-                        help="single candidate value (only with --smoke)")
+    parser.add_argument("--seed", type=int, default=500)
+    parser.add_argument("--cohort", default="dev")
+    parser.add_argument("--steps", type=int, default=2000)
     parser.add_argument("--output-root", type=Path, default=OUT)
     args = parser.parse_args()
-    steps = 60 if args.smoke else args.steps
-    for value in GRIDS[args.axis][args.axis]:
-        if args.smoke:
-            if args.value is None or abs(value - args.value) > 1e-9:
-                continue
-        label = "%s_%.4g" % (args.axis, value)
-        if args.axis == "disk" and abs(value - 0.1875) < 1e-9:
-            label = "disk_0.1875"
-        output = args.output_root / label / f"seed{args.seed}_steps{steps}"
-        if (output / "manifest.json").exists():
-            print(json.dumps({"skip": str(output)}), flush=True)
-            continue
-        collect(args.axis, value, steps, args.seed, output)
+    output = args.output_root / f"{args.cohort}_seed{args.seed}_steps{args.steps}"
+    collect(args.seed, args.steps, args.cohort, output)
 
 
 if __name__ == "__main__":
