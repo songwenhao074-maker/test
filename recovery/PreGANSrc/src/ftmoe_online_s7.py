@@ -102,6 +102,49 @@ def s7_loss(model, output, labels, detection_weights, resource_weights,
             ranking_weight * ranking)
 
 
+def stratified_draw(buffer_indices, tags_of, rng, exposure, rare_exposure,
+                    uniform_per_update=RECENT_UNIFORM_PER_UPDATE,
+                    event_per_update=EVENT_PER_UPDATE,
+                    max_exposure=MAX_EXPOSURE,
+                    max_rare_exposure=MAX_RARE_EXPOSURE,
+                    total_target=None):
+    """Pure stratified draw over matured interval indices (plan §18.3).
+
+    buffer_indices: iterable of interval indices (deduplicated inside).
+    tags_of(i): set of event tags {'cpu','ram','disk'} for interval i.
+    Draws uniform_per_update intervals with exposure < max_exposure, then
+    event_per_update per event pool from intervals whose rare exposure is
+    < max_rare_exposure; shortfalls are back-filled from the uniform pool
+    (uniform cap only).  Mutates exposure/rare_exposure counters.
+    Returns the ordered drawn list (never larger than total_target).
+    """
+    pool = list(dict.fromkeys(buffer_indices))
+    uniform_pool = [i for i in pool if exposure.get(i, 0) < max_exposure]
+    drawn = []
+    uniform_drawn = rng.sample(uniform_pool,
+                               min(uniform_per_update, len(uniform_pool)))
+    for i in uniform_drawn:
+        exposure[i] = exposure.get(i, 0) + 1
+    drawn.extend(uniform_drawn)
+    for tag in ("cpu", "ram", "disk"):
+        event_pool = [i for i in pool
+                      if i not in drawn and tag in tags_of(i)
+                      and rare_exposure.get(i, 0) < max_rare_exposure]
+        picked = rng.sample(event_pool, min(event_per_update, len(event_pool)))
+        for i in picked:
+            rare_exposure[i] = rare_exposure.get(i, 0) + 1
+        drawn.extend(picked)
+    if total_target is not None and len(drawn) < total_target:
+        remainder = [i for i in pool if i not in drawn
+                     and exposure.get(i, 0) < max_exposure]
+        fill = rng.sample(remainder, min(total_target - len(drawn),
+                                         len(remainder)))
+        for i in fill:
+            exposure[i] = exposure.get(i, 0) + 1
+        drawn.extend(fill)
+    return drawn
+
+
 class S7Session(S4Session):
     """A/B/C session on the v3 input contract with stratified rare-event
     sampling and class-balanced loss v3."""
@@ -152,39 +195,11 @@ class S7Session(S4Session):
             tags.add("disk")
         return tags
 
-    def _draw_uniform(self, count):
-        candidates = [i for i in self.buffer
-                      if self.exposure.get(i, 0) < MAX_EXPOSURE]
-        drawn = self.sample_rng.sample(candidates, min(count, len(candidates)))
-        for i in drawn:
-            self.exposure[i] = self.exposure.get(i, 0) + 1
-        return drawn
-
-    def _draw_event_pool(self, tag, count):
-        candidates = [i for i in self.buffer
-                      if tag in self._interval_tags(i)
-                      and self.rare_exposure.get(i, 0) < MAX_RARE_EXPOSURE]
-        drawn = self.sample_rng.sample(candidates, min(count, len(candidates)))
-        for i in drawn:
-            self.rare_exposure[i] = self.rare_exposure.get(i, 0) + 1
-        return drawn
-
-    def _draw_recent(self, count):  # registered stratified draw
-        uniform = self._draw_uniform(RECENT_UNIFORM_PER_UPDATE)
-        drawn = list(uniform)
-        for tag in ("cpu", "ram", "disk"):
-            picked = self._draw_event_pool(tag, EVENT_PER_UPDATE)
-            drawn.extend(i for i in picked if i not in drawn)
-        # back-fill shortfalls from the uniform pool (exposure <=3 still)
-        if len(drawn) < count:
-            extra = [i for i in self.buffer if i not in drawn
-                     and self.exposure.get(i, 0) < MAX_EXPOSURE]
-            fill = self.sample_rng.sample(extra, min(count - len(drawn),
-                                                     len(extra)))
-            for i in fill:
-                self.exposure[i] = self.exposure.get(i, 0) + 1
-            drawn.extend(fill)
-        return drawn
+    def _draw_recent(self, count):
+        """Registered stratified draw (uniform + cpu/ram/disk event pools)."""
+        return stratified_draw(self.buffer, self._interval_tags, self.sample_rng,
+                               self.exposure, self.rare_exposure,
+                               total_target=count)
 
     def _window(self, index):
         return getattr(self.replay, self.window_fn)(index)
