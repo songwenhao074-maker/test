@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "protocol": "020",
+  "phase": "S5",
+  "kind": "drift",
+  "name": "capacity-driven fault-mode drift stream (5 phases)",
+  "phase_len": 500,
+  "phases": [
+    {
+      "name": "baseline",
+      "cpu_scale": 1.0,
+      "ram_scale": 1.0,
+      "disk_scale": 0.30
+    },
+    {
+      "name": "cpu_fault",
+      "cpu_scale": 0.75,
+      "ram_scale": 1.0,
+      "disk_scale": 0.30
+    },
+    {
+      "name": "ram_fault",
+      "cpu_scale": 1.0,
+      "ram_scale": 0.45,
+      "disk_scale": 0.30
+    },
+    {
+      "name": "disk_fault",
+      "cpu_scale": 1.0,
+      "ram_scale": 1.0,
+      "disk_scale": 0.20
+    },
+    {
+      "name": "cpu_recurrence",
+      "cpu_scale": 0.75,
+      "ram_scale": 1.0,
+      "disk_scale": 0.30
+    }
+  ],
+  "registration": "INITIAL CANDIDATES from plan §47 (pre-registered before the S4 report); final phase scales will be replaced by the S4 data-only scan selections and the change recorded in 指令/FTMOE_PROTOCOL020_PROBLEM_LOG.md before any drift collection."
+}
