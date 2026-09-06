@@ -37,10 +37,54 @@
   - 校验 scale 必须为有限正数，否则 ValueError（防 0/负/NaN 静默破坏容量）。
   - 环境变量缺省时与 Protocol 019 逐位一致（测试 Test 1）。
 - 新增 `test_ftmoe_protocol020_simulator.py`：Test 1（无变量/显式 1.0 = legacy）、
-  Test 2（0.5 → 2147.5/4096.0、8GB:4GB=8192:4295 保持、CPU/Disk 不动）、非法 scale 拒绝。
+  Test 2（0.5 → 2147.5/4096.0、8GB:4GB=8192:4295 保持、CPU/Disk 不动）、非法 scale 拒绝；
+  **5/5 通过**。
 - 注意：此改动只影响 Protocol 020 自己新采集的流；旧 prepare 脚本不设 RAM_CAP_SCALE，行为不变。
-- 下一步：运行 S1 测试 → S1 收尾（overload_ratio/mask 由 P20 采集器实现，随 S4 扫描脚本落地）。
 
----
+### 2026-09-07 — S2：Graph semantics v3 + per-sample capacity
 
-（待续——后续阶段执行中出现的问题按上述规则追加在本文件。）
+- 修改 `recovery/PreGANSrc/src/ftmoe_ablation.py::ScheduleGraphEncoder`：
+  - `graph_migration_and_occupancy` 增加 v3 路径：`graph_context` 携带 `before_placement [B,W,C]`
+    时，每个 window 位置独立解码 `src=before_placement[t,c]`（实际当前 host）→
+    `dst=argmax(proposed schedule[t,c])`，shape [B,W,H,H]；被拒的上一时刻 proposal 不再污染
+    当前源 host（019 §1.5）。无 `before_placement` 时 v2/legacy 路径代码原样保留。
+  - `forward` 容量输入支持 `graph_context['capacities'] [B,W,H,3]`（per-sample），否则回退
+    静态 `host_capacity` buffer（legacy 逐位不变）。
+- 新增 `test_ftmoe_protocol020_graph.py`：Test 5（2→8 边）、Test 6（被拒 8→3 不算 8→3 边）、
+  Test 3（动态容量改变输出）、Test 4（window 切片后未来容量不可泄漏）、未部署槽无迁移边、
+  v2/legacy 一致性——**7/7 通过**。
+- 回归：`test_ftmoe_protocol019_s1.py` 8/8、`test_ftmoe_online.py` 9/9 通过（legacy 无退化）。
+- 注：Replay/window 层的 v3 context 组装（把 before_placement/capacities 切片传入模型）属于
+  P20 自己的 runner（run_ftmoe_protocol020.py 系列），旧 runner 不动。
+
+### 2026-09-07 — S3：VM source-disjoint split
+
+- 新增 `build_ftmoe_protocol020_vm_split.py`（纯原始轨迹统计，无任何模型输出）：
+  - 预登记合格标准：rows≥400、nan<0.2、CPU active ratio≥0.05；扫描 500 个 VM CSV。
+  - 457 个合格 VM；按 (cpu_ips_mean×ram_units_mean) tercile 分层，层内 sha256('p20:v1:<id>')%10：
+    bucket 0-5 train（277）/ 6-7 dev（86）/ 8-9 online（94）；Test 9 不相交断言通过。
+  - 产物：`artifacts/ftmoe_online/protocol_020/vm_split.json`（含 per_vm 统计与分层明细）。
+- 新增 `simulator/workload/BitbrainWorkloadProtocol020.py`（Protocol020AdaptedBWGD2）：
+  - 与 016/019 相同的 demand adapter（cpu clip[2,1860]、ram×2、io=1、synthetic disk law），
+    到达池 = 指定 cohort 的 VM 列表；跳过 BWGD2.__init__ 的全池静态扫描（每次 ~20 s），
+    属性初始化逐项对齐并校验 cohort VM 文件在位。
+
+### 2026-09-07 — S4：data-only capacity scan（进行中）
+
+- 新增 `simulator/environment/RPiCapacity.py`（RPiCapacity controller v1）：
+  - phase/候选容量 = 改写 live host 容量字段（ipsCap/ramCap.size/diskCap.size）；Host available
+    每次现算（Host.py 无缓存）→ 下一次 placement 立即生效；GOBI 对 RAM 容量盲视属预期（实验对象）。
+  - 前置断言：host 必须以物理容量构造（无任何 CAP_SCALE env），防双重缩放。
+- 新增 `prepare_ftmoe_protocol020_capacity_scan.py` + `analyze_ftmoe_protocol020_capacity_scan.py`：
+  - 预登记网格（§46）：cpu∈{0.70,0.75,0.80,0.90,1.00}（RAM1.0/Disk0.30）、
+    ram∈{0.30,…,1.00}（CPU1.0/Disk0.30）、disk∈{0.17,0.1875,0.20,0.22,0.25,0.30}（CPU/RAM1.0）；
+    train cohort、seed 410、400 scored interval（+1 guard）。
+  - 采集器记录 overload_ratio/overload_mask [T+1,16,3]（§10）、per-interval capacities、
+    每 interval deploy/migrate attempt+rejected 计数（decision×executed 差分）、host 级
+    run-length 事件与时长统计。
+  - 分析器按 §9 schema 输出 + §11 预登记门禁（各 ≥150 host-step / ≥30 events / normal 80-95% /
+    deployment<20% / migration<40%）。
+- smoke 验证（60 interval）：cpu0.75 [950 N,5 CPU,5 Disk]、ram0.45 [956 N,4 RAM]，拒绝率低位，
+  方向正确 → 三轴全量扫描（400 interval）已在后台并行启动（cpu×5 / ram×8 / disk×6）。
+- 口径记录：deployment rejection 的"尝试"含被拒容器跨 interval 重试（每 interval 各计一次）；
+  初始部署（t=0 的 addContainersInit）在循环外执行，不计入拒绝统计。
