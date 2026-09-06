@@ -10,12 +10,27 @@
 
 | # | 阶段 | 严重度 | 状态 | 摘要 |
 |---|---|---|---|---|
+| P14 | S4 | 中 | 已修复（一次性线程配置 flag） | 进程内多候选采集时每个候选重复调用 `torch.set_num_interop_threads(1)` → 第 2 个候选 RuntimeError（019 P07 同类）；cpu 轴仅产出 cpu_0.7 一个候选即崩；三个采集器（scan/drift/adaptation）均已加进程级一次性配置保护，重启扫描 |
 | P13 | S4 | 中 | 已处理（改为顺序运行） | 3 个并行扫描进程使可用内存跌破 3.0 GiB RAM guard（2.77/2.76 GiB），cpu/ram/disk 首候选约 t=200–250 中止；已清理失败残留并改为单进程顺序重跑 |
 | — | S0/S1 | — | 进行中 | 2026-09-07 登记 Protocol 020（分支 protocol-020）；S1 RAM_CAP_SCALE 已实现，测试待跑 |
 
 ---
 
 ## 详细记录
+
+### 2026-09-07 — S4 阶段（续）
+
+#### P14. 进程内多候选采集：torch.set_num_interop_threads 二次调用崩溃（019 P07 同类）
+
+- **现象**：顺序扫描重启后 cpu 轴第 1 个候选（cpu_0.7）正常完成（class [6347, 25, 9, 19]），
+  第 2 个候选（cpu_0.75）在 `configure()` 即崩：
+  `RuntimeError: cannot set number of interop threads after parallel work has started`。
+- **原因**：`prepare_ftmoe_protocol020_capacity_scan.py` 的 main() 在**同一进程内**循环多个候选，
+  每个候选调用一次 `configure()`；torch 的 `set_num_interop_threads` 只允许进程级设置一次。
+- **处理**：三个采集器（capacity scan / drift / adaptation episodes）的 `configure()` 全部改为
+  进程级一次性配置（模块 flag `_THREADS_CONFIGURED`，与 019 P07 修复同法）；
+  清理失败残留目录后重启顺序扫描链（后台 pwsh-34）。
+- **经验**：任何"同进程多次进入收集循环"的新采集器必须带该 flag（已加入 P20 工具模板）。
 
 ### 2026-09-07 — S4 阶段
 

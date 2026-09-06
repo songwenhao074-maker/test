@@ -115,16 +115,19 @@ def event_summary(labels, steps):
     return out
 
 
-def collect(seed, steps, cohort, output):
+def collect(seed, steps, cohort, output, config_path=CONFIG_PATH):
     if seed not in ALLOWED_SEEDS:
         raise ValueError(f"Unregistered drift seed: {seed}")
     if steps not in ALLOWED_STEPS:
         raise ValueError(f"Unregistered drift horizon: {steps}")
     if cohort not in ("train", "dev", "online"):
         raise ValueError(f"Unknown cohort: {cohort}")
-    if not CONFIG_PATH.is_file():
-        raise FileNotFoundError("Registered drift config missing: %s" % CONFIG_PATH)
-    config = json.loads(CONFIG_PATH.read_text(encoding="utf8"))
+    if not Path(config_path).is_file():
+        raise FileNotFoundError("Registered config missing: %s" % config_path)
+    config = json.loads(Path(config_path).read_text(encoding="utf8"))
+    kind = config.get("kind", "drift")
+    if kind not in ("drift", "stationary"):
+        raise ValueError("config kind must be drift|stationary")
     phase_len = int(config["phase_len"])
     phases = config["phases"]
     schedule_len = len(phases)
@@ -329,7 +332,7 @@ def collect(seed, steps, cohort, output):
             sources = [ROOT / "prepare_ftmoe_protocol020_drift.py",
                        ROOT / "artifacts/ftmoe_online/adapted_bwgd2_016/disk_law.json",
                        ROOT / "artifacts/ftmoe_online/protocol_020/vm_split.json",
-                       CONFIG_PATH, scheduler_weight]
+                       Path(config_path), scheduler_weight]
             for base in ("simulator", "scheduler", "metrics", "stats", "utils"):
                 sources.extend(p for p in (ROOT / base).rglob("*.py")
                                if "__pycache__" not in p.parts)
@@ -337,7 +340,9 @@ def collect(seed, steps, cohort, output):
             source_hashes = {str(p.relative_to(ROOT)): sha(p)
                              for p in sorted(set(sources))}
             manifest = {"schema_version": 1, "protocol": "020", "phase": "S5",
-                        "name": "capacity-driven fault-mode drift stream",
+                        "name": ("capacity-driven fault-mode drift stream" if kind == "drift"
+                                 else "stationary same-domain stream"),
+                        "kind": kind,
                         "seed": seed, "steps": steps, "guard_steps": 1,
                         "cohort": cohort, "cohort_vm_ids": list(workload.possible_indices),
                         "phase_len": phase_len,
@@ -350,8 +355,8 @@ def collect(seed, steps, cohort, output):
                         "interval_seconds": 300, "hosts": 16, "containers": 16,
                         "arrival_mean": 1, "arrival_sigma": 1.5,
                         "recovery": "no_op", "scheduler": "GOBI_energy_latency_16",
-                        "config_sha256": sha(CONFIG_PATH),
-                        "drift_config_sha256": sha(CONFIG_PATH),
+                        "config_sha256": sha(config_path),
+                        "drift_config_sha256": sha(config_path),
                         "raw_class_counts_scored": scored_counts,
                         "per_phase": per_phase,
                         "events": events,
@@ -391,10 +396,11 @@ def main():
     parser.add_argument("--seed", type=int, default=500)
     parser.add_argument("--cohort", default="dev")
     parser.add_argument("--steps", type=int, default=2000)
+    parser.add_argument("--config", type=Path, default=CONFIG_PATH)
     parser.add_argument("--output-root", type=Path, default=OUT)
     args = parser.parse_args()
     output = args.output_root / f"{args.cohort}_seed{args.seed}_steps{args.steps}"
-    collect(args.seed, args.steps, args.cohort, output)
+    collect(args.seed, args.steps, args.cohort, output, args.config)
 
 
 if __name__ == "__main__":

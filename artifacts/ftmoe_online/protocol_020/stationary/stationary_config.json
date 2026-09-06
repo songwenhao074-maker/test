@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "protocol": "020",
+  "phase": "S9",
+  "kind": "stationary",
+  "name": "stationary same-domain long stream (dev cohort, baseline capacity profile)",
+  "cohort": "dev",
+  "phase_len": 2000,
+  "phases": [
+    {
+      "name": "baseline",
+      "cpu_scale": 1.0,
+      "ram_scale": 1.0,
+      "disk_scale": 0.30
+    }
+  ],
+  "registration": "baseline scales are the S4 scan corner (cpu 1.00 / ram 1.00 / disk 0.30), pre-registered before the S4 report; used for the S7/S9 stationary A/B/C/D comparisons on the source-disjoint dev cohort."
+}
