@@ -1,0 +1,12 @@
+{
+  "training": {
+    "cpu_below186_fraction": 0.38521039603960394,
+    "cpu_at1860_fraction": 0.6147896039603961,
+    "ram_above3000_fraction": 0.04826732673267327
+  },
+  "adapted": {
+    "cpu_below186_fraction": 0.017083333333333332,
+    "cpu_at1860_fraction": 0.38125,
+    "ram_above3000_fraction": 0.015416666666666667
+  }
+}

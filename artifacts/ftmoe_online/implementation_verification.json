@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "legacy_python_files_checked": 370,
+  "changed_legacy_python": [],
+  "protocol014_sources_checked": 105,
+  "protocol014_source_mismatches": [],
+  "core_tests": {
+    "passed": 9,
+    "seconds": 8.476
+  },
+  "reporting_tests": {
+    "passed": 3,
+    "seconds": 4.8
+  },
+  "new_source_sha256": {
+    "prepare_ftmoe_online.py": "2bdc9d5bf187bc87d9cf7301a70c2f7e23c686f924123044e05f265c1f575de4",
+    "run_ftmoe_online.py": "a306d439646067d4e3034588186e45fe233ff8d1ba03657fbaa302cc1ed28e3a",
+    "analyze_ftmoe_online.py": "0b509b05d96402995d9347d22d09f21fa4b542f9f5b42ecf432cbf7c1d0696f4",
+    "run_ftmoe_online_stages.py": "cd80ecdfa55cead93f0a0f26d66c8ec36b06a6778df4e8538647d675c058d5c0",
+    "test_ftmoe_online.py": "b7dbfa53163fadcc90f274c036da00dcb81118236c63d207ab087f1a2a203474",
+    "test_ftmoe_online_reporting.py": "5a623e7e77699ecacd1f17088edab86e75b5a921b1232a1a6fcb1a18a895ad84",
+    "recovery/PreGANSrc/src/ftmoe_online.py": "9c180412230c7d6e7983e4ddfd701b046731cd7fa05c3be0155bee64e786001e"
+  },
+  "validation_scope": "unit/compatibility/resume/reporting checks; native pilot collection stopped by RAM guard; no performance claim",
+  "verified_local": "2026-09-05T17:52:38+0800"
+}

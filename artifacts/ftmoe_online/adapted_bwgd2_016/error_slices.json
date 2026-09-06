@@ -1,0 +1,13 @@
+{
+  "false_positives": 805,
+  "false_positives_host13": 125,
+  "false_positives_on_proposal_affected_hosts": 140,
+  "false_positives_proposed_overload": 142,
+  "proposal_affected_host_steps": 194,
+  "proposed_overload_but_no_raw_actual_overload": 170,
+  "before_host_count_ge3_fraction": 0.009583333333333333,
+  "before_mean_active_containers": 14.36,
+  "after_host_count_ge3_fraction": 0.010833333333333334,
+  "after_mean_active_containers": 15.256666666666666,
+  "training_before_host_count_ge3_fraction": 0.09975247524752476
+}

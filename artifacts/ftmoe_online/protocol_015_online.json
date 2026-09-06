@@ -1,0 +1,23 @@
+{
+  "protocol": "015_native_online",
+  "approved_by_user": true,
+  "approval_date": "2026-09-05",
+  "baseline": "ftmoe_protocol014_accepted_20260905",
+  "checkpoint_selection": "v4 B_best from protocol014 provenance; historical seeds use reassessed per-epoch weights",
+  "methods": {"A": "frozen", "B": "full_parameters_fixed_experts", "C": "moe_only_fixed_experts", "D": "moe_only_dynamic_eagate"},
+  "simulator": {"workload": "BWGD2", "hosts": 16, "containers": 16, "interval_seconds": 300, "arrival_mean": 1, "arrival_sigma": 1.5, "capacity_scales": 1, "scheduler": "GOBI_energy_latency_16", "recovery": "no_op", "artificial_drift": false},
+  "normalization": "checkpoint training statistics; real native capacities supplied equally; reference evaluations use original capacities",
+  "online": {"update_interval": 10, "buffer_intervals": 64, "batch_size": 32, "epochs_per_update": 1, "optimizer": "AdamW", "weight_decay": 0.0001, "gradient_clip": 1, "dropout": 0, "threshold": 0.5, "temperature": "checkpoint value", "label_tolerance": 1, "label_delay_intervals": 1, "loss": [0.7, 0.3, 0.5, 0.01], "detection_class_weights": [0.6, 2.0]},
+  "dynamic": {"initial_experts": 4, "minimum": 2, "maximum": 8, "max_active": 4, "adjust_every_updates": 10, "remove": "zero actual activations in complete recording window", "add": "any unmatched input before fallback; at most one", "new_threshold": 0, "new_key": "normalized mean of latest at most 256 unmatched routing states; separate RNG on zero mean", "preserve_surviving_optimizer_state": true},
+  "pilot": {"model_seeds": [1], "replay_seeds": [301], "steps": 300, "learning_rate": 0.00003, "minimum_normal_samples": 50, "minimum_anomaly_samples": 50},
+  "development": {"model_seeds": [1, 2], "replay_seeds": [301, 302], "steps": 1000, "learning_rates": [0.00001, 0.00003, 0.0001], "selection": "per method equal-pair mean second-half F1; smaller LR on ties"},
+  "confirmation": {"model_seeds": [1, 2, 6, 17, 42], "replay_seeds": [401, 402, 403], "steps": 2000, "runs": 60, "acceptance": "D mean second-half pooled-host F1 >= 0.65 and greater than B; equal weight for all 15 pairs"},
+  "protected_test_seeds": [37, 41, 47, 201, 202, 203, 204, 205],
+  "rolling": {"window": 100, "stride": 10, "no_anomaly": "null F1 with false positives and support disclosed"},
+  "paired_bootstrap": {"axes": ["model_seed", "replay_seed"], "resamples": 5000, "seed": 15001, "comparisons": ["D-B", "D-C"]},
+  "reference_intervals": [0, 500, 1000, 1500, 2000],
+  "checkpoint_interval": 100,
+  "resource_limits": {"cpu_threads": 3, "interop_threads": 1, "dataloader_workers": 0, "priority": "BelowNormal", "minimum_ram_gib": 4.5, "minimum_disk_gib": 20, "serial": true},
+  "stop_and_report": ["simulator error", "label anomaly or insufficient samples", "nonfinite or unstable method", "pilot or development does not show approved advantage", "any proposed simulator, pressure, drift or method change"],
+  "ordinary_degradation": "hypothesis to observe; never a manufactured or guaranteed result"
+}
