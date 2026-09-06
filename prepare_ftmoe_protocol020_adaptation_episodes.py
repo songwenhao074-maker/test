@@ -40,6 +40,7 @@ ALLOWED_TRAIN_SEEDS = {401, 402, 403}
 ALLOWED_DEV_SEEDS = {404, 405}
 RAM_GUARD_GIB = float(os.environ.get("FTMOE020_RAM_GUARD_GIB", "3.0"))
 DISK_GUARD_GIB = 20.0
+_THREADS_CONFIGURED = False  # torch allows set_num_interop_threads only once per process
 
 
 def sha(path):
@@ -58,6 +59,7 @@ def write_json(path, value):
 
 
 def configure():
+    global _THREADS_CONFIGURED
     for name in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS"):
         os.environ[name] = "3"
     for name in ("RAM_SCALE", "DISK_SCALE", "CPU_CAP_SCALE", "DISK_CAP_SCALE",
@@ -68,8 +70,10 @@ def configure():
         os.environ.pop(name, None)
     import torch
     import psutil
-    torch.set_num_threads(3)
-    torch.set_num_interop_threads(1)
+    if not _THREADS_CONFIGURED:  # torch 只允许进程级设置一次（019 P07 同类）
+        torch.set_num_threads(3)
+        torch.set_num_interop_threads(1)
+        _THREADS_CONFIGURED = True
     psutil.Process().nice(psutil.BELOW_NORMAL_PRIORITY_CLASS)
 
 
