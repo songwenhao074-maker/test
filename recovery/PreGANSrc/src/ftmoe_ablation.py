@@ -229,20 +229,53 @@ class ScheduleGraphEncoder(nn.Module):
             self, schedule_windows: torch.Tensor,
             graph_context: dict | None = None
     ) -> tuple[torch.Tensor, torch.Tensor]:
-        """Return (occupancy [B,W,H,1], migrations [B,W-1,H,H]).
+        """Return (occupancy [B,W,H,1], migrations [B,W-1,H,H] | [B,W,H,H]).
 
         Occupancy is the number of *valid* containers scheduled onto each host
         at each window position.  Migrations count container transitions
-        h -> k between consecutive window positions; with graph_context v2
-        only transitions of the same creation identity count.
+        h -> k; with graph_context v2 only transitions of the same creation
+        identity count (consecutive proposed rows).
+
+        Graph semantics v3 (Protocol 020): when graph_context additionally
+        carries ``before_placement`` [B,W,C] int64, each window position is
+        decoded independently from information known *before* the placement
+        decision of that step (plan §6): src = before_placement[t,c] (the
+        actual current host), dst = argmax(proposed_schedule[t,c]).  The
+        result has shape [B,W,H,H].  A rejected previous proposal therefore
+        never pollutes the current source host (019 problem §1.5).
         """
-        previous = schedule_windows[:, :-1]
-        current = schedule_windows[:, 1:]
         eye = torch.eye(
             self.cfg.hosts, dtype=schedule_windows.dtype,
             device=schedule_windows.device,
         ).view(1, 1, self.cfg.hosts, self.cfg.hosts)
-        if graph_context is not None:
+        if graph_context is not None and \
+                graph_context.get("before_placement") is not None:
+            identity = graph_context["creation_ids"]
+            before = graph_context["before_placement"]
+            if identity.ndim != 3 or before.ndim != 3 or \
+                    identity.shape != before.shape or \
+                    identity.shape[:2] != schedule_windows.shape[:2]:
+                raise ValueError(
+                    "graph_context before_placement/creation_ids must have "
+                    "shape [B,W,C] matching schedule_windows"
+                )
+            valid = (identity >= 0).to(schedule_windows.dtype)
+            occupancy = torch.einsum(
+                "btch,btc->bth", schedule_windows, valid
+            ).unsqueeze(-1)
+            host_ids = torch.arange(
+                self.cfg.hosts, device=schedule_windows.device
+            )
+            deployed = ((before >= 0) & (identity >= 0)).to(
+                schedule_windows.dtype
+            )
+            # [B,W,C,H]: one-hot actual source host before the step decision.
+            source = (before.unsqueeze(-1) == host_ids.view(
+                1, 1, 1, self.cfg.hosts
+            )).to(schedule_windows.dtype) * deployed.unsqueeze(-1)
+            # dst one-hot rows are the proposed schedule itself ([B,W,C,H]).
+            migrations = torch.einsum("btch,btck->bthk", source, schedule_windows)
+        elif graph_context is not None:
             identity = graph_context["creation_ids"]
             if identity.ndim != 3 or identity.shape[:2] != (
                     schedule_windows.shape[0], schedule_windows.shape[1]):
@@ -259,6 +292,8 @@ class ScheduleGraphEncoder(nn.Module):
             same_identity = (
                 (previous_identity >= 0) & (previous_identity == current_identity)
             ).to(schedule_windows.dtype)
+            previous = schedule_windows[:, :-1]
+            current = schedule_windows[:, 1:]
             previous_weighted = previous * same_identity.unsqueeze(-1)
             migrations = torch.einsum(
                 "btch,btck->bthk", previous_weighted, current
@@ -267,6 +302,8 @@ class ScheduleGraphEncoder(nn.Module):
             # Legacy v1 semantics: every slot row of the schedule contributes,
             # so occupancy counts scheduled rows and slot replacements between
             # consecutive intervals read as migrations.
+            previous = schedule_windows[:, :-1]
+            current = schedule_windows[:, 1:]
             occupancy = schedule_windows.sum(dim=2).unsqueeze(-1)
             migrations = torch.einsum("btch,btck->bthk", previous, current)
         migrations = migrations * (1.0 - eye)
@@ -291,11 +328,23 @@ class ScheduleGraphEncoder(nn.Module):
         incoming = incoming.expand(-1, self.cfg.window, -1, -1)
         outgoing = outgoing.expand(-1, self.cfg.window, -1, -1)
 
+        if graph_context is not None and \
+                graph_context.get("capacities") is not None:
+            capacity = graph_context["capacities"]
+            if capacity.ndim != 4 or capacity.shape[:3] != scheduled.shape[:3] \
+                    or capacity.shape[3] != 3:
+                raise ValueError(
+                    "graph_context capacities must have shape "
+                    "[B,W,H,3] matching schedule_windows"
+                )
+            capacity = capacity.to(scheduled.dtype)
+        else:
+            # Legacy: a static per-stream capacity buffer ([1,1,H,3]).
+            capacity = self.host_capacity.view(
+                1, 1, self.cfg.hosts, 3
+            ).expand(scheduled.shape[0], self.cfg.window, -1, -1)
         graph_input = torch.cat(
-            [scheduled, occupancy, incoming, outgoing,
-             self.host_capacity.view(1, 1, self.cfg.hosts, 3).expand(
-                 scheduled.shape[0], self.cfg.window, -1, -1
-             )], dim=-1
+            [scheduled, occupancy, incoming, outgoing, capacity], dim=-1
         )
         tokens = F.gelu(self.input_proj(graph_input))
         host_tokens = 0.70 * tokens[:, -1] + 0.30 * tokens.mean(dim=1)
