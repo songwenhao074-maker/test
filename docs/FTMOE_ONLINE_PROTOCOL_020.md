@@ -69,7 +69,7 @@ P20-S10 5 model seeds × 3 source-disjoint streams
 | 阶段 | 状态 | 产出 | 日期 |
 |---|---|---|---|
 | S0 | 完成 | 本文档 + protocol.json + 问题日志（指令/） | 2026-09-07 |
-| S1 | 进行中 | RPiEdge RAM_CAP_SCALE（Test 1/2）+ test_ftmoe_protocol020_simulator.py | 2026-09-07 |
+| S1 | 完成（RAM_CAP_SCALE，Test 1/2 等 5/5 通过；overload_mask/ratio 随 P20 采集器在 S4 工具中落地） | RPiEdge RAM_CAP_SCALE + test_ftmoe_protocol020_simulator.py | 2026-09-07 |
 | S2 | 未开始 | — | — |
 | S3 | 未开始 | — | — |
 | S4 | 未开始 | — | — |

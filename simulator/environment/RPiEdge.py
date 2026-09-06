@@ -47,10 +47,18 @@ class RPiEdge():
 	def generateHosts(self):
 		hosts = []
 		types = ['RPi4B'] * 8 + ['RPi4B8G'] * 8
+		# Protocol 020 capacity control: RAM_CAP_SCALE multiplies the physical
+		# RAM size of every host (heterogeneity between the 4 GB / 8 GB groups
+		# is preserved).  Absent the variable the legacy capacity is untouched
+		# (scale == 1.0), so old protocols reproduce byte-level identical RAM.
+		ram_cap_scale = float(os.environ.get('RAM_CAP_SCALE', '1.0'))
+		if not np.isfinite(ram_cap_scale) or ram_cap_scale <= 0.0:
+			raise ValueError("RAM_CAP_SCALE must be a finite positive number, got %r" %
+							 (os.environ.get('RAM_CAP_SCALE'),))
 		for i in range(self.num_hosts):
 			typeID = types[i]
 			IPS = self.types[typeID]['IPS'] * float(os.environ.get('CPU_CAP_SCALE', '1.0'))
-			Ram = RAM(self.types[typeID]['RAMSize'], self.types[typeID]['RAMRead']*5, self.types[typeID]['RAMWrite']*5)
+			Ram = RAM(self.types[typeID]['RAMSize'] * ram_cap_scale, self.types[typeID]['RAMRead']*5, self.types[typeID]['RAMWrite']*5)
 			disk_cap_scale = float(os.environ.get('DISK_CAP_SCALE', '1.0'))
 			Disk_ = Disk(self.types[typeID]['DiskSize'] * disk_cap_scale, self.types[typeID]['DiskRead']*5, self.types[typeID]['DiskWrite']*10)
 			Bw = Bandwidth(self.types[typeID]['BwUp'], self.types[typeID]['BwDown'])
