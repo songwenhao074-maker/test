@@ -12,10 +12,15 @@ pre-registered candidate grid (plan §8.4 / §46) on the source-disjoint
 - manifest.json: profile, cohort, sources + hashes, stream hash,
   scored class counts, rejection rates, event summary.
 
-Candidate grids (registered before any result was inspected):
-    cpu:  RAM=1.00 Disk=0.30  CPU in [0.70, 0.75, 0.80, 0.90, 1.00]
-    ram:  CPU=1.00 Disk=0.30  RAM in [0.30, 0.35, 0.40, 0.45, 0.50, 0.60, 0.75, 1.00]
-    disk: CPU=1.00 RAM =1.00  DISK in [0.17, 0.1875, 0.20, 0.22, 0.25, 0.30]
+Candidate grids (registered 2026-09-07 before results were inspected;
+Extension 1 added 2026-09-07 after the original grid's measured shortfall,
+see problem log P15 — both selections remain data-only):
+    cpu:  RAM=1.00 Disk=0.30  CPU in [0.40, 0.45, 0.50, 0.55, 0.60, 0.65,
+                                     0.70, 0.75, 0.80, 0.90, 1.00]
+    ram:  CPU=1.00 Disk=0.30  RAM in [0.10, 0.15, 0.20, 0.25, 0.30, 0.35,
+                                     0.40, 0.45, 0.50, 0.60, 0.75, 1.00]
+    disk: CPU=1.00 RAM =1.00  DISK in [0.12, 0.15, 0.17, 0.1875, 0.20,
+                                       0.22, 0.25, 0.30]
 
 The cpu/ram corner candidate (1.00,1.00,0.30) is identical in both families;
 it is collected once under the cpu axis and referenced by the analyzer.
@@ -42,11 +47,18 @@ ALLOWED_SEEDS = {410}
 COHORT = "train"
 
 GRIDS = {
-    "cpu": {"cpu": [0.70, 0.75, 0.80, 0.90, 1.00],
+    # Extension 1 (registered 2026-09-07, problem log P15): the original
+    # plan-§46 grid produced only 0-25 CPU-dominant host-steps per 6400 on the
+    # P20 train cohort (phase projection <=31/8000 vs the 100 floor).  Deeper
+    # scales are data-only probes; the final capacity choice still follows the
+    # pre-registered §11/§13 gates.  Already-completed candidates are skipped
+    # via their manifest.
+    "cpu": {"cpu": [0.70, 0.75, 0.80, 0.90, 1.00, 0.65, 0.60, 0.55, 0.50, 0.45, 0.40],
             "fixed": {"ram": 1.00, "disk": 0.30}},
-    "ram": {"ram": [0.30, 0.35, 0.40, 0.45, 0.50, 0.60, 0.75, 1.00],
+    "ram": {"ram": [0.30, 0.35, 0.40, 0.45, 0.50, 0.60, 0.75, 1.00,
+                    0.25, 0.20, 0.15, 0.10],
             "fixed": {"cpu": 1.00, "disk": 0.30}},
-    "disk": {"disk": [0.17, 0.1875, 0.20, 0.22, 0.25, 0.30],
+    "disk": {"disk": [0.17, 0.1875, 0.20, 0.22, 0.25, 0.30, 0.15, 0.12],
              "fixed": {"cpu": 1.00, "ram": 1.00}},
 }
 
