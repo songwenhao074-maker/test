@@ -38,6 +38,7 @@ import traceback
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "artifacts/ftmoe_online/protocol_020/drift_streams"
 CONFIG_PATH = ROOT / "artifacts/ftmoe_online/protocol_020/drift/drift_config.json"
+SCENARIO_PATH = ROOT / "artifacts/ftmoe_online/protocol_020/adapter/scenario_adapter.json"
 ALLOWED_SEEDS = {500, 501}
 ALLOWED_STEPS = {2000}
 RAM_GUARD_GIB = float(os.environ.get("FTMOE020_RAM_GUARD_GIB", "3.0"))
@@ -169,7 +170,13 @@ def collect(seed, steps, cohort, output, config_path=CONFIG_PATH):
             np.random.seed(seed)
             torch.manual_seed(seed)
             dc = RPiEdge(16)
-            workload = Protocol020AdaptedBWGD2(1, 1.5, seed, cohort=cohort)
+            scenario = json.loads(SCENARIO_PATH.read_text(encoding="utf8"))
+            arrival_mean = float(scenario.get("arrival_mean", 1.0))
+            workload = Protocol020AdaptedBWGD2(arrival_mean, 1.5, seed,
+                                               cohort=cohort,
+                                               adapter=scenario.get("adapter"))
+            scenario_effective = {"arrival_mean": arrival_mean,
+                                  "adapter": dict(workload.adapter)}
             scheduler = GOBIScheduler("energy_latency_16")
             recovery = Recovery()
             stats = Stats(workload, dc, scheduler)
@@ -332,7 +339,7 @@ def collect(seed, steps, cohort, output, config_path=CONFIG_PATH):
             sources = [ROOT / "prepare_ftmoe_protocol020_drift.py",
                        ROOT / "artifacts/ftmoe_online/adapted_bwgd2_016/disk_law.json",
                        ROOT / "artifacts/ftmoe_online/protocol_020/vm_split.json",
-                       Path(config_path), scheduler_weight]
+                       SCENARIO_PATH, Path(config_path), scheduler_weight]
             for base in ("simulator", "scheduler", "metrics", "stats", "utils"):
                 sources.extend(p for p in (ROOT / base).rglob("*.py")
                                if "__pycache__" not in p.parts)
@@ -352,8 +359,10 @@ def collect(seed, steps, cohort, output, config_path=CONFIG_PATH):
                                     "disk_scale": p["disk_scale"]}
                                    for p in phases],
                         "capacity_control_version": 1,
+                        "scenario_adapter": scenario_effective,
+                        "scenario_adapter_sha256": sha(SCENARIO_PATH),
                         "interval_seconds": 300, "hosts": 16, "containers": 16,
-                        "arrival_mean": 1, "arrival_sigma": 1.5,
+                        "arrival_mean": arrival_mean, "arrival_sigma": 1.5,
                         "recovery": "no_op", "scheduler": "GOBI_energy_latency_16",
                         "config_sha256": sha(config_path),
                         "drift_config_sha256": sha(config_path),

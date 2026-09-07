@@ -34,6 +34,7 @@ import traceback
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "artifacts/ftmoe_online/protocol_020/adaptation_data/raw"
 PROFILES_PATH = ROOT / "artifacts/ftmoe_online/protocol_020/adaptation/adaptation_profiles.json"
+SCENARIO_PATH = ROOT / "artifacts/ftmoe_online/protocol_020/adapter/scenario_adapter.json"
 SPLITS = {"train": "train", "dev": "dev"}
 ALLOWED_STEPS = {400}
 ALLOWED_TRAIN_SEEDS = {401, 402, 403}
@@ -151,7 +152,13 @@ def collect_episode(split, profile_key, profile, seed, steps, output):
             np.random.seed(seed)
             torch.manual_seed(seed)
             dc = RPiEdge(16)
-            workload = Protocol020AdaptedBWGD2(1, 1.5, seed, cohort=SPLITS[split])
+            scenario = json.loads(SCENARIO_PATH.read_text(encoding="utf8"))
+            arrival_mean = float(scenario.get("arrival_mean", 1.0))
+            workload = Protocol020AdaptedBWGD2(arrival_mean, 1.5, seed,
+                                               cohort=SPLITS[split],
+                                               adapter=scenario.get("adapter"))
+            scenario_effective = {"arrival_mean": arrival_mean,
+                                  "adapter": dict(workload.adapter)}
             scheduler = GOBIScheduler("energy_latency_16")
             recovery = Recovery()
             stats = Stats(workload, dc, scheduler)
@@ -273,7 +280,7 @@ def collect_episode(split, profile_key, profile, seed, steps, output):
             sources = [ROOT / "prepare_ftmoe_protocol020_adaptation_episodes.py",
                        ROOT / "artifacts/ftmoe_online/adapted_bwgd2_016/disk_law.json",
                        ROOT / "artifacts/ftmoe_online/protocol_020/vm_split.json",
-                       PROFILES_PATH, scheduler_weight]
+                       PROFILES_PATH, SCENARIO_PATH, scheduler_weight]
             for base in ("simulator", "scheduler", "metrics", "stats", "utils"):
                 sources.extend(p for p in (ROOT / base).rglob("*.py")
                                if "__pycache__" not in p.parts)
@@ -286,8 +293,10 @@ def collect_episode(split, profile_key, profile, seed, steps, output):
                         "profile_key": profile_key, "profile": profile,
                         "seed": seed, "steps": steps, "guard_steps": 1,
                         "capacity_control_version": 1,
+                        "scenario_adapter": scenario_effective,
+                        "scenario_adapter_sha256": sha(SCENARIO_PATH),
                         "interval_seconds": 300, "hosts": 16, "containers": 16,
-                        "arrival_mean": 1, "arrival_sigma": 1.5,
+                        "arrival_mean": arrival_mean, "arrival_sigma": 1.5,
                         "recovery": "no_op", "scheduler": "GOBI_energy_latency_16",
                         "cohort_vm_ids": list(workload.possible_indices),
                         "raw_class_counts_scored": scored_counts,

@@ -58,7 +58,8 @@ GRIDS = {
     "ram": {"ram": [0.30, 0.35, 0.40, 0.45, 0.50, 0.60, 0.75, 1.00,
                     0.25, 0.20, 0.15, 0.10],
             "fixed": {"cpu": 1.00, "disk": 0.30}},
-    "disk": {"disk": [0.17, 0.1875, 0.20, 0.22, 0.25, 0.30, 0.15, 0.12],
+    "disk": {"disk": [0.17, 0.1875, 0.20, 0.22, 0.25, 0.30, 0.15, 0.12,
+                      0.35, 0.45, 0.5],
              "fixed": {"cpu": 1.00, "ram": 1.00}},
 }
 
@@ -142,13 +143,14 @@ def event_summary(labels, steps):
     return events
 
 
-def collect(axis, value, steps, seed, output, adapter=None):
+def collect(axis, value, steps, seed, output, adapter=None, arrival_mean=None):
     if steps not in ALLOWED_STEPS or seed not in ALLOWED_SEEDS:
         raise ValueError("Unregistered scan steps/seed: %d/%d" % (steps, seed))
     profile = dict(GRIDS[axis]["fixed"])
     profile[axis] = float(value)
     smoke = steps == 60
     adapter_effective = None
+    arrival_mean_effective = float(arrival_mean) if arrival_mean is not None else 1.0
     if output.exists():
         if (output / "failure.json").is_file():
             shutil.rmtree(output)  # stale failed attempt: clean retry
@@ -188,8 +190,8 @@ def collect(axis, value, steps, seed, output, adapter=None):
             np.random.seed(seed)
             torch.manual_seed(seed)
             dc = RPiEdge(16)
-            workload = Protocol020AdaptedBWGD2(1, 1.5, seed, cohort=COHORT,
-                                               adapter=adapter)
+            workload = Protocol020AdaptedBWGD2(arrival_mean_effective, 1.5, seed,
+                                               cohort=COHORT, adapter=adapter)
             adapter_effective = dict(workload.adapter)
             scheduler = GOBIScheduler("energy_latency_16")
             recovery = Recovery()
@@ -334,6 +336,7 @@ def collect(axis, value, steps, seed, output, adapter=None):
                         "smoke": smoke,
                         "adapter": adapter_effective,
                         "adapter_is_default": adapter is None,
+                        "arrival_mean": arrival_mean_effective,
                         "workload": "protocol020_adapted_BWGD2",
                         "cohort": COHORT,
                         "cohort_vm_ids": list(workload.possible_indices),
@@ -398,18 +401,23 @@ def main():
     parser.add_argument("--disk-mult", type=float, default=None,
                         help="P20 adapter knob: synthetic disk occupancy "
                              "multiplier (default 1.0 = 016 contract)")
+    parser.add_argument("--arrival-mean", type=float, default=None,
+                        help="P20 occupancy knob: container arrivals per "
+                             "interval mean (default 1.0 = 016 contract)")
     args = parser.parse_args()
     steps = 60 if args.smoke else args.steps
     adapter = {key: value for key, value in
                (("cpu_upper", args.cpu_upper), ("ram_mult", args.ram_mult),
                 ("disk_mult", args.disk_mult)) if value is not None}
-    custom = bool(adapter)
+    custom = bool(adapter) or args.arrival_mean is not None
     suffix = ""
     if custom:
         for key, tag in (("cpu_upper", "au"), ("ram_mult", "rm"),
                          ("disk_mult", "dm")):
             if key in adapter:
                 suffix += "_%s%.4g" % (tag, adapter[key])
+        if args.arrival_mean is not None:
+            suffix += "_am%.4g" % args.arrival_mean
     for value in GRIDS[args.axis][args.axis]:
         if args.smoke or custom:
             if args.value is None or abs(value - args.value) > 1e-9:
@@ -422,7 +430,8 @@ def main():
             print(json.dumps({"skip": str(output)}), flush=True)
             continue
         collect(args.axis, value, steps, args.seed, output,
-                adapter=(adapter if custom else None))
+                adapter=(adapter if custom else None),
+                arrival_mean=args.arrival_mean)
 
 
 if __name__ == "__main__":

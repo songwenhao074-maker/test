@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "protocol": "020",
+  "phase": "S4-P17b",
+  "name": "protocol-020 scenario demand profile (direction P17-b)",
+  "registration": "Currently set to the 016 contract defaults.  Final values will be chosen from the P17 data-only adapter probes and this file updated (with a problem-log record) before any S5/S6 collection.",
+  "arrival_mean": 1.0,
+  "arrival_sigma": 1.5,
+  "adapter": {
+    "cpu_lower": 2.0,
+    "cpu_upper": 1860.0,
+    "ram_mult": 2.0,
+    "disk_mult": 1.0
+  }
+}
