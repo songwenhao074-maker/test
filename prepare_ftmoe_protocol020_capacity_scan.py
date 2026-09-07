@@ -142,12 +142,13 @@ def event_summary(labels, steps):
     return events
 
 
-def collect(axis, value, steps, seed, output):
+def collect(axis, value, steps, seed, output, adapter=None):
     if steps not in ALLOWED_STEPS or seed not in ALLOWED_SEEDS:
         raise ValueError("Unregistered scan steps/seed: %d/%d" % (steps, seed))
     profile = dict(GRIDS[axis]["fixed"])
     profile[axis] = float(value)
     smoke = steps == 60
+    adapter_effective = None
     if output.exists():
         if (output / "failure.json").is_file():
             shutil.rmtree(output)  # stale failed attempt: clean retry
@@ -187,7 +188,9 @@ def collect(axis, value, steps, seed, output):
             np.random.seed(seed)
             torch.manual_seed(seed)
             dc = RPiEdge(16)
-            workload = Protocol020AdaptedBWGD2(1, 1.5, seed, cohort=COHORT)
+            workload = Protocol020AdaptedBWGD2(1, 1.5, seed, cohort=COHORT,
+                                               adapter=adapter)
+            adapter_effective = dict(workload.adapter)
             scheduler = GOBIScheduler("energy_latency_16")
             recovery = Recovery()
             stats = Stats(workload, dc, scheduler)
@@ -329,6 +332,8 @@ def collect(axis, value, steps, seed, output):
                         "name": "data-only capacity scan candidate",
                         "seed": seed, "steps": steps, "guard_steps": 1,
                         "smoke": smoke,
+                        "adapter": adapter_effective,
+                        "adapter_is_default": adapter is None,
                         "workload": "protocol020_adapted_BWGD2",
                         "cohort": COHORT,
                         "cohort_vm_ids": list(workload.possible_indices),
@@ -381,22 +386,43 @@ def main():
     parser.add_argument("--smoke", action="store_true",
                         help="validation run with 60 steps (excluded from gates)")
     parser.add_argument("--value", type=float, default=None,
-                        help="single candidate value (only with --smoke)")
+                        help="single candidate value (with --smoke, or with a "
+                             "custom adapter to probe one grid value)")
     parser.add_argument("--output-root", type=Path, default=OUT)
+    parser.add_argument("--cpu-upper", type=float, default=None,
+                        help="P20 adapter knob: CPU demand clip upper bound "
+                             "(default 1860 = 016 contract)")
+    parser.add_argument("--ram-mult", type=float, default=None,
+                        help="P20 adapter knob: RAM demand multiplier "
+                             "(default 2.0 = 016 contract)")
+    parser.add_argument("--disk-mult", type=float, default=None,
+                        help="P20 adapter knob: synthetic disk occupancy "
+                             "multiplier (default 1.0 = 016 contract)")
     args = parser.parse_args()
     steps = 60 if args.smoke else args.steps
+    adapter = {key: value for key, value in
+               (("cpu_upper", args.cpu_upper), ("ram_mult", args.ram_mult),
+                ("disk_mult", args.disk_mult)) if value is not None}
+    custom = bool(adapter)
+    suffix = ""
+    if custom:
+        for key, tag in (("cpu_upper", "au"), ("ram_mult", "rm"),
+                         ("disk_mult", "dm")):
+            if key in adapter:
+                suffix += "_%s%.4g" % (tag, adapter[key])
     for value in GRIDS[args.axis][args.axis]:
-        if args.smoke:
+        if args.smoke or custom:
             if args.value is None or abs(value - args.value) > 1e-9:
                 continue
-        label = "%s_%.4g" % (args.axis, value)
+        label = "%s_%.4g" % (args.axis, value) + suffix
         if args.axis == "disk" and abs(value - 0.1875) < 1e-9:
-            label = "disk_0.1875"
+            label = "disk_0.1875" + suffix
         output = args.output_root / label / f"seed{args.seed}_steps{steps}"
         if (output / "manifest.json").exists():
             print(json.dumps({"skip": str(output)}), flush=True)
             continue
-        collect(args.axis, value, steps, args.seed, output)
+        collect(args.axis, value, steps, args.seed, output,
+                adapter=(adapter if custom else None))
 
 
 if __name__ == "__main__":
