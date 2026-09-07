@@ -148,20 +148,27 @@ def gate_check(entry, horizon):
 
 def axis_table(entries):
     lines = []
-    lines.append("axis value  | norm%  CPU RAM Disk | ev C/R/D | phase-proj C/R/D | dep-rej mig-rej | gate")
+    lines.append("label               | norm%  CPU RAM Disk | ev C/R/D | phase-proj C/R/D | dep-rej mig-rej | gate")
     for e in entries:
         c = e["raw_class_counts"]
         ev = e["event_counts"]
         checks, ok, proj, per_phase = gate_check(e, e["scored_host_steps"])
-        lines.append("%-5s %-5s | %5.1f%% %4d %3d %4d | %3d/%3d/%3d | %4d/%4d/%4d | %6.1f%% %6.1f%% | %s"
-                     % (e["profile"]["axis"], str(e["profile"]["value"]),
-                        e["normal_share"] * 100, c[1], c[2], c[3],
+        lines.append("%-19s | %5.1f%% %4d %3d %4d | %3d/%3d/%3d | %4d/%4d/%4d | %6.1f%% %6.1f%% | %s"
+                     % (e["label"], e["normal_share"] * 100, c[1], c[2], c[3],
                         ev["1"], ev["2"], ev["3"],
                         proj["cpu"], proj["ram"], proj["disk"],
                         e["deployment_rejection_rate"] * 100,
                         e["migration_rejection_rate"] * 100,
                         "PASS" if ok else "FAIL"))
     return "\n".join(lines)
+
+
+def manifest_adapter_default(directory):
+    try:
+        manifest = json.loads((directory / "manifest.json").read_text(encoding="utf8"))
+        return bool(manifest.get("adapter_is_default", True))
+    except Exception:
+        return True
 
 
 def main():
@@ -180,6 +187,9 @@ def main():
                     else "disk"
                 entry["profile"]["axis"] = axis
                 entry["profile"]["value"] = profile.get(axis, 1.0)
+                entry["label"] = directory.name  # e.g. cpu_0.7_au2600
+                entry["adapter_is_default"] = \
+                    manifest_adapter_default(directory)
                 horizon = entry["scored_host_steps"]
                 checks, ok, proj, per_phase = gate_check(entry, horizon)
                 entry["gates"] = checks
@@ -187,7 +197,7 @@ def main():
                 entry["phase_projection_per_8000"] = proj
                 entry["phase_projection_pass"] = per_phase
                 entries.append(entry)
-    entries.sort(key=lambda e: (e["profile"]["axis"], e["profile"]["value"]))
+    entries.sort(key=lambda e: (e["profile"]["axis"], e["label"]))
     report = {"schema_version": 1, "protocol": "020", "phase": "S4",
               "gate_rules": {"normal_share": [NORMAL_MIN, NORMAL_MAX],
                              "fault_hoststep_floor_reference": STEP_FLOOR_REF,
