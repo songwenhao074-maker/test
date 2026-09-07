@@ -43,7 +43,7 @@ class _ScaledMarkovDisk(TrainingMarkovDisk):
 
 class Protocol020AdaptedBWGD2(AdaptedBWGD2):
     def __init__(self, mean, sigma, replay_seed, cohort="train", split_path=SPLIT_PATH,
-                 adapter=None):
+                 adapter=None, disk_law_path=None):
         # Replicate BWGD2.__init__ attribute state WITHOUT the static full-pool
         # CSV scan (range(1, 500) pandas reads); cohort ids are validated below.
         Workload.__init__(self)
@@ -66,7 +66,10 @@ class Protocol020AdaptedBWGD2(AdaptedBWGD2):
         self.cohort = cohort
         self.possible_indices = [int(i) for i in ids]
         self.replay_seed = replay_seed
-        self.disk_law = json.loads(LAW_PATH.read_text(encoding="utf8"))
+        self.disk_law = json.loads(
+            Path(disk_law_path if disk_law_path else LAW_PATH)
+            .read_text(encoding="utf8"))
+        self.disk_law_path = str(Path(disk_law_path if disk_law_path else LAW_PATH))
         merged = dict(DEFAULT_ADAPTER, **(adapter or {}))
         for key in ("cpu_lower", "cpu_upper", "ram_mult", "disk_mult"):
             try:

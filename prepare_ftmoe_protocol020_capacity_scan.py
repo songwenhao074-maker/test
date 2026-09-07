@@ -143,7 +143,8 @@ def event_summary(labels, steps):
     return events
 
 
-def collect(axis, value, steps, seed, output, adapter=None, arrival_mean=None):
+def collect(axis, value, steps, seed, output, adapter=None, arrival_mean=None,
+            disk_law_path=None):
     if steps not in ALLOWED_STEPS or seed not in ALLOWED_SEEDS:
         raise ValueError("Unregistered scan steps/seed: %d/%d" % (steps, seed))
     profile = dict(GRIDS[axis]["fixed"])
@@ -191,7 +192,8 @@ def collect(axis, value, steps, seed, output, adapter=None, arrival_mean=None):
             torch.manual_seed(seed)
             dc = RPiEdge(16)
             workload = Protocol020AdaptedBWGD2(arrival_mean_effective, 1.5, seed,
-                                               cohort=COHORT, adapter=adapter)
+                                               cohort=COHORT, adapter=adapter,
+                                               disk_law_path=disk_law_path)
             adapter_effective = dict(workload.adapter)
             scheduler = GOBIScheduler("energy_latency_16")
             recovery = Recovery()
@@ -337,6 +339,9 @@ def collect(axis, value, steps, seed, output, adapter=None, arrival_mean=None):
                         "adapter": adapter_effective,
                         "adapter_is_default": adapter is None,
                         "arrival_mean": arrival_mean_effective,
+                        "disk_law_path": str(Path(disk_law_path).resolve()
+                                             if disk_law_path else
+                                             Path("artifacts/ftmoe_online/adapted_bwgd2_016/disk_law.json")),
                         "workload": "protocol020_adapted_BWGD2",
                         "cohort": COHORT,
                         "cohort_vm_ids": list(workload.possible_indices),
@@ -404,12 +409,16 @@ def main():
     parser.add_argument("--arrival-mean", type=float, default=None,
                         help="P20 occupancy knob: container arrivals per "
                              "interval mean (default 1.0 = 016 contract)")
+    parser.add_argument("--disk-law", type=Path, default=None,
+                        help="path to a protocol-020 disk law json "
+                             "(default = 016 disk law)")
     args = parser.parse_args()
     steps = 60 if args.smoke else args.steps
     adapter = {key: value for key, value in
                (("cpu_upper", args.cpu_upper), ("ram_mult", args.ram_mult),
                 ("disk_mult", args.disk_mult)) if value is not None}
-    custom = bool(adapter) or args.arrival_mean is not None
+    custom = bool(adapter) or args.arrival_mean is not None or \
+        args.disk_law is not None
     suffix = ""
     if custom:
         for key, tag in (("cpu_upper", "au"), ("ram_mult", "rm"),
@@ -418,6 +427,8 @@ def main():
                 suffix += "_%s%.4g" % (tag, adapter[key])
         if args.arrival_mean is not None:
             suffix += "_am%.4g" % args.arrival_mean
+        if args.disk_law is not None:
+            suffix += "_%s" % args.disk_law.stem.replace("disk_law_p20_", "law")
     for value in GRIDS[args.axis][args.axis]:
         if args.smoke or custom:
             if args.value is None or abs(value - args.value) > 1e-9:
@@ -431,7 +442,7 @@ def main():
             continue
         collect(args.axis, value, steps, args.seed, output,
                 adapter=(adapter if custom else None),
-                arrival_mean=args.arrival_mean)
+                arrival_mean=args.arrival_mean, disk_law_path=args.disk_law)
 
 
 if __name__ == "__main__":
