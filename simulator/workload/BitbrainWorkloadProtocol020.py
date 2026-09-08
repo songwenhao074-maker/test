@@ -25,7 +25,8 @@ SPLIT_PATH = ROOT / "artifacts/ftmoe_online/protocol_020/vm_split.json"
 # 016/019 contract exactly (cpu clip [2,1860], ram x2, disk x1); only this
 # workload subclass reads them.
 DEFAULT_ADAPTER = {
-    "cpu_lower": 2.0, "cpu_upper": 1860.0, "ram_mult": 2.0, "disk_mult": 1.0,
+    "cpu_lower": 2.0, "cpu_upper": 1860.0, "cpu_mult": 1.0,
+    "ram_mult": 2.0, "disk_mult": 1.0,
 }
 
 
@@ -71,7 +72,7 @@ class Protocol020AdaptedBWGD2(AdaptedBWGD2):
             .read_text(encoding="utf8"))
         self.disk_law_path = str(Path(disk_law_path if disk_law_path else LAW_PATH))
         merged = dict(DEFAULT_ADAPTER, **(adapter or {}))
-        for key in ("cpu_lower", "cpu_upper", "ram_mult", "disk_mult"):
+        for key in ("cpu_lower", "cpu_upper", "cpu_mult", "ram_mult", "disk_mult"):
             try:
                 value = float(merged[key])
             except (TypeError, ValueError):
@@ -93,11 +94,13 @@ class Protocol020AdaptedBWGD2(AdaptedBWGD2):
             if not np.isfinite(raw).all() or (raw < 0).any():
                 raise ValueError("Invalid CPU demand")
             ips.ips_list = np.where(
-                raw > 0, np.clip(raw, a["cpu_lower"], a["cpu_upper"]), 0.).tolist()
+                raw > 0, np.clip(raw * a["cpu_mult"], a["cpu_lower"],
+                                 a["cpu_upper"]), 0.).tolist()
             raw_max = float(ips.max_ips)
-            mapped_max = float(np.clip(raw_max, a["cpu_lower"], a["cpu_upper"])) \
+            scaled_max = float(np.clip(raw_max * a["cpu_mult"],
+                                       a["cpu_lower"], a["cpu_upper"])) \
                 if raw_max > 0 else 0.
-            ips.max_ips = max(mapped_max, max(ips.ips_list))
+            ips.max_ips = max(scaled_max, max(ips.ips_list))
             ram.size_list = (np.asarray(ram.size_list, dtype=float)
                              * a["ram_mult"]).tolist()
             ram.read_list = [1.] * len(ram.read_list)

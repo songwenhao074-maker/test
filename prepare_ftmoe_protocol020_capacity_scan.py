@@ -144,11 +144,14 @@ def event_summary(labels, steps):
 
 
 def collect(axis, value, steps, seed, output, adapter=None, arrival_mean=None,
-            disk_law_path=None):
+            disk_law_path=None, profile_override=None):
     if steps not in ALLOWED_STEPS or seed not in ALLOWED_SEEDS:
         raise ValueError("Unregistered scan steps/seed: %d/%d" % (steps, seed))
-    profile = dict(GRIDS[axis]["fixed"])
-    profile[axis] = float(value)
+    if profile_override is not None:
+        profile = dict(profile_override)
+    else:
+        profile = dict(GRIDS[axis]["fixed"])
+        profile[axis] = float(value)
     smoke = steps == 60
     adapter_effective = None
     arrival_mean_effective = float(arrival_mean) if arrival_mean is not None else 1.0
@@ -400,6 +403,9 @@ def main():
     parser.add_argument("--cpu-upper", type=float, default=None,
                         help="P20 adapter knob: CPU demand clip upper bound "
                              "(default 1860 = 016 contract)")
+    parser.add_argument("--cpu-mult", type=float, default=None,
+                        help="P20 adapter knob: CPU demand scaling multiplier "
+                             "applied before the clip (default 1.0)")
     parser.add_argument("--ram-mult", type=float, default=None,
                         help="P20 adapter knob: RAM demand multiplier "
                              "(default 2.0 = 016 contract)")
@@ -412,16 +418,29 @@ def main():
     parser.add_argument("--disk-law", type=Path, default=None,
                         help="path to a protocol-020 disk law json "
                              "(default = 016 disk law)")
+    parser.add_argument("--pc", "--phase-cpu", type=float, default=None)
+    parser.add_argument("--pr", "--phase-ram", type=float, default=None)
+    parser.add_argument("--pd", "--phase-disk", type=float, default=None,
+                        help="combined phase profile override: run one "
+                             "candidate with these exact scales (all three "
+                             "must be given together)")
     args = parser.parse_args()
     steps = 60 if args.smoke else args.steps
     adapter = {key: value for key, value in
-               (("cpu_upper", args.cpu_upper), ("ram_mult", args.ram_mult),
+               (("cpu_upper", args.cpu_upper), ("cpu_mult", args.cpu_mult),
+                ("ram_mult", args.ram_mult),
                 ("disk_mult", args.disk_mult)) if value is not None}
     custom = bool(adapter) or args.arrival_mean is not None or \
-        args.disk_law is not None
+        args.disk_law is not None or args.pc is not None
+    phase_profile = None
+    if args.pc is not None:
+        if args.pr is None or args.pd is None:
+            raise ValueError("--pc/--pr/--pd must be given together")
+        phase_profile = {"cpu": args.pc, "ram": args.pr, "disk": args.pd}
     suffix = ""
     if custom:
-        for key, tag in (("cpu_upper", "au"), ("ram_mult", "rm"),
+        for key, tag in (("cpu_upper", "au"), ("cpu_mult", "cm"),
+                         ("ram_mult", "rm"),
                          ("disk_mult", "dm")):
             if key in adapter:
                 suffix += "_%s%.4g" % (tag, adapter[key])
@@ -429,6 +448,17 @@ def main():
             suffix += "_am%.4g" % args.arrival_mean
         if args.disk_law is not None:
             suffix += "_%s" % args.disk_law.stem.replace("disk_law_p20_", "law")
+    if phase_profile is not None:
+        label = "phase_%s_%s_%s" % (args.pc, args.pr, args.pd) + suffix
+        output = args.output_root / label / f"seed{args.seed}_steps{steps}"
+        if (output / "manifest.json").exists():
+            print(json.dumps({"skip": str(output)}), flush=True)
+            return
+        collect(args.axis, 0.0, steps, args.seed, output,
+                adapter=(adapter if custom else None),
+                arrival_mean=args.arrival_mean, disk_law_path=args.disk_law,
+                profile_override=phase_profile)
+        return
     for value in GRIDS[args.axis][args.axis]:
         if args.smoke or custom:
             if args.value is None or abs(value - args.value) > 1e-9:
