@@ -308,6 +308,7 @@ def collect(seed, steps, cohort, output, config_path=CONFIG_PATH):
             events = event_summary(labels, steps)
             # per-phase scored class counts (phase p covers
             # [p*phase_len, (p+1)*phase_len) of the scored horizon)
+            fault_index = {"cpu_fault": 1, "ram_fault": 2, "disk_fault": 3}
             per_phase = []
             for p, ph in enumerate(phases):
                 seg = labels[p * phase_len:(p + 1) * phase_len]
@@ -319,12 +320,10 @@ def collect(seed, steps, cohort, output, config_path=CONFIG_PATH):
                                                      "disk_scale")},
                     "raw_class_counts": counts,
                     "anomalous_hoststeps": anomalous,
-                    "target_share_of_anomalous":
-                        float(counts[[0] + [1, 2, 3][["cpu_fault", "ram_fault",
-                                                     "disk_fault"].index(ph["name"])]
-                              if ph["name"] in ("cpu_fault", "ram_fault",
-                                                "disk_fault") else 0] /
-                              max(anomalous, 1)) if anomalous else 0.0,
+                                        "target_share_of_anomalous":
+                        float(counts[fault_index[ph["name"]]] /
+                              max(anomalous, 1))
+                        if anomalous and ph["name"] in fault_index else None,
                 })
             np.savez_compressed(output / "stream.npz",
                                 host_features=host, demands=demands,
