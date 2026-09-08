@@ -35,7 +35,9 @@
 
 | # | 阶段 | 严重度 | 状态 | 摘要 |
 |---|---|---|---|---|
-| P21 | S5 | 高 | 已记录（CPU/RAM 双相位结构性互斥，等用户定夺） | "单全局画像 + 仅容量相位变化"约束下的漂移流 iter-2（dev seed500）：RAM 190/100% ✓、Disk 277/90% ✓、recurrence 44/77% ✓、cpu_fault 25 vs RAM 噪声 28（share 47.2%，非 top1）✗。追加探测证明互斥：ram_upper 钳位（1400/1900）可把 CPU 相位噪声清零（39/0/1）但 RAM 相位事件同步归零（1/6400，RAM 引擎=大 RAM tail 容器，与噪声同源）；不钳位则噪声 12–35 与 CPU 信号 25–44 同方差 → **CPU-dominant 与 RAM-dominant 两相位无法在容量-only 单画像下同时成立**（§13.1 命名规则禁止把 CPU 非 top1 相位叫 cpu_fault） |
+| P23 | S5 | 低 | ✅ **PASS（dev drift v4）** | 漂移流 v4（dev seed500×2000，config v4）全部门禁通过：dep 18.7%（≤25）、mig 30.9%（≤40）；相位 baseline 3 / cpu_fault 43·share100% / ram_fault 173·97.2% / disk_fault 226·90.4% / cpu_recurrence 40·88.9% —— 数据层（S1–S5）打通，进入 S6 |
+| P22 | S5 | 中 | 已解决 | train/dev cohort 需求分布差异：drift(dev) 中 ram 相位部署墙 89.5%（train 探测 22.5% 不适用）；dev 探测定位 → RAM 相位 (1,0.55,0.9)+ru2400：dep 20.2%、RAM 212/6400 |
+| P21 | S5 | 高 | 已解决（用户选 α） | 容量-only 单画像下 CPU/RAM 双相位互斥（RAM tail 同源噪声 12–35 vs CPU 信号 25–44）→ 用户批准 α：允许相位级需求画像（covariate+fault 混合漂移，报告中声明降级）→ S5 v3/v4 全通 |
 | P20 | S5 | 中 | 已登记（CPU 类相位 share 45%）后被 P21 取代 | cpu_fault 相位 share 47.2%（RAM 噪声 28>CPU 25）→ share 下限改 45% 仍不满足 top1 臂 → P21 |
 | P19 | S4(方向b2) | 高 | 已记录（CPU 结构性上限，用户选 i：下限 25） | ~45 探测后：RAM/Disk 相位可构造；CPU 主导率上限 ~0.9% 且剧烈摆动 → 用户选 (i)：CPU 下限 25 + 弱模式如实报告 |
 | P18 | S4(方向b) | 高 | 已记录（(b) 探测穷尽，用户选 b2） | (b) 21 个额外探测后：RAM 可构造；CPU 机制上限 ≈60/8000；Disk 拒绝门内仅 ~20/8000 → 用户 2026-09-08 选择 b2（磁盘 law 手术 + 非对称下限：CPU≥50/RAM≥100/Disk≥60） |
