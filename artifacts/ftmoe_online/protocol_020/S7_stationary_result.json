@@ -1,0 +1,65 @@
+{
+ "protocol": "020",
+ "phase": "S7-stationary",
+ "stream": "dev_seed501_steps2000",
+ "methods": {
+  "A": {
+   "second_half_f1": 0.10397553516819572,
+   "second_half_pr_auc": 0.08457334847321897,
+   "full_f1": 0.10526315789473684,
+   "full_pr_auc": 0.12700393545445612,
+   "gate_full": {
+    "fpr": 0.03302005012531328,
+    "roc_auc": 0.9814771303258146,
+    "brier": 0.0236788516619959,
+    "ece": 0.04083294707415917,
+    "positive_rate": 0.0025
+   },
+   "anchor_last_f1": 0.4651090508667235,
+   "updates": 0,
+   "exposure": null,
+   "rare_exposure": null,
+   "exposure_violations": 0
+  },
+  "B": {
+   "second_half_f1": 0.1407035175879397,
+   "second_half_pr_auc": 0.09643085469480263,
+   "full_f1": 0.13381123058542413,
+   "full_pr_auc": 0.13204731364350422,
+   "gate_full": {
+    "fpr": 0.021961152882205515,
+    "roc_auc": 0.9833352913533834,
+    "brier": 0.016235568734085118,
+    "ece": 0.03027985031576827,
+    "positive_rate": 0.0025
+   },
+   "anchor_last_f1": 0.4701216745841492,
+   "updates": 200,
+   "exposure": 3,
+   "rare_exposure": 5,
+   "exposure_violations": 0
+  },
+  "C": {
+   "second_half_f1": 0.13157894736842105,
+   "second_half_pr_auc": 0.0979862791618596,
+   "full_f1": 0.12719298245614036,
+   "full_pr_auc": 0.13487545250255434,
+   "gate_full": {
+    "fpr": 0.02424812030075188,
+    "roc_auc": 0.9834339755639098,
+    "brier": 0.01786438706776923,
+    "ece": 0.032536467078840364,
+    "positive_rate": 0.0025
+   },
+   "anchor_last_f1": 0.47517663391301773,
+   "updates": 200,
+   "exposure": 3,
+   "rare_exposure": 5,
+   "exposure_violations": 0
+  }
+ },
+ "gates": {
+  "C_pr_auc_ge_A_minus_0.02": true,
+  "anchor_drop_within_0.03": true
+ }
+}
