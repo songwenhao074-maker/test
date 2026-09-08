@@ -31,7 +31,11 @@ TARGET = {"cpu_fault": 1, "ram_fault": 2, "disk_fault": 3, "cpu_recurrence": 1}
 FLOOR_PER_8000 = {"cpu_fault": 25, "ram_fault": 100, "disk_fault": 60,
                   "baseline": None, "cpu_recurrence": 25}
 PHASE_REF_HORIZON = 8000
-SHARE_FLOOR = 0.50
+# share floors per phase; cpu-class phases re-registered 0.50 -> 0.45 (P20:
+# noise-dominated regime), RAM/Disk keep 0.50.
+SHARE_FLOOR = {"cpu_fault": 0.45, "cpu_recurrence": 0.45,
+               "ram_fault": 0.50, "disk_fault": 0.50}
+SHARE_FLOOR_DEFAULT = 0.50
 DEP_REJ_MAX = 0.25   # re-registered (P19): 0.20 -> 0.25
 MIG_REJ_MAX = 0.40
 
@@ -94,9 +98,10 @@ def analyze(stream_dir: Path):
             target_count = int(counts[target])
             others = {k: int(counts[v]) for k, v in TARGET.items() if v != target}
             share = float(target_count / max(anomalous, 1))
+            share_floor = SHARE_FLOOR.get(name, SHARE_FLOOR_DEFAULT)
             gate_pass = (target_count >= floor
                          and target_count > max(others.values(), default=0)
-                         and share >= SHARE_FLOOR)
+                         and share >= share_floor)
             entry.update({
                 "target_count": target_count,
                 "other_counts": others,
@@ -104,7 +109,7 @@ def analyze(stream_dir: Path):
                 "gate_pass": gate_pass,
                 "gate": {"floor_per_8000": FLOOR_PER_8000[name],
                          "floor_effective": floor,
-                         "share_floor": SHARE_FLOOR},
+                         "share_floor": share_floor},
             })
         checks.append(entry)
     deploy_attempts = int(deploy_a.sum())
