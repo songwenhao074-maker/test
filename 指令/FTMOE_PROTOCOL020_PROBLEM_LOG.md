@@ -35,7 +35,8 @@
 
 | # | 阶段 | 严重度 | 状态 | 摘要 |
 |---|---|---|---|---|
-| P20 | S5 | 中 | 已登记（CPU 类相位 share 45%） | 漂移流 iter-2（dev seed500, rm1.8, 非disk相位 disk0.9）：RAM 190/100%、Disk 277/90%、recurrence 44/77% ✓；cpu_fault 相位 CPU 25 ≥ 门 20 但 RAM 满容量噪声 28 → share 47.2% <50%（同配置 recurrence 相位 77%——CPU 相位处于噪声主导区，count 与排序达标但 share 在 47–77% 间随机翻转）→ CPU 类相位（cpu_fault/cpu_recurrence）share 下限重登记 0.45，RAM/Disk 相位保持 0.50；如实报告弱检验力 |
+| P21 | S5 | 高 | 已记录（CPU/RAM 双相位结构性互斥，等用户定夺） | "单全局画像 + 仅容量相位变化"约束下的漂移流 iter-2（dev seed500）：RAM 190/100% ✓、Disk 277/90% ✓、recurrence 44/77% ✓、cpu_fault 25 vs RAM 噪声 28（share 47.2%，非 top1）✗。追加探测证明互斥：ram_upper 钳位（1400/1900）可把 CPU 相位噪声清零（39/0/1）但 RAM 相位事件同步归零（1/6400，RAM 引擎=大 RAM tail 容器，与噪声同源）；不钳位则噪声 12–35 与 CPU 信号 25–44 同方差 → **CPU-dominant 与 RAM-dominant 两相位无法在容量-only 单画像下同时成立**（§13.1 命名规则禁止把 CPU 非 top1 相位叫 cpu_fault） |
+| P20 | S5 | 中 | 已登记（CPU 类相位 share 45%）后被 P21 取代 | cpu_fault 相位 share 47.2%（RAM 噪声 28>CPU 25）→ share 下限改 45% 仍不满足 top1 臂 → P21 |
 | P19 | S4(方向b2) | 高 | 已记录（CPU 结构性上限，用户选 i：下限 25） | ~45 探测后：RAM/Disk 相位可构造；CPU 主导率上限 ~0.9% 且剧烈摆动 → 用户选 (i)：CPU 下限 25 + 弱模式如实报告 |
 | P18 | S4(方向b) | 高 | 已记录（(b) 探测穷尽，用户选 b2） | (b) 21 个额外探测后：RAM 可构造；CPU 机制上限 ≈60/8000；Disk 拒绝门内仅 ~20/8000 → 用户 2026-09-08 选择 b2（磁盘 law 手术 + 非对称下限：CPU≥50/RAM≥100/Disk≥60） |
 | P17 | S4(恢复) | 中 | 已登记方向 (b)，执行中（v1/v2 探测完成，P18 判定） | 用户"继续任务"→ 方向 (b)：P20 专用 demand adapter（cpu_upper/ram_mult/disk_mult/arrival_mean），默认=016 契约；探测 21 候选 data-only |
