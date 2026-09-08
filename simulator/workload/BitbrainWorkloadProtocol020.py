@@ -26,7 +26,7 @@ SPLIT_PATH = ROOT / "artifacts/ftmoe_online/protocol_020/vm_split.json"
 # workload subclass reads them.
 DEFAULT_ADAPTER = {
     "cpu_lower": 2.0, "cpu_upper": 1860.0, "cpu_mult": 1.0,
-    "ram_mult": 2.0, "disk_mult": 1.0,
+    "ram_mult": 2.0, "ram_upper": None, "disk_mult": 1.0,
 }
 
 
@@ -80,6 +80,31 @@ class Protocol020AdaptedBWGD2(AdaptedBWGD2):
             if not np.isfinite(value) or value <= 0:
                 raise ValueError("adapter %s must be finite positive: %r"
                                  % (key, value))
+        if merged.get("ram_upper") is not None:
+            merged["ram_upper"] = float(merged["ram_upper"])
+            if not np.isfinite(merged["ram_upper"]) or merged["ram_upper"] <= 0:
+                raise ValueError("adapter ram_upper invalid: %r"
+                                 % (merged.get("ram_upper"),))
+        self.adapter = merged
+
+    def set_adapter(self, adapter):
+        """Phase-level demand-profile switch (P21-alpha): re-validates and
+        replaces the adapter for tasks that arrive from now on.  Already
+        adapted tasks keep the profile they arrived under."""
+        merged = dict(DEFAULT_ADAPTER, **(adapter or {}))
+        for key in ("cpu_lower", "cpu_upper", "cpu_mult", "ram_mult", "disk_mult"):
+            try:
+                value = float(merged[key])
+            except (TypeError, ValueError):
+                raise ValueError("Invalid adapter %s=%r" % (key, merged.get(key)))
+            if not np.isfinite(value) or value <= 0:
+                raise ValueError("adapter %s must be finite positive: %r"
+                                 % (key, value))
+        if merged.get("ram_upper") is not None:
+            merged["ram_upper"] = float(merged["ram_upper"])
+            if not np.isfinite(merged["ram_upper"]) or merged["ram_upper"] <= 0:
+                raise ValueError("adapter ram_upper invalid: %r"
+                                 % (merged.get("ram_upper"),))
         self.adapter = merged
 
     def adapt_new_tasks(self, first):
@@ -101,8 +126,10 @@ class Protocol020AdaptedBWGD2(AdaptedBWGD2):
                                        a["cpu_lower"], a["cpu_upper"])) \
                 if raw_max > 0 else 0.
             ips.max_ips = max(scaled_max, max(ips.ips_list))
-            ram.size_list = (np.asarray(ram.size_list, dtype=float)
-                             * a["ram_mult"]).tolist()
+            ram_scaled = np.asarray(ram.size_list, dtype=float) * a["ram_mult"]
+            if a.get("ram_upper") is not None:
+                ram_scaled = np.minimum(ram_scaled, a["ram_upper"])
+            ram.size_list = ram_scaled.tolist()
             ram.read_list = [1.] * len(ram.read_list)
             ram.write_list = [1.] * len(ram.write_list)
             disk = _ScaledMarkovDisk(self.disk_law, self.replay_seed, cid,

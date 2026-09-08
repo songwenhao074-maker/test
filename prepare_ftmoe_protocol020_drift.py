@@ -190,6 +190,13 @@ def collect(seed, steps, cohort, output, config_path=CONFIG_PATH):
             controller = RPiCapacity(env.hostlist)
             controller.apply(phases[0]["cpu_scale"], phases[0]["ram_scale"],
                              phases[0]["disk_scale"])
+            base_adapter = dict(scenario.get("adapter") or {})
+            phase_profiles = []
+            for p in range(len(phases)):
+                merged = dict(base_adapter)
+                merged.update(phases[p].get("adapter") or {})
+                phase_profiles.append(merged)
+            workload.set_adapter(phase_profiles[0])  # phase-level demand profile
             initial = workload.generateNewContainers(env.interval)
             deployed = env.addContainersInit(initial)
             decision = scheduler.placement(deployed)
@@ -231,9 +238,12 @@ def collect(seed, steps, cohort, output, config_path=CONFIG_PATH):
                     scales = (phases[phase]["cpu_scale"], phases[phase]["ram_scale"],
                               phases[phase]["disk_scale"])
                     controller.apply(*scales)
+                    workload.set_adapter(phase_profiles[phase])
                     current_scales = tuple(controller.current_scales)
                     transitions[-1]["capacity_after"] = [list(current_scales),
                                                          controller.current().tolist()]
+                    transitions[-1]["demand_profile_after"] = dict(
+                        workload.adapter)
                 phase_ids[t] = phase
                 caps[t] = controller.current()
                 new = workload.generateNewContainers(env.interval)
@@ -361,8 +371,9 @@ def collect(seed, steps, cohort, output, config_path=CONFIG_PATH):
                         "phases": [{"name": p["name"],
                                     "cpu_scale": p["cpu_scale"],
                                     "ram_scale": p["ram_scale"],
-                                    "disk_scale": p["disk_scale"]}
-                                   for p in phases],
+                                    "disk_scale": p["disk_scale"],
+                                    "adapter": phase_profiles[i]}
+                                   for i, p in enumerate(phases)],
                         "capacity_control_version": 1,
                         "scenario_adapter": scenario_effective,
                         "scenario_adapter_sha256": sha(SCENARIO_PATH),

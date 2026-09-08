@@ -1,16 +1,17 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "protocol": "020",
-  "phase": "S4-final",
-  "name": "protocol-020 scenario demand profile (FINAL, P19-b decision)",
-  "registration": "v3 (2026-09-08): ram_mult 2.0 -> 1.8 to reduce full-cap RAM noise in CPU phases (drift share 45.7%<50%); disk law p20-ls unchanged.  Phase capacity scales live in drift/drift_config.json.",
+  "phase": "S5-alpha",
+  "name": "protocol-020 base scenario demand profile (P21-alpha)",
+  "registration": "v4 (2026-09-08): per-phase demand profiles allowed (user decision P21-alpha, covariate+fault mixed drift documented); this file holds the BASE profile (016 contract, disk law p20-ls); per-phase adapter overrides live in drift/drift_config.json phases[].adapter.",
   "arrival_mean": 1.0,
   "arrival_sigma": 1.5,
   "adapter": {
     "cpu_lower": 2.0,
     "cpu_upper": 1860.0,
     "cpu_mult": 1.0,
-    "ram_mult": 1.8,
+    "ram_mult": 2.0,
+    "ram_upper": null,
     "disk_mult": 1.0
   },
   "disk_law_relative": "artifacts/ftmoe_online/protocol_020/disk_law_p20_ls.json"
