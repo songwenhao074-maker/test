@@ -1,0 +1,170 @@
+{
+  "stream": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\drift_streams\\dev_seed500_steps2000",
+  "stream_sha256": "4a275b3bc3e90b991780f0ea2de1f0841380d1978fe64f483523b0761762793b",
+  "cohort": "dev",
+  "seed": 500,
+  "per_phase": [
+    {
+      "phase": "baseline",
+      "interval": [
+        0,
+        400
+      ],
+      "raw_class_counts": [
+        6397,
+        3,
+        0,
+        0
+      ],
+      "tolerance_class_counts": [
+        6395,
+        5,
+        0,
+        0
+      ],
+      "anomalous_hoststeps": 3,
+      "gate": null,
+      "gate_pass": true
+    },
+    {
+      "phase": "cpu_fault",
+      "interval": [
+        400,
+        800
+      ],
+      "raw_class_counts": [
+        6357,
+        43,
+        0,
+        0
+      ],
+      "tolerance_class_counts": [
+        6329,
+        71,
+        0,
+        0
+      ],
+      "anomalous_hoststeps": 43,
+      "target_count": 43,
+      "other_counts": {
+        "ram_fault": 0,
+        "disk_fault": 0
+      },
+      "target_share_of_anomalous": 1.0,
+      "gate_pass": true,
+      "gate": {
+        "floor_per_8000": 25,
+        "floor_effective": 20,
+        "share_floor": 0.45
+      }
+    },
+    {
+      "phase": "ram_fault",
+      "interval": [
+        800,
+        1200
+      ],
+      "raw_class_counts": [
+        6222,
+        5,
+        173,
+        0
+      ],
+      "tolerance_class_counts": [
+        6100,
+        13,
+        287,
+        0
+      ],
+      "anomalous_hoststeps": 178,
+      "target_count": 173,
+      "other_counts": {
+        "cpu_fault": 5,
+        "disk_fault": 0,
+        "cpu_recurrence": 5
+      },
+      "target_share_of_anomalous": 0.9719101123595506,
+      "gate_pass": true,
+      "gate": {
+        "floor_per_8000": 100,
+        "floor_effective": 80,
+        "share_floor": 0.5
+      }
+    },
+    {
+      "phase": "disk_fault",
+      "interval": [
+        1200,
+        1600
+      ],
+      "raw_class_counts": [
+        6150,
+        1,
+        23,
+        226
+      ],
+      "tolerance_class_counts": [
+        6031,
+        3,
+        49,
+        317
+      ],
+      "anomalous_hoststeps": 250,
+      "target_count": 226,
+      "other_counts": {
+        "cpu_fault": 1,
+        "ram_fault": 23,
+        "cpu_recurrence": 1
+      },
+      "target_share_of_anomalous": 0.904,
+      "gate_pass": true,
+      "gate": {
+        "floor_per_8000": 60,
+        "floor_effective": 48,
+        "share_floor": 0.5
+      }
+    },
+    {
+      "phase": "cpu_recurrence",
+      "interval": [
+        1600,
+        2000
+      ],
+      "raw_class_counts": [
+        6355,
+        40,
+        5,
+        0
+      ],
+      "tolerance_class_counts": [
+        6323,
+        65,
+        12,
+        0
+      ],
+      "anomalous_hoststeps": 45,
+      "target_count": 40,
+      "other_counts": {
+        "ram_fault": 5,
+        "disk_fault": 0
+      },
+      "target_share_of_anomalous": 0.8888888888888888,
+      "gate_pass": true,
+      "gate": {
+        "floor_per_8000": 25,
+        "floor_effective": 20,
+        "share_floor": 0.45
+      }
+    }
+  ],
+  "all_phase_gates_pass": true,
+  "deployment_rejection_rate": 0.18682634730538922,
+  "migration_rejection_rate": 0.30874785591766724,
+  "whole_stream_raw_counts": [
+    31481,
+    92,
+    201,
+    226
+  ],
+  "rejection_gates_pass": true
+}
