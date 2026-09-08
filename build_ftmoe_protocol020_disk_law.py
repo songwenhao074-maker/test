@@ -37,6 +37,8 @@ OUT_DIR = ROOT / "artifacts/ftmoe_online/protocol_020"
 GROWTH = {
     "v1": {"stay": 0.30, "up1": 0.40, "up2": 0.20, "up3": 0.10},
     "v2": {"stay": 0.15, "up1": 0.45, "up2": 0.30, "up3": 0.10},
+    "lm": {"stay": 0.45, "up1": 0.40, "up2": 0.15, "up3": 0.0},
+    "ls": {"stay": 0.65, "up1": 0.30, "up2": 0.05, "up3": 0.0},
 }
 BIRTH_CAP_VALUE = 4000.0  # states above this are removed from the birth law
 
