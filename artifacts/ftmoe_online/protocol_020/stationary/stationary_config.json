@@ -1,9 +1,9 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "protocol": "020",
-  "phase": "S9",
+  "phase": "S7",
   "kind": "stationary",
-  "name": "stationary same-domain long stream (dev cohort, baseline capacity profile)",
+  "name": "stationary same-domain long stream (dev cohort, baseline condition)",
   "cohort": "dev",
   "phase_len": 2000,
   "phases": [
@@ -11,8 +11,11 @@
       "name": "baseline",
       "cpu_scale": 1.0,
       "ram_scale": 1.0,
-      "disk_scale": 0.30
+      "disk_scale": 0.9,
+      "adapter": {
+        "ram_upper": 1400
+      }
     }
   ],
-  "registration": "baseline scales are the S4 scan corner (cpu 1.00 / ram 1.00 / disk 0.30), pre-registered before the S4 report; used for the S7/S9 stationary A/B/C/D comparisons on the source-disjoint dev cohort."
+  "registration": "baseline condition = drift-config baseline phase (disk 0.9, ram_upper 1400) so stationary and drift streams share the same domain contract; used for S7 stationary A/B/C (and later D) comparisons on the source-disjoint dev cohort."
 }
