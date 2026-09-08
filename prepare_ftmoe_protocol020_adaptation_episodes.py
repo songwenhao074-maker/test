@@ -33,6 +33,9 @@ import traceback
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "artifacts/ftmoe_online/protocol_020/adaptation_data/raw"
+# Adaptation conditions (name / capacity scales / per-phase demand adapter)
+# come from the registered drift config (phases baseline..disk_fault).
+DRIFT_CONFIG = ROOT / "artifacts/ftmoe_online/protocol_020/drift/drift_config.json"
 PROFILES_PATH = ROOT / "artifacts/ftmoe_online/protocol_020/adaptation/adaptation_profiles.json"
 SCENARIO_PATH = ROOT / "artifacts/ftmoe_online/protocol_020/adapter/scenario_adapter.json"
 SPLITS = {"train": "train", "dev": "dev"}
@@ -156,9 +159,12 @@ def collect_episode(split, profile_key, profile, seed, steps, output):
             arrival_mean = float(scenario.get("arrival_mean", 1.0))
             law_rel = scenario.get("disk_law_relative")
             disk_law_path = (ROOT / law_rel).resolve() if law_rel else None
+            condition_adapter = dict(profile.get("adapter") or {})
+            effective_adapter = dict(scenario.get("adapter") or {})
+            effective_adapter.update(condition_adapter)
             workload = Protocol020AdaptedBWGD2(arrival_mean, 1.5, seed,
                                                cohort=SPLITS[split],
-                                               adapter=scenario.get("adapter"),
+                                               adapter=effective_adapter,
                                                disk_law_path=disk_law_path)
             scenario_effective = {"arrival_mean": arrival_mean,
                                   "adapter": dict(workload.adapter),
@@ -284,7 +290,7 @@ def collect_episode(split, profile_key, profile, seed, steps, output):
             sources = [ROOT / "prepare_ftmoe_protocol020_adaptation_episodes.py",
                        ROOT / "artifacts/ftmoe_online/adapted_bwgd2_016/disk_law.json",
                        ROOT / "artifacts/ftmoe_online/protocol_020/vm_split.json",
-                       PROFILES_PATH, SCENARIO_PATH, scheduler_weight]
+                       DRIFT_CONFIG, SCENARIO_PATH, scheduler_weight]
             if law_rel:
                 sources.append(ROOT / law_rel)
             for base in ("simulator", "scheduler", "metrics", "stats", "utils"):
@@ -337,10 +343,16 @@ def main():
     parser.add_argument("--seeds", default="")
     parser.add_argument("--steps", type=int, default=400)
     args = parser.parse_args()
-    if not PROFILES_PATH.is_file():
-        raise FileNotFoundError("Registered adaptation profiles missing: %s"
-                                % PROFILES_PATH)
-    profiles = json.loads(PROFILES_PATH.read_text(encoding="utf8"))
+    if not DRIFT_CONFIG.is_file():
+        raise FileNotFoundError("Registered drift config missing: %s"
+                                % DRIFT_CONFIG)
+    drift = json.loads(DRIFT_CONFIG.read_text(encoding="utf8"))
+    conditions = [p for p in drift["phases"]
+                  if p["name"] != "cpu_recurrence"]
+    profiles = {"profiles": {p["name"]: {
+        "cpu_scale": p["cpu_scale"], "ram_scale": p["ram_scale"],
+        "disk_scale": p["disk_scale"], "adapter": p.get("adapter") or {}}
+        for p in conditions}}
     allowed = ALLOWED_TRAIN_SEEDS if args.split == "train" else ALLOWED_DEV_SEEDS
     seeds = [int(s) for s in args.seeds.split(",")] if args.seeds else sorted(allowed)
     for seed in seeds:
@@ -350,7 +362,7 @@ def main():
         list(profiles["profiles"])
     for key in keys:
         if key not in profiles["profiles"]:
-            raise ValueError("Unknown profile key %r (have %s)"
+            raise ValueError("Unknown condition key %r (have %s)"
                              % (key, sorted(profiles["profiles"])))
         profile = profiles["profiles"][key]
         for seed in seeds:
