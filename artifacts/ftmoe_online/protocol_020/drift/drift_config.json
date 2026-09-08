@@ -4,8 +4,8 @@
   "phase": "S5",
   "kind": "drift",
   "name": "capacity-driven fault-mode drift stream (5 phases, final config)",
-  "registration": "Final phase scales chosen from P17-b/P18/P19 data-only probes (problem log).  Global scenario demand profile: adapter/scenario_adapter.json (am1, ram_mult 2.0, disk law p20-ls).",
-  "phase_len": 500,
+  "registration": "Final phase scales chosen from P17-b/P18/P19 data-only probes (problem log).  Global scenario demand profile: adapter/scenario_adapter.json (am1, ram_mult 2.0, disk law p20-ls).  phase_len 400 x 5 = 2000 steps (registered).",
+  "phase_len": 400,
   "phases": [
     {
       "name": "baseline",

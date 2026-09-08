@@ -26,8 +26,14 @@ ROOT = Path(__file__).resolve().parent
 DRIFT = ROOT / "artifacts/ftmoe_online/protocol_020/drift_streams"
 
 TARGET = {"cpu_fault": 1, "ram_fault": 2, "disk_fault": 3}
-DOMINANT_FLOOR = 100
+# Registered phase floors (problem log P18/P19): per 8000 host-steps; the
+# analyzer scales them to the actual phase horizon (floor * phase_horizon/8000).
+FLOOR_PER_8000 = {"cpu_fault": 25, "ram_fault": 100, "disk_fault": 60,
+                  "baseline": None, "cpu_recurrence": 25}
+PHASE_REF_HORIZON = 8000
 SHARE_FLOOR = 0.50
+DEP_REJ_MAX = 0.25   # re-registered (P19): 0.20 -> 0.25
+MIG_REJ_MAX = 0.40
 
 
 def per_phase_counts(labels, phase_len, steps, n_phases):
@@ -78,14 +84,17 @@ def analyze(stream_dir: Path):
                  "raw_class_counts": [int(x) for x in counts.tolist()],
                  "tolerance_class_counts": [int(x) for x in tol.tolist()],
                  "anomalous_hoststeps": anomalous}
-        if target is None:
+        if target is None or FLOOR_PER_8000.get(name) is None:
             entry["gate"] = None  # baseline phase: no dominance requirement
             entry["gate_pass"] = True
         else:
+            horizon = phase_len * 16
+            floor = max(1, int(round(FLOOR_PER_8000[name] * horizon
+                                     / PHASE_REF_HORIZON)))
             target_count = int(counts[target])
             others = {k: int(counts[v]) for k, v in TARGET.items() if v != target}
             share = float(target_count / max(anomalous, 1))
-            gate_pass = (target_count >= DOMINANT_FLOOR
+            gate_pass = (target_count >= floor
                          and target_count > max(others.values(), default=0)
                          and share >= SHARE_FLOOR)
             entry.update({
@@ -93,7 +102,8 @@ def analyze(stream_dir: Path):
                 "other_counts": others,
                 "target_share_of_anomalous": share,
                 "gate_pass": gate_pass,
-                "gate": {"dominant_floor": DOMINANT_FLOOR,
+                "gate": {"floor_per_8000": FLOOR_PER_8000[name],
+                         "floor_effective": floor,
                          "share_floor": SHARE_FLOOR},
             })
         checks.append(entry)
@@ -113,8 +123,8 @@ def analyze(stream_dir: Path):
             [int(x) for x in np.bincount(scored.ravel(), minlength=4).tolist()],
     }
     result["rejection_gates_pass"] = (
-        result["deployment_rejection_rate"] < 0.20
-        and result["migration_rejection_rate"] < 0.40)
+        result["deployment_rejection_rate"] < DEP_REJ_MAX
+        and result["migration_rejection_rate"] < MIG_REJ_MAX)
     write_json(stream_dir / "drift_analysis.json", result)
     return result
 
