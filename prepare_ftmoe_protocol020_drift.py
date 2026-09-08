@@ -172,11 +172,15 @@ def collect(seed, steps, cohort, output, config_path=CONFIG_PATH):
             dc = RPiEdge(16)
             scenario = json.loads(SCENARIO_PATH.read_text(encoding="utf8"))
             arrival_mean = float(scenario.get("arrival_mean", 1.0))
+            law_rel = scenario.get("disk_law_relative")
+            disk_law_path = (ROOT / law_rel).resolve() if law_rel else None
             workload = Protocol020AdaptedBWGD2(arrival_mean, 1.5, seed,
                                                cohort=cohort,
-                                               adapter=scenario.get("adapter"))
+                                               adapter=scenario.get("adapter"),
+                                               disk_law_path=disk_law_path)
             scenario_effective = {"arrival_mean": arrival_mean,
-                                  "adapter": dict(workload.adapter)}
+                                  "adapter": dict(workload.adapter),
+                                  "disk_law_relative": law_rel}
             scheduler = GOBIScheduler("energy_latency_16")
             recovery = Recovery()
             stats = Stats(workload, dc, scheduler)
@@ -340,6 +344,8 @@ def collect(seed, steps, cohort, output, config_path=CONFIG_PATH):
                        ROOT / "artifacts/ftmoe_online/adapted_bwgd2_016/disk_law.json",
                        ROOT / "artifacts/ftmoe_online/protocol_020/vm_split.json",
                        SCENARIO_PATH, Path(config_path), scheduler_weight]
+            if law_rel:
+                sources.append(ROOT / law_rel)
             for base in ("simulator", "scheduler", "metrics", "stats", "utils"):
                 sources.extend(p for p in (ROOT / base).rglob("*.py")
                                if "__pycache__" not in p.parts)

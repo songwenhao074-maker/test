@@ -1,15 +1,17 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "protocol": "020",
-  "phase": "S4-P17b",
-  "name": "protocol-020 scenario demand profile (direction P17-b)",
-  "registration": "Currently set to the 016 contract defaults.  Final values will be chosen from the P17 data-only adapter probes and this file updated (with a problem-log record) before any S5/S6 collection.",
+  "phase": "S4-final",
+  "name": "protocol-020 scenario demand profile (FINAL, P19-b decision)",
+  "registration": "Final global scenario chosen from data-only phase probes (problem log P18/P19): arrival 1.0, ram_mult 2.0, disk law p20-ls.  Phase capacity scales live in drift/drift_config.json.",
   "arrival_mean": 1.0,
   "arrival_sigma": 1.5,
   "adapter": {
     "cpu_lower": 2.0,
     "cpu_upper": 1860.0,
+    "cpu_mult": 1.0,
     "ram_mult": 2.0,
     "disk_mult": 1.0
-  }
+  },
+  "disk_law_relative": "artifacts/ftmoe_online/protocol_020/disk_law_p20_ls.json"
 }
