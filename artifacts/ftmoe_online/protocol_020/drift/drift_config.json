@@ -4,7 +4,7 @@
   "phase": "S5",
   "kind": "drift",
   "name": "capacity-driven fault-mode drift stream (5 phases, final config)",
-  "registration": "v3 (2026-09-08, P21-alpha): per-phase demand profiles allowed; cpu/baseline/recurrence phases clip RAM tail (ram_upper 1400) to zero the full-cap RAM noise; ram/disk phases keep the tail engine.  Covariate+fault mixed drift documented in problem log P21.",
+  "registration": "v4 (2026-09-08, P22): dev-cohort RAM phase at (1, 0.55, 0.9) with per-phase ram_upper 2400 -> dep 20.2%, RAM 212/6400.  cpu/baseline/recurrence keep ru 1400 disk 0.9; disk phase (1,1,0.35).",
   "phase_len": 400,
   "phases": [
     {
@@ -28,9 +28,11 @@
     {
       "name": "ram_fault",
       "cpu_scale": 1.0,
-      "ram_scale": 0.4,
+      "ram_scale": 0.55,
       "disk_scale": 0.9,
-      "adapter": {}
+      "adapter": {
+        "ram_upper": 2400
+      }
     },
     {
       "name": "disk_fault",
