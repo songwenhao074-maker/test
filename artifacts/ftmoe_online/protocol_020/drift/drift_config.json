@@ -1,41 +1,41 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "protocol": "020",
   "phase": "S5",
   "kind": "drift",
-  "name": "capacity-driven fault-mode drift stream (5 phases)",
+  "name": "capacity-driven fault-mode drift stream (5 phases, final config)",
+  "registration": "Final phase scales chosen from P17-b/P18/P19 data-only probes (problem log).  Global scenario demand profile: adapter/scenario_adapter.json (am1, ram_mult 2.0, disk law p20-ls).",
   "phase_len": 500,
   "phases": [
     {
       "name": "baseline",
       "cpu_scale": 1.0,
       "ram_scale": 1.0,
-      "disk_scale": 0.30
+      "disk_scale": 0.6
     },
     {
       "name": "cpu_fault",
-      "cpu_scale": 0.75,
+      "cpu_scale": 0.65,
       "ram_scale": 1.0,
-      "disk_scale": 0.30
+      "disk_scale": 0.6
     },
     {
       "name": "ram_fault",
       "cpu_scale": 1.0,
-      "ram_scale": 0.45,
-      "disk_scale": 0.30
+      "ram_scale": 0.4,
+      "disk_scale": 0.6
     },
     {
       "name": "disk_fault",
       "cpu_scale": 1.0,
       "ram_scale": 1.0,
-      "disk_scale": 0.20
+      "disk_scale": 0.35
     },
     {
       "name": "cpu_recurrence",
-      "cpu_scale": 0.75,
+      "cpu_scale": 0.65,
       "ram_scale": 1.0,
-      "disk_scale": 0.30
+      "disk_scale": 0.6
     }
-  ],
-  "registration": "INITIAL CANDIDATES from plan §47 (pre-registered before the S4 report); final phase scales will be replaced by the S4 data-only scan selections and the change recorded in 指令/FTMOE_PROTOCOL020_PROBLEM_LOG.md before any drift collection."
+  ]
 }
