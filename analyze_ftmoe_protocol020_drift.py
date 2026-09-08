@@ -25,7 +25,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parent
 DRIFT = ROOT / "artifacts/ftmoe_online/protocol_020/drift_streams"
 
-TARGET = {"cpu_fault": 1, "ram_fault": 2, "disk_fault": 3}
+TARGET = {"cpu_fault": 1, "ram_fault": 2, "disk_fault": 3, "cpu_recurrence": 1}
 # Registered phase floors (problem log P18/P19): per 8000 host-steps; the
 # analyzer scales them to the actual phase horizon (floor * phase_horizon/8000).
 FLOOR_PER_8000 = {"cpu_fault": 25, "ram_fault": 100, "disk_fault": 60,
