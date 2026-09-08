@@ -117,6 +117,7 @@ def event_summary(labels, steps):
 
 
 def collect(seed, steps, cohort, output, config_path=CONFIG_PATH):
+    config_path = Path(config_path).resolve()
     if seed not in ALLOWED_SEEDS:
         raise ValueError(f"Unregistered drift seed: {seed}")
     if steps not in ALLOWED_STEPS:
