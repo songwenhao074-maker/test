@@ -13,7 +13,13 @@
 | 保留BWGD2、输入适配及近似异常分布的待审批方案 | [FTMOE_BWGD2_INPUT_ADAPTER_PROPOSAL.md](FTMOE_BWGD2_INPUT_ADAPTER_PROPOSAL.md) |
 | 协议016适配小试结果、场景停止及改进措施 | [FTMOE_ADAPTED_BWGD2_PILOT_016.md](FTMOE_ADAPTED_BWGD2_PILOT_016.md) |
 | 替代真实数据集、容量静态敏感性及异常生成方案评审 | [FTMOE_DATASET_AND_CAPACITY_REVIEW.md](FTMOE_DATASET_AND_CAPACITY_REVIEW.md) |
-| 用户已授权容量017与Google2011协议018的执行方法与状态入口 | [FTMOE_CAPACITY_GOOGLE_EXECUTION_017_018.md](FTMOE_CAPACITY_GOOGLE_EXECUTION_017_018.md) |
+| 容量017与Google2011协议018的授权与执行方法（**两者均未完成**：017 确认运行在 1479/2000 步撞 4.5 GiB RAM guard 中止且无 `result.json`；018 数据未下载、未运行） | [FTMOE_CAPACITY_GOOGLE_EXECUTION_017_018.md](FTMOE_CAPACITY_GOOGLE_EXECUTION_017_018.md) |
+| **协议020 当前执行顺序、新模式定义、数据隔离与成功判据** | [指令/FTMOE_PROTOCOL020_UNSEEN_REGIME_PLAN_20260909.md](../指令/FTMOE_PROTOCOL020_UNSEEN_REGIME_PLAN_20260909.md) |
+| 协议020 R0–R6 方法规格与因果门禁 | [指令/FTMOE_PROTOCOL020_REVISED_EXPERIMENT_PLAN_20260909.md](../指令/FTMOE_PROTOCOL020_REVISED_EXPERIMENT_PLAN_20260909.md) |
+| 协议020 交接（路线、产物索引、协作分工）与问题日志 P01–P36 | [指令/FTMOE_PROTOCOL020_HANDOFF.md](../指令/FTMOE_PROTOCOL020_HANDOFF.md)、[问题日志](../指令/FTMOE_PROTOCOL020_PROBLEM_LOG.md) |
+| 协议020 R1 结果（8×2000 开发对照，未稳定超过 A）与 R0 验收 | [R1 实验记录](../指令/FTMOE_PROTOCOL020_R1_EXPERIMENT_20260909.md)、[R0 验收](../指令/FTMOE_PROTOCOL020_R0_REVIEW_20260909.md) |
+| 协议020 阶段流程、门禁、环境约束与文件清单 | [FTMOE_ONLINE_PROTOCOL_020.md](FTMOE_ONLINE_PROTOCOL_020.md) |
+| 协议019 执行说明与问题日志 | [FTMOE_ONLINE_PROTOCOL_019.md](FTMOE_ONLINE_PROTOCOL_019.md)、[019 问题日志](../指令/FTMOE_PROTOCOL019_PROBLEM_LOG.md) |
 | 消融关系、训练公平性、现行选模及测试边界 | [实验规则](../FTMOE_END_TO_END_ABLATION_PLAN.md) |
 | 协议 001–014 的状态及产物位置 | [实验索引](../FTMOE_END_TO_END_EXPERIMENT_LOG.md) |
 | 哪些历史结果能复用 | [历史审计](../FTMOE_HISTORY_REUSE_AUDIT.md) |
@@ -26,4 +32,4 @@
 
 机器结果及配置的权威来源仍为 `artifacts/ftmoe_end_to_end/protocol_*.json`、各运行 `configuration.json`、`summary.json`、每轮日志、checkpoint 和比较结果 JSON。清理没有改写这些实验数据。
 
-根目录训练、分析及测试脚本保留原路径，避免破坏 import、配置指纹和历史复现。当前消融阶段已经用户验收通过并归档；在线实验重试完成300步四组小试，因D性能未达标停止，未进入参数搜索或五种子确认，详见当前状态入口。
+根目录训练、分析及测试脚本保留原路径，避免破坏 import、配置指纹和历史复现。当前消融阶段已经用户验收通过并归档至协议 014；在线阶段已推进到协议 020（R0-A 因果基础通过、R0-B 动态部署未通过、R1 固定修正完成 8×2000 步开发对照但尚未稳定超过 A），下一步是离线覆盖审计与新模式注册，尚未开始。最新状态一律以当前状态入口为准。

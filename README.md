@@ -1,6 +1,6 @@
 <h1 align="center">PreGAN+</h1>
 
-> **本地 FT-MoE 实验入口：** [项目最新上下文](PROJECT_CONTEXT_LATEST.md) · [文档索引](docs/README.md)。协议 014 消融已由用户验收并保存为[回档基线](docs/BASELINE_ACCEPTED_20260905.md)，原筛选结果保留。原生在线015小试未达标；最新[协议016需求适配小试](docs/FTMOE_ADAPTED_BWGD2_PILOT_016.md)完成300步，异常比例2.90%未通过场景门槛，冻结A后半程F1=0.143911，B/C/D未运行。预留测试未使用。
+> **本地 FT-MoE 实验入口：** [项目最新上下文](PROJECT_CONTEXT_LATEST.md) · [文档索引](docs/README.md)。协议 014 消融已由用户验收并保存为[回档基线](docs/BASELINE_ACCEPTED_20260905.md)，原筛选结果保留。在线阶段已进入协议 020：R0-A 因果基础通过、R0-B 动态部署未通过；R1（冻结基础＋固定在线修正）完成 8×2000 步开发对照，减轻旧 C 漂移退化但尚未稳定超过 A。下一步为[离线覆盖审计与新模式注册](指令/FTMOE_PROTOCOL020_UNSEEN_REGIME_PLAN_20260909.md)，尚未开始；R2–R6 与 S10 未实施。历史在线 015/016 小试未达标（016 冻结 A 后半程 F1=0.143911，B/C/D 未运行），预留测试未使用。
 
 <div align="center">
   <a href="https://github.com/imperial-qore/PreGAN/blob/master/LICENSE">

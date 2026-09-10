@@ -1,8 +1,38 @@
 {
-  "status": "awaiting_user_discussion",
-  "stage": "pilot",
-  "problems": [
-    "D second-half F1 is below 0.65 or does not exceed B"
+  "protocol": "020",
+  "status": "awaiting_user_direction",
+  "stage": "R1_complete_fixed_residual_correction",
+  "updated_local": "2026-09-10T19:56:44+08:00",
+  "updated_by": "state reconciliation with protocol_020 artifacts (docs only, no experiment run)",
+  "processes_running": false,
+  "gates": {
+    "R0_A_causal_basis": "passed",
+    "R0_B_dynamic_deployment": "failed",
+    "R1_fixed_residual_correction": "engineering_complete_no_stable_advantage_over_A"
+  },
+  "current_evidence": {
+    "r0": "artifacts/ftmoe_online/protocol_020/revision_20260909/r0/verification_final.json",
+    "r1": "artifacts/ftmoe_online/protocol_020/revision_20260909/r1/final_runs_20260909_1435/",
+    "r1_analysis": "artifacts/ftmoe_online/protocol_020/revision_20260909/r1/final_runs_20260909_1435/r1_analysis.md",
+    "handoff": "指令/FTMOE_PROTOCOL020_HANDOFF.md",
+    "problem_log": "指令/FTMOE_PROTOCOL020_PROBLEM_LOG.md"
+  },
+  "next_items_not_started": [
+    "offline_coverage_audit",
+    "unseen_regime_registry",
+    "unseen_regime_pilot_stream",
+    "R2_loss_sampling_ablation",
+    "R3_capacity_input_and_memory",
+    "R0_B_repair_and_R4_dynamic_expert",
+    "R5_scenario_family",
+    "R6_independent_confirmation"
   ],
-  "updated_local": "2026-09-05T17:58:13+0800"
+  "problems": [
+    "R1 fixed residual correction reduces legacy C drift degradation but is not yet stably better than A",
+    "R0-B dynamic deployment gate failed (ramp continuity); no D efficacy matrix until repaired",
+    "dev500/dev501 reuse already-covered modes (P36); R1 conclusion does not cover offline-unseen regimes",
+    "P35 recent-window abnormal sampling fraction exceeds stream fraction (drift 3.473% vs 2.575%)",
+    "exit code of the first formal C-residual-off dev500 run was not directly captured",
+    "protocol_017 confirmation incomplete (RAM guard at step 1479/2000); protocol_018 never started; no result.json for either"
+  ]
 }

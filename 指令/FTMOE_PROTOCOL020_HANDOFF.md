@@ -1,4 +1,41 @@
-# Protocol 020 — 精简交接（Session Handoff，2026-09-08）
+# Protocol 020 — 精简交接（Session Handoff，2026-09-09）
+
+## 当前计划入口（2026-09-09，优先于以下历史交接）
+
+- **协作分工（用户指定）**：边界明确的代码实现、证据整理和检查执行交给 `gpt-5.6-luna` 子 agent，推理强度 `max`。主 agent 负责设计任务、审查证据、验收修改、纠错与调整实验方向。子 agent 的完成报告不自动等于验收通过；模型/模拟器运行仍须单进程顺序执行，共享文件的写入范围须分开。
+- **当前场景与执行顺序：[离线未覆盖模式计划](FTMOE_PROTOCOL020_UNSEEN_REGIME_PLAN_20260909.md)；方法规格：[修订实验计划](FTMOE_PROTOCOL020_REVISED_EXPERIMENT_PLAN_20260909.md)。** R0-A 因果基础已通过，R0-B 动态部署门禁未通过；R1 工程与 8 组开发对照已完成，稳定优于 A 尚未实现。下一项为完整离线覆盖审计与新模式注册，随后新模式小试，再进入 R2；新场景及 R2–R6 尚未实施。
+- **场景纠偏**：S6 实际训练已包含 dev500 的正常/CPU/RAM/Disk 主要配置，dev501 是同域平稳流。不同 VM 与运行轨迹不等于离线未见类型；R1 未证明新模式学习无效。核查范围目前仅确认 S6 主要配置重合，原始 v4→019→020 的完整覆盖、初始锚点及选模暴露仍须审计。
+- 目标保持 D 在运行中稳定、较高性能，相对 A/B/C 有可重复价值；原始离线 v4 与已有 019/020 起点均不重训、不覆盖。模拟器和在线方法可以在开发期调整，最终确认来源不得用于选择。
+- 路线：已完成 R0-A/R1 → 离线覆盖审计与新模式注册 → 新模式 A/C 小试 → R2 损失/采样 → R3 容量/长期记忆 → R0-B 修复与 R4 动态独立收益 → R5 扩展场景族 → R6 独立确认。旧 dev500/dev501 保留回归用途，暂停旧两流立即 8 组调参。
+- **R1 固定在线修正完成**：[R1 实验记录与结果](FTMOE_PROTOCOL020_R1_EXPERIMENT_20260909.md)。16 项测试、106 项独立结果检查、两条流 off/on 的 learner/optimizer/抽样一致性通过。正式 8×2000 结果仅取 `revision_20260909/r1/final_runs_20260909_1435/`；早期失败及中止目录保留，不混入对照。
+- **R1 结论**：在现有熟悉模式及其切换上，冻结基础＋小修正减轻旧 C 的漂移退化，保护减少伤害，但尚未稳定超过 A，也未全面优于旧 C。漂移 protected F1/AP 为 0.5091/0.6769，A 为 0.5118/0.6779；平稳 protected 为 0.1053/0.1285，A 为 0.1053/0.1270。漂移修正参与 85.85%、6 次快照准入、1 次回退；不是全程使用 A。权重/采样 2×2 消融保留为 R2，但须先完成新模式审计和小试，再以新模式为主评估；训练权重与准入评分分开冻结。
+- R0 的 `prequential_v1` 修复了旧 S8 验证顺序，必须显式指定；默认 `legacy_v3` 保留历史行为。R1 使用独立 `run_ftmoe_protocol020_r1.py` 与 `r1_fixed_residual_v1`，不能把 R0/R1/legacy 结果或恢复文件混用。
+- 23 项旧回归＋12 项新 R0 测试通过；主 agent 对新测试进行了原始输出独立复核。runner 恢复检查修复 NumPy/Python RNG 初始化后 39/39 通过。总证据：`artifacts/ftmoe_online/protocol_020/revision_20260909/r0/verification_final.json`。
+- 新增合成诊断确认 ramp 接近 1 到等于 1 时会发生 Top-4 硬切换。R0-B 尚未通过，不启动 D 正式效果矩阵。完整错误样本培养、重新验证唤醒与贡献评估仍待 R4；新回退机制需在实现后补测试。
+- 历史 12 次运行、模型哈希和整体性能结论保留。旧“候选通过”按旧规则解释；不能称为双方共同未见数据上的收益。
+- 对照采用 A/B-legacy/C-legacy/D-legacy 与 C-residual/D-residual，并加入参数量、训练预算控制；新方法不能不改名字就与旧 C/D 混比。
+- 按修订计划在新目录 `artifacts/ftmoe_online/protocol_020/revision_20260909/` 保存后续产物。继续单进程顺序运行，3.0 GiB 内存保护，不直接启动 S10。
+
+## 历史续跑结果（2026-09-08；方法有效性以 09-09 更正为准）
+
+- 用户已授权继续调整在线机制及模拟器，目标是 D 稳定优于 A/B/C；原始离线 v4 不得重训。见 `指令/FTMOE_PROTOCOL020_CONTINUATION_20260908.md`。本轮没有重训任何离线模型，原始 v4、019 和 020 起点哈希全部保持一致。
+- **S8 容器级集成已完成**：`recovery/PreGANSrc/src/ftmoe_online_s8.py`；影子试训、后续成熟数据验证、零权重启用、渐进参与、休眠/唤醒及恢复已实现。D 可通过 `--dynamic-config` 运行。
+- **完成 12 次新的 2000 步开发运行**，目录 `artifacts/ftmoe_online/protocol_020/runs_continuation/`；共用 dev500 漂移和 dev501 平稳流。D 在漂移流真实启用第五个专家：1e-4 设置为 step660，1e-5 设置为 step1900。平稳流没有新增专家。真实运行尚未出现休眠/唤醒。
+- **D 尚未稳定胜过 A/B/C**。提高学习率会加重误报；检测正类权重从约 8 改为 1 后 F1 改善，但召回、PR-AUC 下降，且该设置下 D 与 C 预测相同，无动态收益。
+- 修复 S7 恢复遗漏 state；保留能力检查改用 P20 锚点完整输入；修复 lag 返回绝对时间、跨相位搜索、滚动面积归一化问题。旧结果保留，新旧 reference 不能混比。
+- 详细结论与下一步计划：**`指令/FTMOE_PROTOCOL020_D_REVIEW_AND_NEXT_PLAN.md`**。
+- 机器可读审计：`artifacts/ftmoe_online/protocol_020/continuation/audit_final.json`；对照表 `comparison_tables.md`；冻结模型哈希 `protected_checkpoint_hashes.json`。
+- **下一步建议**：先做冻结基础预测＋在线修正的保留能力保护；为 C/D 同时提供容量感知特征；再优化按持续错误模式培养专家；最后扩展阶段长度和任务分布，并在未参与调整的 VM 来源上确认。上述下一步尚未实施；S9 仅完成初步开发小试，S10 未开始。
+- 本轮结束时没有留下训练或采集进程。
+- 验证：23 项测试通过；旧 C 重跑以及未启用新专家的 D/C 对照均逐元素复核。详见 `continuation/verification.json`。
+
+### 历史 D 复现示例（非修订方案启动命令）
+
+```text
+D:\Anaconda\envs\dynmoe\python.exe run_ftmoe_protocol020.py --method D --model-seed 1 --checkpoint-path artifacts/ftmoe_online/protocol_020/s6/adapted_v4_seed1/best.pt --stream artifacts/ftmoe_online/protocol_020/drift_streams/dev_seed500_steps2000 --output <新的输出目录> --base-lr 1e-5 --dynamic-config artifacts/ftmoe_online/protocol_020/continuation/dynamic_v3_lr1e5.json
+```
+
+以下为本次续跑之前的历史交接，保留追溯。
 
 > 新对话请以此文件为主上下文；完整历史见 `指令/FTMOE_PROTOCOL020_PROBLEM_LOG.md`（P01–P23）与
 > `docs/FTMOE_ONLINE_PROTOCOL_020.md`。仓库 = `F:\PreGANPlus-master`，分支 `protocol-020`
