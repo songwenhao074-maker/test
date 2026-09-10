@@ -213,3 +213,13 @@ artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed17/*
 !artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed42/
 artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed42/*
 !artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed42/best.pt
+
+# ---- protocol-019/020 publication policy (2026-09-10): evidence yes, model weights no ----
+# Audit evidence (*.json, *.jsonl, *.npz, logs, *.exitcode) IS published so every reported
+# number can be re-checked. Intermediate/final .pt weights are NOT published: 759 files /
+# 3454.6 MB, which would push the repo past GitHub's ~1 GB guidance and past the ~2 GB
+# single-push limit. Local files are untouched; to publish a specific weight use
+# 'git add -f <path>' or delete the matching rule below. Already-tracked .pt files
+# (e.g. protocol_019/s3/adapted_v4_seed1/best.pt) stay tracked; ignore rules never untrack.
+artifacts/ftmoe_online/protocol_019/**/*.pt
+artifacts/ftmoe_online/protocol_020/**/*.pt
