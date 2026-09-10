@@ -43,8 +43,9 @@ import traceback
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "artifacts/ftmoe_online/protocol_020/capacity_scan"
 ALLOWED_STEPS = {400, 60}  # 60 only via --smoke (validation, excluded from gates)
-ALLOWED_SEEDS = {410}
+ALLOWED_SEEDS = {410, 500}
 COHORT = "train"
+DEV_COHORT = "dev"
 
 GRIDS = {
     # Extension 1 (registered 2026-09-07, problem log P15): the original
@@ -144,9 +145,11 @@ def event_summary(labels, steps):
 
 
 def collect(axis, value, steps, seed, output, adapter=None, arrival_mean=None,
-            disk_law_path=None, profile_override=None):
+            disk_law_path=None, profile_override=None, cohort="train"):
     if steps not in ALLOWED_STEPS or seed not in ALLOWED_SEEDS:
         raise ValueError("Unregistered scan steps/seed: %d/%d" % (steps, seed))
+    if cohort not in ("train", "dev"):
+        raise ValueError("Unknown cohort: %r" % (cohort,))
     if profile_override is not None:
         profile = dict(profile_override)
     else:
@@ -195,7 +198,7 @@ def collect(axis, value, steps, seed, output, adapter=None, arrival_mean=None,
             torch.manual_seed(seed)
             dc = RPiEdge(16)
             workload = Protocol020AdaptedBWGD2(arrival_mean_effective, 1.5, seed,
-                                               cohort=COHORT, adapter=adapter,
+                                               cohort=cohort, adapter=adapter,
                                                disk_law_path=disk_law_path)
             adapter_effective = dict(workload.adapter)
             scheduler = GOBIScheduler("energy_latency_16")
@@ -338,6 +341,7 @@ def collect(axis, value, steps, seed, output, adapter=None, arrival_mean=None,
             manifest = {"schema_version": 1, "protocol": "020", "phase": "S4",
                         "name": "data-only capacity scan candidate",
                         "seed": seed, "steps": steps, "guard_steps": 1,
+                        "cohort": cohort,
                         "smoke": smoke,
                         "adapter": adapter_effective,
                         "adapter_is_default": adapter is None,
@@ -399,7 +403,10 @@ def main():
     parser.add_argument("--value", type=float, default=None,
                         help="single candidate value (with --smoke, or with a "
                              "custom adapter to probe one grid value)")
-    parser.add_argument("--output-root", type=Path, default=OUT)
+    parser.add_argument("--output-root", type=Path, default=None)
+    parser.add_argument("--cohort", choices=("train", "dev"), default="train",
+                        help="VM cohort for the probe (P22: train-cohort probes "
+                             "do not predict dev-cohort rejection walls)")
     parser.add_argument("--cpu-upper", type=float, default=None,
                         help="P20 adapter knob: CPU demand clip upper bound "
                              "(default 1860 = 016 contract)")
@@ -409,6 +416,9 @@ def main():
     parser.add_argument("--ram-mult", type=float, default=None,
                         help="P20 adapter knob: RAM demand multiplier "
                              "(default 2.0 = 016 contract)")
+    parser.add_argument("--ram-upper", type=float, default=None,
+                        help="P20 adapter knob: clip RAM demand (after mult) "
+                             "to this value; default None = no clip")
     parser.add_argument("--disk-mult", type=float, default=None,
                         help="P20 adapter knob: synthetic disk occupancy "
                              "multiplier (default 1.0 = 016 contract)")
@@ -425,10 +435,13 @@ def main():
                              "candidate with these exact scales (all three "
                              "must be given together)")
     args = parser.parse_args()
+    if args.output_root is None:
+        args.output_root = OUT if args.cohort == "train" else \
+            OUT.parent / "capacity_scan_dev"
     steps = 60 if args.smoke else args.steps
     adapter = {key: value for key, value in
                (("cpu_upper", args.cpu_upper), ("cpu_mult", args.cpu_mult),
-                ("ram_mult", args.ram_mult),
+                ("ram_mult", args.ram_mult), ("ram_upper", args.ram_upper),
                 ("disk_mult", args.disk_mult)) if value is not None}
     custom = bool(adapter) or args.arrival_mean is not None or \
         args.disk_law is not None or args.pc is not None
@@ -440,7 +453,7 @@ def main():
     suffix = ""
     if custom:
         for key, tag in (("cpu_upper", "au"), ("cpu_mult", "cm"),
-                         ("ram_mult", "rm"),
+                         ("ram_mult", "rm"), ("ram_upper", "ru"),
                          ("disk_mult", "dm")):
             if key in adapter:
                 suffix += "_%s%.4g" % (tag, adapter[key])
@@ -457,7 +470,7 @@ def main():
         collect(args.axis, 0.0, steps, args.seed, output,
                 adapter=(adapter if custom else None),
                 arrival_mean=args.arrival_mean, disk_law_path=args.disk_law,
-                profile_override=phase_profile)
+                profile_override=phase_profile, cohort=args.cohort)
         return
     for value in GRIDS[args.axis][args.axis]:
         if args.smoke or custom:
@@ -472,7 +485,8 @@ def main():
             continue
         collect(args.axis, value, steps, args.seed, output,
                 adapter=(adapter if custom else None),
-                arrival_mean=args.arrival_mean, disk_law_path=args.disk_law)
+                arrival_mean=args.arrival_mean, disk_law_path=args.disk_law,
+                cohort=args.cohort)
 
 
 if __name__ == "__main__":

@@ -149,6 +149,8 @@ class S7Session(S4Session):
     """A/B/C session on the v3 input contract with stratified rare-event
     sampling and class-balanced loss v3."""
 
+    supports_dynamic = False
+
     def __init__(self, checkpoint, method, seed, replay, learning_rate,
                  replay_seed, normalization_v2, anchor_pool, anchor_teacher,
                  class_balance, window_fn="window_v3"):
@@ -160,7 +162,7 @@ class S7Session(S4Session):
         self.resource_weights = class_balance["resource_weight"]
         self.window_fn = window_fn
         self.rare_exposure = {}
-        if method not in ("A", "B", "C"):
+        if method not in ("A", "B", "C") and not self.supports_dynamic:
             raise ValueError("S7 A/B/C session only; D needs the v3 dynamic gate")
 
     @torch.no_grad()
@@ -249,6 +251,7 @@ class S7Session(S4Session):
             self.predictions["labels"][t - 1] = tolerance_label(
                 self.raw_seen, t - 1, t)
             self.buffer.append(t - 1)
+            self.observe_matured(t - 1)
         self.cursor = t + 1
         if self.cursor % 10 == 0 and self.optimizer is not None and self.buffer:
             self.update()
@@ -258,6 +261,29 @@ class S7Session(S4Session):
             if self.method == "A":
                 self.model.eagate.reset_statistics()
         return probability, classes
+
+    def observe_matured(self, index):
+        """Extension point called only after a tolerance label has matured."""
+
+    def adapt_topology(self):
+        return self.model.adapt(self.optimizer)
+
+    @torch.no_grad()
+    def evaluate_reference(self, blocks=None):
+        """Measure retention on P20 anchors with P20 normalization and graph v3."""
+        from train_ftmoe_end_to_end import metric_arrays
+        pool = self.anchor_pool
+        dets, clss = [], []
+        for start in range(0, len(self.anchor_indices), 64):
+            sl = slice(start, start + 64)
+            out = self.model(pool["x"][sl], pool["schedule"][sl], pool["graph_x"][sl],
+                graph_context=self._context(pool["ids"][sl], pool["before"][sl], pool["caps"][sl]))
+            dets.append(out["detection_logits"].softmax(-1)[..., 1])
+            clss.append(out["class_logits"].softmax(-1))
+        score = metric_arrays(torch.cat(dets).numpy().reshape(-1),
+                              torch.cat(clss).numpy().reshape(-1, 3),
+                              pool["labels"].numpy().reshape(-1))
+        self.reference.append({"step": self.cursor, "source": "same_domain_train_anchor", **score})
 
     def update(self):
         started = time.perf_counter()
@@ -340,7 +366,7 @@ class S7Session(S4Session):
         event = None
         if self.update_number % 10 == 0:
             if self.method == "D":
-                event = self.model.adapt(self.optimizer)
+                event = self.adapt_topology()
             else:
                 self.model.eagate.reset_statistics()
         if not all(torch.isfinite(p).all() for p in self.model.parameters()):
@@ -358,5 +384,5 @@ class S7Session(S4Session):
         return state
 
     def restore(self, state):
-        S4Session.restore(self)
+        S4Session.restore(self, state)
         self.rare_exposure = dict(state.get("rare_exposure", {}))

@@ -22,8 +22,10 @@ Usage:
         --output artifacts/ftmoe_online/protocol_020/runs/A_model1_seed500
 """
 import argparse
+from contextlib import ExitStack
 import json
 import os
+import random
 import time
 import traceback
 from pathlib import Path
@@ -182,17 +184,42 @@ def run(args):
     torch.set_num_interop_threads(1)
     psutil.Process().nice(psutil.BELOW_NORMAL_PRIORITY_CLASS)
     resources()
+    dynamic_config = None
+    requested_validation_protocol = getattr(args, "validation_protocol", None)
     if args.method == "D":
-        raise ValueError("D requires the dynamic expert v3 gate (S8); A/B/C only here")
+        if args.dynamic_config is None:
+            raise ValueError("D requires --dynamic-config with frozen stationary calibration")
+        dynamic_config = json.loads(args.dynamic_config.read_text(encoding="utf8"))
+        if requested_validation_protocol is not None:
+            if requested_validation_protocol not in ("legacy_v3", "prequential_v1"):
+                raise ValueError("Unknown validation protocol: %s" %
+                                 requested_validation_protocol)
+            dynamic_config = dict(dynamic_config)
+            dynamic_config["validation_protocol"] = requested_validation_protocol
+        validation_protocol = dynamic_config.get("validation_protocol", "legacy_v3")
+        if validation_protocol not in ("legacy_v3", "prequential_v1"):
+            raise ValueError("Unknown validation protocol: %s" % validation_protocol)
+    else:
+        if requested_validation_protocol is not None:
+            raise ValueError("--validation-protocol is only valid for method D")
+        validation_protocol = "s7"
     if args.checkpoint_path is None:
         raise ValueError("S7 requires --checkpoint-path (S6-adapted checkpoint)")
     manifest = json.loads((args.stream / "manifest.json").read_text())
+    process_rng_seed = None
+    if validation_protocol == "prequential_v1":
+        process_rng_seed = (int(args.model_seed) * 7919 +
+                            int(manifest["seed"])) % (2 ** 32)
+        np.random.seed(process_rng_seed)
+        random.seed(process_rng_seed)
     if manifest["stream_sha256"] != sha(args.stream / "stream.npz"):
         raise AssertionError("Stream hash mismatch")
     if manifest.get("protocol") != "020":
         raise ValueError("Stream is not registered under Protocol 020")
     checkpoint_path = Path(args.checkpoint_path)
     checkpoint = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
+    if dynamic_config is not None and dynamic_config["calibration"]["checkpoint_sha256"] != sha(checkpoint_path):
+        raise ValueError("D calibration belongs to a different checkpoint")
     if checkpoint["variant"] != "v4" or checkpoint["seed"] != args.model_seed:
         raise AssertionError("Checkpoint identity mismatch")
     if checkpoint.get("graph_semantics_version") != 3:
@@ -213,6 +240,12 @@ def run(args):
     if args.method != "A" and lr not in (1e-5, 3e-5, 1e-4):
         raise ValueError(f"Unregistered S7 base learning rate: {lr}")
     anchor_pool, class_balance = load_anchor_pool_v3()
+    if args.detection_positive_weight is not None:
+        if not np.isfinite(args.detection_positive_weight) or args.detection_positive_weight <= 0:
+            raise ValueError("Detection positive weight must be finite and positive")
+        class_balance["original_detection_weight"] = list(class_balance["detection_weight"])
+        class_balance["detection_weight"] = [1.0, args.detection_positive_weight]
+        class_balance["online_override"] = "User-authorized development ablation; same weight for online and anchor loss"
     teacher = OnlineFTMoE(checkpoint, "A", args.model_seed)
     teacher.eval()
     code_files = ["run_ftmoe_protocol020.py", "run_ftmoe_protocol019_s4.py",
@@ -222,12 +255,18 @@ def run(args):
                   "recovery/PreGANSrc/src/ftmoe_online.py",
                   "recovery/PreGANSrc/src/ftmoe_online_s4.py",
                   "recovery/PreGANSrc/src/ftmoe_online_s7.py",
+                  "recovery/PreGANSrc/src/ftmoe_online_s8.py",
+                  "recovery/PreGANSrc/src/ftmoe_dynamic_expert_v3.py",
                   "recovery/PreGANSrc/src/ftmoe_ablation.py",
                   "recovery/PreGANSrc/src/ftmoe_end_to_end.py",
                   "recovery/PreGANSrc/src/ftmoe_normalization.py",
                   "recovery/PreGANSrc/src/ftmoe_input_contract.py"]
-    config = {"schema_version": 1, "protocol": "020", "phase": args.phase,
-              "scheme": "s7", "checkpoint_mode": "s6_adapted",
+    scheme = ("s8_prequential_v1" if validation_protocol == "prequential_v1"
+              else "s8_legacy_v3") if args.method == "D" else "s7"
+    config = {"schema_version": 2, "protocol": "020", "phase": args.phase,
+              "scheme": scheme, "validation_protocol": validation_protocol,
+              "validation_protocol_version": validation_protocol,
+              "checkpoint_mode": "s6_adapted",
               "method": args.method, "model_seed": args.model_seed,
               "replay_seed": manifest["seed"], "steps": manifest["steps"],
               "learning_rate": lr, "source_checkpoint": source,
@@ -259,11 +298,36 @@ def run(args):
               "threshold": .5, "label_tolerance": 1, "label_delay_intervals": 1,
               "resource_guard_ram_gib": float(os.environ.get("FTMOE020_RAM_GUARD_GIB", "3.0")),
               "code_sha256": {name: sha(ROOT / name) for name in code_files}}
+    config["dynamic_config"] = dynamic_config
+    config["reference_source"] = "same_domain_train_anchor"
+    if validation_protocol == "prequential_v1":
+        config["r0_validation"] = {
+            "prediction_record_schema": 1,
+            "qualification_loss_formula":
+                ".7*detectionCE+.3*positiveclassCE+.5*joint_ranking",
+            "qualification_score_source": "cached_probabilities",
+            "probability_clip_epsilon": 1e-7,
+            "auxiliary_loss_included": False,
+            "candidate_validation_before_training": True,
+            "minimum_future_validation_blocks": int(
+                dynamic_config.get("shadow", {}).get(
+                    "minimum_validation_records", 3)),
+            "process_rng_seed": process_rng_seed,
+            "process_rng_seed_strategy":
+                "model_seed_times_7919_plus_manifest_seed_mod_2**32",
+        }
     out = args.output
     if out.exists():
         if not args.resume:
             raise FileExistsError(out)
-        if json.loads((out / "configuration.json").read_text()) != config:
+        existing_config = json.loads((out / "configuration.json").read_text())
+        existing_protocol = existing_config.get(
+            "validation_protocol", "legacy_v3" if args.method == "D" else "s7")
+        if existing_protocol != validation_protocol:
+            raise ValueError(
+                "Cannot resume with validation_protocol %s; output is %s"
+                % (validation_protocol, existing_protocol))
+        if existing_config != config:
             raise ValueError("Resume configuration changed")
         if (out / "summary.json").exists():
             raise ValueError("Run already completed")
@@ -272,12 +336,16 @@ def run(args):
             raise FileNotFoundError(out)
         out.mkdir(parents=True)
         write_json(out / "configuration.json", config)
-    session = S7Session(checkpoint, args.method, args.model_seed, replay, lr,
+    if args.method == "D":
+        from recovery.PreGANSrc.src.ftmoe_online_s8 import S8Session
+        session_class = S8Session
+        extra = {"dynamic_config": dynamic_config}
+    else:
+        session_class, extra = S7Session, {}
+    session = session_class(checkpoint, args.method, args.model_seed, replay, lr,
                         manifest["seed"], v2_scale, anchor_pool, teacher,
-                        class_balance, window_fn="window_v3")
-    from train_ftmoe_end_to_end import load_data
-    _, validation, normalization, _ = load_data(
-        ROOT / "artifacts/ftmoe_end_to_end/data/protocol_004_physical")
+                        class_balance, window_fn="window_v3", **extra)
+    validation = None
     elapsed_before = 0.
     if args.resume:
         saved = torch.load(out / "resume.pt", map_location="cpu", weights_only=False)
@@ -289,22 +357,105 @@ def run(args):
     end = args.stop_after or replay.steps
     if not session.cursor < end <= replay.steps:
         raise ValueError("Invalid stop-after cursor")
+    revised = validation_protocol == "prequential_v1"
+
+    def audit_candidate_rows():
+        if not revised:
+            return []
+        records = list(session.qualification_records)
+        records.extend(session.pending_predictions.values())
+        records = [record for record in records if record.get("candidate") is not None]
+        rows = []
+        for record in sorted(records, key=lambda item: (
+                int(item["window_index"]), str(item["candidate"].get("id")))):
+            key = (int(record["window_index"]),
+                   str(record["candidate"].get("id")))
+            if key not in written_candidates:
+                rows.append((key, session._prediction_view(record)))
+        return rows
+
+    def audit_qualification_rows():
+        if not revised:
+            return []
+        rows = []
+        for record in session.qualification_records:
+            key = int(record["window_index"])
+            if key not in written_qualifications:
+                rows.append((key, session._audit_view(record)))
+        return rows
+
     try:
-        with (out / "predictions.jsonl").open("w", encoding="utf8") as journal:
+        with ExitStack() as stack:
+            journal = stack.enter_context((out / "predictions.jsonl").open(
+                "w", encoding="utf8"))
+            candidate_journal = None
+            qualification_journal = None
+            causal_journal = None
+            if revised:
+                candidate_journal = stack.enter_context(
+                    (out / "candidate_predictions.jsonl").open(
+                        "w", encoding="utf8"))
+                qualification_journal = stack.enter_context(
+                    (out / "qualification.jsonl").open(
+                        "w", encoding="utf8"))
+                causal_journal = stack.enter_context(
+                    (out / "causal_audit.jsonl").open(
+                        "w", encoding="utf8"))
+            written_candidates = set()
+            written_qualifications = set()
+            written_audits = 0
+
+            def export_audits(final=False):
+                nonlocal written_audits
+                if not revised:
+                    return
+                if final:
+                    candidate_journal.seek(0)
+                    candidate_journal.truncate()
+                    qualification_journal.seek(0)
+                    qualification_journal.truncate()
+                    causal_journal.seek(0)
+                    causal_journal.truncate()
+                    written_candidates.clear()
+                    written_qualifications.clear()
+                    written_audits = 0
+                for key, record in audit_candidate_rows():
+                    candidate_journal.write(json.dumps(record) + "\n")
+                    written_candidates.add(key)
+                for key, record in audit_qualification_rows():
+                    qualification_journal.write(json.dumps(record) + "\n")
+                    written_qualifications.add(key)
+                for audit in session.causal_audit[written_audits:]:
+                    causal_journal.write(json.dumps(audit) + "\n")
+                written_audits = len(session.causal_audit)
+                if revised:
+                    candidate_journal.flush()
+                    qualification_journal.flush()
+                    causal_journal.flush()
+
             for t in range(session.cursor):
-                journal.write(json.dumps({"step": t + 1,
+                restored_row = {"step": t + 1,
                     "model_version": int(session.predictions["model_version"][t]),
                     "probability": session.predictions["probability"][t].tolist(),
                     "class_probability": session.predictions["class_probability"][t].tolist(),
                     **{k: float(session.predictions[k][t]) for k in
-                       ("expert_count", "mean_active", "unmatched_ratio")}}) + "\n")
+                       ("expert_count", "mean_active", "unmatched_ratio")}}
+                if revised:
+                    restored_record = (session.qualification_by_index.get(t)
+                                       or session.pending_predictions.get(t))
+                    if restored_record is not None:
+                        restored_row["r0_prediction"] = session._prediction_view(
+                            restored_record)
+                journal.write(json.dumps(restored_row) + "\n")
             def sink(value):
                 journal.write(json.dumps(value) + "\n")
                 journal.flush()
+            export_audits()
             while session.cursor < end:
                 if session.cursor % 10 == 0:
                     resources()
                 session.step(sink)
+                export_audits()
                 if session.cursor % 500 == 0:
                     session.evaluate_reference(validation)
                 if session.cursor % 100 == 0 or session.cursor == end:
@@ -317,9 +468,14 @@ def run(args):
                                       "experts": len(session.model.eagate.ids),
                                       "elapsed_seconds": state["elapsed_seconds"]}),
                           flush=True)
-        if end < replay.steps:
-            return
-        session.finish()
+            if end < replay.steps:
+                # A stop-after run is a valid resumable boundary.  Rewrite
+                # the mutable qualification snapshot once so its training
+                # uses and blocks match the checkpoint that was just saved.
+                export_audits(final=True)
+                return
+            session.finish()
+            export_audits(final=True)
         if session.reference[-1]["step"] != session.cursor:
             session.evaluate_reference(validation)
         if session.model.frozen_hash() != session.initial_frozen_hash:
@@ -349,8 +505,36 @@ def run(args):
             values = [v for v in values if v is not None]
             return float(np.mean(values)) if values else None
 
+        if revised:
+            candidate_record_count = sum(
+                1 for record in session.qualification_records
+                if record.get("candidate") is not None)
+            candidate_record_count += sum(
+                1 for record in session.pending_predictions.values()
+                if record.get("candidate") is not None)
+            r0_statistics = {
+                "validation_protocol": "prequential_v1",
+                "prediction_records_settled": len(session.qualification_records),
+                "prediction_records_pending": len(session.pending_predictions),
+                "candidate_prediction_records": candidate_record_count,
+                "qualification_blocks": len(session.shadow_validation),
+                "causal_audit_entries": len(session.causal_audit),
+                "audit_violation_count": int(session.audit_violation_count),
+                "diagnostic_forward_cost": dict(session.diagnostic_cost),
+                "additional_teacher_seconds": float(
+                    session.diagnostic_cost["teacher_forward_seconds"]),
+                "additional_candidate_seconds": float(
+                    session.diagnostic_cost["candidate_forward_seconds"]),
+                "qualification_scoring": config.get("r0_validation"),
+            }
+        else:
+            r0_statistics = {"validation_protocol": validation_protocol,
+                             "causal_audit_available": False}
+
         summary = {"configuration": config, "metrics": metrics,
                    "gate_metrics": gate_metrics,
+                   "validation_protocol": validation_protocol,
+                   "r0_statistics": r0_statistics,
                    "initial_state_hash": session.initial_state_hash,
                    "final_state_hash": session.model.state_hash(),
                    "frozen_parameters_unchanged": True,
@@ -415,4 +599,9 @@ if __name__ == "__main__":
     parser.add_argument("--phase", default="S7")
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--stop-after", type=int)
+    parser.add_argument("--dynamic-config", type=Path)
+    parser.add_argument("--validation-protocol",
+                        choices=("legacy_v3", "prequential_v1"),
+                        help="Explicit S8 validation protocol; omitted means legacy_v3")
+    parser.add_argument("--detection-positive-weight", type=float)
     run(parser.parse_args())

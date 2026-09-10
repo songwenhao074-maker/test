@@ -48,31 +48,39 @@ def rolling_metrics(probability, labels):
     return rows
 
 
-def adaptation_lag(rolling, boundary, target_window=(150, 250), ratio=0.95):
-    """Plan §34: first rolling end >= boundary reaching 95% of the
-    late-phase median (windows ending within boundary+[150,250]) and holding
-    for 3 of the next 5 rolling points."""
+def adaptation_lag(rolling, boundary, phase_end=None, ratio=0.95):
+    """Descriptive recovery duration; never cross the phase being measured.
+
+    Use the last 20% of that phase for the target. This is a retrospective
+    within-method statistic, not evidence that online learning beats A.
+    """
+    if phase_end is None:
+        phase_end = boundary + 400
+    tail_start = boundary + .8 * (phase_end - boundary)
     late = [r["f1"] for r in rolling
-            if boundary + target_window[0] <= r["end"] <= boundary + target_window[1]]
+            if tail_start <= r["end"] <= phase_end]
     if not late:
         return None, None
-    target = float(np.median(late))
+    target = float(np.mean(late))
+    if target <= 0:
+        return None, target
     level = ratio * target
-    after = [r for r in rolling if r["end"] >= boundary]
+    after = [r for r in rolling if boundary + WINDOW <= r["end"] <= phase_end]
     for i, r in enumerate(after):
         horizon = after[i:i + 5]
-        if len(horizon) >= 3 and sum(1 for h in horizon if h["f1"] >= level) >= 3:
-            return r["end"], target
+        if r["f1"] >= level and len(horizon) >= 3 and sum(1 for h in horizon if h["f1"] >= level) >= 3:
+            return r["end"] - boundary, target
     return None, target
 
 
 def area_under(rolling, start, stop):
     values = [r for r in rolling if start <= r["end"] <= stop]
-    if not values:
+    if len(values) < 2:
         return None
-    return {"f1": float(np.trapz([v["f1"] for v in values], dx=STRIDE) / max(len(values), 1)),
-            "pr_auc": float(np.trapz([v["pr_auc"] for v in values], dx=STRIDE)
-                            / max(len(values), 1))}
+    positions = [v["end"] for v in values]
+    duration = positions[-1] - positions[0]
+    return {key: float(np.trapz([v[key] for v in values], x=positions) / duration)
+            for key in ("f1", "pr_auc")}
 
 
 def analyze(stream_dir: Path, run_dirs: dict):
@@ -126,9 +134,9 @@ def analyze(stream_dir: Path, run_dirs: dict):
             })
         lag_rows = []
         for boundary in boundaries:
-            lag, target = adaptation_lag(rolling, boundary)
+            lag, target = adaptation_lag(rolling, boundary, min(boundary + phase_len, steps))
             lag_rows.append({"boundary": boundary, "lag_interval": lag,
-                             "target_median_f1": (round(target, 4)
+                             "target_mean_f1": (round(target, 4)
                                                   if target is not None else None)})
         run["adaptation_lags"] = lag_rows
         half = steps // 2
@@ -174,7 +182,7 @@ if __name__ == "__main__":
                 row["positives"], row["raw_class_counts"]))
         for lag in run["adaptation_lags"]:
             print("   boundary %d lag %s (target %.4f)" % (
-                lag["boundary"], lag["lag_interval"], lag["target_median_f1"]))
+                lag["boundary"], lag["lag_interval"], lag["target_mean_f1"] or 0.))
         area = run["area_under_rolling"]
         print("   area-under-rolling 2nd-half f1 %s pr %s" % (
             area["second_half"]["f1"] if area["second_half"] else None,
