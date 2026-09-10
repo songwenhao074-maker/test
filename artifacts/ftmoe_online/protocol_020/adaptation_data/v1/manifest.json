@@ -1,0 +1,476 @@
+{
+ "schema_version": 2,
+ "protocol": "020",
+ "phase": "S6-data-v1",
+ "profiles": {
+  "baseline": {
+   "cpu_scale": 1.0,
+   "ram_scale": 1.0,
+   "disk_scale": 0.3
+  },
+  "cpu_fault": {
+   "cpu_scale": 0.75,
+   "ram_scale": 1.0,
+   "disk_scale": 0.3
+  },
+  "ram_fault": {
+   "cpu_scale": 1.0,
+   "ram_scale": 0.45,
+   "disk_scale": 0.3
+  },
+  "disk_fault": {
+   "cpu_scale": 1.0,
+   "ram_scale": 1.0,
+   "disk_scale": 0.2
+  }
+ },
+ "train_episodes": [
+  "train_baseline_seed401",
+  "train_baseline_seed402",
+  "train_baseline_seed403",
+  "train_cpu_fault_seed401",
+  "train_cpu_fault_seed402",
+  "train_cpu_fault_seed403",
+  "train_ram_fault_seed401",
+  "train_ram_fault_seed402",
+  "train_ram_fault_seed403",
+  "train_disk_fault_seed401",
+  "train_disk_fault_seed402",
+  "train_disk_fault_seed403"
+ ],
+ "dev_episodes": [
+  "dev_baseline_seed404",
+  "dev_baseline_seed405",
+  "dev_cpu_fault_seed404",
+  "dev_cpu_fault_seed405",
+  "dev_ram_fault_seed404",
+  "dev_ram_fault_seed405",
+  "dev_disk_fault_seed404",
+  "dev_disk_fault_seed405"
+ ],
+ "episode_indices": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19
+ ],
+ "train_indices": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11
+ ],
+ "dev_indices": [
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19
+ ],
+ "block_size": 400,
+ "label_policy": "actual physical overload, dominant ratio; +/-1 tolerance (guard row matures the last row)",
+ "episode_hashes": {
+  "train_baseline_seed401": {
+   "stream_sha256": "0e4a0dba724b93fc63c4c6d5143ccf855487944b93fce4213c83f8fce6bcdcff",
+   "profile": {
+    "cpu_scale": 1.0,
+    "ram_scale": 1.0,
+    "disk_scale": 0.9,
+    "adapter": {
+     "ram_upper": 1400
+    }
+   }
+  },
+  "train_baseline_seed402": {
+   "stream_sha256": "808a197cbb4a3c1e39da771cee2ecf8103bdb2c5c45d420c1a460a491b4ce358",
+   "profile": {
+    "cpu_scale": 1.0,
+    "ram_scale": 1.0,
+    "disk_scale": 0.9,
+    "adapter": {
+     "ram_upper": 1400
+    }
+   }
+  },
+  "train_baseline_seed403": {
+   "stream_sha256": "a8a2a4060e5d837bcaea584844ceb2a71bbf168dc6a9311258bed855c0f4837a",
+   "profile": {
+    "cpu_scale": 1.0,
+    "ram_scale": 1.0,
+    "disk_scale": 0.9,
+    "adapter": {
+     "ram_upper": 1400
+    }
+   }
+  },
+  "train_cpu_fault_seed401": {
+   "stream_sha256": "6da9b3f7e8b39097bed46e241ff41798f43419906ba72db6bf0348d388716fdf",
+   "profile": {
+    "cpu_scale": 0.65,
+    "ram_scale": 1.0,
+    "disk_scale": 0.9,
+    "adapter": {
+     "ram_upper": 1400
+    }
+   }
+  },
+  "train_cpu_fault_seed402": {
+   "stream_sha256": "2d9a2d777c6667f41a94ebed23f6214166d9de204aa6165ee0854242eb13b4ee",
+   "profile": {
+    "cpu_scale": 0.65,
+    "ram_scale": 1.0,
+    "disk_scale": 0.9,
+    "adapter": {
+     "ram_upper": 1400
+    }
+   }
+  },
+  "train_cpu_fault_seed403": {
+   "stream_sha256": "5d8083c3ed8ab206e27e4742a6d2f7e64f5b072d851292bb0af068e7a3a69cd4",
+   "profile": {
+    "cpu_scale": 0.65,
+    "ram_scale": 1.0,
+    "disk_scale": 0.9,
+    "adapter": {
+     "ram_upper": 1400
+    }
+   }
+  },
+  "train_ram_fault_seed401": {
+   "stream_sha256": "c99f7525d750b53278085934e76b85d6a261abe1d722677cb98501699cb93082",
+   "profile": {
+    "cpu_scale": 1.0,
+    "ram_scale": 0.55,
+    "disk_scale": 0.9,
+    "adapter": {
+     "ram_upper": 2400
+    }
+   }
+  },
+  "train_ram_fault_seed402": {
+   "stream_sha256": "01a1b212e80d0f9deb5a4400a89a6cdc5d65898e0a6b5ea85d4cd677073324a4",
+   "profile": {
+    "cpu_scale": 1.0,
+    "ram_scale": 0.55,
+    "disk_scale": 0.9,
+    "adapter": {
+     "ram_upper": 2400
+    }
+   }
+  },
+  "train_ram_fault_seed403": {
+   "stream_sha256": "12f02998830662c09e100989de031620545eccf33d4f6785f0a9b5a2be134e34",
+   "profile": {
+    "cpu_scale": 1.0,
+    "ram_scale": 0.55,
+    "disk_scale": 0.9,
+    "adapter": {
+     "ram_upper": 2400
+    }
+   }
+  },
+  "train_disk_fault_seed401": {
+   "stream_sha256": "9a4835126787d098b3edf01eae2f90873fe4b1c0cb7372a5f2ef63f820459698",
+   "profile": {
+    "cpu_scale": 1.0,
+    "ram_scale": 1.0,
+    "disk_scale": 0.35,
+    "adapter": {}
+   }
+  },
+  "train_disk_fault_seed402": {
+   "stream_sha256": "6adf250da2e3a6c30412dfba8db18e2427fda8ec5e9e4114817b9242a52936ba",
+   "profile": {
+    "cpu_scale": 1.0,
+    "ram_scale": 1.0,
+    "disk_scale": 0.35,
+    "adapter": {}
+   }
+  },
+  "train_disk_fault_seed403": {
+   "stream_sha256": "43d9dd37ba0112b9c67e776c98ce2054dead80b7034a7aec9cfbd182520ac4bf",
+   "profile": {
+    "cpu_scale": 1.0,
+    "ram_scale": 1.0,
+    "disk_scale": 0.35,
+    "adapter": {}
+   }
+  },
+  "dev_baseline_seed404": {
+   "stream_sha256": "f8cac0be4c46853b92c07d09d6d90b264c025d51e3fdc9a7232aa9b0e53ffe88",
+   "profile": {
+    "cpu_scale": 1.0,
+    "ram_scale": 1.0,
+    "disk_scale": 0.9,
+    "adapter": {
+     "ram_upper": 1400
+    }
+   }
+  },
+  "dev_baseline_seed405": {
+   "stream_sha256": "f3d30517f10c20f3f1f9429cb4c2fefad60b48bb5b1343bfc511243a4fe99ef4",
+   "profile": {
+    "cpu_scale": 1.0,
+    "ram_scale": 1.0,
+    "disk_scale": 0.9,
+    "adapter": {
+     "ram_upper": 1400
+    }
+   }
+  },
+  "dev_cpu_fault_seed404": {
+   "stream_sha256": "784fa0d21aad8659abd304f35c13e6ab7a8a93939b4454ff8fecef84489386d1",
+   "profile": {
+    "cpu_scale": 0.65,
+    "ram_scale": 1.0,
+    "disk_scale": 0.9,
+    "adapter": {
+     "ram_upper": 1400
+    }
+   }
+  },
+  "dev_cpu_fault_seed405": {
+   "stream_sha256": "6c8dd8312aec9e0b2bf713051467b2be3ab19d530bbde80bbff2a9348b99f086",
+   "profile": {
+    "cpu_scale": 0.65,
+    "ram_scale": 1.0,
+    "disk_scale": 0.9,
+    "adapter": {
+     "ram_upper": 1400
+    }
+   }
+  },
+  "dev_ram_fault_seed404": {
+   "stream_sha256": "12c7a17aa3eaa566bf729a08be38340039fd87184c757273b0ae4b47880271d4",
+   "profile": {
+    "cpu_scale": 1.0,
+    "ram_scale": 0.55,
+    "disk_scale": 0.9,
+    "adapter": {
+     "ram_upper": 2400
+    }
+   }
+  },
+  "dev_ram_fault_seed405": {
+   "stream_sha256": "f43bc7894afe08d219371785aa9986e285b97ad8cbd008fb8e0b90cbce76c20a",
+   "profile": {
+    "cpu_scale": 1.0,
+    "ram_scale": 0.55,
+    "disk_scale": 0.9,
+    "adapter": {
+     "ram_upper": 2400
+    }
+   }
+  },
+  "dev_disk_fault_seed404": {
+   "stream_sha256": "16b2530af4dcf1e94c45ca6127129ac2f97b85991b5ed7d44c81127cedbe28f5",
+   "profile": {
+    "cpu_scale": 1.0,
+    "ram_scale": 1.0,
+    "disk_scale": 0.35,
+    "adapter": {}
+   }
+  },
+  "dev_disk_fault_seed405": {
+   "stream_sha256": "67b85973f562ad65e10b1856022b34f980f365669015da0fa1b443b5db5d3155",
+   "profile": {
+    "cpu_scale": 1.0,
+    "ram_scale": 1.0,
+    "disk_scale": 0.35,
+    "adapter": {}
+   }
+  }
+ },
+ "normalization": {
+  "normalization_version": 2,
+  "time_scale_v2": [
+   [
+    1860.0,
+    1995.0162353515625,
+    1.0,
+    1.0,
+    9000.0,
+    1.0,
+    1.0
+   ],
+   [
+    1860.0,
+    3241.35693359375,
+    1.0,
+    1.0,
+    5000.0,
+    1.0,
+    1.0
+   ],
+   [
+    1860.0,
+    6012.95166015625,
+    2.0,
+    2.0,
+    6000.0,
+    2.0,
+    2.0
+   ],
+   [
+    1860.0,
+    3241.35693359375,
+    1.0,
+    1.0,
+    6000.0,
+    1.0,
+    1.0
+   ],
+   [
+    1860.0,
+    5848.53564453125,
+    1.0,
+    1.0,
+    6000.0,
+    1.0,
+    1.0
+   ],
+   [
+    1860.0,
+    3241.35693359375,
+    1.0,
+    1.0,
+    9000.0,
+    1.0,
+    1.0
+   ],
+   [
+    5580.0,
+    7848.9345703125,
+    3.0,
+    3.0,
+    11000.0,
+    3.0,
+    3.0
+   ],
+   [
+    1860.0,
+    5848.53564453125,
+    1.0,
+    1.0,
+    7000.0,
+    1.0,
+    1.0
+   ],
+   [
+    1860.0,
+    3992.976318359375,
+    2.0,
+    2.0,
+    5000.0,
+    2.0,
+    2.0
+   ],
+   [
+    1860.0,
+    5527.5322265625,
+    1.0,
+    1.0,
+    6000.0,
+    1.0,
+    1.0
+   ],
+   [
+    5580.0,
+    7140.37890625,
+    4.0,
+    4.0,
+    13000.0,
+    4.0,
+    4.0
+   ],
+   [
+    3720.0,
+    6795.88720703125,
+    2.0,
+    2.0,
+    12000.0,
+    2.0,
+    2.0
+   ],
+   [
+    3720.0,
+    5527.5322265625,
+    3.0,
+    3.0,
+    6000.0,
+    3.0,
+    3.0
+   ],
+   [
+    3720.0,
+    5527.5322265625,
+    3.0,
+    3.0,
+    12000.0,
+    3.0,
+    3.0
+   ],
+   [
+    7440.0,
+    9735.8115234375,
+    4.0,
+    4.0,
+    16000.0,
+    4.0,
+    4.0
+   ],
+   [
+    5580.0,
+    5036.23583984375,
+    3.0,
+    3.0,
+    13000.0,
+    3.0,
+    3.0
+   ]
+  ],
+  "graph_scale": [
+   1860.0,
+   6588.4111328125,
+   1.0,
+   1.0,
+   9000.0,
+   1.0,
+   1.0
+  ],
+  "registered_artifact": "artifacts/ftmoe_online/protocol_020/normalization_v2_time_scale.json",
+  "source_019_artifact": "artifacts\\ftmoe_online\\protocol_019\\normalization_v2_time_scale.json"
+ },
+ "input_contract_version": 2,
+ "normalization_version": 2,
+ "graph_semantics_version": 3,
+ "capacity_control_version": 1,
+ "registration": "adaptation profiles from adaptation/adaptation_profiles.json; seeds source-disjoint per cohort"
+}

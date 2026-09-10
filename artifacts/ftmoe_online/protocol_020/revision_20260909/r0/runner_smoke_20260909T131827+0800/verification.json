@@ -1,0 +1,580 @@
+{
+  "verification": "ftmoe_protocol020_r0_runner_smoke",
+  "created_at": "2026-09-09T13:18:27.858255+08:00",
+  "python": "D:\\Anaconda\\envs\\dynmoe\\python.exe",
+  "runner": "F:\\PreGANPlus-master\\run_ftmoe_protocol020.py",
+  "fixed_inputs": {
+    "method": "D",
+    "model_seed": 1,
+    "checkpoint": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\s6\\adapted_v4_seed1\\best.pt",
+    "stream": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\drift_streams\\dev_seed500_steps2000",
+    "base_lr": 0.0001,
+    "dynamic_config": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\continuation\\dynamic_v3.json",
+    "validation_protocol": "prequential_v1",
+    "ram_guard_gib": 3.0
+  },
+  "output_root": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800",
+  "runs": [
+    {
+      "name": "uninterrupted20",
+      "output": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\uninterrupted20",
+      "command": [
+        "D:\\Anaconda\\envs\\dynmoe\\python.exe",
+        "F:\\PreGANPlus-master\\run_ftmoe_protocol020.py",
+        "--method",
+        "D",
+        "--phase",
+        "R0-smoke",
+        "--model-seed",
+        "1",
+        "--checkpoint-path",
+        "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\s6\\adapted_v4_seed1\\best.pt",
+        "--stream",
+        "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\drift_streams\\dev_seed500_steps2000",
+        "--output",
+        "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\uninterrupted20",
+        "--base-lr",
+        "1e-4",
+        "--dynamic-config",
+        "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\continuation\\dynamic_v3.json",
+        "--validation-protocol",
+        "prequential_v1",
+        "--stop-after",
+        "20"
+      ],
+      "ram_available_gib_before": 4.219058990478516,
+      "returncode": 0,
+      "log_dir": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\harness_logs\\uninterrupted20",
+      "stdout_file": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\harness_logs\\uninterrupted20\\stdout.txt",
+      "stderr_file": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\harness_logs\\uninterrupted20\\stderr.txt",
+      "returncode_file": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\harness_logs\\uninterrupted20\\returncode.txt"
+    },
+    {
+      "name": "split10",
+      "output": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\split10_resume20",
+      "command": [
+        "D:\\Anaconda\\envs\\dynmoe\\python.exe",
+        "F:\\PreGANPlus-master\\run_ftmoe_protocol020.py",
+        "--method",
+        "D",
+        "--phase",
+        "R0-smoke",
+        "--model-seed",
+        "1",
+        "--checkpoint-path",
+        "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\s6\\adapted_v4_seed1\\best.pt",
+        "--stream",
+        "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\drift_streams\\dev_seed500_steps2000",
+        "--output",
+        "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\split10_resume20",
+        "--base-lr",
+        "1e-4",
+        "--dynamic-config",
+        "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\continuation\\dynamic_v3.json",
+        "--validation-protocol",
+        "prequential_v1",
+        "--stop-after",
+        "10"
+      ],
+      "ram_available_gib_before": 4.220600128173828,
+      "returncode": 0,
+      "log_dir": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\harness_logs\\split10",
+      "stdout_file": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\harness_logs\\split10\\stdout.txt",
+      "stderr_file": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\harness_logs\\split10\\stderr.txt",
+      "returncode_file": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\harness_logs\\split10\\returncode.txt"
+    },
+    {
+      "name": "resume20",
+      "output": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\split10_resume20",
+      "command": [
+        "D:\\Anaconda\\envs\\dynmoe\\python.exe",
+        "F:\\PreGANPlus-master\\run_ftmoe_protocol020.py",
+        "--method",
+        "D",
+        "--phase",
+        "R0-smoke",
+        "--model-seed",
+        "1",
+        "--checkpoint-path",
+        "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\s6\\adapted_v4_seed1\\best.pt",
+        "--stream",
+        "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\drift_streams\\dev_seed500_steps2000",
+        "--output",
+        "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\split10_resume20",
+        "--base-lr",
+        "1e-4",
+        "--dynamic-config",
+        "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\continuation\\dynamic_v3.json",
+        "--validation-protocol",
+        "prequential_v1",
+        "--resume",
+        "--stop-after",
+        "20"
+      ],
+      "ram_available_gib_before": 4.198719024658203,
+      "returncode": 0,
+      "log_dir": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\harness_logs\\resume20",
+      "stdout_file": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\harness_logs\\resume20\\stdout.txt",
+      "stderr_file": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\harness_logs\\resume20\\stderr.txt",
+      "returncode_file": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131827+0800\\harness_logs\\resume20\\returncode.txt"
+    }
+  ],
+  "assertions": [
+    {
+      "name": "jsonl_equal:predictions.jsonl",
+      "passed": true,
+      "detail": {
+        "continuous_count": 20,
+        "resumed_count": 20
+      }
+    },
+    {
+      "name": "jsonl_equal:candidate_predictions.jsonl",
+      "passed": true,
+      "detail": {
+        "continuous_count": 0,
+        "resumed_count": 0
+      }
+    },
+    {
+      "name": "jsonl_equal:qualification.jsonl",
+      "passed": true,
+      "detail": {
+        "continuous_count": 19,
+        "resumed_count": 19
+      }
+    },
+    {
+      "name": "jsonl_equal:causal_audit.jsonl",
+      "passed": true,
+      "detail": {
+        "continuous_count": 2,
+        "resumed_count": 2
+      }
+    },
+    {
+      "name": "continuous_has_20_predictions",
+      "passed": true,
+      "detail": 20
+    },
+    {
+      "name": "prediction_steps_are_1_to_20",
+      "passed": true,
+      "detail": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ]
+    },
+    {
+      "name": "continuous_has_19_matured_records",
+      "passed": true,
+      "detail": {
+        "count": 19,
+        "window_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18
+        ]
+      }
+    },
+    {
+      "name": "all_qualification_records_matured",
+      "passed": true,
+      "detail": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "teacher_information_present",
+      "passed": true,
+      "detail": {
+        "prediction_rows": 20,
+        "qualification_rows": 19,
+        "candidate_rows": 0
+      }
+    },
+    {
+      "name": "causal_audit_has_records",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "name": "resume_model_state_equal",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "resume_model_hash_equal",
+      "passed": true,
+      "detail": {
+        "continuous": "7df52bafcf9d40ad5f52708669aa42e2d97980e6c13d685315dbafcedd146e4b",
+        "resumed": "7df52bafcf9d40ad5f52708669aa42e2d97980e6c13d685315dbafcedd146e4b"
+      }
+    },
+    {
+      "name": "resume_optimizer_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_exposure_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_rare_exposure_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_update_number_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_update_count_consistent",
+      "passed": true,
+      "detail": {
+        "continuous": 2,
+        "resumed": 2
+      }
+    },
+    {
+      "name": "resume_dynamic:pending_predictions_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_dynamic:qualification_records_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_dynamic:matured_indices_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_dynamic:shadow_validation_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_dynamic:shadow_validation_indices_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_dynamic:causal_audit_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_dynamic:dynamic_events_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_dynamic:trigger_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_dynamic:candidate_vectors_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_dynamic:pending_observations_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_dynamic:topology_version_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_dynamic:ramp_version_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_dynamic:shadow_started_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_dynamic:shadow_training_steps_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_dynamic:cooldown_until_equal",
+      "passed": true
+    },
+    {
+      "name": "resume_dynamic:shadow_optimizer_equal",
+      "passed": true
+    },
+    {
+      "name": "one_unmatured_pending_record",
+      "passed": true,
+      "detail": {
+        "pending_counts": [
+          1,
+          1
+        ],
+        "pending_keys": [
+          [
+            19
+          ],
+          [
+            19
+          ]
+        ],
+        "qualification_counts": [
+          19,
+          19
+        ],
+        "matured_indices": [
+          [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18
+          ],
+          [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18
+          ]
+        ]
+      }
+    },
+    {
+      "name": "nineteen_qualification_records_in_resume",
+      "passed": true
+    },
+    {
+      "name": "nineteen_matured_indices_in_resume",
+      "passed": true
+    },
+    {
+      "name": "causal_audit_violation_count_zero",
+      "passed": true,
+      "detail": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "prediction_prefixes_equal_nan_safe",
+      "passed": true,
+      "detail": {
+        "probability": true,
+        "class_probability": true,
+        "labels": true,
+        "raw_labels": true,
+        "model_version": true,
+        "expert_count": true,
+        "mean_active": true,
+        "unmatched_ratio": true
+      }
+    },
+    {
+      "name": "resume_state_equal_ignoring_timing",
+      "passed": true
+    }
+  ],
+  "jsonl_comparison": {
+    "predictions.jsonl": {
+      "continuous_count": 20,
+      "resumed_count": 20,
+      "canonical_equal_ignoring_timing": true
+    },
+    "candidate_predictions.jsonl": {
+      "continuous_count": 0,
+      "resumed_count": 0,
+      "canonical_equal_ignoring_timing": true
+    },
+    "qualification.jsonl": {
+      "continuous_count": 19,
+      "resumed_count": 19,
+      "canonical_equal_ignoring_timing": true
+    },
+    "causal_audit.jsonl": {
+      "continuous_count": 2,
+      "resumed_count": 2,
+      "canonical_equal_ignoring_timing": true
+    },
+    "record_counts": {
+      "predictions": 20,
+      "matured_qualifications": 19,
+      "candidate_predictions": 0,
+      "causal_audit": 2
+    },
+    "candidate_correctness_claim": false,
+    "candidate_note": "candidate ledger may be empty at 20 steps; this smoke does not establish candidate correctness. Use the real candidate unit/integration tests."
+  },
+  "resume_comparison": {
+    "model_hash_continuous": "7df52bafcf9d40ad5f52708669aa42e2d97980e6c13d685315dbafcedd146e4b",
+    "model_hash_resumed": "7df52bafcf9d40ad5f52708669aa42e2d97980e6c13d685315dbafcedd146e4b",
+    "model_tensor_mismatches": [],
+    "optimizer_equal": true,
+    "exposure_equal": true,
+    "rare_exposure_equal": true,
+    "update_number_equal": true,
+    "update_count": {
+      "continuous": 2,
+      "resumed": 2
+    },
+    "dynamic_fields_equal": {
+      "pending_predictions": true,
+      "qualification_records": true,
+      "matured_indices": true,
+      "shadow_validation": true,
+      "shadow_validation_indices": true,
+      "causal_audit": true,
+      "dynamic_events": true,
+      "trigger": true,
+      "candidate_vectors": true,
+      "pending_observations": true,
+      "topology_version": true,
+      "ramp_version": true,
+      "shadow_started": true,
+      "shadow_training_steps": true,
+      "cooldown_until": true,
+      "shadow_optimizer": true
+    },
+    "pending_and_qualification_view": {
+      "pending_counts": [
+        1,
+        1
+      ],
+      "pending_keys": [
+        [
+          19
+        ],
+        [
+          19
+        ]
+      ],
+      "qualification_counts": [
+        19,
+        19
+      ],
+      "matured_indices": [
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18
+        ],
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18
+        ]
+      ]
+    },
+    "outer_timing_free_equal": true
+  },
+  "status": "passed"
+}

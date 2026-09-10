@@ -1,0 +1,192 @@
+[
+  {
+    "step": 0,
+    "source": "same_domain_train_anchor",
+    "deployment_parameter": "live",
+    "deployment_alpha": 0.0,
+    "live_version": 0,
+    "f1": 0.61198738170347,
+    "precision": 0.4801980198019802,
+    "recall": 0.8434782608695652,
+    "diagnosis_hr_at_100pct": 0.9797101449275363,
+    "diagnosis_ndcg_at_100pct": 0.9797101449275363,
+    "hr_at_100": 0.95,
+    "ndcg_at_100": 0.9611133364295236,
+    "diagnostic_pair_ndcg_at_100": 0.9611133364295236,
+    "pr_auc": 0.7408454648672341,
+    "positive_class_macro_f1": 0.9752920409596687,
+    "class_confusion": [
+      [
+        46,
+        0,
+        0
+      ],
+      [
+        0,
+        105,
+        3
+      ],
+      [
+        4,
+        0,
+        187
+      ]
+    ],
+    "tp": 291,
+    "fp": 315,
+    "fn": 54,
+    "tn": 23916
+  },
+  {
+    "step": 500,
+    "source": "same_domain_train_anchor",
+    "deployment_parameter": "live",
+    "deployment_alpha": 1.0,
+    "live_version": 2,
+    "f1": 0.6150583244962884,
+    "precision": 0.48494983277591974,
+    "recall": 0.8405797101449275,
+    "diagnosis_hr_at_100pct": 0.9797101449275363,
+    "diagnosis_ndcg_at_100pct": 0.9797101449275363,
+    "hr_at_100": 0.95,
+    "ndcg_at_100": 0.9611133364295236,
+    "diagnostic_pair_ndcg_at_100": 0.9611133364295236,
+    "pr_auc": 0.7409432248666293,
+    "positive_class_macro_f1": 0.9752920409596687,
+    "class_confusion": [
+      [
+        46,
+        0,
+        0
+      ],
+      [
+        0,
+        105,
+        3
+      ],
+      [
+        4,
+        0,
+        187
+      ]
+    ],
+    "tp": 290,
+    "fp": 308,
+    "fn": 55,
+    "tn": 23923
+  },
+  {
+    "step": 1000,
+    "source": "same_domain_train_anchor",
+    "deployment_parameter": "live",
+    "deployment_alpha": 1.0,
+    "live_version": 3,
+    "f1": 0.61198738170347,
+    "precision": 0.4801980198019802,
+    "recall": 0.8434782608695652,
+    "diagnosis_hr_at_100pct": 0.9797101449275363,
+    "diagnosis_ndcg_at_100pct": 0.9797101449275363,
+    "hr_at_100": 0.95,
+    "ndcg_at_100": 0.9611176173316666,
+    "diagnostic_pair_ndcg_at_100": 0.9611176173316666,
+    "pr_auc": 0.7406710296603339,
+    "positive_class_macro_f1": 0.9752920409596687,
+    "class_confusion": [
+      [
+        46,
+        0,
+        0
+      ],
+      [
+        0,
+        105,
+        3
+      ],
+      [
+        4,
+        0,
+        187
+      ]
+    ],
+    "tp": 291,
+    "fp": 315,
+    "fn": 54,
+    "tn": 23916
+  },
+  {
+    "step": 1500,
+    "source": "same_domain_train_anchor",
+    "deployment_parameter": "live",
+    "deployment_alpha": 1.0,
+    "live_version": 4,
+    "f1": 0.6020618556701031,
+    "precision": 0.4672,
+    "recall": 0.8463768115942029,
+    "diagnosis_hr_at_100pct": 0.9826086956521739,
+    "diagnosis_ndcg_at_100pct": 0.9826086956521739,
+    "hr_at_100": 0.95,
+    "ndcg_at_100": 0.9609238320420376,
+    "diagnostic_pair_ndcg_at_100": 0.9609238320420376,
+    "pr_auc": 0.7398663614239502,
+    "positive_class_macro_f1": 0.9777326884188664,
+    "class_confusion": [
+      [
+        46,
+        0,
+        0
+      ],
+      [
+        0,
+        106,
+        2
+      ],
+      [
+        4,
+        0,
+        187
+      ]
+    ],
+    "tp": 292,
+    "fp": 333,
+    "fn": 53,
+    "tn": 23898
+  },
+  {
+    "step": 2000,
+    "source": "same_domain_train_anchor",
+    "deployment_parameter": "live",
+    "deployment_alpha": 0.0,
+    "live_version": 6,
+    "f1": 0.61198738170347,
+    "precision": 0.4801980198019802,
+    "recall": 0.8434782608695652,
+    "diagnosis_hr_at_100pct": 0.9797101449275363,
+    "diagnosis_ndcg_at_100pct": 0.9797101449275363,
+    "hr_at_100": 0.95,
+    "ndcg_at_100": 0.9611133364295236,
+    "diagnostic_pair_ndcg_at_100": 0.9611133364295236,
+    "pr_auc": 0.7408454648672341,
+    "positive_class_macro_f1": 0.9752920409596687,
+    "class_confusion": [
+      [
+        46,
+        0,
+        0
+      ],
+      [
+        0,
+        105,
+        3
+      ],
+      [
+        4,
+        0,
+        187
+      ]
+    ],
+    "tp": 291,
+    "fp": 315,
+    "fn": 54,
+    "tn": 23916
+  }
+]

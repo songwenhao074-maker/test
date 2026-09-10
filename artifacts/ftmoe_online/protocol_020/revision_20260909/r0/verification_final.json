@@ -1,0 +1,54 @@
+{
+  "date": "2026-09-09",
+  "status": "R0-A passed; R0-B failed; R0 overall incomplete",
+  "legacy_tests": 23,
+  "r0_tests": 12,
+  "r0_test_evidence": "r0_tests_primary_20260909_131452.json",
+  "legacy_test_evidence": "legacy_regression_20260909_130819_488601.json",
+  "runner_assertions": 39,
+  "runner_result": "runner_smoke_20260909T131827+0800/verification.json",
+  "retained_failed_runner": "runner_smoke_20260909T131240+0800/verification.json",
+  "ramp_result": "ramp_diagnostic.json",
+  "ramp_continuity_passed": false,
+  "performance_effectiveness_claimed": false,
+  "protected_models": [
+    {
+      "path": "F:\\PreGANPlus-master\\artifacts\\ftmoe_end_to_end\\runs\\physical_lr0003_e30\\v4_seed1\\checkpoints_by_epoch\\epoch021.pt",
+      "sha256": "e3513575ec26fc94a9f3c1d877a7119b21bacc97d7001fa02d18278aa316720b",
+      "unchanged": true
+    },
+    {
+      "path": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\s6\\adapted_v4_seed1\\best.pt",
+      "sha256": "10c44bdb0ea1a3134933d6a7eb5be98711ef4e48bd791594e4d8792519dfe03b",
+      "unchanged": true
+    },
+    {
+      "path": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_019\\s3\\adapted_v4_seed1\\best.pt",
+      "sha256": "670c56fe94e738bd8a0f65dcacb0ca836960c1ce86dce6c1601a8c74f5078e3b",
+      "unchanged": true
+    }
+  ],
+  "code": [
+    {
+      "path": "recovery/PreGANSrc/src/ftmoe_online_s8.py",
+      "sha256": "ae94b1b8bfa29d9237bd7d3cc215681881cc2229cc1b4442c33e7c1426333e68"
+    },
+    {
+      "path": "run_ftmoe_protocol020.py",
+      "sha256": "576d8007546a76606584e6ba59e8c3ffc27be5674b7f4456ca9f2530fba237cd"
+    },
+    {
+      "path": "test_ftmoe_protocol020_r0.py",
+      "sha256": "644225e8e536033150a3862b12481cc7674647b50e66aca5b921b0d9addcb3e4"
+    },
+    {
+      "path": "verify_ftmoe_protocol020_r0_runner.py",
+      "sha256": "9591f0f175d5291feb4606c82b137ccef8b8aec59a4a79a368a6390a0d092767"
+    },
+    {
+      "path": "audit_ftmoe_protocol020_ramp.py",
+      "sha256": "0c7e37e43c5d3d7e5587b662b178fce6668b92ef40d7d295af9fe723fc195957"
+    }
+  ],
+  "next_step": "R1 fixed residual correction under the passed causal protocol; dynamic deployment requires R0-B/R4 repair before efficacy experiments"
+}

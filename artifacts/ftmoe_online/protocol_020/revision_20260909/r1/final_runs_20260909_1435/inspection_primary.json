@@ -1,0 +1,116 @@
+{
+  "C-legacy/dev500": {
+    "absolute_probability_change_mean": 0.025461550801992416,
+    "absolute_probability_change_median_p95_p99_max": [
+      0.00028400187147781253,
+      0.171312902867794,
+      0.3733417925238606,
+      0.7491675615310669
+    ],
+    "changed_detection_decisions": 694,
+    "corrected_A_errors": 223,
+    "new_errors_vs_A": 471,
+    "changed_resource_decisions_on_positive_hosts": 44,
+    "stream_host_positive_fraction": 0.02575,
+    "recent_sample_host_positive_fraction": 0.03472803347280335,
+    "recent_window_draw_count": 4780,
+    "recent_distinct_window_count": 1844,
+    "all_recent_draws_mature_before_update": true,
+    "sampling_scope": "recent windows only; anchors and class weighting excluded"
+  },
+  "C-residual-off/dev500": {
+    "absolute_probability_change_mean": 0.003027911763638258,
+    "absolute_probability_change_median_p95_p99_max": [
+      1.2909076758660376e-05,
+      0.01836590971797703,
+      0.0544885692000386,
+      0.11638566851615906
+    ],
+    "changed_detection_decisions": 79,
+    "corrected_A_errors": 10,
+    "new_errors_vs_A": 69,
+    "changed_resource_decisions_on_positive_hosts": 1,
+    "stream_host_positive_fraction": 0.02575,
+    "recent_sample_host_positive_fraction": 0.03472803347280335,
+    "recent_window_draw_count": 4780,
+    "recent_distinct_window_count": 1844,
+    "all_recent_draws_mature_before_update": true,
+    "sampling_scope": "recent windows only; anchors and class weighting excluded"
+  },
+  "C-residual-on/dev500": {
+    "absolute_probability_change_mean": 0.0012879259884357452,
+    "absolute_probability_change_median_p95_p99_max": [
+      2.2687554519507103e-06,
+      0.006423647981137034,
+      0.029722149297594945,
+      0.07078507542610168
+    ],
+    "changed_detection_decisions": 34,
+    "corrected_A_errors": 9,
+    "new_errors_vs_A": 25,
+    "changed_resource_decisions_on_positive_hosts": 0,
+    "stream_host_positive_fraction": 0.02575,
+    "recent_sample_host_positive_fraction": 0.03472803347280335,
+    "recent_window_draw_count": 4780,
+    "recent_distinct_window_count": 1844,
+    "all_recent_draws_mature_before_update": true,
+    "sampling_scope": "recent windows only; anchors and class weighting excluded"
+  },
+  "C-legacy/dev501": {
+    "absolute_probability_change_mean": 0.02107449807226658,
+    "absolute_probability_change_median_p95_p99_max": [
+      6.222588126547635e-05,
+      0.1362701669335364,
+      0.43891194909810993,
+      0.8120316863059998
+    ],
+    "changed_detection_decisions": 709,
+    "corrected_A_errors": 529,
+    "new_errors_vs_A": 180,
+    "changed_resource_decisions_on_positive_hosts": 7,
+    "stream_host_positive_fraction": 0.0025,
+    "recent_sample_host_positive_fraction": 0.006746861924686193,
+    "recent_window_draw_count": 4780,
+    "recent_distinct_window_count": 1887,
+    "all_recent_draws_mature_before_update": true,
+    "sampling_scope": "recent windows only; anchors and class weighting excluded"
+  },
+  "C-residual-off/dev501": {
+    "absolute_probability_change_mean": 0.0007243008585646749,
+    "absolute_probability_change_median_p95_p99_max": [
+      1.9253857317380607e-06,
+      0.0041454827412962855,
+      0.015333461463451355,
+      0.02522912621498108
+    ],
+    "changed_detection_decisions": 26,
+    "corrected_A_errors": 24,
+    "new_errors_vs_A": 2,
+    "changed_resource_decisions_on_positive_hosts": 0,
+    "stream_host_positive_fraction": 0.0025,
+    "recent_sample_host_positive_fraction": 0.006746861924686193,
+    "recent_window_draw_count": 4780,
+    "recent_distinct_window_count": 1887,
+    "all_recent_draws_mature_before_update": true,
+    "sampling_scope": "recent windows only; anchors and class weighting excluded"
+  },
+  "C-residual-on/dev501": {
+    "absolute_probability_change_mean": 0.0004945685504935682,
+    "absolute_probability_change_median_p95_p99_max": [
+      0.0,
+      0.0028710298240184774,
+      0.013140951991081203,
+      0.018834441900253296
+    ],
+    "changed_detection_decisions": 19,
+    "corrected_A_errors": 18,
+    "new_errors_vs_A": 1,
+    "changed_resource_decisions_on_positive_hosts": 0,
+    "stream_host_positive_fraction": 0.0025,
+    "recent_sample_host_positive_fraction": 0.006746861924686193,
+    "recent_window_draw_count": 4780,
+    "recent_distinct_window_count": 1887,
+    "all_recent_draws_mature_before_update": true,
+    "sampling_scope": "recent windows only; anchors and class weighting excluded"
+  }
+}

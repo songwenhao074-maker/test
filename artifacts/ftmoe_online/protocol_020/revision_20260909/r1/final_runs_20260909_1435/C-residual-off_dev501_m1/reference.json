@@ -1,0 +1,192 @@
+[
+  {
+    "step": 0,
+    "source": "same_domain_train_anchor",
+    "deployment_parameter": "learner",
+    "deployment_alpha": 1.0,
+    "live_version": 0,
+    "f1": 0.61198738170347,
+    "precision": 0.4801980198019802,
+    "recall": 0.8434782608695652,
+    "diagnosis_hr_at_100pct": 0.9797101449275363,
+    "diagnosis_ndcg_at_100pct": 0.9797101449275363,
+    "hr_at_100": 0.95,
+    "ndcg_at_100": 0.9611133364295236,
+    "diagnostic_pair_ndcg_at_100": 0.9611133364295236,
+    "pr_auc": 0.7408454648672341,
+    "positive_class_macro_f1": 0.9752920409596687,
+    "class_confusion": [
+      [
+        46,
+        0,
+        0
+      ],
+      [
+        0,
+        105,
+        3
+      ],
+      [
+        4,
+        0,
+        187
+      ]
+    ],
+    "tp": 291,
+    "fp": 315,
+    "fn": 54,
+    "tn": 23916
+  },
+  {
+    "step": 500,
+    "source": "same_domain_train_anchor",
+    "deployment_parameter": "learner",
+    "deployment_alpha": 1.0,
+    "live_version": 0,
+    "f1": 0.6139240506329114,
+    "precision": 0.48258706467661694,
+    "recall": 0.8434782608695652,
+    "diagnosis_hr_at_100pct": 0.9826086956521739,
+    "diagnosis_ndcg_at_100pct": 0.9826086956521739,
+    "hr_at_100": 0.95,
+    "ndcg_at_100": 0.9610935274578454,
+    "diagnostic_pair_ndcg_at_100": 0.9610935274578454,
+    "pr_auc": 0.74089670262936,
+    "positive_class_macro_f1": 0.9777326884188664,
+    "class_confusion": [
+      [
+        46,
+        0,
+        0
+      ],
+      [
+        0,
+        106,
+        2
+      ],
+      [
+        4,
+        0,
+        187
+      ]
+    ],
+    "tp": 291,
+    "fp": 312,
+    "fn": 54,
+    "tn": 23919
+  },
+  {
+    "step": 1000,
+    "source": "same_domain_train_anchor",
+    "deployment_parameter": "learner",
+    "deployment_alpha": 1.0,
+    "live_version": 0,
+    "f1": 0.6137566137566137,
+    "precision": 0.48333333333333334,
+    "recall": 0.8405797101449275,
+    "diagnosis_hr_at_100pct": 0.9826086956521739,
+    "diagnosis_ndcg_at_100pct": 0.9826086956521739,
+    "hr_at_100": 0.95,
+    "ndcg_at_100": 0.9611164168982085,
+    "diagnostic_pair_ndcg_at_100": 0.9611164168982085,
+    "pr_auc": 0.7409639852244888,
+    "positive_class_macro_f1": 0.9777326884188664,
+    "class_confusion": [
+      [
+        46,
+        0,
+        0
+      ],
+      [
+        0,
+        106,
+        2
+      ],
+      [
+        4,
+        0,
+        187
+      ]
+    ],
+    "tp": 290,
+    "fp": 310,
+    "fn": 55,
+    "tn": 23921
+  },
+  {
+    "step": 1500,
+    "source": "same_domain_train_anchor",
+    "deployment_parameter": "learner",
+    "deployment_alpha": 1.0,
+    "live_version": 0,
+    "f1": 0.617678381256656,
+    "precision": 0.4882154882154882,
+    "recall": 0.8405797101449275,
+    "diagnosis_hr_at_100pct": 0.9826086956521739,
+    "diagnosis_ndcg_at_100pct": 0.9826086956521739,
+    "hr_at_100": 0.94,
+    "ndcg_at_100": 0.9540321783499627,
+    "diagnostic_pair_ndcg_at_100": 0.9540321783499627,
+    "pr_auc": 0.7410067931747105,
+    "positive_class_macro_f1": 0.9777326884188664,
+    "class_confusion": [
+      [
+        46,
+        0,
+        0
+      ],
+      [
+        0,
+        106,
+        2
+      ],
+      [
+        4,
+        0,
+        187
+      ]
+    ],
+    "tp": 290,
+    "fp": 304,
+    "fn": 55,
+    "tn": 23927
+  },
+  {
+    "step": 2000,
+    "source": "same_domain_train_anchor",
+    "deployment_parameter": "learner",
+    "deployment_alpha": 1.0,
+    "live_version": 0,
+    "f1": 0.6157112526539278,
+    "precision": 0.48576214405360135,
+    "recall": 0.8405797101449275,
+    "diagnosis_hr_at_100pct": 0.9826086956521739,
+    "diagnosis_ndcg_at_100pct": 0.9826086956521739,
+    "hr_at_100": 0.94,
+    "ndcg_at_100": 0.9539542195121546,
+    "diagnostic_pair_ndcg_at_100": 0.9539542195121546,
+    "pr_auc": 0.7404047689515443,
+    "positive_class_macro_f1": 0.9777326884188664,
+    "class_confusion": [
+      [
+        46,
+        0,
+        0
+      ],
+      [
+        0,
+        106,
+        2
+      ],
+      [
+        4,
+        0,
+        187
+      ]
+    ],
+    "tp": 290,
+    "fp": 307,
+    "fn": 55,
+    "tn": 23924
+  }
+]

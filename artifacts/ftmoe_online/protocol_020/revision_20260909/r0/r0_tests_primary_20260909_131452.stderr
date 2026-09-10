@@ -1,0 +1,19 @@
+test_cached_prediction_is_immutable_and_maturity_does_not_forward (test_ftmoe_protocol020_r0.R0CausalLedgerTests) ... ok
+test_candidate_has_no_prebirth_history_and_settles_before_reuse (test_ftmoe_protocol020_r0.R0CausalLedgerTests) ... ok
+test_candidate_preview_restores_gate_statistics_and_end_to_end_hook (test_ftmoe_protocol020_r0.R0CausalLedgerTests) ... ok
+test_qualification_block_uses_one_cached_batch_loss (test_ftmoe_protocol020_r0.R0CausalLedgerTests) ... ok
+test_active_shadow_save_restore_preserves_causal_state_and_optimizer (test_ftmoe_protocol020_r0.R0LifecycleTests) ... ok
+test_finish_matures_last_prediction_once_without_training (test_ftmoe_protocol020_r0.R0LifecycleTests) ... ok
+test_prequential_restore_rejects_legacy_or_missing_dynamic_checkpoint (test_ftmoe_protocol020_r0.R0LifecycleTests) ... ok
+test_restore_without_shadow_optimizer_clears_stale_optimizer (test_ftmoe_protocol020_r0.R0LifecycleTests) ... ok
+test_cached_score_loss_clips_probability_endpoints (test_ftmoe_protocol020_r0.R0LossTests) ... ok
+test_cached_score_loss_matches_s7_loss_all_normal (test_ftmoe_protocol020_r0.R0LossTests) ... ok
+test_cached_score_loss_matches_s7_loss_mixed_anomalies (test_ftmoe_protocol020_r0.R0LossTests) ... ok
+test_real_shadow_slice_has_qualification_and_exact_resume (test_ftmoe_protocol020_r0.R0RealFixtureTests) ... D:\Anaconda\envs\dynmoe\lib\site-packages\torch\nn\modules\transformer.py:307: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  warnings.warn(f"enable_nested_tensor is True, but self.use_nested_tensor is False because {why_not_sparsity_fast_path}")
+ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 4.880s
+
+OK

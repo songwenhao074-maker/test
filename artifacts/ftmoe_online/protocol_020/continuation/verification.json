@@ -1,0 +1,14 @@
+{
+  "C_replay_reproduced": true,
+  "D_equals_C_without_activation": true,
+  "stationary_D_equals_C": true,
+  "new_completed_runs": 12,
+  "all_new_runs_2000_steps": true,
+  "tests_passed": 23,
+  "test_modules": [
+    "test_ftmoe_protocol020_s8",
+    "test_ftmoe_protocol020_dynamic_v3",
+    "test_ftmoe_protocol020_online",
+    "test_ftmoe_protocol020_analysis"
+  ]
+}

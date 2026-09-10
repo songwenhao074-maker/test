@@ -1,0 +1,21 @@
+{
+  "verification": "ftmoe_protocol020_r0_runner_smoke",
+  "created_at": "2026-09-09T13:17:53.688726+08:00",
+  "python": "D:\\Anaconda\\envs\\dynmoe\\python.exe",
+  "runner": "F:\\PreGANPlus-master\\run_ftmoe_protocol020.py",
+  "fixed_inputs": {
+    "method": "D",
+    "model_seed": 1,
+    "checkpoint": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\s6\\adapted_v4_seed1\\best.pt",
+    "stream": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\drift_streams\\dev_seed500_steps2000",
+    "base_lr": 0.0001,
+    "dynamic_config": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\continuation\\dynamic_v3.json",
+    "validation_protocol": "prequential_v1",
+    "ram_guard_gib": 3.0
+  },
+  "output_root": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\revision_20260909\\r0\\runner_smoke_20260909T131753+0800",
+  "runs": [],
+  "assertions": [],
+  "status": "failed",
+  "error": "RuntimeError: Other model process detected before uninterrupted20: [{'pid': 25524, 'name': 'pwsh.exe', 'cmdline': ['C:\\\\Users\\\\Lenovo\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe', '-NoProfile', '-Command', \"try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}\\nGet-Content -LiteralPath 'run_ftmoe_protocol020.py' -Encoding UTF8 | Select-Object -Skip 199 -First 23\\nGet-Content -LiteralPath 'run_ftmoe_protocol020.py' -Encoding UTF8 | Select-Object -Skip 300 -First 21\\n git diff --check -- run_ftmoe_protocol020.py docs/FTMOE_ONLINE_PROTOCOL_020.md \u6307\u4ee4/FTMOE_PROTOCOL020_HANDOFF.md \u6307\u4ee4/FTMOE_PROTOCOL020_PROBLEM_LOG.md\"]}]"
+}

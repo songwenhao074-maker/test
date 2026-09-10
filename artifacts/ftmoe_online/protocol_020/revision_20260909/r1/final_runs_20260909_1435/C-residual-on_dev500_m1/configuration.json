@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "protocol": "020",
+  "revision": "20260909-r1",
+  "phase": "R1",
+  "method": "C-residual-on",
+  "method_family": "frozen_base_residual",
+  "protection_enabled": true,
+  "model_class": "FrozenResidualFTMoE",
+  "session_class": "R1Session",
+  "model_seed": 1,
+  "replay_seed": 500,
+  "start_rng_seed": 8419,
+  "steps": 2000,
+  "learning_rate": 0.0001,
+  "source_checkpoint": {
+    "path": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\s6\\adapted_v4_seed1\\best.pt",
+    "sha256": "10c44bdb0ea1a3134933d6a7eb5be98711ef4e48bd791594e4d8792519dfe03b",
+    "epoch": 4,
+    "mode": "s6_adapted"
+  },
+  "stream": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\drift_streams\\dev_seed500_steps2000",
+  "stream_sha256": "4a275b3bc3e90b991780f0ea2de1f0841380d1978fe64f483523b0761762793b",
+  "stream_manifest_sha256": "3192b0efa8aa794d0c7e93c93b0da98e518afec5ec708d3b3e1a678c98c131d4",
+  "input_contract_version": 2,
+  "normalization_version": 2,
+  "graph_semantics_version": 3,
+  "capacity_control_version": 1,
+  "online_optimizer_version": 3,
+  "s7_memory": {
+    "recent_maxlen": 128,
+    "uniform_per_update": 12,
+    "event_per_update": 4,
+    "anchor_per_update": 8,
+    "max_exposure": 3,
+    "max_rare_exposure": 5,
+    "update_interval": 10,
+    "anchor_source": "protocol-020 train episodes rows 272-399",
+    "lambda_anchor": 0.25,
+    "lambda_distill": 0.1,
+    "loss": ".7 detection CE + .3 positive classification CE + .5 joint ranking + .01 balance"
+  },
+  "loss_v3": {
+    "counts": [
+      75621.0,
+      147.0,
+      441.0,
+      591.0
+    ],
+    "detection_weight": [
+      1.0,
+      8.008742042881314
+    ],
+    "resource_weight": [
+      2.005095549659743,
+      1.157642455346973,
+      1.0
+    ],
+    "formula": "w1=clip(sqrt(N0/N1),2,10); wc=clip(sqrt(Nmax/Nc),1,5) computed on the same-domain training bundle only"
+  },
+  "threshold": 0.5,
+  "label_tolerance": 1,
+  "label_delay_intervals": 1,
+  "resource_guard_ram_gib": 3.0,
+  "normalization_v2": {
+    "scale": [
+      [
+        1860.0,
+        1995.0162353515625,
+        1.0,
+        1.0,
+        9000.0,
+        1.0,
+        1.0
+      ],
+      [
+        1860.0,
+        3241.35693359375,
+        1.0,
+        1.0,
+        5000.0,
+        1.0,
+        1.0
+      ],
+      [
+        1860.0,
+        6012.95166015625,
+        2.0,
+        2.0,
+        6000.0,
+        2.0,
+        2.0
+      ],
+      [
+        1860.0,
+        3241.35693359375,
+        1.0,
+        1.0,
+        6000.0,
+        1.0,
+        1.0
+      ],
+      [
+        1860.0,
+        5848.53564453125,
+        1.0,
+        1.0,
+        6000.0,
+        1.0,
+        1.0
+      ],
+      [
+        1860.0,
+        3241.35693359375,
+        1.0,
+        1.0,
+        9000.0,
+        1.0,
+        1.0
+      ],
+      [
+        5580.0,
+        7848.9345703125,
+        3.0,
+        3.0,
+        11000.0,
+        3.0,
+        3.0
+      ],
+      [
+        1860.0,
+        5848.53564453125,
+        1.0,
+        1.0,
+        7000.0,
+        1.0,
+        1.0
+      ],
+      [
+        1860.0,
+        3992.976318359375,
+        2.0,
+        2.0,
+        5000.0,
+        2.0,
+        2.0
+      ],
+      [
+        1860.0,
+        5527.5322265625,
+        1.0,
+        1.0,
+        6000.0,
+        1.0,
+        1.0
+      ],
+      [
+        5580.0,
+        7140.37890625,
+        4.0,
+        4.0,
+        13000.0,
+        4.0,
+        4.0
+      ],
+      [
+        3720.0,
+        6795.88720703125,
+        2.0,
+        2.0,
+        12000.0,
+        2.0,
+        2.0
+      ],
+      [
+        3720.0,
+        5527.5322265625,
+        3.0,
+        3.0,
+        6000.0,
+        3.0,
+        3.0
+      ],
+      [
+        3720.0,
+        5527.5322265625,
+        3.0,
+        3.0,
+        12000.0,
+        3.0,
+        3.0
+      ],
+      [
+        7440.0,
+        9735.8115234375,
+        4.0,
+        4.0,
+        16000.0,
+        4.0,
+        4.0
+      ],
+      [
+        5580.0,
+        5036.23583984375,
+        3.0,
+        3.0,
+        13000.0,
+        3.0,
+        3.0
+      ]
+    ],
+    "fallback_columns": [],
+    "artifact": "artifacts/ftmoe_online/protocol_020/normalization_v2_time_scale.json"
+  },
+  "reference_source": "same_domain_train_anchor",
+  "data_scope": "development_streams_only",
+  "code_sha256": {
+    "run_ftmoe_protocol020_r1.py": "bd3c0f72d8cef4a763a995830277758ebd6b83dfd9f55e797d60738e0453f8e8",
+    "run_ftmoe_protocol020.py": "576d8007546a76606584e6ba59e8c3ffc27be5674b7f4456ca9f2530fba237cd",
+    "run_ftmoe_protocol019.py": "68fe54906d76941a424bbe00eb4b5c4d5d523f40c82409263cf46f07e3d5aa93",
+    "run_ftmoe_online.py": "a306d439646067d4e3034588186e45fe233ff8d1ba03657fbaa302cc1ed28e3a",
+    "analyze_ftmoe_online.py": "0b509b05d96402995d9347d22d09f21fa4b542f9f5b42ecf432cbf7c1d0696f4",
+    "train_ftmoe_end_to_end.py": "b6c9c09d990ba02d31fa0c13326f7de45844c6926fcc097a40e8a0bcc723863a",
+    "recovery/PreGANSrc/src/ftmoe_online.py": "acd814a76b372add6f8392785628e1d2a58e0e796937765e6b91e2a23ccbb371",
+    "recovery/PreGANSrc/src/ftmoe_ablation.py": "7727dab7759b7480752493c18e6379c8d8b9f13e7cc327344572b90a907327f2",
+    "recovery/PreGANSrc/src/ftmoe_end_to_end.py": "44b4f48979bf228994f9a088e18ccc0e534d1d97e37c28c17adde0417a65f6a0",
+    "recovery/PreGANSrc/src/ftmoe_online_s4.py": "a3b6047912c1df767a1efb648347f2dbf7d660f37f56226c4c1fbdc0e849c267",
+    "recovery/PreGANSrc/src/ftmoe_online_s7.py": "c88275dc75a9aab227f717d412a254bb35c01b2452798985a526a8ee8de2e532",
+    "recovery/PreGANSrc/src/ftmoe_input_contract.py": "4a05f8b19f3aacf6d003f1a9f8f0dd497a52c0f8ebe6e21c3c459d35004ffa42",
+    "recovery/PreGANSrc/src/ftmoe_online_r1.py": "72ae878eebaf8a5abca76123c1127a9c1910b49c39dd60aa8d1d04b92acd80cb"
+  }
+}

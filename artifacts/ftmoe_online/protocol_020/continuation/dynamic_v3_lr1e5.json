@@ -1,0 +1,27 @@
+{
+  "version": 3,
+  "capacity_aware": false,
+  "shadow_lr": 1E-05,
+  "calibration": {
+    "entropy_p95": 0.9960498809814453,
+    "margin_p05": 0.017385313659906393,
+    "novelty_mean": 0.0940625,
+    "novelty_threshold": 0.1625,
+    "loss_baseline": 0.07594317308416067,
+    "stream": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_020\\drift_streams\\dev_seed501_steps2000",
+    "stream_sha256": "59e81053bb3136dba9c1bc7616fc5d2393bc05dcb9f85c4422cb836793a63323",
+    "checkpoint_sha256": "10c44bdb0ea1a3134933d6a7eb5be98711ef4e48bd791594e4d8792519dfe03b",
+    "intervals": 400
+  },
+  "birth": {
+    "minimum_novel_states": 128,
+    "consecutive_windows": 3,
+    "loss_ratio": 1.25
+  },
+  "shadow": {
+    "training_updates": 10,
+    "validation_after_updates": 3,
+    "minimum_future_loss_improvement": 0.005,
+    "ramp_updates": 10
+  }
+}
