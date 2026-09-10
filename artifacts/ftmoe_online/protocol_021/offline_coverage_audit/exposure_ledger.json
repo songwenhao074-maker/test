@@ -1,0 +1,609 @@
+{
+  "protocol": "021",
+  "step": "P21-S1",
+  "artifact_class": "offline_coverage_audit",
+  "generated_from": "现有产物只读审计；未修改/移动/删除任何既有文件；未运行任何模型/训练/模拟器；未创建 git commit",
+  "start_checkpoint": "artifacts\\ftmoe_online\\protocol_020\\s6\\adapted_v4_seed1\\best.pt",
+  "start_checkpoint_sha256": "10c44bdb0ea1a3134933d6a7eb5be98711ef4e48bd791594e4d8792519dfe03b",
+  "start_checkpoint_sha256_source": {
+    "self_computed": true,
+    "cross_check_path": "artifacts/ftmoe_online/protocol_020/revision_20260909/r1/A_dev500_m1/configuration.json",
+    "cross_check_field": "source_checkpoint.sha256",
+    "cross_check_value": "10c44bdb0ea1a3134933d6a7eb5be98711ef4e48bd791594e4d8792519dfe03b",
+    "match": true,
+    "file_size_bytes": 1024772,
+    "file_mtime": "2026-09-08 15:37:54"
+  },
+  "exposure_type_vocabulary": [
+    "gradient_training",
+    "checkpoint_selection",
+    "normalization_fit",
+    "generator_fit",
+    "scenario_selection",
+    "anchor_regularization",
+    "teacher_distillation",
+    "development_evaluation"
+  ],
+  "learning_chain": [
+    {
+      "stage": "protocol014",
+      "stage_note": "冻结基础 v4 seed1 epoch021 = P019/P020 链条的根；本阶段产物同时是 normalization/graph capacity 与 disk-law 的物理原型来源",
+      "sources": [
+        {
+          "source": "artifacts/ftmoe_end_to_end/data/protocol_004_physical/manifest.json",
+          "sha256": "0a6af14e81cc70d379e554616a00229f7416fe79adfd53d944449a050835af1c",
+          "exposure_types": [
+            "gradient_training",
+            "checkpoint_selection",
+            "normalization_fit",
+            "generator_fit",
+            "development_evaluation"
+          ],
+          "evidence": "seeds=[42,1,6,17,23,31,101,102]；train_blocks=[0..4]（202 步/块）、validation_blocks=[5,6,7]、block_size=202；host_capacities 为 8 行 train/val + 8 行 8192.0 RAM 的 16 行表；source_sha256 指向物理 replay seed42/1/6/17/23/31/101/102；array_sha256 给出 time_series/container_demand_series/schedule_series/labels 的 sha256。train_blocks 进梯度，validation_blocks 进 checkpoint/开发评估，数组同时是 P19/P20 normalization 与 disk-law 的原型来源。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_end_to_end/data/protocol_004_physical/{time_series.npy,container_demand_series.npy,schedule_series.npy,labels.npy}",
+          "sha256": {
+            "time_series": "5a3271e83e656a3c26e3c739c2da74c0b986d86e39f2b7fc610547b8cca492c1",
+            "container_demand_series": "99cf6fd91dc25e81ed6a61451d4dac35136e74615a7a79f0a82b5d506572e5b5",
+            "schedule_series": "9abce9f0380ad9e755dfca54a43478af7e85b27b7d4fa1ca1339007a7bb7979d",
+            "labels": "82c44220f6894d266a24de0a43d18edf3334a3867e70b9b7439e1d1b8531bac9"
+          },
+          "exposure_types": [
+            "gradient_training",
+            "checkpoint_selection",
+            "normalization_fit",
+            "generator_fit",
+            "development_evaluation"
+          ],
+          "evidence": "manifest.array_sha256 与各 .npy 的 sha256 一一对应；container_demand_series 同时是 disk_law_p20_ls/lm/v1/v2.json 的 source（见 disk_law 文件的 source / source_sha256 字段）。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_end_to_end/physical_replays/seed{42,1,6,17,23,31,101,102}/replay_log.npz",
+          "exposure_types": [
+            "generator_fit",
+            "gradient_training",
+            "development_evaluation"
+          ],
+          "evidence": "protocol_004_physical/manifest.json 的 source_sha256 逐条登记这 8 个 replay_log.npz（如 seed42=7ad54633bf252f3499fe0d379964cf3559c2d6881fa2b7b4c03e65c0c66d0d40）；它们是 P014 数据集的上游 simulator replay 记录。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/configuration.json",
+          "exposure_types": [
+            "gradient_training",
+            "checkpoint_selection"
+          ],
+          "evidence": "arguments.data = artifacts/ftmoe_end_to_end/data/protocol_004_physical；epochs=30、learning_rate=0.0003、save_all_epochs=true、variants=5；manifest_sha256 与上条 manifest 的 self-computed sha256 相等。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed1/",
+          "exposure_types": [
+            "checkpoint_selection",
+            "development_evaluation"
+          ],
+          "evidence": "checkpoints_by_epoch/ 保留 epoch001..epoch030 全部 30 个 checkpoint；last.pt / best.pt 与 summary.json 并存，说明存在 validation 选择过程。epoch021.pt 的 self-computed sha256 = e3513575ec26fc94a9f3c1d877a7119b21bacc97d7001fa02d18278aa316720b，与 protocol_019/protocol.json base_checkpoint.sha256 逐位相等。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_end_to_end/comparison_014_complete.json",
+          "exposure_types": [
+            "checkpoint_selection",
+            "development_evaluation"
+          ],
+          "evidence": "含 registration_sha256、逐文件 source_sha256（含 v0_seed1/summary.json 与 v0_seed1/checkpoints_by_epoch/epoch024.pt 等）、primary_protocol、original_three/new_two/pooled_five、initialization_check_supportive、eligible_for_frozen_test；即 v4 谱系的开发期模型选择证据。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_end_to_end/diagnosis_reassessment/physical_lr0003_e30/{v0..v4}_seed{1,2,6}.json (+ v4_seed1_replay{31,101,102}_predictions.npz)",
+          "exposure_types": [
+            "checkpoint_selection",
+            "development_evaluation"
+          ],
+          "evidence": "已实际打开 v4_seed1.json：variant='v4'、seed=1、best_epoch=21、best_checkpoint='F:\\PreGANPlus-master\\artifacts\\ftmoe_end_to_end\\runs\\physical_lr0003_e30\\v4_seed1\\checkpoints_by_epoch\\epoch021.pt'、best_sha256=e3513575ec26fc94a9f3c1d877a7119b21bacc97d7001fa02d18278aa316720b，并含 A_last / B_best / epochs 逐 replay(31/101/102) 指标；protocol_019/protocol.json base_checkpoint.resolve 明确写着 resolve 依据 'diagnosis_reassessment best_checkpoint + comparison_014_complete provenance'。目录内 v0..v4 × seed1/2/6 共 15 个评估 JSON 与 3 个 replay31/101/102 预测文件在位（目录列举已核实）。",
+          "verified": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "stage": "protocol019",
+      "stage_note": "在 P014 v4_seed1/epoch021 上做同域适配，产出 P020 S6 的 warm_start",
+      "sources": [
+        {
+          "source": "artifacts/ftmoe_online/protocol_019/adaptation_data/raw/seed{401..408}_steps400/manifest.json (8 个)",
+          "exposure_types": [
+            "gradient_training",
+            "checkpoint_selection"
+          ],
+          "evidence": "每个 manifest 的 selected_vm_indices 都是同一组 42 个 VM： [9,21,28,29,31,34,106,211,219,226,228,236,256,261,267,268,269,272,274,276,280,286,311,324,332,333,375,380,383,384,385,392,407,408,411,413,420,440,488,493,494,495]；steps=400、hosts=16；raw_class_counts_scored 每 seed 均有 CPU/RAM/Disk 三类正类。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_019/adaptation_data/v1/manifest.json",
+          "sha256": "f7ad284a7e0bf2f34f10c7ca9650705f6339f1cb8f8783ee3a47209fe1686c20",
+          "exposure_types": [
+            "gradient_training",
+            "checkpoint_selection",
+            "normalization_fit"
+          ],
+          "evidence": "train_seeds=[401,402,403,404,405]、validation_seeds=[406,407,408]（分块 train_blocks=[0..4] / validation_blocks=[5,6,7]，block_size=400）；class_counts 逐 seed 登记 4 类计数；array_sha256 含 creation_ids；registration.status='protocol019 S3 same-domain adaptation data; seeds disjoint from S2 dev stream (303)'。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_019/s3/adapted_v4_seed1/configuration.json",
+          "exposure_types": [
+            "gradient_training",
+            "checkpoint_selection"
+          ],
+          "evidence": "warm_start.path = artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed1/checkpoints_by_epoch/epoch021.pt（sha256 e3513575…）；epochs=15、learning_rate=0.0001、batch_size=32、optimizer=AdamW、weight_decay=0.0001；data=protocol_019/adaptation_data/v1。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_019/s3/adapted_v4_seed1/{best.pt,last.pt,checkpoints_by_epoch/epoch001..015.pt}",
+          "exposure_types": [
+            "checkpoint_selection"
+          ],
+          "evidence": "best.pt 的 self-computed sha256 = 670c56fe94e738bd8a0f65dcacb0ca836960c1ce86dce6c1601a8c74f5078e3b，与 protocol_020/s6/adapted_v4_seed1/configuration.json warm_start.sha256 及 protocol_020/continuation/protected_checkpoint_hashes.json 的 expected/actual 逐位相等；15 个 epoch checkpoint 全保留。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_019/normalization_v2_time_scale.json",
+          "sha256": "9502736e42424ee064d7f0524eb4c53611153be2a6457395dec44e5d30439f1e",
+          "exposure_types": [
+            "normalization_fit"
+          ],
+          "evidence": "含 time_scale_v2_16x7 / time_scale_v1_16x7 / graph_scale_014 / fallback_columns=[] / source_checkpoint_sha256=e3513575…（即 P014 v4_seed1/epoch021）；被 protocol_020/adaptation_data/v1/manifest.json 的 normalization.source_019_artifact 直接引用为 v2 基座。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_019/normalization_coverage_train.json",
+          "exposure_types": [
+            "normalization_fit",
+            "development_evaluation"
+          ],
+          "evidence": "source 字段 = 'F:\\PreGANPlus-master\\artifacts\\ftmoe_end_to_end\\data\\protocol_004_physical'，train_blocks=[0,1,2,3,4]，rules={EPS, LOW_COVERAGE_COUNT:12, LOW_COVERAGE_MAX_FRACTION:0.0001, fallback:'median of healthy peer maxima in same hardware group'}；hosts 数组长 16。注意：该文件自称只覆盖 train_blocks，但 P014 的 train_blocks 只有 5×202=1010 行，而 hosts[0].cpu_demand.count_nonzero=404（约 1/3），其覆盖范围与「仅 train_blocks」的口径存在张力，见 md 的“矛盾”一节。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_019/dev_stream_config.json",
+          "exposure_types": [
+            "scenario_selection",
+            "development_evaluation"
+          ],
+          "evidence": "phase='S2'、replay_seed=303、steps=300、methods=['A']、learning_rate=0.0、capacity_scales={CPU_CAP_SCALE:0.8, DISK_CAP_SCALE:0.25}、cpu_positive_clip=[2.0,1860.0]、ram_multiplier=2.0、io_per_container=1.0、synthetic_dynamic_disk=true、artificial_time_drift=false、disk_law_sha256=98f4e104…（= adapted_bwgd2_016/disk_law.json）；cold_start_gate='Frozen A PR-AUC >= 0.60 and FPR <= 0.15'。learning_rate=0.0 → 不更新梯度，但该流的选择（容量/适配器/分布目标）本身是场景设计暴露。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_019/stationary_streams/s6_stream_config.json",
+          "exposure_types": [
+            "scenario_selection",
+            "development_evaluation"
+          ],
+          "evidence": "phase='S6'、replay_seed=304、steps=2000、workload='adapted_BWGD2_protocol019'、capacity_scales={0.8, 0.25}、artificial_drift=false、synthetic_dynamic_disk=true；execution_boundary 明确 'A must stay stable, B/C must not forget, D must not grow experts…'。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_019/drift_streams/s7_drift_config.json",
+          "sha256": "8b052b8675449d11d31a0bda48829cf562eada01fb2e4c841881db8319fe3fed",
+          "exposure_types": [
+            "scenario_selection",
+            "development_evaluation"
+          ],
+          "evidence": "phase='S7'、replay_seed=305、steps=2000、phase_len=500、schedule=['cpu','mixed','ram','cpu']（4 段，第 4 段为 cpu recurrence）、capacity_scales={0.8,0.25}、groups_source='training/dev workload statistics only (s7_vm_groups.json)'、groups_sha256=1e0dd93a…。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_019/s7_vm_groups.json",
+          "sha256": "1e0dd93aa2dba45993891fc1082e72463918bd3a0aa30772d81a2a3a96faff75",
+          "exposure_types": [
+            "scenario_selection",
+            "development_evaluation"
+          ],
+          "evidence": "source='training/dev workload statistics (episodes 401-408, dev 303, stationary 304 selected_vm_indices union)'；groups.cpu/mixed/ram 各 14 个 VM（cpu=[274,21,29,31,272,440,106,228,256,276,408,286,9,375] 等）；per_vm 42 条统计。即 P019 drift 的分组是按统计量划分的，属场景选择暴露。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_019/S2_frozen_A_result.json",
+          "exposure_types": [
+            "development_evaluation"
+          ],
+          "evidence": "keys 含 verdict / gate / metrics_full / metrics_second_half / anchor_reference；冷启动门禁（PR-AUC≥0.60、FPR≤0.15）的判定产物。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_019/S3_adaptation_result.json",
+          "exposure_types": [
+            "development_evaluation",
+            "checkpoint_selection"
+          ],
+          "evidence": "keys 含 adapted_checkpoint / s3_training / frozen_A_retest_dev303 / baseline_protocol014_frozen_A / gate_rule / verdict；即 S3 适配 checkpoint 的验收证据。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_019/S4_online_stability_result.json",
+          "exposure_types": [
+            "development_evaluation",
+            "scenario_selection"
+          ],
+          "evidence": "replay_seed=303、start_checkpoint='artifacts/ftmoe_online/protocol_019/s3/adapted_v4_seed1/best.pt'、scheme='s4 (recent128/anchor384, exposure<=3, lambda_anchor 0.25, lambda_distill 0.10, grouped LR for B)'；rows 覆盖 A/B/C × lr{3e-5,1e-5}；gate.pass='lr=1e-5'、detail 记录 3e-5 被 second-half 判据否决。→ 在线超参（lr/anchor 系数）由该 dev 流选定。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_019/{S5_dynamic_expert_v2_result.json,S6_stationary_result.json,S7_drift_result.json}",
+          "exposure_types": [
+            "development_evaluation",
+            "scenario_selection"
+          ],
+          "evidence": "S5：replay_seed=303、gate_version='v2'、design 明确 'plan §10: EMA gate (samples>=128, ema>=0.05, 3 windows), centroid k=1 birth via parent clone + threshold q70 + routing ramp (0->1 over 4 updates…)'、observation 记录网络未增长（D 与 C 逐位相同）。S6：replay_seed=304、stream='stationary_streams/seed304_steps2000 (2000 intervals, raw positives 251/32000 = 0.78%)'、gates.stationary_sanity='PASS'、detail 含 'D equals C bit-for-bit on this stationary stream (D-C = 0.0)'。S7：键含 stream / stream_sha256 / phase_metrics / expert_count / d_minus_c / verdict / gate_rule。三者共同构成 P019 的开发期门禁、超参与结论记录。",
+          "verified": true
+        },
+        {
+          "source": "anchor：artifacts/ftmoe_online/protocol_019/adaptation_data/v1（train 分块 401-405）",
+          "exposure_types": [
+            "anchor_regularization"
+          ],
+          "evidence": "P019 自身的锚点/蒸馏同样取自 adaptation_data/v1 的 train 分块：artifacts/ftmoe_online/protocol_019/S4_online_stability_result.json 的 scheme='s4 (recent128/anchor384, exposure<=3, lambda_anchor 0.25, lambda_distill 0.10, grouped LR for B)' 且 ref_f1_start=0.904858870906466（锚点参考）。P020 侧则把锚点窗口显式固定为 'train episodes rows 272-399'：recovery/PreGANSrc/src/ftmoe_online_s7.py:12-14 注释 '- Anchor memory: rows 272-399 of every protocol-020 adaptation train episode (12 episodes x 128 rows = 1536 windows), graph-semantics v3'，并由 run_ftmoe_protocol020.py:291 与 run_ftmoe_protocol020_r1.py:363 写入配置。",
+          "verified": true
+        },
+        {
+          "source": "teacher/distillation：artifacts/ftmoe_online/protocol_019/s3/adapted_v4_seed1/best.pt（及 P020 起点 best.pt）",
+          "exposure_types": [
+            "teacher_distillation"
+          ],
+          "evidence": "artifacts/ftmoe_online/protocol_020/runs/C_model1_seed500_drift/configuration.json 的 s7_memory.teacher = 'frozen starting checkpoint'，且同文件的 s7_memory.lambda_distill=0.1、source_checkpoint 指向 s6/adapted_v4_seed1/best.pt。→ 起点 checkpoint 本身充当冻结教师。",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "stage": "protocol020_s6",
+      "stage_note": "产出在线起点 s6/adapted_v4_seed1/best.pt；并含 R1 保护阈值/方法选择所用 dev 流",
+      "sources": [
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/adaptation_data/raw/{train,dev}/{baseline,cpu_fault,ram_fault,disk_fault}/seed40X_steps400/manifest.json (20 个)",
+          "exposure_types": [
+            "gradient_training",
+            "checkpoint_selection",
+            "scenario_selection"
+          ],
+          "evidence": "train 12 个 episode（seed401-403 × 4 profile，cohort='train'，cohort_vm_ids 277 个，与 vm_split.json cohorts.train 完全一致）+ dev 8 个 episode（seed404-405 × 4 profile，cohort='dev'，cohort_vm_ids 86 个，与 cohorts.dev 完全一致）；实际 profile：baseline(1.00,1.00,0.90,ru1400) / cpu_fault(0.65,1.00,0.90,ru1400) / ram_fault(1.00,0.55,0.90,ru2400) / disk_fault(1.00,1.00,0.35,adapter={})；全部 disk_law_relative='artifacts/ftmoe_online/protocol_020/disk_law_p20_ls.json'；scenario_adapter_sha256=94c209fe…。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/adaptation_data/v1/manifest.json",
+          "sha256": "a17d2d218135a603197c4bf6f08edcd6c87d6f64dfdd8cc34731e02c7324638a",
+          "exposure_types": [
+            "gradient_training",
+            "checkpoint_selection",
+            "normalization_fit",
+            "scenario_selection"
+          ],
+          "evidence": "train_episodes 12 个 / dev_episodes 8 个；block_size=400；label_policy='actual physical overload, dominant ratio; +/-1 tolerance (guard row matures the last row)'；episode_hashes[*].profile 记录的就是上条的实际 profile；normalization.registered_artifact='artifacts/ftmoe_online/protocol_020/normalization_v2_time_scale.json'、source_019_artifact 指向 P019 同名片。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/normalization_v2_time_scale.json",
+          "sha256": "1b93b572cf664ccf735678309f8df6509cda0585f422d6c973e13cbc8bd9349d",
+          "exposure_types": [
+            "normalization_fit"
+          ],
+          "evidence": "name='protocol-020 normalization v2 (019 base + 020 train-cohort coverage)'；含 time_scale_v2_16x7、graph_scale_014、coverage_stats_train（逐 host 的 cpu_demand/ram_space 等分位统计）、normalized_abs_max_report_train/dev、source_019_artifact、source_sha256。即 020 归一化是在 019 基座上用 020 train cohort 重新覆盖拟合。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/disk_law_p20_ls.json",
+          "sha256": "cd4679c594ba6a77290a025429d295699890c9619602c892be698af3fa80efd9",
+          "exposure_types": [
+            "generator_fit"
+          ],
+          "evidence": "source='F:\\PreGANPlus-master\\artifacts\\ftmoe_end_to_end\\data\\protocol_004_physical\\container_demand_series.npy'、source_sha256=99cf6fd9…（与 P014 manifest.array_sha256.container_demand_series 逐位相等）、train_blocks=[0,1,2,3,4]；limitation='per-task marginal and first-order persistence only; cross-resource and cross-task correlation not preserved'；derived_from='artifacts/ftmoe_online/adapted_bwgd2_016/disk_law.json'（sha256 98f4e104…）。→ 磁盘生成律直接拟合自 P014 训练数据。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/adapter/scenario_adapter.json",
+          "sha256": "94c209feb4ada03522cadf79517c9dbb5198a78628160642cf2335d3713d939b",
+          "exposure_types": [
+            "generator_fit",
+            "scenario_selection"
+          ],
+          "evidence": "schema_version=3、arrival_mean=1.0、arrival_sigma=1.5、adapter={cpu_lower:2.0,cpu_upper:1860.0,cpu_mult:1.0,ram_mult:2.0,ram_upper:null,disk_mult:1.0}、disk_law_relative='artifacts/ftmoe_online/protocol_020/disk_law_p20_ls.json'；registration 记录 v4(2026-09-08) 允许 per-phase override 且基础 profile 为 016 契约 + p20-ls。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/s6/adapted_v4_seed1/configuration.json",
+          "exposure_types": [
+            "gradient_training",
+            "checkpoint_selection",
+            "normalization_fit"
+          ],
+          "evidence": "warm_start.path=protocol_019/s3/adapted_v4_seed1/best.pt（sha256 670c56fe…）；data=protocol_020/adaptation_data/v1；epochs=15、learning_rate=0.0001、batch_size=32、optimizer=AdamW、weight_decay=0.0001；selection_rule='0.6*pr_auc + 0.4*resource_macro_f1 on dev episodes with positives (pre-registered)'；normalization 内嵌 time_scale（112 项）、graph_scale、graph_host_capacity（前 8 行 RAM=0.6519…、后 8 行 RAM=1.2433…）、normalization_version=2。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/s6/adapted_v4_seed1/{best.pt,last.pt,checkpoints_by_epoch/epoch001..015.pt,epochs.csv,summary.json}",
+          "exposure_types": [
+            "checkpoint_selection"
+          ],
+          "evidence": "best.pt 的 self-computed sha256=10c44bdb0ea1a3134933d6a7eb5be98711ef4e48bd791594e4d8792519dfe03b，与 R1 全部 configuration.json 的 source_checkpoint.sha256(epoch=4, mode='s6_adapted') 及 continuation/protected_checkpoint_hashes.json 一致；15 个 epoch checkpoint 全保留，选择规则见上条。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/vm_split.json",
+          "sha256": "f0b1c8eae0865175d6d111c77077b82cb7bfbaebdd4a30423cd9cf9f4cef4d50",
+          "exposure_types": [
+            "scenario_selection",
+            "gradient_training",
+            "development_evaluation"
+          ],
+          "evidence": "scanned_vm_count=500、eligible_vm_count=457；split_rule=\"stratum=(cpu_ips_mean_tercile,ram_units_mean_tercile); bucket=sha256('p20:v1:<vm_id>') mod 10; bucket 0-5 train / 6-7 dev / 8-9 online\"；cohorts={train:277, dev:86, online:94}（我自行核算：三集合两两交集为空、并集=457）。该划分同时决定训练/开发/在线三套流的 VM 来源。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/capacity_scan/ (79 个 manifest.json, seed=410, 400 步, cohort=train)",
+          "exposure_types": [
+            "scenario_selection",
+            "generator_fit"
+          ],
+          "evidence": "capacity_scan_report.json（report 覆盖其中 31 个非 smoke/400 步候选）记录 gate_rules={normal_share:[0.8,0.95], fault_hoststep_floor_reference:150, event_floor_reference:30, reference_horizon_host_steps:32000, phase_horizon_host_steps:8000, phase_dominant_floor:100, deployment_rejection_max:0.2, migration_rejection_max:0.4} 与 gate_pass=false（31/31）。79 个 manifest 的实际 profile/adapter 取值全部读自文件：cpu 单因子 0.4–1.0、ram 单因子 0.1–1.0、disk 单因子 0.12–0.45、phase 组合若干；adapter 变体含 cpu_mult=1.5、cpu_upper=2200/2600、disk_mult=1.5/2.0、ram_mult=2.5/3.0、ram_upper=1400/1900；disk law 变体 disk_law.json(2)、disk_law_p20_ls(23)、lm(1)、v1(2)、v2(3)。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/capacity_scan_dev/ (9 个 manifest.json, seed=500, 400 步, cohort=train 来源但流名 phase_*)",
+          "exposure_types": [
+            "scenario_selection"
+          ],
+          "evidence": "9 个候选：ram 轴 0.4/0.5/0.55/0.6/0.75 与 ram_upper∈{None,2400,2500} 的组合，全部 disk law=disk_law_p20_ls.json；cohort_vm_ids=86（= vm_split dev 组）。注意 manifest 的 cohort 字段写 'train' 而 VM 列表是 dev 组（见 md 的“矛盾”一节）。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/drift/drift_config.json",
+          "sha256": "790daa32fcf29bfa8e8cc029e38f5b0d2e84929b024d063c01d01539adc1e89b",
+          "exposure_types": [
+            "scenario_selection"
+          ],
+          "evidence": "kind='drift'、phase_len=400、5 个 phase（baseline 1/1/0.9 ru1400、cpu_fault 0.65/1/0.9 ru1400、ram_fault 1/0.55/0.9 ru2400、disk_fault 1/1/0.35 adapter={}、cpu_recurrence 0.65/1/0.9 ru1400）；registration 记录 v4(2026-09-08, P22) 将 RAM phase 定为 (1,0.55,0.9)+ru2400。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/stationary/stationary_config.json",
+          "exposure_types": [
+            "scenario_selection",
+            "development_evaluation"
+          ],
+          "evidence": "cohort='dev'、phase_len=2000、单一 baseline phase (1.0,1.0,0.9, ru1400)；registration='baseline condition = drift-config baseline phase (disk 0.9, ram_upper 1400) so stationary and drift streams share the same domain contract'。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/drift_streams/dev_seed500_steps2000/manifest.json",
+          "exposure_types": [
+            "development_evaluation",
+            "scenario_selection"
+          ],
+          "evidence": "seed=500、steps=2000、cohort='dev'、cohort_vm_ids 86 个（= vm_split dev 组，与 train/online 交集为空）；config_sha256=drift_config_sha256=790daa32…；stream_sha256=4a275b3bc3e90b991780f0ea2de1f0841380d1978fe64f483523b0761762793b；per_phase 记录 baseline 3 / cpu 43 / ram 178(173 RAM dominant) / disk 250(226 Disk) / recurrence 45 个 anomalous host-steps；deployment_rejection_rate=0.1868、migration_rejection_rate=0.3087。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/drift_streams/dev_seed501_steps2000/manifest.json",
+          "exposure_types": [
+            "development_evaluation",
+            "scenario_selection"
+          ],
+          "evidence": "seed=501、steps=2000、cohort='dev'、phase_len=2000、单一 baseline phase (1.0,1.0,0.9,ru1400)；stream_sha256=59e81053bb3136dba9c1bc7616fc5d2393bc05dcb9f85c4422cb836793a63323；deployment_rejection_rate=0.0621、migration=0.1186。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/S7_drift_AC_result.json / S7_stationary_result.json",
+          "exposure_types": [
+            "development_evaluation"
+          ],
+          "evidence": "S7_drift_AC_result.json 明确 stream='dev_seed500_steps2000'，逐 phase 给出 A/C 的 f1/pr_auc 与 lags（boundary 400/800/1200/1600），verdict.C_measurable_adaptation='WEAK/NEGATIVE'；S7_stationary_result.json 明确 stream='dev_seed501_steps2000'，包含 A/B/C 的 anchor_last_f1 与 exposure/exposure_violations，gates={C_pr_auc_ge_A_minus_0.02:true, anchor_drop_within_0.03:true}。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/continuation/dynamic_v3.json",
+          "sha256": "b496b36c1d14b4edbce7c2e7935ee1abd83ff7d1d6fe29032739ee229870a277",
+          "exposure_types": [
+            "development_evaluation",
+            "scenario_selection"
+          ],
+          "evidence": "calibration.stream='…\\drift_streams\\dev_seed501_steps2000'、calibration.stream_sha256=59e81053…、calibration.checkpoint_sha256=10c44bdb…；即动态专家 v3 的 novelty 阈值（entropy_p95/margin_p05/novelty_threshold=0.1625/loss_baseline）是在 dev501 上标定的。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/continuation/protected_checkpoint_hashes.json",
+          "exposure_types": [
+            "checkpoint_selection",
+            "development_evaluation"
+          ],
+          "evidence": "保护清单逐条给出 expected/actual/unchanged=true 的三个 checkpoint：P014 epoch021.pt(e3513575…)、P020 s6/adapted_v4_seed1/best.pt(10c44bdb…)、P019 s3/adapted_v4_seed1/best.pt(670c56fe…)。我自行重算三者 sha256 与文件内记录逐位一致。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/runs/* (A/B/C, seed500/501) 与 runs_continuation/* (B/C/D_v3 × lr1e4/1e5/w1)",
+          "exposure_types": [
+            "development_evaluation",
+            "scenario_selection"
+          ],
+          "evidence": "runs 5 个 run 的 configuration.json：method∈{A,B,C}、model_seed=1、replay_seed∈{500,501}、lr∈{0.0,1e-5}、source_checkpoint=s6/adapted_v4_seed1/best.pt(10c44bdb…)、anchor_source='protocol-020 train episodes rows 272-399'；runs_continuation 12 个 run：method∈{B,C,D}、lr∈{1e-4,1e-5}、replay_seed∈{500,501}。continuation/verification.json 记录 new_completed_runs=12、tests_passed=23。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/revision_20260909/r1/ (A / C-legacy / C-residual-off / C-residual-on × dev500/dev501)",
+          "exposure_types": [
+            "development_evaluation",
+            "scenario_selection"
+          ],
+          "evidence": "revision_20260909/r1/execute_registered_grid_primary.py:45-58 冻结网格 `for seed in (500, 501): for method in (\"A\",\"C-legacy\",\"C-residual-off\",\"C-residual-on\")`，stream 为 drift_streams/dev_seed{500,501}_steps2000，checkpoint 为 s6/adapted_v4_seed1/best.pt；final_runs_20260909_1435/ 下 8 个 run 的 configuration.json 全部 model_seed=1、replay_seed∈{500,501}、start_rng_seed∈{8419,8420}、normalization_version=2、graph_semantics_version=3、capacity_control_version=1；protection_enabled=false（A/C-legacy/C-residual-off）与 true（C-residual-on）。→ 保护阈值/方法选择流 = dev500 + dev501。",
+          "verified": true
+        },
+        {
+          "source": "artifacts/ftmoe_online/protocol_020/continuation/audit_final.json",
+          "exposure_types": [
+            "development_evaluation"
+          ],
+          "evidence": "文件存在（253894 字节）；作为 P20 S8/S9 的开发验收汇总被 continuation/verification.json 与 docs/FTMOE_ONLINE_PROTOCOL_020.md §5 引用。本次仅核实其存在与规模，未逐字段解构。",
+          "verified": true,
+          "reason": null,
+          "note": "存在性已核实；内容未逐字段审计。"
+        }
+      ]
+    }
+  ],
+  "mechanism_exclusion": {
+    "temporal_cpu_ram_disk_cascade": "not_found",
+    "search_scope": [
+      "simulator/workload/**/*.py",
+      "simulator/environment/**/*.py",
+      "recovery/PreGANSrc/src/**/*.py",
+      "artifacts/ftmoe_end_to_end/**/*.{py,json,md}",
+      "artifacts/ftmoe_online/protocol_019/**/*.{py,json,md}",
+      "artifacts/ftmoe_online/protocol_020/**/*.{py,json,md}"
+    ],
+    "search_exclusions": [
+      "simulator/workload/BitbrainWorkloadProtocol021.py（P21-S2 新增生成器，不属离线学习链；未跟踪文件，git status 显示 '?? simulator/workload/BitbrainWorkloadProtocol021.py'）",
+      "test_ftmoe_protocol021_unseen.py、prepare_ftmoe_protocol021_unseen.py（同上，未跟踪）",
+      "artifacts/ftmoe_online/protocol_021/**（本次审计自身的输出目录，含并发生成的 pilot_streams/）",
+      "指令/FTMOE_PROTOCOL021_UNSEEN_REGIME_EXECUTION_PLAN_FINAL.md（021 计划文档，未跟踪）"
+    ],
+    "search_exclusions_state_at_audit_time": {
+      "note": "审计期间工作区有并发写入（同一条 021 流水线的其他步骤）；以下为本次排除清单在 2026-09-10 21:55 左右的实际状态。",
+      "files_excluded": [
+        {
+          "path": "simulator/workload/BitbrainWorkloadProtocol021.py",
+          "bytes": 19009,
+          "mtime": "2026-09-10 21:54:36"
+        },
+        {
+          "path": "simulator/workload/__pycache__/BitbrainWorkloadProtocol021.cpython-38.pyc",
+          "bytes": 13356,
+          "mtime": "2026-09-10 21:54:50"
+        },
+        {
+          "path": "test_ftmoe_protocol021_unseen.py",
+          "bytes": 15292,
+          "mtime": "2026-09-10 21:54:44"
+        },
+        {
+          "path": "prepare_ftmoe_protocol021_unseen.py",
+          "bytes": 26081,
+          "mtime": "2026-09-10 21:52:56"
+        },
+        {
+          "path": "artifacts/ftmoe_online/protocol_021/pilot_streams/_smoke/p025_seed600_steps40/{manifest.json,stream.npz,events.json,generation.log,unseen_data_audit.json}",
+          "mtime": "2026-09-10 21:53:21"
+        },
+        {
+          "path": "指令/FTMOE_PROTOCOL021_UNSEEN_REGIME_EXECUTION_PLAN_FINAL.md",
+          "bytes": 40004,
+          "mtime": "2026-09-10 21:37:55"
+        }
+      ],
+      "conclusion_for_audit": "排除这些文件后，014/019/020 范围内的检索计数在两次运行中完全一致（见 keyword_result_counts），结论不因并发写入而改变。"
+    },
+    "keyword_result_counts": {
+      "cascade": {
+        "matches": 0,
+        "files": 0
+      },
+      "cpu_to_ram": {
+        "matches": 0,
+        "files": 0
+      },
+      "delayed": {
+        "matches": 0,
+        "files": 0
+      },
+      "mechanism_seed": {
+        "matches": 0,
+        "files": 0
+      },
+      "hysteresis": {
+        "matches": 0,
+        "files": 0
+      },
+      "feedback": {
+        "matches": 0,
+        "files": 0
+      },
+      "retention": {
+        "matches": 9,
+        "files": 2,
+        "note": "8 次为 artifacts/ftmoe_online/protocol_020/revision_20260909/r1/final_runs_20260909_1435/r1_analysis.json 中的 anchor_retention 指标键；1 次为 recovery/PreGANSrc/src/ftmoe_online_s7.py:273 的英文注释 'Measure retention on P20 anchors with P20 normalization and graph v3.'（指锚点保持率）。均非 RAM retention/累积机制；本组目录 'retention' 仅命中文件 'retention' 共 9 次。"
+      },
+      "lag": {
+        "matches": 109,
+        "files": 10,
+        "note": "全部为 adaptation lag 评估指标（boundary/lag_interval）与极少量英文单词 'flag' 的子串命中，非 CPU->RAM/Disk 时间滞后机制。"
+      },
+      "temporal": {
+        "matches": 104,
+        "files": 28,
+        "note": "来源为 train_ftmoe_ablation_existing.py 与 source_snapshot 副本中的 'temporal*' 命名/注释（时序编码器），非跨资源时间耦合。"
+      },
+      "ramp": {
+        "matches": 93,
+        "files": 30,
+        "note": "为动态专家 Top-k ramp / expert ramp（ftmoe_online_s5.py、ftmoe_online_s8.py、r0/ramp_diagnostic.json），非 RAM ramp 机制。"
+      },
+      "accumulat": {
+        "matches": 2,
+        "files": 2,
+        "note": "ftmoe_dynamic_expert_v3.py:37 'Stateless-ish accumulator for the v3 birth gate'；ftmoe_online_s8.py:1044 'statistics accumulated by deployment predictions'。"
+      },
+      "ram_upper": {
+        "matches": 102,
+        "files": 43,
+        "note": "为 demand adapter 的静态上限旋钮（RAM_UPPER），与时间滞后无关。"
+      }
+    },
+    "conclusion": "在 014/019/020 的模拟器代码与全部配置/产物中，未发现任何 CPU burst -> 滞后 RAM 抬升 -> 滞后 Disk 累积 的时间耦合机制；模拟器仅以静态 capacity scale / adapter 旋钮 + 每任务独立一阶 Markov 磁盘占用律生成工作量。",
+    "supporting_evidence": [
+      "artifacts/ftmoe_online/protocol_020/disk_law_p20_ls.json limitation 字段：'per-task marginal and first-order persistence only; cross-resource and cross-task correlation not preserved'",
+      "artifacts/ftmoe_online/protocol_020/drift/drift_config.json：相位切换是离散的 capacity scale 跳变（capacity_before/capacity_after 记录在 drift_streams manifest.transitions），不存在跨资源滞后项",
+      "simulator/workload/BitbrainWorkloadProtocol021.py 是全仓库唯一含 'cascade'/'cpu_to_ram'/'mechanism_seed' 的文件（各 58/4/10 次命中），且为 P21-S2 新增未跟踪文件"
+    ]
+  },
+  "source_scope": {
+    "relative_to_p20_s6": "source-disjoint",
+    "relative_to_full_014_019": "unverified",
+    "relative_to_p20_s6_evidence": "artifacts/ftmoe_online/protocol_020/vm_split.json cohorts 三组两两交集为空（自行核算：train 277 / dev 86 / online 94，并集 457 = eligible_vm_count）；P020 S6 train/dev episode manifest 的 cohort_vm_ids 与 cohorts.train / cohorts.dev 逐元素一致。",
+    "relative_to_full_014_019_reason": "P019 的 42 个 selected_vm_indices 全部落在 P20 vm_split 的三组之内（train 28 / dev 5 / online 9），而 P014 的数据来自 simulator replay（seed42/1/6/17/23/31/101/102），其上游 VM 选择未在任何被审产物中登记，无法据此断言绝对源隔离。",
+    "protocol_021_requirement_reference": "指令/FTMOE_PROTOCOL021_UNSEEN_REGIME_EXECUTION_PLAN_FINAL.md §4 要求：若相对原始 v4/Protocol019 的源文件历史无法完全恢复，必须写 'source-unseen relative to full historical chain: UNVERIFIED'"
+  },
+  "audit_scope_statement": {
+    "relative_to_p20_s6": "本次审计可确证 P21 候选 cohort 与 P20 S6 train/dev 的来源隔离（VM 集合级）",
+    "relative_to_full_014_019": "P014 的上游 VM/轨迹选择未在产物中登记，故对完整历史链保持 UNVERIFIED",
+    "cannot_claim": "不得据此宣称「绝对未见」"
+  },
+  "unverified_items": [
+    {
+      "item": "P014 数据集的上游 VM / trace 选择集合",
+      "reason": "artifacts/ftmoe_end_to_end/data/protocol_004_physical/manifest.json 只登记 replay seed 与数组 sha256，未登记任何 VM id；physical_replays/seed*/replay_log.npz 为二进制，本次按「不运行模型/不新增中间产物」纪律未解包。",
+      "verified": null
+    },
+    {
+      "item": "artifacts/ftmoe_end_to_end/comparison_014_complete.json 内全部 48k 字符的逐条对比数值",
+      "reason": "仅核实键结构（registration_sha256 / source_sha256 / primary_protocol / original_three / new_two / pooled_five / initialization_check_supportive / eligible_for_frozen_test）与文件规模，未逐条复算。",
+      "verified": null
+    },
+    {
+      "item": "artifacts/ftmoe_online/protocol_020/continuation/audit_final.json 的逐字段结论",
+      "reason": "仅核实文件存在（253894 字节）并确认被 continuation/verification.json 与 docs/FTMOE_ONLINE_PROTOCOL_020.md §5 引用，未逐字段解构。",
+      "verified": null
+    },
+    {
+      "item": "artifacts/ftmoe_online/protocol_020/capacity_scan/ 下 79 个 manifest 与 capacity_scan_report.json 的 31 条候选之间的差额（48 个）",
+      "reason": "报告由 analyze_ftmoe_protocol020_capacity_scan.py 的 main() 枚举 SCAN.iterdir() 下每个子目录的 manifest.json（本次未运行该脚本）。报告 31 条候选的 profile 全部是 disk_scale=0.3 的 cpu/ram/disk 单因子值；而磁盘上另有 48 个 phase_* 候选、lawlm/lawv1/lawv2 变体与 *_am2 / dm / cm1.5 / au / rm 变体不在报告中。因此报告相对目录集是陈旧的（见 md 矛盾 C6），但本次未逐条复原其生成时点。",
+      "verified": null
+    },
+    {
+      "item": "P019 s7_vm_groups.json 的 42 个 VM 究竟是 401-408/303/304 的并集还是子集",
+      "reason": "groups_source 文本称 'selected_vm_indices union'，但我核对 8 个 P019 raw manifest 的 selected_vm_indices 完全同构（同一 42 个），故 union 与任一单集相等，无法区分两种解释。",
+      "verified": null
+    }
+  ]
+}

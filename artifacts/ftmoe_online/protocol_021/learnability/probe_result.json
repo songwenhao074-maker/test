@@ -1,0 +1,113 @@
+{
+  "protocol": "021",
+  "step": "P21-S5",
+  "split": {
+    "fit": [
+      0,
+      400
+    ],
+    "dev": [
+      400,
+      800
+    ],
+    "test": [
+      800,
+      1200
+    ],
+    "note": "temporal only, never shuffled (protocol §9.3)"
+  },
+  "forbidden_inputs": [
+    "phase_id",
+    "regime_id",
+    "cascade_task_flag",
+    "cascade_event_id",
+    "future_demand",
+    "future_capacity",
+    "unmatured_label"
+  ],
+  "gate_rule": {
+    "ap_min": "max(0.20, 3 x prevalence)",
+    "also": "ROC-AUC >= 0.75 or top-decile recall >= 0.40",
+    "evaluated_on": "target=next"
+  },
+  "selection_state": {
+    "selected": null,
+    "stop_conditions_hit": [
+      "STOP-A"
+    ],
+    "probe_run_as": "post-STOP-A data-layer diagnostic",
+    "candidate_dir_used": "p025_seed600_steps1200",
+    "note": "the probe is part of the required evidence set (§42) and does not authorise the model stage; STOP-A still applies"
+  },
+  "candidates": [
+    {
+      "candidate": "p025_seed600_steps1200",
+      "stream_sha256": "03ef969bf5ee6950e226a409f2c9545d75cec85c6a0e9bbbc7fd55ac380a82b1",
+      "cascade_task_probability": 0.25,
+      "steps": 1200,
+      "target": "next",
+      "n_features": 18,
+      "feature_names": [
+        "ratio_cpu",
+        "ratio_ram",
+        "ratio_disk",
+        "slope1_cpu",
+        "slope1_ram",
+        "slope1_disk",
+        "slope3_cpu",
+        "slope3_ram",
+        "slope3_disk",
+        "slope6_cpu",
+        "slope6_ram",
+        "slope6_disk",
+        "occupancy",
+        "migration_mass_in",
+        "past_fault_0",
+        "past_fault_1",
+        "past_fault_2",
+        "past_fault_3"
+      ],
+      "metrics": {
+        "fit": {
+          "n": 6400,
+          "prevalence": 0.06234375,
+          "ap": 0.6127643464932794,
+          "roc_auc": 0.9493480409906621,
+          "top_decile_recall": 0.7142857142857143
+        },
+        "dev": {
+          "n": 6400,
+          "prevalence": 0.075625,
+          "ap": 0.6576337259956037,
+          "roc_auc": 0.9536816044457112,
+          "top_decile_recall": 0.7148760330578512
+        },
+        "test": {
+          "n": 6384,
+          "prevalence": 0.07785087719298246,
+          "ap": 0.6780427633558223,
+          "roc_auc": 0.9539723477607619,
+          "top_decile_recall": 0.7344064386317908
+        }
+      },
+      "random_baseline_ap": 0.07785087719298246,
+      "diagnosis": {
+        "multiclass_accuracy": 0.9462719298245614,
+        "conditional_fault_class_accuracy": 0.48893360160965793
+      },
+      "gate": {
+        "ap_min": 0.2335526315789474,
+        "ap_at_least_min": true,
+        "ranking_ok": true,
+        "passed": true
+      },
+      "controls": {
+        "time_shuffled_label_ap": 0.24189186219771802,
+        "leaky_next_ratio_ap": 0.9569827751935064,
+        "note": "controls are diagnostics only; never used for the gate"
+      }
+    }
+  ],
+  "gate_passed_any": true,
+  "gate_passed_all": true
+}

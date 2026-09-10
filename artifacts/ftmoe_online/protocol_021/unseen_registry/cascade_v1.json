@@ -1,0 +1,108 @@
+{
+  "protocol": "021",
+  "regime_id": "cascade_v1",
+  "registered_at": "2026-09-10",
+  "registered_before_model_runs": true,
+  "claim_level": {
+    "U0_new_seed_or_replay": true,
+    "U1_source_disjoint": true,
+    "U2_parameter_combo_unseen": true,
+    "U3_generator_mechanism_unseen": true,
+    "U4_distributional_novelty": null,
+    "U4_status": "pending analyze_ftmoe_protocol021_unseen.py"
+  },
+  "claim_level_notes": {
+    "U0_U1_not_sufficient": "A new seed/replay and a disjoint VM cohort are not, by themselves, evidence of a new regime (protocol §4).",
+    "U3_evidence": "offline_coverage_audit/exposure_ledger.json -> mechanism_exclusion.temporal_cpu_ram_disk_cascade: searched 1003 files of the 014/019/020 chain; cascade/cpu_to_ram/delayed/mechanism_seed/hysteresis/feedback = 0 matches.",
+    "U1_evidence": "offline_coverage_audit/exclusion_registry.json -> used_vm_ids: pilot cohort p20_online (94 VMs) is disjoint from the P20 S6 train (277) and dev (86) cohorts; protocol §8.4 authorises the P20 online cohort subject to that disjointness.",
+    "U1_limitation": "source-unseen relative to the full historical chain (P014 upstream VM selection is not registered anywhere) remains UNVERIFIED, per protocol §4.",
+    "U2_note": "The registered envelope (burst 3-5 intervals at >= host CPU capacity from age 1; RAM target ramp at +4; capped self-cleaning retained disk term at +8) does not exist anywhere in the offline chain (see U3 evidence), so the parameter combination is unseen by construction."
+  },
+  "mechanism": {
+    "regime_id": "cascade_v1",
+    "type": "temporal_resource_cascade",
+    "mechanism_seed": 21021,
+    "cpu_duration": [
+      3,
+      5
+    ],
+    "cpu_to_ram_lag": 4,
+    "cpu_to_disk_lag": 8,
+    "ram_duration": [
+      6,
+      10
+    ],
+    "disk_duration": [
+      6,
+      10
+    ],
+    "cpu_burst_mult": 2.0,
+    "cpu_burst_onset": "familiar",
+    "cpu_burst_floor": 4400.0,
+    "cpu_burst_upper": 5200.0,
+    "ram_ramp_peak_mult": 2.0,
+    "ram_target_floor": 4500.0,
+    "ram_burst_upper": 6000.0,
+    "disk_retained_peak": 16000.0,
+    "disk_retained_cap": 24000.0,
+    "cascade_task_probability": 0.25,
+    "observable_history": 12
+  },
+  "observable_history": 12,
+  "forbidden_inputs": [
+    "regime_id",
+    "phase_id",
+    "cascade_task_flag",
+    "cascade_event_id",
+    "future_demand",
+    "future_capacity",
+    "unmatured_label"
+  ],
+  "development_only": true,
+  "cascade_probability_candidates": [
+    0.15,
+    0.25,
+    0.35
+  ],
+  "pilot_registration": {
+    "cohort": "online",
+    "cohort_source": "artifacts/ftmoe_online/protocol_020/vm_split.json cohorts.online",
+    "cohort_size": 94,
+    "cohort_sizes_all": {
+      "train": 277,
+      "dev": 86,
+      "online": 94
+    },
+    "disjoint_from_s6_train": true,
+    "disjoint_from_p20_dev": true,
+    "replay_seed": 600,
+    "scored_intervals": 1200,
+    "guard_intervals": 1,
+    "familiar_environment": "Protocol-020 baseline phase (capacity scales 1.0/1.0/0.9, adapter ram_upper=1400)",
+    "data_only": true
+  },
+  "generator": {
+    "path": "simulator/workload/BitbrainWorkloadProtocol021.py",
+    "sha256": "58ff6f018f4ca21efb80ba850d5f89b44c6589f5ee087a2205e5770bbd9fe1be"
+  },
+  "collector": {
+    "path": "prepare_ftmoe_protocol021_unseen.py",
+    "sha256": "faae011aaec16c023913ff1fe86adf95bc1c6634d4ffaa49f31f5016281ccf4f"
+  },
+  "audit_evidence": {
+    "exposure_ledger": {
+      "path": "artifacts/ftmoe_online/protocol_021/offline_coverage_audit/exposure_ledger.json",
+      "sha256": "c5f0a8ac013bb42d219d2ef2c2e275c3153e20362840066078c93207216e8122",
+      "sources_audited": 43
+    },
+    "exclusion_registry": {
+      "path": "artifacts/ftmoe_online/protocol_021/offline_coverage_audit/exclusion_registry.json",
+      "sha256": "6f1af3496c4f10745c49987fd64e680ef2dea35e2a2457f593cb128b5293a250"
+    }
+  },
+  "not_a_claim": [
+    "The registry itself proves nothing about performance; it records what the data layer was allowed to be.",
+    "U4 is null until the distributional audit runs; a generator difference alone is not distributional novelty."
+  ],
+  "registry_sha256": "d364852e8b39ce59577dc5ca282b642a6033c71a0745f7802010a251697369a0"
+}
