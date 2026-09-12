@@ -1,0 +1,88 @@
+{
+  "protocol": "022",
+  "title": "Mechanism-level unseen audit and persistence-controlled learnability",
+  "plan": "指令/FTMOE_PROTOCOL022_EXECUTION_PLAN_20260910.md",
+  "plan_sha256": "2dfe595b308ce05fe22b169f60c80db17fcc97eeed76dfcdc969c1e2cc9dd587",
+  "branch": "protocol-022",
+  "parent_branch": "protocol-021",
+  "parent_sha": "f0abb5580d92730eecdc1db4326382c81a5f1e31",
+  "bootstrap_head": "f0abb5580d92730eecdc1db4326382c81a5f1e31",
+  "gates": [
+    {
+      "id": "H0",
+      "name": "audit_correctness",
+      "stage": "S0",
+      "rule": "task-level audit really works at task scale (T-AUDIT-01..06)",
+      "status": "pending"
+    },
+    {
+      "id": "H1",
+      "name": "u3_u4v2_unseen_validity",
+      "stage": "S3",
+      "rule": "mechanism-level U3 + task/event-level distributional U4-v2 novelty",
+      "status": "pending"
+    },
+    {
+      "id": "H2",
+      "name": "learnability_beyond_persistence",
+      "stage": "S4",
+      "rule": "onset learnability beats persistence/current-ratio/host-prior baselines",
+      "status": "pending"
+    }
+  ],
+  "stop_table": {
+    "STOP-0": "task-level audit correctness FAIL -> no formal data generation",
+    "STOP-A2": "U3/U4-v2 FAIL -> no unseen model experiment",
+    "STOP-B2": "onset learnability / permutation FAIL -> no C/D tuning",
+    "STOP-CAP": "fixed residual upper bound shows no gain -> no online grid, no D",
+    "STOP-C2": "strict online C not better than A -> no D",
+    "STOP-D0": "additive continuity FAIL -> no D effectiveness run",
+    "STOP-D1": "D has no independent benefit -> cannot claim dynamic experts work",
+    "STOP-R": "recurrence reuse FAIL -> add-only claim only"
+  },
+  "round1_scope": {
+    "allowed": [
+      "S0 task-level audit",
+      "S1 cascade_v2 registration",
+      "S1 data-only pilot",
+      "S2 U4-v2 instrumentation",
+      "S3 U4-v2 gate",
+      "S4 learnability-v2"
+    ],
+    "forbidden": [
+      "full C run",
+      "implement or run D",
+      "modify the FT-MoE backbone",
+      "retrain offline v4 / P19 / P20 checkpoints"
+    ]
+  },
+  "registered_seeds": {
+    "mechanism_seed_dev": 22022,
+    "mechanism_seed_confirm": 22023,
+    "replay_seed_pilot": 600,
+    "note": "frozen before the first formal generation; the confirm seed is not used in round 1"
+  },
+  "frozen_candidate_probabilities": [
+    0.15,
+    0.25,
+    0.35
+  ],
+  "registered_horizon_steps": 1200,
+  "guard_steps": 1,
+  "cohort": "online",
+  "resource_discipline": {
+    "python": "3.8 (D:\\Anaconda\\envs\\dynmoe\\python.exe)",
+    "single_process": true,
+    "ram_guard_gib": 3.0,
+    "disk_guard_gib": 20.0,
+    "torch_threads": 3,
+    "exit_code_source": "subprocess returncode, never a PowerShell wrapper"
+  },
+  "honesty_rules": [
+    "STOP outcomes are experimental results and must be reported with evidence.",
+    "No gate threshold may be redefined after seeing candidate results.",
+    "Offline percentiles are locked before any candidate is read.",
+    "Model scores may never influence which probability passes U4-v2.",
+    "History is never rewritten: P21 STOP-A stays FAIL."
+  ]
+}

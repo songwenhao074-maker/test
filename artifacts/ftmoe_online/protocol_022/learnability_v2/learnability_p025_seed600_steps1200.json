@@ -1,0 +1,1315 @@
+{
+  "candidate": "p025_seed600_steps1200",
+  "stream_sha256": "f17c949f6d021f2be72ebd1a2545479efe51c6774a7001501e2dbd9693d477ee",
+  "cascade_task_probability": 0.25,
+  "steps": 1200,
+  "split": {
+    "fit": [
+      0,
+      0.4
+    ],
+    "dev": [
+      0.4,
+      0.7
+    ],
+    "test": [
+      0.7,
+      1.0
+    ],
+    "note": "temporal only; a row is used for horizon h only when its whole future window lies inside its own split"
+  },
+  "n_permutations_per_kind": 100,
+  "permutation_kinds": [
+    "global",
+    "within_host",
+    "block8",
+    "block12",
+    "event",
+    "host"
+  ],
+  "forbidden_tokens": [
+    "regime_id",
+    "phase_id",
+    "cascade_task_flag",
+    "cascade_event_id",
+    "future_demand",
+    "future_capacity",
+    "unmatured_label"
+  ],
+  "target_faults": {
+    "1": "cpu",
+    "2": "ram",
+    "3": "disk"
+  },
+  "state_task": {
+    "n_features": 25,
+    "feature_names": [
+      "ratio_cpu",
+      "ratio_ram",
+      "ratio_disk",
+      "slope1_cpu",
+      "slope1_ram",
+      "slope1_disk",
+      "slope3_cpu",
+      "slope3_ram",
+      "slope3_disk",
+      "slope6_cpu",
+      "slope6_ram",
+      "slope6_disk",
+      "past_fault_0",
+      "past_fault_1",
+      "past_fault_2",
+      "past_fault_3",
+      "migration_mass_in",
+      "unplaced_containers",
+      "occupancy",
+      "cpu_headroom",
+      "past_fault_lag1_1",
+      "past_fault_lag1_2",
+      "past_fault_lag1_3",
+      "ram_minus_cpu_lag4",
+      "disk_minus_cpu_lag8"
+    ],
+    "rows": {
+      "fit": 7664,
+      "dev": 5760,
+      "test": 5744
+    },
+    "rows_dropped_non_finite_feature": 16,
+    "positives": {
+      "fit": 510,
+      "dev": 429,
+      "test": 368
+    },
+    "prevalence": {
+      "fit": 0.06654488517745302,
+      "dev": 0.07447916666666667,
+      "test": 0.06406685236768803
+    },
+    "target": "onset/horizon=1",
+    "metrics": {
+      "fit": {
+        "n": 7664,
+        "positives": 510,
+        "prevalence": 0.06654488517745302,
+        "ap": 0.6811454231151124,
+        "roc_auc": 0.9533466811382088,
+        "top_decile_recall": 0.796078431372549,
+        "fpr_at_prevalence": 0.024322057590159353
+      },
+      "dev": {
+        "n": 5760,
+        "positives": 429,
+        "prevalence": 0.07447916666666667,
+        "ap": 0.6188647654607623,
+        "roc_auc": 0.9299171097145211,
+        "top_decile_recall": 0.7249417249417249,
+        "fpr_at_prevalence": 0.029262802476083285
+      },
+      "test": {
+        "n": 5744,
+        "positives": 368,
+        "prevalence": 0.06406685236768803,
+        "ap": 0.6208021672321847,
+        "roc_auc": 0.9326508010643116,
+        "top_decile_recall": 0.7472826086956522,
+        "fpr_at_prevalence": 0.025297619047619048
+      }
+    },
+    "permutation_null": {
+      "global": {
+        "n": 100,
+        "mean": 0.12019900384475368,
+        "std": 0.0682634817733146,
+        "p95": 0.2692283927249666,
+        "p99": 0.33875389103479,
+        "max": 0.3898885101181823,
+        "observed": 0.6208021672321847,
+        "observed_percentile": 100.0
+      },
+      "within_host": {
+        "n": 100,
+        "mean": 0.2062511299508674,
+        "std": 0.06522149459489897,
+        "p95": 0.30833142509501793,
+        "p99": 0.3681165073689533,
+        "max": 0.40788407904727686,
+        "observed": 0.6208021672321847,
+        "observed_percentile": 100.0
+      },
+      "block8": {
+        "n": 100,
+        "mean": 0.19512951568551018,
+        "std": 0.07429284506240601,
+        "p95": 0.3408873898077277,
+        "p99": 0.3873338530680479,
+        "max": 0.45337448469078173,
+        "observed": 0.6208021672321847,
+        "observed_percentile": 100.0
+      },
+      "block12": {
+        "n": 100,
+        "mean": 0.1862383922860767,
+        "std": 0.07839260549549258,
+        "p95": 0.3367007442065178,
+        "p99": 0.38910025959779115,
+        "max": 0.43326011297165834,
+        "observed": 0.6208021672321847,
+        "observed_percentile": 100.0
+      },
+      "event": {
+        "n": 100,
+        "mean": 0.12038975370152226,
+        "std": 0.06633053324848878,
+        "p95": 0.2730654344756655,
+        "p99": 0.33944415722262355,
+        "max": 0.35376226921621834,
+        "observed": 0.6208021672321847,
+        "observed_percentile": 100.0
+      },
+      "host": {
+        "n": 100,
+        "mean": 0.11071861695060896,
+        "std": 0.05856172255664333,
+        "p95": 0.22830441230127502,
+        "p99": 0.2789702867078727,
+        "max": 0.2833645367111462,
+        "observed": 0.6208021672321847,
+        "observed_percentile": 100.0
+      }
+    },
+    "permutation_control": {
+      "null_p99_max_over_kinds": 0.38910025959779115,
+      "null_max_max_over_kinds": 0.45337448469078173,
+      "observed_above_all_nulls_p99": true,
+      "observed_above_every_single_null_draw": true,
+      "note": "the gate uses p99 over every family (plan §8.3).  The stricter 'above every single draw' bound is reported too, because with 100 draws a p99 pass can sit on a single order statistic; both are stated rather than only the favourable one"
+    }
+  },
+  "state_baselines": {
+    "B0_random_prevalence": {
+      "ap": 0.06406685236768803,
+      "note": "constant score; for the binary onset task the AP of a constant score equals the prevalence",
+      "target_kind": "onset"
+    },
+    "B1_host_prior": {
+      "n": 5744,
+      "positives": 368,
+      "prevalence": 0.06406685236768803,
+      "ap": 0.10243267409138035,
+      "roc_auc": 0.6452608918057712,
+      "top_decile_recall": 0.16304347826086957,
+      "fpr_at_prevalence": 0.11941964285714286
+    },
+    "B2_persistence": {
+      "n": 5744,
+      "positives": 368,
+      "prevalence": 0.06406685236768803,
+      "ap": 0.35496466682430106,
+      "roc_auc": 0.7523332362836439,
+      "top_decile_recall": 0.5760869565217391,
+      "fpr_at_prevalence": 1.0
+    },
+    "B3_current_ratio_only": {
+      "n": 5744,
+      "positives": 368,
+      "prevalence": 0.06406685236768803,
+      "ap": 0.4026343952122531,
+      "roc_auc": 0.7961984322431418,
+      "top_decile_recall": 0.5733695652173914,
+      "fpr_at_prevalence": 0.03236607142857143
+    },
+    "B4_past_fault_only": {
+      "n": 5744,
+      "positives": 368,
+      "prevalence": 0.06406685236768803,
+      "ap": 0.41897652769640176,
+      "roc_auc": 0.8023825698757764,
+      "top_decile_recall": 0.6521739130434783,
+      "fpr_at_prevalence": 0.025669642857142856
+    },
+    "B5_slopes_only": {
+      "n": 5744,
+      "positives": 368,
+      "prevalence": 0.06406685236768803,
+      "ap": 0.3821858430425825,
+      "roc_auc": 0.6855420730622412,
+      "top_decile_recall": 0.5108695652173914,
+      "fpr_at_prevalence": 0.057849702380952384
+    }
+  },
+  "state_simple_baseline_max_ap": 0.41897652769640176,
+  "state_ablation": {
+    "without_past_fault": {
+      "n": 5744,
+      "positives": 368,
+      "prevalence": 0.06406685236768803,
+      "ap": 0.602450823545496,
+      "roc_auc": 0.9134253586794773,
+      "top_decile_recall": 0.6766304347826086,
+      "fpr_at_prevalence": 0.030319940476190476
+    },
+    "without_current_ratio": {
+      "n": 5744,
+      "positives": 368,
+      "prevalence": 0.06406685236768803,
+      "ap": 0.619563116286149,
+      "roc_auc": 0.9323015232757506,
+      "top_decile_recall": 0.7472826086956522,
+      "fpr_at_prevalence": 0.025297619047619048
+    },
+    "without_slope": {
+      "n": 5744,
+      "positives": 368,
+      "prevalence": 0.06406685236768803,
+      "ap": 0.618576776911511,
+      "roc_auc": 0.941844490003882,
+      "top_decile_recall": 0.7364130434782609,
+      "fpr_at_prevalence": 0.025669642857142856
+    },
+    "without_migration": {
+      "n": 5744,
+      "positives": 368,
+      "prevalence": 0.06406685236768803,
+      "ap": 0.5928982869255579,
+      "roc_auc": 0.9204281003332039,
+      "top_decile_recall": 0.7065217391304348,
+      "fpr_at_prevalence": 0.025483630952380952
+    },
+    "lag_variant_registered": {
+      "n": 5744,
+      "positives": 368,
+      "prevalence": 0.06406685236768803,
+      "ap": 0.6208021672321847,
+      "roc_auc": 0.9326508010643116,
+      "top_decile_recall": 0.7472826086956522,
+      "fpr_at_prevalence": 0.025297619047619048
+    },
+    "lag_variant_disk_lag2": {
+      "n": 5744,
+      "positives": 368,
+      "prevalence": 0.06406685236768803,
+      "ap": 0.6221353051366397,
+      "roc_auc": 0.9271687572787267,
+      "top_decile_recall": 0.7391304347826086,
+      "fpr_at_prevalence": 0.025483630952380952
+    },
+    "lag_variant_disk_lag11": {
+      "n": 5744,
+      "positives": 368,
+      "prevalence": 0.06406685236768803,
+      "ap": 0.6209471954046333,
+      "roc_auc": 0.9328689101319876,
+      "top_decile_recall": 0.75,
+      "fpr_at_prevalence": 0.025297619047619048
+    },
+    "lag_variant_ram_lag1": {
+      "n": 5744,
+      "positives": 368,
+      "prevalence": 0.06406685236768803,
+      "ap": 0.620458144613694,
+      "roc_auc": 0.9326588885384317,
+      "top_decile_recall": 0.7472826086956522,
+      "fpr_at_prevalence": 0.025297619047619048
+    },
+    "lag_variant_ram_lag10": {
+      "n": 5744,
+      "positives": 368,
+      "prevalence": 0.06406685236768803,
+      "ap": 0.6199685353301362,
+      "roc_auc": 0.9328560207201086,
+      "top_decile_recall": 0.7445652173913043,
+      "fpr_at_prevalence": 0.025297619047619048
+    }
+  },
+  "onset_task_h1": {
+    "n_features": 25,
+    "feature_names": [
+      "ratio_cpu",
+      "ratio_ram",
+      "ratio_disk",
+      "slope1_cpu",
+      "slope1_ram",
+      "slope1_disk",
+      "slope3_cpu",
+      "slope3_ram",
+      "slope3_disk",
+      "slope6_cpu",
+      "slope6_ram",
+      "slope6_disk",
+      "past_fault_0",
+      "past_fault_1",
+      "past_fault_2",
+      "past_fault_3",
+      "migration_mass_in",
+      "unplaced_containers",
+      "occupancy",
+      "cpu_headroom",
+      "past_fault_lag1_1",
+      "past_fault_lag1_2",
+      "past_fault_lag1_3",
+      "ram_minus_cpu_lag4",
+      "disk_minus_cpu_lag8"
+    ],
+    "rows": {
+      "fit": 7232,
+      "dev": 5422,
+      "test": 5429
+    },
+    "rows_dropped_non_finite_feature": 14,
+    "positives": {
+      "fit": 151,
+      "dev": 126,
+      "test": 120
+    },
+    "prevalence": {
+      "fit": 0.020879424778761063,
+      "dev": 0.023238657322021395,
+      "test": 0.022103518143304475
+    },
+    "target": "onset/horizon=1",
+    "metrics": {
+      "fit": {
+        "n": 7232,
+        "positives": 151,
+        "prevalence": 0.020879424778761063,
+        "ap": 0.2936255443911831,
+        "roc_auc": 0.965635582956349,
+        "top_decile_recall": 0.9536423841059603,
+        "fpr_at_prevalence": 0.01454596808360401
+      },
+      "dev": {
+        "n": 5422,
+        "positives": 126,
+        "prevalence": 0.023238657322021395,
+        "ap": 0.2426959565115122,
+        "roc_auc": 0.9526776722773702,
+        "top_decile_recall": 0.9047619047619048,
+        "fpr_at_prevalence": 0.01850453172205438
+      },
+      "test": {
+        "n": 5429,
+        "positives": 120,
+        "prevalence": 0.022103518143304475,
+        "ap": 0.23917454194640886,
+        "roc_auc": 0.9571286180699441,
+        "top_decile_recall": 0.8916666666666667,
+        "fpr_at_prevalence": 0.016952345074401957
+      }
+    },
+    "permutation_null": {
+      "global": {
+        "n": 100,
+        "mean": 0.04333621071239209,
+        "std": 0.04319001699654711,
+        "p95": 0.13845765696151544,
+        "p99": 0.21528328553312767,
+        "max": 0.25618458714486464,
+        "observed": 0.23917454194640886,
+        "observed_percentile": 99.0
+      },
+      "within_host": {
+        "n": 100,
+        "mean": 0.06434054642084237,
+        "std": 0.032484906088340176,
+        "p95": 0.1419580251888626,
+        "p99": 0.16051844736778972,
+        "max": 0.16226475860740852,
+        "observed": 0.23917454194640886,
+        "observed_percentile": 100.0
+      },
+      "block8": {
+        "n": 100,
+        "mean": 0.04250958837409931,
+        "std": 0.03816040230695884,
+        "p95": 0.12327361305924414,
+        "p99": 0.16833057830072323,
+        "max": 0.19153643126266842,
+        "observed": 0.23917454194640886,
+        "observed_percentile": 100.0
+      },
+      "block12": {
+        "n": 100,
+        "mean": 0.037432191141287145,
+        "std": 0.03522038628779436,
+        "p95": 0.10316146723062396,
+        "p99": 0.19404883913707305,
+        "max": 0.1949937220240828,
+        "observed": 0.23917454194640886,
+        "observed_percentile": 100.0
+      },
+      "event": {
+        "n": 100,
+        "mean": 0.039844356736429526,
+        "std": 0.03090882117635219,
+        "p95": 0.10511780905373155,
+        "p99": 0.1352891080002974,
+        "max": 0.13808449887856733,
+        "observed": 0.23917454194640886,
+        "observed_percentile": 100.0
+      },
+      "host": {
+        "n": 100,
+        "mean": 0.041820253893631996,
+        "std": 0.03669112936664052,
+        "p95": 0.10761146681597537,
+        "p99": 0.18098613678062941,
+        "max": 0.21409985975663925,
+        "observed": 0.23917454194640886,
+        "observed_percentile": 100.0
+      }
+    },
+    "permutation_control": {
+      "null_p99_max_over_kinds": 0.21528328553312767,
+      "null_max_max_over_kinds": 0.25618458714486464,
+      "observed_above_all_nulls_p99": true,
+      "observed_above_every_single_null_draw": false,
+      "note": "the gate uses p99 over every family (plan §8.3).  The stricter 'above every single draw' bound is reported too, because with 100 draws a p99 pass can sit on a single order statistic; both are stated rather than only the favourable one"
+    }
+  },
+  "onset_task_h4": {
+    "n_features": 25,
+    "feature_names": [
+      "ratio_cpu",
+      "ratio_ram",
+      "ratio_disk",
+      "slope1_cpu",
+      "slope1_ram",
+      "slope1_disk",
+      "slope3_cpu",
+      "slope3_ram",
+      "slope3_disk",
+      "slope6_cpu",
+      "slope6_ram",
+      "slope6_disk",
+      "past_fault_0",
+      "past_fault_1",
+      "past_fault_2",
+      "past_fault_3",
+      "migration_mass_in",
+      "unplaced_containers",
+      "occupancy",
+      "cpu_headroom",
+      "past_fault_lag1_1",
+      "past_fault_lag1_2",
+      "past_fault_lag1_3",
+      "ram_minus_cpu_lag4",
+      "disk_minus_cpu_lag8"
+    ],
+    "rows": {
+      "fit": 7232,
+      "dev": 5422,
+      "test": 5386
+    },
+    "rows_dropped_non_finite_feature": 14,
+    "positives": {
+      "fit": 575,
+      "dev": 483,
+      "test": 448
+    },
+    "prevalence": {
+      "fit": 0.07950774336283185,
+      "dev": 0.08908151973441535,
+      "test": 0.0831786112142592
+    },
+    "target": "onset/horizon=4",
+    "metrics": {
+      "fit": {
+        "n": 7232,
+        "positives": 575,
+        "prevalence": 0.07950774336283185,
+        "ap": 0.227513236553155,
+        "roc_auc": 0.7022934994873,
+        "top_decile_recall": 0.35130434782608694,
+        "fpr_at_prevalence": 0.05993690851735016
+      },
+      "dev": {
+        "n": 5422,
+        "positives": 483,
+        "prevalence": 0.08908151973441535,
+        "ap": 0.19827961548516673,
+        "roc_auc": 0.6652537772417699,
+        "top_decile_recall": 0.3188405797101449,
+        "fpr_at_prevalence": 0.06904231625835189
+      },
+      "test": {
+        "n": 5386,
+        "positives": 448,
+        "prevalence": 0.0831786112142592,
+        "ap": 0.2024660285361973,
+        "roc_auc": 0.6765870002314412,
+        "top_decile_recall": 0.33035714285714285,
+        "fpr_at_prevalence": 0.06439854191980558
+      }
+    },
+    "permutation_null": {
+      "global": {
+        "n": 100,
+        "mean": 0.10195854464372894,
+        "std": 0.021161164062635206,
+        "p95": 0.1356854037534456,
+        "p99": 0.16911726476787634,
+        "max": 0.1703817927291134,
+        "observed": 0.2024660285361973,
+        "observed_percentile": 100.0
+      },
+      "within_host": {
+        "n": 100,
+        "mean": 0.13563815120169717,
+        "std": 0.014059237762343031,
+        "p95": 0.15761672666727825,
+        "p99": 0.16709034553776805,
+        "max": 0.17725545139561988,
+        "observed": 0.2024660285361973,
+        "observed_percentile": 100.0
+      },
+      "block8": {
+        "n": 100,
+        "mean": 0.09975859723222032,
+        "std": 0.021074474506030904,
+        "p95": 0.13625017399056324,
+        "p99": 0.15308401079567294,
+        "max": 0.15326897459701402,
+        "observed": 0.2024660285361973,
+        "observed_percentile": 100.0
+      },
+      "block12": {
+        "n": 100,
+        "mean": 0.09559248867973891,
+        "std": 0.020169512148485655,
+        "p95": 0.1361111044070856,
+        "p99": 0.14839343660665505,
+        "max": 0.15209600923756952,
+        "observed": 0.2024660285361973,
+        "observed_percentile": 100.0
+      },
+      "event": {
+        "n": 100,
+        "mean": 0.09671394883488262,
+        "std": 0.017954345027091718,
+        "p95": 0.12910036333635788,
+        "p99": 0.14404554666601532,
+        "max": 0.14679296046909548,
+        "observed": 0.2024660285361973,
+        "observed_percentile": 100.0
+      },
+      "host": {
+        "n": 100,
+        "mean": 0.09171704168925363,
+        "std": 0.017788300338472677,
+        "p95": 0.1294644824874253,
+        "p99": 0.14907100246125626,
+        "max": 0.1561658276809355,
+        "observed": 0.2024660285361973,
+        "observed_percentile": 100.0
+      }
+    },
+    "permutation_control": {
+      "null_p99_max_over_kinds": 0.16911726476787634,
+      "null_max_max_over_kinds": 0.17725545139561988,
+      "observed_above_all_nulls_p99": true,
+      "observed_above_every_single_null_draw": true,
+      "note": "the gate uses p99 over every family (plan §8.3).  The stricter 'above every single draw' bound is reported too, because with 100 draws a p99 pass can sit on a single order statistic; both are stated rather than only the favourable one"
+    }
+  },
+  "onset_baselines": {
+    "B0_random_prevalence": {
+      "ap": 0.022103518143304475,
+      "note": "constant score; for the binary onset task the AP of a constant score equals the prevalence",
+      "target_kind": "onset"
+    },
+    "B1_host_prior": {
+      "n": 5429,
+      "positives": 120,
+      "prevalence": 0.022103518143304475,
+      "ap": 0.041369310495117176,
+      "roc_auc": 0.6625918252024864,
+      "top_decile_recall": 0.21666666666666667,
+      "fpr_at_prevalence": 0.05575437935581089
+    },
+    "B2_persistence": {
+      "n": 5429,
+      "positives": 120,
+      "prevalence": 0.022103518143304475,
+      "ap": 0.022103518143304475,
+      "roc_auc": 0.5,
+      "top_decile_recall": 0.13333333333333333,
+      "fpr_at_prevalence": 1.0
+    },
+    "B3_current_ratio_only": {
+      "n": 5429,
+      "positives": 120,
+      "prevalence": 0.022103518143304475,
+      "ap": 0.020108677210859596,
+      "roc_auc": 0.4667066930369812,
+      "top_decile_recall": 0.058333333333333334,
+      "fpr_at_prevalence": 0.02316820493501601
+    },
+    "B4_past_fault_only": {
+      "n": 5429,
+      "positives": 120,
+      "prevalence": 0.022103518143304475,
+      "ap": 0.022103518143304475,
+      "roc_auc": 0.4948201167828216,
+      "top_decile_recall": 0.13333333333333333,
+      "fpr_at_prevalence": 1.0
+    },
+    "B5_slopes_only": {
+      "n": 5429,
+      "positives": 120,
+      "prevalence": 0.022103518143304475,
+      "ap": 0.01882751635033332,
+      "roc_auc": 0.428238211841527,
+      "top_decile_recall": 0.058333333333333334,
+      "fpr_at_prevalence": 0.04143906573742701
+    }
+  },
+  "onset_ablation": {
+    "without_past_fault": {
+      "n": 5429,
+      "positives": 120,
+      "prevalence": 0.022103518143304475,
+      "ap": 0.23845521326298774,
+      "roc_auc": 0.9569795002197526,
+      "top_decile_recall": 0.8916666666666667,
+      "fpr_at_prevalence": 0.016952345074401957
+    },
+    "without_current_ratio": {
+      "n": 5429,
+      "positives": 120,
+      "prevalence": 0.022103518143304475,
+      "ap": 0.24154278403349574,
+      "roc_auc": 0.9571866955484397,
+      "top_decile_recall": 0.8916666666666667,
+      "fpr_at_prevalence": 0.016763985684686383
+    },
+    "without_slope": {
+      "n": 5429,
+      "positives": 120,
+      "prevalence": 0.022103518143304475,
+      "ap": 0.24858455346225156,
+      "roc_auc": 0.9584902994914296,
+      "top_decile_recall": 0.8833333333333333,
+      "fpr_at_prevalence": 0.01619890751553965
+    },
+    "without_migration": {
+      "n": 5429,
+      "positives": 120,
+      "prevalence": 0.022103518143304475,
+      "ap": 0.21370919671303515,
+      "roc_auc": 0.9481313178878634,
+      "top_decile_recall": 0.8666666666666667,
+      "fpr_at_prevalence": 0.018647579581842155
+    },
+    "lag_variant_registered": {
+      "n": 5429,
+      "positives": 120,
+      "prevalence": 0.022103518143304475,
+      "ap": 0.23917454194640886,
+      "roc_auc": 0.9571286180699441,
+      "top_decile_recall": 0.8916666666666667,
+      "fpr_at_prevalence": 0.016952345074401957
+    },
+    "lag_variant_disk_lag2": {
+      "n": 5429,
+      "positives": 120,
+      "prevalence": 0.022103518143304475,
+      "ap": 0.23564140152380184,
+      "roc_auc": 0.9562927732780813,
+      "top_decile_recall": 0.8833333333333333,
+      "fpr_at_prevalence": 0.017140704464117536
+    },
+    "lag_variant_disk_lag11": {
+      "n": 5429,
+      "positives": 120,
+      "prevalence": 0.022103518143304475,
+      "ap": 0.24253164335137306,
+      "roc_auc": 0.9579173730143781,
+      "top_decile_recall": 0.8916666666666667,
+      "fpr_at_prevalence": 0.016763985684686383
+    },
+    "lag_variant_ram_lag1": {
+      "n": 5429,
+      "positives": 120,
+      "prevalence": 0.022103518143304475,
+      "ap": 0.23894412657479197,
+      "roc_auc": 0.9570250204056006,
+      "top_decile_recall": 0.8916666666666667,
+      "fpr_at_prevalence": 0.016952345074401957
+    },
+    "lag_variant_ram_lag10": {
+      "n": 5429,
+      "positives": 120,
+      "prevalence": 0.022103518143304475,
+      "ap": 0.23785001660255384,
+      "roc_auc": 0.956727569536008,
+      "top_decile_recall": 0.8916666666666667,
+      "fpr_at_prevalence": 0.017140704464117536
+    }
+  },
+  "onset_per_resource": {
+    "cpu": {
+      "n_features": 25,
+      "feature_names": [
+        "ratio_cpu",
+        "ratio_ram",
+        "ratio_disk",
+        "slope1_cpu",
+        "slope1_ram",
+        "slope1_disk",
+        "slope3_cpu",
+        "slope3_ram",
+        "slope3_disk",
+        "slope6_cpu",
+        "slope6_ram",
+        "slope6_disk",
+        "past_fault_0",
+        "past_fault_1",
+        "past_fault_2",
+        "past_fault_3",
+        "migration_mass_in",
+        "unplaced_containers",
+        "occupancy",
+        "cpu_headroom",
+        "past_fault_lag1_1",
+        "past_fault_lag1_2",
+        "past_fault_lag1_3",
+        "ram_minus_cpu_lag4",
+        "disk_minus_cpu_lag8"
+      ],
+      "rows": {
+        "fit": 7232,
+        "dev": 5422,
+        "test": 5429
+      },
+      "rows_dropped_non_finite_feature": 14,
+      "positives": {
+        "fit": 151,
+        "dev": 126,
+        "test": 120
+      },
+      "prevalence": {
+        "fit": 0.020879424778761063,
+        "dev": 0.023238657322021395,
+        "test": 0.022103518143304475
+      },
+      "target": "onset/horizon=1",
+      "metrics": {
+        "fit": {
+          "n": 7232,
+          "positives": 151,
+          "prevalence": 0.020879424778761063,
+          "ap": 0.2936255443911831,
+          "roc_auc": 0.965635582956349,
+          "top_decile_recall": 0.9536423841059603,
+          "fpr_at_prevalence": 0.01454596808360401
+        },
+        "dev": {
+          "n": 5422,
+          "positives": 126,
+          "prevalence": 0.023238657322021395,
+          "ap": 0.2426959565115122,
+          "roc_auc": 0.9526776722773702,
+          "top_decile_recall": 0.9047619047619048,
+          "fpr_at_prevalence": 0.01850453172205438
+        },
+        "test": {
+          "n": 5429,
+          "positives": 120,
+          "prevalence": 0.022103518143304475,
+          "ap": 0.23917454194640886,
+          "roc_auc": 0.9571286180699441,
+          "top_decile_recall": 0.8916666666666667,
+          "fpr_at_prevalence": 0.016952345074401957
+        }
+      },
+      "permutation_null": {
+        "global": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.23917454194640886,
+          "observed_percentile": null
+        },
+        "within_host": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.23917454194640886,
+          "observed_percentile": null
+        },
+        "block8": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.23917454194640886,
+          "observed_percentile": null
+        },
+        "block12": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.23917454194640886,
+          "observed_percentile": null
+        },
+        "event": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.23917454194640886,
+          "observed_percentile": null
+        },
+        "host": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.23917454194640886,
+          "observed_percentile": null
+        }
+      },
+      "permutation_control": {
+        "null_p99_max_over_kinds": null,
+        "null_max_max_over_kinds": null,
+        "observed_above_all_nulls_p99": false,
+        "observed_above_every_single_null_draw": false,
+        "note": "the gate uses p99 over every family (plan §8.3).  The stricter 'above every single draw' bound is reported too, because with 100 draws a p99 pass can sit on a single order statistic; both are stated rather than only the favourable one"
+      }
+    },
+    "ram": {
+      "n_features": 25,
+      "feature_names": [
+        "ratio_cpu",
+        "ratio_ram",
+        "ratio_disk",
+        "slope1_cpu",
+        "slope1_ram",
+        "slope1_disk",
+        "slope3_cpu",
+        "slope3_ram",
+        "slope3_disk",
+        "slope6_cpu",
+        "slope6_ram",
+        "slope6_disk",
+        "past_fault_0",
+        "past_fault_1",
+        "past_fault_2",
+        "past_fault_3",
+        "migration_mass_in",
+        "unplaced_containers",
+        "occupancy",
+        "cpu_headroom",
+        "past_fault_lag1_1",
+        "past_fault_lag1_2",
+        "past_fault_lag1_3",
+        "ram_minus_cpu_lag4",
+        "disk_minus_cpu_lag8"
+      ],
+      "rows": {
+        "fit": 7599,
+        "dev": 5702,
+        "test": 5698
+      },
+      "rows_dropped_non_finite_feature": 16,
+      "positives": {
+        "fit": 21,
+        "dev": 23,
+        "test": 14
+      },
+      "prevalence": {
+        "fit": 0.0027635215159889457,
+        "dev": 0.004033672395650649,
+        "test": 0.002457002457002457
+      },
+      "target": "onset/horizon=1",
+      "metrics": {
+        "fit": {
+          "n": 7599,
+          "positives": 21,
+          "prevalence": 0.0027635215159889457,
+          "ap": 0.5149350494392825,
+          "roc_auc": 0.9878470258517764,
+          "top_decile_recall": 0.9523809523809523,
+          "fpr_at_prevalence": 0.0011876484560570072
+        },
+        "dev": {
+          "n": 5702,
+          "positives": 23,
+          "prevalence": 0.004033672395650649,
+          "ap": 0.48999463670231413,
+          "roc_auc": 0.985174211626358,
+          "top_decile_recall": 0.9565217391304348,
+          "fpr_at_prevalence": 0.0017608733932030288
+        },
+        "test": {
+          "n": 5698,
+          "positives": 14,
+          "prevalence": 0.002457002457002457,
+          "ap": 0.6003233374446976,
+          "roc_auc": 0.9784859756710566,
+          "top_decile_recall": 0.9285714285714286,
+          "fpr_at_prevalence": 0.0012315270935960591
+        }
+      },
+      "permutation_null": {
+        "global": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.6003233374446976,
+          "observed_percentile": null
+        },
+        "within_host": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.6003233374446976,
+          "observed_percentile": null
+        },
+        "block8": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.6003233374446976,
+          "observed_percentile": null
+        },
+        "block12": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.6003233374446976,
+          "observed_percentile": null
+        },
+        "event": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.6003233374446976,
+          "observed_percentile": null
+        },
+        "host": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.6003233374446976,
+          "observed_percentile": null
+        }
+      },
+      "permutation_control": {
+        "null_p99_max_over_kinds": null,
+        "null_max_max_over_kinds": null,
+        "observed_above_all_nulls_p99": false,
+        "observed_above_every_single_null_draw": false,
+        "note": "the gate uses p99 over every family (plan §8.3).  The stricter 'above every single draw' bound is reported too, because with 100 draws a p99 pass can sit on a single order statistic; both are stated rather than only the favourable one"
+      }
+    },
+    "disk": {
+      "n_features": 25,
+      "feature_names": [
+        "ratio_cpu",
+        "ratio_ram",
+        "ratio_disk",
+        "slope1_cpu",
+        "slope1_ram",
+        "slope1_disk",
+        "slope3_cpu",
+        "slope3_ram",
+        "slope3_disk",
+        "slope6_cpu",
+        "slope6_ram",
+        "slope6_disk",
+        "past_fault_0",
+        "past_fault_1",
+        "past_fault_2",
+        "past_fault_3",
+        "migration_mass_in",
+        "unplaced_containers",
+        "occupancy",
+        "cpu_headroom",
+        "past_fault_lag1_1",
+        "past_fault_lag1_2",
+        "past_fault_lag1_3",
+        "ram_minus_cpu_lag4",
+        "disk_minus_cpu_lag8"
+      ],
+      "rows": {
+        "fit": 7649,
+        "dev": 5730,
+        "test": 5735
+      },
+      "rows_dropped_non_finite_feature": 16,
+      "positives": {
+        "fit": 4,
+        "dev": 9,
+        "test": 4
+      },
+      "prevalence": {
+        "fit": 0.0005229441757092431,
+        "dev": 0.0015706806282722514,
+        "test": 0.0006974716652136007
+      },
+      "target": "onset/horizon=1",
+      "metrics": {
+        "fit": {
+          "n": 7649,
+          "positives": 4,
+          "prevalence": 0.0005229441757092431,
+          "ap": 0.2617243867243867,
+          "roc_auc": 0.9985611510791367,
+          "top_decile_recall": 1.0,
+          "fpr_at_prevalence": 0.0003924133420536298
+        },
+        "dev": {
+          "n": 5730,
+          "positives": 9,
+          "prevalence": 0.0015706806282722514,
+          "ap": 0.1349492338578969,
+          "roc_auc": 0.9914739070481073,
+          "top_decile_recall": 1.0,
+          "fpr_at_prevalence": 0.0013983569306065373
+        },
+        "test": {
+          "n": 5735,
+          "positives": 4,
+          "prevalence": 0.0006974716652136007,
+          "ap": 0.29224537037037035,
+          "roc_auc": 0.9982114814168557,
+          "top_decile_recall": 1.0,
+          "fpr_at_prevalence": 0.0005234688536032106
+        }
+      },
+      "permutation_null": {
+        "global": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.29224537037037035,
+          "observed_percentile": null
+        },
+        "within_host": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.29224537037037035,
+          "observed_percentile": null
+        },
+        "block8": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.29224537037037035,
+          "observed_percentile": null
+        },
+        "block12": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.29224537037037035,
+          "observed_percentile": null
+        },
+        "event": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.29224537037037035,
+          "observed_percentile": null
+        },
+        "host": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "observed": 0.29224537037037035,
+          "observed_percentile": null
+        }
+      },
+      "permutation_control": {
+        "null_p99_max_over_kinds": null,
+        "null_max_max_over_kinds": null,
+        "observed_above_all_nulls_p99": false,
+        "observed_above_every_single_null_draw": false,
+        "note": "the gate uses p99 over every family (plan §8.3).  The stricter 'above every single draw' bound is reported too, because with 100 draws a p99 pass can sit on a single order statistic; both are stated rather than only the favourable one"
+      }
+    }
+  },
+  "learnability_v2_gate": {
+    "rule": {
+      "ap_floor": "max(0.15, 2.5 x onset prevalence)",
+      "roc_auc": ">= 0.75",
+      "baseline_margin": "AP >= max(B2, B3, B4) + 0.05 absolute",
+      "permutation": "observed AP > p99 of every null kind",
+      "positives": ">= 50 positive onset events in the forward test split"
+    },
+    "ap_floor": 0.15,
+    "best_simple_baseline_ap": 0.022103518143304475,
+    "null_p99_max_over_kinds": 0.21528328553312767,
+    "checks": {
+      "ap_at_least_floor": true,
+      "roc_auc_at_least_0.75": true,
+      "beats_best_simple_baseline_by_0.05": true,
+      "observed_ap_above_all_null_p99": true,
+      "positives_at_least_50": true
+    },
+    "passed": true
+  },
+  "review_question_answers": {
+    "q1_why_shuffled_label_ap_was_0.24": {
+      "p21_value": 0.24189,
+      "diagnosis": "the P21 target is strongly host-specific: the label stream of a host is nearly constant over long stretches, and a global label shuffle keeps the class balance while a probe that mostly learns 'how active is this host' still ranks the truly faulted hosts high.  A single draw therefore has a high floor and cannot be read as evidence.  Protocol 022 reports the whole distribution over six randomisation families, including one ('host') that permutes which host receives which label stream and so removes the per-host activity signature entirely.",
+      "measured_null": {
+        "global": {
+          "mean": 0.12019900384475368,
+          "p95": 0.2692283927249666,
+          "p99": 0.33875389103479,
+          "max": 0.3898885101181823
+        },
+        "within_host": {
+          "mean": 0.2062511299508674,
+          "p95": 0.30833142509501793,
+          "p99": 0.3681165073689533,
+          "max": 0.40788407904727686
+        },
+        "block8": {
+          "mean": 0.19512951568551018,
+          "p95": 0.3408873898077277,
+          "p99": 0.3873338530680479,
+          "max": 0.45337448469078173
+        },
+        "block12": {
+          "mean": 0.1862383922860767,
+          "p95": 0.3367007442065178,
+          "p99": 0.38910025959779115,
+          "max": 0.43326011297165834
+        },
+        "event": {
+          "mean": 0.12038975370152226,
+          "p95": 0.2730654344756655,
+          "p99": 0.33944415722262355,
+          "max": 0.35376226921621834
+        },
+        "host": {
+          "mean": 0.11071861695060896,
+          "p95": 0.22830441230127502,
+          "p99": 0.2789702867078727,
+          "max": 0.2833645367111462
+        }
+      },
+      "host_family_interpretation": "if the high null floor were pure host identity, the 'host' family would sit at the top; if instead the real temporal structure is what the probe uses, the 'host' family collapses while the observed value stays above it"
+    },
+    "q2_after_100_permutations_still_anomalous": {
+      "n_permutations_per_kind": 100,
+      "n_randomisation_families": 6,
+      "null_p99_max_over_kinds": 0.38910025959779115,
+      "null_max_max_over_kinds": 0.45337448469078173,
+      "observed_ap": 0.6208021672321847,
+      "observed_above_all_nulls_p99": true,
+      "observed_above_every_single_null_draw": true
+    },
+    "q3_persistence_baseline_ap": 0.35496466682430106,
+    "q4_ap_drop_without_past_fault": {
+      "full_ap": 0.6208021672321847,
+      "without_past_fault_ap": 0.602450823545496,
+      "absolute_drop": 0.01835134368668878
+    },
+    "q5_current_ratio_only_ap": 0.4026343952122531,
+    "q6_onset_only_task_still_predictable": {
+      "ap": 0.23917454194640886,
+      "prevalence": 0.022103518143304475,
+      "positives": 120,
+      "gate_rule": "AP >= max(0.15, 2.5 x prevalence) and ROC-AUC >= 0.75"
+    },
+    "q7_per_resource_onset_predictability": {
+      "cpu": {
+        "ap": 0.23917454194640886,
+        "prevalence": 0.022103518143304475
+      },
+      "ram": {
+        "ap": 0.6003233374446976,
+        "prevalence": 0.002457002457002457
+      },
+      "disk": {
+        "ap": 0.29224537037037035,
+        "prevalence": 0.0006974716652136007
+      }
+    },
+    "q8_registered_vs_wrong_lag": {
+      "lag_variant_registered": {
+        "ap": 0.6208021672321847
+      },
+      "lag_variant_disk_lag2": {
+        "ap": 0.6221353051366397
+      },
+      "lag_variant_disk_lag11": {
+        "ap": 0.6209471954046333
+      },
+      "lag_variant_ram_lag1": {
+        "ap": 0.620458144613694
+      },
+      "lag_variant_ram_lag10": {
+        "ap": 0.6199685353301362
+      }
+    }
+  },
+  "protocol": "022",
+  "step": "P22-S4",
+  "selection_state": {
+    "selected": "cascade_v2 data-only pilot (probability 0.25)",
+    "stop_conditions_hit": [],
+    "u4_v2_passed": [
+      "cascade_v2 data-only pilot (probability 0.15)",
+      "cascade_v2 data-only pilot (probability 0.25)"
+    ]
+  }
+}

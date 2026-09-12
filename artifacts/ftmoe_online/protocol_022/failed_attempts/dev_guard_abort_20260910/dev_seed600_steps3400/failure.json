@@ -1,0 +1,8 @@
+{
+  "steps": 3400,
+  "cohort": "online",
+  "smoke": false,
+  "error": "RuntimeError: RAM guard below 3.0 GiB (available 2.918 GiB)",
+  "traceback": "Traceback (most recent call last):\n  File \"prepare_ftmoe_protocol022_development.py\", line 356, in collect\n    guard()\n  File \"prepare_ftmoe_protocol022_development.py\", line 136, in guard\n    raise RuntimeError(\"RAM guard below %.1f GiB (available %.3f GiB)\"\nRuntimeError: RAM guard below 3.0 GiB (available 2.918 GiB)\n",
+  "next_action": "Report before changing the mechanism"
+}

@@ -1,0 +1,34 @@
+{
+  "protocol": "022",
+  "step": "P22-S4",
+  "gate_rule": "onset AP >= max(0.15, 2.5 x prevalence), ROC-AUC >= 0.75, >= best simple baseline + 0.05, > every null p99, >= 50 forward positives",
+  "candidates": [
+    {
+      "candidate": "p025_seed600_steps1200",
+      "gate_passed": true,
+      "gate": {
+        "rule": {
+          "ap_floor": "max(0.15, 2.5 x onset prevalence)",
+          "roc_auc": ">= 0.75",
+          "baseline_margin": "AP >= max(B2, B3, B4) + 0.05 absolute",
+          "permutation": "observed AP > p99 of every null kind",
+          "positives": ">= 50 positive onset events in the forward test split"
+        },
+        "ap_floor": 0.15,
+        "best_simple_baseline_ap": 0.022103518143304475,
+        "null_p99_max_over_kinds": 0.21528328553312767,
+        "checks": {
+          "ap_at_least_floor": true,
+          "roc_auc_at_least_0.75": true,
+          "beats_best_simple_baseline_by_0.05": true,
+          "observed_ap_above_all_null_p99": true,
+          "positives_at_least_50": true
+        },
+        "passed": true
+      },
+      "file": "artifacts/ftmoe_online/protocol_022/learnability_v2/learnability_p025_seed600_steps1200.json"
+    }
+  ],
+  "gate_passed_any": true,
+  "stop_conditions_hit": []
+}

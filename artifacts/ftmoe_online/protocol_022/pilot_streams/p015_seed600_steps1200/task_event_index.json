@@ -1,0 +1,4961 @@
+{
+  "protocol": "022",
+  "unit": "creation_id + CPU onset event",
+  "onset_definition": {
+    "unit": "creation_id + CPU onset event",
+    "delta_cpu": "CPU_task(t) - median(CPU_task[t-k:t]) with k = onset_baseline_lag",
+    "threshold": 2600.0,
+    "threshold_basis": "strictly above the familiar per-task CPU clip (1860) and below the registered burst floor (4400): only a cascade burst can cross it",
+    "new_event_rule": "the previous interval must not already be inside the same burst, and creation_id must exist at both t-1 and t",
+    "source": "task's own demand only, never the host aggregate"
+  },
+  "matched_controls": {
+    "M0": "marginal-matched lag-shuffled: keep every task's marginal amplitude, duration distribution and RAM/Disk windows, but re-pair the windows with a uniformly drawn lag (registered lags destroyed)",
+    "M1": "order-shuffled: keep the same resource events but reveal them in a randomly permuted temporal order",
+    "M2": "within-task circular shift: circularly shift each task's RAM/Disk deviation trajectory, preserving marginals and autocorrelation but destroying the registered causal alignment"
+  },
+  "temporal_events": [],
+  "cascade_windows": {
+    "0": {
+      "event_id": 0,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "12": {
+      "event_id": 1,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "15": {
+      "event_id": 2,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "26": {
+      "event_id": 3,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "29": {
+      "event_id": 4,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "32": {
+      "event_id": 5,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "53": {
+      "event_id": 6,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "54": {
+      "event_id": 7,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "60": {
+      "event_id": 8,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "64": {
+      "event_id": 9,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "69": {
+      "event_id": 10,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "87": {
+      "event_id": 11,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "93": {
+      "event_id": 12,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "98": {
+      "event_id": 13,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "101": {
+      "event_id": 14,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "103": {
+      "event_id": 15,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "104": {
+      "event_id": 16,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "113": {
+      "event_id": 17,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "114": {
+      "event_id": 18,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "118": {
+      "event_id": 19,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "127": {
+      "event_id": 20,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "129": {
+      "event_id": 21,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "130": {
+      "event_id": 22,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "134": {
+      "event_id": 23,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "136": {
+      "event_id": 24,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "148": {
+      "event_id": 25,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "165": {
+      "event_id": 26,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "171": {
+      "event_id": 27,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "175": {
+      "event_id": 28,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "179": {
+      "event_id": 29,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "182": {
+      "event_id": 30,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "184": {
+      "event_id": 31,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "197": {
+      "event_id": 32,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "205": {
+      "event_id": 33,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "214": {
+      "event_id": 34,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "217": {
+      "event_id": 35,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "218": {
+      "event_id": 36,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "234": {
+      "event_id": 37,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "240": {
+      "event_id": 38,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "250": {
+      "event_id": 39,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "252": {
+      "event_id": 40,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "261": {
+      "event_id": 41,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "264": {
+      "event_id": 42,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "272": {
+      "event_id": 43,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "273": {
+      "event_id": 44,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "277": {
+      "event_id": 45,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "283": {
+      "event_id": 46,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "285": {
+      "event_id": 47,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "289": {
+      "event_id": 48,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "291": {
+      "event_id": 49,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "295": {
+      "event_id": 50,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "296": {
+      "event_id": 51,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4454.080038946317
+    },
+    "327": {
+      "event_id": 52,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "328": {
+      "event_id": 53,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "329": {
+      "event_id": 54,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "334": {
+      "event_id": 55,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "344": {
+      "event_id": 56,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "349": {
+      "event_id": 57,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "352": {
+      "event_id": 58,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "363": {
+      "event_id": 59,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "365": {
+      "event_id": 60,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "381": {
+      "event_id": 61,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "382": {
+      "event_id": 62,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "383": {
+      "event_id": 63,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "404": {
+      "event_id": 64,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "409": {
+      "event_id": 65,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "412": {
+      "event_id": 66,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "420": {
+      "event_id": 67,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "427": {
+      "event_id": 68,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "432": {
+      "event_id": 69,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "442": {
+      "event_id": 70,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "443": {
+      "event_id": 71,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "449": {
+      "event_id": 72,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "450": {
+      "event_id": 73,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "452": {
+      "event_id": 74,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "456": {
+      "event_id": 75,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "468": {
+      "event_id": 76,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "475": {
+      "event_id": 77,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "494": {
+      "event_id": 78,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "508": {
+      "event_id": 79,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "509": {
+      "event_id": 80,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "516": {
+      "event_id": 81,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "520": {
+      "event_id": 82,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "526": {
+      "event_id": 83,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "556": {
+      "event_id": 84,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "561": {
+      "event_id": 85,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "568": {
+      "event_id": 86,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "589": {
+      "event_id": 87,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "592": {
+      "event_id": 88,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "595": {
+      "event_id": 89,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "597": {
+      "event_id": 90,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "606": {
+      "event_id": 91,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "610": {
+      "event_id": 92,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "625": {
+      "event_id": 93,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "631": {
+      "event_id": 94,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "632": {
+      "event_id": 95,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "645": {
+      "event_id": 96,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "655": {
+      "event_id": 97,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "660": {
+      "event_id": 98,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "661": {
+      "event_id": 99,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "668": {
+      "event_id": 100,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "669": {
+      "event_id": 101,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "674": {
+      "event_id": 102,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "681": {
+      "event_id": 103,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "684": {
+      "event_id": 104,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "689": {
+      "event_id": 105,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "697": {
+      "event_id": 106,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "699": {
+      "event_id": 107,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "707": {
+      "event_id": 108,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "714": {
+      "event_id": 109,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "716": {
+      "event_id": 110,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "719": {
+      "event_id": 111,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "729": {
+      "event_id": 112,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "730": {
+      "event_id": 113,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "735": {
+      "event_id": 114,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "738": {
+      "event_id": 115,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "755": {
+      "event_id": 116,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "760": {
+      "event_id": 117,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "761": {
+      "event_id": 118,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "778": {
+      "event_id": 119,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "779": {
+      "event_id": 120,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "780": {
+      "event_id": 121,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "790": {
+      "event_id": 122,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "795": {
+      "event_id": 123,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "801": {
+      "event_id": 124,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "806": {
+      "event_id": 125,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "816": {
+      "event_id": 126,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "825": {
+      "event_id": 127,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "829": {
+      "event_id": 128,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "831": {
+      "event_id": 129,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "835": {
+      "event_id": 130,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "840": {
+      "event_id": 131,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "850": {
+      "event_id": 132,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "871": {
+      "event_id": 133,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "895": {
+      "event_id": 134,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "914": {
+      "event_id": 135,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "928": {
+      "event_id": 136,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "934": {
+      "event_id": 137,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "938": {
+      "event_id": 138,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "947": {
+      "event_id": 139,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "948": {
+      "event_id": 140,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "950": {
+      "event_id": 141,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "956": {
+      "event_id": 142,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "959": {
+      "event_id": 143,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "974": {
+      "event_id": 144,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "975": {
+      "event_id": 145,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "979": {
+      "event_id": 146,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "983": {
+      "event_id": 147,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "989": {
+      "event_id": 148,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "991": {
+      "event_id": 149,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "997": {
+      "event_id": 150,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1001": {
+      "event_id": 151,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1013": {
+      "event_id": 152,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1015": {
+      "event_id": 153,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1025": {
+      "event_id": 154,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1034": {
+      "event_id": 155,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1038": {
+      "event_id": 156,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1056": {
+      "event_id": 157,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1070": {
+      "event_id": 158,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "1076": {
+      "event_id": 159,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "1078": {
+      "event_id": 160,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "1082": {
+      "event_id": 161,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1089": {
+      "event_id": 162,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1091": {
+      "event_id": 163,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1095": {
+      "event_id": 164,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1096": {
+      "event_id": 165,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1101": {
+      "event_id": 166,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "1103": {
+      "event_id": 167,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1110": {
+      "event_id": 168,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1121": {
+      "event_id": 169,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1123": {
+      "event_id": 170,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1125": {
+      "event_id": 171,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1132": {
+      "event_id": 172,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1134": {
+      "event_id": 173,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1135": {
+      "event_id": 174,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1151": {
+      "event_id": 175,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "1157": {
+      "event_id": 176,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1159": {
+      "event_id": 177,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "1160": {
+      "event_id": 178,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1161": {
+      "event_id": 179,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1171": {
+      "event_id": 180,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1174": {
+      "event_id": 181,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "1175": {
+      "event_id": 182,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1179": {
+      "event_id": 183,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1180": {
+      "event_id": 184,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1181": {
+      "event_id": 185,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1189": {
+      "event_id": 186,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1191": {
+      "event_id": 187,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1195": {
+      "event_id": 188,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1199": {
+      "event_id": 189,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "1203": {
+      "event_id": 190,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "1208": {
+      "event_id": 191,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1213": {
+      "event_id": 192,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1214": {
+      "event_id": 193,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1219": {
+      "event_id": 194,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1230": {
+      "event_id": 195,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1239": {
+      "event_id": 196,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1254": {
+      "event_id": 197,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1267": {
+      "event_id": 198,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1279": {
+      "event_id": 199,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1297": {
+      "event_id": 200,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "1300": {
+      "event_id": 201,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1318": {
+      "event_id": 202,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1321": {
+      "event_id": 203,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1325": {
+      "event_id": 204,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1330": {
+      "event_id": 205,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1337": {
+      "event_id": 206,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "1339": {
+      "event_id": 207,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1342": {
+      "event_id": 208,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1343": {
+      "event_id": 209,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1344": {
+      "event_id": 210,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1350": {
+      "event_id": 211,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1384": {
+      "event_id": 212,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "1385": {
+      "event_id": 213,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1394": {
+      "event_id": 214,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1399": {
+      "event_id": 215,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1412": {
+      "event_id": 216,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1419": {
+      "event_id": 217,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "1428": {
+      "event_id": 218,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1440": {
+      "event_id": 219,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1442": {
+      "event_id": 220,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1446": {
+      "event_id": 221,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1461": {
+      "event_id": 222,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1462": {
+      "event_id": 223,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "1464": {
+      "event_id": 224,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1469": {
+      "event_id": 225,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1471": {
+      "event_id": 226,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1474": {
+      "event_id": 227,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1476": {
+      "event_id": 228,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1478": {
+      "event_id": 229,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1483": {
+      "event_id": 230,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1489": {
+      "event_id": 231,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        9
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1498": {
+      "event_id": 232,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 5200.0
+    },
+    "1504": {
+      "event_id": 233,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1506": {
+      "event_id": 234,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1525": {
+      "event_id": 235,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1538": {
+      "event_id": 236,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        14
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1542": {
+      "event_id": 237,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        10
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1550": {
+      "event_id": 238,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1554": {
+      "event_id": 239,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1564": {
+      "event_id": 240,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        12
+      ],
+      "disk_window": [
+        8,
+        16
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1565": {
+      "event_id": 241,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1571": {
+      "event_id": 242,
+      "cpu_window": [
+        0,
+        3
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        13
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1573": {
+      "event_id": 243,
+      "cpu_window": [
+        0,
+        2
+      ],
+      "ram_window": [
+        4,
+        13
+      ],
+      "disk_window": [
+        8,
+        15
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    },
+    "1577": {
+      "event_id": 244,
+      "cpu_window": [
+        0,
+        4
+      ],
+      "ram_window": [
+        4,
+        11
+      ],
+      "disk_window": [
+        8,
+        17
+      ],
+      "cpu_burst_floor": 4400.0,
+      "cpu_peak_value": 4400.0
+    }
+  },
+  "timeline_integrity": {
+    "n_tasks": 1579,
+    "n_observations": 12178,
+    "reused_slots": 16,
+    "reused_slot_examples": {
+      "0": [
+        0,
+        7,
+        12,
+        30,
+        39,
+        40,
+        66,
+        69,
+        73,
+        77,
+        78,
+        81,
+        82,
+        83,
+        85,
+        86,
+        97,
+        99,
+        101,
+        107,
+        136,
+        145,
+        178,
+        186,
+        187,
+        193,
+        197,
+        205,
+        241,
+        245,
+        246,
+        257,
+        280,
+        281,
+        282,
+        285,
+        288,
+        319,
+        328,
+        346,
+        351,
+        355,
+        383,
+        393,
+        394,
+        395,
+        408,
+        410,
+        415,
+        416,
+        424,
+        432,
+        437,
+        438,
+        439,
+        442,
+        457,
+        458,
+        461,
+        470,
+        474,
+        476,
+        477,
+        480,
+        484,
+        518,
+        523,
+        527,
+        559,
+        564,
+        575,
+        579,
+        585,
+        596,
+        604,
+        608,
+        620,
+        626,
+        628,
+        632,
+        651,
+        661,
+        674,
+        682,
+        689,
+        693,
+        695,
+        698,
+        699,
+        727,
+        760,
+        767,
+        771,
+        773,
+        776,
+        819,
+        820,
+        821,
+        849,
+        877,
+        878,
+        912,
+        913,
+        915,
+        917,
+        918,
+        920,
+        921,
+        931,
+        972,
+        979,
+        992,
+        999,
+        1006,
+        1020,
+        1027,
+        1028,
+        1031,
+        1035,
+        1041,
+        1049,
+        1051,
+        1067,
+        1097,
+        1130,
+        1131,
+        1136,
+        1140,
+        1174,
+        1196,
+        1197,
+        1200,
+        1203,
+        1219,
+        1224,
+        1229,
+        1238,
+        1239,
+        1248,
+        1260,
+        1263,
+        1265,
+        1266,
+        1302,
+        1344,
+        1351,
+        1354,
+        1355,
+        1356,
+        1389,
+        1393,
+        1397,
+        1399,
+        1407,
+        1408,
+        1410,
+        1411,
+        1447,
+        1453,
+        1454,
+        1457,
+        1459,
+        1460,
+        1461,
+        1468,
+        1470,
+        1471,
+        1479,
+        1480,
+        1505,
+        1507,
+        1519,
+        1561,
+        1562,
+        1563,
+        1566,
+        1567,
+        1574,
+        1576,
+        1579
+      ],
+      "1": [
+        2,
+        4,
+        8,
+        13,
+        14,
+        15,
+        36,
+        53,
+        58,
+        94,
+        115,
+        120,
+        121,
+        123,
+        158,
+        160,
+        161,
+        185,
+        188,
+        191,
+        204,
+        221,
+        252,
+        256,
+        259,
+        262,
+        265,
+        274,
+        309,
+        343,
+        344,
+        362,
+        363,
+        372,
+        375,
+        403,
+        406,
+        407,
+        409,
+        421,
+        425,
+        426,
+        433,
+        435,
+        436,
+        479,
+        485,
+        486,
+        488,
+        502,
+        510,
+        521,
+        522,
+        524,
+        550,
+        553,
+        554,
+        593,
+        597,
+        606,
+        611,
+        648,
+        659,
+        662,
+        669,
+        676,
+        680,
+        683,
+        711,
+        750,
+        761,
+        774,
+        780,
+        800,
+        826,
+        827,
+        839,
+        842,
+        845,
+        855,
+        861,
+        865,
+        879,
+        884,
+        885,
+        887,
+        894,
+        922,
+        954,
+        957,
+        989,
+        1002,
+        1005,
+        1010,
+        1016,
+        1018,
+        1019,
+        1042,
+        1046,
+        1052,
+        1061,
+        1063,
+        1095,
+        1100,
+        1102,
+        1105,
+        1126,
+        1166,
+        1167,
+        1168,
+        1206,
+        1209,
+        1211,
+        1226,
+        1228,
+        1261,
+        1303,
+        1315,
+        1325,
+        1332,
+        1334,
+        1338,
+        1346,
+        1352,
+        1357,
+        1361,
+        1364,
+        1374,
+        1375,
+        1376,
+        1380,
+        1391,
+        1394,
+        1398,
+        1400,
+        1401,
+        1409,
+        1414,
+        1421,
+        1423,
+        1424,
+        1430,
+        1431,
+        1452,
+        1462,
+        1481,
+        1483,
+        1491,
+        1494,
+        1504,
+        1510,
+        1511,
+        1517,
+        1564,
+        1570
+      ],
+      "2": [
+        3,
+        9,
+        16,
+        17,
+        27,
+        33,
+        34,
+        35,
+        37,
+        41,
+        43,
+        51,
+        60,
+        87,
+        100,
+        102,
+        103,
+        108,
+        111,
+        116,
+        137,
+        140,
+        146,
+        147,
+        179,
+        194,
+        201,
+        238,
+        239,
+        242,
+        247,
+        250,
+        258,
+        260,
+        261,
+        268,
+        300,
+        307,
+        310,
+        329,
+        334,
+        345,
+        356,
+        386,
+        387,
+        388,
+        389,
+        397,
+        431,
+        434,
+        459,
+        469,
+        500,
+        503,
+        509,
+        511,
+        538,
+        539,
+        541,
+        543,
+        546,
+        548,
+        549,
+        572,
+        581,
+        591,
+        594,
+        595,
+        602,
+        621,
+        622,
+        624,
+        653,
+        657,
+        660,
+        679,
+        684,
+        692,
+        728,
+        731,
+        738,
+        762,
+        772,
+        775,
+        777,
+        779,
+        797,
+        798,
+        805,
+        806,
+        815,
+        833,
+        850,
+        869,
+        870,
+        872,
+        914,
+        919,
+        923,
+        924,
+        949,
+        959,
+        965,
+        967,
+        969,
+        978,
+        980,
+        991,
+        998,
+        1014,
+        1022,
+        1023,
+        1032,
+        1068,
+        1103,
+        1113,
+        1114,
+        1122,
+        1123,
+        1128,
+        1129,
+        1132,
+        1141,
+        1146,
+        1176,
+        1179,
+        1190,
+        1192,
+        1204,
+        1205,
+        1207,
+        1249,
+        1251,
+        1252,
+        1262,
+        1264,
+        1267,
+        1274,
+        1299,
+        1309,
+        1316,
+        1323,
+        1358,
+        1365,
+        1366,
+        1368,
+        1377,
+        1383,
+        1388,
+        1420,
+        1437,
+        1441,
+        1448,
+        1455,
+        1458,
+        1463,
+        1476,
+        1487,
+        1488,
+        1520,
+        1521,
+        1544,
+        1578
+      ],
+      "3": [
+        5,
+        6,
+        10,
+        42,
+        47,
+        75,
+        84,
+        89,
+        95,
+        98,
+        109,
+        112,
+        117,
+        124,
+        135,
+        166,
+        196,
+        231,
+        235,
+        236,
+        240,
+        263,
+        272,
+        278,
+        279,
+        283,
+        291,
+        299,
+        335,
+        336,
+        337,
+        366,
+        373,
+        411,
+        412,
+        440,
+        443,
+        446,
+        487,
+        489,
+        494,
+        504,
+        528,
+        531,
+        532,
+        561,
+        569,
+        571,
+        605,
+        636,
+        654,
+        677,
+        681,
+        708,
+        722,
+        724,
+        729,
+        739,
+        747,
+        781,
+        822,
+        866,
+        867,
+        871,
+        874,
+        908,
+        926,
+        940,
+        941,
+        975,
+        981,
+        982,
+        994,
+        1024,
+        1025,
+        1029,
+        1037,
+        1043,
+        1044,
+        1047,
+        1062,
+        1069,
+        1070,
+        1086,
+        1092,
+        1106,
+        1121,
+        1127,
+        1161,
+        1165,
+        1169,
+        1193,
+        1198,
+        1201,
+        1208,
+        1222,
+        1233,
+        1237,
+        1250,
+        1253,
+        1259,
+        1268,
+        1310,
+        1311,
+        1326,
+        1331,
+        1337,
+        1359,
+        1378,
+        1381,
+        1402,
+        1438,
+        1475,
+        1477,
+        1482,
+        1489,
+        1495,
+        1501,
+        1536,
+        1539,
+        1572,
+        1575,
+        1577
+      ],
+      "4": [
+        11,
+        18,
+        20,
+        44,
+        46,
+        57,
+        59,
+        61,
+        62,
+        71,
+        79,
+        80,
+        88,
+        122,
+        125,
+        150,
+        184,
+        227,
+        232,
+        237,
+        243,
+        244,
+        251,
+        254,
+        289,
+        295,
+        302,
+        308,
+        311,
+        312,
+        313,
+        320,
+        358,
+        359,
+        364,
+        365,
+        379,
+        380,
+        390,
+        427,
+        441,
+        444,
+        452,
+        462,
+        464,
+        471,
+        497,
+        520,
+        533,
+        537,
+        573,
+        574,
+        576,
+        580,
+        584,
+        598,
+        599,
+        609,
+        625,
+        652,
+        685,
+        720,
+        732,
+        758,
+        778,
+        782,
+        783,
+        785,
+        792,
+        793,
+        812,
+        816,
+        828,
+        832,
+        843,
+        873,
+        880,
+        883,
+        916,
+        925,
+        929,
+        976,
+        983,
+        993,
+        1017,
+        1021,
+        1026,
+        1030,
+        1033,
+        1036,
+        1076,
+        1115,
+        1124,
+        1134,
+        1142,
+        1151,
+        1172,
+        1183,
+        1186,
+        1234,
+        1269,
+        1272,
+        1282,
+        1324,
+        1327,
+        1330,
+        1336,
+        1339,
+        1348,
+        1360,
+        1379,
+        1392,
+        1395,
+        1403,
+        1415,
+        1434,
+        1439,
+        1444,
+        1445,
+        1449,
+        1456,
+        1464,
+        1472,
+        1478,
+        1490,
+        1516,
+        1518,
+        1554,
+        1560,
+        1565,
+        1573
+      ]
+    },
+    "multi_slot_tasks": 0,
+    "problems": [],
+    "ok": true
+  },
+  "migration_continuity": {
+    "n_tasks": 1579,
+    "n_tasks_with_migration": 209
+  }
+}

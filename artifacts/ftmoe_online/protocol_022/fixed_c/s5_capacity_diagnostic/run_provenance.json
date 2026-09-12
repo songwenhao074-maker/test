@@ -1,0 +1,70 @@
+{
+  "protocol": "022",
+  "step": "P22-S5",
+  "variant": [
+    "A",
+    "C-current",
+    "C-wide",
+    "C-budget",
+    "C-causal"
+  ],
+  "command": [
+    "D:\\Anaconda\\envs\\dynmoe\\python.exe",
+    "run_ftmoe_protocol022_s5.py",
+    "--all",
+    "--seed",
+    "1",
+    "--train-steps",
+    "400",
+    "--diagnostic-interval",
+    "10"
+  ],
+  "stream": "artifacts/ftmoe_online/protocol_022/development_streams/dev_seed600_steps2380",
+  "stream_sha256": "c371418de9e364667d684e585e6aaa37c07341acf74fb11dfb47b30f6c20cb73",
+  "checkpoint": "artifacts/ftmoe_online/protocol_020/s6/adapted_v4_seed1/best.pt",
+  "checkpoint_sha256": "10c44bdb0ea1a3134933d6a7eb5be98711ef4e48bd791594e4d8792519dfe03b",
+  "splits": {
+    "familiar_1": [
+      0,
+      350
+    ],
+    "unseen_early_train": [
+      350,
+      630
+    ],
+    "unseen_mid_validation": [
+      630,
+      910
+    ],
+    "unseen_late_test": [
+      910,
+      1190
+    ],
+    "familiar_2": [
+      1190,
+      1540
+    ],
+    "unseen_recurrence": [
+      1540,
+      2380
+    ]
+  },
+  "splits_mode": "registered",
+  "train_split": "unseen_early_train",
+  "gate": {
+    "pr_auc_gain_min": 0.03,
+    "onset_ap_gain_min": 0.05,
+    "familiar_f1_drop_max": 0.03,
+    "anchor_f1_drop_max": 0.03
+  },
+  "seed": 1,
+  "learning_rate": 0.0001,
+  "train_steps": 400,
+  "git_head": "f0abb5580d92730eecdc1db4326382c81a5f1e31",
+  "python": "3.8.20",
+  "torch": "2.4.1+cpu",
+  "torch_threads": 3,
+  "started_at": "2026-09-12T13:56:25",
+  "finished_at": "2026-09-12T13:58:03",
+  "exit_code_source": "captured by the parent runner, not this process"
+}
