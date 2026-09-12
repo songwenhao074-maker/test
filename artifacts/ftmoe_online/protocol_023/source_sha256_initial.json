@@ -1,0 +1,22 @@
+{
+  "protocol": "023",
+  "captured_before_collection": true,
+  "head": "6c5db86fde8afd10e3997d4ff0bf8016e2e87130",
+  "n_sources": 14,
+  "sources": {
+    "simulator/workload/BitbrainWorkloadProtocol023.py": "5569eaca1320de545107990201db42915203b132497db59ef03f277b59fd160f",
+    "simulator/workload/BitbrainWorkloadProtocol022.py": "204cb3ac2d8541c9a36448d5797f8027faf464ff0f001269a97da35f488c388a",
+    "simulator/workload/BitbrainWorkloadProtocol021.py": "58ff6f018f4ca21efb80ba850d5f89b44c6589f5ee087a2205e5770bbd9fe1be",
+    "simulator/workload/BitbrainWorkloadProtocol020.py": "6c73e3995ff71473c5ecf64fb70402c9ee644fc95d6213a1c6bbb395b5c67a39",
+    "ftmoe_protocol023_core.py": "3c03876f10171e4f332f8ef96e993f2c71115fcd9eee80b814e6138da71c651b",
+    "ftmoe_protocol022_core.py": "d3a790d97b8276ee6c7b654d832cd2b451a34e514fa341a479ef9b4433ee9e71",
+    "prepare_ftmoe_protocol023_stream.py": "2c114083100c39102c72228d74b1e4d9f20e4327bfbca17e0986149a21be503d",
+    "verify_ftmoe_protocol023_stream.py": "cdb0f0a5de2d0af681f95c39b68a4249a8fb1cdf11941c589fb552cf44c6fb2e",
+    "run_ftmoe_protocol023_s2.py": "dd62269f1b67682b1cfe3252d3570e543526ccfce7bd783396b2ad0a99c9aaf7",
+    "probe_ftmoe_protocol023_specialization.py": "0774d369e7a107517be38718c406040eb4a4c6b735e3397d6ba4d66d90e08a6b",
+    "verify_ftmoe_protocol023_generator.py": "0bf7763ce1a39662632752c0b9bc9afcae5b6a45a46900363f3d319e93cbe8fd",
+    "test_ftmoe_protocol023_core.py": "4a1cca5c9f7f9e4a21a1cc360125444f55439b3f0b7fa0bfcb06fc7e59ba9821",
+    "test_ftmoe_protocol023_regimes.py": "35f326d05c5f46e64155a4f389504155329fda74d475d8ce698b52360f8261a9",
+    "stats/Stats.py": "f5fdb3fbd6dbfecb778f0bcea348c6ca85afca527b9792c11ea7b9a90fecede3"
+  }
+}

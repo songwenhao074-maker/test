@@ -1,0 +1,230 @@
+{
+  "protocol": "023",
+  "stage": "S3-complete (round 1: S0-S3)",
+  "registered_seeds": {
+    "replay_seed_development": 700,
+    "replay_seed_confirmation": [
+      701,
+      702,
+      703
+    ],
+    "mechanism_seed_dev": 22022,
+    "mechanism_seed_confirm": 22023,
+    "note": "701+ are confirmation seeds and must not be used for tuning; they are not used in round 1"
+  },
+  "gates": [
+    {
+      "id": "H0",
+      "name": "generator_registration_correctness",
+      "stage": "S1",
+      "status": "pass",
+      "evidence": "verify_ftmoe_protocol023_generator.py"
+    },
+    {
+      "id": "H1",
+      "name": "data_gate_and_marginal_matching",
+      "stage": "S2",
+      "status": "fail",
+      "evidence": "artifacts/ftmoe_online/protocol_023/data_audit/"
+    },
+    {
+      "id": "H2",
+      "name": "specialization_opportunity",
+      "stage": "S3",
+      "status": "pass",
+      "evidence": "artifacts/ftmoe_online/protocol_023/specialization/cross_regime_probe.json"
+    },
+    {
+      "id": "H3",
+      "name": "gradient_interference",
+      "stage": "S3",
+      "status": "inadmissible",
+      "evidence": "artifacts/ftmoe_online/protocol_023/specialization/gradient_interference.json"
+    },
+    {
+      "id": "H4",
+      "name": "sequential_forgetting",
+      "stage": "S3",
+      "status": "measured",
+      "evidence": "artifacts/ftmoe_online/protocol_023/specialization/cross_regime_probe.json"
+    }
+  ],
+  "streams": {
+    "development": {
+      "tag": "dev_seed700_steps2880",
+      "status": "collected",
+      "steps": 2880
+    },
+    "single_compute_first": {
+      "tag": "single_compute_first_seed700_steps1200",
+      "status": "collected"
+    },
+    "single_memory_first": {
+      "tag": "single_memory_first_seed700_steps1200",
+      "status": "collected"
+    },
+    "single_io_first": {
+      "tag": "single_io_first_seed700_steps1200",
+      "status": "collected"
+    }
+  },
+  "d_implemented": false,
+  "note": "round 1 covers S0-S3 only; D is not implemented and must not be started before H2 and H3 are evaluated (plan §37/§38)",
+  "verdicts": {
+    "H0": {
+      "status": "pass",
+      "failed_checks": [],
+      "evidence": "verify_ftmoe_protocol023_generator.py",
+      "exit_code": 0
+    },
+    "H1": {
+      "status": "fail",
+      "failed_checks": null,
+      "thresholds_admissible": null,
+      "prevalence_spread_pp": null,
+      "per_regime": {
+        "regime_A.json": {
+          "passed": null,
+          "checks": null,
+          "metrics": null
+        },
+        "regime_B.json": {
+          "passed": null,
+          "checks": null,
+          "metrics": null
+        },
+        "regime_C.json": {
+          "passed": null,
+          "checks": null,
+          "metrics": null
+        }
+      },
+      "definition_question": "the plan's 'valid onset/follow-up >= 50' is gated under the strict reading (whole registered response window observed). The P22-compatible reading is reported next to it and would pass; the choice is the reviewer's and the analyzer never switches it silently",
+      "evidence": "artifacts/ftmoe_online/protocol_023/data_audit/"
+    },
+    "H2": {
+      "status": "pass",
+      "n_regimes_passing": 2,
+      "verdict": "specialization opportunity present",
+      "per_regime": [
+        {
+          "horizon": 1,
+          "regime": "compute_first",
+          "within_ap": 0.3382867027698064,
+          "mean_cross_ap": 0.05202682594190962,
+          "gap": 0.2862598768278968,
+          "passes": true
+        },
+        {
+          "horizon": 1,
+          "regime": "memory_first",
+          "within_ap": 0.08070738013929585,
+          "mean_cross_ap": 0.008146414885888723,
+          "gap": 0.07256096525340712,
+          "passes": true
+        },
+        {
+          "horizon": 1,
+          "regime": "io_first",
+          "within_ap": 0.013628657319864531,
+          "mean_cross_ap": 0.13560700642180726,
+          "gap": -0.12197834910194273,
+          "passes": false
+        }
+      ],
+      "sequential_forgetting": [
+        {
+          "trained_on": "compute_first",
+          "evaluated_on": "io_first",
+          "same_regime_ap": 0.3382867027698064,
+          "cross_regime_ap": 0.04756198542266272,
+          "drop": 0.29072471734714367,
+          "test_positives": 74
+        },
+        {
+          "trained_on": "compute_first",
+          "evaluated_on": "memory_first",
+          "same_regime_ap": 0.3382867027698064,
+          "cross_regime_ap": 0.05649166646115651,
+          "drop": 0.2817950363086499,
+          "test_positives": 50
+        },
+        {
+          "trained_on": "io_first",
+          "evaluated_on": "compute_first",
+          "same_regime_ap": 0.013628657319864531,
+          "cross_regime_ap": 0.24065138218889773,
+          "drop": -0.2270227248690332,
+          "test_positives": 9
+        },
+        {
+          "trained_on": "io_first",
+          "evaluated_on": "memory_first",
+          "same_regime_ap": 0.013628657319864531,
+          "cross_regime_ap": 0.030562630654716795,
+          "drop": -0.016933973334852262,
+          "test_positives": 13
+        },
+        {
+          "trained_on": "memory_first",
+          "evaluated_on": "compute_first",
+          "same_regime_ap": 0.08070738013929585,
+          "cross_regime_ap": 0.010908861019273472,
+          "drop": 0.06979851912002237,
+          "test_positives": 14
+        },
+        {
+          "trained_on": "memory_first",
+          "evaluated_on": "io_first",
+          "same_regime_ap": 0.08070738013929585,
+          "cross_regime_ap": 0.005383968752503974,
+          "drop": 0.07532341138679187,
+          "test_positives": 12
+        }
+      ],
+      "evidence": "artifacts/ftmoe_online/protocol_023/specialization/cross_regime_probe.json"
+    },
+    "H3": {
+      "status": "inadmissible",
+      "registered_outcome": "STOP-GI",
+      "conflict_present": false,
+      "mean_cosine": {
+        "compute_first|io_first": 0.765891415102173,
+        "compute_first|memory_first": 0.8598608929027011,
+        "memory_first|io_first": 0.9286603810752542
+      },
+      "negative_fraction": {
+        "compute_first|io_first": 0.037109375,
+        "compute_first|memory_first": 0.06298828125,
+        "memory_first|io_first": 0.048583984375
+      },
+      "degenerate_groups": null,
+      "admissibility": {
+        "scientifically_admissible": false,
+        "learner_state_kind": "registered_start_state",
+        "degenerate_groups": [
+          "layer:learner.experts.0.0",
+          "layer:learner.experts.0.1",
+          "layer:learner.experts.1.0",
+          "layer:learner.experts.1.1",
+          "layer:learner.experts.2.0",
+          "layer:learner.experts.2.1",
+          "layer:learner.experts.3.0",
+          "layer:learner.experts.3.1"
+        ],
+        "n_degenerate_hidden_layers": 8,
+        "rule": "H3 may only be read as evidence about the fixed online learner when the residual bank is mature: every parameter group the registration names must carry a defined gradient. At the registered start state the read-out block is zeroed by construction, so the hidden-layer and router numbers describe an untrained bank.",
+        "what_would_make_it_admissible": "run the registered gate on a mature fixed-C learner state via --learner-state <checkpoint holding learner.* tensors>; no such checkpoint exists in this round because D was out of scope and no fixed-C online run was performed"
+      },
+      "learner_state": "fresh R1 residual bank at construction (the registered fixed-C start state)",
+      "evidence": "artifacts/ftmoe_online/protocol_023/specialization/gradient_interference.json"
+    },
+    "H4": {
+      "status": "measured",
+      "rule": "fixed C trained on one regime loses performance on the others; recurrence requires re-adaptation",
+      "evidence": "artifacts/ftmoe_online/protocol_023/specialization/cross_regime_probe.json",
+      "reading": "reported as the cross-regime cells of the §13 probe: this is a probe-level measurement, not a fixed-C online run, so it bounds the conflict without replacing the S4 prequential comparison"
+    }
+  },
+  "next_decision": "reviewer: (1) the §9 follow-up definition, (2) whether H3 must be evaluated on a mature fixed-C learner, (3) whether the instrument-local marginal contrasts become gated"
+}

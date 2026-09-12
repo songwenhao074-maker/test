@@ -1,0 +1,458 @@
+{
+  "protocol": "023",
+  "title": "Multi-regime recurring drift: dynamic add/delete experts vs fixed online fine-tuning",
+  "plan": "指令/FTMOE_PROTOCOL023_DYNAMIC_EXPERT_PLAN_20260912.md",
+  "plan_sha256": "097889694e1fdada2ea51016f03b12c6efb69fe612cab55149208fca092e91c3",
+  "branch": "protocol-023",
+  "parent_branch": "protocol-022",
+  "parent_sha": "6c5db86fde8afd10e3997d4ff0bf8016e2e87130",
+  "bootstrap_head": "6c5db86fde8afd10e3997d4ff0bf8016e2e87130",
+  "registered_before_collection": true,
+  "round1_scope": {
+    "allowed": [
+      "S0 freeze P22",
+      "S1 three regime generators + tests",
+      "S2 data-only streams + Data Gate / marginal matching",
+      "S3 cross-regime specialization probe",
+      "S3 gradient interference probe",
+      "S3 sequential forgetting probe"
+    ],
+    "forbidden": [
+      "implement or run D",
+      "modify the FT-MoE backbone",
+      "retrain offline v4 / P19 / P20 / P22 checkpoints",
+      "redefine a gate after seeing its result",
+      "use phase/regime/mechanism ids as model inputs"
+    ]
+  },
+  "gates": [
+    {
+      "id": "H0",
+      "name": "generator_registration_correctness",
+      "stage": "S1",
+      "rule": "compute-first is byte-identical to cascade_v2; the familiar transform is exact for every regime; every registered lag is observable",
+      "status": "pending"
+    },
+    {
+      "id": "H1",
+      "name": "data_gate_and_marginal_matching",
+      "stage": "S2",
+      "rule": "plan §9 thresholds per regime",
+      "status": "pending"
+    },
+    {
+      "id": "H2",
+      "name": "specialization_opportunity",
+      "stage": "S3",
+      "rule": "within-regime AP - mean cross-regime AP >= 0.05 for at least 2 of 3 regimes (plan §13)",
+      "status": "pending"
+    },
+    {
+      "id": "H3",
+      "name": "gradient_interference",
+      "stage": "S3",
+      "rule": "at least one regime pair with mean residual-gradient cosine <= -0.05, or >= 30% of sampled cross-regime event pairs with cosine < 0 (plan §14)",
+      "status": "pending"
+    },
+    {
+      "id": "H4",
+      "name": "sequential_forgetting",
+      "stage": "S3",
+      "rule": "fixed C trained on regime R loses performance on the earlier regime; recurrence requires re-adaptation",
+      "status": "pending"
+    }
+  ],
+  "stop_table": {
+    "STOP-MR": "no specialization opportunity across the three regimes -> do not implement D (plan §13)",
+    "STOP-GI": "regime gradients are co-directional -> no continual conflict -> do not implement D (plan §14)",
+    "STOP-DATA": "Data Gate or marginal matching FAIL -> the scenes are not matched, so no method comparison is admissible",
+    "STOP-NOADAPT": "fixed C adapts to every regime within its dwell time -> the stability-plasticity conflict this protocol is built on does not exist"
+  },
+  "registered_timeline": {
+    "development": {
+      "tag": "dev_seed700_steps2880",
+      "phases": [
+        [
+          "F0_baseline",
+          300,
+          "familiar"
+        ],
+        [
+          "A1_compute",
+          420,
+          "compute_first"
+        ],
+        [
+          "B1_memory",
+          420,
+          "memory_first"
+        ],
+        [
+          "C1_io",
+          420,
+          "io_first"
+        ],
+        [
+          "F1_baseline",
+          240,
+          "familiar"
+        ],
+        [
+          "A2_recur",
+          360,
+          "compute_first"
+        ],
+        [
+          "C2_recur",
+          360,
+          "io_first"
+        ],
+        [
+          "B2_recur",
+          360,
+          "memory_first"
+        ]
+      ],
+      "scored_intervals": 2880,
+      "cascade_task_probability": 0.25
+    },
+    "single_regime": {
+      "tag_template": "single_<regime>_seed700_steps1200",
+      "phases": [
+        [
+          "F0_baseline",
+          150,
+          "familiar"
+        ],
+        [
+          "<regime>_only",
+          1050,
+          "<regime>"
+        ]
+      ],
+      "scored_intervals": 1200,
+      "purpose": "clean per-regime cohorts for the marginal matching gate and the cross-regime probe"
+    }
+  },
+  "registered_seeds": {
+    "replay_seed_development": 700,
+    "replay_seed_confirmation": [
+      701,
+      702,
+      703
+    ],
+    "mechanism_seed_dev": 22022,
+    "mechanism_seed_confirm": 22023,
+    "note": "701+ are confirmation seeds and must not be used for tuning; they are not used in round 1"
+  },
+  "regime_registration": {
+    "family": "cascade_v3",
+    "regime_ids": [
+      "compute_first",
+      "memory_first",
+      "io_first"
+    ],
+    "mechanism_seed_dev": 22022,
+    "mechanism_seed_confirm": 22023,
+    "mechanism_seed_by_regime": {
+      "compute_first": 22022,
+      "memory_first": 23023,
+      "io_first": 23033
+    },
+    "onset_thresholds": {
+      "cpu": 2600.0,
+      "ram": 2810.0,
+      "disk": 11600.0
+    },
+    "onset_thresholds_provisional": {
+      "cpu": 2600.0,
+      "ram": 2810.0,
+      "disk": 11600.0
+    },
+    "onset_threshold_rule": "a threshold must be strictly above the measured familiar per-task maximum of its resource and strictly below the regime's own floor; the RAM and disk thresholds are provisional and are reported as such",
+    "inherited_chain_regimes": [
+      "compute_first"
+    ],
+    "observability_rule": "every registered lag < observable_history (12) for every regime; the stricter longest-chain rule applies only to the newly registered orders (memory_first, io_first)",
+    "regimes": {
+      "compute_first": {
+        "type": "temporal_resource_cascade",
+        "mechanism_seed": 22022,
+        "cpu_duration": [
+          3,
+          5
+        ],
+        "ram_duration": [
+          6,
+          10
+        ],
+        "disk_duration": [
+          6,
+          10
+        ],
+        "cpu_burst_mult": 2.0,
+        "cpu_burst_onset": "familiar",
+        "cpu_burst_floor": 4400.0,
+        "cpu_burst_upper": 5200.0,
+        "ram_ramp_peak_mult": 2.0,
+        "ram_target_floor": 4500.0,
+        "ram_burst_upper": 6000.0,
+        "disk_retained_peak": 16000.0,
+        "disk_retained_cap": 24000.0,
+        "cascade_task_probability": 0.25,
+        "observable_history": 12,
+        "forbidden_inputs": [
+          "regime_id",
+          "phase_id",
+          "mechanism_id",
+          "cascade_task_flag",
+          "cascade_event_id",
+          "future_demand",
+          "future_capacity",
+          "unmatured_label"
+        ],
+        "regime_id": "compute_first",
+        "family": "cascade_v3",
+        "onset_resource": "cpu",
+        "mechanism_id": 0,
+        "sequence": [
+          [
+            "cpu",
+            0
+          ],
+          [
+            "ram",
+            4
+          ],
+          [
+            "disk",
+            8
+          ]
+        ],
+        "cpu_to_ram_lag": 4,
+        "cpu_to_disk_lag": 8,
+        "response_windows": {
+          "ram": [
+            4,
+            14
+          ],
+          "disk": [
+            8,
+            18
+          ]
+        },
+        "physical_story": "compute-intensive inference burst: the task's own CPU demand saturates the host, retention then raises RAM and the delayed write-out accumulates disk"
+      },
+      "memory_first": {
+        "type": "temporal_resource_cascade",
+        "mechanism_seed": 22022,
+        "cpu_duration": [
+          3,
+          5
+        ],
+        "ram_duration": [
+          4,
+          5
+        ],
+        "disk_duration": [
+          4,
+          5
+        ],
+        "cpu_burst_mult": 2.0,
+        "cpu_burst_onset": "familiar",
+        "cpu_burst_floor": 4400.0,
+        "cpu_burst_upper": 5200.0,
+        "ram_ramp_peak_mult": 2.5,
+        "ram_target_floor": 4500.0,
+        "ram_burst_upper": 6000.0,
+        "disk_retained_peak": 16000.0,
+        "disk_retained_cap": 24000.0,
+        "cascade_task_probability": 0.25,
+        "observable_history": 12,
+        "forbidden_inputs": [
+          "regime_id",
+          "phase_id",
+          "mechanism_id",
+          "cascade_task_flag",
+          "cascade_event_id",
+          "future_demand",
+          "future_capacity",
+          "unmatured_label"
+        ],
+        "regime_id": "memory_first",
+        "family": "cascade_v3",
+        "onset_resource": "ram",
+        "mechanism_id": 1,
+        "sequence": [
+          [
+            "ram",
+            0
+          ],
+          [
+            "disk",
+            3
+          ],
+          [
+            "cpu",
+            6
+          ]
+        ],
+        "ram_to_disk_lag": 3,
+        "disk_to_cpu_lag": 6,
+        "response_windows": {
+          "disk": [
+            3,
+            13
+          ],
+          "cpu": [
+            6,
+            16
+          ]
+        },
+        "physical_story": "working-set growth / memory leak: RAM pressure first, paging then loads disk, and the paging CPU overhead arrives last"
+      },
+      "io_first": {
+        "type": "temporal_resource_cascade",
+        "mechanism_seed": 22022,
+        "cpu_duration": [
+          4,
+          6
+        ],
+        "ram_duration": [
+          4,
+          6
+        ],
+        "disk_duration": [
+          4,
+          6
+        ],
+        "cpu_burst_mult": 2.0,
+        "cpu_burst_onset": "familiar",
+        "cpu_burst_floor": 4400.0,
+        "cpu_burst_upper": 5200.0,
+        "ram_ramp_peak_mult": 2.5,
+        "ram_target_floor": 4500.0,
+        "ram_burst_upper": 6000.0,
+        "disk_retained_peak": 16000.0,
+        "disk_retained_cap": 24000.0,
+        "cascade_task_probability": 0.25,
+        "observable_history": 12,
+        "forbidden_inputs": [
+          "regime_id",
+          "phase_id",
+          "mechanism_id",
+          "cascade_task_flag",
+          "cascade_event_id",
+          "future_demand",
+          "future_capacity",
+          "unmatured_label"
+        ],
+        "regime_id": "io_first",
+        "family": "cascade_v3",
+        "onset_resource": "disk",
+        "mechanism_id": 2,
+        "sequence": [
+          [
+            "disk",
+            0
+          ],
+          [
+            "cpu",
+            3
+          ],
+          [
+            "ram",
+            6
+          ]
+        ],
+        "disk_to_cpu_lag": 3,
+        "cpu_to_ram_lag": 6,
+        "response_windows": {
+          "cpu": [
+            3,
+            13
+          ],
+          "ram": [
+            6,
+            16
+          ]
+        },
+        "physical_story": "logging / checkpoint / data-upload accumulation: disk pressure first, cleanup+compaction CPU next, and the page-cache disturbance last"
+      }
+    },
+    "physics_notes": {
+      "compute_first": "compute-intensive inference burst: the task's own CPU demand saturates the host, retention then raises RAM and the delayed write-out accumulates disk",
+      "memory_first": "working-set growth / memory leak: RAM pressure first, paging then loads disk, and the paging CPU overhead arrives last",
+      "io_first": "logging / checkpoint / data-upload accumulation: disk pressure first, cleanup+compaction CPU next, and the page-cache disturbance last"
+    }
+  },
+  "data_gate": {
+    "anomaly_prevalence_min": 0.03,
+    "anomaly_prevalence_max": 0.12,
+    "deployment_rejection_max": 0.25,
+    "migration_rejection_max": 0.4,
+    "independent_fault_events_min_per_regime": 80,
+    "valid_onset_followup_min_per_regime": 50,
+    "worst_event_share_max": 0.1,
+    "regime_prevalence_difference_max_pp": 4.0
+  },
+  "specialization_gate": {
+    "rule": "within-regime AP - mean cross-regime AP >= 0.05 for at least 2 of 3 regimes (plan §13)",
+    "min_within_minus_cross_ap": 0.05,
+    "min_regimes_passing": 2,
+    "primary_horizon": 1,
+    "horizons": [
+      1,
+      4
+    ]
+  },
+  "gradient_gate": {
+    "rule": "at least one regime pair with mean residual-gradient cosine <= -0.05, or >= 30% of sampled cross-regime event pairs with cosine < 0 (plan §14)",
+    "pair_mean_cosine_max": -0.05,
+    "negative_pair_fraction_min": 0.3
+  },
+  "frozen_checkpoint": {
+    "path": "artifacts/ftmoe_online/protocol_020/s6/adapted_v4_seed1/best.pt",
+    "sha256_expected": "10c44bdb0ea1a3134933d6a7eb5be98711ef4e48bd791594e4d8792519dfe03b",
+    "policy": "read-only; never overwritten or retrained"
+  },
+  "resource_discipline": {
+    "python": "3.8 (D:\\Anaconda\\envs\\dynmoe\\python.exe)",
+    "single_process": true,
+    "ram_guard_gib": 2.5,
+    "disk_guard_gib": 20.0,
+    "torch_threads": 3,
+    "interop_threads": 1,
+    "priority": "BelowNormal",
+    "exit_code_source": "subprocess returncode, never a wrapper"
+  },
+  "honesty_rules": [
+    "A gate is written pending until the analyzer that measured it writes its verdict.",
+    "STOP outcomes are results and are reported with evidence.",
+    "No threshold is redefined after seeing a result.",
+    "The compute-first regime inherits cascade_v2 verbatim; any divergence is a defect, not a new regime.",
+    "Phase, regime, mechanism and event identifiers are audit-only and may never reach a model input."
+  ],
+  "source_sha256": {
+    "simulator/workload/BitbrainWorkloadProtocol023.py": "5569eaca1320de545107990201db42915203b132497db59ef03f277b59fd160f",
+    "simulator/workload/BitbrainWorkloadProtocol022.py": "204cb3ac2d8541c9a36448d5797f8027faf464ff0f001269a97da35f488c388a",
+    "simulator/workload/BitbrainWorkloadProtocol021.py": "58ff6f018f4ca21efb80ba850d5f89b44c6589f5ee087a2205e5770bbd9fe1be",
+    "simulator/workload/BitbrainWorkloadProtocol020.py": "6c73e3995ff71473c5ecf64fb70402c9ee644fc95d6213a1c6bbb395b5c67a39",
+    "ftmoe_protocol023_core.py": "3c03876f10171e4f332f8ef96e993f2c71115fcd9eee80b814e6138da71c651b",
+    "ftmoe_protocol022_core.py": "d3a790d97b8276ee6c7b654d832cd2b451a34e514fa341a479ef9b4433ee9e71",
+    "prepare_ftmoe_protocol023_stream.py": "2c114083100c39102c72228d74b1e4d9f20e4327bfbca17e0986149a21be503d",
+    "verify_ftmoe_protocol023_stream.py": "cdb0f0a5de2d0af681f95c39b68a4249a8fb1cdf11941c589fb552cf44c6fb2e",
+    "run_ftmoe_protocol023_s2.py": "dd62269f1b67682b1cfe3252d3570e543526ccfce7bd783396b2ad0a99c9aaf7",
+    "probe_ftmoe_protocol023_specialization.py": "0774d369e7a107517be38718c406040eb4a4c6b735e3397d6ba4d66d90e08a6b",
+    "verify_ftmoe_protocol023_generator.py": "0bf7763ce1a39662632752c0b9bc9afcae5b6a45a46900363f3d319e93cbe8fd",
+    "test_ftmoe_protocol023_core.py": "4a1cca5c9f7f9e4a21a1cc360125444f55439b3f0b7fa0bfcb06fc7e59ba9821",
+    "test_ftmoe_protocol023_regimes.py": "35f326d05c5f46e64155a4f389504155329fda74d475d8ce698b52360f8261a9",
+    "stats/Stats.py": "f5fdb3fbd6dbfecb778f0bcea348c6ca85afca527b9792c11ea7b9a90fecede3"
+  },
+  "source_files_missing_at_registration": [
+    "analyze_ftmoe_protocol023_s2.py",
+    "probe_ftmoe_protocol023_gradient.py",
+    "test_ftmoe_protocol023_s2.py",
+    "test_ftmoe_protocol023_gradient.py"
+  ]
+}

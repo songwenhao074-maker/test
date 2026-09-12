@@ -1,0 +1,745 @@
+{
+  "protocol": "023",
+  "stage": "S2",
+  "analyzer": "analyze_ftmoe_protocol023_s2.py",
+  "generated_at": "2026-09-12T12:54:01+00:00",
+  "artifact": "regime_B.json",
+  "canonical_regime_id": "B",
+  "regime_id": "memory_first",
+  "partial_run": false,
+  "plan_section": "指令/FTMOE_PROTOCOL023_DYNAMIC_EXPERT_PLAN_20260912.md §9 (建议 Data Gate)",
+  "plan_section_9_text": "anomaly prevalence 3%-12% / deployment rejection <= 25% / migration rejection <= 40% / independent fault events >= 80 per regime / valid onset-follow-up >= 50 per regime / worst event share < 10% / regime prevalence difference <= 4 percentage points",
+  "thresholds": {
+    "prevalence_min": 0.03,
+    "prevalence_max": 0.12,
+    "deployment_rejection_max": 0.25,
+    "migration_rejection_max": 0.4,
+    "independent_fault_events_min": 80,
+    "valid_onset_followup_min": 50,
+    "worst_event_share_max": 0.1,
+    "prevalence_spread_max": 0.04
+  },
+  "threshold_drift": {
+    "analyzer": {
+      "prevalence_min": 0.03,
+      "prevalence_max": 0.12,
+      "deployment_rejection_max": 0.25,
+      "migration_rejection_max": 0.4,
+      "independent_fault_events_min": 80,
+      "valid_onset_followup_min": 50,
+      "worst_event_share_max": 0.1,
+      "prevalence_spread_max": 0.04
+    },
+    "instrument": {
+      "prevalence_min": 0.03,
+      "prevalence_max": 0.12,
+      "prevalence_spread_max": 0.04,
+      "independent_fault_events_min": 80,
+      "valid_onset_followup_min": 50,
+      "deployment_rejection_max": 0.25,
+      "migration_rejection_max": 0.4,
+      "worst_event_share_max": 0.1
+    },
+    "drift": [],
+    "passed": true,
+    "source": "指令/FTMOE_PROTOCOL023_DYNAMIC_EXPERT_PLAN_20260912.md §9 (建议 Data Gate)",
+    "plan_text": "anomaly prevalence 3%-12% / deployment rejection <= 25% / migration rejection <= 40% / independent fault events >= 80 per regime / valid onset-follow-up >= 50 per regime / worst event share < 10% / regime prevalence difference <= 4 percentage points"
+  },
+  "gate_source_stream": {
+    "tag": "single_memory_first_seed700_steps1200",
+    "stream_dir": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_023\\development_streams\\single_memory_first_seed700_steps1200",
+    "discovery": "registered_tag",
+    "stream_sha256": "322210f1248541844899ba3ed93cb4e9f7bed5e7a229fb88af43ec39ef401e6c",
+    "task_timeline_sha256": "75323e7720812036eb1967802ed427834c90be9aeced3082d0938c0bcb12b950",
+    "steps": 1200
+  },
+  "registration": {
+    "onset_resource": "ram",
+    "onset_tau": 2810.0,
+    "onset_provisional": true,
+    "tau_source": "generator REGISTERED_ONSET_TAU",
+    "registered_floor": 4500.0,
+    "registered_familiar_clip": 1400.0,
+    "response_windows": {
+      "disk": [
+        3,
+        13
+      ],
+      "cpu": [
+        6,
+        16
+      ]
+    },
+    "sequence": [
+      [
+        "ram",
+        0
+      ],
+      [
+        "disk",
+        3
+      ],
+      [
+        "cpu",
+        6
+      ]
+    ],
+    "provisional_note": "the RAM (2810.0) and disk (11600.0) onset thresholds are PROVISIONAL (plan §6-§7; the generator marks all three as provisional): the 'no familiar task can cross it' half of the registered argument is measured here on this stream's familiar rows and reported, never assumed"
+  },
+  "measurement": {
+    "phase_window": {
+      "intervals": 1050,
+      "ranges": [
+        [
+          150,
+          1200
+        ]
+      ],
+      "host_steps": 16800
+    },
+    "cohort": {
+      "n_tasks": 342,
+      "creation_ids_sample": [
+        202,
+        211,
+        212,
+        222,
+        224,
+        225,
+        228,
+        231,
+        235,
+        239
+      ],
+      "rule": "tasks whose saved per-observation mechanism id is the regime's own; a familiar task and another regime's task are never in this cohort"
+    },
+    "gate_stats": {
+      "prevalence": 0.030535714285714284,
+      "positive_hoststeps": 513,
+      "host_steps": 16800,
+      "independent_fault_events": 260,
+      "valid_onset_followup": 36,
+      "deployment_attempts": 1551,
+      "deployment_rejected": 131,
+      "deployment_rejection_rate": 0.08446163765312702,
+      "migration_attempts": 350,
+      "migration_rejected": 54,
+      "migration_rejection_rate": 0.15428571428571428,
+      "worst_event_share": 0.015594541910331383,
+      "event_count": 297,
+      "mean_duration": 3.9023569023569022,
+      "peak_ratio": 8.5
+    },
+    "onsets": {
+      "n_events": 297,
+      "n_valid_followup": 36,
+      "n_invalid_followup": 261,
+      "n_events_with_a_usable_followup": 200,
+      "followup_horizon": 16,
+      "followup_rule": "the task observes every interval of [t0, t0 + max(registered window))",
+      "usable_followup_rule": "at least one interval inside a registered response window is observed, so a response value exists (the P22 U4-v2 MIN_FOLLOWUP_EVENTS definition); reported for comparison, NOT the gated number",
+      "gated_definition": "n_valid_followup (full window) -- plan §9 'valid onset/follow-up'; the P22-compatible usable count is reported next to it and the definition is never switched after seeing the number",
+      "event_keys": [
+        "202:151",
+        "211:160",
+        "212:161",
+        "222:169",
+        "224:171",
+        "225:172",
+        "231:178",
+        "235:181",
+        "240:184",
+        "247:189",
+        "249:189",
+        "251:191",
+        "254:194",
+        "259:201",
+        "265:201",
+        "266:202",
+        "270:205",
+        "272:207",
+        "277:210",
+        "291:222",
+        "297:227",
+        "299:228",
+        "300:228",
+        "302:229",
+        "308:236",
+        "309:236",
+        "341:258",
+        "349:263",
+        "351:265",
+        "357:269",
+        "362:273",
+        "364:275",
+        "382:291",
+        "383:292",
+        "388:296",
+        "392:298",
+        "396:300",
+        "398:303",
+        "404:305",
+        "406:305",
+        "408:307",
+        "410:309",
+        "416:313",
+        "442:332",
+        "445:334",
+        "447:336",
+        "459:347",
+        "460:347",
+        "466:353",
+        "471:357"
+      ],
+      "cohort_observed_life": {
+        "n": 342,
+        "mean": 7.444444444444445,
+        "p50": 5.0,
+        "max": 29.0
+      },
+      "cohort_observed_life_note": "observed intervals per cohort task; a median well below the followup_horizon is why the full-window count can be far below the usable count",
+      "n_events_with_a_registered_envelope": 297,
+      "n_events_without_a_registered_envelope": 0,
+      "value_at_onset": {
+        "n": 297,
+        "mean": 4634.481675645343,
+        "p50": 4500.0,
+        "max": 6000.0
+      },
+      "delta_at_onset": {
+        "n": 297,
+        "mean": 4311.46069363476,
+        "p50": 4416.114,
+        "max": 4600.0
+      },
+      "baseline_sources": {
+        "observed pre-onset median": 297
+      }
+    },
+    "cross_regime_confound": {
+      "onsets_with_task_map": 297,
+      "onsets_without_task_map": 297,
+      "cross_hits": 0,
+      "note": "onsets an unmapped resource+tau scan attributes to this regime that its own task cohort does not produce; the instrument's tests pin that a regime-A envelope crosses the B/C thresholds, so this number is reported and is NEVER a gate input"
+    },
+    "durations": {
+      "n": 297,
+      "mean": 3.9023569023569022,
+      "p50": 2.0,
+      "max": 10,
+      "mean_valid_followup_only": 9.88888888888889,
+      "n_valid_followup_only": 36,
+      "definition": "intervals inside the registered response windows whose deviation from the pre-onset baseline is > 0, longest of the two response resources"
+    },
+    "peak_ratio": {
+      "n": 173,
+      "mean": 25.805205468629886,
+      "p50": 8.5,
+      "max": 948.3672298259704,
+      "definition": "max over the registered response resources of response_Q / pre-onset baseline_Q"
+    },
+    "alignment": {
+      "cpu": {
+        "resource": "cpu",
+        "registered_lag": 6,
+        "tolerance": 1,
+        "n": 135,
+        "hits": 135,
+        "rate": 1.0,
+        "n_positive": 115,
+        "hits_positive": 115,
+        "rate_positive": 1.0
+      },
+      "disk": {
+        "resource": "disk",
+        "registered_lag": 3,
+        "tolerance": 1,
+        "n": 200,
+        "hits": 200,
+        "rate": 1.0,
+        "n_positive": 200,
+        "hits_positive": 200,
+        "rate_positive": 1.0
+      }
+    },
+    "fault_runs": {
+      "n_runs": 260,
+      "worst_run_share_of_positives": 0.01949317738791423,
+      "worst_cascade_event_share_of_positives": 0.015594541910331383,
+      "n_distinct_cascade_events_attributed": 194,
+      "definition": "per-host contiguous positive-label runs inside the regime's phase window; a run is attributed to every registered cascade event live and in-window on its host"
+    },
+    "rejection": {
+      "deployment_attempts": 1551,
+      "deployment_rejected": 131,
+      "migration_attempts": 350,
+      "migration_rejected": 54,
+      "note": "a rate with zero attempts is reported as null (not measurable) rather than as a fake 0.0, and the count is reported next to it"
+    },
+    "familiar": {
+      "measured_familiar_task_maximum": {
+        "cpu": 1860.0,
+        "ram": 1400.0,
+        "disk": 9000.0
+      },
+      "envelope_free_familiar_task_maximum": {
+        "cpu": 1860.0,
+        "ram": 1400.0,
+        "disk": 9000.0
+      }
+    }
+  },
+  "admissibility": {
+    "regime_id": "memory_first",
+    "canonical_regime_id": "B",
+    "onset_resource": "ram",
+    "registered_onset_threshold": 2810.0,
+    "tau_source": "generator REGISTERED_ONSET_TAU",
+    "registered_familiar_clip": 1400.0,
+    "registered_floor": 4500.0,
+    "floor_key": "ram_target_floor",
+    "measured_familiar_task_maximum": 1400.0,
+    "n_familiar_tasks_measured": 201,
+    "threshold_admissible": true,
+    "margin_above_measured_maximum": 1410.0,
+    "margin_below_floor": 1690.0,
+    "envelope_free_familiar_task_maximum": 1400.0,
+    "admissible_against_envelope_free_tasks": true,
+    "provisional": true,
+    "generator_provisional": true,
+    "provisional_note": "PROVISIONAL threshold: the 'no familiar task can cross it' half of the registered argument is not measured for RAM/disk under P23 (plan §6-§7); the measured maximum above is this stream's own evidence and the threshold is reported, never retuned, when it fails",
+    "rule": "admissible iff the registered threshold is STRICTLY above the measured familiar per-task maximum of its resource; an unmeasurable maximum is reported inadmissible (it cannot be shown to be above the familiar level)",
+    "measurement_source": "per-task maxima over the familiar-phase rows (phase_kind == 0) of this stream"
+  },
+  "familiar_measurement": {
+    "familiar_intervals": 150,
+    "familiar_ranges": [
+      [
+        0,
+        150
+      ]
+    ],
+    "n_tasks_with_familiar_rows": 201,
+    "n_tasks_envelope_free": 201,
+    "n_tasks_carrying_an_envelope": 0,
+    "per_task_maxima_all_familiar_rows": {
+      "cpu": {
+        "n": 201,
+        "max": 1860.0,
+        "median": 141.72595218059777
+      },
+      "ram": {
+        "n": 201,
+        "max": 1400.0,
+        "median": 128.6252
+      },
+      "disk": {
+        "n": 201,
+        "max": 9000.0,
+        "median": 2000.0
+      }
+    },
+    "per_task_maxima_envelope_free_tasks": {
+      "cpu": {
+        "n": 201,
+        "max": 1860.0,
+        "median": 141.72595218059777
+      },
+      "ram": {
+        "n": 201,
+        "max": 1400.0,
+        "median": 128.6252
+      },
+      "disk": {
+        "n": 201,
+        "max": 9000.0,
+        "median": 2000.0
+      }
+    },
+    "measured_familiar_task_maximum": {
+      "cpu": 1860.0,
+      "ram": 1400.0,
+      "disk": 9000.0
+    },
+    "envelope_free_familiar_task_maximum": {
+      "cpu": 1860.0,
+      "ram": 1400.0,
+      "disk": 9000.0
+    },
+    "registered_familiar_clip": {
+      "cpu": 1860.0,
+      "ram": 1400.0,
+      "disk": 9000.0
+    },
+    "measurement_source": "per-task maxima over the familiar-phase rows (phase_kind == 0) of this stream"
+  },
+  "checks": {
+    "B_prevalence_in_range": true,
+    "B_independent_fault_events_enough": true,
+    "B_valid_onset_followup_enough": false,
+    "B_deployment_rejection_ok": true,
+    "B_migration_rejection_ok": true,
+    "B_worst_event_share_ok": true
+  },
+  "instrument_checks": {
+    "B_prevalence_in_range": true,
+    "B_independent_fault_events_enough": true,
+    "B_valid_onset_followup_enough": false,
+    "B_deployment_rejection_ok": true,
+    "B_migration_rejection_ok": true,
+    "B_worst_event_share_ok": true
+  },
+  "dev_stream_context": {
+    "canonical_regime_id": "B",
+    "regime_id": "memory_first",
+    "mechanism_id": 1,
+    "onset_resource": "ram",
+    "onset_tau": 2810.0,
+    "onset_provisional": true,
+    "response_windows": {
+      "disk": [
+        3,
+        13
+      ],
+      "cpu": [
+        6,
+        16
+      ]
+    },
+    "sequence": [
+      [
+        "ram",
+        0
+      ],
+      [
+        "disk",
+        3
+      ],
+      [
+        "cpu",
+        6
+      ]
+    ],
+    "phase_window": {
+      "intervals": 780,
+      "ranges": [
+        [
+          720,
+          1140
+        ],
+        [
+          2520,
+          2880
+        ]
+      ],
+      "host_steps": 12480
+    },
+    "cohort": {
+      "n_tasks": 279,
+      "creation_ids_sample": [
+        975,
+        978,
+        986,
+        992,
+        993,
+        1007,
+        1011,
+        1020,
+        1025,
+        1026
+      ],
+      "rule": "tasks whose saved per-observation mechanism id is the regime's own; a familiar task and another regime's task are never in this cohort"
+    },
+    "gate_stats": {
+      "prevalence": 0.031971153846153844,
+      "positive_hoststeps": 399,
+      "host_steps": 12480,
+      "independent_fault_events": 214,
+      "valid_onset_followup": 16,
+      "deployment_attempts": 1161,
+      "deployment_rejected": 90,
+      "deployment_rejection_rate": 0.07751937984496124,
+      "migration_attempts": 286,
+      "migration_rejected": 40,
+      "migration_rejection_rate": 0.13986013986013987,
+      "worst_event_share": 0.03258145363408521,
+      "event_count": 241,
+      "mean_duration": 3.767634854771784,
+      "peak_ratio": 8.0
+    },
+    "onsets": {
+      "n_events": 241,
+      "n_valid_followup": 16,
+      "n_invalid_followup": 225,
+      "n_events_with_a_usable_followup": 168,
+      "followup_horizon": 16,
+      "followup_rule": "the task observes every interval of [t0, t0 + max(registered window))",
+      "usable_followup_rule": "at least one interval inside a registered response window is observed, so a response value exists (the P22 U4-v2 MIN_FOLLOWUP_EVENTS definition); reported for comparison, NOT the gated number",
+      "gated_definition": "n_valid_followup (full window) -- plan §9 'valid onset/follow-up'; the P22-compatible usable count is reported next to it and the definition is never switched after seeing the number",
+      "event_keys": [
+        "975:727",
+        "978:728",
+        "992:739",
+        "993:740",
+        "1020:760",
+        "1025:762",
+        "1026:763",
+        "1034:767",
+        "1036:769",
+        "1042:771",
+        "1069:786",
+        "1070:787",
+        "1077:792",
+        "1084:799",
+        "1091:804",
+        "1095:808",
+        "1100:810",
+        "1101:810",
+        "1106:814",
+        "1107:814",
+        "1118:824",
+        "1125:830",
+        "1127:831",
+        "1129:833",
+        "1133:836",
+        "1134:837",
+        "1137:838",
+        "1140:841",
+        "1141:842",
+        "1144:845",
+        "1146:847",
+        "1149:850",
+        "1151:852",
+        "1152:853",
+        "1158:857",
+        "1164:861",
+        "1165:862",
+        "1170:864",
+        "1171:865",
+        "1174:867",
+        "1178:869",
+        "1184:874",
+        "1190:879",
+        "1192:880",
+        "1198:885",
+        "1202:889",
+        "1205:890",
+        "1210:893",
+        "1218:900",
+        "1220:900"
+      ],
+      "cohort_observed_life": {
+        "n": 279,
+        "mean": 7.03584229390681,
+        "p50": 5.0,
+        "max": 24.0
+      },
+      "cohort_observed_life_note": "observed intervals per cohort task; a median well below the followup_horizon is why the full-window count can be far below the usable count",
+      "n_events_with_a_registered_envelope": 241,
+      "n_events_without_a_registered_envelope": 0,
+      "value_at_onset": {
+        "n": 241,
+        "mean": 4603.324724757953,
+        "p50": 4500.0,
+        "max": 6000.0
+      },
+      "delta_at_onset": {
+        "n": 241,
+        "mean": 4298.741122861094,
+        "p50": 4423.1052,
+        "max": 4600.0
+      },
+      "baseline_sources": {
+        "observed pre-onset median": 241
+      }
+    },
+    "cross_regime_confound": {
+      "onsets_with_task_map": 241,
+      "onsets_without_task_map": 471,
+      "cross_hits": 230,
+      "note": "onsets an unmapped resource+tau scan attributes to this regime that its own task cohort does not produce; the instrument's tests pin that a regime-A envelope crosses the B/C thresholds, so this number is reported and is NEVER a gate input"
+    },
+    "durations": {
+      "n": 241,
+      "mean": 3.767634854771784,
+      "p50": 3.0,
+      "max": 10,
+      "mean_valid_followup_only": 10.0,
+      "n_valid_followup_only": 16,
+      "definition": "intervals inside the registered response windows whose deviation from the pre-onset baseline is > 0, longest of the two response resources"
+    },
+    "peak_ratio": {
+      "n": 139,
+      "mean": 18.563561354684452,
+      "p50": 8.0,
+      "max": 388.3509187351945,
+      "definition": "max over the registered response resources of response_Q / pre-onset baseline_Q"
+    },
+    "alignment": {
+      "cpu": {
+        "resource": "cpu",
+        "registered_lag": 6,
+        "tolerance": 1,
+        "n": 112,
+        "hits": 112,
+        "rate": 1.0,
+        "n_positive": 100,
+        "hits_positive": 100,
+        "rate_positive": 1.0
+      },
+      "disk": {
+        "resource": "disk",
+        "registered_lag": 3,
+        "tolerance": 1,
+        "n": 168,
+        "hits": 168,
+        "rate": 1.0,
+        "n_positive": 168,
+        "hits_positive": 168,
+        "rate_positive": 1.0
+      }
+    },
+    "fault_runs": {
+      "n_runs": 214,
+      "worst_run_share_of_positives": 0.015037593984962405,
+      "worst_cascade_event_share_of_positives": 0.03258145363408521,
+      "n_distinct_cascade_events_attributed": 152,
+      "definition": "per-host contiguous positive-label runs inside the regime's phase window; a run is attributed to every registered cascade event live and in-window on its host"
+    },
+    "rejection": {
+      "deployment_attempts": 1161,
+      "deployment_rejected": 90,
+      "migration_attempts": 286,
+      "migration_rejected": 40,
+      "note": "a rate with zero attempts is reported as null (not measurable) rather than as a fake 0.0, and the count is reported next to it"
+    },
+    "familiar": {
+      "measured_familiar_task_maximum": {
+        "cpu": 1860.0,
+        "ram": 1400.0,
+        "disk": 9000.0
+      },
+      "envelope_free_familiar_task_maximum": {
+        "cpu": 1860.0,
+        "ram": 1400.0,
+        "disk": 9000.0
+      }
+    }
+  },
+  "dev_admissibility": {
+    "regime_id": "memory_first",
+    "canonical_regime_id": "B",
+    "onset_resource": "ram",
+    "registered_onset_threshold": 2810.0,
+    "tau_source": "generator REGISTERED_ONSET_TAU",
+    "registered_familiar_clip": 1400.0,
+    "registered_floor": 4500.0,
+    "floor_key": "ram_target_floor",
+    "measured_familiar_task_maximum": 1400.0,
+    "n_familiar_tasks_measured": 731,
+    "threshold_admissible": true,
+    "margin_above_measured_maximum": 1410.0,
+    "margin_below_floor": 1690.0,
+    "envelope_free_familiar_task_maximum": 1400.0,
+    "admissible_against_envelope_free_tasks": true,
+    "provisional": true,
+    "generator_provisional": true,
+    "provisional_note": "PROVISIONAL threshold: the 'no familiar task can cross it' half of the registered argument is not measured for RAM/disk under P23 (plan §6-§7); the measured maximum above is this stream's own evidence and the threshold is reported, never retuned, when it fails",
+    "rule": "admissible iff the registered threshold is STRICTLY above the measured familiar per-task maximum of its resource; an unmeasurable maximum is reported inadmissible (it cannot be shown to be above the familiar level)",
+    "measurement_source": "per-task maxima over the familiar-phase rows (phase_kind == 0) of this stream"
+  },
+  "declared_vs_recomputed": {
+    "stream": "single_memory_first_seed700_steps1200",
+    "audit_file_present": true,
+    "comparison": {
+      "prevalence": {
+        "declared": 0.030535714285714284,
+        "recomputed": 0.030535714285714284,
+        "match": true
+      },
+      "positive_hoststeps": {
+        "declared": 513,
+        "recomputed": 513,
+        "match": true
+      },
+      "host_steps": {
+        "declared": 16800,
+        "recomputed": 16800,
+        "match": true
+      },
+      "independent_fault_events": {
+        "declared": 260,
+        "recomputed": 260,
+        "match": true
+      },
+      "deployment_attempts": {
+        "declared": 1551,
+        "recomputed": 1551,
+        "match": true
+      },
+      "deployment_rejected": {
+        "declared": 131,
+        "recomputed": 131,
+        "match": true
+      },
+      "deployment_rejection_rate": {
+        "declared": 0.08446163765312702,
+        "recomputed": 0.08446163765312702,
+        "match": true
+      },
+      "migration_attempts": {
+        "declared": 350,
+        "recomputed": 350,
+        "match": true
+      },
+      "migration_rejected": {
+        "declared": 54,
+        "recomputed": 54,
+        "match": true
+      },
+      "migration_rejection_rate": {
+        "declared": 0.15428571428571428,
+        "recomputed": 0.15428571428571428,
+        "match": true
+      },
+      "worst_event_share_of_positives": {
+        "declared": 0.015594541910331383,
+        "recomputed": 0.015594541910331383,
+        "match": true
+      },
+      "n_onsets": {
+        "declared": 297,
+        "recomputed": 297,
+        "match": true
+      }
+    },
+    "all_match": true
+  },
+  "gate_passed": false,
+  "passed": false,
+  "failed_on": [
+    "data_gate"
+  ],
+  "stop_conditions": [
+    "STOP-DATA: the plan §9 Data Gate did not pass (A_valid_onset_followup_enough, B_valid_onset_followup_enough, C_valid_onset_followup_enough); the scenes are not matched, so no method comparison is admissible"
+  ],
+  "warnings": [
+    "WARN-FOLLOWUP-DEFINITION: regime A has 24 onset(s) with a FULL follow-up window and 185 with a usable follow-up (at least one observed interval inside a registered response window; the P22 U4-v2 definition).  The gate applies the >=50 threshold to the full-window count, so the check fails; under the P22-compatible definition it would pass.  The analyzer does not switch definitions after seeing the number.",
+    "WARN-FOLLOWUP-DEFINITION: regime B has 36 onset(s) with a FULL follow-up window and 200 with a usable follow-up (at least one observed interval inside a registered response window; the P22 U4-v2 definition).  The gate applies the >=50 threshold to the full-window count, so the check fails; under the P22-compatible definition it would pass.  The analyzer does not switch definitions after seeing the number.",
+    "WARN-FOLLOWUP-DEFINITION: regime C has 31 onset(s) with a FULL follow-up window and 235 with a usable follow-up (at least one observed interval inside a registered response window; the P22 U4-v2 definition).  The gate applies the >=50 threshold to the full-window count, so the check fails; under the P22-compatible definition it would pass.  The analyzer does not switch definitions after seeing the number."
+  ],
+  "definitions": {
+    "gate_source": "each regime's gate block is measured on its own single-regime stream (the registered clean per-regime cohort); the development stream is reported as context and never enters the gate",
+    "gate": "anomaly prevalence 3%-12% / deployment rejection <= 25% / migration rejection <= 40% / independent fault events >= 80 per regime / valid onset-follow-up >= 50 per regime / worst event share < 10% / regime prevalence difference <= 4 percentage points",
+    "marginal_matching": "core23.marginal_match_report over the eight registered numbers; core23.regime_contrast_report is reported next to it as context -- its tolerances are instrument-local and are not the registered gate",
+    "recomputation": "every gate quantity is recomputed from stream.npz + task_timeline.npz with ftmoe_protocol023_core; the collector's unseen_data_audit.json is only ever compared against the recomputation",
+    "cohort": "onsets are scanned with task_regime_map, so a regime-A envelope whose RAM/Disk responses cross the B/C thresholds is never counted as a B/C event; the unmapped scan is reported as the cross-hit confound count",
+    "independent_fault_events": "per-host contiguous positive-label runs inside the regime's phase window (the registered P22 segmentation rule, reimplemented here)",
+    "valid_onset_followup": "onsets whose task observes every interval of [t0, t0 + max registered response window)) -- the plan §9 'valid onset/follow-up' the ≥50 threshold is applied to; the P22-compatible 'usable follow-up' count (at least one observed interval inside a window) is reported next to it and is NOT gated",
+    "worst_event_share": "positive host-steps attributed to the single worst registered cascade event, over the window's positives (the collector's definition); the label-free worst-run share is reported next to it",
+    "mean_duration": "core23.response_durations over the regime's onset cohort: intervals inside the registered response windows whose deviation from the pre-onset baseline is > 0, longest of the two response resources",
+    "peak_ratio": "core23.peak_ratio_summary over the same cohort; the registered matched marginal uses the MEDIAN peak ratio (robust to one large excursion) and the mean is reported next to it",
+    "admissibility": "a registered onset threshold is admissible only if it is strictly above the measured familiar per-task maximum of its resource; a failure is reported with its negative margin and never retuned",
+    "provisional_thresholds": "RAM 2810.0 and disk 11600.0 are PROVISIONAL"
+  }
+}

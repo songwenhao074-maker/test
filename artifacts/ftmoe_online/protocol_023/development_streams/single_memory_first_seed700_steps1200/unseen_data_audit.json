@@ -1,0 +1,5629 @@
+{
+  "thresholds": {
+    "prevalence_min": 0.005,
+    "prevalence_max": 0.15,
+    "cascade_positive_hoststeps_min": 150,
+    "independent_cascade_events_min": 30,
+    "normal_hoststeps_min": 5000,
+    "deployment_rejection_max": 0.25,
+    "migration_rejection_max": 0.4,
+    "single_event_share_max": 0.2
+  },
+  "checks": {
+    "prevalence_in_range": true,
+    "cascade_positives_enough": true,
+    "independent_cascade_events_enough": true,
+    "normal_hoststeps_enough": true,
+    "deployment_rejection_ok": true,
+    "migration_rejection_ok": true,
+    "single_event_share_ok": true
+  },
+  "passed": true,
+  "metrics": {
+    "window_intervals": 1200,
+    "scored_intervals": 1200,
+    "host_steps": 19200,
+    "positive_hoststeps": 513,
+    "prevalence": 0.02671875,
+    "normal_hoststeps": 18687,
+    "cascade_related_positive_hoststeps": 496,
+    "independent_fault_events": 260,
+    "independent_cascade_fault_events": 257,
+    "deployment_attempts": 1755,
+    "deployment_rejected": 134,
+    "deployment_rejection_rate": 0.07635327635327635,
+    "migration_attempts": 411,
+    "migration_rejected": 58,
+    "migration_rejection_rate": 0.1411192214111922,
+    "cascade_events_registered": 344,
+    "worst_event_share_of_positives": 0.015594541910331383
+  },
+  "per_phase": {
+    "F0_baseline": {
+      "thresholds": {
+        "prevalence_min": 0.005,
+        "prevalence_max": 0.15,
+        "cascade_positive_hoststeps_min": 150,
+        "independent_cascade_events_min": 30,
+        "normal_hoststeps_min": 5000,
+        "deployment_rejection_max": 0.25,
+        "migration_rejection_max": 0.4,
+        "single_event_share_max": 0.2
+      },
+      "checks": {
+        "prevalence_in_range": false,
+        "cascade_positives_enough": false,
+        "independent_cascade_events_enough": false,
+        "normal_hoststeps_enough": false,
+        "deployment_rejection_ok": true,
+        "migration_rejection_ok": true,
+        "single_event_share_ok": true
+      },
+      "passed": false,
+      "metrics": {
+        "window_intervals": 1200,
+        "scored_intervals": 150,
+        "host_steps": 2400,
+        "positive_hoststeps": 0,
+        "prevalence": 0.0,
+        "normal_hoststeps": 2400,
+        "cascade_related_positive_hoststeps": 0,
+        "independent_fault_events": 0,
+        "independent_cascade_fault_events": 0,
+        "deployment_attempts": 204,
+        "deployment_rejected": 3,
+        "deployment_rejection_rate": 0.014705882352941176,
+        "migration_attempts": 61,
+        "migration_rejected": 4,
+        "migration_rejection_rate": 0.06557377049180328,
+        "cascade_events_registered": 344,
+        "worst_event_share_of_positives": 0.0
+      },
+      "kind": "familiar",
+      "regime_id": null,
+      "canonical_regime_id": null,
+      "cascade_task_probability": 0.0,
+      "interval_range": [
+        0,
+        150
+      ]
+    },
+    "memory_first_only": {
+      "thresholds": {
+        "prevalence_min": 0.005,
+        "prevalence_max": 0.15,
+        "cascade_positive_hoststeps_min": 150,
+        "independent_cascade_events_min": 30,
+        "normal_hoststeps_min": 5000,
+        "deployment_rejection_max": 0.25,
+        "migration_rejection_max": 0.4,
+        "single_event_share_max": 0.2
+      },
+      "checks": {
+        "prevalence_in_range": true,
+        "cascade_positives_enough": true,
+        "independent_cascade_events_enough": true,
+        "normal_hoststeps_enough": true,
+        "deployment_rejection_ok": true,
+        "migration_rejection_ok": true,
+        "single_event_share_ok": true
+      },
+      "passed": true,
+      "metrics": {
+        "window_intervals": 1200,
+        "scored_intervals": 1050,
+        "host_steps": 16800,
+        "positive_hoststeps": 513,
+        "prevalence": 0.030535714285714284,
+        "normal_hoststeps": 16287,
+        "cascade_related_positive_hoststeps": 496,
+        "independent_fault_events": 260,
+        "independent_cascade_fault_events": 257,
+        "deployment_attempts": 1551,
+        "deployment_rejected": 131,
+        "deployment_rejection_rate": 0.08446163765312702,
+        "migration_attempts": 350,
+        "migration_rejected": 54,
+        "migration_rejection_rate": 0.15428571428571428,
+        "cascade_events_registered": 344,
+        "worst_event_share_of_positives": 0.015594541910331383
+      },
+      "kind": "unseen",
+      "regime_id": "memory_first",
+      "canonical_regime_id": "B",
+      "cascade_task_probability": 0.25,
+      "interval_range": [
+        150,
+        1200
+      ]
+    }
+  },
+  "per_regime": {
+    "B": {
+      "regime_id": "memory_first",
+      "canonical_regime_id": "B",
+      "mechanism_id": 1,
+      "onset_resource": "ram",
+      "onset_tau": 2810.0,
+      "onset_floor": 4500.0,
+      "onset_provisional": true,
+      "response_windows": {
+        "disk": [
+          3,
+          13
+        ],
+        "cpu": [
+          6,
+          16
+        ]
+      },
+      "sequence": [
+        [
+          "ram",
+          0
+        ],
+        [
+          "disk",
+          3
+        ],
+        [
+          "cpu",
+          6
+        ]
+      ],
+      "phase_windows": [
+        [
+          150,
+          1200
+        ]
+      ],
+      "gate": {
+        "thresholds": {
+          "prevalence_min": 0.005,
+          "prevalence_max": 0.15,
+          "cascade_positive_hoststeps_min": 150,
+          "independent_cascade_events_min": 30,
+          "normal_hoststeps_min": 5000,
+          "deployment_rejection_max": 0.25,
+          "migration_rejection_max": 0.4,
+          "single_event_share_max": 0.2
+        },
+        "checks": {
+          "prevalence_in_range": true,
+          "cascade_positives_enough": true,
+          "independent_cascade_events_enough": true,
+          "normal_hoststeps_enough": true,
+          "deployment_rejection_ok": true,
+          "migration_rejection_ok": true,
+          "single_event_share_ok": true
+        },
+        "passed": true,
+        "metrics": {
+          "window_intervals": 1200,
+          "scored_intervals": 1050,
+          "host_steps": 16800,
+          "positive_hoststeps": 513,
+          "prevalence": 0.030535714285714284,
+          "normal_hoststeps": 16287,
+          "cascade_related_positive_hoststeps": 496,
+          "independent_fault_events": 260,
+          "independent_cascade_fault_events": 257,
+          "deployment_attempts": 1551,
+          "deployment_rejected": 131,
+          "deployment_rejection_rate": 0.08446163765312702,
+          "migration_attempts": 350,
+          "migration_rejected": 54,
+          "migration_rejection_rate": 0.15428571428571428,
+          "cascade_events_registered": 344,
+          "worst_event_share_of_positives": 0.015594541910331383
+        }
+      },
+      "task_level": {
+        "n_tasks_in_cohort": 342,
+        "n_onsets": 297,
+        "n_onsets_with_cascade_window": 297,
+        "n_onsets_without_task_map": 297,
+        "cross_hits": 0,
+        "onset_threshold": 2810.0,
+        "onset_provisional": true,
+        "response_summary": {
+          "cpu": {
+            "n": 135,
+            "p50": 3340.0,
+            "p90": 5078.036237160883,
+            "p95": 5146.583228706811,
+            "max": 5194.52266748142,
+            "share_positive": 0.3872053872053872
+          },
+          "disk": {
+            "n": 200,
+            "p50": 18000.0,
+            "p90": 20000.0,
+            "p95": 20000.0,
+            "max": 22000.0,
+            "share_positive": 0.6734006734006734
+          }
+        },
+        "response_durations": {
+          "per_event": [
+            {
+              "event_key": "202:151",
+              "creation_id": 202,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "211:160",
+              "creation_id": 211,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "212:161",
+              "creation_id": 212,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "222:169",
+              "creation_id": 222,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "224:171",
+              "creation_id": 224,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "225:172",
+              "creation_id": 225,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "231:178",
+              "creation_id": 231,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "235:181",
+              "creation_id": 235,
+              "regime_id": "B",
+              "duration": 3
+            },
+            {
+              "event_key": "240:184",
+              "creation_id": 240,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "247:189",
+              "creation_id": 247,
+              "regime_id": "B",
+              "duration": 9
+            },
+            {
+              "event_key": "249:189",
+              "creation_id": 249,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "251:191",
+              "creation_id": 251,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "254:194",
+              "creation_id": 254,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "259:201",
+              "creation_id": 259,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "265:201",
+              "creation_id": 265,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "266:202",
+              "creation_id": 266,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "270:205",
+              "creation_id": 270,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "272:207",
+              "creation_id": 272,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "277:210",
+              "creation_id": 277,
+              "regime_id": "B",
+              "duration": 8
+            },
+            {
+              "event_key": "291:222",
+              "creation_id": 291,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "297:227",
+              "creation_id": 297,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "299:228",
+              "creation_id": 299,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "300:228",
+              "creation_id": 300,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "302:229",
+              "creation_id": 302,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "308:236",
+              "creation_id": 308,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "309:236",
+              "creation_id": 309,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "341:258",
+              "creation_id": 341,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "349:263",
+              "creation_id": 349,
+              "regime_id": "B",
+              "duration": 5
+            },
+            {
+              "event_key": "351:265",
+              "creation_id": 351,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "357:269",
+              "creation_id": 357,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "362:273",
+              "creation_id": 362,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "364:275",
+              "creation_id": 364,
+              "regime_id": "B",
+              "duration": 8
+            },
+            {
+              "event_key": "382:291",
+              "creation_id": 382,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "383:292",
+              "creation_id": 383,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "388:296",
+              "creation_id": 388,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "392:298",
+              "creation_id": 392,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "396:300",
+              "creation_id": 396,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "398:303",
+              "creation_id": 398,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "404:305",
+              "creation_id": 404,
+              "regime_id": "B",
+              "duration": 9
+            },
+            {
+              "event_key": "406:305",
+              "creation_id": 406,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "408:307",
+              "creation_id": 408,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "410:309",
+              "creation_id": 410,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "416:313",
+              "creation_id": 416,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "442:332",
+              "creation_id": 442,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "445:334",
+              "creation_id": 445,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "447:336",
+              "creation_id": 447,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "459:347",
+              "creation_id": 459,
+              "regime_id": "B",
+              "duration": 6
+            },
+            {
+              "event_key": "460:347",
+              "creation_id": 460,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "466:353",
+              "creation_id": 466,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "471:357",
+              "creation_id": 471,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "474:360",
+              "creation_id": 474,
+              "regime_id": "B",
+              "duration": 6
+            },
+            {
+              "event_key": "477:362",
+              "creation_id": 477,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "479:364",
+              "creation_id": 479,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "487:370",
+              "creation_id": 487,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "488:370",
+              "creation_id": 488,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "499:377",
+              "creation_id": 499,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "504:380",
+              "creation_id": 504,
+              "regime_id": "B",
+              "duration": 3
+            },
+            {
+              "event_key": "508:384",
+              "creation_id": 508,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "511:386",
+              "creation_id": 511,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "513:386",
+              "creation_id": 513,
+              "regime_id": "B",
+              "duration": 7
+            },
+            {
+              "event_key": "514:387",
+              "creation_id": 514,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "517:388",
+              "creation_id": 517,
+              "regime_id": "B",
+              "duration": 5
+            },
+            {
+              "event_key": "519:390",
+              "creation_id": 519,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "530:401",
+              "creation_id": 530,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "533:403",
+              "creation_id": 533,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "534:404",
+              "creation_id": 534,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "535:405",
+              "creation_id": 535,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "541:410",
+              "creation_id": 541,
+              "regime_id": "B",
+              "duration": 7
+            },
+            {
+              "event_key": "553:416",
+              "creation_id": 553,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "561:420",
+              "creation_id": 561,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "564:422",
+              "creation_id": 564,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "566:423",
+              "creation_id": 566,
+              "regime_id": "B",
+              "duration": 6
+            },
+            {
+              "event_key": "574:433",
+              "creation_id": 574,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "575:431",
+              "creation_id": 575,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "581:437",
+              "creation_id": 581,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "584:440",
+              "creation_id": 584,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "586:441",
+              "creation_id": 586,
+              "regime_id": "B",
+              "duration": 3
+            },
+            {
+              "event_key": "587:442",
+              "creation_id": 587,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "591:445",
+              "creation_id": 591,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "592:446",
+              "creation_id": 592,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "598:450",
+              "creation_id": 598,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "612:457",
+              "creation_id": 612,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "613:457",
+              "creation_id": 613,
+              "regime_id": "B",
+              "duration": 5
+            },
+            {
+              "event_key": "614:458",
+              "creation_id": 614,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "620:463",
+              "creation_id": 620,
+              "regime_id": "B",
+              "duration": 6
+            },
+            {
+              "event_key": "625:467",
+              "creation_id": 625,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "629:469",
+              "creation_id": 629,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "630:470",
+              "creation_id": 630,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "633:473",
+              "creation_id": 633,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "640:479",
+              "creation_id": 640,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "642:479",
+              "creation_id": 642,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "645:484",
+              "creation_id": 645,
+              "regime_id": "B",
+              "duration": 5
+            },
+            {
+              "event_key": "652:487",
+              "creation_id": 652,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "654:489",
+              "creation_id": 654,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "674:504",
+              "creation_id": 674,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "675:504",
+              "creation_id": 675,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "678:506",
+              "creation_id": 678,
+              "regime_id": "B",
+              "duration": 8
+            },
+            {
+              "event_key": "686:512",
+              "creation_id": 686,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "688:513",
+              "creation_id": 688,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "701:522",
+              "creation_id": 701,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "703:522",
+              "creation_id": 703,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "704:523",
+              "creation_id": 704,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "705:524",
+              "creation_id": 705,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "720:531",
+              "creation_id": 720,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "722:533",
+              "creation_id": 722,
+              "regime_id": "B",
+              "duration": 8
+            },
+            {
+              "event_key": "727:537",
+              "creation_id": 727,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "728:538",
+              "creation_id": 728,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "734:542",
+              "creation_id": 734,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "736:543",
+              "creation_id": 736,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "740:547",
+              "creation_id": 740,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "742:548",
+              "creation_id": 742,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "760:560",
+              "creation_id": 760,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "762:562",
+              "creation_id": 762,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "766:565",
+              "creation_id": 766,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "767:566",
+              "creation_id": 767,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "768:567",
+              "creation_id": 768,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "774:572",
+              "creation_id": 774,
+              "regime_id": "B",
+              "duration": 9
+            },
+            {
+              "event_key": "781:579",
+              "creation_id": 781,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "785:581",
+              "creation_id": 785,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "786:581",
+              "creation_id": 786,
+              "regime_id": "B",
+              "duration": 6
+            },
+            {
+              "event_key": "793:586",
+              "creation_id": 793,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "800:592",
+              "creation_id": 800,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "807:596",
+              "creation_id": 807,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "822:607",
+              "creation_id": 822,
+              "regime_id": "B",
+              "duration": 3
+            },
+            {
+              "event_key": "827:611",
+              "creation_id": 827,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "829:615",
+              "creation_id": 829,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "837:619",
+              "creation_id": 837,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "839:620",
+              "creation_id": 839,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "845:624",
+              "creation_id": 845,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "847:626",
+              "creation_id": 847,
+              "regime_id": "B",
+              "duration": 5
+            },
+            {
+              "event_key": "856:633",
+              "creation_id": 856,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "858:634",
+              "creation_id": 858,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "862:637",
+              "creation_id": 862,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "864:637",
+              "creation_id": 864,
+              "regime_id": "B",
+              "duration": 8
+            },
+            {
+              "event_key": "865:638",
+              "creation_id": 865,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "883:652",
+              "creation_id": 883,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "891:658",
+              "creation_id": 891,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "896:662",
+              "creation_id": 896,
+              "regime_id": "B",
+              "duration": 5
+            },
+            {
+              "event_key": "897:663",
+              "creation_id": 897,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "902:668",
+              "creation_id": 902,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "903:669",
+              "creation_id": 903,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "909:675",
+              "creation_id": 909,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "913:679",
+              "creation_id": 913,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "914:680",
+              "creation_id": 914,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "915:681",
+              "creation_id": 915,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "916:681",
+              "creation_id": 916,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "923:685",
+              "creation_id": 923,
+              "regime_id": "B",
+              "duration": 9
+            },
+            {
+              "event_key": "927:688",
+              "creation_id": 927,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "937:698",
+              "creation_id": 937,
+              "regime_id": "B",
+              "duration": 3
+            },
+            {
+              "event_key": "941:702",
+              "creation_id": 941,
+              "regime_id": "B",
+              "duration": 9
+            },
+            {
+              "event_key": "942:703",
+              "creation_id": 942,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "946:704",
+              "creation_id": 946,
+              "regime_id": "B",
+              "duration": 3
+            },
+            {
+              "event_key": "951:709",
+              "creation_id": 951,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "952:711",
+              "creation_id": 952,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "955:712",
+              "creation_id": 955,
+              "regime_id": "B",
+              "duration": 6
+            },
+            {
+              "event_key": "961:715",
+              "creation_id": 961,
+              "regime_id": "B",
+              "duration": 9
+            },
+            {
+              "event_key": "965:718",
+              "creation_id": 965,
+              "regime_id": "B",
+              "duration": 5
+            },
+            {
+              "event_key": "969:720",
+              "creation_id": 969,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "975:727",
+              "creation_id": 975,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "978:728",
+              "creation_id": 978,
+              "regime_id": "B",
+              "duration": 5
+            },
+            {
+              "event_key": "992:739",
+              "creation_id": 992,
+              "regime_id": "B",
+              "duration": 6
+            },
+            {
+              "event_key": "993:740",
+              "creation_id": 993,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1020:760",
+              "creation_id": 1020,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1025:762",
+              "creation_id": 1025,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1026:763",
+              "creation_id": 1026,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "1034:767",
+              "creation_id": 1034,
+              "regime_id": "B",
+              "duration": 5
+            },
+            {
+              "event_key": "1036:769",
+              "creation_id": 1036,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1042:771",
+              "creation_id": 1042,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "1069:786",
+              "creation_id": 1069,
+              "regime_id": "B",
+              "duration": 8
+            },
+            {
+              "event_key": "1070:787",
+              "creation_id": 1070,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1077:792",
+              "creation_id": 1077,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1084:799",
+              "creation_id": 1084,
+              "regime_id": "B",
+              "duration": 3
+            },
+            {
+              "event_key": "1091:804",
+              "creation_id": 1091,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1095:807",
+              "creation_id": 1095,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1100:810",
+              "creation_id": 1100,
+              "regime_id": "B",
+              "duration": 6
+            },
+            {
+              "event_key": "1101:810",
+              "creation_id": 1101,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1106:814",
+              "creation_id": 1106,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1107:814",
+              "creation_id": 1107,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1118:824",
+              "creation_id": 1118,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1125:830",
+              "creation_id": 1125,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1127:831",
+              "creation_id": 1127,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1129:834",
+              "creation_id": 1129,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1133:836",
+              "creation_id": 1133,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1134:838",
+              "creation_id": 1134,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1137:838",
+              "creation_id": 1137,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1140:841",
+              "creation_id": 1140,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "1141:842",
+              "creation_id": 1141,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1144:845",
+              "creation_id": 1144,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "1146:847",
+              "creation_id": 1146,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1149:850",
+              "creation_id": 1149,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1151:852",
+              "creation_id": 1151,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1152:853",
+              "creation_id": 1152,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1158:857",
+              "creation_id": 1158,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1164:861",
+              "creation_id": 1164,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1165:862",
+              "creation_id": 1165,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1170:864",
+              "creation_id": 1170,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "1171:865",
+              "creation_id": 1171,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1174:867",
+              "creation_id": 1174,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "1178:869",
+              "creation_id": 1178,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1184:874",
+              "creation_id": 1184,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1190:880",
+              "creation_id": 1190,
+              "regime_id": "B",
+              "duration": 7
+            },
+            {
+              "event_key": "1192:880",
+              "creation_id": 1192,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1198:885",
+              "creation_id": 1198,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1202:889",
+              "creation_id": 1202,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1205:890",
+              "creation_id": 1205,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1210:893",
+              "creation_id": 1210,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1218:900",
+              "creation_id": 1218,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1220:900",
+              "creation_id": 1220,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1221:901",
+              "creation_id": 1221,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1223:902",
+              "creation_id": 1223,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1224:903",
+              "creation_id": 1224,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1226:905",
+              "creation_id": 1226,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1227:906",
+              "creation_id": 1227,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "1231:909",
+              "creation_id": 1231,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1241:915",
+              "creation_id": 1241,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "1243:916",
+              "creation_id": 1243,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1244:917",
+              "creation_id": 1244,
+              "regime_id": "B",
+              "duration": 7
+            },
+            {
+              "event_key": "1258:929",
+              "creation_id": 1258,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1261:932",
+              "creation_id": 1261,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1263:932",
+              "creation_id": 1263,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1267:935",
+              "creation_id": 1267,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "1274:941",
+              "creation_id": 1274,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1291:954",
+              "creation_id": 1291,
+              "regime_id": "B",
+              "duration": 6
+            },
+            {
+              "event_key": "1292:955",
+              "creation_id": 1292,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1296:958",
+              "creation_id": 1296,
+              "regime_id": "B",
+              "duration": 6
+            },
+            {
+              "event_key": "1297:959",
+              "creation_id": 1297,
+              "regime_id": "B",
+              "duration": 5
+            },
+            {
+              "event_key": "1299:960",
+              "creation_id": 1299,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1304:964",
+              "creation_id": 1304,
+              "regime_id": "B",
+              "duration": 8
+            },
+            {
+              "event_key": "1305:964",
+              "creation_id": 1305,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "1313:970",
+              "creation_id": 1313,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1317:973",
+              "creation_id": 1317,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "1330:982",
+              "creation_id": 1330,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1343:992",
+              "creation_id": 1343,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1352:1002",
+              "creation_id": 1352,
+              "regime_id": "B",
+              "duration": 6
+            },
+            {
+              "event_key": "1356:1004",
+              "creation_id": 1356,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "1363:1007",
+              "creation_id": 1363,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1365:1007",
+              "creation_id": 1365,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1369:1008",
+              "creation_id": 1369,
+              "regime_id": "B",
+              "duration": 7
+            },
+            {
+              "event_key": "1371:1009",
+              "creation_id": 1371,
+              "regime_id": "B",
+              "duration": 5
+            },
+            {
+              "event_key": "1372:1010",
+              "creation_id": 1372,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1373:1011",
+              "creation_id": 1373,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1375:1014",
+              "creation_id": 1375,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1380:1018",
+              "creation_id": 1380,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1384:1020",
+              "creation_id": 1384,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1389:1025",
+              "creation_id": 1389,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1390:1025",
+              "creation_id": 1390,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1393:1028",
+              "creation_id": 1393,
+              "regime_id": "B",
+              "duration": 3
+            },
+            {
+              "event_key": "1404:1038",
+              "creation_id": 1404,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1406:1039",
+              "creation_id": 1406,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1407:1040",
+              "creation_id": 1407,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1409:1041",
+              "creation_id": 1409,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1411:1042",
+              "creation_id": 1411,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1416:1046",
+              "creation_id": 1416,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "1419:1048",
+              "creation_id": 1419,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1425:1053",
+              "creation_id": 1425,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1426:1053",
+              "creation_id": 1426,
+              "regime_id": "B",
+              "duration": 7
+            },
+            {
+              "event_key": "1427:1055",
+              "creation_id": 1427,
+              "regime_id": "B",
+              "duration": 9
+            },
+            {
+              "event_key": "1431:1058",
+              "creation_id": 1431,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1436:1060",
+              "creation_id": 1436,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1442:1067",
+              "creation_id": 1442,
+              "regime_id": "B",
+              "duration": 5
+            },
+            {
+              "event_key": "1445:1068",
+              "creation_id": 1445,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1454:1075",
+              "creation_id": 1454,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1466:1084",
+              "creation_id": 1466,
+              "regime_id": "B",
+              "duration": 2
+            },
+            {
+              "event_key": "1476:1090",
+              "creation_id": 1476,
+              "regime_id": "B",
+              "duration": 7
+            },
+            {
+              "event_key": "1478:1091",
+              "creation_id": 1478,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1479:1091",
+              "creation_id": 1479,
+              "regime_id": "B",
+              "duration": 8
+            },
+            {
+              "event_key": "1482:1094",
+              "creation_id": 1482,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1494:1103",
+              "creation_id": 1494,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "1495:1104",
+              "creation_id": 1495,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1496:1104",
+              "creation_id": 1496,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1498:1106",
+              "creation_id": 1498,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1500:1108",
+              "creation_id": 1500,
+              "regime_id": "B",
+              "duration": 3
+            },
+            {
+              "event_key": "1503:1110",
+              "creation_id": 1503,
+              "regime_id": "B",
+              "duration": 4
+            },
+            {
+              "event_key": "1514:1119",
+              "creation_id": 1514,
+              "regime_id": "B",
+              "duration": 6
+            },
+            {
+              "event_key": "1520:1125",
+              "creation_id": 1520,
+              "regime_id": "B",
+              "duration": 9
+            },
+            {
+              "event_key": "1522:1127",
+              "creation_id": 1522,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1527:1132",
+              "creation_id": 1527,
+              "regime_id": "B",
+              "duration": 6
+            },
+            {
+              "event_key": "1534:1136",
+              "creation_id": 1534,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1536:1137",
+              "creation_id": 1536,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1539:1140",
+              "creation_id": 1539,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1545:1145",
+              "creation_id": 1545,
+              "regime_id": "B",
+              "duration": 5
+            },
+            {
+              "event_key": "1546:1146",
+              "creation_id": 1546,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1547:1147",
+              "creation_id": 1547,
+              "regime_id": "B",
+              "duration": 3
+            },
+            {
+              "event_key": "1550:1149",
+              "creation_id": 1550,
+              "regime_id": "B",
+              "duration": 1
+            },
+            {
+              "event_key": "1558:1154",
+              "creation_id": 1558,
+              "regime_id": "B",
+              "duration": 3
+            },
+            {
+              "event_key": "1559:1154",
+              "creation_id": 1559,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1563:1156",
+              "creation_id": 1563,
+              "regime_id": "B",
+              "duration": 3
+            },
+            {
+              "event_key": "1565:1157",
+              "creation_id": 1565,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1566:1158",
+              "creation_id": 1566,
+              "regime_id": "B",
+              "duration": 5
+            },
+            {
+              "event_key": "1572:1163",
+              "creation_id": 1572,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1577:1168",
+              "creation_id": 1577,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1587:1175",
+              "creation_id": 1587,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1590:1176",
+              "creation_id": 1590,
+              "regime_id": "B",
+              "duration": 10
+            },
+            {
+              "event_key": "1597:1180",
+              "creation_id": 1597,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1602:1184",
+              "creation_id": 1602,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1612:1194",
+              "creation_id": 1612,
+              "regime_id": "B",
+              "duration": 0
+            },
+            {
+              "event_key": "1615:1195",
+              "creation_id": 1615,
+              "regime_id": "B",
+              "duration": 0
+            }
+          ],
+          "n": 297,
+          "mean": 3.9023569023569022,
+          "p50": 2.0,
+          "max": 10,
+          "definition": "intervals inside the registered response windows whose deviation from the pre-onset baseline is > 0, longest of the two response resources"
+        },
+        "peak_ratio": {
+          "per_event": [
+            {
+              "event_key": "202:151",
+              "creation_id": 202,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "211:160",
+              "creation_id": 211,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "212:161",
+              "creation_id": 212,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "222:169",
+              "creation_id": 222,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "224:171",
+              "creation_id": 224,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "225:172",
+              "creation_id": 225,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "231:178",
+              "creation_id": 231,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "235:181",
+              "creation_id": 235,
+              "regime_id": "B",
+              "peak_ratio": 9.5
+            },
+            {
+              "event_key": "240:184",
+              "creation_id": 240,
+              "regime_id": "B",
+              "peak_ratio": 10.5
+            },
+            {
+              "event_key": "247:189",
+              "creation_id": 247,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "249:189",
+              "creation_id": 249,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "251:191",
+              "creation_id": 251,
+              "regime_id": "B",
+              "peak_ratio": 14.240677809511393
+            },
+            {
+              "event_key": "254:194",
+              "creation_id": 254,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "259:201",
+              "creation_id": 259,
+              "regime_id": "B",
+              "peak_ratio": 13.484941547078463
+            },
+            {
+              "event_key": "265:201",
+              "creation_id": 265,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "266:202",
+              "creation_id": 266,
+              "regime_id": "B",
+              "peak_ratio": 4.5
+            },
+            {
+              "event_key": "270:205",
+              "creation_id": 270,
+              "regime_id": "B",
+              "peak_ratio": 9.0
+            },
+            {
+              "event_key": "272:207",
+              "creation_id": 272,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "277:210",
+              "creation_id": 277,
+              "regime_id": "B",
+              "peak_ratio": 4.5
+            },
+            {
+              "event_key": "291:222",
+              "creation_id": 291,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "297:227",
+              "creation_id": 297,
+              "regime_id": "B",
+              "peak_ratio": 17.0
+            },
+            {
+              "event_key": "299:228",
+              "creation_id": 299,
+              "regime_id": "B",
+              "peak_ratio": 11.004643507797619
+            },
+            {
+              "event_key": "300:228",
+              "creation_id": 300,
+              "regime_id": "B",
+              "peak_ratio": 5.666666666666667
+            },
+            {
+              "event_key": "302:229",
+              "creation_id": 302,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "308:236",
+              "creation_id": 308,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "309:236",
+              "creation_id": 309,
+              "regime_id": "B",
+              "peak_ratio": 7.0
+            },
+            {
+              "event_key": "341:258",
+              "creation_id": 341,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "349:263",
+              "creation_id": 349,
+              "regime_id": "B",
+              "peak_ratio": 96.37099805258252
+            },
+            {
+              "event_key": "351:265",
+              "creation_id": 351,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "357:269",
+              "creation_id": 357,
+              "regime_id": "B",
+              "peak_ratio": 9.5
+            },
+            {
+              "event_key": "362:273",
+              "creation_id": 362,
+              "regime_id": "B",
+              "peak_ratio": 5.666666666666667
+            },
+            {
+              "event_key": "364:275",
+              "creation_id": 364,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "382:291",
+              "creation_id": 382,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "383:292",
+              "creation_id": 383,
+              "regime_id": "B",
+              "peak_ratio": 5.666666666666667
+            },
+            {
+              "event_key": "388:296",
+              "creation_id": 388,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "392:298",
+              "creation_id": 392,
+              "regime_id": "B",
+              "peak_ratio": 5.333333333333333
+            },
+            {
+              "event_key": "396:300",
+              "creation_id": 396,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "398:303",
+              "creation_id": 398,
+              "regime_id": "B",
+              "peak_ratio": 9.5
+            },
+            {
+              "event_key": "404:305",
+              "creation_id": 404,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "406:305",
+              "creation_id": 406,
+              "regime_id": "B",
+              "peak_ratio": 5.666666666666667
+            },
+            {
+              "event_key": "408:307",
+              "creation_id": 408,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "410:309",
+              "creation_id": 410,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "416:313",
+              "creation_id": 416,
+              "regime_id": "B",
+              "peak_ratio": 10.0
+            },
+            {
+              "event_key": "442:332",
+              "creation_id": 442,
+              "regime_id": "B",
+              "peak_ratio": -1.0
+            },
+            {
+              "event_key": "445:334",
+              "creation_id": 445,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "447:336",
+              "creation_id": 447,
+              "regime_id": "B",
+              "peak_ratio": 9.0
+            },
+            {
+              "event_key": "459:347",
+              "creation_id": 459,
+              "regime_id": "B",
+              "peak_ratio": 11.829286429823975
+            },
+            {
+              "event_key": "460:347",
+              "creation_id": 460,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "466:353",
+              "creation_id": 466,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "471:357",
+              "creation_id": 471,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "474:360",
+              "creation_id": 474,
+              "regime_id": "B",
+              "peak_ratio": 11.829286429823975
+            },
+            {
+              "event_key": "477:362",
+              "creation_id": 477,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "479:364",
+              "creation_id": 479,
+              "regime_id": "B",
+              "peak_ratio": 9.0
+            },
+            {
+              "event_key": "487:370",
+              "creation_id": 487,
+              "regime_id": "B",
+              "peak_ratio": 5.666666666666667
+            },
+            {
+              "event_key": "488:370",
+              "creation_id": 488,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "499:377",
+              "creation_id": 499,
+              "regime_id": "B",
+              "peak_ratio": 17.0
+            },
+            {
+              "event_key": "504:380",
+              "creation_id": 504,
+              "regime_id": "B",
+              "peak_ratio": 8.0
+            },
+            {
+              "event_key": "508:384",
+              "creation_id": 508,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "511:386",
+              "creation_id": 511,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "513:386",
+              "creation_id": 513,
+              "regime_id": "B",
+              "peak_ratio": 96.33772316356678
+            },
+            {
+              "event_key": "514:387",
+              "creation_id": 514,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "517:388",
+              "creation_id": 517,
+              "regime_id": "B",
+              "peak_ratio": 948.3672298259704
+            },
+            {
+              "event_key": "519:390",
+              "creation_id": 519,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "530:401",
+              "creation_id": 530,
+              "regime_id": "B",
+              "peak_ratio": 9.0
+            },
+            {
+              "event_key": "533:403",
+              "creation_id": 533,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "534:404",
+              "creation_id": 534,
+              "regime_id": "B",
+              "peak_ratio": 5.0
+            },
+            {
+              "event_key": "535:405",
+              "creation_id": 535,
+              "regime_id": "B",
+              "peak_ratio": 6.333333333333333
+            },
+            {
+              "event_key": "541:410",
+              "creation_id": 541,
+              "regime_id": "B",
+              "peak_ratio": 10.53632257183305
+            },
+            {
+              "event_key": "553:416",
+              "creation_id": 553,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "561:420",
+              "creation_id": 561,
+              "regime_id": "B",
+              "peak_ratio": 6.0
+            },
+            {
+              "event_key": "564:422",
+              "creation_id": 564,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "566:423",
+              "creation_id": 566,
+              "regime_id": "B",
+              "peak_ratio": 42.26120899382932
+            },
+            {
+              "event_key": "574:433",
+              "creation_id": 574,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "575:431",
+              "creation_id": 575,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "581:437",
+              "creation_id": 581,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "584:440",
+              "creation_id": 584,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "586:441",
+              "creation_id": 586,
+              "regime_id": "B",
+              "peak_ratio": 10.798511632482263
+            },
+            {
+              "event_key": "587:442",
+              "creation_id": 587,
+              "regime_id": "B",
+              "peak_ratio": 9.5
+            },
+            {
+              "event_key": "591:445",
+              "creation_id": 591,
+              "regime_id": "B",
+              "peak_ratio": 9.0
+            },
+            {
+              "event_key": "592:446",
+              "creation_id": 592,
+              "regime_id": "B",
+              "peak_ratio": 6.0
+            },
+            {
+              "event_key": "598:450",
+              "creation_id": 598,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "612:457",
+              "creation_id": 612,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "613:457",
+              "creation_id": 613,
+              "regime_id": "B",
+              "peak_ratio": 8.5
+            },
+            {
+              "event_key": "614:458",
+              "creation_id": 614,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "620:463",
+              "creation_id": 620,
+              "regime_id": "B",
+              "peak_ratio": 875.3389848326171
+            },
+            {
+              "event_key": "625:467",
+              "creation_id": 625,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "629:469",
+              "creation_id": 629,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "630:470",
+              "creation_id": 630,
+              "regime_id": "B",
+              "peak_ratio": -1.0
+            },
+            {
+              "event_key": "633:473",
+              "creation_id": 633,
+              "regime_id": "B",
+              "peak_ratio": 5.666666666666667
+            },
+            {
+              "event_key": "640:479",
+              "creation_id": 640,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "642:479",
+              "creation_id": 642,
+              "regime_id": "B",
+              "peak_ratio": 9.0
+            },
+            {
+              "event_key": "645:484",
+              "creation_id": 645,
+              "regime_id": "B",
+              "peak_ratio": 3.9966694516156527
+            },
+            {
+              "event_key": "652:487",
+              "creation_id": 652,
+              "regime_id": "B",
+              "peak_ratio": 4.75
+            },
+            {
+              "event_key": "654:489",
+              "creation_id": 654,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "674:504",
+              "creation_id": 674,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "675:504",
+              "creation_id": 675,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "678:506",
+              "creation_id": 678,
+              "regime_id": "B",
+              "peak_ratio": 9.0
+            },
+            {
+              "event_key": "686:512",
+              "creation_id": 686,
+              "regime_id": "B",
+              "peak_ratio": 5.333333333333333
+            },
+            {
+              "event_key": "688:513",
+              "creation_id": 688,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "701:522",
+              "creation_id": 701,
+              "regime_id": "B",
+              "peak_ratio": 6.0
+            },
+            {
+              "event_key": "703:522",
+              "creation_id": 703,
+              "regime_id": "B",
+              "peak_ratio": -1.0
+            },
+            {
+              "event_key": "704:523",
+              "creation_id": 704,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "705:524",
+              "creation_id": 705,
+              "regime_id": "B",
+              "peak_ratio": 8.5
+            },
+            {
+              "event_key": "720:531",
+              "creation_id": 720,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "722:533",
+              "creation_id": 722,
+              "regime_id": "B",
+              "peak_ratio": 9.0
+            },
+            {
+              "event_key": "727:537",
+              "creation_id": 727,
+              "regime_id": "B",
+              "peak_ratio": -1.0
+            },
+            {
+              "event_key": "728:538",
+              "creation_id": 728,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "734:542",
+              "creation_id": 734,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "736:543",
+              "creation_id": 736,
+              "regime_id": "B",
+              "peak_ratio": 8.5
+            },
+            {
+              "event_key": "740:547",
+              "creation_id": 740,
+              "regime_id": "B",
+              "peak_ratio": 5.666666666666667
+            },
+            {
+              "event_key": "742:548",
+              "creation_id": 742,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "760:560",
+              "creation_id": 760,
+              "regime_id": "B",
+              "peak_ratio": 17.0
+            },
+            {
+              "event_key": "762:562",
+              "creation_id": 762,
+              "regime_id": "B",
+              "peak_ratio": 18.0
+            },
+            {
+              "event_key": "766:565",
+              "creation_id": 766,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "767:566",
+              "creation_id": 767,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "768:567",
+              "creation_id": 768,
+              "regime_id": "B",
+              "peak_ratio": 9.0
+            },
+            {
+              "event_key": "774:572",
+              "creation_id": 774,
+              "regime_id": "B",
+              "peak_ratio": 10.53632257183305
+            },
+            {
+              "event_key": "781:579",
+              "creation_id": 781,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "785:581",
+              "creation_id": 785,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "786:581",
+              "creation_id": 786,
+              "regime_id": "B",
+              "peak_ratio": 52.70357239170046
+            },
+            {
+              "event_key": "793:586",
+              "creation_id": 793,
+              "regime_id": "B",
+              "peak_ratio": 9.0
+            },
+            {
+              "event_key": "800:592",
+              "creation_id": 800,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "807:596",
+              "creation_id": 807,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "822:607",
+              "creation_id": 822,
+              "regime_id": "B",
+              "peak_ratio": 5.333333333333333
+            },
+            {
+              "event_key": "827:611",
+              "creation_id": 827,
+              "regime_id": "B",
+              "peak_ratio": 4.5
+            },
+            {
+              "event_key": "829:615",
+              "creation_id": 829,
+              "regime_id": "B",
+              "peak_ratio": 9.5
+            },
+            {
+              "event_key": "837:619",
+              "creation_id": 837,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "839:620",
+              "creation_id": 839,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "845:624",
+              "creation_id": 845,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "847:626",
+              "creation_id": 847,
+              "regime_id": "B",
+              "peak_ratio": 13.484941547078463
+            },
+            {
+              "event_key": "856:633",
+              "creation_id": 856,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "858:634",
+              "creation_id": 858,
+              "regime_id": "B",
+              "peak_ratio": 17.0
+            },
+            {
+              "event_key": "862:637",
+              "creation_id": 862,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "864:637",
+              "creation_id": 864,
+              "regime_id": "B",
+              "peak_ratio": 13.555173771069265
+            },
+            {
+              "event_key": "865:638",
+              "creation_id": 865,
+              "regime_id": "B",
+              "peak_ratio": -1.0
+            },
+            {
+              "event_key": "883:652",
+              "creation_id": 883,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "891:658",
+              "creation_id": 891,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "896:662",
+              "creation_id": 896,
+              "regime_id": "B",
+              "peak_ratio": 21.470235669472103
+            },
+            {
+              "event_key": "897:663",
+              "creation_id": 897,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "902:668",
+              "creation_id": 902,
+              "regime_id": "B",
+              "peak_ratio": -1.0
+            },
+            {
+              "event_key": "903:669",
+              "creation_id": 903,
+              "regime_id": "B",
+              "peak_ratio": 9.5
+            },
+            {
+              "event_key": "909:675",
+              "creation_id": 909,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "913:679",
+              "creation_id": 913,
+              "regime_id": "B",
+              "peak_ratio": 8.5
+            },
+            {
+              "event_key": "914:680",
+              "creation_id": 914,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "915:681",
+              "creation_id": 915,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "916:681",
+              "creation_id": 916,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "923:685",
+              "creation_id": 923,
+              "regime_id": "B",
+              "peak_ratio": 9.0
+            },
+            {
+              "event_key": "927:688",
+              "creation_id": 927,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "937:698",
+              "creation_id": 937,
+              "regime_id": "B",
+              "peak_ratio": 9.5
+            },
+            {
+              "event_key": "941:702",
+              "creation_id": 941,
+              "regime_id": "B",
+              "peak_ratio": 18.0
+            },
+            {
+              "event_key": "942:703",
+              "creation_id": 942,
+              "regime_id": "B",
+              "peak_ratio": 6.0
+            },
+            {
+              "event_key": "946:704",
+              "creation_id": 946,
+              "regime_id": "B",
+              "peak_ratio": 4.5
+            },
+            {
+              "event_key": "951:709",
+              "creation_id": 951,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "952:711",
+              "creation_id": 952,
+              "regime_id": "B",
+              "peak_ratio": 9.5
+            },
+            {
+              "event_key": "955:712",
+              "creation_id": 955,
+              "regime_id": "B",
+              "peak_ratio": 5.684136099290651
+            },
+            {
+              "event_key": "961:715",
+              "creation_id": 961,
+              "regime_id": "B",
+              "peak_ratio": 5.983870795458445
+            },
+            {
+              "event_key": "965:718",
+              "creation_id": 965,
+              "regime_id": "B",
+              "peak_ratio": 15.692173059269095
+            },
+            {
+              "event_key": "969:720",
+              "creation_id": 969,
+              "regime_id": "B",
+              "peak_ratio": 9.0
+            },
+            {
+              "event_key": "975:727",
+              "creation_id": 975,
+              "regime_id": "B",
+              "peak_ratio": -1.0
+            },
+            {
+              "event_key": "978:728",
+              "creation_id": 978,
+              "regime_id": "B",
+              "peak_ratio": 6.333333333333333
+            },
+            {
+              "event_key": "992:739",
+              "creation_id": 992,
+              "regime_id": "B",
+              "peak_ratio": 174.26781510000396
+            },
+            {
+              "event_key": "993:740",
+              "creation_id": 993,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1020:760",
+              "creation_id": 1020,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1025:762",
+              "creation_id": 1025,
+              "regime_id": "B",
+              "peak_ratio": 17.0
+            },
+            {
+              "event_key": "1026:763",
+              "creation_id": 1026,
+              "regime_id": "B",
+              "peak_ratio": 8.5
+            },
+            {
+              "event_key": "1034:767",
+              "creation_id": 1034,
+              "regime_id": "B",
+              "peak_ratio": 111.51764446531699
+            },
+            {
+              "event_key": "1036:769",
+              "creation_id": 1036,
+              "regime_id": "B",
+              "peak_ratio": 6.0
+            },
+            {
+              "event_key": "1042:771",
+              "creation_id": 1042,
+              "regime_id": "B",
+              "peak_ratio": 5.666666666666667
+            },
+            {
+              "event_key": "1069:786",
+              "creation_id": 1069,
+              "regime_id": "B",
+              "peak_ratio": 9.0
+            },
+            {
+              "event_key": "1070:787",
+              "creation_id": 1070,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1077:792",
+              "creation_id": 1077,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1084:799",
+              "creation_id": 1084,
+              "regime_id": "B",
+              "peak_ratio": 6.666666666666667
+            },
+            {
+              "event_key": "1091:804",
+              "creation_id": 1091,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1095:807",
+              "creation_id": 1095,
+              "regime_id": "B",
+              "peak_ratio": 18.0
+            },
+            {
+              "event_key": "1100:810",
+              "creation_id": 1100,
+              "regime_id": "B",
+              "peak_ratio": 8.856983798812976
+            },
+            {
+              "event_key": "1101:810",
+              "creation_id": 1101,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1106:814",
+              "creation_id": 1106,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1107:814",
+              "creation_id": 1107,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1118:824",
+              "creation_id": 1118,
+              "regime_id": "B",
+              "peak_ratio": 8.5
+            },
+            {
+              "event_key": "1125:830",
+              "creation_id": 1125,
+              "regime_id": "B",
+              "peak_ratio": 18.0
+            },
+            {
+              "event_key": "1127:831",
+              "creation_id": 1127,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1129:834",
+              "creation_id": 1129,
+              "regime_id": "B",
+              "peak_ratio": 5.684136099290651
+            },
+            {
+              "event_key": "1133:836",
+              "creation_id": 1133,
+              "regime_id": "B",
+              "peak_ratio": 17.0
+            },
+            {
+              "event_key": "1134:838",
+              "creation_id": 1134,
+              "regime_id": "B",
+              "peak_ratio": 9.0
+            },
+            {
+              "event_key": "1137:838",
+              "creation_id": 1137,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1140:841",
+              "creation_id": 1140,
+              "regime_id": "B",
+              "peak_ratio": 5.666666666666667
+            },
+            {
+              "event_key": "1141:842",
+              "creation_id": 1141,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1144:845",
+              "creation_id": 1144,
+              "regime_id": "B",
+              "peak_ratio": 10.0
+            },
+            {
+              "event_key": "1146:847",
+              "creation_id": 1146,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1149:850",
+              "creation_id": 1149,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1151:852",
+              "creation_id": 1151,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1152:853",
+              "creation_id": 1152,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "1158:857",
+              "creation_id": 1158,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1164:861",
+              "creation_id": 1164,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1165:862",
+              "creation_id": 1165,
+              "regime_id": "B",
+              "peak_ratio": 8.5
+            },
+            {
+              "event_key": "1170:864",
+              "creation_id": 1170,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1171:865",
+              "creation_id": 1171,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1174:867",
+              "creation_id": 1174,
+              "regime_id": "B",
+              "peak_ratio": 23.685605045146694
+            },
+            {
+              "event_key": "1178:869",
+              "creation_id": 1178,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1184:874",
+              "creation_id": 1184,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1190:880",
+              "creation_id": 1190,
+              "regime_id": "B",
+              "peak_ratio": 4.25
+            },
+            {
+              "event_key": "1192:880",
+              "creation_id": 1192,
+              "regime_id": "B",
+              "peak_ratio": 4.75
+            },
+            {
+              "event_key": "1198:885",
+              "creation_id": 1198,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1202:889",
+              "creation_id": 1202,
+              "regime_id": "B",
+              "peak_ratio": 19.0
+            },
+            {
+              "event_key": "1205:890",
+              "creation_id": 1205,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1210:893",
+              "creation_id": 1210,
+              "regime_id": "B",
+              "peak_ratio": 6.0
+            },
+            {
+              "event_key": "1218:900",
+              "creation_id": 1218,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1220:900",
+              "creation_id": 1220,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "1221:901",
+              "creation_id": 1221,
+              "regime_id": "B",
+              "peak_ratio": 6.333333333333333
+            },
+            {
+              "event_key": "1223:902",
+              "creation_id": 1223,
+              "regime_id": "B",
+              "peak_ratio": 8.5
+            },
+            {
+              "event_key": "1224:903",
+              "creation_id": 1224,
+              "regime_id": "B",
+              "peak_ratio": 5.333333333333333
+            },
+            {
+              "event_key": "1226:905",
+              "creation_id": 1226,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1227:906",
+              "creation_id": 1227,
+              "regime_id": "B",
+              "peak_ratio": -1.0
+            },
+            {
+              "event_key": "1231:909",
+              "creation_id": 1231,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1241:915",
+              "creation_id": 1241,
+              "regime_id": "B",
+              "peak_ratio": 10.0
+            },
+            {
+              "event_key": "1243:916",
+              "creation_id": 1243,
+              "regime_id": "B",
+              "peak_ratio": 6.0
+            },
+            {
+              "event_key": "1244:917",
+              "creation_id": 1244,
+              "regime_id": "B",
+              "peak_ratio": 3.9966694516156527
+            },
+            {
+              "event_key": "1258:929",
+              "creation_id": 1258,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1261:932",
+              "creation_id": 1261,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "1263:932",
+              "creation_id": 1263,
+              "regime_id": "B",
+              "peak_ratio": 8.5
+            },
+            {
+              "event_key": "1267:935",
+              "creation_id": 1267,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1274:941",
+              "creation_id": 1274,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1291:954",
+              "creation_id": 1291,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "1292:955",
+              "creation_id": 1292,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1296:958",
+              "creation_id": 1296,
+              "regime_id": "B",
+              "peak_ratio": 2.239701261032948
+            },
+            {
+              "event_key": "1297:959",
+              "creation_id": 1297,
+              "regime_id": "B",
+              "peak_ratio": 69.79107032715733
+            },
+            {
+              "event_key": "1299:960",
+              "creation_id": 1299,
+              "regime_id": "B",
+              "peak_ratio": 6.0
+            },
+            {
+              "event_key": "1304:964",
+              "creation_id": 1304,
+              "regime_id": "B",
+              "peak_ratio": 6.333333333333333
+            },
+            {
+              "event_key": "1305:964",
+              "creation_id": 1305,
+              "regime_id": "B",
+              "peak_ratio": 6.333333333333333
+            },
+            {
+              "event_key": "1313:970",
+              "creation_id": 1313,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1317:973",
+              "creation_id": 1317,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1330:982",
+              "creation_id": 1330,
+              "regime_id": "B",
+              "peak_ratio": 4.75
+            },
+            {
+              "event_key": "1343:992",
+              "creation_id": 1343,
+              "regime_id": "B",
+              "peak_ratio": 40.73042788127258
+            },
+            {
+              "event_key": "1352:1002",
+              "creation_id": 1352,
+              "regime_id": "B",
+              "peak_ratio": 8.0
+            },
+            {
+              "event_key": "1356:1004",
+              "creation_id": 1356,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1363:1007",
+              "creation_id": 1363,
+              "regime_id": "B",
+              "peak_ratio": 5.666666666666667
+            },
+            {
+              "event_key": "1365:1007",
+              "creation_id": 1365,
+              "regime_id": "B",
+              "peak_ratio": 8.5
+            },
+            {
+              "event_key": "1369:1008",
+              "creation_id": 1369,
+              "regime_id": "B",
+              "peak_ratio": 18.0
+            },
+            {
+              "event_key": "1371:1009",
+              "creation_id": 1371,
+              "regime_id": "B",
+              "peak_ratio": 31.456999163608895
+            },
+            {
+              "event_key": "1372:1010",
+              "creation_id": 1372,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "1373:1011",
+              "creation_id": 1373,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1375:1014",
+              "creation_id": 1375,
+              "regime_id": "B",
+              "peak_ratio": 11.004643507797619
+            },
+            {
+              "event_key": "1380:1018",
+              "creation_id": 1380,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "1384:1020",
+              "creation_id": 1384,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1389:1025",
+              "creation_id": 1389,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1390:1025",
+              "creation_id": 1390,
+              "regime_id": "B",
+              "peak_ratio": 21.0
+            },
+            {
+              "event_key": "1393:1028",
+              "creation_id": 1393,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1404:1038",
+              "creation_id": 1404,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "1406:1039",
+              "creation_id": 1406,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1407:1040",
+              "creation_id": 1407,
+              "regime_id": "B",
+              "peak_ratio": 18.0
+            },
+            {
+              "event_key": "1409:1041",
+              "creation_id": 1409,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1411:1042",
+              "creation_id": 1411,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1416:1046",
+              "creation_id": 1416,
+              "regime_id": "B",
+              "peak_ratio": 6.666666666666667
+            },
+            {
+              "event_key": "1419:1048",
+              "creation_id": 1419,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1425:1053",
+              "creation_id": 1425,
+              "regime_id": "B",
+              "peak_ratio": 8.5
+            },
+            {
+              "event_key": "1426:1053",
+              "creation_id": 1426,
+              "regime_id": "B",
+              "peak_ratio": 9.5
+            },
+            {
+              "event_key": "1427:1055",
+              "creation_id": 1427,
+              "regime_id": "B",
+              "peak_ratio": 10.0
+            },
+            {
+              "event_key": "1431:1058",
+              "creation_id": 1431,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "1436:1060",
+              "creation_id": 1436,
+              "regime_id": "B",
+              "peak_ratio": 6.666666666666667
+            },
+            {
+              "event_key": "1442:1067",
+              "creation_id": 1442,
+              "regime_id": "B",
+              "peak_ratio": 388.3509187351945
+            },
+            {
+              "event_key": "1445:1068",
+              "creation_id": 1445,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "1454:1075",
+              "creation_id": 1454,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "1466:1084",
+              "creation_id": 1466,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1476:1090",
+              "creation_id": 1476,
+              "regime_id": "B",
+              "peak_ratio": 10.53632257183305
+            },
+            {
+              "event_key": "1478:1091",
+              "creation_id": 1478,
+              "regime_id": "B",
+              "peak_ratio": 4.25
+            },
+            {
+              "event_key": "1479:1091",
+              "creation_id": 1479,
+              "regime_id": "B",
+              "peak_ratio": 42.26120899382932
+            },
+            {
+              "event_key": "1482:1094",
+              "creation_id": 1482,
+              "regime_id": "B",
+              "peak_ratio": 6.333333333333333
+            },
+            {
+              "event_key": "1494:1103",
+              "creation_id": 1494,
+              "regime_id": "B",
+              "peak_ratio": -1.0
+            },
+            {
+              "event_key": "1495:1104",
+              "creation_id": 1495,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1496:1104",
+              "creation_id": 1496,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1498:1106",
+              "creation_id": 1498,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1500:1108",
+              "creation_id": 1500,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1503:1110",
+              "creation_id": 1503,
+              "regime_id": "B",
+              "peak_ratio": 5.333333333333333
+            },
+            {
+              "event_key": "1514:1119",
+              "creation_id": 1514,
+              "regime_id": "B",
+              "peak_ratio": 11.004643507797619
+            },
+            {
+              "event_key": "1520:1125",
+              "creation_id": 1520,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "1522:1127",
+              "creation_id": 1522,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1527:1132",
+              "creation_id": 1527,
+              "regime_id": "B",
+              "peak_ratio": 50.913450792595185
+            },
+            {
+              "event_key": "1534:1136",
+              "creation_id": 1534,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1536:1137",
+              "creation_id": 1536,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1539:1140",
+              "creation_id": 1539,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1545:1145",
+              "creation_id": 1545,
+              "regime_id": "B",
+              "peak_ratio": 50.913450792595185
+            },
+            {
+              "event_key": "1546:1146",
+              "creation_id": 1546,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1547:1147",
+              "creation_id": 1547,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1550:1149",
+              "creation_id": 1550,
+              "regime_id": "B",
+              "peak_ratio": 4.5
+            },
+            {
+              "event_key": "1558:1154",
+              "creation_id": 1558,
+              "regime_id": "B",
+              "peak_ratio": 6.0
+            },
+            {
+              "event_key": "1559:1154",
+              "creation_id": 1559,
+              "regime_id": "B",
+              "peak_ratio": 1.7956989247311828
+            },
+            {
+              "event_key": "1563:1156",
+              "creation_id": 1563,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1565:1157",
+              "creation_id": 1565,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1566:1158",
+              "creation_id": 1566,
+              "regime_id": "B",
+              "peak_ratio": 172.04483597531726
+            },
+            {
+              "event_key": "1572:1163",
+              "creation_id": 1572,
+              "regime_id": "B",
+              "peak_ratio": 6.0
+            },
+            {
+              "event_key": "1577:1168",
+              "creation_id": 1577,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1587:1175",
+              "creation_id": 1587,
+              "regime_id": "B",
+              "peak_ratio": 37.94839877162834
+            },
+            {
+              "event_key": "1590:1176",
+              "creation_id": 1590,
+              "regime_id": "B",
+              "peak_ratio": 21.0
+            },
+            {
+              "event_key": "1597:1180",
+              "creation_id": 1597,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1602:1184",
+              "creation_id": 1602,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1612:1194",
+              "creation_id": 1612,
+              "regime_id": "B",
+              "peak_ratio": null
+            },
+            {
+              "event_key": "1615:1195",
+              "creation_id": 1615,
+              "regime_id": "B",
+              "peak_ratio": null
+            }
+          ],
+          "n": 173,
+          "mean": 25.805205468629886,
+          "p50": 8.5,
+          "max": 948.3672298259704,
+          "definition": "max over the registered response resources of response_Q / pre-onset baseline_Q"
+        },
+        "alignment": {
+          "cpu": {
+            "resource": "cpu",
+            "registered_lag": 6,
+            "tolerance": 1,
+            "n": 135,
+            "hits": 135,
+            "rate": 1.0,
+            "n_positive": 115,
+            "hits_positive": 115,
+            "rate_positive": 1.0
+          },
+          "disk": {
+            "resource": "disk",
+            "registered_lag": 3,
+            "tolerance": 1,
+            "n": 200,
+            "hits": 200,
+            "rate": 1.0,
+            "n_positive": 200,
+            "hits_positive": 200,
+            "rate_positive": 1.0
+          }
+        }
+      }
+    }
+  },
+  "cross_regime_confound": {
+    "A": {
+      "regime_id": "compute_first",
+      "onsets_without_task_map": 115,
+      "onsets_with_task_map": 0,
+      "cross_hits": 115,
+      "registered_phase_in_stream": false,
+      "note": "onsets an unmapped scan attributes to this regime that its own task cohort does not produce; the instrument's tests pin that a regime-A envelope crosses the B/C thresholds, so the unmapped number is reported and never used as a gate input"
+    },
+    "B": {
+      "regime_id": "memory_first",
+      "onsets_without_task_map": 297,
+      "onsets_with_task_map": 297,
+      "cross_hits": 0,
+      "registered_phase_in_stream": true,
+      "note": "onsets an unmapped scan attributes to this regime that its own task cohort does not produce; the instrument's tests pin that a regime-A envelope crosses the B/C thresholds, so the unmapped number is reported and never used as a gate input"
+    },
+    "C": {
+      "regime_id": "io_first",
+      "onsets_without_task_map": 200,
+      "onsets_with_task_map": 0,
+      "cross_hits": 200,
+      "registered_phase_in_stream": false,
+      "note": "onsets an unmapped scan attributes to this regime that its own task cohort does not produce; the instrument's tests pin that a regime-A envelope crosses the B/C thresholds, so the unmapped number is reported and never used as a gate input"
+    }
+  },
+  "admissibility": {
+    "A": {
+      "regime_id": "compute_first",
+      "onset_resource": "cpu",
+      "measured_familiar_task_maximum": 1860.0,
+      "n_familiar_tasks": 201,
+      "registered_familiar_clip": 1860.0,
+      "registered_onset_threshold": 2600.0,
+      "registered_floor": 4400.0,
+      "threshold_admissible": true,
+      "margin_above_measured_maximum": 740.0,
+      "margin_below_floor": 1800.0,
+      "provisional": false,
+      "measurement_source": "per-task maximum of the onset resource column over the familiar-phase rows of this stream"
+    },
+    "B": {
+      "regime_id": "memory_first",
+      "onset_resource": "ram",
+      "measured_familiar_task_maximum": 1400.0,
+      "n_familiar_tasks": 201,
+      "registered_familiar_clip": 1400.0,
+      "registered_onset_threshold": 2810.0,
+      "registered_floor": 4500.0,
+      "threshold_admissible": true,
+      "margin_above_measured_maximum": 1410.0,
+      "margin_below_floor": 1690.0,
+      "provisional": true,
+      "measurement_source": "per-task maximum of the onset resource column over the familiar-phase rows of this stream"
+    },
+    "C": {
+      "regime_id": "io_first",
+      "onset_resource": "disk",
+      "measured_familiar_task_maximum": 9000.0,
+      "n_familiar_tasks": 201,
+      "registered_familiar_clip": 9000.0,
+      "registered_onset_threshold": 11600.0,
+      "registered_floor": 16000.0,
+      "threshold_admissible": true,
+      "margin_above_measured_maximum": 2600.0,
+      "margin_below_floor": 4400.0,
+      "provisional": true,
+      "measurement_source": "per-task maximum of the onset resource column over the familiar-phase rows of this stream"
+    }
+  },
+  "task_level": {
+    "n_tasks": 1621,
+    "n_observations": 11532,
+    "reused_slots": 16,
+    "multi_slot_tasks": 0,
+    "tasks_with_migration": 253,
+    "integrity_ok": true,
+    "integrity_problems": [],
+    "n_onsets": 297,
+    "n_onsets_with_cascade_window": 297,
+    "per_regime_onsets": {
+      "B": 297
+    },
+    "task_regime_map_summary": {
+      "id_space": "canonical core23 regime ids (A/B/C) for tasks created under a registered regime, 'familiar' for a task with no envelope",
+      "n_tasks_mapped": 1621,
+      "n_timeline_tasks": 1621,
+      "coverage": 1.0,
+      "tasks_per_regime": {
+        "familiar": 1279,
+        "B": 342
+      },
+      "mapping_sha256": "4e80f5bf829e2e889b5571e3f4633508bcb6f223960e80fe2e6ad85b7d68972d"
+    },
+    "task_regime_map": {
+      "1": "familiar",
+      "2": "familiar",
+      "3": "familiar",
+      "4": "familiar",
+      "5": "familiar",
+      "6": "familiar",
+      "7": "familiar",
+      "8": "familiar",
+      "9": "familiar",
+      "10": "familiar",
+      "11": "familiar",
+      "12": "familiar",
+      "13": "familiar",
+      "14": "familiar",
+      "15": "familiar",
+      "16": "familiar",
+      "17": "familiar",
+      "18": "familiar",
+      "19": "familiar",
+      "20": "familiar",
+      "21": "familiar",
+      "22": "familiar",
+      "23": "familiar",
+      "24": "familiar",
+      "25": "familiar",
+      "26": "familiar",
+      "27": "familiar",
+      "28": "familiar",
+      "29": "familiar",
+      "30": "familiar",
+      "31": "familiar",
+      "32": "familiar",
+      "33": "familiar",
+      "34": "familiar",
+      "35": "familiar",
+      "36": "familiar",
+      "37": "familiar",
+      "38": "familiar",
+      "39": "familiar",
+      "40": "familiar",
+      "41": "familiar",
+      "42": "familiar",
+      "43": "familiar",
+      "44": "familiar",
+      "45": "familiar",
+      "46": "familiar",
+      "47": "familiar",
+      "48": "familiar",
+      "49": "familiar",
+      "50": "familiar",
+      "51": "familiar",
+      "52": "familiar",
+      "53": "familiar",
+      "54": "familiar",
+      "55": "familiar",
+      "56": "familiar",
+      "57": "familiar",
+      "58": "familiar",
+      "59": "familiar",
+      "60": "familiar",
+      "61": "familiar",
+      "62": "familiar",
+      "63": "familiar",
+      "64": "familiar",
+      "65": "familiar",
+      "66": "familiar",
+      "67": "familiar",
+      "68": "familiar",
+      "69": "familiar",
+      "70": "familiar",
+      "71": "familiar",
+      "72": "familiar",
+      "73": "familiar",
+      "74": "familiar",
+      "75": "familiar",
+      "76": "familiar",
+      "77": "familiar",
+      "78": "familiar",
+      "79": "familiar",
+      "80": "familiar",
+      "81": "familiar",
+      "82": "familiar",
+      "83": "familiar",
+      "84": "familiar",
+      "85": "familiar",
+      "86": "familiar",
+      "87": "familiar",
+      "88": "familiar",
+      "89": "familiar",
+      "90": "familiar",
+      "91": "familiar",
+      "92": "familiar",
+      "93": "familiar",
+      "94": "familiar",
+      "95": "familiar",
+      "96": "familiar",
+      "97": "familiar",
+      "98": "familiar",
+      "99": "familiar",
+      "100": "familiar",
+      "101": "familiar",
+      "102": "familiar",
+      "103": "familiar",
+      "104": "familiar",
+      "105": "familiar",
+      "106": "familiar",
+      "107": "familiar",
+      "108": "familiar",
+      "109": "familiar",
+      "110": "familiar",
+      "111": "familiar",
+      "112": "familiar",
+      "113": "familiar",
+      "114": "familiar",
+      "115": "familiar",
+      "116": "familiar",
+      "117": "familiar",
+      "118": "familiar",
+      "119": "familiar",
+      "120": "familiar",
+      "121": "familiar",
+      "122": "familiar",
+      "123": "familiar",
+      "124": "familiar",
+      "125": "familiar",
+      "126": "familiar",
+      "127": "familiar",
+      "128": "familiar",
+      "129": "familiar",
+      "130": "familiar",
+      "131": "familiar",
+      "132": "familiar",
+      "133": "familiar",
+      "134": "familiar",
+      "135": "familiar",
+      "136": "familiar",
+      "137": "familiar",
+      "138": "familiar",
+      "139": "familiar",
+      "140": "familiar",
+      "141": "familiar",
+      "142": "familiar",
+      "143": "familiar",
+      "144": "familiar",
+      "145": "familiar",
+      "146": "familiar",
+      "147": "familiar",
+      "148": "familiar",
+      "149": "familiar",
+      "150": "familiar",
+      "151": "familiar",
+      "152": "familiar",
+      "153": "familiar",
+      "154": "familiar",
+      "155": "familiar",
+      "156": "familiar",
+      "157": "familiar",
+      "158": "familiar",
+      "159": "familiar",
+      "160": "familiar",
+      "161": "familiar",
+      "162": "familiar",
+      "163": "familiar",
+      "164": "familiar",
+      "165": "familiar",
+      "166": "familiar",
+      "167": "familiar",
+      "168": "familiar",
+      "169": "familiar",
+      "170": "familiar",
+      "171": "familiar",
+      "172": "familiar",
+      "173": "familiar",
+      "174": "familiar",
+      "175": "familiar",
+      "176": "familiar",
+      "177": "familiar",
+      "178": "familiar",
+      "179": "familiar",
+      "180": "familiar",
+      "181": "familiar",
+      "182": "familiar",
+      "183": "familiar",
+      "184": "familiar",
+      "185": "familiar",
+      "186": "familiar",
+      "187": "familiar",
+      "188": "familiar",
+      "189": "familiar",
+      "190": "familiar",
+      "191": "familiar",
+      "192": "familiar",
+      "193": "familiar",
+      "194": "familiar",
+      "195": "familiar",
+      "196": "familiar",
+      "197": "familiar",
+      "198": "familiar",
+      "199": "familiar",
+      "200": "familiar",
+      "201": "familiar",
+      "202": "B",
+      "203": "familiar",
+      "204": "familiar",
+      "205": "familiar",
+      "206": "familiar",
+      "207": "familiar",
+      "208": "familiar",
+      "209": "familiar",
+      "210": "familiar",
+      "211": "B",
+      "212": "B",
+      "213": "familiar",
+      "214": "familiar",
+      "215": "familiar",
+      "216": "familiar",
+      "217": "familiar",
+      "218": "familiar",
+      "219": "familiar",
+      "220": "familiar",
+      "221": "familiar",
+      "222": "B",
+      "223": "familiar",
+      "224": "B",
+      "225": "B",
+      "226": "familiar",
+      "227": "familiar",
+      "228": "B",
+      "229": "familiar",
+      "230": "familiar",
+      "231": "B",
+      "232": "familiar",
+      "233": "familiar",
+      "234": "familiar",
+      "235": "B",
+      "236": "familiar",
+      "237": "familiar",
+      "238": "familiar",
+      "239": "B",
+      "240": "B",
+      "241": "familiar",
+      "242": "familiar",
+      "243": "familiar",
+      "244": "familiar",
+      "245": "familiar",
+      "246": "familiar",
+      "247": "B",
+      "248": "familiar",
+      "249": "B",
+      "250": "familiar",
+      "251": "B",
+      "252": "familiar",
+      "253": "familiar",
+      "254": "B",
+      "255": "familiar",
+      "256": "familiar",
+      "257": "familiar",
+      "258": "familiar",
+      "259": "B",
+      "260": "familiar",
+      "261": "familiar",
+      "262": "familiar",
+      "263": "familiar",
+      "264": "familiar",
+      "265": "B",
+      "266": "B",
+      "267": "familiar",
+      "268": "familiar",
+      "269": "familiar",
+      "270": "B",
+      "271": "familiar",
+      "272": "B",
+      "273": "familiar",
+      "274": "familiar",
+      "275": "familiar",
+      "276": "familiar",
+      "277": "B",
+      "278": "familiar",
+      "279": "familiar",
+      "280": "familiar",
+      "281": "familiar",
+      "282": "familiar",
+      "283": "familiar",
+      "284": "familiar",
+      "285": "familiar",
+      "286": "familiar",
+      "287": "familiar",
+      "288": "familiar",
+      "289": "familiar",
+      "290": "B",
+      "291": "B",
+      "292": "familiar",
+      "293": "B",
+      "294": "familiar",
+      "295": "familiar",
+      "296": "familiar",
+      "297": "B",
+      "298": "familiar",
+      "299": "B",
+      "300": "B",
+      "301": "familiar",
+      "302": "B",
+      "303": "familiar",
+      "304": "familiar",
+      "305": "familiar",
+      "306": "familiar",
+      "307": "familiar",
+      "308": "B",
+      "309": "B",
+      "310": "familiar",
+      "311": "familiar",
+      "312": "familiar",
+      "313": "familiar",
+      "314": "familiar",
+      "315": "familiar",
+      "316": "familiar",
+      "317": "familiar",
+      "318": "familiar",
+      "319": "familiar",
+      "320": "familiar",
+      "321": "familiar",
+      "322": "familiar",
+      "323": "familiar",
+      "324": "familiar",
+      "325": "familiar",
+      "326": "familiar",
+      "327": "familiar",
+      "328": "familiar",
+      "329": "familiar",
+      "330": "familiar",
+      "331": "familiar",
+      "332": "familiar",
+      "333": "familiar",
+      "334": "familiar",
+      "335": "familiar",
+      "336": "familiar",
+      "337": "familiar",
+      "338": "familiar",
+      "339": "familiar",
+      "340": "familiar",
+      "341": "B",
+      "342": "familiar",
+      "343": "familiar",
+      "344": "familiar",
+      "345": "familiar",
+      "346": "familiar",
+      "347": "familiar",
+      "348": "familiar",
+      "349": "B",
+      "350": "familiar",
+      "351": "B",
+      "352": "familiar",
+      "353": "familiar",
+      "354": "familiar",
+      "355": "familiar",
+      "356": "familiar",
+      "357": "B",
+      "358": "familiar",
+      "359": "familiar",
+      "360": "B",
+      "361": "familiar",
+      "362": "B",
+      "363": "familiar",
+      "364": "B",
+      "365": "familiar",
+      "366": "familiar",
+      "367": "familiar",
+      "368": "familiar",
+      "369": "familiar",
+      "370": "B",
+      "371": "familiar",
+      "372": "familiar",
+      "373": "familiar",
+      "374": "familiar",
+      "375": "familiar",
+      "376": "familiar",
+      "377": "familiar",
+      "378": "familiar",
+      "379": "familiar",
+      "380": "familiar",
+      "381": "familiar",
+      "382": "B",
+      "383": "B",
+      "384": "familiar",
+      "385": "familiar",
+      "386": "familiar",
+      "387": "familiar",
+      "388": "B",
+      "389": "familiar",
+      "390": "B",
+      "391": "familiar",
+      "392": "B",
+      "393": "familiar",
+      "394": "familiar",
+      "395": "familiar",
+      "396": "B",
+      "397": "familiar",
+      "398": "B",
+      "399": "familiar",
+      "400": "familiar",
+      "401": "familiar",
+      "402": "familiar",
+      "403": "B",
+      "404": "B",
+      "405": "familiar",
+      "406": "B",
+      "407": "familiar",
+      "408": "B",
+      "409": "familiar",
+      "410": "B",
+      "411": "familiar",
+      "412": "familiar",
+      "413": "familiar",
+      "414": "familiar",
+      "415": "familiar",
+      "416": "B",
+      "417": "familiar",
+      "418": "familiar",
+      "419": "familiar",
+      "420": "familiar",
+      "421": "familiar",
+      "422": "familiar",
+      "423": "familiar",
+      "424": "familiar",
+      "425": "familiar",
+      "426": "familiar",
+      "427": "familiar",
+      "428": "familiar",
+      "429": "familiar",
+      "430": "familiar",
+      "431": "familiar",
+      "432": "familiar",
+      "433": "familiar",
+      "434": "familiar",
+      "435": "B",
+      "436": "familiar",
+      "437": "familiar",
+      "438": "familiar",
+      "439": "familiar",
+      "440": "familiar",
+      "441": "familiar",
+      "442": "B",
+      "443": "familiar",
+      "444": "familiar",
+      "445": "B",
+      "446": "familiar",
+      "447": "B",
+      "448": "familiar",
+      "449": "familiar",
+      "450": "familiar",
+      "451": "familiar",
+      "452": "familiar",
+      "453": "familiar",
+      "454": "familiar",
+      "455": "familiar",
+      "456": "familiar",
+      "457": "familiar",
+      "458": "familiar",
+      "459": "B",
+      "460": "B",
+      "461": "familiar",
+      "462": "familiar",
+      "463": "familiar",
+      "464": "familiar",
+      "465": "familiar",
+      "466": "B",
+      "467": "familiar",
+      "468": "familiar",
+      "469": "familiar",
+      "470": "familiar",
+      "471": "B",
+      "472": "familiar",
+      "473": "familiar",
+      "474": "B",
+      "475": "familiar",
+      "476": "familiar",
+      "477": "B",
+      "478": "familiar",
+      "479": "B",
+      "480": "familiar",
+      "481": "familiar",
+      "482": "familiar",
+      "483": "familiar",
+      "484": "familiar",
+      "485": "familiar",
+      "486": "familiar",
+      "487": "B",
+      "488": "B",
+      "489": "familiar",
+      "490": "familiar",
+      "491": "familiar",
+      "492": "familiar",
+      "493": "familiar",
+      "494": "familiar",
+      "495": "familiar",
+      "496": "familiar",
+      "497": "familiar",
+      "498": "familiar",
+      "499": "B",
+      "500": "familiar",
+      "501": "familiar",
+      "502": "familiar",
+      "503": "familiar",
+      "504": "B",
+      "505": "familiar",
+      "506": "familiar",
+      "507": "familiar",
+      "508": "B",
+      "509": "familiar",
+      "510": "familiar",
+      "511": "B",
+      "512": "familiar",
+      "513": "B",
+      "514": "B",
+      "515": "B",
+      "516": "familiar",
+      "517": "B",
+      "518": "familiar",
+      "519": "B",
+      "520": "familiar",
+      "521": "familiar",
+      "522": "familiar",
+      "523": "familiar",
+      "524": "familiar",
+      "525": "familiar",
+      "526": "familiar",
+      "527": "familiar",
+      "528": "familiar",
+      "529": "familiar",
+      "530": "B",
+      "531": "familiar",
+      "532": "familiar",
+      "533": "B",
+      "534": "B",
+      "535": "B",
+      "536": "familiar",
+      "537": "familiar",
+      "538": "familiar",
+      "539": "familiar",
+      "540": "familiar",
+      "541": "B",
+      "542": "familiar",
+      "543": "familiar",
+      "544": "familiar",
+      "545": "familiar",
+      "546": "familiar",
+      "547": "familiar",
+      "548": "familiar",
+      "549": "familiar",
+      "550": "familiar",
+      "551": "familiar",
+      "552": "familiar",
+      "553": "B",
+      "554": "familiar",
+      "555": "familiar",
+      "556": "familiar",
+      "557": "familiar",
+      "558": "familiar",
+      "559": "familiar",
+      "560": "familiar",
+      "561": "B",
+      "562": "familiar",
+      "563": "familiar",
+      "564": "B",
+      "565": "familiar",
+      "566": "B",
+      "567": "familiar",
+      "568": "familiar",
+      "569": "familiar",
+      "570": "familiar",
+      "571": "familiar",
+      "572": "familiar",
+      "573": "familiar",
+      "574": "B",
+      "575": "B",
+      "576": "familiar",
+      "577": "familiar",
+      "578": "familiar",
+      "579": "familiar",
+      "580": "familiar",
+      "581": "B",
+      "582": "familiar",
+      "583": "familiar",
+      "584": "B",
+      "585": "familiar",
+      "586": "B",
+      "587": "B",
+      "588": "familiar",
+      "589": "familiar",
+      "590": "familiar",
+      "591": "B",
+      "592": "B",
+      "593": "familiar",
+      "594": "familiar",
+      "595": "familiar",
+      "596": "familiar",
+      "597": "familiar",
+      "598": "B",
+      "599": "familiar",
+      "600": "familiar",
+      "601": "familiar",
+      "602": "familiar",
+      "603": "familiar",
+      "604": "familiar",
+      "605": "familiar",
+      "606": "familiar",
+      "607": "familiar",
+      "608": "familiar",
+      "609": "familiar",
+      "610": "familiar",
+      "611": "familiar",
+      "612": "B",
+      "613": "B",
+      "614": "B",
+      "615": "familiar",
+      "616": "familiar",
+      "617": "familiar",
+      "618": "familiar",
+      "619": "familiar",
+      "620": "B",
+      "621": "familiar",
+      "622": "familiar",
+      "623": "familiar",
+      "624": "familiar",
+      "625": "B",
+      "626": "familiar",
+      "627": "familiar",
+      "628": "familiar",
+      "629": "B",
+      "630": "B",
+      "631": "familiar",
+      "632": "familiar",
+      "633": "B",
+      "634": "familiar",
+      "635": "familiar",
+      "636": "familiar",
+      "637": "familiar",
+      "638": "familiar",
+      "639": "familiar",
+      "640": "B",
+      "641": "familiar",
+      "642": "B",
+      "643": "familiar",
+      "644": "familiar",
+      "645": "B",
+      "646": "familiar",
+      "647": "familiar",
+      "648": "familiar",
+      "649": "familiar",
+      "650": "familiar",
+      "651": "familiar",
+      "652": "B",
+      "653": "familiar",
+      "654": "B",
+      "655": "familiar",
+      "656": "familiar",
+      "657": "familiar",
+      "658": "familiar",
+      "659": "familiar",
+      "660": "familiar",
+      "661": "familiar",
+      "662": "familiar",
+      "663": "familiar",
+      "664": "familiar",
+      "665": "familiar",
+      "666": "familiar",
+      "667": "familiar",
+      "668": "B",
+      "669": "familiar",
+      "670": "familiar",
+      "671": "familiar",
+      "672": "familiar",
+      "673": "familiar",
+      "674": "B",
+      "675": "B",
+      "676": "familiar",
+      "677": "familiar",
+      "678": "B",
+      "679": "familiar",
+      "680": "B",
+      "681": "familiar",
+      "682": "familiar",
+      "683": "familiar",
+      "684": "familiar",
+      "685": "familiar",
+      "686": "B",
+      "687": "familiar",
+      "688": "B",
+      "689": "familiar",
+      "690": "familiar",
+      "691": "familiar",
+      "692": "familiar",
+      "693": "familiar",
+      "694": "familiar",
+      "695": "familiar",
+      "696": "familiar",
+      "697": "familiar",
+      "698": "familiar",
+      "699": "familiar",
+      "700": "familiar",
+      "701": "B",
+      "702": "familiar",
+      "703": "B",
+      "704": "B",
+      "705": "B",
+      "706": "B",
+      "707": "B",
+      "708": "familiar",
+      "709": "familiar",
+      "710": "familiar",
+      "711": "familiar",
+      "712": "familiar",
+      "713": "familiar",
+      "714": "familiar",
+      "715": "familiar",
+      "716": "familiar",
+      "717": "familiar",
+      "718": "familiar",
+      "719": "familiar",
+      "720": "B",
+      "721": "familiar",
+      "722": "B",
+      "723": "familiar",
+      "724": "familiar",
+      "725": "familiar",
+      "726": "familiar",
+      "727": "B",
+      "728": "B",
+      "729": "familiar",
+      "730": "familiar",
+      "731": "familiar",
+      "732": "familiar",
+      "733": "familiar",
+      "734": "B",
+      "735": "familiar",
+      "736": "B",
+      "737": "familiar",
+      "738": "familiar",
+      "739": "familiar",
+      "740": "B",
+      "741": "familiar",
+      "742": "B",
+      "743": "familiar",
+      "744": "familiar",
+      "745": "familiar",
+      "746": "familiar",
+      "747": "familiar",
+      "748": "familiar",
+      "749": "familiar",
+      "750": "familiar",
+      "751": "familiar",
+      "752": "familiar",
+      "753": "familiar",
+      "754": "familiar",
+      "755": "familiar",
+      "756": "familiar",
+      "757": "familiar",
+      "758": "familiar",
+      "759": "familiar",
+      "760": "B",
+      "761": "familiar",
+      "762": "B",
+      "763": "familiar",
+      "764": "familiar",
+      "765": "familiar",
+      "766": "B",
+      "767": "B",
+      "768": "B",
+      "769": "familiar",
+      "770": "familiar",
+      "771": "familiar",
+      "772": "familiar",
+      "773": "familiar",
+      "774": "B",
+      "775": "B",
+      "776": "familiar",
+      "777": "familiar",
+      "778": "familiar",
+      "779": "familiar",
+      "780": "familiar",
+      "781": "B",
+      "782": "familiar",
+      "783": "familiar",
+      "784": "familiar",
+      "785": "B",
+      "786": "B",
+      "787": "familiar",
+      "788": "familiar",
+      "789": "familiar",
+      "790": "familiar",
+      "791": "familiar",
+      "792": "familiar",
+      "793": "B",
+      "794": "familiar",
+      "795": "familiar",
+      "796": "familiar",
+      "797": "familiar",
+      "798": "familiar",
+      "799": "familiar",
+      "800": "B",
+      "801": "familiar",
+      "802": "familiar",
+      "803": "familiar",
+      "804": "familiar",
+      "805": "familiar",
+      "806": "familiar",
+      "807": "B",
+      "808": "familiar",
+      "809": "familiar",
+      "810": "familiar",
+      "811": "familiar",
+      "812": "familiar",
+      "813": "familiar",
+      "814": "familiar",
+      "815": "familiar",
+      "816": "familiar",
+      "817": "familiar",
+      "818": "familiar",
+      "819": "familiar",
+      "820": "familiar",
+      "821": "familiar",
+      "822": "B",
+      "823": "familiar",
+      "824": "familiar",
+      "825": "familiar",
+      "826": "familiar",
+      "827": "B",
+      "828": "familiar",
+      "829": "B",
+      "830": "familiar",
+      "831": "familiar",
+      "832": "familiar",
+      "833": "familiar",
+      "834": "familiar",
+      "835": "familiar",
+      "836": "familiar",
+      "837": "B",
+      "838": "familiar",
+      "839": "B",
+      "840": "familiar",
+      "841": "familiar",
+      "842": "familiar",
+      "843": "familiar",
+      "844": "familiar",
+      "845": "B",
+      "846": "familiar",
+      "847": "B",
+      "848": "familiar",
+      "849": "familiar",
+      "850": "familiar",
+      "851": "familiar",
+      "852": "familiar",
+      "853": "familiar",
+      "854": "familiar",
+      "855": "familiar",
+      "856": "B",
+      "857": "familiar",
+      "858": "B",
+      "859": "familiar",
+      "860": "familiar",
+      "861": "familiar",
+      "862": "B",
+      "863": "B",
+      "864": "B",
+      "865": "B",
+      "866": "familiar",
+      "867": "familiar",
+      "868": "familiar",
+      "869": "familiar",
+      "870": "familiar",
+      "871": "familiar",
+      "872": "familiar",
+      "873": "familiar",
+      "874": "familiar",
+      "875": "familiar",
+      "876": "familiar",
+      "877": "familiar",
+      "878": "B",
+      "879": "familiar",
+      "880": "B",
+      "881": "familiar",
+      "882": "familiar",
+      "883": "B",
+      "884": "familiar",
+      "885": "familiar",
+      "886": "familiar",
+      "887": "familiar",
+      "888": "familiar",
+      "889": "familiar",
+      "890": "familiar",
+      "891": "B",
+      "892": "familiar",
+      "893": "familiar",
+      "894": "familiar",
+      "895": "familiar",
+      "896": "B",
+      "897": "B",
+      "898": "familiar",
+      "899": "familiar",
+      "900": "familiar",
+      "901": "familiar",
+      "902": "B",
+      "903": "B",
+      "904": "familiar",
+      "905": "familiar",
+      "906": "familiar",
+      "907": "familiar",
+      "908": "familiar",
+      "909": "B",
+      "910": "familiar",
+      "911": "familiar",
+      "912": "familiar",
+      "913": "B",
+      "914": "B",
+      "915": "B",
+      "916": "B",
+      "917": "familiar",
+      "918": "B",
+      "919": "familiar",
+      "920": "familiar",
+      "921": "familiar",
+      "922": "familiar",
+      "923": "B",
+      "924": "familiar",
+      "925": "familiar",
+      "926": "familiar",
+      "927": "B",
+      "928": "familiar",
+      "929": "familiar",
+      "930": "familiar",
+      "931": "familiar",
+      "932": "familiar",
+      "933": "familiar",
+      "934": "B",
+      "935": "familiar",
+      "936": "familiar",
+      "937": "B",
+      "938": "familiar",
+      "939": "familiar",
+      "940": "familiar",
+      "941": "B",
+      "942": "B",
+      "943": "familiar",
+      "944": "familiar",
+      "945": "familiar",
+      "946": "B",
+      "947": "familiar",
+      "948": "familiar",
+      "949": "familiar",
+      "950": "familiar",
+      "951": "B",
+      "952": "B",
+      "953": "familiar",
+      "954": "familiar",
+      "955": "B",
+      "956": "familiar",
+      "957": "familiar",
+      "958": "familiar",
+      "959": "familiar",
+      "960": "familiar",
+      "961": "B",
+      "962": "familiar",
+      "963": "familiar",
+      "964": "familiar",
+      "965": "B",
+      "966": "familiar",
+      "967": "familiar",
+      "968": "familiar",
+      "969": "B",
+      "970": "familiar",
+      "971": "familiar",
+      "972": "familiar",
+      "973": "familiar",
+      "974": "familiar",
+      "975": "B",
+      "976": "familiar",
+      "977": "familiar",
+      "978": "B",
+      "979": "familiar",
+      "980": "familiar",
+      "981": "familiar",
+      "982": "familiar",
+      "983": "familiar",
+      "984": "familiar",
+      "985": "familiar",
+      "986": "B",
+      "987": "familiar",
+      "988": "familiar",
+      "989": "familiar",
+      "990": "familiar",
+      "991": "familiar",
+      "992": "B",
+      "993": "B",
+      "994": "familiar",
+      "995": "familiar",
+      "996": "familiar",
+      "997": "familiar",
+      "998": "familiar",
+      "999": "familiar",
+      "1000": "familiar",
+      "1001": "familiar",
+      "1002": "familiar",
+      "1003": "familiar",
+      "1004": "familiar",
+      "1005": "familiar",
+      "1006": "familiar",
+      "1007": "B",
+      "1008": "familiar",
+      "1009": "familiar",
+      "1010": "familiar",
+      "1011": "B",
+      "1012": "familiar",
+      "1013": "familiar",
+      "1014": "familiar",
+      "1015": "familiar",
+      "1016": "familiar",
+      "1017": "familiar",
+      "1018": "familiar",
+      "1019": "familiar",
+      "1020": "B",
+      "1021": "familiar",
+      "1022": "familiar",
+      "1023": "familiar",
+      "1024": "familiar",
+      "1025": "B",
+      "1026": "B",
+      "1027": "familiar",
+      "1028": "familiar",
+      "1029": "familiar",
+      "1030": "familiar",
+      "1031": "familiar",
+      "1032": "familiar",
+      "1033": "familiar",
+      "1034": "B",
+      "1035": "familiar",
+      "1036": "B",
+      "1037": "familiar",
+      "1038": "familiar",
+      "1039": "familiar",
+      "1040": "familiar",
+      "1041": "familiar",
+      "1042": "B",
+      "1043": "familiar",
+      "1044": "familiar",
+      "1045": "familiar",
+      "1046": "familiar",
+      "1047": "familiar",
+      "1048": "familiar",
+      "1049": "familiar",
+      "1050": "familiar",
+      "1051": "familiar",
+      "1052": "familiar",
+      "1053": "familiar",
+      "1054": "familiar",
+      "1055": "familiar",
+      "1056": "familiar",
+      "1057": "B",
+      "1058": "familiar",
+      "1059": "familiar",
+      "1060": "familiar",
+      "1061": "familiar",
+      "1062": "familiar",
+      "1063": "familiar",
+      "1064": "familiar",
+      "1065": "familiar",
+      "1066": "familiar",
+      "1067": "familiar",
+      "1068": "familiar",
+      "1069": "B",
+      "1070": "B",
+      "1071": "B",
+      "1072": "familiar",
+      "1073": "familiar",
+      "1074": "familiar",
+      "1075": "familiar",
+      "1076": "familiar",
+      "1077": "B",
+      "1078": "familiar",
+      "1079": "familiar",
+      "1080": "familiar",
+      "1081": "familiar",
+      "1082": "familiar",
+      "1083": "familiar",
+      "1084": "B",
+      "1085": "familiar",
+      "1086": "familiar",
+      "1087": "familiar",
+      "1088": "familiar",
+      "1089": "familiar",
+      "1090": "familiar",
+      "1091": "B",
+      "1092": "familiar",
+      "1093": "familiar",
+      "1094": "familiar",
+      "1095": "B",
+      "1096": "familiar",
+      "1097": "familiar",
+      "1098": "familiar",
+      "1099": "familiar",
+      "1100": "B",
+      "1101": "B",
+      "1102": "familiar",
+      "1103": "familiar",
+      "1104": "familiar",
+      "1105": "familiar",
+      "1106": "B",
+      "1107": "B",
+      "1108": "familiar",
+      "1109": "familiar",
+      "1110": "familiar",
+      "1111": "familiar",
+      "1112": "familiar",
+      "1113": "familiar",
+      "1114": "familiar",
+      "1115": "familiar",
+      "1116": "B",
+      "1117": "familiar",
+      "1118": "B",
+      "1119": "familiar",
+      "1120": "B",
+      "1121": "familiar",
+      "1122": "familiar",
+      "1123": "familiar",
+      "1124": "familiar",
+      "1125": "B",
+      "1126": "familiar",
+      "1127": "B",
+      "1128": "familiar",
+      "1129": "B",
+      "1130": "familiar",
+      "1131": "familiar",
+      "1132": "B",
+      "1133": "B",
+      "1134": "B",
+      "1135": "familiar",
+      "1136": "familiar",
+      "1137": "B",
+      "1138": "familiar",
+      "1139": "familiar",
+      "1140": "B",
+      "1141": "B",
+      "1142": "familiar",
+      "1143": "familiar",
+      "1144": "B",
+      "1145": "B",
+      "1146": "B",
+      "1147": "familiar",
+      "1148": "familiar",
+      "1149": "B",
+      "1150": "familiar",
+      "1151": "B",
+      "1152": "B",
+      "1153": "familiar",
+      "1154": "familiar",
+      "1155": "familiar",
+      "1156": "familiar",
+      "1157": "familiar",
+      "1158": "B",
+      "1159": "familiar",
+      "1160": "familiar",
+      "1161": "familiar",
+      "1162": "familiar",
+      "1163": "familiar",
+      "1164": "B",
+      "1165": "B",
+      "1166": "familiar",
+      "1167": "familiar",
+      "1168": "familiar",
+      "1169": "familiar",
+      "1170": "B",
+      "1171": "B",
+      "1172": "familiar",
+      "1173": "familiar",
+      "1174": "B",
+      "1175": "familiar",
+      "1176": "familiar",
+      "1177": "familiar",
+      "1178": "B",
+      "1179": "familiar",
+      "1180": "familiar",
+      "1181": "familiar",
+      "1182": "familiar",
+      "1183": "familiar",
+      "1184": "B",
+      "1185": "familiar",
+      "1186": "familiar",
+      "1187": "familiar",
+      "1188": "familiar",
+      "1189": "familiar",
+      "1190": "B",
+      "1191": "familiar",
+      "1192": "B",
+      "1193": "familiar",
+      "1194": "familiar",
+      "1195": "familiar",
+      "1196": "familiar",
+      "1197": "familiar",
+      "1198": "B",
+      "1199": "familiar",
+      "1200": "familiar",
+      "1201": "B",
+      "1202": "B",
+      "1203": "familiar",
+      "1204": "familiar",
+      "1205": "B",
+      "1206": "familiar",
+      "1207": "familiar",
+      "1208": "familiar",
+      "1209": "familiar",
+      "1210": "B",
+      "1211": "familiar",
+      "1212": "familiar",
+      "1213": "familiar",
+      "1214": "familiar",
+      "1215": "familiar",
+      "1216": "familiar",
+      "1217": "familiar",
+      "1218": "B",
+      "1219": "familiar",
+      "1220": "B",
+      "1221": "B",
+      "1222": "familiar",
+      "1223": "B",
+      "1224": "B",
+      "1225": "familiar",
+      "1226": "B",
+      "1227": "B",
+      "1228": "familiar",
+      "1229": "familiar",
+      "1230": "familiar",
+      "1231": "B",
+      "1232": "familiar",
+      "1233": "familiar",
+      "1234": "familiar",
+      "1235": "familiar",
+      "1236": "familiar",
+      "1237": "familiar",
+      "1238": "familiar",
+      "1239": "familiar",
+      "1240": "familiar",
+      "1241": "B",
+      "1242": "familiar",
+      "1243": "B",
+      "1244": "B",
+      "1245": "familiar",
+      "1246": "familiar",
+      "1247": "familiar",
+      "1248": "familiar",
+      "1249": "familiar",
+      "1250": "familiar",
+      "1251": "familiar",
+      "1252": "familiar",
+      "1253": "B",
+      "1254": "familiar",
+      "1255": "familiar",
+      "1256": "familiar",
+      "1257": "familiar",
+      "1258": "B",
+      "1259": "B",
+      "1260": "familiar",
+      "1261": "B",
+      "1262": "familiar",
+      "1263": "B",
+      "1264": "familiar",
+      "1265": "familiar",
+      "1266": "familiar",
+      "1267": "B",
+      "1268": "familiar",
+      "1269": "familiar",
+      "1270": "familiar",
+      "1271": "familiar",
+      "1272": "familiar",
+      "1273": "familiar",
+      "1274": "B",
+      "1275": "familiar",
+      "1276": "familiar",
+      "1277": "B",
+      "1278": "familiar",
+      "1279": "familiar",
+      "1280": "familiar",
+      "1281": "familiar",
+      "1282": "familiar",
+      "1283": "familiar",
+      "1284": "familiar",
+      "1285": "familiar",
+      "1286": "familiar",
+      "1287": "familiar",
+      "1288": "familiar",
+      "1289": "familiar",
+      "1290": "familiar",
+      "1291": "B",
+      "1292": "B",
+      "1293": "familiar",
+      "1294": "familiar",
+      "1295": "familiar",
+      "1296": "B",
+      "1297": "B",
+      "1298": "familiar",
+      "1299": "B",
+      "1300": "familiar",
+      "1301": "familiar",
+      "1302": "B",
+      "1303": "familiar",
+      "1304": "B",
+      "1305": "B",
+      "1306": "familiar",
+      "1307": "familiar",
+      "1308": "familiar",
+      "1309": "familiar",
+      "1310": "familiar",
+      "1311": "familiar",
+      "1312": "familiar",
+      "1313": "B",
+      "1314": "familiar",
+      "1315": "familiar",
+      "1316": "familiar",
+      "1317": "B",
+      "1318": "familiar",
+      "1319": "familiar",
+      "1320": "familiar",
+      "1321": "familiar",
+      "1322": "familiar",
+      "1323": "familiar",
+      "1324": "familiar",
+      "1325": "familiar",
+      "1326": "familiar",
+      "1327": "familiar",
+      "1328": "B",
+      "1329": "familiar",
+      "1330": "B",
+      "1331": "familiar",
+      "1332": "familiar",
+      "1333": "familiar",
+      "1334": "familiar",
+      "1335": "familiar",
+      "1336": "familiar",
+      "1337": "familiar",
+      "1338": "familiar",
+      "1339": "familiar",
+      "1340": "familiar",
+      "1341": "familiar",
+      "1342": "familiar",
+      "1343": "B",
+      "1344": "familiar",
+      "1345": "B",
+      "1346": "familiar",
+      "1347": "familiar",
+      "1348": "familiar",
+      "1349": "familiar",
+      "1350": "familiar",
+      "1351": "familiar",
+      "1352": "B",
+      "1353": "familiar",
+      "1354": "familiar",
+      "1355": "familiar",
+      "1356": "B",
+      "1357": "familiar",
+      "1358": "B",
+      "1359": "familiar",
+      "1360": "familiar",
+      "1361": "familiar",
+      "1362": "familiar",
+      "1363": "B",
+      "1364": "familiar",
+      "1365": "B",
+      "1366": "familiar",
+      "1367": "familiar",
+      "1368": "familiar",
+      "1369": "B",
+      "1370": "familiar",
+      "1371": "B",
+      "1372": "B",
+      "1373": "B",
+      "1374": "familiar",
+      "1375": "B",
+      "1376": "familiar",
+      "1377": "familiar",
+      "1378": "familiar",
+      "1379": "familiar",
+      "1380": "B",
+      "1381": "familiar",
+      "1382": "familiar",
+      "1383": "familiar",
+      "1384": "B",
+      "1385": "familiar",
+      "1386": "familiar",
+      "1387": "familiar",
+      "1388": "familiar",
+      "1389": "B",
+      "1390": "B",
+      "1391": "familiar",
+      "1392": "familiar",
+      "1393": "B",
+      "1394": "familiar",
+      "1395": "familiar",
+      "1396": "familiar",
+      "1397": "familiar",
+      "1398": "familiar",
+      "1399": "familiar",
+      "1400": "familiar",
+      "1401": "familiar",
+      "1402": "B",
+      "1403": "familiar",
+      "1404": "B",
+      "1405": "familiar",
+      "1406": "B",
+      "1407": "B",
+      "1408": "familiar",
+      "1409": "B",
+      "1410": "familiar",
+      "1411": "B",
+      "1412": "familiar",
+      "1413": "familiar",
+      "1414": "familiar",
+      "1415": "familiar",
+      "1416": "B",
+      "1417": "familiar",
+      "1418": "familiar",
+      "1419": "B",
+      "1420": "familiar",
+      "1421": "familiar",
+      "1422": "B",
+      "1423": "familiar",
+      "1424": "familiar",
+      "1425": "B",
+      "1426": "B",
+      "1427": "B",
+      "1428": "familiar",
+      "1429": "familiar",
+      "1430": "familiar",
+      "1431": "B",
+      "1432": "familiar",
+      "1433": "familiar",
+      "1434": "familiar",
+      "1435": "familiar",
+      "1436": "B",
+      "1437": "familiar",
+      "1438": "familiar",
+      "1439": "familiar",
+      "1440": "familiar",
+      "1441": "familiar",
+      "1442": "B",
+      "1443": "familiar",
+      "1444": "familiar",
+      "1445": "B",
+      "1446": "familiar",
+      "1447": "familiar",
+      "1448": "familiar",
+      "1449": "familiar",
+      "1450": "familiar",
+      "1451": "familiar",
+      "1452": "familiar",
+      "1453": "familiar",
+      "1454": "B",
+      "1455": "familiar",
+      "1456": "familiar",
+      "1457": "familiar",
+      "1458": "familiar",
+      "1459": "familiar",
+      "1460": "familiar",
+      "1461": "familiar",
+      "1462": "familiar",
+      "1463": "familiar",
+      "1464": "B",
+      "1465": "familiar",
+      "1466": "B",
+      "1467": "familiar",
+      "1468": "familiar",
+      "1469": "familiar",
+      "1470": "familiar",
+      "1471": "familiar",
+      "1472": "familiar",
+      "1473": "familiar",
+      "1474": "familiar",
+      "1475": "B",
+      "1476": "B",
+      "1477": "familiar",
+      "1478": "B",
+      "1479": "B",
+      "1480": "familiar",
+      "1481": "familiar",
+      "1482": "B",
+      "1483": "familiar",
+      "1484": "familiar",
+      "1485": "familiar",
+      "1486": "familiar",
+      "1487": "familiar",
+      "1488": "familiar",
+      "1489": "familiar",
+      "1490": "familiar",
+      "1491": "familiar",
+      "1492": "familiar",
+      "1493": "familiar",
+      "1494": "B",
+      "1495": "B",
+      "1496": "B",
+      "1497": "B",
+      "1498": "B",
+      "1499": "familiar",
+      "1500": "B",
+      "1501": "familiar",
+      "1502": "familiar",
+      "1503": "B",
+      "1504": "familiar",
+      "1505": "familiar",
+      "1506": "familiar",
+      "1507": "familiar",
+      "1508": "familiar",
+      "1509": "familiar",
+      "1510": "B",
+      "1511": "familiar",
+      "1512": "familiar",
+      "1513": "familiar",
+      "1514": "B",
+      "1515": "familiar",
+      "1516": "familiar",
+      "1517": "familiar",
+      "1518": "familiar",
+      "1519": "familiar",
+      "1520": "B",
+      "1521": "familiar",
+      "1522": "B",
+      "1523": "familiar",
+      "1524": "familiar",
+      "1525": "familiar",
+      "1526": "familiar",
+      "1527": "B",
+      "1528": "familiar",
+      "1529": "familiar",
+      "1530": "familiar",
+      "1531": "familiar",
+      "1532": "familiar",
+      "1533": "familiar",
+      "1534": "B",
+      "1535": "familiar",
+      "1536": "B",
+      "1537": "familiar",
+      "1538": "familiar",
+      "1539": "B",
+      "1540": "familiar",
+      "1541": "familiar",
+      "1542": "familiar",
+      "1543": "B",
+      "1544": "familiar",
+      "1545": "B",
+      "1546": "B",
+      "1547": "B",
+      "1548": "familiar",
+      "1549": "familiar",
+      "1550": "B",
+      "1551": "familiar",
+      "1552": "familiar",
+      "1553": "familiar",
+      "1554": "familiar",
+      "1555": "familiar",
+      "1556": "familiar",
+      "1557": "familiar",
+      "1558": "B",
+      "1559": "B",
+      "1560": "familiar",
+      "1561": "familiar",
+      "1562": "familiar",
+      "1563": "B",
+      "1564": "familiar",
+      "1565": "B",
+      "1566": "B",
+      "1567": "familiar",
+      "1568": "familiar",
+      "1569": "familiar",
+      "1570": "familiar",
+      "1571": "familiar",
+      "1572": "B",
+      "1573": "familiar",
+      "1574": "familiar",
+      "1575": "familiar",
+      "1576": "familiar",
+      "1577": "B",
+      "1578": "familiar",
+      "1579": "familiar",
+      "1580": "familiar",
+      "1581": "familiar",
+      "1582": "familiar",
+      "1583": "familiar",
+      "1584": "familiar",
+      "1585": "familiar",
+      "1586": "familiar",
+      "1587": "B",
+      "1588": "familiar",
+      "1589": "familiar",
+      "1590": "B",
+      "1591": "familiar",
+      "1592": "familiar",
+      "1593": "familiar",
+      "1594": "familiar",
+      "1595": "familiar",
+      "1596": "familiar",
+      "1597": "B",
+      "1598": "familiar",
+      "1599": "familiar",
+      "1600": "B",
+      "1601": "familiar",
+      "1602": "B",
+      "1603": "familiar",
+      "1604": "familiar",
+      "1605": "familiar",
+      "1606": "familiar",
+      "1607": "familiar",
+      "1608": "familiar",
+      "1609": "familiar",
+      "1610": "familiar",
+      "1611": "familiar",
+      "1612": "B",
+      "1613": "familiar",
+      "1614": "familiar",
+      "1615": "B",
+      "1616": "familiar",
+      "1617": "familiar",
+      "1618": "familiar",
+      "1619": "familiar",
+      "1620": "familiar",
+      "1621": "familiar"
+    },
+    "familiar_rows": 1360,
+    "familiar_tasks": 201
+  },
+  "definitions": {
+    "familiar_phase": "set_active_regime(None, probability=0.00): the registered mechanism is off, i.e. the frozen familiar generator exactly (T-AUDIT-05 identity)",
+    "unseen_phase": "set_active_regime(<regime>, probability=0.25)",
+    "phase_and_regime_columns_are_audit_only": "phase_ids / phase_kind / phase_cascade_probability / phase_regime_ids / cascade_* / host_cascade_* are audit metadata and must never be a model input (FORBIDDEN_INPUTS)",
+    "task_envelope_frozen_at_creation": "a task created inside a phase keeps the envelope of the phase it was created under; the collector never re-adapts an existing container at a switch",
+    "onset_scan_cohort": "each regime is scanned with task_regime_map restricted to its own tasks; the unmapped scan is reported next to it as the cross-hit confound count"
+  },
+  "protocol": "023",
+  "mode": "single",
+  "regime": "memory_first",
+  "smoke": false,
+  "chunk": null,
+  "phases": [
+    {
+      "name": "F0_baseline",
+      "start": 0,
+      "end": 150,
+      "length": 150,
+      "regime_id": null,
+      "canonical_regime_id": null,
+      "mechanism_id": null,
+      "cascade_task_probability": 0.0,
+      "kind": "familiar"
+    },
+    {
+      "name": "memory_first_only",
+      "start": 150,
+      "end": 1200,
+      "length": 1050,
+      "regime_id": "memory_first",
+      "canonical_regime_id": "B",
+      "mechanism_id": 1,
+      "cascade_task_probability": 0.25,
+      "kind": "unseen"
+    }
+  ],
+  "phase_switch_points": [
+    {
+      "interval": 150,
+      "phase": "memory_first_only",
+      "regime_id": "memory_first",
+      "probability": 0.25
+    }
+  ],
+  "candidate": {
+    "cascade_task_probability": 0.25,
+    "cohort": "online",
+    "replay_seed": 700,
+    "mechanism_seed": 22022,
+    "scored_intervals": 1200,
+    "mode": "single",
+    "regime": "memory_first"
+  }
+}

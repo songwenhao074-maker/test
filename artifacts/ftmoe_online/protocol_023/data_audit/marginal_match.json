@@ -1,0 +1,1513 @@
+{
+  "protocol": "023",
+  "stage": "S2",
+  "analyzer": "analyze_ftmoe_protocol023_s2.py",
+  "generated_at": "2026-09-12T12:54:01+00:00",
+  "artifact": "marginal_match.json",
+  "partial_run": false,
+  "only": null,
+  "plan_section": "指令/FTMOE_PROTOCOL023_DYNAMIC_EXPERT_PLAN_20260912.md §9 (建议 Data Gate)",
+  "plan_section_9_text": "anomaly prevalence 3%-12% / deployment rejection <= 25% / migration rejection <= 40% / independent fault events >= 80 per regime / valid onset-follow-up >= 50 per regime / worst event share < 10% / regime prevalence difference <= 4 percentage points",
+  "thresholds": {
+    "prevalence_min": 0.03,
+    "prevalence_max": 0.12,
+    "deployment_rejection_max": 0.25,
+    "migration_rejection_max": 0.4,
+    "independent_fault_events_min": 80,
+    "valid_onset_followup_min": 50,
+    "worst_event_share_max": 0.1,
+    "prevalence_spread_max": 0.04
+  },
+  "threshold_drift": {
+    "analyzer": {
+      "prevalence_min": 0.03,
+      "prevalence_max": 0.12,
+      "deployment_rejection_max": 0.25,
+      "migration_rejection_max": 0.4,
+      "independent_fault_events_min": 80,
+      "valid_onset_followup_min": 50,
+      "worst_event_share_max": 0.1,
+      "prevalence_spread_max": 0.04
+    },
+    "instrument": {
+      "prevalence_min": 0.03,
+      "prevalence_max": 0.12,
+      "prevalence_spread_max": 0.04,
+      "independent_fault_events_min": 80,
+      "valid_onset_followup_min": 50,
+      "deployment_rejection_max": 0.25,
+      "migration_rejection_max": 0.4,
+      "worst_event_share_max": 0.1
+    },
+    "drift": [],
+    "passed": true,
+    "source": "指令/FTMOE_PROTOCOL023_DYNAMIC_EXPERT_PLAN_20260912.md §9 (建议 Data Gate)",
+    "plan_text": "anomaly prevalence 3%-12% / deployment rejection <= 25% / migration rejection <= 40% / independent fault events >= 80 per regime / valid onset-follow-up >= 50 per regime / worst event share < 10% / regime prevalence difference <= 4 percentage points"
+  },
+  "gate_stats": {
+    "A": {
+      "prevalence": 0.06803571428571428,
+      "positive_hoststeps": 1143,
+      "host_steps": 16800,
+      "independent_fault_events": 410,
+      "valid_onset_followup": 24,
+      "deployment_attempts": 1636,
+      "deployment_rejected": 216,
+      "deployment_rejection_rate": 0.13202933985330073,
+      "migration_attempts": 383,
+      "migration_rejected": 139,
+      "migration_rejection_rate": 0.3629242819843342,
+      "worst_event_share": 0.015748031496062992,
+      "event_count": 342,
+      "mean_duration": 2.6432748538011697,
+      "peak_ratio": 17.498036193668682
+    },
+    "B": {
+      "prevalence": 0.030535714285714284,
+      "positive_hoststeps": 513,
+      "host_steps": 16800,
+      "independent_fault_events": 260,
+      "valid_onset_followup": 36,
+      "deployment_attempts": 1551,
+      "deployment_rejected": 131,
+      "deployment_rejection_rate": 0.08446163765312702,
+      "migration_attempts": 350,
+      "migration_rejected": 54,
+      "migration_rejection_rate": 0.15428571428571428,
+      "worst_event_share": 0.015594541910331383,
+      "event_count": 297,
+      "mean_duration": 3.9023569023569022,
+      "peak_ratio": 8.5
+    },
+    "C": {
+      "prevalence": 0.03791666666666667,
+      "positive_hoststeps": 637,
+      "host_steps": 16800,
+      "independent_fault_events": 271,
+      "valid_onset_followup": 31,
+      "deployment_attempts": 1566,
+      "deployment_rejected": 146,
+      "deployment_rejection_rate": 0.09323116219667944,
+      "migration_attempts": 406,
+      "migration_rejected": 90,
+      "migration_rejection_rate": 0.22167487684729065,
+      "worst_event_share": 0.0141287284144427,
+      "event_count": 297,
+      "mean_duration": 2.2996632996632997,
+      "peak_ratio": 11.97836328363896
+    }
+  },
+  "gate_source_streams": {
+    "A": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_023\\development_streams\\single_compute_first_seed700_steps1200",
+    "B": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_023\\development_streams\\single_memory_first_seed700_steps1200",
+    "C": "F:\\PreGANPlus-master\\artifacts\\ftmoe_online\\protocol_023\\development_streams\\single_io_first_seed700_steps1200"
+  },
+  "marginal_match_report": {
+    "thresholds": {
+      "prevalence_min": 0.03,
+      "prevalence_max": 0.12,
+      "prevalence_spread_max": 0.04,
+      "independent_fault_events_min": 80,
+      "valid_onset_followup_min": 50,
+      "deployment_rejection_max": 0.25,
+      "migration_rejection_max": 0.4,
+      "worst_event_share_max": 0.1
+    },
+    "checks": {
+      "A_prevalence_in_range": true,
+      "A_independent_fault_events_enough": true,
+      "A_valid_onset_followup_enough": false,
+      "A_deployment_rejection_ok": true,
+      "A_migration_rejection_ok": true,
+      "A_worst_event_share_ok": true,
+      "B_prevalence_in_range": true,
+      "B_independent_fault_events_enough": true,
+      "B_valid_onset_followup_enough": false,
+      "B_deployment_rejection_ok": true,
+      "B_migration_rejection_ok": true,
+      "B_worst_event_share_ok": true,
+      "C_prevalence_in_range": true,
+      "C_independent_fault_events_enough": true,
+      "C_valid_onset_followup_enough": false,
+      "C_deployment_rejection_ok": true,
+      "C_migration_rejection_ok": true,
+      "C_worst_event_share_ok": true,
+      "prevalence_spread_ok": true,
+      "all_registered_regimes_reported": true
+    },
+    "passed": false,
+    "metrics": {
+      "regimes_reported": [
+        "A",
+        "B",
+        "C"
+      ],
+      "registered_regimes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "prevalence_spread": 0.0375,
+      "per_regime": {
+        "A": {
+          "prevalence": 0.06803571428571428,
+          "independent_fault_events": 410,
+          "valid_onset_followup": 24,
+          "deployment_rejection_rate": 0.13202933985330073,
+          "migration_rejection_rate": 0.3629242819843342,
+          "worst_event_share": 0.015748031496062992,
+          "event_count": 342,
+          "mean_duration": 2.6432748538011697,
+          "peak_ratio": 17.498036193668682,
+          "host_steps": 16800,
+          "positive_hoststeps": 1143,
+          "deployment_attempts": 1636,
+          "deployment_rejected": 216,
+          "migration_attempts": 383,
+          "migration_rejected": 139,
+          "regime_id": "A",
+          "raw": {
+            "prevalence": 0.06803571428571428,
+            "positive_hoststeps": 1143,
+            "host_steps": 16800,
+            "independent_fault_events": 410,
+            "valid_onset_followup": 24,
+            "deployment_attempts": 1636,
+            "deployment_rejected": 216,
+            "deployment_rejection_rate": 0.13202933985330073,
+            "migration_attempts": 383,
+            "migration_rejected": 139,
+            "migration_rejection_rate": 0.3629242819843342,
+            "worst_event_share": 0.015748031496062992,
+            "event_count": 342,
+            "mean_duration": 2.6432748538011697,
+            "peak_ratio": 17.498036193668682
+          }
+        },
+        "B": {
+          "prevalence": 0.030535714285714284,
+          "independent_fault_events": 260,
+          "valid_onset_followup": 36,
+          "deployment_rejection_rate": 0.08446163765312702,
+          "migration_rejection_rate": 0.15428571428571428,
+          "worst_event_share": 0.015594541910331383,
+          "event_count": 297,
+          "mean_duration": 3.9023569023569022,
+          "peak_ratio": 8.5,
+          "host_steps": 16800,
+          "positive_hoststeps": 513,
+          "deployment_attempts": 1551,
+          "deployment_rejected": 131,
+          "migration_attempts": 350,
+          "migration_rejected": 54,
+          "regime_id": "B",
+          "raw": {
+            "prevalence": 0.030535714285714284,
+            "positive_hoststeps": 513,
+            "host_steps": 16800,
+            "independent_fault_events": 260,
+            "valid_onset_followup": 36,
+            "deployment_attempts": 1551,
+            "deployment_rejected": 131,
+            "deployment_rejection_rate": 0.08446163765312702,
+            "migration_attempts": 350,
+            "migration_rejected": 54,
+            "migration_rejection_rate": 0.15428571428571428,
+            "worst_event_share": 0.015594541910331383,
+            "event_count": 297,
+            "mean_duration": 3.9023569023569022,
+            "peak_ratio": 8.5
+          }
+        },
+        "C": {
+          "prevalence": 0.03791666666666667,
+          "independent_fault_events": 271,
+          "valid_onset_followup": 31,
+          "deployment_rejection_rate": 0.09323116219667944,
+          "migration_rejection_rate": 0.22167487684729065,
+          "worst_event_share": 0.0141287284144427,
+          "event_count": 297,
+          "mean_duration": 2.2996632996632997,
+          "peak_ratio": 11.97836328363896,
+          "host_steps": 16800,
+          "positive_hoststeps": 637,
+          "deployment_attempts": 1566,
+          "deployment_rejected": 146,
+          "migration_attempts": 406,
+          "migration_rejected": 90,
+          "regime_id": "C",
+          "raw": {
+            "prevalence": 0.03791666666666667,
+            "positive_hoststeps": 637,
+            "host_steps": 16800,
+            "independent_fault_events": 271,
+            "valid_onset_followup": 31,
+            "deployment_attempts": 1566,
+            "deployment_rejected": 146,
+            "deployment_rejection_rate": 0.09323116219667944,
+            "migration_attempts": 406,
+            "migration_rejected": 90,
+            "migration_rejection_rate": 0.22167487684729065,
+            "worst_event_share": 0.0141287284144427,
+            "event_count": 297,
+            "mean_duration": 2.2996632996632997,
+            "peak_ratio": 11.97836328363896
+          }
+        }
+      }
+    },
+    "per_regime": {
+      "A": {
+        "prevalence": 0.06803571428571428,
+        "independent_fault_events": 410,
+        "valid_onset_followup": 24,
+        "deployment_rejection_rate": 0.13202933985330073,
+        "migration_rejection_rate": 0.3629242819843342,
+        "worst_event_share": 0.015748031496062992,
+        "event_count": 342,
+        "mean_duration": 2.6432748538011697,
+        "peak_ratio": 17.498036193668682,
+        "host_steps": 16800,
+        "positive_hoststeps": 1143,
+        "deployment_attempts": 1636,
+        "deployment_rejected": 216,
+        "migration_attempts": 383,
+        "migration_rejected": 139,
+        "regime_id": "A",
+        "raw": {
+          "prevalence": 0.06803571428571428,
+          "positive_hoststeps": 1143,
+          "host_steps": 16800,
+          "independent_fault_events": 410,
+          "valid_onset_followup": 24,
+          "deployment_attempts": 1636,
+          "deployment_rejected": 216,
+          "deployment_rejection_rate": 0.13202933985330073,
+          "migration_attempts": 383,
+          "migration_rejected": 139,
+          "migration_rejection_rate": 0.3629242819843342,
+          "worst_event_share": 0.015748031496062992,
+          "event_count": 342,
+          "mean_duration": 2.6432748538011697,
+          "peak_ratio": 17.498036193668682
+        }
+      },
+      "B": {
+        "prevalence": 0.030535714285714284,
+        "independent_fault_events": 260,
+        "valid_onset_followup": 36,
+        "deployment_rejection_rate": 0.08446163765312702,
+        "migration_rejection_rate": 0.15428571428571428,
+        "worst_event_share": 0.015594541910331383,
+        "event_count": 297,
+        "mean_duration": 3.9023569023569022,
+        "peak_ratio": 8.5,
+        "host_steps": 16800,
+        "positive_hoststeps": 513,
+        "deployment_attempts": 1551,
+        "deployment_rejected": 131,
+        "migration_attempts": 350,
+        "migration_rejected": 54,
+        "regime_id": "B",
+        "raw": {
+          "prevalence": 0.030535714285714284,
+          "positive_hoststeps": 513,
+          "host_steps": 16800,
+          "independent_fault_events": 260,
+          "valid_onset_followup": 36,
+          "deployment_attempts": 1551,
+          "deployment_rejected": 131,
+          "deployment_rejection_rate": 0.08446163765312702,
+          "migration_attempts": 350,
+          "migration_rejected": 54,
+          "migration_rejection_rate": 0.15428571428571428,
+          "worst_event_share": 0.015594541910331383,
+          "event_count": 297,
+          "mean_duration": 3.9023569023569022,
+          "peak_ratio": 8.5
+        }
+      },
+      "C": {
+        "prevalence": 0.03791666666666667,
+        "independent_fault_events": 271,
+        "valid_onset_followup": 31,
+        "deployment_rejection_rate": 0.09323116219667944,
+        "migration_rejection_rate": 0.22167487684729065,
+        "worst_event_share": 0.0141287284144427,
+        "event_count": 297,
+        "mean_duration": 2.2996632996632997,
+        "peak_ratio": 11.97836328363896,
+        "host_steps": 16800,
+        "positive_hoststeps": 637,
+        "deployment_attempts": 1566,
+        "deployment_rejected": 146,
+        "migration_attempts": 406,
+        "migration_rejected": 90,
+        "regime_id": "C",
+        "raw": {
+          "prevalence": 0.03791666666666667,
+          "positive_hoststeps": 637,
+          "host_steps": 16800,
+          "independent_fault_events": 271,
+          "valid_onset_followup": 31,
+          "deployment_attempts": 1566,
+          "deployment_rejected": 146,
+          "deployment_rejection_rate": 0.09323116219667944,
+          "migration_attempts": 406,
+          "migration_rejected": 90,
+          "migration_rejection_rate": 0.22167487684729065,
+          "worst_event_share": 0.0141287284144427,
+          "event_count": 297,
+          "mean_duration": 2.2996632996632997,
+          "peak_ratio": 11.97836328363896
+        }
+      }
+    }
+  },
+  "regime_contrast_report": {
+    "thresholds": {
+      "prevalence_diff_max": 0.04,
+      "event_count_rel_diff_max": 0.1,
+      "mean_duration_rel_diff_max": 0.1,
+      "peak_ratio_rel_diff_max": 0.1,
+      "deployment_rejection_diff_max": 0.05,
+      "migration_rejection_diff_max": 0.05,
+      "normal_hoststeps_rel_diff_max": 0.05
+    },
+    "checks": {
+      "all_registered_regimes_reported": true,
+      "A_B_marginals_matched": false,
+      "A_B_joint_structure_differs": true,
+      "A_C_marginals_matched": false,
+      "A_C_joint_structure_differs": true,
+      "B_C_marginals_matched": false,
+      "B_C_joint_structure_differs": true
+    },
+    "passed": false,
+    "metrics": {
+      "per_regime": {
+        "A": {
+          "prevalence": 0.06803571428571428,
+          "independent_fault_events": 410,
+          "valid_onset_followup": 24,
+          "deployment_rejection_rate": 0.13202933985330073,
+          "migration_rejection_rate": 0.3629242819843342,
+          "worst_event_share": 0.015748031496062992,
+          "event_count": 342,
+          "mean_duration": 2.6432748538011697,
+          "peak_ratio": 17.498036193668682,
+          "host_steps": 16800,
+          "positive_hoststeps": 1143,
+          "deployment_attempts": 1636,
+          "deployment_rejected": 216,
+          "migration_attempts": 383,
+          "migration_rejected": 139,
+          "regime_id": "A",
+          "raw": {
+            "prevalence": 0.06803571428571428,
+            "positive_hoststeps": 1143,
+            "host_steps": 16800,
+            "independent_fault_events": 410,
+            "valid_onset_followup": 24,
+            "deployment_attempts": 1636,
+            "deployment_rejected": 216,
+            "deployment_rejection_rate": 0.13202933985330073,
+            "migration_attempts": 383,
+            "migration_rejected": 139,
+            "migration_rejection_rate": 0.3629242819843342,
+            "worst_event_share": 0.015748031496062992,
+            "event_count": 342,
+            "mean_duration": 2.6432748538011697,
+            "peak_ratio": 17.498036193668682
+          }
+        },
+        "B": {
+          "prevalence": 0.030535714285714284,
+          "independent_fault_events": 260,
+          "valid_onset_followup": 36,
+          "deployment_rejection_rate": 0.08446163765312702,
+          "migration_rejection_rate": 0.15428571428571428,
+          "worst_event_share": 0.015594541910331383,
+          "event_count": 297,
+          "mean_duration": 3.9023569023569022,
+          "peak_ratio": 8.5,
+          "host_steps": 16800,
+          "positive_hoststeps": 513,
+          "deployment_attempts": 1551,
+          "deployment_rejected": 131,
+          "migration_attempts": 350,
+          "migration_rejected": 54,
+          "regime_id": "B",
+          "raw": {
+            "prevalence": 0.030535714285714284,
+            "positive_hoststeps": 513,
+            "host_steps": 16800,
+            "independent_fault_events": 260,
+            "valid_onset_followup": 36,
+            "deployment_attempts": 1551,
+            "deployment_rejected": 131,
+            "deployment_rejection_rate": 0.08446163765312702,
+            "migration_attempts": 350,
+            "migration_rejected": 54,
+            "migration_rejection_rate": 0.15428571428571428,
+            "worst_event_share": 0.015594541910331383,
+            "event_count": 297,
+            "mean_duration": 3.9023569023569022,
+            "peak_ratio": 8.5
+          }
+        },
+        "C": {
+          "prevalence": 0.03791666666666667,
+          "independent_fault_events": 271,
+          "valid_onset_followup": 31,
+          "deployment_rejection_rate": 0.09323116219667944,
+          "migration_rejection_rate": 0.22167487684729065,
+          "worst_event_share": 0.0141287284144427,
+          "event_count": 297,
+          "mean_duration": 2.2996632996632997,
+          "peak_ratio": 11.97836328363896,
+          "host_steps": 16800,
+          "positive_hoststeps": 637,
+          "deployment_attempts": 1566,
+          "deployment_rejected": 146,
+          "migration_attempts": 406,
+          "migration_rejected": 90,
+          "regime_id": "C",
+          "raw": {
+            "prevalence": 0.03791666666666667,
+            "positive_hoststeps": 637,
+            "host_steps": 16800,
+            "independent_fault_events": 271,
+            "valid_onset_followup": 31,
+            "deployment_attempts": 1566,
+            "deployment_rejected": 146,
+            "deployment_rejection_rate": 0.09323116219667944,
+            "migration_attempts": 406,
+            "migration_rejected": 90,
+            "migration_rejection_rate": 0.22167487684729065,
+            "worst_event_share": 0.0141287284144427,
+            "event_count": 297,
+            "mean_duration": 2.2996632996632997,
+            "peak_ratio": 11.97836328363896
+          }
+        }
+      },
+      "pairs": {
+        "A|B": {
+          "regimes": [
+            "A",
+            "B"
+          ],
+          "matched_marginals": {
+            "prevalence_diff": 0.0375,
+            "prevalence_diff_ok": true,
+            "event_count_diff_rel": 0.13157894736842105,
+            "event_count_matched": false,
+            "mean_duration_diff_rel": 0.32264656464284086,
+            "mean_duration_matched": false,
+            "peak_ratio_diff_rel": 0.5142312025234262,
+            "peak_ratio_matched": false,
+            "deployment_rejection_diff": 0.047567702200173714,
+            "deployment_rejection_matched": true,
+            "migration_rejection_diff": 0.2086385676986199,
+            "migration_rejection_matched": false,
+            "normal_hoststeps": {
+              "A": 15657,
+              "B": 16287
+            },
+            "normal_hoststeps_diff_rel": 0.03868115675078283,
+            "normal_hoststeps_matched": true
+          },
+          "allowed_joint_differences": {
+            "onset_resource": {
+              "A": "cpu",
+              "B": "ram"
+            },
+            "resource_order": {
+              "A": [
+                "cpu",
+                "ram",
+                "disk"
+              ],
+              "B": [
+                "ram",
+                "disk",
+                "cpu"
+              ]
+            },
+            "lag_by_resource": {
+              "A": {
+                "cpu": 0,
+                "ram": 4,
+                "disk": 8
+              },
+              "B": {
+                "ram": 0,
+                "disk": 3,
+                "cpu": 6
+              }
+            },
+            "response_windows": {
+              "A": {
+                "ram": [
+                  4,
+                  14
+                ],
+                "disk": [
+                  8,
+                  18
+                ]
+              },
+              "B": {
+                "disk": [
+                  3,
+                  13
+                ],
+                "cpu": [
+                  6,
+                  16
+                ]
+              }
+            },
+            "onset_resource_differs": true,
+            "resource_order_differs": true,
+            "lag_profile_differs": true,
+            "dependency_pairs": {
+              "A": [
+                [
+                  "cpu",
+                  "ram"
+                ],
+                [
+                  "ram",
+                  "disk"
+                ]
+              ],
+              "B": [
+                [
+                  "ram",
+                  "disk"
+                ],
+                [
+                  "disk",
+                  "cpu"
+                ]
+              ]
+            },
+            "joint_structure_differs": true
+          },
+          "marginals_matched": false
+        },
+        "A|C": {
+          "regimes": [
+            "A",
+            "C"
+          ],
+          "matched_marginals": {
+            "prevalence_diff": 0.030119047619047615,
+            "prevalence_diff_ok": true,
+            "event_count_diff_rel": 0.13157894736842105,
+            "event_count_matched": false,
+            "mean_duration_diff_rel": 0.12999463663180477,
+            "mean_duration_matched": false,
+            "peak_ratio_diff_rel": 0.3154452790551952,
+            "peak_ratio_matched": false,
+            "deployment_rejection_diff": 0.03879817765662129,
+            "deployment_rejection_matched": true,
+            "migration_rejection_diff": 0.14124940513704354,
+            "migration_rejection_matched": false,
+            "normal_hoststeps": {
+              "A": 15657,
+              "C": 16163
+            },
+            "normal_hoststeps_diff_rel": 0.0313060694178061,
+            "normal_hoststeps_matched": true
+          },
+          "allowed_joint_differences": {
+            "onset_resource": {
+              "A": "cpu",
+              "C": "disk"
+            },
+            "resource_order": {
+              "A": [
+                "cpu",
+                "ram",
+                "disk"
+              ],
+              "C": [
+                "disk",
+                "cpu",
+                "ram"
+              ]
+            },
+            "lag_by_resource": {
+              "A": {
+                "cpu": 0,
+                "ram": 4,
+                "disk": 8
+              },
+              "C": {
+                "disk": 0,
+                "cpu": 3,
+                "ram": 6
+              }
+            },
+            "response_windows": {
+              "A": {
+                "ram": [
+                  4,
+                  14
+                ],
+                "disk": [
+                  8,
+                  18
+                ]
+              },
+              "C": {
+                "cpu": [
+                  3,
+                  13
+                ],
+                "ram": [
+                  6,
+                  16
+                ]
+              }
+            },
+            "onset_resource_differs": true,
+            "resource_order_differs": true,
+            "lag_profile_differs": true,
+            "dependency_pairs": {
+              "A": [
+                [
+                  "cpu",
+                  "ram"
+                ],
+                [
+                  "ram",
+                  "disk"
+                ]
+              ],
+              "C": [
+                [
+                  "disk",
+                  "cpu"
+                ],
+                [
+                  "cpu",
+                  "ram"
+                ]
+              ]
+            },
+            "joint_structure_differs": true
+          },
+          "marginals_matched": false
+        },
+        "B|C": {
+          "regimes": [
+            "B",
+            "C"
+          ],
+          "matched_marginals": {
+            "prevalence_diff": 0.007380952380952384,
+            "prevalence_diff_ok": true,
+            "event_count_diff_rel": 0.0,
+            "event_count_matched": true,
+            "mean_duration_diff_rel": 0.41069887834339946,
+            "mean_duration_matched": false,
+            "peak_ratio_diff_rel": 0.29038719241300653,
+            "peak_ratio_matched": false,
+            "deployment_rejection_diff": 0.008769524543552426,
+            "deployment_rejection_matched": true,
+            "migration_rejection_diff": 0.06738916256157637,
+            "migration_rejection_matched": false,
+            "normal_hoststeps": {
+              "B": 16287,
+              "C": 16163
+            },
+            "normal_hoststeps_diff_rel": 0.007613434027138208,
+            "normal_hoststeps_matched": true
+          },
+          "allowed_joint_differences": {
+            "onset_resource": {
+              "B": "ram",
+              "C": "disk"
+            },
+            "resource_order": {
+              "B": [
+                "ram",
+                "disk",
+                "cpu"
+              ],
+              "C": [
+                "disk",
+                "cpu",
+                "ram"
+              ]
+            },
+            "lag_by_resource": {
+              "B": {
+                "ram": 0,
+                "disk": 3,
+                "cpu": 6
+              },
+              "C": {
+                "disk": 0,
+                "cpu": 3,
+                "ram": 6
+              }
+            },
+            "response_windows": {
+              "B": {
+                "disk": [
+                  3,
+                  13
+                ],
+                "cpu": [
+                  6,
+                  16
+                ]
+              },
+              "C": {
+                "cpu": [
+                  3,
+                  13
+                ],
+                "ram": [
+                  6,
+                  16
+                ]
+              }
+            },
+            "onset_resource_differs": true,
+            "resource_order_differs": true,
+            "lag_profile_differs": true,
+            "dependency_pairs": {
+              "B": [
+                [
+                  "ram",
+                  "disk"
+                ],
+                [
+                  "disk",
+                  "cpu"
+                ]
+              ],
+              "C": [
+                [
+                  "disk",
+                  "cpu"
+                ],
+                [
+                  "cpu",
+                  "ram"
+                ]
+              ]
+            },
+            "joint_structure_differs": true
+          },
+          "marginals_matched": false
+        }
+      }
+    },
+    "pairs": {
+      "A|B": {
+        "regimes": [
+          "A",
+          "B"
+        ],
+        "matched_marginals": {
+          "prevalence_diff": 0.0375,
+          "prevalence_diff_ok": true,
+          "event_count_diff_rel": 0.13157894736842105,
+          "event_count_matched": false,
+          "mean_duration_diff_rel": 0.32264656464284086,
+          "mean_duration_matched": false,
+          "peak_ratio_diff_rel": 0.5142312025234262,
+          "peak_ratio_matched": false,
+          "deployment_rejection_diff": 0.047567702200173714,
+          "deployment_rejection_matched": true,
+          "migration_rejection_diff": 0.2086385676986199,
+          "migration_rejection_matched": false,
+          "normal_hoststeps": {
+            "A": 15657,
+            "B": 16287
+          },
+          "normal_hoststeps_diff_rel": 0.03868115675078283,
+          "normal_hoststeps_matched": true
+        },
+        "allowed_joint_differences": {
+          "onset_resource": {
+            "A": "cpu",
+            "B": "ram"
+          },
+          "resource_order": {
+            "A": [
+              "cpu",
+              "ram",
+              "disk"
+            ],
+            "B": [
+              "ram",
+              "disk",
+              "cpu"
+            ]
+          },
+          "lag_by_resource": {
+            "A": {
+              "cpu": 0,
+              "ram": 4,
+              "disk": 8
+            },
+            "B": {
+              "ram": 0,
+              "disk": 3,
+              "cpu": 6
+            }
+          },
+          "response_windows": {
+            "A": {
+              "ram": [
+                4,
+                14
+              ],
+              "disk": [
+                8,
+                18
+              ]
+            },
+            "B": {
+              "disk": [
+                3,
+                13
+              ],
+              "cpu": [
+                6,
+                16
+              ]
+            }
+          },
+          "onset_resource_differs": true,
+          "resource_order_differs": true,
+          "lag_profile_differs": true,
+          "dependency_pairs": {
+            "A": [
+              [
+                "cpu",
+                "ram"
+              ],
+              [
+                "ram",
+                "disk"
+              ]
+            ],
+            "B": [
+              [
+                "ram",
+                "disk"
+              ],
+              [
+                "disk",
+                "cpu"
+              ]
+            ]
+          },
+          "joint_structure_differs": true
+        },
+        "marginals_matched": false
+      },
+      "A|C": {
+        "regimes": [
+          "A",
+          "C"
+        ],
+        "matched_marginals": {
+          "prevalence_diff": 0.030119047619047615,
+          "prevalence_diff_ok": true,
+          "event_count_diff_rel": 0.13157894736842105,
+          "event_count_matched": false,
+          "mean_duration_diff_rel": 0.12999463663180477,
+          "mean_duration_matched": false,
+          "peak_ratio_diff_rel": 0.3154452790551952,
+          "peak_ratio_matched": false,
+          "deployment_rejection_diff": 0.03879817765662129,
+          "deployment_rejection_matched": true,
+          "migration_rejection_diff": 0.14124940513704354,
+          "migration_rejection_matched": false,
+          "normal_hoststeps": {
+            "A": 15657,
+            "C": 16163
+          },
+          "normal_hoststeps_diff_rel": 0.0313060694178061,
+          "normal_hoststeps_matched": true
+        },
+        "allowed_joint_differences": {
+          "onset_resource": {
+            "A": "cpu",
+            "C": "disk"
+          },
+          "resource_order": {
+            "A": [
+              "cpu",
+              "ram",
+              "disk"
+            ],
+            "C": [
+              "disk",
+              "cpu",
+              "ram"
+            ]
+          },
+          "lag_by_resource": {
+            "A": {
+              "cpu": 0,
+              "ram": 4,
+              "disk": 8
+            },
+            "C": {
+              "disk": 0,
+              "cpu": 3,
+              "ram": 6
+            }
+          },
+          "response_windows": {
+            "A": {
+              "ram": [
+                4,
+                14
+              ],
+              "disk": [
+                8,
+                18
+              ]
+            },
+            "C": {
+              "cpu": [
+                3,
+                13
+              ],
+              "ram": [
+                6,
+                16
+              ]
+            }
+          },
+          "onset_resource_differs": true,
+          "resource_order_differs": true,
+          "lag_profile_differs": true,
+          "dependency_pairs": {
+            "A": [
+              [
+                "cpu",
+                "ram"
+              ],
+              [
+                "ram",
+                "disk"
+              ]
+            ],
+            "C": [
+              [
+                "disk",
+                "cpu"
+              ],
+              [
+                "cpu",
+                "ram"
+              ]
+            ]
+          },
+          "joint_structure_differs": true
+        },
+        "marginals_matched": false
+      },
+      "B|C": {
+        "regimes": [
+          "B",
+          "C"
+        ],
+        "matched_marginals": {
+          "prevalence_diff": 0.007380952380952384,
+          "prevalence_diff_ok": true,
+          "event_count_diff_rel": 0.0,
+          "event_count_matched": true,
+          "mean_duration_diff_rel": 0.41069887834339946,
+          "mean_duration_matched": false,
+          "peak_ratio_diff_rel": 0.29038719241300653,
+          "peak_ratio_matched": false,
+          "deployment_rejection_diff": 0.008769524543552426,
+          "deployment_rejection_matched": true,
+          "migration_rejection_diff": 0.06738916256157637,
+          "migration_rejection_matched": false,
+          "normal_hoststeps": {
+            "B": 16287,
+            "C": 16163
+          },
+          "normal_hoststeps_diff_rel": 0.007613434027138208,
+          "normal_hoststeps_matched": true
+        },
+        "allowed_joint_differences": {
+          "onset_resource": {
+            "B": "ram",
+            "C": "disk"
+          },
+          "resource_order": {
+            "B": [
+              "ram",
+              "disk",
+              "cpu"
+            ],
+            "C": [
+              "disk",
+              "cpu",
+              "ram"
+            ]
+          },
+          "lag_by_resource": {
+            "B": {
+              "ram": 0,
+              "disk": 3,
+              "cpu": 6
+            },
+            "C": {
+              "disk": 0,
+              "cpu": 3,
+              "ram": 6
+            }
+          },
+          "response_windows": {
+            "B": {
+              "disk": [
+                3,
+                13
+              ],
+              "cpu": [
+                6,
+                16
+              ]
+            },
+            "C": {
+              "cpu": [
+                3,
+                13
+              ],
+              "ram": [
+                6,
+                16
+              ]
+            }
+          },
+          "onset_resource_differs": true,
+          "resource_order_differs": true,
+          "lag_profile_differs": true,
+          "dependency_pairs": {
+            "B": [
+              [
+                "ram",
+                "disk"
+              ],
+              [
+                "disk",
+                "cpu"
+              ]
+            ],
+            "C": [
+              [
+                "disk",
+                "cpu"
+              ],
+              [
+                "cpu",
+                "ram"
+              ]
+            ]
+          },
+          "joint_structure_differs": true
+        },
+        "marginals_matched": false
+      }
+    }
+  },
+  "analyzer_checks": {
+    "A_prevalence_in_range": true,
+    "A_independent_fault_events_enough": true,
+    "A_valid_onset_followup_enough": false,
+    "A_deployment_rejection_ok": true,
+    "A_migration_rejection_ok": true,
+    "A_worst_event_share_ok": true,
+    "B_prevalence_in_range": true,
+    "B_independent_fault_events_enough": true,
+    "B_valid_onset_followup_enough": false,
+    "B_deployment_rejection_ok": true,
+    "B_migration_rejection_ok": true,
+    "B_worst_event_share_ok": true,
+    "C_prevalence_in_range": true,
+    "C_independent_fault_events_enough": true,
+    "C_valid_onset_followup_enough": false,
+    "C_deployment_rejection_ok": true,
+    "C_migration_rejection_ok": true,
+    "C_worst_event_share_ok": true,
+    "prevalence_spread_ok": true,
+    "all_registered_regimes_reported": true
+  },
+  "analyzer_matches_the_instrument": {
+    "keys": {
+      "A_deployment_rejection_ok": true,
+      "A_independent_fault_events_enough": true,
+      "A_migration_rejection_ok": true,
+      "A_prevalence_in_range": true,
+      "A_valid_onset_followup_enough": true,
+      "A_worst_event_share_ok": true,
+      "B_deployment_rejection_ok": true,
+      "B_independent_fault_events_enough": true,
+      "B_migration_rejection_ok": true,
+      "B_prevalence_in_range": true,
+      "B_valid_onset_followup_enough": true,
+      "B_worst_event_share_ok": true,
+      "C_deployment_rejection_ok": true,
+      "C_independent_fault_events_enough": true,
+      "C_migration_rejection_ok": true,
+      "C_prevalence_in_range": true,
+      "C_valid_onset_followup_enough": true,
+      "C_worst_event_share_ok": true,
+      "all_registered_regimes_reported": true,
+      "prevalence_spread_ok": true
+    },
+    "mismatched": [],
+    "passed": true
+  },
+  "prevalence_spread": 0.0375,
+  "checks_not_evaluated": [],
+  "threshold_admissibility": {
+    "A": {
+      "regime_id": "compute_first",
+      "canonical_regime_id": "A",
+      "onset_resource": "cpu",
+      "registered_onset_threshold": 2600.0,
+      "tau_source": "generator REGISTERED_ONSET_TAU",
+      "registered_familiar_clip": 1860.0,
+      "registered_floor": 4400.0,
+      "floor_key": "cpu_burst_floor",
+      "measured_familiar_task_maximum": 1860.0,
+      "n_familiar_tasks_measured": 201,
+      "threshold_admissible": true,
+      "margin_above_measured_maximum": 740.0,
+      "margin_below_floor": 1800.0,
+      "envelope_free_familiar_task_maximum": 1860.0,
+      "admissible_against_envelope_free_tasks": true,
+      "provisional": false,
+      "generator_provisional": true,
+      "provisional_note": "PROVISIONAL threshold: the 'no familiar task can cross it' half of the registered argument is not measured for RAM/disk under P23 (plan §6-§7); the measured maximum above is this stream's own evidence and the threshold is reported, never retuned, when it fails",
+      "rule": "admissible iff the registered threshold is STRICTLY above the measured familiar per-task maximum of its resource; an unmeasurable maximum is reported inadmissible (it cannot be shown to be above the familiar level)",
+      "measurement_source": "per-task maxima over the familiar-phase rows (phase_kind == 0) of this stream"
+    },
+    "B": {
+      "regime_id": "memory_first",
+      "canonical_regime_id": "B",
+      "onset_resource": "ram",
+      "registered_onset_threshold": 2810.0,
+      "tau_source": "generator REGISTERED_ONSET_TAU",
+      "registered_familiar_clip": 1400.0,
+      "registered_floor": 4500.0,
+      "floor_key": "ram_target_floor",
+      "measured_familiar_task_maximum": 1400.0,
+      "n_familiar_tasks_measured": 201,
+      "threshold_admissible": true,
+      "margin_above_measured_maximum": 1410.0,
+      "margin_below_floor": 1690.0,
+      "envelope_free_familiar_task_maximum": 1400.0,
+      "admissible_against_envelope_free_tasks": true,
+      "provisional": true,
+      "generator_provisional": true,
+      "provisional_note": "PROVISIONAL threshold: the 'no familiar task can cross it' half of the registered argument is not measured for RAM/disk under P23 (plan §6-§7); the measured maximum above is this stream's own evidence and the threshold is reported, never retuned, when it fails",
+      "rule": "admissible iff the registered threshold is STRICTLY above the measured familiar per-task maximum of its resource; an unmeasurable maximum is reported inadmissible (it cannot be shown to be above the familiar level)",
+      "measurement_source": "per-task maxima over the familiar-phase rows (phase_kind == 0) of this stream"
+    },
+    "C": {
+      "regime_id": "io_first",
+      "canonical_regime_id": "C",
+      "onset_resource": "disk",
+      "registered_onset_threshold": 11600.0,
+      "tau_source": "generator REGISTERED_ONSET_TAU",
+      "registered_familiar_clip": 9000.0,
+      "registered_floor": 16000.0,
+      "floor_key": "disk_retained_peak",
+      "measured_familiar_task_maximum": 9000.0,
+      "n_familiar_tasks_measured": 201,
+      "threshold_admissible": true,
+      "margin_above_measured_maximum": 2600.0,
+      "margin_below_floor": 4400.0,
+      "envelope_free_familiar_task_maximum": 9000.0,
+      "admissible_against_envelope_free_tasks": true,
+      "provisional": true,
+      "generator_provisional": true,
+      "provisional_note": "PROVISIONAL threshold: the 'no familiar task can cross it' half of the registered argument is not measured for RAM/disk under P23 (plan §6-§7); the measured maximum above is this stream's own evidence and the threshold is reported, never retuned, when it fails",
+      "rule": "admissible iff the registered threshold is STRICTLY above the measured familiar per-task maximum of its resource; an unmeasurable maximum is reported inadmissible (it cannot be shown to be above the familiar level)",
+      "measurement_source": "per-task maxima over the familiar-phase rows (phase_kind == 0) of this stream"
+    }
+  },
+  "inadmissible_thresholds": [],
+  "integrity": {
+    "A_timeline_integrity_ok": true,
+    "A_timeline_matches_the_stream_live_cells": true,
+    "A_guard_rows_registered": true,
+    "A_regime_window_present": true,
+    "B_timeline_integrity_ok": true,
+    "B_timeline_matches_the_stream_live_cells": true,
+    "B_guard_rows_registered": true,
+    "B_regime_window_present": true,
+    "C_timeline_integrity_ok": true,
+    "C_timeline_matches_the_stream_live_cells": true,
+    "C_guard_rows_registered": true,
+    "C_regime_window_present": true,
+    "dev_timeline_integrity_ok": true,
+    "dev_timeline_matches_the_stream_live_cells": true,
+    "dev_A_regime_window_present": true,
+    "dev_B_regime_window_present": true,
+    "dev_C_regime_window_present": true,
+    "A_A_cohort_nonempty": true,
+    "B_B_cohort_nonempty": true,
+    "C_C_cohort_nonempty": true
+  },
+  "declared_vs_recomputed": {
+    "per_stream": {
+      "A": {
+        "stream": "single_compute_first_seed700_steps1200",
+        "audit_file_present": true,
+        "comparison": {
+          "prevalence": {
+            "declared": 0.06803571428571428,
+            "recomputed": 0.06803571428571428,
+            "match": true
+          },
+          "positive_hoststeps": {
+            "declared": 1143,
+            "recomputed": 1143,
+            "match": true
+          },
+          "host_steps": {
+            "declared": 16800,
+            "recomputed": 16800,
+            "match": true
+          },
+          "independent_fault_events": {
+            "declared": 410,
+            "recomputed": 410,
+            "match": true
+          },
+          "deployment_attempts": {
+            "declared": 1636,
+            "recomputed": 1636,
+            "match": true
+          },
+          "deployment_rejected": {
+            "declared": 216,
+            "recomputed": 216,
+            "match": true
+          },
+          "deployment_rejection_rate": {
+            "declared": 0.13202933985330073,
+            "recomputed": 0.13202933985330073,
+            "match": true
+          },
+          "migration_attempts": {
+            "declared": 383,
+            "recomputed": 383,
+            "match": true
+          },
+          "migration_rejected": {
+            "declared": 139,
+            "recomputed": 139,
+            "match": true
+          },
+          "migration_rejection_rate": {
+            "declared": 0.3629242819843342,
+            "recomputed": 0.3629242819843342,
+            "match": true
+          },
+          "worst_event_share_of_positives": {
+            "declared": 0.015748031496062992,
+            "recomputed": 0.015748031496062992,
+            "match": true
+          },
+          "n_onsets": {
+            "declared": 342,
+            "recomputed": 342,
+            "match": true
+          }
+        },
+        "all_match": true
+      },
+      "B": {
+        "stream": "single_memory_first_seed700_steps1200",
+        "audit_file_present": true,
+        "comparison": {
+          "prevalence": {
+            "declared": 0.030535714285714284,
+            "recomputed": 0.030535714285714284,
+            "match": true
+          },
+          "positive_hoststeps": {
+            "declared": 513,
+            "recomputed": 513,
+            "match": true
+          },
+          "host_steps": {
+            "declared": 16800,
+            "recomputed": 16800,
+            "match": true
+          },
+          "independent_fault_events": {
+            "declared": 260,
+            "recomputed": 260,
+            "match": true
+          },
+          "deployment_attempts": {
+            "declared": 1551,
+            "recomputed": 1551,
+            "match": true
+          },
+          "deployment_rejected": {
+            "declared": 131,
+            "recomputed": 131,
+            "match": true
+          },
+          "deployment_rejection_rate": {
+            "declared": 0.08446163765312702,
+            "recomputed": 0.08446163765312702,
+            "match": true
+          },
+          "migration_attempts": {
+            "declared": 350,
+            "recomputed": 350,
+            "match": true
+          },
+          "migration_rejected": {
+            "declared": 54,
+            "recomputed": 54,
+            "match": true
+          },
+          "migration_rejection_rate": {
+            "declared": 0.15428571428571428,
+            "recomputed": 0.15428571428571428,
+            "match": true
+          },
+          "worst_event_share_of_positives": {
+            "declared": 0.015594541910331383,
+            "recomputed": 0.015594541910331383,
+            "match": true
+          },
+          "n_onsets": {
+            "declared": 297,
+            "recomputed": 297,
+            "match": true
+          }
+        },
+        "all_match": true
+      },
+      "C": {
+        "stream": "single_io_first_seed700_steps1200",
+        "audit_file_present": true,
+        "comparison": {
+          "prevalence": {
+            "declared": 0.03791666666666667,
+            "recomputed": 0.03791666666666667,
+            "match": true
+          },
+          "positive_hoststeps": {
+            "declared": 637,
+            "recomputed": 637,
+            "match": true
+          },
+          "host_steps": {
+            "declared": 16800,
+            "recomputed": 16800,
+            "match": true
+          },
+          "independent_fault_events": {
+            "declared": 271,
+            "recomputed": 271,
+            "match": true
+          },
+          "deployment_attempts": {
+            "declared": 1566,
+            "recomputed": 1566,
+            "match": true
+          },
+          "deployment_rejected": {
+            "declared": 146,
+            "recomputed": 146,
+            "match": true
+          },
+          "deployment_rejection_rate": {
+            "declared": 0.09323116219667944,
+            "recomputed": 0.09323116219667944,
+            "match": true
+          },
+          "migration_attempts": {
+            "declared": 406,
+            "recomputed": 406,
+            "match": true
+          },
+          "migration_rejected": {
+            "declared": 90,
+            "recomputed": 90,
+            "match": true
+          },
+          "migration_rejection_rate": {
+            "declared": 0.22167487684729065,
+            "recomputed": 0.22167487684729065,
+            "match": true
+          },
+          "worst_event_share_of_positives": {
+            "declared": 0.0141287284144427,
+            "recomputed": 0.0141287284144427,
+            "match": true
+          },
+          "n_onsets": {
+            "declared": 297,
+            "recomputed": 297,
+            "match": true
+          }
+        },
+        "all_match": true
+      },
+      "dev": {
+        "stream": "dev_seed700_steps2880",
+        "audit_file_present": true,
+        "comparison": null,
+        "note": "the development stream is context, not a gate source; its declared numbers are not compared metric by metric here"
+      }
+    },
+    "disagreements": [],
+    "agree": true,
+    "note": "the collector's audit file is read AFTER the recomputation and is only ever compared against it; a disagreement is a warning about the collector (or a stale file), never a gate input"
+  },
+  "gate_passed": false,
+  "passed": false,
+  "failed_on": [
+    "data_gate"
+  ],
+  "stop_conditions": [
+    "STOP-DATA: the plan §9 Data Gate did not pass (A_valid_onset_followup_enough, B_valid_onset_followup_enough, C_valid_onset_followup_enough); the scenes are not matched, so no method comparison is admissible"
+  ],
+  "warnings": [
+    "WARN-FOLLOWUP-DEFINITION: regime A has 24 onset(s) with a FULL follow-up window and 185 with a usable follow-up (at least one observed interval inside a registered response window; the P22 U4-v2 definition).  The gate applies the >=50 threshold to the full-window count, so the check fails; under the P22-compatible definition it would pass.  The analyzer does not switch definitions after seeing the number.",
+    "WARN-FOLLOWUP-DEFINITION: regime B has 36 onset(s) with a FULL follow-up window and 200 with a usable follow-up (at least one observed interval inside a registered response window; the P22 U4-v2 definition).  The gate applies the >=50 threshold to the full-window count, so the check fails; under the P22-compatible definition it would pass.  The analyzer does not switch definitions after seeing the number.",
+    "WARN-FOLLOWUP-DEFINITION: regime C has 31 onset(s) with a FULL follow-up window and 235 with a usable follow-up (at least one observed interval inside a registered response window; the P22 U4-v2 definition).  The gate applies the >=50 threshold to the full-window count, so the check fails; under the P22-compatible definition it would pass.  The analyzer does not switch definitions after seeing the number."
+  ],
+  "definitions": {
+    "gate_source": "each regime's gate block is measured on its own single-regime stream (the registered clean per-regime cohort); the development stream is reported as context and never enters the gate",
+    "gate": "anomaly prevalence 3%-12% / deployment rejection <= 25% / migration rejection <= 40% / independent fault events >= 80 per regime / valid onset-follow-up >= 50 per regime / worst event share < 10% / regime prevalence difference <= 4 percentage points",
+    "marginal_matching": "core23.marginal_match_report over the eight registered numbers; core23.regime_contrast_report is reported next to it as context -- its tolerances are instrument-local and are not the registered gate",
+    "recomputation": "every gate quantity is recomputed from stream.npz + task_timeline.npz with ftmoe_protocol023_core; the collector's unseen_data_audit.json is only ever compared against the recomputation",
+    "cohort": "onsets are scanned with task_regime_map, so a regime-A envelope whose RAM/Disk responses cross the B/C thresholds is never counted as a B/C event; the unmapped scan is reported as the cross-hit confound count",
+    "independent_fault_events": "per-host contiguous positive-label runs inside the regime's phase window (the registered P22 segmentation rule, reimplemented here)",
+    "valid_onset_followup": "onsets whose task observes every interval of [t0, t0 + max registered response window)) -- the plan §9 'valid onset/follow-up' the ≥50 threshold is applied to; the P22-compatible 'usable follow-up' count (at least one observed interval inside a window) is reported next to it and is NOT gated",
+    "worst_event_share": "positive host-steps attributed to the single worst registered cascade event, over the window's positives (the collector's definition); the label-free worst-run share is reported next to it",
+    "mean_duration": "core23.response_durations over the regime's onset cohort: intervals inside the registered response windows whose deviation from the pre-onset baseline is > 0, longest of the two response resources",
+    "peak_ratio": "core23.peak_ratio_summary over the same cohort; the registered matched marginal uses the MEDIAN peak ratio (robust to one large excursion) and the mean is reported next to it",
+    "admissibility": "a registered onset threshold is admissible only if it is strictly above the measured familiar per-task maximum of its resource; a failure is reported with its negative margin and never retuned",
+    "provisional_thresholds": "RAM 2810.0 and disk 11600.0 are PROVISIONAL"
+  }
+}

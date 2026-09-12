@@ -1,0 +1,712 @@
+{
+  "protocol": "023",
+  "stage": "P23-S3",
+  "kind": "multi_regime_specialization_probe",
+  "instrument": "probe_ftmoe_protocol022_learnability (closed-form logistic, reused for comparability)",
+  "stream": "artifacts/ftmoe_online/protocol_023/development_streams/dev_seed700_steps2880",
+  "steps": 2880,
+  "horizons": [
+    1,
+    4
+  ],
+  "n_features": 49,
+  "features": [
+    "ratio_cpu",
+    "ratio_ram",
+    "ratio_disk",
+    "slope1_cpu",
+    "slope1_ram",
+    "slope1_disk",
+    "slope3_cpu",
+    "slope3_ram",
+    "slope3_disk",
+    "slope6_cpu",
+    "slope6_ram",
+    "slope6_disk",
+    "past_fault_0",
+    "past_fault_1",
+    "past_fault_2",
+    "past_fault_3",
+    "migration_mass_in",
+    "unplaced_containers",
+    "occupancy",
+    "cpu_headroom",
+    "past_fault_lag1_1",
+    "past_fault_lag1_2",
+    "past_fault_lag1_3",
+    "ram_minus_cpu_lag4",
+    "disk_minus_cpu_lag8",
+    "cpu_lead3_ram",
+    "cpu_lead4_ram",
+    "cpu_lead6_ram",
+    "cpu_lead8_ram",
+    "cpu_lead3_disk",
+    "cpu_lead4_disk",
+    "cpu_lead6_disk",
+    "cpu_lead8_disk",
+    "ram_lead3_cpu",
+    "ram_lead4_cpu",
+    "ram_lead6_cpu",
+    "ram_lead8_cpu",
+    "ram_lead3_disk",
+    "ram_lead4_disk",
+    "ram_lead6_disk",
+    "ram_lead8_disk",
+    "disk_lead3_cpu",
+    "disk_lead4_cpu",
+    "disk_lead6_cpu",
+    "disk_lead8_cpu",
+    "disk_lead3_ram",
+    "disk_lead4_ram",
+    "disk_lead6_ram",
+    "disk_lead8_ram"
+  ],
+  "cross_lag_features": [
+    "cpu_lead3_ram",
+    "cpu_lead4_ram",
+    "cpu_lead6_ram",
+    "cpu_lead8_ram",
+    "cpu_lead3_disk",
+    "cpu_lead4_disk",
+    "cpu_lead6_disk",
+    "cpu_lead8_disk",
+    "ram_lead3_cpu",
+    "ram_lead4_cpu",
+    "ram_lead6_cpu",
+    "ram_lead8_cpu",
+    "ram_lead3_disk",
+    "ram_lead4_disk",
+    "ram_lead6_disk",
+    "ram_lead8_disk",
+    "disk_lead3_cpu",
+    "disk_lead4_cpu",
+    "disk_lead6_cpu",
+    "disk_lead8_cpu",
+    "disk_lead3_ram",
+    "disk_lead4_ram",
+    "disk_lead6_ram",
+    "disk_lead8_ram"
+  ],
+  "phases": [
+    {
+      "name": "F0_baseline",
+      "kind": "familiar",
+      "start": 0,
+      "end": 300,
+      "length": 300
+    },
+    {
+      "name": "A1_compute",
+      "kind": "compute_first",
+      "start": 300,
+      "end": 720,
+      "length": 420
+    },
+    {
+      "name": "B1_memory",
+      "kind": "memory_first",
+      "start": 720,
+      "end": 1140,
+      "length": 420
+    },
+    {
+      "name": "C1_io",
+      "kind": "io_first",
+      "start": 1140,
+      "end": 1560,
+      "length": 420
+    },
+    {
+      "name": "F1_baseline",
+      "kind": "familiar",
+      "start": 1560,
+      "end": 1800,
+      "length": 240
+    },
+    {
+      "name": "A2_recur",
+      "kind": "compute_first",
+      "start": 1800,
+      "end": 2160,
+      "length": 360
+    },
+    {
+      "name": "C2_recur",
+      "kind": "io_first",
+      "start": 2160,
+      "end": 2520,
+      "length": 360
+    },
+    {
+      "name": "B2_recur",
+      "kind": "memory_first",
+      "start": 2520,
+      "end": 2880,
+      "length": 360
+    }
+  ],
+  "segments": {
+    "compute_first": {
+      "train": [
+        "A1_compute"
+      ],
+      "test": [
+        "A2_recur"
+      ]
+    },
+    "memory_first": {
+      "train": [
+        "B1_memory"
+      ],
+      "test": [
+        "B2_recur"
+      ]
+    },
+    "io_first": {
+      "train": [
+        "C1_io"
+      ],
+      "test": [
+        "C2_recur"
+      ]
+    }
+  },
+  "onset_resource_by_regime": {
+    "compute_first": "cpu",
+    "memory_first": "ram",
+    "io_first": "disk"
+  },
+  "forbidden_input_check": "passed (no forbidden token in a feature name)",
+  "quick": false,
+  "cells": [
+    {
+      "cell": "train=compute_first/test=compute_first/h=1/cpu_onset",
+      "features": 49,
+      "train_rows": 6359,
+      "test_rows": 5418,
+      "train_rows_finite": 6359,
+      "test_rows_finite": 5418,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5418,
+        "positives": 127,
+        "prevalence": 0.023440383905500184,
+        "ap": 0.3382867027698064,
+        "roc_auc": 0.9652232211287329,
+        "top_decile_recall": 0.9291338582677166,
+        "fpr_at_prevalence": 0.015876015876015875
+      },
+      "prevalence": 0.023440383905500184,
+      "positives": 127,
+      "train_regime": "compute_first",
+      "test_regime": "compute_first",
+      "horizon": 1,
+      "target": "cpu_onset",
+      "within_regime": true
+    },
+    {
+      "cell": "train=compute_first/test=memory_first/h=1/cpu_onset",
+      "features": 49,
+      "train_rows": 6359,
+      "test_rows": 5674,
+      "train_rows_finite": 6359,
+      "test_rows_finite": 5674,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5674,
+        "positives": 50,
+        "prevalence": 0.008812125484666901,
+        "ap": 0.05649166646115651,
+        "roc_auc": 0.8882290184921764,
+        "top_decile_recall": 0.56,
+        "fpr_at_prevalence": 0.007645803698435277
+      },
+      "prevalence": 0.008812125484666901,
+      "positives": 50,
+      "train_regime": "compute_first",
+      "test_regime": "memory_first",
+      "horizon": 1,
+      "target": "cpu_onset",
+      "within_regime": false
+    },
+    {
+      "cell": "train=compute_first/test=io_first/h=1/cpu_onset",
+      "features": 49,
+      "train_rows": 6359,
+      "test_rows": 5586,
+      "train_rows_finite": 6359,
+      "test_rows_finite": 5586,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5586,
+        "positives": 74,
+        "prevalence": 0.013247404224847834,
+        "ap": 0.04756198542266272,
+        "roc_auc": 0.7997624347860197,
+        "top_decile_recall": 0.2972972972972973,
+        "fpr_at_prevalence": 0.012155297532656022
+      },
+      "prevalence": 0.013247404224847834,
+      "positives": 74,
+      "train_regime": "compute_first",
+      "test_regime": "io_first",
+      "horizon": 1,
+      "target": "cpu_onset",
+      "within_regime": false
+    },
+    {
+      "cell": "train=compute_first/test=compute_first/h=4/cpu_onset",
+      "features": 49,
+      "train_rows": 6359,
+      "test_rows": 5418,
+      "train_rows_finite": 6359,
+      "test_rows_finite": 5418,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5418,
+        "positives": 480,
+        "prevalence": 0.08859357696567,
+        "ap": 0.25861416629807993,
+        "roc_auc": 0.6861682783178075,
+        "top_decile_recall": 0.35625,
+        "fpr_at_prevalence": 0.06561360874848117
+      },
+      "prevalence": 0.08859357696567,
+      "positives": 480,
+      "train_regime": "compute_first",
+      "test_regime": "compute_first",
+      "horizon": 4,
+      "target": "cpu_onset",
+      "within_regime": true
+    },
+    {
+      "cell": "train=compute_first/test=memory_first/h=4/cpu_onset",
+      "features": 49,
+      "train_rows": 6359,
+      "test_rows": 5674,
+      "train_rows_finite": 6359,
+      "test_rows_finite": 5674,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5674,
+        "positives": 193,
+        "prevalence": 0.03401480437081424,
+        "ap": 0.10477736802318613,
+        "roc_auc": 0.7232597205797134,
+        "top_decile_recall": 0.24870466321243523,
+        "fpr_at_prevalence": 0.029739098704615947
+      },
+      "prevalence": 0.03401480437081424,
+      "positives": 193,
+      "train_regime": "compute_first",
+      "test_regime": "memory_first",
+      "horizon": 4,
+      "target": "cpu_onset",
+      "within_regime": false
+    },
+    {
+      "cell": "train=compute_first/test=io_first/h=4/cpu_onset",
+      "features": 49,
+      "train_rows": 6359,
+      "test_rows": 5586,
+      "train_rows_finite": 6359,
+      "test_rows_finite": 5586,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5586,
+        "positives": 296,
+        "prevalence": 0.052989616899391336,
+        "ap": 0.20100662909474956,
+        "roc_auc": 0.8120251749859501,
+        "top_decile_recall": 0.31756756756756754,
+        "fpr_at_prevalence": 0.04669187145557656
+      },
+      "prevalence": 0.052989616899391336,
+      "positives": 296,
+      "train_regime": "compute_first",
+      "test_regime": "io_first",
+      "horizon": 4,
+      "target": "cpu_onset",
+      "within_regime": false
+    },
+    {
+      "cell": "train=memory_first/test=compute_first/h=1/ram_onset",
+      "features": 49,
+      "train_rows": 6621,
+      "test_rows": 5714,
+      "train_rows_finite": 6621,
+      "test_rows_finite": 5714,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5714,
+        "positives": 14,
+        "prevalence": 0.002450122506125306,
+        "ap": 0.010908861019273472,
+        "roc_auc": 0.8354385964912281,
+        "top_decile_recall": 0.5,
+        "fpr_at_prevalence": 0.002631578947368421
+      },
+      "prevalence": 0.002450122506125306,
+      "positives": 14,
+      "train_regime": "memory_first",
+      "test_regime": "compute_first",
+      "horizon": 1,
+      "target": "ram_onset",
+      "within_regime": false
+    },
+    {
+      "cell": "train=memory_first/test=memory_first/h=1/ram_onset",
+      "features": 49,
+      "train_rows": 6621,
+      "test_rows": 5683,
+      "train_rows_finite": 6621,
+      "test_rows_finite": 5683,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5683,
+        "positives": 42,
+        "prevalence": 0.007390462783740982,
+        "ap": 0.08070738013929585,
+        "roc_auc": 0.9300318248199829,
+        "top_decile_recall": 0.9047619047619048,
+        "fpr_at_prevalence": 0.007090941322460556
+      },
+      "prevalence": 0.007390462783740982,
+      "positives": 42,
+      "train_regime": "memory_first",
+      "test_regime": "memory_first",
+      "horizon": 1,
+      "target": "ram_onset",
+      "within_regime": true
+    },
+    {
+      "cell": "train=memory_first/test=io_first/h=1/ram_onset",
+      "features": 49,
+      "train_rows": 6621,
+      "test_rows": 5735,
+      "train_rows_finite": 6621,
+      "test_rows_finite": 5735,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5735,
+        "positives": 12,
+        "prevalence": 0.002092414995640802,
+        "ap": 0.005383968752503974,
+        "roc_auc": 0.7461558623099773,
+        "top_decile_recall": 0.16666666666666666,
+        "fpr_at_prevalence": 0.0020968023763760267
+      },
+      "prevalence": 0.002092414995640802,
+      "positives": 12,
+      "train_regime": "memory_first",
+      "test_regime": "io_first",
+      "horizon": 1,
+      "target": "ram_onset",
+      "within_regime": false
+    },
+    {
+      "cell": "train=memory_first/test=compute_first/h=4/ram_onset",
+      "features": 49,
+      "train_rows": 6621,
+      "test_rows": 5714,
+      "train_rows_finite": 6621,
+      "test_rows_finite": 5714,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5714,
+        "positives": 56,
+        "prevalence": 0.009800490024501224,
+        "ap": 0.06336313819529946,
+        "roc_auc": 0.828046886835328,
+        "top_decile_recall": 0.5535714285714286,
+        "fpr_at_prevalence": 0.008837044892188053
+      },
+      "prevalence": 0.009800490024501224,
+      "positives": 56,
+      "train_regime": "memory_first",
+      "test_regime": "compute_first",
+      "horizon": 4,
+      "target": "ram_onset",
+      "within_regime": false
+    },
+    {
+      "cell": "train=memory_first/test=memory_first/h=4/ram_onset",
+      "features": 49,
+      "train_rows": 6621,
+      "test_rows": 5683,
+      "train_rows_finite": 6621,
+      "test_rows_finite": 5683,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5683,
+        "positives": 162,
+        "prevalence": 0.028506070737286643,
+        "ap": 0.06428955993373191,
+        "roc_auc": 0.6294054575012131,
+        "top_decile_recall": 0.2777777777777778,
+        "fpr_at_prevalence": 0.02698786451729759
+      },
+      "prevalence": 0.028506070737286643,
+      "positives": 162,
+      "train_regime": "memory_first",
+      "test_regime": "memory_first",
+      "horizon": 4,
+      "target": "ram_onset",
+      "within_regime": true
+    },
+    {
+      "cell": "train=memory_first/test=io_first/h=4/ram_onset",
+      "features": 49,
+      "train_rows": 6621,
+      "test_rows": 5735,
+      "train_rows_finite": 6621,
+      "test_rows_finite": 5735,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5735,
+        "positives": 51,
+        "prevalence": 0.00889276373147341,
+        "ap": 0.011704914977379102,
+        "roc_auc": 0.5292013357066965,
+        "top_decile_recall": 0.1568627450980392,
+        "fpr_at_prevalence": 0.008972554539057003
+      },
+      "prevalence": 0.00889276373147341,
+      "positives": 51,
+      "train_regime": "memory_first",
+      "test_regime": "io_first",
+      "horizon": 4,
+      "target": "ram_onset",
+      "within_regime": false
+    },
+    {
+      "cell": "train=io_first/test=compute_first/h=1/disk_onset",
+      "features": 49,
+      "train_rows": 6704,
+      "test_rows": 5742,
+      "train_rows_finite": 6704,
+      "test_rows_finite": 5742,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5742,
+        "positives": 9,
+        "prevalence": 0.001567398119122257,
+        "ap": 0.24065138218889773,
+        "roc_auc": 0.9895730371920848,
+        "top_decile_recall": 1.0,
+        "fpr_at_prevalence": 0.0010465724751439038
+      },
+      "prevalence": 0.001567398119122257,
+      "positives": 9,
+      "train_regime": "io_first",
+      "test_regime": "compute_first",
+      "horizon": 1,
+      "target": "disk_onset",
+      "within_regime": false
+    },
+    {
+      "cell": "train=io_first/test=memory_first/h=1/disk_onset",
+      "features": 49,
+      "train_rows": 6704,
+      "test_rows": 5738,
+      "train_rows_finite": 6704,
+      "test_rows_finite": 5738,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5738,
+        "positives": 13,
+        "prevalence": 0.002265597769257581,
+        "ap": 0.030562630654716795,
+        "roc_auc": 0.8716291568693315,
+        "top_decile_recall": 0.7692307692307693,
+        "fpr_at_prevalence": 0.0022707423580786024
+      },
+      "prevalence": 0.002265597769257581,
+      "positives": 13,
+      "train_regime": "io_first",
+      "test_regime": "memory_first",
+      "horizon": 1,
+      "target": "disk_onset",
+      "within_regime": false
+    },
+    {
+      "cell": "train=io_first/test=io_first/h=1/disk_onset",
+      "features": 49,
+      "train_rows": 6704,
+      "test_rows": 5750,
+      "train_rows_finite": 6704,
+      "test_rows_finite": 5750,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5750,
+        "positives": 5,
+        "prevalence": 0.0008695652173913044,
+        "ap": 0.013628657319864531,
+        "roc_auc": 0.9598607484769365,
+        "top_decile_recall": 1.0,
+        "fpr_at_prevalence": 0.0008703220191470844
+      },
+      "prevalence": 0.0008695652173913044,
+      "positives": 5,
+      "train_regime": "io_first",
+      "test_regime": "io_first",
+      "horizon": 1,
+      "target": "disk_onset",
+      "within_regime": true
+    },
+    {
+      "cell": "train=io_first/test=compute_first/h=4/disk_onset",
+      "features": 49,
+      "train_rows": 6704,
+      "test_rows": 5742,
+      "train_rows_finite": 6704,
+      "test_rows_finite": 5742,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5742,
+        "positives": 36,
+        "prevalence": 0.006269592476489028,
+        "ap": 0.06132888487753864,
+        "roc_auc": 0.8576839194609962,
+        "top_decile_recall": 0.6944444444444444,
+        "fpr_at_prevalence": 0.0057833859095688745
+      },
+      "prevalence": 0.006269592476489028,
+      "positives": 36,
+      "train_regime": "io_first",
+      "test_regime": "compute_first",
+      "horizon": 4,
+      "target": "disk_onset",
+      "within_regime": false
+    },
+    {
+      "cell": "train=io_first/test=memory_first/h=4/disk_onset",
+      "features": 49,
+      "train_rows": 6704,
+      "test_rows": 5738,
+      "train_rows_finite": 6704,
+      "test_rows_finite": 5738,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5738,
+        "positives": 52,
+        "prevalence": 0.009062391077030324,
+        "ap": 0.19457380172603805,
+        "roc_auc": 0.9212201358261858,
+        "top_decile_recall": 0.7115384615384616,
+        "fpr_at_prevalence": 0.006683081252198382
+      },
+      "prevalence": 0.009062391077030324,
+      "positives": 52,
+      "train_regime": "io_first",
+      "test_regime": "memory_first",
+      "horizon": 4,
+      "target": "disk_onset",
+      "within_regime": false
+    },
+    {
+      "cell": "train=io_first/test=io_first/h=4/disk_onset",
+      "features": 49,
+      "train_rows": 6704,
+      "test_rows": 5750,
+      "train_rows_finite": 6704,
+      "test_rows_finite": 5750,
+      "dropped_nonfinite_train": 0,
+      "metrics": {
+        "n": 5750,
+        "positives": 20,
+        "prevalence": 0.0034782608695652175,
+        "ap": 0.028517644299483336,
+        "roc_auc": 0.8249476439790576,
+        "top_decile_recall": 0.55,
+        "fpr_at_prevalence": 0.0034904013961605585
+      },
+      "prevalence": 0.0034782608695652175,
+      "positives": 20,
+      "train_regime": "io_first",
+      "test_regime": "io_first",
+      "horizon": 4,
+      "target": "disk_onset",
+      "within_regime": true
+    }
+  ],
+  "horizon_1": {
+    "n_regimes_passing": 2,
+    "regimes_passing": [
+      "compute_first",
+      "memory_first"
+    ]
+  },
+  "horizon_4": {
+    "n_regimes_passing": 1,
+    "regimes_passing": [
+      "compute_first"
+    ]
+  },
+  "specialization_gate": {
+    "registration": {
+      "gate": "plan §13",
+      "rule": "within-regime AP - mean cross-regime AP >= 0.05 for at least 2 of 3 regimes",
+      "primary_horizon": 1
+    },
+    "thresholds": {
+      "min_within_minus_cross_ap": 0.05,
+      "min_regimes_passing": 2
+    },
+    "per_regime": [
+      {
+        "horizon": 1,
+        "regime": "compute_first",
+        "within_ap": 0.3382867027698064,
+        "mean_cross_ap": 0.05202682594190962,
+        "gap": 0.2862598768278968,
+        "passes": true
+      },
+      {
+        "horizon": 1,
+        "regime": "memory_first",
+        "within_ap": 0.08070738013929585,
+        "mean_cross_ap": 0.008146414885888723,
+        "gap": 0.07256096525340712,
+        "passes": true
+      },
+      {
+        "horizon": 1,
+        "regime": "io_first",
+        "within_ap": 0.013628657319864531,
+        "mean_cross_ap": 0.13560700642180726,
+        "gap": -0.12197834910194273,
+        "passes": false
+      },
+      {
+        "horizon": 4,
+        "regime": "compute_first",
+        "within_ap": 0.25861416629807993,
+        "mean_cross_ap": 0.15289199855896785,
+        "gap": 0.10572216773911208,
+        "passes": true
+      },
+      {
+        "horizon": 4,
+        "regime": "memory_first",
+        "within_ap": 0.06428955993373191,
+        "mean_cross_ap": 0.03753402658633928,
+        "gap": 0.026755533347392627,
+        "passes": false
+      },
+      {
+        "horizon": 4,
+        "regime": "io_first",
+        "within_ap": 0.028517644299483336,
+        "mean_cross_ap": 0.12795134330178834,
+        "gap": -0.099433699002305,
+        "passes": false
+      }
+    ],
+    "n_regimes_passing": 2,
+    "passed": true,
+    "verdict": "specialization opportunity present"
+  },
+  "elapsed_seconds": 0.756873,
+  "stop_conditions_hit": []
+}
