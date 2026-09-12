@@ -14,6 +14,34 @@ class Stats():
 		self.workload = WorkloadModel
 		self.datacenter = Datacenter
 		self.scheduler = Scheduler
+		# Per-interval bookkeeping history.  ``None`` (the default) keeps every
+		# interval, exactly as before.  A positive value keeps only the most
+		# recent N intervals, which is all any consumer reads: the recovery
+		# models use ``metrics[-1]`` and the online dataset loader uses
+		# ``hostinfo[r-1]`` for the last window only, while ``time_series`` and
+		# ``schedule_series`` are unaffected and still grow exactly as before.
+		# Protocol-022 problem P22-18: with full history a 3400-interval stream
+		# spent ~1.4 GB on bookkeeping that nothing reads, which alone exceeded
+		# the registered resource guard.
+		self.history_limit = None
+		# Optional bound on the *series* row history.  ``None`` keeps every
+		# interval (previous behaviour).  A positive value retains only the most
+		# recent N rows, which is all the online path reads: the recovery models
+		# slice ``time_series[-LATEST_WINDOW_SIZE:]`` and the online dataset
+		# loader slices ``[-LATEST_WINDOW_SIZE:]`` as well.  Protocol-022 problem
+		# P22-20: after the np.append and bookkeeping fixes the remaining
+		# per-interval growth was exactly this history, which the collector feeds
+		# to a no-op recovery model and never reads again.
+		self.series_tail = None
+
+	def recordHistory(self, name, value):
+		"""Append to a bookkeeping list, honouring ``history_limit``."""
+		series = getattr(self, name)
+		series.append(value)
+		limit = getattr(self, 'history_limit', None)
+		if limit is not None and len(series) > limit:
+			del series[:len(series) - limit]
+		return series
 
 	def setEnvironment(self, env):
 		self.env = env
@@ -60,10 +88,60 @@ class Stats():
 		else:
 			datapoint = np.concatenate([[cpulist[i], ramlist[i], disklist[i]]
 			                            for i in range(len(cpulist))]).reshape(1, -1)
-		self.time_series = np.append(self.time_series, datapoint, axis=0)
-		datapoint = np.array([self.env.scheduler.result_cache])
-		self.schedule_series = np.append(self.schedule_series, datapoint, axis=0)
-		self.hostinfo.append(hostinfo)
+		self.appendSeries('time_series', datapoint)
+		schedule_point = np.array([self.env.scheduler.result_cache])
+		self.appendSeries('schedule_series', schedule_point)
+		self.recordHistory('hostinfo', hostinfo)
+
+	def appendSeries(self, name, datapoint):
+		"""Append one interval to a series with amortised capacity growth.
+
+		The original form was ``series = np.append(series, datapoint, axis=0)``
+		on every interval, which reallocates and copies the whole series each
+		time: for 3400 intervals that is quadratic in time and an unbounded
+		per-step RSS increase, and it aborts the registered 3.0 GiB resource
+		guard on long streams (Protocol-022 problem P22-17).
+
+		The public attribute keeps the EXACT contract consumers rely on
+		(``len(stats.time_series)`` counts appended rows, ``series[-k:]`` is the
+		last k appended rows, ``series[0]`` is the initial zero row): the
+		attribute is a view trimmed to the used length, while the allocation
+		behind it grows geometrically in a private buffer.  Values, order and
+		dtype are unchanged -- only the reserved capacity differs.
+		"""
+		buffer_name = '_buffer_' + name
+		used_name = '_used_' + name
+		buffer = getattr(self, buffer_name, None)
+		if buffer is None:
+			buffer = getattr(self, name)
+			setattr(self, buffer_name, buffer)
+			setattr(self, used_name, buffer.shape[0])
+		used = getattr(self, used_name)
+		rows = datapoint.shape[0]
+		if used + rows > buffer.shape[0]:
+			new_capacity = max(buffer.shape[0] * 2, used + rows, 8)
+			grown = np.zeros((new_capacity,) + buffer.shape[1:], dtype=buffer.dtype)
+			grown[:used] = buffer[:used]
+			buffer = grown
+			setattr(self, buffer_name, buffer)
+		buffer[used:used + rows] = datapoint
+		used += rows
+		setattr(self, used_name, used)
+		tail = getattr(self, 'series_tail', None)
+		if tail is not None and used > tail:
+			# Keep only the most recent ``tail`` rows.  The retained arithmetic
+			# and the exposed contract are unchanged: ``len()`` still reports the
+			# rows kept, and every consumer of the online path reads the tail.
+			kept = buffer[used - tail:used].copy()
+			setattr(self, buffer_name, kept)
+			setattr(self, used_name, kept.shape[0])
+			setattr(self, name, kept)
+			return
+		setattr(self, name, buffer[:used])       # trimmed view: len() is honest
+
+	def seriesLength(self, name):
+		"""Number of appended rows in a series (its historical length)."""
+		return getattr(self, '_used_' + name, getattr(self, name).shape[0])
 
 	def saveWorkloadInfo(self, deployed, migrations):
 		workloadinfo = dict()
@@ -76,7 +154,7 @@ class Stats():
 		workloadinfo['deployed'] = len(deployed)
 		workloadinfo['migrations'] = len(migrations)
 		workloadinfo['inqueue'] = len(self.workload.getUndeployedContainers())
-		self.workloadinfo.append(workloadinfo)
+		self.recordHistory('workloadinfo', workloadinfo)
 
 	def saveContainerInfo(self):
 		containerinfo = dict()
@@ -89,7 +167,7 @@ class Stats():
 		containerinfo['creationids'] = [(c.creationID if c else -1) for c in self.env.containerlist]
 		containerinfo['hostalloc'] = [(c.getHostID() if c else -1) for c in self.env.containerlist]
 		containerinfo['active'] = [(c.active if c else False) for c in self.env.containerlist]
-		self.activecontainerinfo.append(containerinfo)
+		self.recordHistory('activecontainerinfo', containerinfo)
 
 	def saveAllContainerInfo(self):
 		containerinfo = dict()
@@ -106,7 +184,7 @@ class Stats():
 		containerinfo['disk'] = [(c.getDisk() if c.active else 0) for c in allCreatedContainers]
 		containerinfo['hostalloc'] = [(c.getHostID() if c.active else -1) for c in allCreatedContainers]
 		containerinfo['active'] = [(c.active) for c in allCreatedContainers]
-		self.allcontainerinfo.append(containerinfo)
+		self.recordHistory('allcontainerinfo', containerinfo)
 
 	def saveMetrics(self, destroyed, migrations):
 		metrics = dict()
@@ -124,7 +202,7 @@ class Stats():
 		metrics['slaviolationspercentage'] = metrics['slaviolations'] * 100.0 / len(destroyed) if len(destroyed) > 0 else 0
 		metrics['waittime'] = [c.startAt - c.createAt for c in destroyed]
 		# metrics['energytotalinterval_pred'], metrics['avgresponsetime_pred'] = self.runSimulationGOBI()
-		self.metrics.append(metrics)
+		self.recordHistory('metrics', metrics)
 
 	def saveSchedulerInfo(self, selectedcontainers, decision, schedulingtime):
 		schedulerinfo = dict()
@@ -135,7 +213,7 @@ class Stats():
 		schedulerinfo['schedulingtime'] = schedulingtime
 		if self.datacenter.__class__.__name__ == 'Datacenter':
 			schedulerinfo['migrationTime'] = self.env.intervalAllocTimings[-1]
-		self.schedulerinfo.append(schedulerinfo)
+		self.recordHistory('schedulerinfo', schedulerinfo)
 
 	def saveStats(self, deployed, migrations, destroyed, selectedcontainers, decision, schedulingtime):	
 		self.saveHostInfo()
