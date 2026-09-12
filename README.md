@@ -1,6 +1,8 @@
 <h1 align="center">PreGAN+</h1>
 
 > **本地 FT-MoE 实验入口：** [项目最新上下文](PROJECT_CONTEXT_LATEST.md) · [文档索引](docs/README.md)。协议 014 消融已由用户验收并保存为[回档基线](docs/BASELINE_ACCEPTED_20260905.md)，原筛选结果保留。在线阶段已进入协议 020：R0-A 因果基础通过、R0-B 动态部署未通过；R1（冻结基础＋固定在线修正）完成 8×2000 步开发对照，减轻旧 C 漂移退化但尚未稳定超过 A。下一步为[离线覆盖审计与新模式注册](指令/FTMOE_PROTOCOL020_UNSEEN_REGIME_PLAN_20260909.md)，尚未开始；R2–R6 与 S10 未实施。历史在线 015/016 小试未达标（016 冻结 A 后半程 F1=0.143911，B/C/D 未运行），预留测试未使用。
+>
+> **当前最新：协议 023（多机制循环漂移，动态增删专家 vs 固定在线微调）** — 协议 022 第一轮已交付（H0/H1/H2 通过，S5 容量诊断证明单一 regime 下 C 的收益随训练预算继续增长、未建立容量平台，故 D 无科学必要性），第二轮改问"三种异构机制 + 短驻留 + 再现"是否构成真实冲突。协议 023 第一轮只做 S0–S3（**不实现 D**）：三机制生成器、数据门禁与 marginal matching、跨机制专业化探针、梯度冲突与顺序遗忘。状态与证据入口：[协议 023 阶段文档](docs/FTMOE_ONLINE_PROTOCOL_023.md)、[计划](指令/FTMOE_PROTOCOL023_DYNAMIC_EXPERT_PLAN_20260912.md)、机器可读状态 `artifacts/ftmoe_online/protocol_023/gate_status.json`。协议 022 第一轮证据见其 [FINAL_REPORT](artifacts/ftmoe_online/protocol_022/FINAL_REPORT.md)。
 
 <div align="center">
   <a href="https://github.com/imperial-qore/PreGAN/blob/master/LICENSE">
