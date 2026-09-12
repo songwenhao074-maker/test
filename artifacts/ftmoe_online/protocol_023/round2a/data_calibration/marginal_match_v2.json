@@ -1,0 +1,104 @@
+{
+  "kind": "marginal_match_v2",
+  "generated_at": "2026-09-12T16:53:52+00:00",
+  "targets": {
+    "event_count_relative_diff_max": 0.2,
+    "duration_relative_diff_max": 0.25,
+    "median_peak_ratio_relative_diff_max": 0.3,
+    "prevalence_absolute_diff_max": 0.03
+  },
+  "reference_regime": "compute_first",
+  "per_regime": {
+    "compute_first": {
+      "event_count": 342,
+      "prevalence": 0.06803571428571428,
+      "mean_duration": 2.6432748538011697,
+      "peak_ratio": 17.498036193668682,
+      "relative_to_reference": {
+        "event_count_relative_diff": 0.0,
+        "duration_relative_diff": 0.0,
+        "median_peak_ratio_relative_diff": 0.0,
+        "prevalence_absolute_diff": 0.0
+      },
+      "meets_targets": true,
+      "note": "reference arm: frozen, byte-identical to Protocol 022's cascade_v2"
+    },
+    "memory_first": {
+      "event_count": 600,
+      "prevalence": 0.05452380952380952,
+      "mean_duration": 3.5566666666666666,
+      "peak_ratio": 6.333333333333333,
+      "relative_to_reference": {
+        "event_count_relative_diff": 0.7543859649122807,
+        "duration_relative_diff": 0.3455530973451327,
+        "median_peak_ratio_relative_diff": 0.6380546214880431,
+        "prevalence_absolute_diff": 0.01351190476190476
+      },
+      "meets_targets": false
+    },
+    "io_first": {
+      "event_count": 532,
+      "prevalence": 0.06875,
+      "mean_duration": 2.204887218045113,
+      "peak_ratio": 11.97836328363896,
+      "relative_to_reference": {
+        "event_count_relative_diff": 0.5555555555555556,
+        "duration_relative_diff": 0.16585018963337544,
+        "median_peak_ratio_relative_diff": 0.3154452790551952,
+        "prevalence_absolute_diff": 0.0007142857142857229
+      },
+      "meets_targets": false
+    }
+  },
+  "gate": {
+    "reference_regime": "compute_first",
+    "targets": {
+      "event_count_relative_diff_max": 0.2,
+      "duration_relative_diff_max": 0.25,
+      "median_peak_ratio_relative_diff_max": 0.3,
+      "prevalence_absolute_diff_max": 0.03
+    },
+    "per_regime": {
+      "compute_first": {
+        "event_count": 342,
+        "prevalence": 0.06803571428571428,
+        "mean_duration": 2.6432748538011697,
+        "peak_ratio": 17.498036193668682,
+        "relative_to_reference": {
+          "event_count_relative_diff": 0.0,
+          "duration_relative_diff": 0.0,
+          "median_peak_ratio_relative_diff": 0.0,
+          "prevalence_absolute_diff": 0.0
+        },
+        "meets_targets": true,
+        "note": "reference arm: frozen, byte-identical to Protocol 022's cascade_v2"
+      },
+      "memory_first": {
+        "event_count": 600,
+        "prevalence": 0.05452380952380952,
+        "mean_duration": 3.5566666666666666,
+        "peak_ratio": 6.333333333333333,
+        "relative_to_reference": {
+          "event_count_relative_diff": 0.7543859649122807,
+          "duration_relative_diff": 0.3455530973451327,
+          "median_peak_ratio_relative_diff": 0.6380546214880431,
+          "prevalence_absolute_diff": 0.01351190476190476
+        },
+        "meets_targets": false
+      },
+      "io_first": {
+        "event_count": 532,
+        "prevalence": 0.06875,
+        "mean_duration": 2.204887218045113,
+        "peak_ratio": 11.97836328363896,
+        "relative_to_reference": {
+          "event_count_relative_diff": 0.5555555555555556,
+          "duration_relative_diff": 0.16585018963337544,
+          "median_peak_ratio_relative_diff": 0.3154452790551952,
+          "prevalence_absolute_diff": 0.0007142857142857229
+        },
+        "meets_targets": false
+      }
+    }
+  }
+}

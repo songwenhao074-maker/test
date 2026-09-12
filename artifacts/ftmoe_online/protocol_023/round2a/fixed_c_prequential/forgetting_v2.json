@@ -1,0 +1,203 @@
+{
+  "kind": "round2a_h4_v2_forgetting",
+  "protocol": "023",
+  "round": "2A",
+  "thresholds": {
+    "learn_gain_min": 0.03,
+    "learn_regimes_min": 2,
+    "forgetting_drop_min": 0.03,
+    "forgetting_transitions_min": 1,
+    "forgetting_transitions_ideal": 2,
+    "relearning_gap_min": 0.03,
+    "relearning_transitions_min": 1,
+    "relearning_transitions_ideal": 2,
+    "gradient_mean_cosine_max": -0.05,
+    "gradient_negative_fraction_min": 0.3,
+    "min_events_per_regime": 30,
+    "recommended_events_per_regime": 64
+  },
+  "step_1_learning": {
+    "rule": "late-phase PR-AUC(C) >= A + 0.03 in >= 2 of 3 first-exposure regimes",
+    "per_regime": [
+      {
+        "regime": "compute_first",
+        "phase": "A1_compute",
+        "primary_reading": "late_100",
+        "pr_auc_c": 0.4110735372274651,
+        "pr_auc_a": 0.40615510299679497,
+        "gain_vs_a": 0.004918434230670121,
+        "meets_gain": false,
+        "readings": {
+          "late_100": {
+            "pr_auc_c": 0.4110735372274651,
+            "pr_auc_a": 0.40615510299679497,
+            "gain_vs_a": 0.004918434230670121,
+            "meets_gain": false,
+            "window": [
+              620,
+              720
+            ]
+          },
+          "whole_phase": {
+            "pr_auc_c": 0.4244135141919106,
+            "pr_auc_a": 0.42008002778709574,
+            "gain_vs_a": 0.004333486404814846,
+            "meets_gain": false,
+            "window": [
+              300,
+              720
+            ]
+          }
+        }
+      },
+      {
+        "regime": "memory_first",
+        "phase": "B1_memory",
+        "primary_reading": "late_100",
+        "pr_auc_c": 0.5682995390550101,
+        "pr_auc_a": 0.5662817360723565,
+        "gain_vs_a": 0.002017802982653527,
+        "meets_gain": false,
+        "readings": {
+          "late_100": {
+            "pr_auc_c": 0.5682995390550101,
+            "pr_auc_a": 0.5662817360723565,
+            "gain_vs_a": 0.002017802982653527,
+            "meets_gain": false,
+            "window": [
+              1040,
+              1140
+            ]
+          },
+          "whole_phase": {
+            "pr_auc_c": 0.4780079715709801,
+            "pr_auc_a": 0.4751831918540081,
+            "gain_vs_a": 0.0028247797169719813,
+            "meets_gain": false,
+            "window": [
+              720,
+              1140
+            ]
+          }
+        }
+      },
+      {
+        "regime": "io_first",
+        "phase": "C1_io",
+        "primary_reading": "late_100",
+        "pr_auc_c": 0.5946058760196611,
+        "pr_auc_a": 0.5742608844208409,
+        "gain_vs_a": 0.020344991598820195,
+        "meets_gain": false,
+        "readings": {
+          "late_100": {
+            "pr_auc_c": 0.5946058760196611,
+            "pr_auc_a": 0.5742608844208409,
+            "gain_vs_a": 0.020344991598820195,
+            "meets_gain": false,
+            "window": [
+              1460,
+              1560
+            ]
+          },
+          "whole_phase": {
+            "pr_auc_c": 0.5527113967860077,
+            "pr_auc_a": 0.5432593700113236,
+            "gain_vs_a": 0.009452026774684041,
+            "meets_gain": false,
+            "window": [
+              1140,
+              1560
+            ]
+          }
+        }
+      }
+    ],
+    "n_meeting": 0,
+    "learned": false
+  },
+  "step_2_forgetting": {
+    "rule": "previous-regime probe PR-AUC drop >= 0.03 in >= 1 transition(s); 2 is better",
+    "transitions": [
+      {
+        "from_phase": "A1_compute",
+        "to_phase": "B1_memory",
+        "previous_regime": "compute_first",
+        "current_regime": "memory_first",
+        "checkpoint_from": "after_A1",
+        "checkpoint_to": "after_B1",
+        "previous_probe_pr_auc_before": 0.42306424836603607,
+        "previous_probe_pr_auc_after": 0.41580747633000725,
+        "drop": 0.0072567720360288135,
+        "drop_arm_a": 0.0,
+        "excess_drop_over_a": 0.0072567720360288135,
+        "meets_drop": false
+      },
+      {
+        "from_phase": "B1_memory",
+        "to_phase": "C1_io",
+        "previous_regime": "memory_first",
+        "current_regime": "io_first",
+        "checkpoint_from": "after_B1",
+        "checkpoint_to": "after_C1",
+        "previous_probe_pr_auc_before": 0.5028823541317513,
+        "previous_probe_pr_auc_after": 0.4878901258776848,
+        "drop": 0.014992228254066486,
+        "drop_arm_a": 0.0,
+        "excess_drop_over_a": 0.014992228254066486,
+        "meets_drop": false
+      },
+      {
+        "from_phase": "C1_io",
+        "to_phase": "A2_recur",
+        "previous_regime": "io_first",
+        "current_regime": "compute_first",
+        "checkpoint_from": "after_C1",
+        "checkpoint_to": "after_A2",
+        "previous_probe_pr_auc_before": 0.5125186957684207,
+        "previous_probe_pr_auc_after": 0.5623401227840794,
+        "drop": -0.049821427015658726,
+        "drop_arm_a": 0.0,
+        "excess_drop_over_a": -0.049821427015658726,
+        "meets_drop": false
+      },
+      {
+        "from_phase": "A2_recur",
+        "to_phase": "C2_recur",
+        "previous_regime": "compute_first",
+        "current_regime": "io_first",
+        "checkpoint_from": "after_A2",
+        "checkpoint_to": "after_C2",
+        "previous_probe_pr_auc_before": 0.5114015340202442,
+        "previous_probe_pr_auc_after": 0.582397449242812,
+        "drop": -0.07099591522256776,
+        "drop_arm_a": 0.0,
+        "excess_drop_over_a": -0.07099591522256776,
+        "meets_drop": false
+      },
+      {
+        "from_phase": "C2_recur",
+        "to_phase": "B2_recur",
+        "previous_regime": "io_first",
+        "current_regime": "memory_first",
+        "checkpoint_from": "after_C2",
+        "checkpoint_to": "after_B2",
+        "previous_probe_pr_auc_before": 0.6331489492931858,
+        "previous_probe_pr_auc_after": 0.6619949012895646,
+        "drop": -0.02884595199637885,
+        "drop_arm_a": 0.0,
+        "excess_drop_over_a": -0.02884595199637885,
+        "meets_drop": false
+      }
+    ],
+    "n_meeting": 0,
+    "forgets": null,
+    "diagnostic_n_meeting": 0,
+    "evaluated_only_because_step_1_held": false,
+    "note": "directive §14 evaluates forgetting only after C has been shown to learn the current regime; with step 1 failing the verdict is null, and the transition drops are still reported as diagnostics"
+  },
+  "stability_plasticity_conflict": false,
+  "verdict": "STOP-NO-LEARN: C does not beat A by the registered margin in any first-exposure regime, so fixed C cannot be said to learn the new regime; forgetting is therefore not evaluated",
+  "stop_condition": "STOP-NO-LEARN",
+  "note": "a conflict requires learning AND forgetting; forgetting without learning is STOP-NO-LEARN, not a conflict"
+}

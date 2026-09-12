@@ -1,0 +1,393 @@
+{
+  "kind": "round2a_mature_gradient_summary",
+  "protocol": "023",
+  "round": "2A",
+  "thresholds": {
+    "learn_gain_min": 0.03,
+    "learn_regimes_min": 2,
+    "forgetting_drop_min": 0.03,
+    "forgetting_transitions_min": 1,
+    "forgetting_transitions_ideal": 2,
+    "relearning_gap_min": 0.03,
+    "relearning_transitions_min": 1,
+    "relearning_transitions_ideal": 2,
+    "gradient_mean_cosine_max": -0.05,
+    "gradient_negative_fraction_min": 0.3,
+    "min_events_per_regime": 30,
+    "recommended_events_per_regime": 64
+  },
+  "rows": [
+    {
+      "checkpoint": "after_A1",
+      "file": "after_A1.json",
+      "learner": {
+        "initialization": "loaded from --learner-state",
+        "loaded_state": {
+          "path": "artifacts\\ftmoe_online\\protocol_023\\round2a\\checkpoints\\C_after_A1.pt",
+          "sha256": "e58872e470dd83a0b3b787735140c540076079266a43f35cdfc82470dc1e4b08",
+          "is_registered_start_state": false,
+          "n_tensors": 26,
+          "learner_sha256": "25678ef978b0e172f3752f6e9cc516f4bbd3ea987104b6a65b027b5e79201cdc"
+        },
+        "n_online_trainable_tensors": 26,
+        "n_online_trainable_parameters": 9752,
+        "n_frozen_tensors": 233,
+        "n_frozen_parameters": 272042,
+        "n_model_parameters": 281794,
+        "banks": {
+          "learner": {
+            "n_tensors": 26,
+            "n_trainable_tensors": 26
+          },
+          "live": {
+            "n_tensors": 26,
+            "n_trainable_tensors": 0
+          },
+          "assessment": {
+            "n_tensors": 26,
+            "n_trainable_tensors": 0
+          },
+          "previous": {
+            "n_tensors": 26,
+            "n_trainable_tensors": 0
+          }
+        },
+        "unexpected_trainable": [],
+        "trainable_names": [
+          "learner.router.weight",
+          "learner.router.bias",
+          "learner.experts.0.0.weight",
+          "learner.experts.0.0.bias",
+          "learner.experts.0.1.weight",
+          "learner.experts.0.1.bias",
+          "learner.experts.0.3.weight",
+          "learner.experts.0.3.bias",
+          "learner.experts.1.0.weight",
+          "learner.experts.1.0.bias",
+          "learner.experts.1.1.weight",
+          "learner.experts.1.1.bias",
+          "learner.experts.1.3.weight",
+          "learner.experts.1.3.bias",
+          "learner.experts.2.0.weight",
+          "learner.experts.2.0.bias",
+          "learner.experts.2.1.weight",
+          "learner.experts.2.1.bias",
+          "learner.experts.2.3.weight",
+          "learner.experts.2.3.bias",
+          "learner.experts.3.0.weight",
+          "learner.experts.3.0.bias",
+          "learner.experts.3.1.weight",
+          "learner.experts.3.1.bias",
+          "learner.experts.3.3.weight",
+          "learner.experts.3.3.bias"
+        ],
+        "trainable_rule": "requires_grad (name.startswith('learner.'))",
+        "model_training_flag": false,
+        "train_mode_call": "the probe calls FrozenResidualFTMoE.train() before measuring; R1's override forwards to nn.Module.train(False) and re-forces every base module into eval (ftmoe_online_r1.py:175-181), so model.training stays False by the model's own contract.  The residual has no dropout or batch norm, so the forward pass is identical either way and the override is the registered online configuration",
+        "grad_enabled": true,
+        "forward_determinism": "every module runs the deterministic eval path; gradient computation cannot change the forward pass"
+      },
+      "learner_state": {
+        "path": "artifacts\\ftmoe_online\\protocol_023\\round2a\\checkpoints\\C_after_A1.pt",
+        "sha256": "e58872e470dd83a0b3b787735140c540076079266a43f35cdfc82470dc1e4b08",
+        "is_registered_start_state": false,
+        "n_tensors": 26,
+        "learner_sha256": "25678ef978b0e172f3752f6e9cc516f4bbd3ea987104b6a65b027b5e79201cdc"
+      },
+      "admissibility": {
+        "scientifically_admissible": true,
+        "learner_state_kind": "mature_learner",
+        "degenerate_groups": [],
+        "n_degenerate_hidden_layers": 0,
+        "rule": "H3 may only be read as evidence about the fixed online learner when the residual bank is mature: every parameter group the registration names must carry a defined gradient. At the registered start state the read-out block is zeroed by construction, so the hidden-layer and router numbers describe an untrained bank.",
+        "what_would_make_it_admissible": "run the registered gate on a mature fixed-C learner state via --learner-state <checkpoint holding learner.* tensors>; no such checkpoint exists in this round because D was out of scope and no fixed-C online run was performed"
+      },
+      "verdict": "STOP-GI",
+      "verdict_text": "STOP-GI: the three regime gradients are co-directional, so there is no continual-learning conflict for a dynamic expert to resolve; do not implement D (plan §14 / protocol.json stop_table)",
+      "conflict_present": false,
+      "conflict_present_any_group": false,
+      "mean_cosine": {
+        "compute_first|io_first": 0.7101468542163225,
+        "compute_first|memory_first": 0.9013987443505344,
+        "memory_first|io_first": 0.8999706516696169
+      },
+      "negative_fraction": {
+        "compute_first|io_first": 0.024169921875,
+        "compute_first|memory_first": 0.019775390625,
+        "memory_first|io_first": 0.02490234375
+      },
+      "n_pairs": {
+        "compute_first|memory_first": 4096,
+        "compute_first|io_first": 4096,
+        "memory_first|io_first": 4096
+      },
+      "n_pairs_defined": {
+        "compute_first|memory_first": 4096,
+        "compute_first|io_first": 4096,
+        "memory_first|io_first": 4096
+      },
+      "undefined_pairs": [],
+      "groups_with_conflict": [],
+      "registered_gate_at_this_state": null,
+      "n_events_per_regime": {
+        "compute_first": 64,
+        "memory_first": 64,
+        "io_first": 64
+      },
+      "degenerate_groups": [],
+      "parameter_integrity_unchanged": true
+    },
+    {
+      "checkpoint": "after_B1",
+      "file": "after_B1.json",
+      "learner": {
+        "initialization": "loaded from --learner-state",
+        "loaded_state": {
+          "path": "artifacts\\ftmoe_online\\protocol_023\\round2a\\checkpoints\\C_after_B1.pt",
+          "sha256": "118d0d92615b6d98a269973abec43e201977667b0ddf33c1a28b513553e4692b",
+          "is_registered_start_state": false,
+          "n_tensors": 26,
+          "learner_sha256": "9f9d458f6275dab4ada099668f1766166f842d2d9ad2baaf75084522c2690dc2"
+        },
+        "n_online_trainable_tensors": 26,
+        "n_online_trainable_parameters": 9752,
+        "n_frozen_tensors": 233,
+        "n_frozen_parameters": 272042,
+        "n_model_parameters": 281794,
+        "banks": {
+          "learner": {
+            "n_tensors": 26,
+            "n_trainable_tensors": 26
+          },
+          "live": {
+            "n_tensors": 26,
+            "n_trainable_tensors": 0
+          },
+          "assessment": {
+            "n_tensors": 26,
+            "n_trainable_tensors": 0
+          },
+          "previous": {
+            "n_tensors": 26,
+            "n_trainable_tensors": 0
+          }
+        },
+        "unexpected_trainable": [],
+        "trainable_names": [
+          "learner.router.weight",
+          "learner.router.bias",
+          "learner.experts.0.0.weight",
+          "learner.experts.0.0.bias",
+          "learner.experts.0.1.weight",
+          "learner.experts.0.1.bias",
+          "learner.experts.0.3.weight",
+          "learner.experts.0.3.bias",
+          "learner.experts.1.0.weight",
+          "learner.experts.1.0.bias",
+          "learner.experts.1.1.weight",
+          "learner.experts.1.1.bias",
+          "learner.experts.1.3.weight",
+          "learner.experts.1.3.bias",
+          "learner.experts.2.0.weight",
+          "learner.experts.2.0.bias",
+          "learner.experts.2.1.weight",
+          "learner.experts.2.1.bias",
+          "learner.experts.2.3.weight",
+          "learner.experts.2.3.bias",
+          "learner.experts.3.0.weight",
+          "learner.experts.3.0.bias",
+          "learner.experts.3.1.weight",
+          "learner.experts.3.1.bias",
+          "learner.experts.3.3.weight",
+          "learner.experts.3.3.bias"
+        ],
+        "trainable_rule": "requires_grad (name.startswith('learner.'))",
+        "model_training_flag": false,
+        "train_mode_call": "the probe calls FrozenResidualFTMoE.train() before measuring; R1's override forwards to nn.Module.train(False) and re-forces every base module into eval (ftmoe_online_r1.py:175-181), so model.training stays False by the model's own contract.  The residual has no dropout or batch norm, so the forward pass is identical either way and the override is the registered online configuration",
+        "grad_enabled": true,
+        "forward_determinism": "every module runs the deterministic eval path; gradient computation cannot change the forward pass"
+      },
+      "learner_state": {
+        "path": "artifacts\\ftmoe_online\\protocol_023\\round2a\\checkpoints\\C_after_B1.pt",
+        "sha256": "118d0d92615b6d98a269973abec43e201977667b0ddf33c1a28b513553e4692b",
+        "is_registered_start_state": false,
+        "n_tensors": 26,
+        "learner_sha256": "9f9d458f6275dab4ada099668f1766166f842d2d9ad2baaf75084522c2690dc2"
+      },
+      "admissibility": {
+        "scientifically_admissible": true,
+        "learner_state_kind": "mature_learner",
+        "degenerate_groups": [],
+        "n_degenerate_hidden_layers": 0,
+        "rule": "H3 may only be read as evidence about the fixed online learner when the residual bank is mature: every parameter group the registration names must carry a defined gradient. At the registered start state the read-out block is zeroed by construction, so the hidden-layer and router numbers describe an untrained bank.",
+        "what_would_make_it_admissible": "run the registered gate on a mature fixed-C learner state via --learner-state <checkpoint holding learner.* tensors>; no such checkpoint exists in this round because D was out of scope and no fixed-C online run was performed"
+      },
+      "verdict": "STOP-GI",
+      "verdict_text": "STOP-GI: the three regime gradients are co-directional, so there is no continual-learning conflict for a dynamic expert to resolve; do not implement D (plan §14 / protocol.json stop_table)",
+      "conflict_present": false,
+      "conflict_present_any_group": false,
+      "mean_cosine": {
+        "compute_first|io_first": 0.8255952698499319,
+        "compute_first|memory_first": 0.9459611908150644,
+        "memory_first|io_first": 0.9127064291838175
+      },
+      "negative_fraction": {
+        "compute_first|io_first": 0.049072265625,
+        "compute_first|memory_first": 0.042724609375,
+        "memory_first|io_first": 0.043212890625
+      },
+      "n_pairs": {
+        "compute_first|memory_first": 4096,
+        "compute_first|io_first": 4096,
+        "memory_first|io_first": 4096
+      },
+      "n_pairs_defined": {
+        "compute_first|memory_first": 4096,
+        "compute_first|io_first": 4096,
+        "memory_first|io_first": 4096
+      },
+      "undefined_pairs": [],
+      "groups_with_conflict": [],
+      "registered_gate_at_this_state": null,
+      "n_events_per_regime": {
+        "compute_first": 64,
+        "memory_first": 64,
+        "io_first": 64
+      },
+      "degenerate_groups": [],
+      "parameter_integrity_unchanged": true
+    },
+    {
+      "checkpoint": "after_C1",
+      "file": "after_C1.json",
+      "learner": {
+        "initialization": "loaded from --learner-state",
+        "loaded_state": {
+          "path": "artifacts\\ftmoe_online\\protocol_023\\round2a\\checkpoints\\C_after_C1.pt",
+          "sha256": "40085f10b04bf70339a1f35d731ed7944ac9e6ea7b6fca21c44f2b61f4ec4866",
+          "is_registered_start_state": false,
+          "n_tensors": 26,
+          "learner_sha256": "d141f684b2bf1cde017f12920b8634ec1b44765d9c70b56019cd7933f95fd74f"
+        },
+        "n_online_trainable_tensors": 26,
+        "n_online_trainable_parameters": 9752,
+        "n_frozen_tensors": 233,
+        "n_frozen_parameters": 272042,
+        "n_model_parameters": 281794,
+        "banks": {
+          "learner": {
+            "n_tensors": 26,
+            "n_trainable_tensors": 26
+          },
+          "live": {
+            "n_tensors": 26,
+            "n_trainable_tensors": 0
+          },
+          "assessment": {
+            "n_tensors": 26,
+            "n_trainable_tensors": 0
+          },
+          "previous": {
+            "n_tensors": 26,
+            "n_trainable_tensors": 0
+          }
+        },
+        "unexpected_trainable": [],
+        "trainable_names": [
+          "learner.router.weight",
+          "learner.router.bias",
+          "learner.experts.0.0.weight",
+          "learner.experts.0.0.bias",
+          "learner.experts.0.1.weight",
+          "learner.experts.0.1.bias",
+          "learner.experts.0.3.weight",
+          "learner.experts.0.3.bias",
+          "learner.experts.1.0.weight",
+          "learner.experts.1.0.bias",
+          "learner.experts.1.1.weight",
+          "learner.experts.1.1.bias",
+          "learner.experts.1.3.weight",
+          "learner.experts.1.3.bias",
+          "learner.experts.2.0.weight",
+          "learner.experts.2.0.bias",
+          "learner.experts.2.1.weight",
+          "learner.experts.2.1.bias",
+          "learner.experts.2.3.weight",
+          "learner.experts.2.3.bias",
+          "learner.experts.3.0.weight",
+          "learner.experts.3.0.bias",
+          "learner.experts.3.1.weight",
+          "learner.experts.3.1.bias",
+          "learner.experts.3.3.weight",
+          "learner.experts.3.3.bias"
+        ],
+        "trainable_rule": "requires_grad (name.startswith('learner.'))",
+        "model_training_flag": false,
+        "train_mode_call": "the probe calls FrozenResidualFTMoE.train() before measuring; R1's override forwards to nn.Module.train(False) and re-forces every base module into eval (ftmoe_online_r1.py:175-181), so model.training stays False by the model's own contract.  The residual has no dropout or batch norm, so the forward pass is identical either way and the override is the registered online configuration",
+        "grad_enabled": true,
+        "forward_determinism": "every module runs the deterministic eval path; gradient computation cannot change the forward pass"
+      },
+      "learner_state": {
+        "path": "artifacts\\ftmoe_online\\protocol_023\\round2a\\checkpoints\\C_after_C1.pt",
+        "sha256": "40085f10b04bf70339a1f35d731ed7944ac9e6ea7b6fca21c44f2b61f4ec4866",
+        "is_registered_start_state": false,
+        "n_tensors": 26,
+        "learner_sha256": "d141f684b2bf1cde017f12920b8634ec1b44765d9c70b56019cd7933f95fd74f"
+      },
+      "admissibility": {
+        "scientifically_admissible": true,
+        "learner_state_kind": "mature_learner",
+        "degenerate_groups": [],
+        "n_degenerate_hidden_layers": 0,
+        "rule": "H3 may only be read as evidence about the fixed online learner when the residual bank is mature: every parameter group the registration names must carry a defined gradient. At the registered start state the read-out block is zeroed by construction, so the hidden-layer and router numbers describe an untrained bank.",
+        "what_would_make_it_admissible": "run the registered gate on a mature fixed-C learner state via --learner-state <checkpoint holding learner.* tensors>; no such checkpoint exists in this round because D was out of scope and no fixed-C online run was performed"
+      },
+      "verdict": "STOP-GI",
+      "verdict_text": "STOP-GI: the three regime gradients are co-directional, so there is no continual-learning conflict for a dynamic expert to resolve; do not implement D (plan §14 / protocol.json stop_table)",
+      "conflict_present": false,
+      "conflict_present_any_group": false,
+      "mean_cosine": {
+        "compute_first|io_first": 0.7701977606574246,
+        "compute_first|memory_first": 0.945415315031149,
+        "memory_first|io_first": 0.8561360746286507
+      },
+      "negative_fraction": {
+        "compute_first|io_first": 0.068115234375,
+        "compute_first|memory_first": 0.0732421875,
+        "memory_first|io_first": 0.094482421875
+      },
+      "n_pairs": {
+        "compute_first|memory_first": 4096,
+        "compute_first|io_first": 4096,
+        "memory_first|io_first": 4096
+      },
+      "n_pairs_defined": {
+        "compute_first|memory_first": 4096,
+        "compute_first|io_first": 4096,
+        "memory_first|io_first": 4096
+      },
+      "undefined_pairs": [],
+      "groups_with_conflict": [],
+      "registered_gate_at_this_state": null,
+      "n_events_per_regime": {
+        "compute_first": 64,
+        "memory_first": 64,
+        "io_first": 64
+      },
+      "degenerate_groups": [],
+      "parameter_integrity_unchanged": true
+    }
+  ],
+  "n_checkpoints": 3,
+  "n_checkpoints_with_conflict": 0,
+  "n_admissible_checkpoints": 3,
+  "admissible_checkpoints": [
+    "after_A1",
+    "after_B1",
+    "after_C1"
+  ],
+  "passed": false,
+  "verdict": "no mature gradient conflict at any tested checkpoint",
+  "stop_condition": "STOP-GI",
+  "note": "the registered rule is unchanged from round 1: at least one regime pair with mean cosine <= -0.05 OR negative-pair fraction >= 0.30; a checkpoint whose groups are still degenerate is reported INADMISSIBLE and cannot carry the verdict (directive §16)"
+}

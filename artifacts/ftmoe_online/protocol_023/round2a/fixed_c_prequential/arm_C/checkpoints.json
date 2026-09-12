@@ -1,0 +1,100 @@
+{
+  "protocol": "023",
+  "round": "2A",
+  "arm": "C",
+  "checkpoints": {
+    "A1_compute": {
+      "file": "C_after_A1.pt",
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/checkpoints/C_after_A1.pt",
+      "sha256": "e58872e470dd83a0b3b787735140c540076079266a43f35cdfc82470dc1e4b08",
+      "base_hash": "62eaa0e9fa58bc32439c00106beb5f206bf778ff9676b0932338e185b4be0c4b",
+      "learner_hash": "ac1a0aecb44477575bd12de8a701c9579d45afed54d6befa6e4a6c7cb2696e26",
+      "optimizer_hash": "cfe82816d976a4e164bae1e3404ecc53010fab8f174a63932b079e40765f568b",
+      "replay_hash": "37cb22d1799103410b42015bedf558300e7337292ffc9616b040092498f42140",
+      "update_count": 180,
+      "phase": "A1_compute",
+      "time_index": 720
+    },
+    "B1_memory": {
+      "file": "C_after_B1.pt",
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/checkpoints/C_after_B1.pt",
+      "sha256": "118d0d92615b6d98a269973abec43e201977667b0ddf33c1a28b513553e4692b",
+      "base_hash": "62eaa0e9fa58bc32439c00106beb5f206bf778ff9676b0932338e185b4be0c4b",
+      "learner_hash": "dc603f3e04b7e2b3562fbb5998c88f5ad5476f3b86841697d09417ddda27617e",
+      "optimizer_hash": "cfe82816d976a4e164bae1e3404ecc53010fab8f174a63932b079e40765f568b",
+      "replay_hash": "3dc565cf5181039e4621169564555dee25143be01cb8bb1bf531d9c8af25ddc3",
+      "update_count": 285,
+      "phase": "B1_memory",
+      "time_index": 1140
+    },
+    "C1_io": {
+      "file": "C_after_C1.pt",
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/checkpoints/C_after_C1.pt",
+      "sha256": "40085f10b04bf70339a1f35d731ed7944ac9e6ea7b6fca21c44f2b61f4ec4866",
+      "base_hash": "62eaa0e9fa58bc32439c00106beb5f206bf778ff9676b0932338e185b4be0c4b",
+      "learner_hash": "1bb54fa0e978beaba6f01f1614d78767ef6b90299d756742da90beabee8b4faa",
+      "optimizer_hash": "cfe82816d976a4e164bae1e3404ecc53010fab8f174a63932b079e40765f568b",
+      "replay_hash": "540cf350a039cd00bc04feb7418cf5105b68e26fc07cbcb7cbb1c9e4a563e947",
+      "update_count": 390,
+      "phase": "C1_io",
+      "time_index": 1560
+    },
+    "F1_baseline": {
+      "file": "C_after_F1.pt",
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/checkpoints/C_after_F1.pt",
+      "sha256": "76087d3191854a0bcf128501ed11b2527a27172cec5199d0d432cdaa78226cd2",
+      "base_hash": "62eaa0e9fa58bc32439c00106beb5f206bf778ff9676b0932338e185b4be0c4b",
+      "learner_hash": "caad0aaf274db8420cbdc7014b54d2f3cbf824d643201291f3de4b643783e1da",
+      "optimizer_hash": "cfe82816d976a4e164bae1e3404ecc53010fab8f174a63932b079e40765f568b",
+      "replay_hash": "87dff04ec9755c9afeb46b8033ce5c22807a9f142566831a5b4032b48fb06cf9",
+      "update_count": 450,
+      "phase": "F1_baseline",
+      "time_index": 1800
+    },
+    "A2_recur": {
+      "file": "C_after_A2.pt",
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/checkpoints/C_after_A2.pt",
+      "sha256": "9f9e8c36de1d6396e9c788086be0c918beafda01e07aa408a3c86370831f96f6",
+      "base_hash": "62eaa0e9fa58bc32439c00106beb5f206bf778ff9676b0932338e185b4be0c4b",
+      "learner_hash": "b86e9825e0b7169b4004f9bb73f3c33b31c28cc5edb7d4eacddbd6883d025d8e",
+      "optimizer_hash": "cfe82816d976a4e164bae1e3404ecc53010fab8f174a63932b079e40765f568b",
+      "replay_hash": "a3c60364e091ab1703a1449b43a678f147eb8797fd38526499746abf0cde648a",
+      "update_count": 540,
+      "phase": "A2_recur",
+      "time_index": 2160
+    },
+    "C2_recur": {
+      "file": "C_after_C2.pt",
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/checkpoints/C_after_C2.pt",
+      "sha256": "04d0c887e4a7115052b2f0a4b8200ce0efdee34daddd26c52a5fce2171332835",
+      "base_hash": "62eaa0e9fa58bc32439c00106beb5f206bf778ff9676b0932338e185b4be0c4b",
+      "learner_hash": "b17585bba297ad47d09657922907d587d905ebdc033455acc3c34aa793ed3c36",
+      "optimizer_hash": "cfe82816d976a4e164bae1e3404ecc53010fab8f174a63932b079e40765f568b",
+      "replay_hash": "b49f0ec3283e527d2f737c7ca5da265823f6c4c6f125e4e3df866c04ee60c607",
+      "update_count": 630,
+      "phase": "C2_recur",
+      "time_index": 2520
+    },
+    "B2_recur": {
+      "file": "C_after_B2.pt",
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/checkpoints/C_after_B2.pt",
+      "sha256": "7894cf770cbae5f13aa75ef403148f71dd9ba06f8a505679fc1feeb32c5f64fc",
+      "base_hash": "62eaa0e9fa58bc32439c00106beb5f206bf778ff9676b0932338e185b4be0c4b",
+      "learner_hash": "768dd3fa128d185d40d2af0d87f53335c1566497a6db00da9105a25dc82c8e12",
+      "optimizer_hash": "cfe82816d976a4e164bae1e3404ecc53010fab8f174a63932b079e40765f568b",
+      "replay_hash": "4ba1568446aaca469bd10e021e6c2edc109ce135644e56cb0b794f3746950053",
+      "update_count": 720,
+      "phase": "B2_recur",
+      "time_index": 2880
+    }
+  },
+  "required": [
+    "C_after_A1.pt",
+    "C_after_B1.pt",
+    "C_after_C1.pt",
+    "C_after_F1.pt",
+    "C_after_A2.pt",
+    "C_after_C2.pt",
+    "C_after_B2.pt"
+  ]
+}

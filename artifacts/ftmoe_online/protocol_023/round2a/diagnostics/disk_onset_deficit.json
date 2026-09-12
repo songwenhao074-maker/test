@@ -1,0 +1,146 @@
+{
+  "A": {
+    "stream": "single_compute_first_seed700_steps1200",
+    "window": [
+      150,
+      1200
+    ],
+    "host_cells": 16800,
+    "overload_cells": 1143,
+    "per_resource": {
+      "cpu": {
+        "cells_over_capacity": 948,
+        "cells_over_and_argmax": 947,
+        "label_cells": 947,
+        "ratio_max": 2.1841648051625713,
+        "ratio_p99": 1.5537354182179202,
+        "ratio_p999": 1.7522958550508811,
+        "margin_when_over_max": 1.1841648051625713,
+        "argmax_cells": 14629,
+        "argmax_ratio_median": 0.0,
+        "argmax_ratio_p90": 0.9233060312732688
+      },
+      "ram": {
+        "cells_over_capacity": 150,
+        "cells_over_and_argmax": 144,
+        "label_cells": 144,
+        "ratio_max": 1.7229336437718277,
+        "ratio_p99": 0.920763180704168,
+        "ratio_p999": 1.3969732246798603,
+        "margin_when_over_max": 0.7229336437718277,
+        "argmax_cells": 763,
+        "argmax_ratio_median": 0.54931640625,
+        "argmax_ratio_p90": 1.0480811858750485
+      },
+      "disk": {
+        "cells_over_capacity": 58,
+        "cells_over_and_argmax": 52,
+        "label_cells": 52,
+        "ratio_max": 1.5867102667052997,
+        "ratio_p99": 0.8240162013083075,
+        "ratio_p999": 1.1037984464036867,
+        "margin_when_over_max": 0.5867102667052997,
+        "argmax_cells": 1408,
+        "argmax_ratio_median": 0.13797480580046084,
+        "argmax_ratio_p90": 0.7933551333526498
+      }
+    },
+    "argmax_without_overload": 15657
+  },
+  "B": {
+    "stream": "single_memory_first_seed700_steps1200",
+    "window": [
+      150,
+      1200
+    ],
+    "host_cells": 16800,
+    "overload_cells": 513,
+    "per_resource": {
+      "cpu": {
+        "cells_over_capacity": 242,
+        "cells_over_and_argmax": 241,
+        "label_cells": 241,
+        "ratio_max": 2.5812856788284932,
+        "ratio_p99": 1.2906428394142466,
+        "ratio_p999": 1.7522958550508811,
+        "margin_when_over_max": 1.5812856788284932,
+        "argmax_cells": 14406,
+        "argmax_ratio_median": 0.0,
+        "argmax_ratio_p90": 0.5021540940726911
+      },
+      "ram": {
+        "cells_over_capacity": 234,
+        "cells_over_and_argmax": 234,
+        "label_cells": 234,
+        "ratio_max": 2.0954598370197903,
+        "ratio_p99": 1.0477299185098952,
+        "ratio_p999": 1.3969732246798603,
+        "margin_when_over_max": 1.0954598370197903,
+        "argmax_cells": 913,
+        "argmax_ratio_median": 0.54931640625,
+        "argmax_ratio_p90": 1.0477299185098952
+      },
+      "disk": {
+        "cells_over_capacity": 39,
+        "cells_over_and_argmax": 38,
+        "label_cells": 38,
+        "ratio_max": 1.5522165652551845,
+        "ratio_p99": 0.7933551333526498,
+        "ratio_p999": 1.1037984464036867,
+        "margin_when_over_max": 0.5522165652551845,
+        "argmax_cells": 1481,
+        "argmax_ratio_median": 0.20696220870069126,
+        "argmax_ratio_p90": 0.7933551333526498
+      }
+    },
+    "argmax_without_overload": 16287
+  },
+  "C": {
+    "stream": "single_io_first_seed700_steps1200",
+    "window": [
+      150,
+      1200
+    ],
+    "host_cells": 16800,
+    "overload_cells": 637,
+    "per_resource": {
+      "cpu": {
+        "cells_over_capacity": 510,
+        "cells_over_and_argmax": 504,
+        "label_cells": 504,
+        "ratio_max": 2.5812856788284932,
+        "ratio_p99": 1.3542654931399467,
+        "ratio_p999": 2.1503359551522245,
+        "margin_when_over_max": 1.5812856788284932,
+        "argmax_cells": 14428,
+        "argmax_ratio_median": 0.0,
+        "argmax_ratio_p90": 0.5486595417598588
+      },
+      "ram": {
+        "cells_over_capacity": 99,
+        "cells_over_and_argmax": 93,
+        "label_cells": 93,
+        "ratio_max": 2.0954598370197903,
+        "ratio_p99": 0.7217581564127575,
+        "ratio_p999": 1.3757833832828967,
+        "margin_when_over_max": 1.0954598370197903,
+        "argmax_cells": 538,
+        "argmax_ratio_median": 0.3259604190919674,
+        "argmax_ratio_p90": 1.054870898719441
+      },
+      "disk": {
+        "cells_over_capacity": 46,
+        "cells_over_and_argmax": 40,
+        "label_cells": 40,
+        "ratio_max": 1.483229162354954,
+        "ratio_p99": 0.820950094512742,
+        "ratio_p999": 1.2362611587124255,
+        "margin_when_over_max": 0.48322916235495406,
+        "argmax_cells": 1834,
+        "argmax_ratio_median": 0.2759496116009217,
+        "argmax_ratio_p90": 0.7588614319025346
+      }
+    },
+    "argmax_without_overload": 16163
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "protocol": "023",
+  "round": "2A",
+  "stage": "round-2A complete",
+  "directive": "指令/FTMOE_PROTOCOL023_ROUND2A_DIRECTIVE_20260912.md",
+  "d_implemented": false,
+  "forbidden_in_this_round": [
+    "D",
+    "expert birth/retire/reactivate",
+    "C-wide",
+    "C-budget",
+    "seeds 701/702/703"
+  ],
+  "seeds": {
+    "development": 700,
+    "confirmation_untouched": [
+      701,
+      702,
+      703
+    ]
+  },
+  "conditions": {
+    "h1_v2_pass": true,
+    "h2_v2_pass": true,
+    "c_learns_two_regimes": false,
+    "h3_v2_mature_gradient_conflict": false,
+    "h4_v2_actual_forgetting": false,
+    "recurrence_relearning": false,
+    "online_budget_frozen": true,
+    "prequential_integrity": true
+  },
+  "condition_meanings": {
+    "h1_v2_pass": "directive §3 H1-v2 gate (primary-window follow-up >= 80/regime plus the seven other checks)",
+    "h2_v2_pass": "directive §7 H2-v2 (gap >= 0.05 and within positives >= 30 in >= 2/3 regimes)",
+    "c_learns_two_regimes": "directive §14 step 1: C beats A by >= 0.03 PR-AUC in >= 2/3 first-exposure regimes",
+    "h3_v2_mature_gradient_conflict": "directive §16/§17 on a mature learner state",
+    "h4_v2_actual_forgetting": "directive §14 step 2: previous-regime probe drop >= 0.03",
+    "recurrence_relearning": "directive §15: relearning_gap >= 0.03 AND the gap must exceed the frozen baseline's own gap on the same transition (the raw §15 rule alone is also reported; the baseline shows a larger gap on every transition, so the attributable reading is what the condition uses)",
+    "online_budget_frozen": "directive §10: online_budget.json frozen before the run and unchanged",
+    "prequential_integrity": "directive §11/§21: prediction-before-update audit passed on both arms"
+  },
+  "verdicts": {
+    "H0_generator_correctness": "PASS (round 1; the A arm is still byte-identical to cascade_v2)",
+    "H1_original": "FAIL (preserved permanently; never rewritten)",
+    "H1_v2": "PASS",
+    "H2_v2": "PASS",
+    "H3_v2": "no mature gradient conflict at any tested checkpoint",
+    "H4_v2": "STOP-NO-LEARN: C does not beat A by the registered margin in any first-exposure regime, so fixed C cannot be said to learn the new regime; forgetting is therefore not evaluated",
+    "recurrence": "recurrence requires relearning"
+  },
+  "d_eligible": false,
+  "d_eligibility_statement": "D_eligible = false",
+  "failed_conditions": [
+    "c_learns_two_regimes",
+    "h3_v2_mature_gradient_conflict",
+    "h4_v2_actual_forgetting",
+    "recurrence_relearning"
+  ],
+  "prequential_integrity_by_arm": {
+    "A": true,
+    "C": true
+  },
+  "calibration": {
+    "selected_generator": {
+      "io_first": {
+        "disk_retained_peak": 24000.0,
+        "cascade_task_probability": 0.45
+      },
+      "memory_first": {
+        "cascade_task_probability": 0.5
+      }
+    },
+    "frozen_regimes": [
+      "compute_first"
+    ],
+    "data_only": true
+  },
+  "evidence": {
+    "h1_v2": "round2a/data_calibration/data_gate_v2.json",
+    "marginal_match_v2": "round2a/data_calibration/marginal_match_v2.json",
+    "h2_v2": "round2a/specialization_v2/cross_regime_probe_v2.json",
+    "s4_A": "round2a/fixed_c_prequential/arm_A/summary.json",
+    "s4_C": "round2a/fixed_c_prequential/arm_C/summary.json",
+    "probe_matrix": "round2a/fixed_c_prequential/probe_matrix.json",
+    "h4_v2": "round2a/fixed_c_prequential/forgetting_v2.json",
+    "recurrence": "round2a/fixed_c_prequential/recurrence_metrics.json",
+    "h3_v2": "round2a/mature_gradient/summary.json",
+    "budget": "round2a/amendments/online_budget.json",
+    "h1_v2_definition": "round2a/amendments/h1_v2_definition.json"
+  },
+  "next_round_rule": "the next round may implement D's additive birth/retire/reactivate only if every condition above is true"
+}

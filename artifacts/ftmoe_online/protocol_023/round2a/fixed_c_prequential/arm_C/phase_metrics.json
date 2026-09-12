@@ -1,0 +1,1704 @@
+{
+  "protocol": "023",
+  "round": "2A",
+  "arm": "C",
+  "stream": "artifacts/ftmoe_online/protocol_023/development_streams/dev_seed700_steps2880_calibrated",
+  "phases": [
+    {
+      "phase": "F0_baseline",
+      "regime": null,
+      "intervals": [
+        0,
+        300
+      ],
+      "arm": "C",
+      "updates_by_phase_end": 75,
+      "whole": {
+        "intervals": [
+          0,
+          300
+        ],
+        "rows": 4800,
+        "detection": {
+          "pr_auc": null,
+          "roc_auc": null,
+          "positives": 0,
+          "rows": 4800,
+          "prevalence": 0.0
+        },
+        "detection_raw": {
+          "pr_auc": null,
+          "roc_auc": null,
+          "positives": 0,
+          "rows": 4800,
+          "prevalence": 0.0
+        },
+        "diagnosis": {
+          "macro_f1": 0.0,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 0
+            },
+            {
+              "class": 2,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 0
+            },
+            {
+              "class": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 0
+            }
+          ]
+        },
+        "onset": {
+          "ap": null,
+          "positives": 0,
+          "rows": 4800
+        }
+      },
+      "first_100": {
+        "intervals": [
+          0,
+          100
+        ],
+        "rows": 1600,
+        "detection": {
+          "pr_auc": null,
+          "roc_auc": null,
+          "positives": 0,
+          "rows": 1600,
+          "prevalence": 0.0
+        },
+        "detection_raw": {
+          "pr_auc": null,
+          "roc_auc": null,
+          "positives": 0,
+          "rows": 1600,
+          "prevalence": 0.0
+        },
+        "diagnosis": {
+          "macro_f1": 0.0,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 0
+            },
+            {
+              "class": 2,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 0
+            },
+            {
+              "class": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 0
+            }
+          ]
+        },
+        "onset": {
+          "ap": null,
+          "positives": 0,
+          "rows": 1600
+        }
+      },
+      "late": {
+        "intervals": [
+          200,
+          300
+        ],
+        "rows": 1600,
+        "detection": {
+          "pr_auc": null,
+          "roc_auc": null,
+          "positives": 0,
+          "rows": 1600,
+          "prevalence": 0.0
+        },
+        "detection_raw": {
+          "pr_auc": null,
+          "roc_auc": null,
+          "positives": 0,
+          "rows": 1600,
+          "prevalence": 0.0
+        },
+        "diagnosis": {
+          "macro_f1": 0.0,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 0
+            },
+            {
+              "class": 2,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 0
+            },
+            {
+              "class": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 0
+            }
+          ]
+        },
+        "onset": {
+          "ap": null,
+          "positives": 0,
+          "rows": 1600
+        }
+      },
+      "rows": 4800,
+      "detection": {
+        "pr_auc": null,
+        "roc_auc": null,
+        "positives": 0,
+        "rows": 4800,
+        "prevalence": 0.0
+      },
+      "detection_raw": {
+        "pr_auc": null,
+        "roc_auc": null,
+        "positives": 0,
+        "rows": 4800,
+        "prevalence": 0.0
+      },
+      "diagnosis": {
+        "macro_f1": 0.0,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        ]
+      },
+      "onset": {
+        "ap": null,
+        "positives": 0,
+        "rows": 4800
+      }
+    },
+    {
+      "phase": "A1_compute",
+      "regime": "compute_first",
+      "intervals": [
+        300,
+        720
+      ],
+      "arm": "C",
+      "updates_by_phase_end": 180,
+      "whole": {
+        "intervals": [
+          300,
+          720
+        ],
+        "rows": 6720,
+        "detection": {
+          "pr_auc": 0.4244135141919106,
+          "roc_auc": 0.832253319190329,
+          "positives": 694,
+          "rows": 6720,
+          "prevalence": 0.10327380952380952
+        },
+        "detection_raw": {
+          "pr_auc": 0.4007922491452425,
+          "roc_auc": 0.9117200726682386,
+          "positives": 410,
+          "rows": 6720,
+          "prevalence": 0.06101190476190476
+        },
+        "diagnosis": {
+          "macro_f1": 0.1987350651971078,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.3203817314246762,
+              "recall": 0.7642276422764228,
+              "f1": 0.4514889529298752,
+              "support": 615
+            },
+            {
+              "class": 2,
+              "precision": 0.010832497492477432,
+              "recall": 0.9818181818181818,
+              "f1": 0.02142857142857143,
+              "support": 55
+            },
+            {
+              "class": 3,
+              "precision": 0.06716417910447761,
+              "recall": 0.75,
+              "f1": 0.12328767123287672,
+              "support": 24
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.09123894956887338,
+          "positives": 639,
+          "rows": 6026
+        }
+      },
+      "first_100": {
+        "intervals": [
+          300,
+          400
+        ],
+        "rows": 1600,
+        "detection": {
+          "pr_auc": 0.44757139832181203,
+          "roc_auc": 0.8241096368715084,
+          "positives": 168,
+          "rows": 1600,
+          "prevalence": 0.105
+        },
+        "detection_raw": {
+          "pr_auc": 0.4558691230343762,
+          "roc_auc": 0.9224466666666666,
+          "positives": 100,
+          "rows": 1600,
+          "prevalence": 0.0625
+        },
+        "diagnosis": {
+          "macro_f1": 0.23365278414980203,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.2888283378746594,
+              "recall": 0.7794117647058824,
+              "f1": 0.42147117296222664,
+              "support": 136
+            },
+            {
+              "class": 2,
+              "precision": 0.016963528413910092,
+              "recall": 0.9523809523809523,
+              "f1": 0.03333333333333333,
+              "support": 21
+            },
+            {
+              "class": 3,
+              "precision": 0.14814814814814814,
+              "recall": 0.7272727272727273,
+              "f1": 0.24615384615384614,
+              "support": 11
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.08546996876054573,
+          "positives": 147,
+          "rows": 1432
+        }
+      },
+      "late": {
+        "intervals": [
+          620,
+          720
+        ],
+        "rows": 1600,
+        "detection": {
+          "pr_auc": 0.4110735372274651,
+          "roc_auc": 0.8312982456140351,
+          "positives": 175,
+          "rows": 1600,
+          "prevalence": 0.109375
+        },
+        "detection_raw": {
+          "pr_auc": 0.3631889257529835,
+          "roc_auc": 0.9127056702401567,
+          "positives": 103,
+          "rows": 1600,
+          "prevalence": 0.064375
+        },
+        "diagnosis": {
+          "macro_f1": 0.2087091527563537,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.4080267558528428,
+              "recall": 0.7577639751552795,
+              "f1": 0.5304347826086956,
+              "support": 161
+            },
+            {
+              "class": 2,
+              "precision": 0.008964955175224124,
+              "recall": 1.0,
+              "f1": 0.01777059773828756,
+              "support": 11
+            },
+            {
+              "class": 3,
+              "precision": 0.04054054054054054,
+              "recall": 1.0,
+              "f1": 0.07792207792207792,
+              "support": 3
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.12618363275019584,
+          "positives": 155,
+          "rows": 1425
+        }
+      },
+      "rows": 6720,
+      "detection": {
+        "pr_auc": 0.4244135141919106,
+        "roc_auc": 0.832253319190329,
+        "positives": 694,
+        "rows": 6720,
+        "prevalence": 0.10327380952380952
+      },
+      "detection_raw": {
+        "pr_auc": 0.4007922491452425,
+        "roc_auc": 0.9117200726682386,
+        "positives": 410,
+        "rows": 6720,
+        "prevalence": 0.06101190476190476
+      },
+      "diagnosis": {
+        "macro_f1": 0.1987350651971078,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.3203817314246762,
+            "recall": 0.7642276422764228,
+            "f1": 0.4514889529298752,
+            "support": 615
+          },
+          {
+            "class": 2,
+            "precision": 0.010832497492477432,
+            "recall": 0.9818181818181818,
+            "f1": 0.02142857142857143,
+            "support": 55
+          },
+          {
+            "class": 3,
+            "precision": 0.06716417910447761,
+            "recall": 0.75,
+            "f1": 0.12328767123287672,
+            "support": 24
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.09123894956887338,
+        "positives": 639,
+        "rows": 6026
+      }
+    },
+    {
+      "phase": "B1_memory",
+      "regime": "memory_first",
+      "intervals": [
+        720,
+        1140
+      ],
+      "arm": "C",
+      "updates_by_phase_end": 285,
+      "whole": {
+        "intervals": [
+          720,
+          1140
+        ],
+        "rows": 6720,
+        "detection": {
+          "pr_auc": 0.4780079715709801,
+          "roc_auc": 0.8668323170790473,
+          "positives": 787,
+          "rows": 6720,
+          "prevalence": 0.11711309523809524
+        },
+        "detection_raw": {
+          "pr_auc": 0.4170684173760547,
+          "roc_auc": 0.9165080305361016,
+          "positives": 415,
+          "rows": 6720,
+          "prevalence": 0.061755952380952384
+        },
+        "diagnosis": {
+          "macro_f1": 0.20262323963679205,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.1629339305711086,
+              "recall": 0.8459302325581395,
+              "f1": 0.2732394366197183,
+              "support": 344
+            },
+            {
+              "class": 2,
+              "precision": 0.06629588431590656,
+              "recall": 0.8209366391184573,
+              "f1": 0.12268423219431865,
+              "support": 363
+            },
+            {
+              "class": 3,
+              "precision": 0.1252847380410023,
+              "recall": 0.6875,
+              "f1": 0.21194605009633913,
+              "support": 80
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.10594933934871745,
+          "positives": 730,
+          "rows": 5933
+        }
+      },
+      "first_100": {
+        "intervals": [
+          720,
+          820
+        ],
+        "rows": 1600,
+        "detection": {
+          "pr_auc": 0.49128342426141275,
+          "roc_auc": 0.8754381846635367,
+          "positives": 180,
+          "rows": 1600,
+          "prevalence": 0.1125
+        },
+        "detection_raw": {
+          "pr_auc": 0.45707032983029505,
+          "roc_auc": 0.9209730621220451,
+          "positives": 102,
+          "rows": 1600,
+          "prevalence": 0.06375
+        },
+        "diagnosis": {
+          "macro_f1": 0.22447373945570445,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.2010178117048346,
+              "recall": 0.9080459770114943,
+              "f1": 0.32916666666666666,
+              "support": 87
+            },
+            {
+              "class": 2,
+              "precision": 0.05357142857142857,
+              "recall": 0.7916666666666666,
+              "f1": 0.10035211267605633,
+              "support": 72
+            },
+            {
+              "class": 3,
+              "precision": 0.13986013986013987,
+              "recall": 0.9523809523809523,
+              "f1": 0.2439024390243903,
+              "support": 21
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.09820936021747906,
+          "positives": 171,
+          "rows": 1420
+        }
+      },
+      "late": {
+        "intervals": [
+          1040,
+          1140
+        ],
+        "rows": 1600,
+        "detection": {
+          "pr_auc": 0.5682995390550101,
+          "roc_auc": 0.9037639338466807,
+          "positives": 193,
+          "rows": 1600,
+          "prevalence": 0.120625
+        },
+        "detection_raw": {
+          "pr_auc": 0.5059320268641553,
+          "roc_auc": 0.9438812900882672,
+          "positives": 103,
+          "rows": 1600,
+          "prevalence": 0.064375
+        },
+        "diagnosis": {
+          "macro_f1": 0.24040414072527114,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.2,
+              "recall": 0.9080459770114943,
+              "f1": 0.3278008298755187,
+              "support": 87
+            },
+            {
+              "class": 2,
+              "precision": 0.05333333333333334,
+              "recall": 0.7792207792207793,
+              "f1": 0.09983361064891848,
+              "support": 77
+            },
+            {
+              "class": 3,
+              "precision": 0.2,
+              "recall": 0.5517241379310345,
+              "f1": 0.29357798165137616,
+              "support": 29
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.12093258827380185,
+          "positives": 184,
+          "rows": 1407
+        }
+      },
+      "rows": 6720,
+      "detection": {
+        "pr_auc": 0.4780079715709801,
+        "roc_auc": 0.8668323170790473,
+        "positives": 787,
+        "rows": 6720,
+        "prevalence": 0.11711309523809524
+      },
+      "detection_raw": {
+        "pr_auc": 0.4170684173760547,
+        "roc_auc": 0.9165080305361016,
+        "positives": 415,
+        "rows": 6720,
+        "prevalence": 0.061755952380952384
+      },
+      "diagnosis": {
+        "macro_f1": 0.20262323963679205,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.1629339305711086,
+            "recall": 0.8459302325581395,
+            "f1": 0.2732394366197183,
+            "support": 344
+          },
+          {
+            "class": 2,
+            "precision": 0.06629588431590656,
+            "recall": 0.8209366391184573,
+            "f1": 0.12268423219431865,
+            "support": 363
+          },
+          {
+            "class": 3,
+            "precision": 0.1252847380410023,
+            "recall": 0.6875,
+            "f1": 0.21194605009633913,
+            "support": 80
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.10594933934871745,
+        "positives": 730,
+        "rows": 5933
+      }
+    },
+    {
+      "phase": "C1_io",
+      "regime": "io_first",
+      "intervals": [
+        1140,
+        1560
+      ],
+      "arm": "C",
+      "updates_by_phase_end": 390,
+      "whole": {
+        "intervals": [
+          1140,
+          1560
+        ],
+        "rows": 6720,
+        "detection": {
+          "pr_auc": 0.5527113967860077,
+          "roc_auc": 0.9119022787051216,
+          "positives": 835,
+          "rows": 6720,
+          "prevalence": 0.12425595238095238
+        },
+        "detection_raw": {
+          "pr_auc": 0.4380062492108035,
+          "roc_auc": 0.9234212935074282,
+          "positives": 515,
+          "rows": 6720,
+          "prevalence": 0.07663690476190477
+        },
+        "diagnosis": {
+          "macro_f1": 0.21973450542886472,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.18967784352399736,
+              "recall": 0.8959627329192547,
+              "f1": 0.3130765056972328,
+              "support": 644
+            },
+            {
+              "class": 2,
+              "precision": 0.02957220786678151,
+              "recall": 0.8879310344827587,
+              "f1": 0.05723812170047236,
+              "support": 116
+            },
+            {
+              "class": 3,
+              "precision": 0.2,
+              "recall": 0.52,
+              "f1": 0.2888888888888889,
+              "support": 75
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.11539621958762523,
+          "positives": 766,
+          "rows": 5885
+        }
+      },
+      "first_100": {
+        "intervals": [
+          1140,
+          1240
+        ],
+        "rows": 1600,
+        "detection": {
+          "pr_auc": 0.5841612963253031,
+          "roc_auc": 0.9244430330271644,
+          "positives": 172,
+          "rows": 1600,
+          "prevalence": 0.1075
+        },
+        "detection_raw": {
+          "pr_auc": 0.4570335823350526,
+          "roc_auc": 0.9336844232275012,
+          "positives": 106,
+          "rows": 1600,
+          "prevalence": 0.06625
+        },
+        "diagnosis": {
+          "macro_f1": 0.2368304752904288,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.16235632183908047,
+              "recall": 0.8828125,
+              "f1": 0.2742718446601942,
+              "support": 128
+            },
+            {
+              "class": 2,
+              "precision": 0.025210084033613446,
+              "recall": 0.9545454545454546,
+              "f1": 0.04912280701754386,
+              "support": 22
+            },
+            {
+              "class": 3,
+              "precision": 0.2535211267605634,
+              "recall": 0.8181818181818182,
+              "f1": 0.38709677419354843,
+              "support": 22
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.10186265671246399,
+          "positives": 164,
+          "rows": 1428
+        }
+      },
+      "late": {
+        "intervals": [
+          1460,
+          1560
+        ],
+        "rows": 1600,
+        "detection": {
+          "pr_auc": 0.5946058760196611,
+          "roc_auc": 0.9216760944537257,
+          "positives": 223,
+          "rows": 1600,
+          "prevalence": 0.139375
+        },
+        "detection_raw": {
+          "pr_auc": 0.4661920580507627,
+          "roc_auc": 0.9266829981390104,
+          "positives": 137,
+          "rows": 1600,
+          "prevalence": 0.085625
+        },
+        "diagnosis": {
+          "macro_f1": 0.1965548257376859,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.20821917808219179,
+              "recall": 0.9156626506024096,
+              "f1": 0.3392857142857143,
+              "support": 166
+            },
+            {
+              "class": 2,
+              "precision": 0.038506417736289385,
+              "recall": 0.9166666666666666,
+              "f1": 0.07390817469204927,
+              "support": 36
+            },
+            {
+              "class": 3,
+              "precision": 0.23076923076923078,
+              "recall": 0.14285714285714285,
+              "f1": 0.17647058823529413,
+              "support": 21
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.1261727676607538,
+          "positives": 200,
+          "rows": 1377
+        }
+      },
+      "rows": 6720,
+      "detection": {
+        "pr_auc": 0.5527113967860077,
+        "roc_auc": 0.9119022787051216,
+        "positives": 835,
+        "rows": 6720,
+        "prevalence": 0.12425595238095238
+      },
+      "detection_raw": {
+        "pr_auc": 0.4380062492108035,
+        "roc_auc": 0.9234212935074282,
+        "positives": 515,
+        "rows": 6720,
+        "prevalence": 0.07663690476190477
+      },
+      "diagnosis": {
+        "macro_f1": 0.21973450542886472,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.18967784352399736,
+            "recall": 0.8959627329192547,
+            "f1": 0.3130765056972328,
+            "support": 644
+          },
+          {
+            "class": 2,
+            "precision": 0.02957220786678151,
+            "recall": 0.8879310344827587,
+            "f1": 0.05723812170047236,
+            "support": 116
+          },
+          {
+            "class": 3,
+            "precision": 0.2,
+            "recall": 0.52,
+            "f1": 0.2888888888888889,
+            "support": 75
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.11539621958762523,
+        "positives": 766,
+        "rows": 5885
+      }
+    },
+    {
+      "phase": "F1_baseline",
+      "regime": null,
+      "intervals": [
+        1560,
+        1800
+      ],
+      "arm": "C",
+      "updates_by_phase_end": 450,
+      "whole": {
+        "intervals": [
+          1560,
+          1800
+        ],
+        "rows": 3840,
+        "detection": {
+          "pr_auc": 0.05213356347376966,
+          "roc_auc": 0.9619295958279009,
+          "positives": 5,
+          "rows": 3840,
+          "prevalence": 0.0013020833333333333
+        },
+        "detection_raw": {
+          "pr_auc": 0.026500526500526502,
+          "roc_auc": 0.985539343408025,
+          "positives": 2,
+          "rows": 3840,
+          "prevalence": 0.0005208333333333333
+        },
+        "diagnosis": {
+          "macro_f1": 0.0023984797328462574,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.00322061191626409,
+              "recall": 1.0,
+              "f1": 0.006420545746388443,
+              "support": 4
+            },
+            {
+              "class": 2,
+              "precision": 0.0003875968992248062,
+              "recall": 1.0,
+              "f1": 0.0007748934521503292,
+              "support": 1
+            },
+            {
+              "class": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 0
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.0018289914822869884,
+          "positives": 5,
+          "rows": 3835
+        }
+      },
+      "first_100": {
+        "intervals": [
+          1560,
+          1660
+        ],
+        "rows": 1600,
+        "detection": {
+          "pr_auc": 0.18632900432900432,
+          "roc_auc": 0.9668965517241379,
+          "positives": 5,
+          "rows": 1600,
+          "prevalence": 0.003125
+        },
+        "detection_raw": {
+          "pr_auc": 0.09,
+          "roc_auc": 0.9899874843554443,
+          "positives": 2,
+          "rows": 1600,
+          "prevalence": 0.00125
+        },
+        "diagnosis": {
+          "macro_f1": 0.006057170801102517,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.008247422680412371,
+              "recall": 1.0,
+              "f1": 0.016359918200409,
+              "support": 4
+            },
+            {
+              "class": 2,
+              "precision": 0.0009066183136899365,
+              "recall": 1.0,
+              "f1": 0.0018115942028985507,
+              "support": 1
+            },
+            {
+              "class": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 0
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.004509331648012195,
+          "positives": 5,
+          "rows": 1595
+        }
+      },
+      "late": {
+        "intervals": [
+          1700,
+          1800
+        ],
+        "rows": 1600,
+        "detection": {
+          "pr_auc": null,
+          "roc_auc": null,
+          "positives": 0,
+          "rows": 1600,
+          "prevalence": 0.0
+        },
+        "detection_raw": {
+          "pr_auc": null,
+          "roc_auc": null,
+          "positives": 0,
+          "rows": 1600,
+          "prevalence": 0.0
+        },
+        "diagnosis": {
+          "macro_f1": 0.0,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 0
+            },
+            {
+              "class": 2,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 0
+            },
+            {
+              "class": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 0
+            }
+          ]
+        },
+        "onset": {
+          "ap": null,
+          "positives": 0,
+          "rows": 1600
+        }
+      },
+      "rows": 3840,
+      "detection": {
+        "pr_auc": 0.05213356347376966,
+        "roc_auc": 0.9619295958279009,
+        "positives": 5,
+        "rows": 3840,
+        "prevalence": 0.0013020833333333333
+      },
+      "detection_raw": {
+        "pr_auc": 0.026500526500526502,
+        "roc_auc": 0.985539343408025,
+        "positives": 2,
+        "rows": 3840,
+        "prevalence": 0.0005208333333333333
+      },
+      "diagnosis": {
+        "macro_f1": 0.0023984797328462574,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.00322061191626409,
+            "recall": 1.0,
+            "f1": 0.006420545746388443,
+            "support": 4
+          },
+          {
+            "class": 2,
+            "precision": 0.0003875968992248062,
+            "recall": 1.0,
+            "f1": 0.0007748934521503292,
+            "support": 1
+          },
+          {
+            "class": 3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.0018289914822869884,
+        "positives": 5,
+        "rows": 3835
+      }
+    },
+    {
+      "phase": "A2_recur",
+      "regime": "compute_first",
+      "intervals": [
+        1800,
+        2160
+      ],
+      "arm": "C",
+      "updates_by_phase_end": 540,
+      "whole": {
+        "intervals": [
+          1800,
+          2160
+        ],
+        "rows": 5760,
+        "detection": {
+          "pr_auc": 0.48852686097034276,
+          "roc_auc": 0.8338354727909695,
+          "positives": 691,
+          "rows": 5760,
+          "prevalence": 0.11996527777777778
+        },
+        "detection_raw": {
+          "pr_auc": 0.4344809858788471,
+          "roc_auc": 0.9139776110117572,
+          "positives": 402,
+          "rows": 5760,
+          "prevalence": 0.06979166666666667
+        },
+        "diagnosis": {
+          "macro_f1": 0.2781066660898594,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.2180355630821338,
+              "recall": 0.8910034602076125,
+              "f1": 0.35034013605442177,
+              "support": 578
+            },
+            {
+              "class": 2,
+              "precision": 0.0170863309352518,
+              "recall": 0.890625,
+              "f1": 0.033529411764705884,
+              "support": 64
+            },
+            {
+              "class": 3,
+              "precision": 0.4032258064516129,
+              "recall": 0.5102040816326531,
+              "f1": 0.45045045045045046,
+              "support": 49
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.11057202118455613,
+          "positives": 624,
+          "rows": 5069
+        }
+      },
+      "first_100": {
+        "intervals": [
+          1800,
+          1900
+        ],
+        "rows": 1600,
+        "detection": {
+          "pr_auc": 0.511374338628003,
+          "roc_auc": 0.8248009268085231,
+          "positives": 194,
+          "rows": 1600,
+          "prevalence": 0.12125
+        },
+        "detection_raw": {
+          "pr_auc": 0.5024711991417896,
+          "roc_auc": 0.9079038986853616,
+          "positives": 113,
+          "rows": 1600,
+          "prevalence": 0.070625
+        },
+        "diagnosis": {
+          "macro_f1": 0.2501225433687868,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.24478178368121442,
+              "recall": 0.8269230769230769,
+              "f1": 0.3777452415812591,
+              "support": 156
+            },
+            {
+              "class": 2,
+              "precision": 0.02015355086372361,
+              "recall": 0.7777777777777778,
+              "f1": 0.03928905519176801,
+              "support": 27
+            },
+            {
+              "class": 3,
+              "precision": 0.22580645161290322,
+              "recall": 0.6363636363636364,
+              "f1": 0.3333333333333333,
+              "support": 11
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.12364616059496415,
+          "positives": 175,
+          "rows": 1406
+        }
+      },
+      "late": {
+        "intervals": [
+          2060,
+          2160
+        ],
+        "rows": 1600,
+        "detection": {
+          "pr_auc": 0.4847744190431783,
+          "roc_auc": 0.8522568331214682,
+          "positives": 189,
+          "rows": 1600,
+          "prevalence": 0.118125
+        },
+        "detection_raw": {
+          "pr_auc": 0.4092540512425531,
+          "roc_auc": 0.9286516168395363,
+          "positives": 110,
+          "rows": 1600,
+          "prevalence": 0.06875
+        },
+        "diagnosis": {
+          "macro_f1": 0.20853960275877712,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.18127250900360145,
+              "recall": 0.9263803680981595,
+              "f1": 0.3032128514056225,
+              "support": 163
+            },
+            {
+              "class": 2,
+              "precision": 0.013245033112582781,
+              "recall": 0.9090909090909091,
+              "f1": 0.026109660574412535,
+              "support": 11
+            },
+            {
+              "class": 3,
+              "precision": 0.3333333333333333,
+              "recall": 0.26666666666666666,
+              "f1": 0.2962962962962963,
+              "support": 15
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.10828438058520735,
+          "positives": 162,
+          "rows": 1411
+        }
+      },
+      "rows": 5760,
+      "detection": {
+        "pr_auc": 0.48852686097034276,
+        "roc_auc": 0.8338354727909695,
+        "positives": 691,
+        "rows": 5760,
+        "prevalence": 0.11996527777777778
+      },
+      "detection_raw": {
+        "pr_auc": 0.4344809858788471,
+        "roc_auc": 0.9139776110117572,
+        "positives": 402,
+        "rows": 5760,
+        "prevalence": 0.06979166666666667
+      },
+      "diagnosis": {
+        "macro_f1": 0.2781066660898594,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.2180355630821338,
+            "recall": 0.8910034602076125,
+            "f1": 0.35034013605442177,
+            "support": 578
+          },
+          {
+            "class": 2,
+            "precision": 0.0170863309352518,
+            "recall": 0.890625,
+            "f1": 0.033529411764705884,
+            "support": 64
+          },
+          {
+            "class": 3,
+            "precision": 0.4032258064516129,
+            "recall": 0.5102040816326531,
+            "f1": 0.45045045045045046,
+            "support": 49
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.11057202118455613,
+        "positives": 624,
+        "rows": 5069
+      }
+    },
+    {
+      "phase": "C2_recur",
+      "regime": "io_first",
+      "intervals": [
+        2160,
+        2520
+      ],
+      "arm": "C",
+      "updates_by_phase_end": 630,
+      "whole": {
+        "intervals": [
+          2160,
+          2520
+        ],
+        "rows": 5760,
+        "detection": {
+          "pr_auc": 0.608991850341704,
+          "roc_auc": 0.9327977400602518,
+          "positives": 607,
+          "rows": 5760,
+          "prevalence": 0.10538194444444444
+        },
+        "detection_raw": {
+          "pr_auc": 0.5310780665405553,
+          "roc_auc": 0.9519139160285186,
+          "positives": 350,
+          "rows": 5760,
+          "prevalence": 0.06076388888888889
+        },
+        "diagnosis": {
+          "macro_f1": 0.1605058509382555,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.10626142595978062,
+              "recall": 0.9337349397590361,
+              "f1": 0.19080837094788675,
+              "support": 498
+            },
+            {
+              "class": 2,
+              "precision": 0.03251387787470262,
+              "recall": 0.6212121212121212,
+              "f1": 0.06179351921627732,
+              "support": 66
+            },
+            {
+              "class": 3,
+              "precision": 0.15447154471544716,
+              "recall": 0.4418604651162791,
+              "f1": 0.22891566265060243,
+              "support": 43
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.09418153757556073,
+          "positives": 543,
+          "rows": 5153
+        }
+      },
+      "first_100": {
+        "intervals": [
+          2160,
+          2260
+        ],
+        "rows": 1600,
+        "detection": {
+          "pr_auc": 0.6789355724007325,
+          "roc_auc": 0.9549531417719429,
+          "positives": 132,
+          "rows": 1600,
+          "prevalence": 0.0825
+        },
+        "detection_raw": {
+          "pr_auc": 0.6479430413512357,
+          "roc_auc": 0.9775988948674438,
+          "positives": 77,
+          "rows": 1600,
+          "prevalence": 0.048125
+        },
+        "diagnosis": {
+          "macro_f1": 0.18584253624821576,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.08255451713395638,
+              "recall": 0.9814814814814815,
+              "f1": 0.15229885057471262,
+              "support": 108
+            },
+            {
+              "class": 2,
+              "precision": 0.02702702702702703,
+              "recall": 0.8,
+              "f1": 0.05228758169934641,
+              "support": 10
+            },
+            {
+              "class": 3,
+              "precision": 0.3,
+              "recall": 0.42857142857142855,
+              "f1": 0.3529411764705882,
+              "support": 14
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.07614016696506005,
+          "positives": 121,
+          "rows": 1468
+        }
+      },
+      "late": {
+        "intervals": [
+          2420,
+          2520
+        ],
+        "rows": 1600,
+        "detection": {
+          "pr_auc": 0.6536765047387946,
+          "roc_auc": 0.9254123437084331,
+          "positives": 168,
+          "rows": 1600,
+          "prevalence": 0.105
+        },
+        "detection_raw": {
+          "pr_auc": 0.6061136510565993,
+          "roc_auc": 0.9401410364412076,
+          "positives": 98,
+          "rows": 1600,
+          "prevalence": 0.06125
+        },
+        "diagnosis": {
+          "macro_f1": 0.16365170918351474,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.10824313072439634,
+              "recall": 0.9701492537313433,
+              "f1": 0.1947565543071161,
+              "support": 134
+            },
+            {
+              "class": 2,
+              "precision": 0.019444444444444445,
+              "recall": 0.3684210526315789,
+              "f1": 0.036939313984168866,
+              "support": 19
+            },
+            {
+              "class": 3,
+              "precision": 0.1794871794871795,
+              "recall": 0.4666666666666667,
+              "f1": 0.25925925925925924,
+              "support": 15
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.10064254658095396,
+          "positives": 149,
+          "rows": 1432
+        }
+      },
+      "rows": 5760,
+      "detection": {
+        "pr_auc": 0.608991850341704,
+        "roc_auc": 0.9327977400602518,
+        "positives": 607,
+        "rows": 5760,
+        "prevalence": 0.10538194444444444
+      },
+      "detection_raw": {
+        "pr_auc": 0.5310780665405553,
+        "roc_auc": 0.9519139160285186,
+        "positives": 350,
+        "rows": 5760,
+        "prevalence": 0.06076388888888889
+      },
+      "diagnosis": {
+        "macro_f1": 0.1605058509382555,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.10626142595978062,
+            "recall": 0.9337349397590361,
+            "f1": 0.19080837094788675,
+            "support": 498
+          },
+          {
+            "class": 2,
+            "precision": 0.03251387787470262,
+            "recall": 0.6212121212121212,
+            "f1": 0.06179351921627732,
+            "support": 66
+          },
+          {
+            "class": 3,
+            "precision": 0.15447154471544716,
+            "recall": 0.4418604651162791,
+            "f1": 0.22891566265060243,
+            "support": 43
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.09418153757556073,
+        "positives": 543,
+        "rows": 5153
+      }
+    },
+    {
+      "phase": "B2_recur",
+      "regime": "memory_first",
+      "intervals": [
+        2520,
+        2880
+      ],
+      "arm": "C",
+      "updates_by_phase_end": 720,
+      "whole": {
+        "intervals": [
+          2520,
+          2880
+        ],
+        "rows": 5744,
+        "detection": {
+          "pr_auc": 0.4944450275110803,
+          "roc_auc": 0.8668380378059444,
+          "positives": 589,
+          "rows": 5744,
+          "prevalence": 0.10254178272980502
+        },
+        "detection_raw": {
+          "pr_auc": 0.4646222317970084,
+          "roc_auc": 0.9341220044777357,
+          "positives": 299,
+          "rows": 5744,
+          "prevalence": 0.052054317548746516
+        },
+        "diagnosis": {
+          "macro_f1": 0.17320870493865304,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.08798202920254586,
+              "recall": 0.9325396825396826,
+              "f1": 0.16079370509750254,
+              "support": 252
+            },
+            {
+              "class": 2,
+              "precision": 0.0759322033898305,
+              "recall": 0.7542087542087542,
+              "f1": 0.137973514012935,
+              "support": 297
+            },
+            {
+              "class": 3,
+              "precision": 0.14634146341463414,
+              "recall": 0.45,
+              "f1": 0.2208588957055215,
+              "support": 40
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.08664114567483061,
+          "positives": 520,
+          "rows": 5155
+        }
+      },
+      "first_100": {
+        "intervals": [
+          2520,
+          2620
+        ],
+        "rows": 1600,
+        "detection": {
+          "pr_auc": 0.4147127286829155,
+          "roc_auc": 0.8491856488726598,
+          "positives": 142,
+          "rows": 1600,
+          "prevalence": 0.08875
+        },
+        "detection_raw": {
+          "pr_auc": 0.3900384577720785,
+          "roc_auc": 0.9218487394957983,
+          "positives": 70,
+          "rows": 1600,
+          "prevalence": 0.04375
+        },
+        "diagnosis": {
+          "macro_f1": 0.10331824307421662,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.06255924170616113,
+              "recall": 0.9565217391304348,
+              "f1": 0.11743772241992881,
+              "support": 69
+            },
+            {
+              "class": 2,
+              "precision": 0.07074569789674952,
+              "recall": 0.5692307692307692,
+              "f1": 0.1258503401360544,
+              "support": 65
+            },
+            {
+              "class": 3,
+              "precision": 0.045454545454545456,
+              "recall": 0.125,
+              "f1": 0.06666666666666667,
+              "support": 8
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.0695992012746095,
+          "positives": 135,
+          "rows": 1458
+        }
+      },
+      "late": {
+        "intervals": [
+          2780,
+          2880
+        ],
+        "rows": 1584,
+        "detection": {
+          "pr_auc": 0.49487714405047345,
+          "roc_auc": 0.8776490684887631,
+          "positives": 143,
+          "rows": 1584,
+          "prevalence": 0.09027777777777778
+        },
+        "detection_raw": {
+          "pr_auc": 0.46172743319804227,
+          "roc_auc": 0.9443880733176322,
+          "positives": 71,
+          "rows": 1584,
+          "prevalence": 0.04482323232323232
+        },
+        "diagnosis": {
+          "macro_f1": 0.14475409415267723,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.10780669144981413,
+              "recall": 0.8787878787878788,
+              "f1": 0.1920529801324503,
+              "support": 66
+            },
+            {
+              "class": 2,
+              "precision": 0.0626865671641791,
+              "recall": 0.9,
+              "f1": 0.11720930232558138,
+              "support": 70
+            },
+            {
+              "class": 3,
+              "precision": 0.07317073170731707,
+              "recall": 0.42857142857142855,
+              "f1": 0.125,
+              "support": 7
+            }
+          ]
+        },
+        "onset": {
+          "ap": 0.0762427506468863,
+          "positives": 130,
+          "rows": 1441
+        }
+      },
+      "rows": 5744,
+      "detection": {
+        "pr_auc": 0.4944450275110803,
+        "roc_auc": 0.8668380378059444,
+        "positives": 589,
+        "rows": 5744,
+        "prevalence": 0.10254178272980502
+      },
+      "detection_raw": {
+        "pr_auc": 0.4646222317970084,
+        "roc_auc": 0.9341220044777357,
+        "positives": 299,
+        "rows": 5744,
+        "prevalence": 0.052054317548746516
+      },
+      "diagnosis": {
+        "macro_f1": 0.17320870493865304,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.08798202920254586,
+            "recall": 0.9325396825396826,
+            "f1": 0.16079370509750254,
+            "support": 252
+          },
+          {
+            "class": 2,
+            "precision": 0.0759322033898305,
+            "recall": 0.7542087542087542,
+            "f1": 0.137973514012935,
+            "support": 297
+          },
+          {
+            "class": 3,
+            "precision": 0.14634146341463414,
+            "recall": 0.45,
+            "f1": 0.2208588957055215,
+            "support": 40
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.08664114567483061,
+        "positives": 520,
+        "rows": 5155
+      }
+    }
+  ]
+}

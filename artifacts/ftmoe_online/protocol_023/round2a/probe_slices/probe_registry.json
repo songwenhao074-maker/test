@@ -1,0 +1,71 @@
+{
+  "kind": "round2a_fixed_probe_matrix",
+  "geometry": {
+    "start": 1000,
+    "length": 120,
+    "unit": "scored intervals inside the single-regime stream's regime window"
+  },
+  "registered_before_model_runs": true,
+  "probes": {
+    "compute_first": {
+      "file": "probe_compute_first.npz",
+      "source_stream": "single_compute_first_seed700_steps1200_calibrated",
+      "source_stream_sha256": "2348c6289325d310f9398f28e3158847a732a9e36cd931a0e9a6eb1146c228af",
+      "source_intervals": [
+        1000,
+        1120
+      ],
+      "scored_intervals": 120,
+      "rows": 121,
+      "class_counts": [
+        1765,
+        129,
+        22,
+        4
+      ],
+      "never_used_for_training": true,
+      "never_in_replay": true,
+      "never_for_threshold_tuning": true
+    },
+    "memory_first": {
+      "file": "probe_memory_first.npz",
+      "source_stream": "single_memory_first_seed700_steps1200_calibrated",
+      "source_stream_sha256": "b48963ce453fbcfd40a930a5c4bfd82c7ee1f1eadcdb0005173d8d2081560c63",
+      "source_intervals": [
+        1000,
+        1120
+      ],
+      "scored_intervals": 120,
+      "rows": 121,
+      "class_counts": [
+        1789,
+        57,
+        58,
+        16
+      ],
+      "never_used_for_training": true,
+      "never_in_replay": true,
+      "never_for_threshold_tuning": true
+    },
+    "io_first": {
+      "file": "probe_io_first.npz",
+      "source_stream": "single_io_first_seed700_steps1200_calibrated",
+      "source_stream_sha256": "a662ea31c02c8cffa68cd28837a218b039998c64bff6e758ce857c698a7057a0",
+      "source_intervals": [
+        1000,
+        1120
+      ],
+      "scored_intervals": 120,
+      "rows": 121,
+      "class_counts": [
+        1766,
+        105,
+        32,
+        17
+      ],
+      "never_used_for_training": true,
+      "never_in_replay": true,
+      "never_for_threshold_tuning": true
+    }
+  }
+}

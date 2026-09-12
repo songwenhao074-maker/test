@@ -1,0 +1,263 @@
+{
+  "kind": "h1_v2_data_gate",
+  "protocol": "023",
+  "round": "2A",
+  "generated_at": "2026-09-12T16:53:52+00:00",
+  "streams_root": "artifacts/ftmoe_online/protocol_023/development_streams",
+  "tag_suffix": "_calibrated",
+  "h1_original": {
+    "status": "FAIL",
+    "preserved": true,
+    "measured_per_regime": {
+      "compute_first": 24,
+      "memory_first": 36,
+      "io_first": 31
+    },
+    "threshold_per_regime": 50,
+    "note": "round 1's strict definition; this analyzer does not re-evaluate or rewrite it",
+    "evidence": "artifacts/ftmoe_online/protocol_023/data_audit/"
+  },
+  "h1_v2_definition": {
+    "quantity": "usable_primary_followup",
+    "rule": "onset counts when the task has at least one valid task-level observation inside its regime's first downstream response window",
+    "primary_windows": {
+      "compute_first": {
+        "resource": "ram",
+        "window": [
+          4,
+          14
+        ]
+      },
+      "memory_first": {
+        "resource": "disk",
+        "window": [
+          3,
+          13
+        ]
+      },
+      "io_first": {
+        "resource": "cpu",
+        "window": [
+          3,
+          13
+        ]
+      }
+    },
+    "must_report": [
+      "n_full_window_followup",
+      "n_primary_window_followup",
+      "n_any_window_followup"
+    ]
+  },
+  "gate": {
+    "thresholds": {
+      "primary_window_followup_min": 80,
+      "independent_fault_events_min": 80,
+      "prevalence_min": 0.03,
+      "prevalence_max": 0.12,
+      "deployment_rejection_max": 0.25,
+      "migration_rejection_max": 0.4,
+      "worst_event_share_max": 0.1,
+      "regime_prevalence_spread_max": 0.04
+    },
+    "checks": {
+      "compute_first_primary_window_followup_enough": true,
+      "compute_first_independent_fault_events_enough": true,
+      "compute_first_prevalence_in_range": true,
+      "compute_first_deployment_rejection_ok": true,
+      "compute_first_migration_rejection_ok": true,
+      "compute_first_worst_event_share_ok": true,
+      "memory_first_primary_window_followup_enough": true,
+      "memory_first_independent_fault_events_enough": true,
+      "memory_first_prevalence_in_range": true,
+      "memory_first_deployment_rejection_ok": true,
+      "memory_first_migration_rejection_ok": true,
+      "memory_first_worst_event_share_ok": true,
+      "io_first_primary_window_followup_enough": true,
+      "io_first_independent_fault_events_enough": true,
+      "io_first_prevalence_in_range": true,
+      "io_first_deployment_rejection_ok": true,
+      "io_first_migration_rejection_ok": true,
+      "io_first_worst_event_share_ok": true,
+      "prevalence_spread_ok": true
+    },
+    "failed_checks": [],
+    "prevalence_spread_pp": 1.4226190476190483,
+    "passed": true,
+    "stop_condition": null,
+    "registration": "directive §3 H1-v2 gate; H1-original stays FAIL and is reported next to it, never instead of it"
+  },
+  "per_regime": {
+    "compute_first": {
+      "tag": "single_compute_first_seed700_steps1200_calibrated",
+      "prevalence": 0.06803571428571428,
+      "positive_hoststeps": 1143,
+      "host_steps": 16800,
+      "independent_fault_events": 410,
+      "n_full_window_followup": 24,
+      "n_primary_window_followup": 185,
+      "n_any_window_followup": 185,
+      "n_events": 342,
+      "primary_response_finite": 185,
+      "primary_response_positive": 185,
+      "primary_at_exact_lag_finite": 185,
+      "event_count": 342,
+      "mean_duration": 2.6432748538011697,
+      "peak_ratio": 17.498036193668682,
+      "deployment_rejection_rate": 0.13202933985330073,
+      "migration_rejection_rate": 0.3629242819843342,
+      "worst_event_share": 0.015748031496062992,
+      "primary_window": {
+        "resource": "ram",
+        "window": [
+          4,
+          14
+        ]
+      },
+      "h1_positive_budget": {
+        "regime_window": {
+          "intervals": 1050,
+          "positives": 347,
+          "prevalence": 0.02188860152652495,
+          "host_cells": 15853
+        }
+      },
+      "admissibility": {
+        "regime_id": "compute_first",
+        "canonical_regime_id": "compute_first",
+        "onset_resource": "cpu",
+        "registered_onset_threshold": 2600.0,
+        "tau_source": "generator REGISTERED_ONSET_TAU",
+        "registered_familiar_clip": 1860.0,
+        "registered_floor": 4400.0,
+        "floor_key": "cpu_burst_floor",
+        "measured_familiar_task_maximum": 1860.0,
+        "n_familiar_tasks_measured": 201,
+        "threshold_admissible": true,
+        "margin_above_measured_maximum": 740.0,
+        "margin_below_floor": 1800.0,
+        "envelope_free_familiar_task_maximum": 1860.0,
+        "admissible_against_envelope_free_tasks": true,
+        "provisional": false,
+        "generator_provisional": true,
+        "provisional_note": "PROVISIONAL threshold: the 'no familiar task can cross it' half of the registered argument is not measured for RAM/disk under P23 (plan §6-§7); the measured maximum above is this stream's own evidence and the threshold is reported, never retuned, when it fails",
+        "rule": "admissible iff the registered threshold is STRICTLY above the measured familiar per-task maximum of its resource; an unmeasurable maximum is reported inadmissible (it cannot be shown to be above the familiar level)",
+        "measurement_source": "per-task maxima over the familiar-phase rows (phase_kind == 0) of this stream"
+      }
+    },
+    "memory_first": {
+      "tag": "single_memory_first_seed700_steps1200_calibrated",
+      "prevalence": 0.05452380952380952,
+      "positive_hoststeps": 916,
+      "host_steps": 16800,
+      "independent_fault_events": 478,
+      "n_full_window_followup": 60,
+      "n_primary_window_followup": 405,
+      "n_any_window_followup": 405,
+      "n_events": 600,
+      "primary_response_finite": 405,
+      "primary_response_positive": 405,
+      "primary_at_exact_lag_finite": 405,
+      "event_count": 600,
+      "mean_duration": 3.5566666666666666,
+      "peak_ratio": 6.333333333333333,
+      "deployment_rejection_rate": 0.10353535353535354,
+      "migration_rejection_rate": 0.220873786407767,
+      "worst_event_share": 0.008733624454148471,
+      "primary_window": {
+        "resource": "disk",
+        "window": [
+          3,
+          13
+        ]
+      },
+      "h1_positive_budget": {
+        "regime_window": {
+          "intervals": 1050,
+          "positives": 226,
+          "prevalence": 0.013802369610357884,
+          "host_cells": 16374
+        }
+      },
+      "admissibility": {
+        "regime_id": "memory_first",
+        "canonical_regime_id": "memory_first",
+        "onset_resource": "ram",
+        "registered_onset_threshold": 2810.0,
+        "tau_source": "generator REGISTERED_ONSET_TAU",
+        "registered_familiar_clip": 1400.0,
+        "registered_floor": 4500.0,
+        "floor_key": "ram_target_floor",
+        "measured_familiar_task_maximum": 1400.0,
+        "n_familiar_tasks_measured": 201,
+        "threshold_admissible": true,
+        "margin_above_measured_maximum": 1410.0,
+        "margin_below_floor": 1690.0,
+        "envelope_free_familiar_task_maximum": 1400.0,
+        "admissible_against_envelope_free_tasks": true,
+        "provisional": true,
+        "generator_provisional": true,
+        "provisional_note": "PROVISIONAL threshold: the 'no familiar task can cross it' half of the registered argument is not measured for RAM/disk under P23 (plan §6-§7); the measured maximum above is this stream's own evidence and the threshold is reported, never retuned, when it fails",
+        "rule": "admissible iff the registered threshold is STRICTLY above the measured familiar per-task maximum of its resource; an unmeasurable maximum is reported inadmissible (it cannot be shown to be above the familiar level)",
+        "measurement_source": "per-task maxima over the familiar-phase rows (phase_kind == 0) of this stream"
+      }
+    },
+    "io_first": {
+      "tag": "single_io_first_seed700_steps1200_calibrated",
+      "prevalence": 0.06875,
+      "positive_hoststeps": 1155,
+      "host_steps": 16800,
+      "independent_fault_events": 500,
+      "n_full_window_followup": 54,
+      "n_primary_window_followup": 428,
+      "n_any_window_followup": 428,
+      "n_events": 532,
+      "primary_response_finite": 428,
+      "primary_response_positive": 364,
+      "primary_at_exact_lag_finite": 428,
+      "event_count": 532,
+      "mean_duration": 2.204887218045113,
+      "peak_ratio": 11.97836328363896,
+      "deployment_rejection_rate": 0.12453760789149199,
+      "migration_rejection_rate": 0.2505592841163311,
+      "worst_event_share": 0.007792207792207792,
+      "primary_window": {
+        "resource": "cpu",
+        "window": [
+          3,
+          13
+        ]
+      },
+      "h1_positive_budget": {
+        "regime_window": {
+          "intervals": 1050,
+          "positives": 57,
+          "prevalence": 0.0034119478031844844,
+          "host_cells": 16706
+        }
+      },
+      "admissibility": {
+        "regime_id": "io_first",
+        "canonical_regime_id": "io_first",
+        "onset_resource": "disk",
+        "registered_onset_threshold": 11600.0,
+        "tau_source": "generator REGISTERED_ONSET_TAU",
+        "registered_familiar_clip": 9000.0,
+        "registered_floor": 16000.0,
+        "floor_key": "disk_retained_peak",
+        "measured_familiar_task_maximum": 9000.0,
+        "n_familiar_tasks_measured": 201,
+        "threshold_admissible": true,
+        "margin_above_measured_maximum": 2600.0,
+        "margin_below_floor": 4400.0,
+        "envelope_free_familiar_task_maximum": 9000.0,
+        "admissible_against_envelope_free_tasks": true,
+        "provisional": true,
+        "generator_provisional": true,
+        "provisional_note": "PROVISIONAL threshold: the 'no familiar task can cross it' half of the registered argument is not measured for RAM/disk under P23 (plan §6-§7); the measured maximum above is this stream's own evidence and the threshold is reported, never retuned, when it fails",
+        "rule": "admissible iff the registered threshold is STRICTLY above the measured familiar per-task maximum of its resource; an unmeasurable maximum is reported inadmissible (it cannot be shown to be above the familiar level)",
+        "measurement_source": "per-task maxima over the familiar-phase rows (phase_kind == 0) of this stream"
+      }
+    }
+  }
+}

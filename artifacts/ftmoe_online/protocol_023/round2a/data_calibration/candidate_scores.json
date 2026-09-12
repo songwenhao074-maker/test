@@ -1,0 +1,334 @@
+{
+  "kind": "round2a_s25_candidate_scores",
+  "reference_round1": {
+    "compute_first": {
+      "stream": "single_compute_first_seed700_steps1200",
+      "event_count": 342,
+      "independent_fault_events": 410,
+      "prevalence": 0.06803571428571428,
+      "primary_window_followup": 185,
+      "full_window_followup": 24,
+      "any_window_followup": 185,
+      "primary_response_positive": 185,
+      "deployment_rejection_rate": 0.13202933985330073,
+      "migration_rejection_rate": 0.3629242819843342,
+      "mean_duration": 2.6432748538011697,
+      "peak_ratio": 17.498036193668682,
+      "worst_event_share": 0.015748031496062992,
+      "h1_positive_budget": {
+        "regime_window": {
+          "intervals": 1050,
+          "positives": 347,
+          "prevalence": 0.02188860152652495,
+          "host_cells": 15853
+        }
+      }
+    },
+    "memory_first": {
+      "stream": "single_memory_first_seed700_steps1200",
+      "event_count": 297,
+      "independent_fault_events": 260,
+      "prevalence": 0.030535714285714284,
+      "primary_window_followup": 200,
+      "full_window_followup": 36,
+      "any_window_followup": 200,
+      "primary_response_positive": 200,
+      "deployment_rejection_rate": 0.08446163765312702,
+      "migration_rejection_rate": 0.15428571428571428,
+      "mean_duration": 3.9023569023569022,
+      "peak_ratio": 8.5,
+      "worst_event_share": 0.015594541910331383,
+      "h1_positive_budget": {
+        "regime_window": {
+          "intervals": 1050,
+          "positives": 122,
+          "prevalence": 0.007364481468067126,
+          "host_cells": 16566
+        }
+      }
+    },
+    "io_first": {
+      "stream": "single_io_first_seed700_steps1200",
+      "event_count": 297,
+      "independent_fault_events": 271,
+      "prevalence": 0.03791666666666667,
+      "primary_window_followup": 235,
+      "full_window_followup": 31,
+      "any_window_followup": 235,
+      "primary_response_positive": 204,
+      "deployment_rejection_rate": 0.09323116219667944,
+      "migration_rejection_rate": 0.22167487684729065,
+      "mean_duration": 2.2996632996632997,
+      "peak_ratio": 11.97836328363896,
+      "worst_event_share": 0.0141287284144427,
+      "h1_positive_budget": {
+        "regime_window": {
+          "intervals": 1050,
+          "positives": 24,
+          "prevalence": 0.001431980906921241,
+          "host_cells": 16760
+        }
+      }
+    }
+  },
+  "candidates": [
+    {
+      "stream": "b_prob45_memory_first_320",
+      "event_count": 146,
+      "independent_fault_events": 116,
+      "prevalence": 0.046645220588235295,
+      "primary_window_followup": 101,
+      "full_window_followup": 13,
+      "any_window_followup": 101,
+      "primary_response_positive": 101,
+      "deployment_rejection_rate": 0.06770833333333333,
+      "migration_rejection_rate": 0.25274725274725274,
+      "mean_duration": 3.3972602739726026,
+      "peak_ratio": 6.0,
+      "worst_event_share": 0.034482758620689655,
+      "h1_positive_budget": {
+        "regime_window": {
+          "intervals": 272,
+          "positives": 60,
+          "prevalence": 0.01413094677343382,
+          "host_cells": 4246
+        }
+      },
+      "regime": "memory_first",
+      "candidate": "b_prob45",
+      "params": {
+        "cascade_task_probability": 0.45
+      }
+    },
+    {
+      "stream": "b_prob75_memory_first_320",
+      "event_count": 234,
+      "independent_fault_events": 178,
+      "prevalence": 0.07766544117647059,
+      "primary_window_followup": 143,
+      "full_window_followup": 13,
+      "any_window_followup": 143,
+      "primary_response_positive": 143,
+      "deployment_rejection_rate": 0.13317191283292978,
+      "migration_rejection_rate": 0.2967032967032967,
+      "mean_duration": 3.1538461538461537,
+      "peak_ratio": 6.833333333333334,
+      "worst_event_share": 0.026627218934911243,
+      "h1_positive_budget": {
+        "regime_window": {
+          "intervals": 272,
+          "positives": 90,
+          "prevalence": 0.02148997134670487,
+          "host_cells": 4188
+        }
+      },
+      "regime": "memory_first",
+      "candidate": "b_prob75",
+      "params": {
+        "cascade_task_probability": 0.75
+      }
+    },
+    {
+      "stream": "b_prob75_shortdown_memory_first_320",
+      "event_count": 197,
+      "independent_fault_events": 92,
+      "prevalence": 0.03262867647058824,
+      "primary_window_followup": 95,
+      "full_window_followup": 14,
+      "any_window_followup": 95,
+      "primary_response_positive": 94,
+      "deployment_rejection_rate": 0.047872340425531915,
+      "migration_rejection_rate": 0.22115384615384615,
+      "mean_duration": 2.8781725888324874,
+      "peak_ratio": 1.7956989247311828,
+      "worst_event_share": 0.028169014084507043,
+      "h1_positive_budget": {
+        "regime_window": {
+          "intervals": 272,
+          "positives": 63,
+          "prevalence": 0.014858490566037736,
+          "host_cells": 4240
+        }
+      },
+      "regime": "memory_first",
+      "candidate": "b_prob75_shortdown",
+      "params": {
+        "cascade_task_probability": 0.75,
+        "disk_duration": [
+          2,
+          3
+        ],
+        "cpu_duration": [
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "stream": "c_peak24_shortdisk_prob45_io_first_320",
+      "event_count": 82,
+      "independent_fault_events": 112,
+      "prevalence": 0.058363970588235295,
+      "primary_window_followup": 63,
+      "full_window_followup": 10,
+      "any_window_followup": 63,
+      "primary_response_positive": 54,
+      "deployment_rejection_rate": 0.11386138613861387,
+      "migration_rejection_rate": 0.2980769230769231,
+      "mean_duration": 1.853658536585366,
+      "peak_ratio": 11.97836328363896,
+      "worst_event_share": 0.023622047244094488,
+      "h1_positive_budget": {
+        "regime_window": {
+          "intervals": 272,
+          "positives": 2,
+          "prevalence": 0.0004597701149425287,
+          "host_cells": 4350
+        }
+      },
+      "regime": "io_first",
+      "candidate": "c_peak24_shortdisk_prob45",
+      "params": {
+        "disk_retained_peak": 24000.0,
+        "disk_duration": [
+          2,
+          3
+        ],
+        "cascade_task_probability": 0.45
+      }
+    },
+    {
+      "stream": "c_prob100_shortdown_io_first_320",
+      "event_count": 238,
+      "independent_fault_events": 76,
+      "prevalence": 0.018612132352941176,
+      "primary_window_followup": 102,
+      "full_window_followup": 10,
+      "any_window_followup": 102,
+      "primary_response_positive": 50,
+      "deployment_rejection_rate": 0.03763440860215054,
+      "migration_rejection_rate": 0.14782608695652175,
+      "mean_duration": 0.6260504201680672,
+      "peak_ratio": 1.7956989247311828,
+      "worst_event_share": 0.037037037037037035,
+      "h1_positive_budget": {
+        "regime_window": {
+          "intervals": 272,
+          "positives": 18,
+          "prevalence": 0.004158004158004158,
+          "host_cells": 4329
+        }
+      },
+      "regime": "io_first",
+      "candidate": "c_prob100_shortdown",
+      "params": {
+        "disk_retained_peak": 24000.0,
+        "cascade_task_probability": 1.0,
+        "cpu_duration": [
+          2,
+          3
+        ],
+        "ram_duration": [
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "stream": "c_prob75_io_first_320",
+      "event_count": 234,
+      "independent_fault_events": 174,
+      "prevalence": 0.09053308823529412,
+      "primary_window_followup": 167,
+      "full_window_followup": 21,
+      "any_window_followup": 167,
+      "primary_response_positive": 130,
+      "deployment_rejection_rate": 0.17321016166281755,
+      "migration_rejection_rate": 0.3669064748201439,
+      "mean_duration": 1.7393162393162394,
+      "peak_ratio": 6.184495284416605,
+      "worst_event_share": 0.02030456852791878,
+      "h1_positive_budget": {
+        "regime_window": {
+          "intervals": 272,
+          "positives": 20,
+          "prevalence": 0.004628558204119417,
+          "host_cells": 4321
+        }
+      },
+      "regime": "io_first",
+      "candidate": "c_prob75",
+      "params": {
+        "disk_retained_peak": 24000.0,
+        "cascade_task_probability": 0.75
+      }
+    },
+    {
+      "stream": "c_prob90_io_first_320",
+      "event_count": 275,
+      "independent_fault_events": 226,
+      "prevalence": 0.11443014705882353,
+      "primary_window_followup": 196,
+      "full_window_followup": 25,
+      "any_window_followup": 196,
+      "primary_response_positive": 161,
+      "deployment_rejection_rate": 0.12895377128953772,
+      "migration_rejection_rate": 0.3939393939393939,
+      "mean_duration": 1.8727272727272728,
+      "peak_ratio": 9.139936201065808,
+      "worst_event_share": 0.018072289156626505,
+      "h1_positive_budget": {
+        "regime_window": {
+          "intervals": 272,
+          "positives": 30,
+          "prevalence": 0.006968641114982578,
+          "host_cells": 4305
+        }
+      },
+      "regime": "io_first",
+      "candidate": "c_prob90",
+      "params": {
+        "disk_retained_peak": 24000.0,
+        "cascade_task_probability": 0.9
+      }
+    },
+    {
+      "stream": "c_prob90_shortdown_io_first_320",
+      "event_count": 230,
+      "independent_fault_events": 78,
+      "prevalence": 0.019761029411764705,
+      "primary_window_followup": 102,
+      "full_window_followup": 12,
+      "any_window_followup": 102,
+      "primary_response_positive": 49,
+      "deployment_rejection_rate": 0.019178082191780823,
+      "migration_rejection_rate": 0.10204081632653061,
+      "mean_duration": 0.6521739130434783,
+      "peak_ratio": 1.7956989247311828,
+      "worst_event_share": 0.046511627906976744,
+      "h1_positive_budget": {
+        "regime_window": {
+          "intervals": 272,
+          "positives": 23,
+          "prevalence": 0.005322841934737329,
+          "host_cells": 4321
+        }
+      },
+      "regime": "io_first",
+      "candidate": "c_prob90_shortdown",
+      "params": {
+        "disk_retained_peak": 24000.0,
+        "cascade_task_probability": 0.9,
+        "cpu_duration": [
+          2,
+          3
+        ],
+        "ram_duration": [
+          2,
+          3
+        ]
+      }
+    }
+  ],
+  "note": "scored with the same instruments the gates use; the round-1 streams in reference_round1 are the frozen A/B/C baseline"
+}

@@ -1,0 +1,937 @@
+{
+  "kind": "round2a_s25_data_only_calibration",
+  "seeds": {
+    "replay_seed": 700,
+    "note": "seed 700 only; 701/702/703 stay frozen (directive §4)"
+  },
+  "model_metrics_seen": false,
+  "candidates": [
+    {
+      "stream": "c_prob75_io_first_320",
+      "mode": "single-calib",
+      "regime": "io_first",
+      "window": [
+        48,
+        320
+      ],
+      "steps": 320,
+      "onset_resource": "disk",
+      "onset_tau": 11600.0,
+      "host_cells": 4352,
+      "positive_hoststeps": 394,
+      "prevalence": 0.09053308823529412,
+      "label_class_counts": {
+        "0": 3958,
+        "1": 299,
+        "2": 64,
+        "3": 31
+      },
+      "h1_onset_positives": 20,
+      "tasks_born_in_window": 358,
+      "tasks_above_tau": 0,
+      "cascade_events_in_stream": 273,
+      "onset_label_run_lengths": {
+        "n": 20,
+        "median": 1.0,
+        "mean": 1.55,
+        "max": 3
+      },
+      "deploy_attempts": 433,
+      "deploy_rejected": 75,
+      "deploy_rejection_rate": 0.17321016166281755,
+      "migrate_attempts": 139,
+      "migrate_rejected": 51,
+      "migrate_rejection_rate": 0.3669064748201439,
+      "candidate": "c_prob75",
+      "params": {
+        "disk_retained_peak": 24000.0,
+        "cascade_task_probability": 0.75
+      },
+      "effective": {
+        "cascade_task_probability": 0.75,
+        "registered_common": {
+          "cascade_task_probability": 0.75,
+          "disk_retained_peak": 24000.0
+        },
+        "regimes_v3": {
+          "cascade_task_probability": 0.75,
+          "disk_retained_peak": 24000.0
+        }
+      },
+      "elapsed_seconds": 76.3,
+      "phase_template": [
+        [
+          "F0_baseline",
+          48,
+          null
+        ],
+        [
+          "io_first_only",
+          272,
+          "io_first"
+        ]
+      ]
+    },
+    {
+      "stream": "c_prob90_io_first_320",
+      "mode": "single-calib",
+      "regime": "io_first",
+      "window": [
+        48,
+        320
+      ],
+      "steps": 320,
+      "onset_resource": "disk",
+      "onset_tau": 11600.0,
+      "host_cells": 4352,
+      "positive_hoststeps": 498,
+      "prevalence": 0.11443014705882353,
+      "label_class_counts": {
+        "0": 3854,
+        "1": 369,
+        "2": 82,
+        "3": 47
+      },
+      "h1_onset_positives": 30,
+      "tasks_born_in_window": 358,
+      "tasks_above_tau": 0,
+      "cascade_events_in_stream": 323,
+      "onset_label_run_lengths": {
+        "n": 30,
+        "median": 1.0,
+        "mean": 1.5666666666666667,
+        "max": 3
+      },
+      "deploy_attempts": 411,
+      "deploy_rejected": 53,
+      "deploy_rejection_rate": 0.12895377128953772,
+      "migrate_attempts": 132,
+      "migrate_rejected": 52,
+      "migrate_rejection_rate": 0.3939393939393939,
+      "candidate": "c_prob90",
+      "params": {
+        "disk_retained_peak": 24000.0,
+        "cascade_task_probability": 0.9
+      },
+      "effective": {
+        "cascade_task_probability": 0.9,
+        "registered_common": {
+          "cascade_task_probability": 0.9,
+          "disk_retained_peak": 24000.0
+        },
+        "regimes_v3": {
+          "cascade_task_probability": 0.9,
+          "disk_retained_peak": 24000.0
+        }
+      },
+      "elapsed_seconds": 71.5,
+      "phase_template": [
+        [
+          "F0_baseline",
+          48,
+          null
+        ],
+        [
+          "io_first_only",
+          272,
+          "io_first"
+        ]
+      ]
+    },
+    {
+      "stream": "b_prob45_memory_first_320",
+      "mode": "single-calib",
+      "regime": "memory_first",
+      "window": [
+        48,
+        320
+      ],
+      "steps": 320,
+      "onset_resource": "ram",
+      "onset_tau": 2810.0,
+      "host_cells": 4352,
+      "positive_hoststeps": 203,
+      "prevalence": 0.046645220588235295,
+      "label_class_counts": {
+        "0": 4149,
+        "1": 84,
+        "2": 106,
+        "3": 13
+      },
+      "h1_onset_positives": 60,
+      "tasks_born_in_window": 358,
+      "tasks_above_tau": 146,
+      "cascade_events_in_stream": 169,
+      "onset_label_run_lengths": {
+        "n": 60,
+        "median": 2.0,
+        "mean": 1.7666666666666666,
+        "max": 3
+      },
+      "deploy_attempts": 384,
+      "deploy_rejected": 26,
+      "deploy_rejection_rate": 0.06770833333333333,
+      "migrate_attempts": 91,
+      "migrate_rejected": 23,
+      "migrate_rejection_rate": 0.25274725274725274,
+      "candidate": "b_prob45",
+      "params": {
+        "cascade_task_probability": 0.45
+      },
+      "effective": {
+        "cascade_task_probability": 0.45,
+        "registered_common": {
+          "cascade_task_probability": 0.45
+        },
+        "regimes_v3": {
+          "cascade_task_probability": 0.45
+        }
+      },
+      "elapsed_seconds": 70.0,
+      "phase_template": [
+        [
+          "F0_baseline",
+          48,
+          null
+        ],
+        [
+          "memory_first_only",
+          272,
+          "memory_first"
+        ]
+      ]
+    },
+    {
+      "stream": "b_prob75_memory_first_320",
+      "mode": "single-calib",
+      "regime": "memory_first",
+      "window": [
+        48,
+        320
+      ],
+      "steps": 320,
+      "onset_resource": "ram",
+      "onset_tau": 2810.0,
+      "host_cells": 4352,
+      "positive_hoststeps": 338,
+      "prevalence": 0.07766544117647059,
+      "label_class_counts": {
+        "0": 4014,
+        "1": 138,
+        "2": 164,
+        "3": 36
+      },
+      "h1_onset_positives": 90,
+      "tasks_born_in_window": 358,
+      "tasks_above_tau": 234,
+      "cascade_events_in_stream": 273,
+      "onset_label_run_lengths": {
+        "n": 90,
+        "median": 2.0,
+        "mean": 1.8222222222222222,
+        "max": 3
+      },
+      "deploy_attempts": 413,
+      "deploy_rejected": 55,
+      "deploy_rejection_rate": 0.13317191283292978,
+      "migrate_attempts": 91,
+      "migrate_rejected": 27,
+      "migrate_rejection_rate": 0.2967032967032967,
+      "candidate": "b_prob75",
+      "params": {
+        "cascade_task_probability": 0.75
+      },
+      "effective": {
+        "cascade_task_probability": 0.75,
+        "registered_common": {
+          "cascade_task_probability": 0.75
+        },
+        "regimes_v3": {
+          "cascade_task_probability": 0.75
+        }
+      },
+      "elapsed_seconds": 71.3,
+      "phase_template": [
+        [
+          "F0_baseline",
+          48,
+          null
+        ],
+        [
+          "memory_first_only",
+          272,
+          "memory_first"
+        ]
+      ]
+    },
+    {
+      "stream": "b_prob75_shortdown_memory_first_320",
+      "mode": "single-calib",
+      "regime": "memory_first",
+      "window": [
+        48,
+        320
+      ],
+      "steps": 320,
+      "onset_resource": "ram",
+      "onset_tau": 2810.0,
+      "host_cells": 4352,
+      "positive_hoststeps": 142,
+      "prevalence": 0.03262867647058824,
+      "label_class_counts": {
+        "0": 4210,
+        "1": 27,
+        "2": 112,
+        "3": 3
+      },
+      "h1_onset_positives": 63,
+      "tasks_born_in_window": 358,
+      "tasks_above_tau": 197,
+      "cascade_events_in_stream": 273,
+      "onset_label_run_lengths": {
+        "n": 63,
+        "median": 2.0,
+        "mean": 1.7777777777777777,
+        "max": 3
+      },
+      "deploy_attempts": 376,
+      "deploy_rejected": 18,
+      "deploy_rejection_rate": 0.047872340425531915,
+      "migrate_attempts": 104,
+      "migrate_rejected": 23,
+      "migrate_rejection_rate": 0.22115384615384615,
+      "candidate": "b_prob75_shortdown",
+      "params": {
+        "cascade_task_probability": 0.75,
+        "disk_duration": [
+          2,
+          3
+        ],
+        "cpu_duration": [
+          2,
+          3
+        ]
+      },
+      "effective": {
+        "cascade_task_probability": 0.75,
+        "registered_common": {
+          "cascade_task_probability": 0.75,
+          "cpu_duration": [
+            2,
+            3
+          ],
+          "disk_duration": [
+            2,
+            3
+          ]
+        },
+        "regimes_v3": {
+          "cascade_task_probability": 0.75,
+          "cpu_duration": [
+            2,
+            3
+          ],
+          "disk_duration": [
+            2,
+            3
+          ]
+        }
+      },
+      "elapsed_seconds": 70.4,
+      "phase_template": [
+        [
+          "F0_baseline",
+          48,
+          null
+        ],
+        [
+          "memory_first_only",
+          272,
+          "memory_first"
+        ]
+      ]
+    },
+    {
+      "stream": "c_prob90_shortdown_io_first_320",
+      "mode": "single-calib",
+      "regime": "io_first",
+      "window": [
+        48,
+        320
+      ],
+      "steps": 320,
+      "onset_resource": "disk",
+      "onset_tau": 11600.0,
+      "host_cells": 4352,
+      "positive_hoststeps": 86,
+      "prevalence": 0.019761029411764705,
+      "label_class_counts": {
+        "0": 4266,
+        "1": 44,
+        "2": 11,
+        "3": 31
+      },
+      "h1_onset_positives": 23,
+      "tasks_born_in_window": 358,
+      "tasks_above_tau": 0,
+      "cascade_events_in_stream": 323,
+      "onset_label_run_lengths": {
+        "n": 23,
+        "median": 1.0,
+        "mean": 1.3478260869565217,
+        "max": 2
+      },
+      "deploy_attempts": 365,
+      "deploy_rejected": 7,
+      "deploy_rejection_rate": 0.019178082191780823,
+      "migrate_attempts": 98,
+      "migrate_rejected": 10,
+      "migrate_rejection_rate": 0.10204081632653061,
+      "candidate": "c_prob90_shortdown",
+      "params": {
+        "disk_retained_peak": 24000.0,
+        "cascade_task_probability": 0.9,
+        "cpu_duration": [
+          2,
+          3
+        ],
+        "ram_duration": [
+          2,
+          3
+        ]
+      },
+      "effective": {
+        "cascade_task_probability": 0.9,
+        "registered_common": {
+          "cascade_task_probability": 0.9,
+          "cpu_duration": [
+            2,
+            3
+          ],
+          "disk_retained_peak": 24000.0,
+          "ram_duration": [
+            2,
+            3
+          ]
+        },
+        "regimes_v3": {
+          "cascade_task_probability": 0.9,
+          "cpu_duration": [
+            2,
+            3
+          ],
+          "disk_retained_peak": 24000.0,
+          "ram_duration": [
+            2,
+            3
+          ]
+        }
+      },
+      "elapsed_seconds": 74.4,
+      "phase_template": [
+        [
+          "F0_baseline",
+          48,
+          null
+        ],
+        [
+          "io_first_only",
+          272,
+          "io_first"
+        ]
+      ]
+    },
+    {
+      "stream": "c_prob100_shortdown_io_first_320",
+      "mode": "single-calib",
+      "regime": "io_first",
+      "window": [
+        48,
+        320
+      ],
+      "steps": 320,
+      "onset_resource": "disk",
+      "onset_tau": 11600.0,
+      "host_cells": 4352,
+      "positive_hoststeps": 81,
+      "prevalence": 0.018612132352941176,
+      "label_class_counts": {
+        "0": 4271,
+        "1": 46,
+        "2": 12,
+        "3": 23
+      },
+      "h1_onset_positives": 18,
+      "tasks_born_in_window": 358,
+      "tasks_above_tau": 0,
+      "cascade_events_in_stream": 358,
+      "onset_label_run_lengths": {
+        "n": 18,
+        "median": 1.0,
+        "mean": 1.2777777777777777,
+        "max": 2
+      },
+      "deploy_attempts": 372,
+      "deploy_rejected": 14,
+      "deploy_rejection_rate": 0.03763440860215054,
+      "migrate_attempts": 115,
+      "migrate_rejected": 17,
+      "migrate_rejection_rate": 0.14782608695652175,
+      "candidate": "c_prob100_shortdown",
+      "params": {
+        "disk_retained_peak": 24000.0,
+        "cascade_task_probability": 1.0,
+        "cpu_duration": [
+          2,
+          3
+        ],
+        "ram_duration": [
+          2,
+          3
+        ]
+      },
+      "effective": {
+        "cascade_task_probability": 1.0,
+        "registered_common": {
+          "cascade_task_probability": 1.0,
+          "cpu_duration": [
+            2,
+            3
+          ],
+          "disk_retained_peak": 24000.0,
+          "ram_duration": [
+            2,
+            3
+          ]
+        },
+        "regimes_v3": {
+          "cascade_task_probability": 1.0,
+          "cpu_duration": [
+            2,
+            3
+          ],
+          "disk_retained_peak": 24000.0,
+          "ram_duration": [
+            2,
+            3
+          ]
+        }
+      },
+      "elapsed_seconds": 73.4,
+      "phase_template": [
+        [
+          "F0_baseline",
+          48,
+          null
+        ],
+        [
+          "io_first_only",
+          272,
+          "io_first"
+        ]
+      ]
+    },
+    {
+      "stream": "c_peak24_shortdisk_prob45_io_first_320",
+      "mode": "single-calib",
+      "regime": "io_first",
+      "window": [
+        48,
+        320
+      ],
+      "steps": 320,
+      "onset_resource": "disk",
+      "onset_tau": 11600.0,
+      "host_cells": 4352,
+      "positive_hoststeps": 254,
+      "prevalence": 0.058363970588235295,
+      "label_class_counts": {
+        "0": 4098,
+        "1": 208,
+        "2": 44,
+        "3": 2
+      },
+      "h1_onset_positives": 2,
+      "tasks_born_in_window": 358,
+      "tasks_above_tau": 0,
+      "cascade_events_in_stream": 169,
+      "onset_label_run_lengths": {
+        "n": 2,
+        "median": 1.0,
+        "mean": 1.0,
+        "max": 1
+      },
+      "deploy_attempts": 404,
+      "deploy_rejected": 46,
+      "deploy_rejection_rate": 0.11386138613861387,
+      "migrate_attempts": 104,
+      "migrate_rejected": 31,
+      "migrate_rejection_rate": 0.2980769230769231,
+      "candidate": "c_peak24_shortdisk_prob45",
+      "params": {
+        "disk_retained_peak": 24000.0,
+        "disk_duration": [
+          2,
+          3
+        ],
+        "cascade_task_probability": 0.45
+      },
+      "effective": {
+        "cascade_task_probability": 0.45,
+        "registered_common": {
+          "cascade_task_probability": 0.45,
+          "disk_duration": [
+            2,
+            3
+          ],
+          "disk_retained_peak": 24000.0
+        },
+        "regimes_v3": {
+          "cascade_task_probability": 0.45,
+          "disk_duration": [
+            2,
+            3
+          ],
+          "disk_retained_peak": 24000.0
+        }
+      },
+      "elapsed_seconds": 74.3,
+      "phase_template": [
+        [
+          "F0_baseline",
+          48,
+          null
+        ],
+        [
+          "io_first_only",
+          272,
+          "io_first"
+        ]
+      ]
+    },
+    {
+      "stream": "c_prob75_peak24dur_io_first_640",
+      "mode": "single-calib",
+      "regime": "io_first",
+      "window": [
+        96,
+        640
+      ],
+      "steps": 640,
+      "onset_resource": "disk",
+      "onset_tau": 11600.0,
+      "host_cells": 8704,
+      "positive_hoststeps": 825,
+      "prevalence": 0.09478400735294118,
+      "label_class_counts": {
+        "0": 7879,
+        "1": 629,
+        "2": 122,
+        "3": 74
+      },
+      "h1_onset_positives": 47,
+      "tasks_born_in_window": 733,
+      "tasks_above_tau": 0,
+      "cascade_events_in_stream": 545,
+      "onset_label_run_lengths": {
+        "n": 47,
+        "median": 1.0,
+        "mean": 1.574468085106383,
+        "max": 3
+      },
+      "deploy_attempts": 881,
+      "deploy_rejected": 148,
+      "deploy_rejection_rate": 0.16799091940976163,
+      "migrate_attempts": 273,
+      "migrate_rejected": 109,
+      "migrate_rejection_rate": 0.3992673992673993,
+      "candidate": "c_prob75_peak24dur",
+      "params": {
+        "disk_retained_peak": 24000.0,
+        "cascade_task_probability": 0.75
+      },
+      "effective": {
+        "cascade_task_probability": 0.75,
+        "registered_common": {
+          "cascade_task_probability": 0.75,
+          "disk_retained_peak": 24000.0
+        },
+        "regimes_v3": {
+          "cascade_task_probability": 0.75,
+          "disk_retained_peak": 24000.0
+        }
+      },
+      "elapsed_seconds": 163.5,
+      "phase_template": [
+        [
+          "F0_baseline",
+          96,
+          null
+        ],
+        [
+          "io_first_only",
+          544,
+          "io_first"
+        ]
+      ]
+    },
+    {
+      "stream": "c_prob60_peak24dur_io_first_1200",
+      "mode": "single-calib",
+      "regime": "io_first",
+      "window": [
+        180,
+        1200
+      ],
+      "steps": 1200,
+      "onset_resource": "disk",
+      "onset_tau": 11600.0,
+      "host_cells": 16320,
+      "positive_hoststeps": 1406,
+      "prevalence": 0.08615196078431372,
+      "label_class_counts": {
+        "0": 14914,
+        "1": 1064,
+        "2": 222,
+        "3": 120
+      },
+      "h1_onset_positives": 69,
+      "tasks_born_in_window": 1386,
+      "tasks_above_tau": 0,
+      "cascade_events_in_stream": 808,
+      "onset_label_run_lengths": {
+        "n": 69,
+        "median": 2.0,
+        "mean": 1.7391304347826086,
+        "max": 3
+      },
+      "deploy_attempts": 1632,
+      "deploy_rejected": 246,
+      "deploy_rejection_rate": 0.15073529411764705,
+      "migrate_attempts": 467,
+      "migrate_rejected": 164,
+      "migrate_rejection_rate": 0.3511777301927195,
+      "candidate": "c_prob60_peak24dur",
+      "params": {
+        "disk_retained_peak": 24000.0,
+        "cascade_task_probability": 0.6
+      },
+      "effective": {
+        "cascade_task_probability": 0.6,
+        "registered_common": {
+          "cascade_task_probability": 0.6,
+          "disk_retained_peak": 24000.0
+        },
+        "regimes_v3": {
+          "cascade_task_probability": 0.6,
+          "disk_retained_peak": 24000.0
+        }
+      },
+      "elapsed_seconds": 432.8,
+      "phase_template": [
+        [
+          "F0_baseline",
+          180,
+          null
+        ],
+        [
+          "io_first_only",
+          1020,
+          "io_first"
+        ]
+      ]
+    },
+    {
+      "stream": "c_prob45_peak24dur_io_first_1200",
+      "mode": "single-calib",
+      "regime": "io_first",
+      "window": [
+        180,
+        1200
+      ],
+      "steps": 1200,
+      "onset_resource": "disk",
+      "onset_tau": 11600.0,
+      "host_cells": 16320,
+      "positive_hoststeps": 1058,
+      "prevalence": 0.06482843137254903,
+      "label_class_counts": {
+        "0": 15262,
+        "1": 806,
+        "2": 170,
+        "3": 82
+      },
+      "h1_onset_positives": 51,
+      "tasks_born_in_window": 1387,
+      "tasks_above_tau": 0,
+      "cascade_events_in_stream": 595,
+      "onset_label_run_lengths": {
+        "n": 51,
+        "median": 2.0,
+        "mean": 1.607843137254902,
+        "max": 3
+      },
+      "deploy_attempts": 1566,
+      "deploy_rejected": 179,
+      "deploy_rejection_rate": 0.11430395913154534,
+      "migrate_attempts": 412,
+      "migrate_rejected": 127,
+      "migrate_rejection_rate": 0.308252427184466,
+      "candidate": "c_prob45_peak24dur",
+      "params": {
+        "disk_retained_peak": 24000.0,
+        "cascade_task_probability": 0.45
+      },
+      "effective": {
+        "cascade_task_probability": 0.45,
+        "registered_common": {
+          "cascade_task_probability": 0.45,
+          "disk_retained_peak": 24000.0
+        },
+        "regimes_v3": {
+          "cascade_task_probability": 0.45,
+          "disk_retained_peak": 24000.0
+        }
+      },
+      "elapsed_seconds": 422.0,
+      "phase_template": [
+        [
+          "F0_baseline",
+          180,
+          null
+        ],
+        [
+          "io_first_only",
+          1020,
+          "io_first"
+        ]
+      ]
+    },
+    {
+      "stream": "b_prob50_memory_first_1200",
+      "mode": "single-calib",
+      "regime": "memory_first",
+      "window": [
+        180,
+        1200
+      ],
+      "steps": 1200,
+      "onset_resource": "ram",
+      "onset_tau": 2810.0,
+      "host_cells": 16320,
+      "positive_hoststeps": 897,
+      "prevalence": 0.054963235294117646,
+      "label_class_counts": {
+        "0": 15423,
+        "1": 398,
+        "2": 418,
+        "3": 81
+      },
+      "h1_onset_positives": 224,
+      "tasks_born_in_window": 1387,
+      "tasks_above_tau": 585,
+      "cascade_events_in_stream": 680,
+      "onset_label_run_lengths": {
+        "n": 224,
+        "median": 2.0,
+        "mean": 1.8660714285714286,
+        "max": 3
+      },
+      "deploy_attempts": 1551,
+      "deploy_rejected": 164,
+      "deploy_rejection_rate": 0.10573823339780787,
+      "migrate_attempts": 419,
+      "migrate_rejected": 118,
+      "migrate_rejection_rate": 0.28162291169451076,
+      "candidate": "b_prob50",
+      "params": {
+        "cascade_task_probability": 0.5
+      },
+      "effective": {
+        "cascade_task_probability": 0.5,
+        "registered_common": {
+          "cascade_task_probability": 0.5
+        },
+        "regimes_v3": {
+          "cascade_task_probability": 0.5
+        }
+      },
+      "elapsed_seconds": 423.9,
+      "phase_template": [
+        [
+          "F0_baseline",
+          180,
+          null
+        ],
+        [
+          "memory_first_only",
+          1020,
+          "memory_first"
+        ]
+      ]
+    },
+    {
+      "stream": "b_prob60_memory_first_1200",
+      "mode": "single-calib",
+      "regime": "memory_first",
+      "window": [
+        180,
+        1200
+      ],
+      "steps": 1200,
+      "onset_resource": "ram",
+      "onset_tau": 2810.0,
+      "host_cells": 16320,
+      "positive_hoststeps": 1042,
+      "prevalence": 0.06384803921568627,
+      "label_class_counts": {
+        "0": 15278,
+        "1": 454,
+        "2": 503,
+        "3": 85
+      },
+      "h1_onset_positives": 277,
+      "tasks_born_in_window": 1387,
+      "tasks_above_tau": 688,
+      "cascade_events_in_stream": 809,
+      "onset_label_run_lengths": {
+        "n": 277,
+        "median": 2.0,
+        "mean": 1.815884476534296,
+        "max": 3
+      },
+      "deploy_attempts": 1547,
+      "deploy_rejected": 160,
+      "deploy_rejection_rate": 0.10342598577892695,
+      "migrate_attempts": 416,
+      "migrate_rejected": 94,
+      "migrate_rejection_rate": 0.22596153846153846,
+      "candidate": "b_prob60",
+      "params": {
+        "cascade_task_probability": 0.6
+      },
+      "effective": {
+        "cascade_task_probability": 0.6,
+        "registered_common": {
+          "cascade_task_probability": 0.6
+        },
+        "regimes_v3": {
+          "cascade_task_probability": 0.6
+        }
+      },
+      "elapsed_seconds": 420.7,
+      "phase_template": [
+        [
+          "F0_baseline",
+          180,
+          null
+        ],
+        [
+          "memory_first_only",
+          1020,
+          "memory_first"
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "protocol": "023",
+  "round": "2A",
+  "arm": "A",
+  "checkpoints": {
+    "A1_compute": {
+      "file": "C_after_A1.pt",
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/checkpoints/C_after_A1.pt",
+      "sha256": "18b8bd95be86750bf60cc01a1a7b710ea11e6d9af7be8de79dd5bccaad4bad81",
+      "base_hash": "62eaa0e9fa58bc32439c00106beb5f206bf778ff9676b0932338e185b4be0c4b",
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "optimizer_hash": null,
+      "replay_hash": "9899f3eaa2eda8aa52ae087e40e381c545598551219a9926dd5eeedf9d440d5f",
+      "update_count": 0,
+      "phase": "A1_compute",
+      "time_index": 720
+    },
+    "B1_memory": {
+      "file": "C_after_B1.pt",
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/checkpoints/C_after_B1.pt",
+      "sha256": "3beee327a1164f77e4940cda291f0eaba5368420344b6d267e17af1f779b2433",
+      "base_hash": "62eaa0e9fa58bc32439c00106beb5f206bf778ff9676b0932338e185b4be0c4b",
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "optimizer_hash": null,
+      "replay_hash": "6daeaac59a866779edd34d9f289c3aa27d0f27d0af86567b6b3eeca889a45729",
+      "update_count": 0,
+      "phase": "B1_memory",
+      "time_index": 1140
+    },
+    "C1_io": {
+      "file": "C_after_C1.pt",
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/checkpoints/C_after_C1.pt",
+      "sha256": "b741d95d4d7608f72700413cf5ecdfa6dfc6f0a87b59dbc560b043c7e4920f15",
+      "base_hash": "62eaa0e9fa58bc32439c00106beb5f206bf778ff9676b0932338e185b4be0c4b",
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "optimizer_hash": null,
+      "replay_hash": "83d6fe2cc670a0c29816aa2af4a51f92adecee5128b6d3fabf696d2a3638f10a",
+      "update_count": 0,
+      "phase": "C1_io",
+      "time_index": 1560
+    },
+    "F1_baseline": {
+      "file": "C_after_F1.pt",
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/checkpoints/C_after_F1.pt",
+      "sha256": "7164c2ee4872e25cde02b9a910e2fe56f0e8c31cb036d16d386b4f69e95a955c",
+      "base_hash": "62eaa0e9fa58bc32439c00106beb5f206bf778ff9676b0932338e185b4be0c4b",
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "optimizer_hash": null,
+      "replay_hash": "fbbf6a2af2df0d50ceffafd070530449e1f2d0b5005a8ebc2b6a70e647ab65a2",
+      "update_count": 0,
+      "phase": "F1_baseline",
+      "time_index": 1800
+    },
+    "A2_recur": {
+      "file": "C_after_A2.pt",
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/checkpoints/C_after_A2.pt",
+      "sha256": "377caef1565a3ad49151f3fc52911bca67885c65e4be0251badd995f5cdd57f9",
+      "base_hash": "62eaa0e9fa58bc32439c00106beb5f206bf778ff9676b0932338e185b4be0c4b",
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "optimizer_hash": null,
+      "replay_hash": "9572707e03a42f0de6994bef0dc42f8bd66e0d4fd740116273cf267311ea645a",
+      "update_count": 0,
+      "phase": "A2_recur",
+      "time_index": 2160
+    },
+    "C2_recur": {
+      "file": "C_after_C2.pt",
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/checkpoints/C_after_C2.pt",
+      "sha256": "a4f98286a44109d691a2ac0a22470cf11dfe8257ebb814caa1a4ccb478b022fd",
+      "base_hash": "62eaa0e9fa58bc32439c00106beb5f206bf778ff9676b0932338e185b4be0c4b",
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "optimizer_hash": null,
+      "replay_hash": "e9fb84cf49a04128db11075b7ada02183f35bf54d6621f2cf85a0fed4bca0454",
+      "update_count": 0,
+      "phase": "C2_recur",
+      "time_index": 2520
+    },
+    "B2_recur": {
+      "file": "C_after_B2.pt",
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/checkpoints/C_after_B2.pt",
+      "sha256": "5183995c1b21705f3bc23becf50aeca4c4ba18ad00761db823eaeabd297e2661",
+      "base_hash": "62eaa0e9fa58bc32439c00106beb5f206bf778ff9676b0932338e185b4be0c4b",
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "optimizer_hash": null,
+      "replay_hash": "21bdf65db302e4cc3896c06e953fe1d0af69ac711c72dfa505b09c170bfb0f3b",
+      "update_count": 0,
+      "phase": "B2_recur",
+      "time_index": 2880
+    }
+  },
+  "required": [
+    "C_after_A1.pt",
+    "C_after_B1.pt",
+    "C_after_C1.pt",
+    "C_after_F1.pt",
+    "C_after_A2.pt",
+    "C_after_C2.pt",
+    "C_after_B2.pt"
+  ]
+}

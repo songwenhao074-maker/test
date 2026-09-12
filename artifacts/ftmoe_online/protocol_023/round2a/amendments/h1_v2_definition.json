@@ -1,0 +1,88 @@
+{
+  "kind": "round2a_amendment",
+  "amendment_id": "H1-v2",
+  "protocol": "023",
+  "round": "2A",
+  "registered_at": "2026-09-12",
+  "registered_before_any_model_run": true,
+  "supersedes_nothing": true,
+  "directive": "指令/FTMOE_PROTOCOL023_ROUND2A_DIRECTIVE_20260912.md §3",
+  "status": "frozen",
+  "why_this_amendment_exists": [
+    "Round 1's H1-original FAIL is permanent and is NOT rewritten by this amendment.",
+    "H1-original gated 'valid onset/follow-up >= 50 per regime' on the strict reading: an onset counts only if its ENTIRE registered response window is observed inside the task's own observed life. Measured: 24 / 36 / 31 against a threshold of 50, because the median observed cohort life is 5-6 intervals while the registered response horizons are 16-18 intervals. The strict reading is structurally unreachable in this simulator.",
+    "The directive therefore registers a second, explicitly named quantity (usable_primary_followup) and a new gate (H1-v2) next to the preserved H1-original verdict."
+  ],
+  "h1_original": {
+    "definition": "onset whose whole registered response window (horizon = max(window end)) is continuously observed on the task's own timeline",
+    "threshold_per_regime": 50,
+    "measured_per_regime": {
+      "compute_first": 24,
+      "memory_first": 36,
+      "io_first": 31
+    },
+    "verdict": "FAIL",
+    "permanence": "H1-original = FAIL is preserved permanently; it must never be rewritten as PASS, and this amendment does not re-evaluate it"
+  },
+  "usable_primary_followup": {
+    "definition": "An onset event counts as usable when the task has at least one valid task-level observation inside the first registered downstream resource response window of its own regime.",
+    "operationalisation": {
+      "quantity": "count of onset events with >= 1 observation at an interval t with t0 + start <= t < t0 + end, where [start, end) is the regime's registered response window of its first downstream resource",
+      "first_downstream_resource_rule": "the response resource with the smallest registered window start; this is the next resource in the regime's registered cascade sequence",
+      "observation_source": "task_timeline rows of the onset task itself (never the host aggregate, never the label)",
+      "window_is_half_open": true
+    },
+    "per_regime_windows": {
+      "compute_first": {
+        "onset_resource": "cpu",
+        "downstream_resource": "ram",
+        "window": [4, 14],
+        "directive_text": "A: CPU onset -> RAM window [t0+4, t0+14)"
+      },
+      "memory_first": {
+        "onset_resource": "ram",
+        "downstream_resource": "disk",
+        "window": [3, 13],
+        "directive_text": "B: RAM onset -> Disk window [t0+3, t0+13)"
+      },
+      "io_first": {
+        "onset_resource": "disk",
+        "downstream_resource": "cpu",
+        "window": [3, 13],
+        "directive_text": "C: Disk onset -> CPU window [t0+3, t0+13)"
+      }
+    },
+    "consistency_check": "every window above is exactly the 'first downstream' window of the registered cascade_v3 regime (regime files: simulator/workload/BitbrainWorkloadProtocol023.py, REGIMES_V3[*].response_windows); the directive's numbers and the registered numbers agree for all three regimes"
+  },
+  "must_be_reported_together": [
+    "n_full_window_followup",
+    "n_primary_window_followup",
+    "n_any_window_followup"
+  ],
+  "reporting_definitions": {
+    "n_full_window_followup": "whole registered response horizon observed (H1-original's own quantity)",
+    "n_primary_window_followup": "the H1-v2 quantity defined above",
+    "n_any_window_followup": "at least one observation inside ANY registered response window (the Protocol 022 MIN_FOLLOWUP_EVENTS reading; round 1 recorded this as 'usable_followup', not gated)"
+  },
+  "gate_h1_v2": {
+    "primary_window_followup_min_per_regime": 80,
+    "independent_fault_events_min_per_regime": 80,
+    "prevalence_min": 0.03,
+    "prevalence_max": 0.12,
+    "deployment_rejection_max": 0.25,
+    "migration_rejection_max": 0.40,
+    "worst_event_share_max": 0.10,
+    "regime_prevalence_spread_max_pp": 4.0,
+    "stop_condition": "if ANY regime has primary-window follow-up < 80 -> STOP-DATA-v2 (S4 must not run)"
+  },
+  "frozen_before_model_runs": {
+    "frozen_at_utc": "2026-09-12T21:20:00+00:00",
+    "frozen_before": [
+      "any calibration candidate was generated",
+      "any model metric was read",
+      "S4 was started"
+    ],
+    "no_model_metric_was_read_during_calibration": true,
+    "calibration_inputs_allowed": "data-only statistics computed from stream arrays (label counts, task cohorts, host capacity/aggregate demand); no probe, no learner, no PR-AUC"
+  }
+}

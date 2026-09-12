@@ -1,0 +1,117 @@
+{
+  "kind": "round2a_fixed_c_artifact_index",
+  "protocol": "023",
+  "round": "2A",
+  "note": "the directive's fixed_c_prequential/* filenames are the per-arm ones below; both arms produce them, so they are namespaced by arm rather than overwriting each other",
+  "arms": {
+    "A": {
+      "directory": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_A",
+      "files": {
+        "predictions.npz": {
+          "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_A/predictions.npz",
+          "present": true,
+          "bytes": 1377229
+        },
+        "settlements.jsonl": {
+          "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_A/settlements.jsonl",
+          "present": true,
+          "bytes": 539703
+        },
+        "update_log.jsonl": {
+          "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_A/update_log.jsonl",
+          "present": true,
+          "bytes": 0
+        },
+        "phase_metrics.json": {
+          "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_A/phase_metrics.json",
+          "present": true,
+          "bytes": 45075
+        },
+        "probe_matrix.json": {
+          "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_A/probe_matrix.json",
+          "present": true,
+          "bytes": 30234
+        },
+        "recurrence_metrics.json": {
+          "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_A/recurrence_metrics.json",
+          "present": true,
+          "bytes": 2298
+        },
+        "checkpoints.json": {
+          "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_A/checkpoints.json",
+          "present": true,
+          "bytes": 4550
+        },
+        "summary.json": {
+          "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_A/summary.json",
+          "present": true,
+          "bytes": 5903
+        }
+      }
+    },
+    "C": {
+      "directory": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_C",
+      "files": {
+        "predictions.npz": {
+          "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_C/predictions.npz",
+          "present": true,
+          "bytes": 1379963
+        },
+        "settlements.jsonl": {
+          "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_C/settlements.jsonl",
+          "present": true,
+          "bytes": 539703
+        },
+        "update_log.jsonl": {
+          "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_C/update_log.jsonl",
+          "present": true,
+          "bytes": 516333
+        },
+        "phase_metrics.json": {
+          "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_C/phase_metrics.json",
+          "present": true,
+          "bytes": 45004
+        },
+        "probe_matrix.json": {
+          "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_C/probe_matrix.json",
+          "present": true,
+          "bytes": 29981
+        },
+        "recurrence_metrics.json": {
+          "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_C/recurrence_metrics.json",
+          "present": true,
+          "bytes": 2294
+        },
+        "checkpoints.json": {
+          "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_C/checkpoints.json",
+          "present": true,
+          "bytes": 4998
+        },
+        "summary.json": {
+          "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/arm_C/summary.json",
+          "present": true,
+          "bytes": 6383
+        }
+      }
+    }
+  },
+  "combined": {
+    "probe_matrix.json": {
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/probe_matrix.json",
+      "present": true
+    },
+    "probe_matrix.md": {
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/probe_matrix.md",
+      "present": true
+    },
+    "forgetting_v2.json": {
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/forgetting_v2.json",
+      "present": true
+    },
+    "recurrence_metrics.json": {
+      "path": "artifacts/ftmoe_online/protocol_023/round2a/fixed_c_prequential/recurrence_metrics.json",
+      "present": true
+    }
+  },
+  "checkpoints_directory": "artifacts/ftmoe_online/protocol_023/round2a/checkpoints"
+}

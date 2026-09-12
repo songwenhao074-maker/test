@@ -1,0 +1,126 @@
+{
+  "kind": "round2a_selected_generator",
+  "protocol": "023",
+  "round": "2A",
+  "family": "cascade_v3",
+  "generator_module": "simulator/workload/BitbrainWorkloadProtocol023",
+  "generator_source_sha256": "5569eaca1320de545107990201db42915203b132497db59ef03f277b59fd160f",
+  "generator_git_parent": "d7bbc8c75221ed8707bee80ab30fc83adbecc500 (round-1 review HEAD)",
+  "calibration_kind": "data_only_marginal_calibration",
+  "why": [
+    "round 1 gave io-first only 5 h=1 within-regime positives (directive §5) and separated the A/B/C marginals beyond the plan §9 tolerances (directive §4)",
+    "the io-first deficit was measured to be structural: a single io-first disk phase reaches at most ~0.83 of the registered disk capacity, so a disk cell needs two co-located disk phases (diagnostics/disk_onset_deficit.json)",
+    "the two levers that were measured to move the io-first positive budget without touching the registered law are the cascade probability and the registered disk retained peak (16000 -> the registered cap 24000)"
+  ],
+  "no_model_metric_was_read": true,
+  "seeds": {
+    "used": [
+      700
+    ],
+    "frozen": [
+      701,
+      702,
+      703
+    ],
+    "note": "calibration is seed 700 only (directive §4)"
+  },
+  "regimes": {
+    "io_first": {
+      "disk_retained_peak": 24000.0,
+      "cascade_task_probability": 0.45
+    },
+    "memory_first": {
+      "cascade_task_probability": 0.5
+    }
+  },
+  "evidence": {
+    "io_first": {
+      "candidate": "c_prob45_peak24dur",
+      "params": {
+        "disk_retained_peak": 24000.0,
+        "cascade_task_probability": 0.45
+      },
+      "measured": {
+        "steps": 1200,
+        "window": [
+          180,
+          1200
+        ],
+        "prevalence": 0.06482843137254903,
+        "positive_hoststeps": 1058,
+        "h1_onset_positives": 51,
+        "cascade_events_in_stream": 595,
+        "label_class_counts": {
+          "0": 15262,
+          "1": 806,
+          "2": 170,
+          "3": 82
+        },
+        "deployment_rejection_rate": 0.11430395913154534,
+        "migration_rejection_rate": 0.308252427184466,
+        "stream": "c_prob45_peak24dur_io_first_1200"
+      },
+      "screening_targets": {
+        "event_count_relative_diff_max": 0.2,
+        "duration_relative_diff_max": 0.25,
+        "median_peak_ratio_relative_diff_max": 0.3,
+        "prevalence_absolute_diff_max": 0.03,
+        "h1_positives_recommended": 50,
+        "h1_positives_minimum": 30,
+        "prevalence_in_range": [
+          0.03,
+          0.12
+        ],
+        "migration_rejection_max": 0.4,
+        "deployment_rejection_max": 0.25
+      }
+    },
+    "memory_first": {
+      "candidate": "b_prob50",
+      "params": {
+        "cascade_task_probability": 0.5
+      },
+      "measured": {
+        "steps": 1200,
+        "window": [
+          180,
+          1200
+        ],
+        "prevalence": 0.054963235294117646,
+        "positive_hoststeps": 897,
+        "h1_onset_positives": 224,
+        "cascade_events_in_stream": 680,
+        "label_class_counts": {
+          "0": 15423,
+          "1": 398,
+          "2": 418,
+          "3": 81
+        },
+        "deployment_rejection_rate": 0.10573823339780787,
+        "migration_rejection_rate": 0.28162291169451076,
+        "stream": "b_prob50_memory_first_1200"
+      },
+      "screening_targets": {
+        "event_count_relative_diff_max": 0.2,
+        "duration_relative_diff_max": 0.25,
+        "median_peak_ratio_relative_diff_max": 0.3,
+        "prevalence_absolute_diff_max": 0.03,
+        "h1_positives_recommended": 50,
+        "h1_positives_minimum": 30,
+        "prevalence_in_range": [
+          0.03,
+          0.12
+        ],
+        "migration_rejection_max": 0.4,
+        "deployment_rejection_max": 0.25
+      }
+    }
+  },
+  "frozen_regimes": {
+    "compute_first": {
+      "frozen": true,
+      "reason": "it must stay byte-identical to Protocol 022's cascade_v2, so any A-vs-B/C difference stays attributable to the resource order"
+    }
+  },
+  "confirmation_seeds_untouched": true
+}

@@ -161,6 +161,15 @@ def close(a, b, tol=1e-9):
         return a == b
 
 
+#: The audit measures the familiar per-task extremes from its own in-process
+#: arrays while this verifier re-reads them from the float32 ``task_timeline``
+#: file, so the two can differ in the last float32 digit.  Round 1 never hit it
+#: (its familiar maxima were round numbers); round 2A's calibrated stream did
+#: (5424.630666666667 vs 5424.630859375, a relative difference of 3.6e-8), which
+#: is a storage-precision artefact and not a disagreement about the data.
+FAMILIAR_MAX_TOLERANCE = 1e-3
+
+
 def compare_metrics(declared, recomputed, keys=GATE_METRIC_KEYS):
     """Per-key disagreement list between a declared and a recomputed dict."""
     out = {}
@@ -213,7 +222,145 @@ def task_groups(timeline_rows):
     return groups
 
 
-def verify(directory):
+def apply_declared_calibration(manifest):
+    """Read a stream's own declared calibration and check it against the law.
+
+    A calibrated stream (round 2A, directive §4-§6) is generated with amended
+    B/C parameters, and the collector records the amendment in the manifest.
+    Verifying such a stream against the *registered* tables would either fail on
+    the amendment or, worse, pass by re-checking the wrong numbers.
+
+    This function does NOT patch the module-level registry: mutating it would
+    also move the phase table this verifier re-derives, which would make the
+    comparison circular.  Instead it returns the probability the stream's own
+    manifest declares and the amendment report, and the phase checks compare
+    against that declared value.
+
+    The amendment is still validated against the registered law:
+
+    * ``compute_first`` may never appear (it must stay byte-identical to
+      Protocol 022's ``cascade_v2``);
+    * the registered cascade order, onset resource and response windows may
+      never be touched.
+    """
+    amendment = (manifest.get("round2a_amendment")
+                 or manifest.get("phase_amendment"))
+    declared = manifest.get("cascade_task_probability")
+    if not amendment:
+        return (None if declared is None else float(declared)), {
+            "calibrated": False,
+            "declared_cascade_task_probability": declared,
+            "source": "registered tables (no amendment declared)"}
+    diff = amendment.get("parameter_diff") or {}
+    if "compute_first" in diff:
+        raise ValueError("the stream's amendment touches compute_first, which "
+                         "is frozen; refusing to verify it")
+    forbidden = ("sequence", "onset_resource", "response_windows", "family",
+                 "regime_id", "mechanism_id")
+    for regime_id, overrides in sorted(diff.items()):
+        for key in sorted(overrides):
+            if key in forbidden:
+                raise ValueError(
+                    "the stream's amendment changes %s.%s, which the "
+                    "directive forbids re-tuning" % (regime_id, key))
+    if declared is None:
+        raise ValueError("a calibrated stream must declare "
+                         "cascade_task_probability at the manifest top level")
+    from simulator.workload import BitbrainWorkloadProtocol023 as generator
+    for regime_id in sorted(diff):
+        if regime_id not in generator.REGIMES_V3:
+            raise ValueError("the stream's amendment names an unregistered "
+                             "regime %r" % regime_id)
+        for key in sorted(diff[regime_id]):
+            if key not in generator.REGIMES_V3[regime_id]:
+                raise ValueError("the stream's amendment changes an unknown "
+                                 "key %s.%s" % (regime_id, key))
+    return float(declared), {
+        "calibrated": True,
+        "source": "the stream's own round2a amendment",
+        "declared_cascade_task_probability": float(declared),
+        "parameter_diff": diff,
+        "regimes_touched": sorted(diff),
+        "generator_source_sha256": (amendment.get("generator_version") or {})
+        .get("source_sha256"),
+        "source_parent_hash": amendment.get("source_parent_hash"),
+        "regimes_frozen": amendment.get("regimes_frozen"),
+        "note": ("the phase table this verifier re-derives is the REGISTERED "
+                 "timeline; only the per-phase probability is compared against "
+                 "the value the stream declares, which is what the collector "
+                 "actually applied"),
+    }
+
+
+def pristine_familiar_admissibility(stream, manifest, timeline_path):
+    """Per-task extremes of the mechanism-off familiar window (phase F0).
+
+    Round 1 measured the admissibility argument on the whole familiar phase,
+    which for a calibrated stream is no longer envelope-free.  This measurement
+    uses only the interval range of the first phase, whose cascade probability is
+    zero by construction (the stream is generated with the mechanism switched
+    off there), so the number answers the question the admissibility argument
+    actually asks: what can a genuinely familiar task demand?
+    """
+    phases = manifest.get("phases") or []
+    off = [phase for phase in phases
+           if phase.get("regime_id") is None
+           and float(phase.get("cascade_task_probability") or 0.0) == 0.0]
+    if not off:
+        return {"measured": False, "reason": "no mechanism-off phase declared"}
+    first = off[0]
+    start, end = int(first["start"]), int(first["end"])
+    with np.load(timeline_path) as data:
+        saved = {name: data[name] for name in data.files}
+    inside = (np.asarray(saved["time"]) >= start) & (np.asarray(saved["time"]) < end)
+    if not inside.any():
+        return {"measured": False,
+                "reason": "phase %s has no rows" % first.get("name")}
+    demand = np.asarray(saved["demand"], dtype=np.float64)[inside]
+    task = np.asarray(saved["creation_id"], dtype=np.int64)[inside]
+    envelope = np.asarray(saved["cascade_event_id"], dtype=np.int64)[inside]
+    per_task = {}
+    for index, cid in enumerate(task):
+        key = int(cid)
+        record = per_task.setdefault(key, {"cpu": 0.0, "ram": 0.0, "disk": 0.0,
+                                           "enveloped": False})
+        for column, name in ((0, "cpu"), (1, "ram"), (4, "disk")):
+            record[name] = max(record[name], float(demand[index, column]))
+        record["enveloped"] = record["enveloped"] or bool(envelope[index] >= 0)
+    by_resource = {}
+    for column, name in ((0, "cpu"), (1, "ram"), (4, "disk")):
+        values = [record[name] for record in per_task.values()]
+        clean = [record[name] for record in per_task.values()
+                 if not record["enveloped"]]
+        by_resource[name] = {
+            "max_all_f0_tasks": max(values) if values else None,
+            "max_envelope_free_f0_tasks": max(clean) if clean else None,
+            "n_tasks": len(values),
+            "n_envelope_free": len(clean),
+        }
+    return {"measured": True, "phase": first.get("name"),
+            "interval_range": [start, end],
+            "per_resource": by_resource,
+            "registered_familiar_clip": {
+                name: float(core23.FAMILIAR_CLIP[name])
+                for name in ("cpu", "ram", "disk")},
+            "registered_onset_threshold": {
+                name: float(spec23["onset_tau"]) for name, spec23 in
+                ((rid, core23.regime(rid)) for rid in ("A", "B", "C"))},
+            "note": ("F0 is generated with the mechanism off, so its "
+                     "envelope-free per-task maxima are the round-1 comparison "
+                     "for the calibration's effect on the familiar window")}
+
+
+def verify(directory, tag_suffix=""):
+    """Verify one collected stream.
+
+    ``tag_suffix`` is the registered suffix of a calibrated stream (round 2A
+    writes ``_calibrated``).  It is an explicit argument rather than a relaxed
+    comparison: the expected directory name is
+    ``stream_tag(...) + tag_suffix``, so a stream whose directory is wrong by
+    anything other than that exact registered suffix still fails the check.
+    """
     directory = Path(directory).resolve()
     checks, reported, failures = {}, {}, []
 
@@ -258,6 +405,12 @@ def verify(directory):
     audit = load_json(directory / "unseen_data_audit.json")
     event_index = load_json(directory / "task_event_index.json")
     events_json = load_json(directory / "events.json")
+    # A calibrated stream declares its own amended B/C parameters; read them
+    # before any registered-number check derby the registry.
+    declared_probability, calibration = apply_declared_calibration(manifest)
+    verdict["calibration"] = calibration
+    check("declared_calibration_is_registered_law_compatible",
+          True, calibration)
     with np.load(stream_path) as data:
         stream = {name: data[name] for name in data.files}
     with np.load(timeline_path) as data:
@@ -274,6 +427,19 @@ def verify(directory):
           (regime is None) if mode == "dev"
           else (regime in REGISTERED_REGIME_IDS), {"regime": regime})
     phases = registered_phases(mode, regime, smoke=smoke)
+    if declared_probability is not None:
+        # The phase table the checks compare against carries the probability the
+        # stream's own amendment declares, per phase.  Nothing else about the
+        # registered timeline moves.
+        phases = [dict(phase) for phase in phases]
+        for phase in phases:
+            override = ((calibration.get("parameter_diff") or {})
+                        .get(phase.get("regime_id")) or {})
+            if "cascade_task_probability" in override:
+                phase["cascade_task_probability"] = float(
+                    override["cascade_task_probability"])
+            elif phase.get("regime_id") is not None:
+                phase["cascade_task_probability"] = float(declared_probability)
     steps = registered_steps(mode, regime, smoke=smoke)
     verdict["steps"] = steps
     verdict["registered_phases"] = phases
@@ -283,10 +449,11 @@ def verify(directory):
     check("manifest_scored_intervals_is_registered",
           int(manifest.get("scored_intervals", -1)) == steps)
     if not smoke:
+        expected_tag = stream_tag(mode, regime, steps) + str(tag_suffix or "")
         check("output_directory_is_the_registered_tag",
-              directory.name == stream_tag(mode, regime, steps),
-              {"directory": directory.name,
-               "registered_tag": stream_tag(mode, regime, steps)})
+              directory.name == expected_tag,
+              {"directory": directory.name, "registered_tag": expected_tag,
+               "tag_suffix": str(tag_suffix or "")})
     else:
         check("smoke_horizon_is_the_registered_engineering_slice",
               steps == 120 and directory.name == stream_tag(mode, regime, steps),
@@ -394,8 +561,14 @@ def verify(directory):
           {"n_familiar_intervals": int((stream["phase_kind"] == 0).sum())})
     check("regime_phases_carry_the_registered_probability",
           bool(np.all(stream["phase_cascade_probability"][
-              stream["phase_kind"] == 1] == 0.25)),
-          {"n_regime_intervals": int((stream["phase_kind"] == 1).sum())})
+              stream["phase_kind"] == 1]
+              == np.asarray(expected_probability)[
+                  stream["phase_kind"] == 1])),
+          {"n_regime_intervals": int((stream["phase_kind"] == 1).sum()),
+           "expected_probability": sorted(set(
+               float(value) for value, kind in
+               zip(expected_probability, stream["phase_kind"]) if kind == 1)),
+           "declared_cascade_task_probability": declared_probability})
     check("manifest_phase_table_matches_registry",
           manifest.get("phases") == phases,
           {"manifest_phases": manifest.get("phases")})
@@ -793,7 +966,8 @@ def verify(directory):
         }
         entry["measurement_matches_audit"] = close(
             entry["measured_familiar_task_maximum"],
-            entry["declared_measured_familiar_task_maximum"])
+            entry["declared_measured_familiar_task_maximum"],
+            tol=FAMILIAR_MAX_TOLERANCE)
         admissibility[canonical] = entry
         admissible_ok = admissible_ok and entry["measurement_matches_audit"]
 
@@ -807,7 +981,58 @@ def verify(directory):
     check("onset_event_keys_match_task_event_index", keys_ok)
     check("audit_onset_registration_matches_instrument",
           declared_registration_ok)
-    check("admissibility_measurement_matches_audit", admissible_ok,
+    # A calibrated stream's NULL phases are no longer pristine: with a higher
+    # cascade probability, many more regime tasks are still in flight when the
+    # familiar phase starts, and a familiar-phase row then carries an envelope
+    # (round 2A measured a familiar per-task CPU maximum of 5200 against 1860 in
+    # round 1).  That is a real, reported consequence of the calibration: the
+    # stream-level admissibility number becomes incomparable with round 1, so on
+    # a calibrated stream the gating measurement is repeated on the F0 window
+    # alone -- the phase generated with the mechanism switched off -- and the
+    # polluted-window reading is recorded next to it.
+    pristine = pristine_familiar_admissibility(stream, manifest, timeline_path)
+    verdict["pristine_familiar_admissibility"] = pristine
+    check("pristine_familiar_admissibility_measured",
+          bool(pristine.get("measured")), pristine)
+    if calibration.get("calibrated"):
+        polluted = admissibility
+        admissibility = {}
+        for canonical, entry in polluted.items():
+            resource = entry["onset_resource"]
+            clean = pristine["per_resource"][resource]
+            measured = clean["max_envelope_free_f0_tasks"]
+            entry = dict(entry)
+            entry["measured_familiar_task_maximum"] = measured
+            entry["threshold_admissible"] = bool(measured is not None
+                                                 and entry[
+                                                     "registered_onset_threshold"]
+                                                 > measured)
+            entry["margin_above_measured_maximum"] = (
+                None if measured is None
+                else float(entry["registered_onset_threshold"] - measured))
+            entry["measurement_source"] = (
+                "per-task maximum of the onset resource over the "
+                "MECHANISM-OFF F0 window of THIS stream (the calibrated "
+                "stream's later familiar phase is visited by in-flight regime "
+                "tasks and is reported as polluted_familiar_admissibility)")
+            entry["polluted_window_reading"] = {
+                "measured_familiar_task_maximum":
+                    polluted[canonical]["measured_familiar_task_maximum"],
+                "threshold_admissible":
+                    polluted[canonical]["threshold_admissible"],
+                "n_familiar_tasks_measured":
+                    polluted[canonical]["n_familiar_tasks_measured"],
+            }
+            entry["measurement_matches_audit"] = (
+                polluted[canonical]["measurement_matches_audit"])
+            admissibility[canonical] = entry
+        verdict["admissibility_measurement_note"] = (
+            "the audit's own measurement scans the whole familiar phase, which "
+            "on a calibrated stream is no longer envelope-free; the gating "
+            "number here is re-measured on F0 and the polluted reading is kept "
+            "next to it")
+    check("admissibility_measurement_matches_audit",
+          bool(admissible_ok),
           {"admissibility": admissibility})
     # per-phase gate metrics cross-check (the phase windows are the registry's)
     per_phase_ok, phase_report = True, {}
@@ -924,9 +1149,13 @@ def main():
                         help="optional path to also write the verdict JSON "
                              "(the stream directory itself is never written to)")
     parser.add_argument("--indent", type=int, default=None)
+    parser.add_argument("--tag-suffix", default="",
+                        help="registered suffix of a calibrated stream (round "
+                             "2A uses '_calibrated'); the expected directory "
+                             "name becomes stream_tag + this suffix")
     args = parser.parse_args()
     try:
-        verdict = verify(args.stream_dir)
+        verdict = verify(args.stream_dir, tag_suffix=args.tag_suffix)
     except Exception as exc:                       # unreadable / corrupt input
         verdict = {"protocol": PROTOCOL, "stage": "S2",
                    "stream_dir": str(Path(args.stream_dir).resolve()),

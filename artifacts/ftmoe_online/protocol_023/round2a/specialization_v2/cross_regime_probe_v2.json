@@ -1,0 +1,658 @@
+{
+  "protocol": "023",
+  "round": "2A",
+  "stage": "H2-v2",
+  "instrument": "probe_ftmoe_protocol022_learnability (Newton/IRLS logistic, P22 feature groups) + probe_ftmoe_protocol023_specialization cross-lag groups",
+  "tag_suffix": "_calibrated",
+  "horizons": [
+    1
+  ],
+  "primary_horizon": 1,
+  "gate_registration": {
+    "rule": "within AP - mean cross AP >= 0.05 AND within positives >= 30, for >= 2 of 3 regimes",
+    "directive": "§7 H2-v2",
+    "reliability_source": "calibrated single-regime streams, exposure/tail split of the regime window",
+    "gap_source": "development stream: train on the mechanism's first exposure, test on each mechanism's recurrence block"
+  },
+  "reliability": {
+    "compute_first": {
+      "stream": "single_compute_first_seed700_steps1200_calibrated",
+      "steps": 1200,
+      "cells": {
+        "h=1/split=0.50": {
+          "cell": "reliability/compute_first/h=1/split=0.50/cpu_onset",
+          "features": 49,
+          "train_rows": 8400,
+          "test_rows": 8400,
+          "train_rows_finite": 7950,
+          "test_rows_finite": 7903,
+          "dropped_nonfinite_train": 0,
+          "metrics": {
+            "n": 7903,
+            "positives": 185,
+            "prevalence": 0.023408832089080095,
+            "ap": 0.22993593431255932,
+            "roc_auc": 0.9450974555794457,
+            "top_decile_recall": 0.8432432432432433,
+            "fpr_at_prevalence": 0.017880279865250065
+          },
+          "prevalence": 0.023408832089080095,
+          "positives": 185,
+          "window": {
+            "train": [
+              150,
+              675
+            ],
+            "test": [
+              675,
+              1200
+            ]
+          },
+          "split": 0.5
+        },
+        "h=1/split=0.30": {
+          "cell": "reliability/compute_first/h=1/split=0.30/cpu_onset",
+          "features": 49,
+          "train_rows": 5040,
+          "test_rows": 11760,
+          "train_rows_finite": 4757,
+          "test_rows_finite": 11096,
+          "dropped_nonfinite_train": 0,
+          "metrics": {
+            "n": 11096,
+            "positives": 249,
+            "prevalence": 0.022440519105984137,
+            "ap": 0.22938434368386104,
+            "roc_auc": 0.9485218462121743,
+            "top_decile_recall": 0.8594377510040161,
+            "fpr_at_prevalence": 0.017424172582280816
+          },
+          "prevalence": 0.022440519105984137,
+          "positives": 249,
+          "window": {
+            "train": [
+              150,
+              465
+            ],
+            "test": [
+              465,
+              1200
+            ]
+          },
+          "split": 0.3
+        }
+      },
+      "splits": {
+        "0.50": {
+          "train": [
+            150,
+            675
+          ],
+          "test": [
+            675,
+            1200
+          ]
+        },
+        "0.30": {
+          "train": [
+            150,
+            465
+          ],
+          "test": [
+            465,
+            1200
+          ]
+        }
+      },
+      "onset_resource": "cpu"
+    },
+    "memory_first": {
+      "stream": "single_memory_first_seed700_steps1200_calibrated",
+      "steps": 1200,
+      "cells": {
+        "h=1/split=0.50": {
+          "cell": "reliability/memory_first/h=1/split=0.50/ram_onset",
+          "features": 49,
+          "train_rows": 8400,
+          "test_rows": 8400,
+          "train_rows_finite": 8210,
+          "test_rows_finite": 8164,
+          "dropped_nonfinite_train": 0,
+          "metrics": {
+            "n": 8164,
+            "positives": 124,
+            "prevalence": 0.015188633023027927,
+            "ap": 0.22246187837479992,
+            "roc_auc": 0.9601759348419194,
+            "top_decile_recall": 0.9032258064516129,
+            "fpr_at_prevalence": 0.01181592039800995
+          },
+          "prevalence": 0.015188633023027927,
+          "positives": 124,
+          "window": {
+            "train": [
+              150,
+              675
+            ],
+            "test": [
+              675,
+              1200
+            ]
+          },
+          "split": 0.5
+        },
+        "h=1/split=0.30": {
+          "cell": "reliability/memory_first/h=1/split=0.30/ram_onset",
+          "features": 49,
+          "train_rows": 5040,
+          "test_rows": 11760,
+          "train_rows_finite": 4928,
+          "test_rows_finite": 11446,
+          "dropped_nonfinite_train": 0,
+          "metrics": {
+            "n": 11446,
+            "positives": 165,
+            "prevalence": 0.014415516337585182,
+            "ap": 0.1927369700256453,
+            "roc_auc": 0.9377489100740586,
+            "top_decile_recall": 0.8909090909090909,
+            "fpr_at_prevalence": 0.011346511834057264
+          },
+          "prevalence": 0.014415516337585182,
+          "positives": 165,
+          "window": {
+            "train": [
+              150,
+              465
+            ],
+            "test": [
+              465,
+              1200
+            ]
+          },
+          "split": 0.3
+        }
+      },
+      "splits": {
+        "0.50": {
+          "train": [
+            150,
+            675
+          ],
+          "test": [
+            675,
+            1200
+          ]
+        },
+        "0.30": {
+          "train": [
+            150,
+            465
+          ],
+          "test": [
+            465,
+            1200
+          ]
+        }
+      },
+      "onset_resource": "ram"
+    },
+    "io_first": {
+      "stream": "single_io_first_seed700_steps1200_calibrated",
+      "steps": 1200,
+      "cells": {
+        "h=1/split=0.50": {
+          "cell": "reliability/io_first/h=1/split=0.50/disk_onset",
+          "features": 49,
+          "train_rows": 8400,
+          "test_rows": 8400,
+          "train_rows_finite": 8357,
+          "test_rows_finite": 8349,
+          "dropped_nonfinite_train": 0,
+          "metrics": {
+            "n": 8349,
+            "positives": 31,
+            "prevalence": 0.003713019523296203,
+            "ap": 0.19289031689324151,
+            "roc_auc": 0.9770513228210875,
+            "top_decile_recall": 0.9354838709677419,
+            "fpr_at_prevalence": 0.0027650877614811254
+          },
+          "prevalence": 0.003713019523296203,
+          "positives": 31,
+          "window": {
+            "train": [
+              150,
+              675
+            ],
+            "test": [
+              675,
+              1200
+            ]
+          },
+          "split": 0.5
+        },
+        "h=1/split=0.30": {
+          "cell": "reliability/io_first/h=1/split=0.30/disk_onset",
+          "features": 49,
+          "train_rows": 5040,
+          "test_rows": 11760,
+          "train_rows_finite": 5020,
+          "test_rows_finite": 11686,
+          "dropped_nonfinite_train": 0,
+          "metrics": {
+            "n": 11686,
+            "positives": 44,
+            "prevalence": 0.0037651891151805577,
+            "ap": 0.20167593371538467,
+            "roc_auc": 0.9617304508753572,
+            "top_decile_recall": 0.9090909090909091,
+            "fpr_at_prevalence": 0.0029204604019927847
+          },
+          "prevalence": 0.0037651891151805577,
+          "positives": 44,
+          "window": {
+            "train": [
+              150,
+              465
+            ],
+            "test": [
+              465,
+              1200
+            ]
+          },
+          "split": 0.3
+        }
+      },
+      "splits": {
+        "0.50": {
+          "train": [
+            150,
+            675
+          ],
+          "test": [
+            675,
+            1200
+          ]
+        },
+        "0.30": {
+          "train": [
+            150,
+            465
+          ],
+          "test": [
+            465,
+            1200
+          ]
+        }
+      },
+      "onset_resource": "disk"
+    }
+  },
+  "gap": {
+    "compute_first": {
+      "stream": "dev_seed700_steps2880_calibrated",
+      "steps": 2880,
+      "cells": {
+        "h=1": {
+          "compute_first": {
+            "cell": "gap/train=compute_first/test=compute_first/h=1/cpu_onset",
+            "features": 49,
+            "train_rows": 6720,
+            "test_rows": 5760,
+            "train_rows_finite": 6359,
+            "test_rows_finite": 5431,
+            "dropped_nonfinite_train": 0,
+            "metrics": {
+              "n": 5431,
+              "positives": 128,
+              "prevalence": 0.0235684036089118,
+              "ap": 0.28077889245647886,
+              "roc_auc": 0.9590628241089949,
+              "top_decile_recall": 0.890625,
+              "fpr_at_prevalence": 0.01810296058834622
+            },
+            "prevalence": 0.0235684036089118,
+            "positives": 128,
+            "train_regime": "compute_first",
+            "test_regime": "compute_first",
+            "within_regime": true
+          },
+          "memory_first": {
+            "cell": "gap/train=compute_first/test=memory_first/h=1/cpu_onset",
+            "features": 49,
+            "train_rows": 6720,
+            "test_rows": 5760,
+            "train_rows_finite": 6359,
+            "test_rows_finite": 5632,
+            "dropped_nonfinite_train": 0,
+            "metrics": {
+              "n": 5632,
+              "positives": 67,
+              "prevalence": 0.011896306818181818,
+              "ap": 0.041177763284008684,
+              "roc_auc": 0.8388287672151372,
+              "top_decile_recall": 0.34328358208955223,
+              "fpr_at_prevalence": 0.011680143755615454
+            },
+            "prevalence": 0.011896306818181818,
+            "positives": 67,
+            "train_regime": "compute_first",
+            "test_regime": "memory_first",
+            "within_regime": false
+          },
+          "io_first": {
+            "cell": "gap/train=compute_first/test=io_first/h=1/cpu_onset",
+            "features": 49,
+            "train_rows": 6720,
+            "test_rows": 5760,
+            "train_rows_finite": 6359,
+            "test_rows_finite": 5478,
+            "dropped_nonfinite_train": 0,
+            "metrics": {
+              "n": 5478,
+              "positives": 120,
+              "prevalence": 0.02190580503833516,
+              "ap": 0.06788688832568002,
+              "roc_auc": 0.7534240077143213,
+              "top_decile_recall": 0.36666666666666664,
+              "fpr_at_prevalence": 0.020530048525569243
+            },
+            "prevalence": 0.02190580503833516,
+            "positives": 120,
+            "train_regime": "compute_first",
+            "test_regime": "io_first",
+            "within_regime": false
+          }
+        }
+      },
+      "n_features": 49
+    },
+    "memory_first": {
+      "stream": "dev_seed700_steps2880_calibrated",
+      "steps": 2880,
+      "cells": {
+        "h=1": {
+          "compute_first": {
+            "cell": "gap/train=memory_first/test=compute_first/h=1/ram_onset",
+            "features": 49,
+            "train_rows": 6720,
+            "test_rows": 5760,
+            "train_rows_finite": 6541,
+            "test_rows_finite": 5717,
+            "dropped_nonfinite_train": 0,
+            "metrics": {
+              "n": 5717,
+              "positives": 15,
+              "prevalence": 0.0026237537169844323,
+              "ap": 0.012700081149104042,
+              "roc_auc": 0.8841576055185315,
+              "top_decile_recall": 0.4666666666666667,
+              "fpr_at_prevalence": 0.002630655910206945
+            },
+            "prevalence": 0.0026237537169844323,
+            "positives": 15,
+            "train_regime": "memory_first",
+            "test_regime": "compute_first",
+            "within_regime": false
+          },
+          "memory_first": {
+            "cell": "gap/train=memory_first/test=memory_first/h=1/ram_onset",
+            "features": 49,
+            "train_rows": 6720,
+            "test_rows": 5760,
+            "train_rows_finite": 6541,
+            "test_rows_finite": 5612,
+            "dropped_nonfinite_train": 0,
+            "metrics": {
+              "n": 5612,
+              "positives": 81,
+              "prevalence": 0.01443335709194583,
+              "ap": 0.22617619430581445,
+              "roc_auc": 0.9474220499050247,
+              "top_decile_recall": 0.8641975308641975,
+              "fpr_at_prevalence": 0.011209546194178268
+            },
+            "prevalence": 0.01443335709194583,
+            "positives": 81,
+            "train_regime": "memory_first",
+            "test_regime": "memory_first",
+            "within_regime": true
+          },
+          "io_first": {
+            "cell": "gap/train=memory_first/test=io_first/h=1/ram_onset",
+            "features": 49,
+            "train_rows": 6720,
+            "test_rows": 5760,
+            "train_rows_finite": 6541,
+            "test_rows_finite": 5717,
+            "dropped_nonfinite_train": 0,
+            "metrics": {
+              "n": 5717,
+              "positives": 22,
+              "prevalence": 0.0038481721182438344,
+              "ap": 0.0072323869146777965,
+              "roc_auc": 0.47596376406736374,
+              "top_decile_recall": 0.09090909090909091,
+              "fpr_at_prevalence": 0.003687445127304653
+            },
+            "prevalence": 0.0038481721182438344,
+            "positives": 22,
+            "train_regime": "memory_first",
+            "test_regime": "io_first",
+            "within_regime": false
+          }
+        }
+      },
+      "n_features": 49
+    },
+    "io_first": {
+      "stream": "dev_seed700_steps2880_calibrated",
+      "steps": 2880,
+      "cells": {
+        "h=1": {
+          "compute_first": {
+            "cell": "gap/train=io_first/test=compute_first/h=1/disk_onset",
+            "features": 49,
+            "train_rows": 6720,
+            "test_rows": 5760,
+            "train_rows_finite": 6676,
+            "test_rows_finite": 5730,
+            "dropped_nonfinite_train": 0,
+            "metrics": {
+              "n": 5730,
+              "positives": 11,
+              "prevalence": 0.0019197207678883072,
+              "ap": 0.01602553283440972,
+              "roc_auc": 0.9366863246912207,
+              "top_decile_recall": 0.9090909090909091,
+              "fpr_at_prevalence": 0.0019234131841230984
+            },
+            "prevalence": 0.0019197207678883072,
+            "positives": 11,
+            "train_regime": "io_first",
+            "test_regime": "compute_first",
+            "within_regime": false
+          },
+          "memory_first": {
+            "cell": "gap/train=io_first/test=memory_first/h=1/disk_onset",
+            "features": 49,
+            "train_rows": 6720,
+            "test_rows": 5760,
+            "train_rows_finite": 6676,
+            "test_rows_finite": 5736,
+            "dropped_nonfinite_train": 0,
+            "metrics": {
+              "n": 5736,
+              "positives": 12,
+              "prevalence": 0.0020920502092050207,
+              "ap": 0.011529238746052087,
+              "roc_auc": 0.8870545073375262,
+              "top_decile_recall": 0.25,
+              "fpr_at_prevalence": 0.0020964360587002098
+            },
+            "prevalence": 0.0020920502092050207,
+            "positives": 12,
+            "train_regime": "io_first",
+            "test_regime": "memory_first",
+            "within_regime": false
+          },
+          "io_first": {
+            "cell": "gap/train=io_first/test=io_first/h=1/disk_onset",
+            "features": 49,
+            "train_rows": 6720,
+            "test_rows": 5760,
+            "train_rows_finite": 6676,
+            "test_rows_finite": 5735,
+            "dropped_nonfinite_train": 0,
+            "metrics": {
+              "n": 5735,
+              "positives": 13,
+              "prevalence": 0.002266782911944202,
+              "ap": 0.13661626113290373,
+              "roc_auc": 0.9830478853547711,
+              "top_decile_recall": 0.9230769230769231,
+              "fpr_at_prevalence": 0.0019224047535826635
+            },
+            "prevalence": 0.002266782911944202,
+            "positives": 13,
+            "train_regime": "io_first",
+            "test_regime": "io_first",
+            "within_regime": true
+          }
+        }
+      },
+      "n_features": 49
+    }
+  },
+  "rows": [
+    {
+      "horizon": 1,
+      "regime": "compute_first",
+      "within_ap": 0.28077889245647886,
+      "mean_cross_ap": 0.05453232580484435,
+      "within_positives": 185,
+      "within_prevalence": 0.023408832089080095,
+      "reliability_split": 0.5,
+      "reliability_window": {
+        "train": [
+          150,
+          675
+        ],
+        "test": [
+          675,
+          1200
+        ]
+      },
+      "reliability_positives_by_split": {
+        "0.50": 185,
+        "0.30": 249
+      },
+      "reliability_ap_by_split": {
+        "0.50": 0.22993593431255932,
+        "0.30": 0.22938434368386104
+      },
+      "cross_ap": {
+        "memory_first": 0.041177763284008684,
+        "io_first": 0.06788688832568002
+      },
+      "gap": 0.2262465666516345,
+      "gap_ok": true,
+      "positives_ok": true,
+      "passes": true
+    },
+    {
+      "horizon": 1,
+      "regime": "memory_first",
+      "within_ap": 0.22617619430581445,
+      "mean_cross_ap": 0.00996623403189092,
+      "within_positives": 124,
+      "within_prevalence": 0.015188633023027927,
+      "reliability_split": 0.5,
+      "reliability_window": {
+        "train": [
+          150,
+          675
+        ],
+        "test": [
+          675,
+          1200
+        ]
+      },
+      "reliability_positives_by_split": {
+        "0.50": 124,
+        "0.30": 165
+      },
+      "reliability_ap_by_split": {
+        "0.50": 0.22246187837479992,
+        "0.30": 0.1927369700256453
+      },
+      "cross_ap": {
+        "compute_first": 0.012700081149104042,
+        "io_first": 0.0072323869146777965
+      },
+      "gap": 0.21620996027392353,
+      "gap_ok": true,
+      "positives_ok": true,
+      "passes": true
+    },
+    {
+      "horizon": 1,
+      "regime": "io_first",
+      "within_ap": 0.13661626113290373,
+      "mean_cross_ap": 0.013777385790230905,
+      "within_positives": 31,
+      "within_prevalence": 0.003713019523296203,
+      "reliability_split": 0.5,
+      "reliability_window": {
+        "train": [
+          150,
+          675
+        ],
+        "test": [
+          675,
+          1200
+        ]
+      },
+      "reliability_positives_by_split": {
+        "0.50": 31,
+        "0.30": 44
+      },
+      "reliability_ap_by_split": {
+        "0.50": 0.19289031689324151,
+        "0.30": 0.20167593371538467
+      },
+      "cross_ap": {
+        "compute_first": 0.01602553283440972,
+        "memory_first": 0.011529238746052087
+      },
+      "gap": 0.12283887534267282,
+      "gap_ok": true,
+      "positives_ok": true,
+      "passes": true
+    }
+  ],
+  "gate": {
+    "thresholds": {
+      "min_within_minus_cross_ap": 0.05,
+      "min_regimes_passing": 2,
+      "min_within_positives": 30,
+      "ideal_regimes_passing": 3
+    },
+    "registration": {
+      "rule": "within AP - mean cross AP >= 0.05 AND within positives >= 30, for >= 2 of 3 regimes",
+      "directive": "§7 H2-v2",
+      "reliability_source": "calibrated single-regime streams, exposure/tail split of the regime window",
+      "gap_source": "development stream: train on the mechanism's first exposure, test on each mechanism's recurrence block"
+    },
+    "n_regimes_passing": 3,
+    "n_regimes_gap_ok": 3,
+    "n_regimes_positives_ok": 3,
+    "passed": true,
+    "ideal_three_of_three": true,
+    "verdict": "specialization opportunity present (H2-v2 PASS)"
+  },
+  "verdict": "specialization opportunity present (H2-v2 PASS)",
+  "stop_conditions_hit": [],
+  "elapsed_seconds": 0.84013
+}

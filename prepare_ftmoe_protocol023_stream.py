@@ -622,7 +622,7 @@ def evaluate_gate(labels, host_cascade_any, runs, cascade_runs, deploy_attempts,
 # --------------------------------------------------------------------------
 # collection
 # --------------------------------------------------------------------------
-def collect(mode, regime, output, smoke=False, steps=None):
+def collect(mode, regime, output, smoke=False, steps=None, amendment=None):
     """Collect one registered stream (or the smoke engineering slice)."""
     registered = registered_steps(mode, regime, smoke=smoke)
     if steps is None:
@@ -642,6 +642,22 @@ def collect(mode, regime, output, smoke=False, steps=None):
     audit = manifest = None
     process_guard = None
     phases = registered_phases(mode, regime, smoke=smoke)
+    # A calibrated run's phase table is the registered timeline with the
+    # amendment's cascade probability written into the phases it names.  It has
+    # to happen here, before the switch points and the manifest are derived, and
+    # it has to be *the phase table*: measured (round 2A), setting the
+    # probability anywhere else failed, because the phase switch in the interval
+    # loop calls ``set_active_regime`` with the phase's own value and silently
+    # discarded the calibration -- the "calibrated" stream then came out
+    # byte-identical to the registered one.
+    if amendment is not None:
+        _diff = amendment.get("parameter_diff") or {}
+        phases = [dict(phase) for phase in phases]
+        for _phase in phases:
+            _override = _diff.get(_phase.get("regime_id")) or {}
+            if "cascade_task_probability" in _override:
+                _phase["cascade_task_probability"] = float(
+                    _override["cascade_task_probability"])
     switch_points = registered_switch_points(phases)
     try:
         configure()
@@ -1333,7 +1349,10 @@ def collect(mode, regime, output, smoke=False, steps=None):
                 "initial_phase_state": {"interval": 0, "phase": phases[0]["name"],
                                         "regime_id": phases[0]["regime_id"],
                                         "result": initial_state},
-                "phase_amendment": None,
+                "phase_amendment": (None if amendment is None
+                                    else dict(amendment)),
+                AMENDMENT_KEY: (None if amendment is None
+                                else dict(amendment)),
                 "chunk": None,
                 "chunk_note": (
                     "the P22 collector could only collect its registered stream "
@@ -1528,6 +1547,17 @@ def main():
     parser.add_argument("--smoke", action="store_true",
                         help="engineering slice only (never a formal stream)")
     parser.add_argument("--output-root", type=Path, default=OUT)
+    parser.add_argument("--tag-suffix", default=None,
+                        help="registered suffix for a stream whose generator "
+                             "parameters were calibrated (round 2A writes "
+                             "'_calibrated'); the registered tags are never "
+                             "overwritten because the suffix changes the tag")
+    parser.add_argument("--calibration-parameters", type=Path, default=None,
+                        help="selected_generator.json of a data-only "
+                             "calibration round; its per-regime parameter "
+                             "overrides are injected into the generator's live "
+                             "tables for this run and are recorded in the "
+                             "manifest amendment block")
     args = parser.parse_args()
     if args.mode == "dev" and args.regime is not None:
         raise SystemExit("--regime is registered only for --mode single")
@@ -1548,10 +1578,162 @@ def main():
                          "regime=%s smoke=%s: %d)"
                          % (args.steps, args.mode, args.regime, args.smoke, steps))
     tag = stream_tag(args.mode, args.regime, steps)
+    if args.tag_suffix:
+        tag = "%s%s" % (tag, args.tag_suffix)
     root = args.output_root / "_smoke" if args.smoke else args.output_root
-    collect(mode=args.mode, regime=args.regime, output=root / tag,
-            smoke=args.smoke, steps=steps)
+    amendment = None
+    restore = None
+    if args.calibration_parameters is not None:
+        amendment, restore = apply_calibration_parameters(
+            args.calibration_parameters)
+    try:
+        collect(mode=args.mode, regime=args.regime, output=root / tag,
+                smoke=args.smoke, steps=steps, amendment=amendment)
+    finally:
+        if restore is not None:
+            restore()
     return 0
+
+
+# --------------------------------------------------------------------------
+# round 2A: data-only calibration hook (never active for a registered run)
+# --------------------------------------------------------------------------
+#: Manifest key of the amendment block.  Absent (``None``) on a registered run,
+#: which is what keeps the round-1 manifests byte-comparable with round 2.
+AMENDMENT_KEY = "round2a_amendment"
+_CALIBRATION_FORBIDDEN_KEYS = ("sequence", "onset_resource",
+                               "response_windows", "mechanism_id", "regime_id",
+                               "family")
+
+
+def apply_calibration_parameters(path):
+    """Inject a calibration file's per-regime parameter overrides.
+
+    Two live tables have to be written and both facts were measured the hard way
+    (two different candidates once produced byte-identical streams):
+
+    * ``BitbrainWorkloadProtocol023._REGISTERED_COMMON`` is the family dict that
+      ``regime_params`` overlays onto every regime, so a shared numeric written
+      only into ``REGIMES_V3`` is silently replaced by the family default;
+    * ``REGIMES_V3[regime]`` holds the per-regime values.
+
+    ``compute_first`` is refused outright: it must stay byte-identical to
+    Protocol 022's ``cascade_v2`` (the H0 regression), so a calibration file may
+    never name it.
+
+    Returns ``(amendment_block, restore_callable)``.
+    """
+    import copy as _copy
+
+    from simulator.workload import BitbrainWorkloadProtocol023 as generator
+
+    path = Path(path)
+    payload = json.loads(path.read_text(encoding="utf8"))
+    regimes = payload.get("regimes") or payload.get("selected_regimes") or {}
+    if not isinstance(regimes, dict) or not regimes:
+        raise ValueError("calibration file %s carries no per-regime overrides"
+                         % path)
+    if "compute_first" in regimes:
+        raise ValueError("calibration file %s names compute_first; regime A is "
+                         "frozen (it must stay byte-identical to Protocol 022's "
+                         "cascade_v2)" % path)
+    previous = {"common": _copy.deepcopy(generator._REGISTERED_COMMON),
+                "regimes": {name: _copy.deepcopy(generator.REGIMES_V3[name])
+                            for name in regimes}}
+    applied = {}
+    for regime_id, overrides in sorted(regimes.items()):
+        if regime_id not in generator.REGIMES_V3:
+            raise ValueError("calibration names an unregistered regime %r"
+                             % regime_id)
+        plain = dict(overrides)
+        plain.pop("mechanism_seed", None)
+        for key, value in sorted(plain.items()):
+            if key in _CALIBRATION_FORBIDDEN_KEYS:
+                raise ValueError(
+                    "calibration of %s changes the forbidden key %s: the "
+                    "registered cascade order, onset resource and response "
+                    "windows may not be re-tuned (directive section 4)"
+                    % (regime_id, key))
+            if key not in generator.REGIMES_V3[regime_id]:
+                raise ValueError("calibration of %s changes an unknown key %s"
+                                 % (regime_id, key))
+            if key in generator._REGISTERED_COMMON:
+                generator._REGISTERED_COMMON[key] = value
+            generator.REGIMES_V3[regime_id][key] = value
+            applied.setdefault(regime_id, {})[key] = value
+
+    def restore():
+        generator._REGISTERED_COMMON = previous["common"]
+        for name, value in previous["regimes"].items():
+            generator.REGIMES_V3[name] = value
+
+    amendment = {
+        "active": True,
+        "round": "2A",
+        "kind": "data_only_marginal_calibration",
+        "directive": "指令/FTMOE_PROTOCOL023_ROUND2A_DIRECTIVE_20260912.md §4",
+        "generator_version": {
+            "module": "simulator/workload/BitbrainWorkloadProtocol023",
+            "family": "cascade_v3",
+            "source_sha256": sha(ROOT / "simulator/workload/"
+                                       "BitbrainWorkloadProtocol023.py"),
+            "note": ("the family id is unchanged because the calibration only "
+                     "re-tunes values that plan §9 already treats as tunable; "
+                     "the registered cascade ORDER, onset resource and response "
+                     "windows of every regime are untouched"),
+        },
+        "source_parent_hash": sha(path),
+        "source_parent_path": str(path if path.is_absolute()
+                                  else path.resolve()),
+        "parameter_diff": applied,
+        "regimes_touched": sorted(applied),
+        "regimes_frozen": {
+            "compute_first": ("frozen: it must stay byte-identical to Protocol "
+                              "022's cascade_v2, so any A-vs-B/C difference "
+                              "stays attributable to the resource order"),
+        },
+        "recalibration_reason": (
+            "round 1's io-first arm produced only 5 h=1 within-regime test "
+            "positives (AP 0.0136) and could not carry a third specialist "
+            "claim (directive §5), and the A/B/C marginals were further apart "
+            "than the plan §9 tolerances (directive §4); the calibration is "
+            "data-only: no model metric was read while it was run"),
+        "old_h1_result": {
+            "definition": ("strict: the whole registered response window must be "
+                           "observed on the task's own timeline"),
+            "threshold_per_regime": 50,
+            "measured": {"compute_first": 24, "memory_first": 36,
+                         "io_first": 31},
+            "verdict": "FAIL",
+            "status": "preserved permanently; never rewritten",
+        },
+        "h1_v2_definition": {
+            "quantity": "usable_primary_followup",
+            "rule": ("an onset counts when the task has at least one valid "
+                     "task-level observation inside its regime's first "
+                     "downstream response window"),
+            "windows": {"compute_first": {"resource": "ram", "window": [4, 14]},
+                        "memory_first": {"resource": "disk", "window": [3, 13]},
+                        "io_first": {"resource": "cpu", "window": [3, 13]}},
+            "gate": {"primary_window_followup_min": 80,
+                     "independent_fault_events_min": 80,
+                     "prevalence_range": [0.03, 0.12],
+                     "deployment_rejection_max": 0.25,
+                     "migration_rejection_max": 0.40,
+                     "worst_event_share_max": 0.10,
+                     "regime_prevalence_spread_max_pp": 4.0},
+            "definition_file": ("artifacts/ftmoe_online/protocol_023/round2a/"
+                                "amendments/h1_v2_definition.json"),
+        },
+        "seeds": {"replay_seed": REGISTERED_SEED,
+                  "confirmation_seeds_frozen": [701, 702, 703],
+                  "note": "calibration used seed 700 only"},
+        "old_streams_preserved": (
+            "the round-1 streams (dev_seed700_steps2880 and the three "
+            "single_*_seed700_steps1200) are not deleted and not overwritten: "
+            "the calibrated run writes *_calibrated tags"),
+    }
+    return amendment, restore
 
 
 if __name__ == "__main__":

@@ -1,0 +1,389 @@
+{
+  "kind": "round2a_positive_budget_diagnostic",
+  "streams": {
+    "compute_first": {
+      "single": {
+        "stream": "single_compute_first_seed700_steps1200",
+        "steps": 1200,
+        "onset_resource": "cpu",
+        "onset_tau": 2600.0,
+        "window": [
+          150,
+          1200
+        ],
+        "host_cells_in_window": 16800,
+        "host_cell_label_counts": {
+          "0": 15657,
+          "1": 947,
+          "2": 144,
+          "3": 52
+        },
+        "onset_positives_h1": {
+          "positives": 347,
+          "valid_cells": 15853,
+          "in_class_cells": 947,
+          "prevalence": 0.02188860152652495
+        },
+        "tasks_born_in_window": 1420,
+        "tasks_born_in_window_above_tau": 342,
+        "tasks_born_in_window_peak_median": 360.60016962996,
+        "tasks_born_in_window_peak_p90": 4400.0,
+        "tasks_born_in_window_peak_max": 5200.0,
+        "onset_label_run_lengths": {
+          "n": 347,
+          "median": 3.0,
+          "mean": 2.729106628242075,
+          "p90": 4.0,
+          "max": 6,
+          "hist": {
+            "1": 40,
+            "2": 109,
+            "3": 105,
+            "4": 92,
+            "6": 1
+          }
+        }
+      },
+      "dev_phases": {
+        "A1_compute": {
+          "stream": "dev_seed700_steps2880",
+          "steps": 2880,
+          "onset_resource": "cpu",
+          "onset_tau": 2600.0,
+          "window": [
+            300,
+            720
+          ],
+          "host_cells_in_window": 6720,
+          "host_cell_label_counts": {
+            "0": 6310,
+            "1": 361,
+            "2": 37,
+            "3": 12
+          },
+          "onset_positives_h1": {
+            "positives": 131,
+            "valid_cells": 6359,
+            "in_class_cells": 361,
+            "prevalence": 0.0206007233841799
+          },
+          "tasks_born_in_window": 573,
+          "tasks_born_in_window_above_tau": 134,
+          "tasks_born_in_window_peak_median": 347.2447102088178,
+          "tasks_born_in_window_peak_p90": 4400.0,
+          "tasks_born_in_window_peak_max": 5200.0,
+          "onset_label_run_lengths": {
+            "n": 526,
+            "median": 2.0,
+            "mean": 2.4543726235741445,
+            "p90": 4.0,
+            "max": 4,
+            "hist": {
+              "1": 108,
+              "2": 161,
+              "3": 167,
+              "4": 90
+            }
+          }
+        },
+        "A2_recur": {
+          "stream": "dev_seed700_steps2880",
+          "steps": 2880,
+          "onset_resource": "cpu",
+          "onset_tau": 2600.0,
+          "window": [
+            1800,
+            2160
+          ],
+          "host_cells_in_window": 5760,
+          "host_cell_label_counts": {
+            "0": 5354,
+            "1": 342,
+            "2": 46,
+            "3": 18
+          },
+          "onset_positives_h1": {
+            "positives": 127,
+            "valid_cells": 5418,
+            "in_class_cells": 342,
+            "prevalence": 0.023440383905500184
+          },
+          "tasks_born_in_window": 499,
+          "tasks_born_in_window_above_tau": 129,
+          "tasks_born_in_window_peak_median": 357.26127917042334,
+          "tasks_born_in_window_peak_p90": 4400.0,
+          "tasks_born_in_window_peak_max": 5200.0,
+          "onset_label_run_lengths": {
+            "n": 526,
+            "median": 2.0,
+            "mean": 2.4543726235741445,
+            "p90": 4.0,
+            "max": 4,
+            "hist": {
+              "1": 108,
+              "2": 161,
+              "3": 167,
+              "4": 90
+            }
+          }
+        }
+      }
+    },
+    "memory_first": {
+      "single": {
+        "stream": "single_memory_first_seed700_steps1200",
+        "steps": 1200,
+        "onset_resource": "ram",
+        "onset_tau": 2810.0,
+        "window": [
+          150,
+          1200
+        ],
+        "host_cells_in_window": 16800,
+        "host_cell_label_counts": {
+          "0": 16287,
+          "1": 241,
+          "2": 234,
+          "3": 38
+        },
+        "onset_positives_h1": {
+          "positives": 122,
+          "valid_cells": 16566,
+          "in_class_cells": 234,
+          "prevalence": 0.007364481468067126
+        },
+        "tasks_born_in_window": 1420,
+        "tasks_born_in_window_above_tau": 297,
+        "tasks_born_in_window_peak_median": 159.38279999999997,
+        "tasks_born_in_window_peak_p90": 4500.0,
+        "tasks_born_in_window_peak_max": 6000.0,
+        "onset_label_run_lengths": {
+          "n": 122,
+          "median": 2.0,
+          "mean": 1.9180327868852458,
+          "p90": 2.0,
+          "max": 3,
+          "hist": {
+            "1": 20,
+            "2": 92,
+            "3": 10
+          }
+        }
+      },
+      "dev_phases": {
+        "B1_memory": {
+          "stream": "dev_seed700_steps2880",
+          "steps": 2880,
+          "onset_resource": "ram",
+          "onset_tau": 2810.0,
+          "window": [
+            720,
+            1140
+          ],
+          "host_cells_in_window": 6720,
+          "host_cell_label_counts": {
+            "0": 6506,
+            "1": 97,
+            "2": 99,
+            "3": 18
+          },
+          "onset_positives_h1": {
+            "positives": 51,
+            "valid_cells": 6621,
+            "in_class_cells": 99,
+            "prevalence": 0.007702763932940644
+          },
+          "tasks_born_in_window": 570,
+          "tasks_born_in_window_above_tau": 122,
+          "tasks_born_in_window_peak_median": 159.3829333333333,
+          "tasks_born_in_window_peak_p90": 4500.0,
+          "tasks_born_in_window_peak_max": 6000.0,
+          "onset_label_run_lengths": {
+            "n": 149,
+            "median": 2.0,
+            "mean": 2.1879194630872485,
+            "p90": 4.0,
+            "max": 5,
+            "hist": {
+              "1": 24,
+              "2": 92,
+              "3": 15,
+              "4": 17,
+              "5": 1
+            }
+          }
+        },
+        "B2_recur": {
+          "stream": "dev_seed700_steps2880",
+          "steps": 2880,
+          "onset_resource": "ram",
+          "onset_tau": 2810.0,
+          "window": [
+            2520,
+            2880
+          ],
+          "host_cells_in_window": 5760,
+          "host_cell_label_counts": {
+            "0": 5575,
+            "1": 86,
+            "2": 77,
+            "3": 22
+          },
+          "onset_positives_h1": {
+            "positives": 42,
+            "valid_cells": 5683,
+            "in_class_cells": 77,
+            "prevalence": 0.007390462783740982
+          },
+          "tasks_born_in_window": 501,
+          "tasks_born_in_window_above_tau": 119,
+          "tasks_born_in_window_peak_median": 159.38279999999997,
+          "tasks_born_in_window_peak_p90": 4500.0,
+          "tasks_born_in_window_peak_max": 6000.0,
+          "onset_label_run_lengths": {
+            "n": 149,
+            "median": 2.0,
+            "mean": 2.1879194630872485,
+            "p90": 4.0,
+            "max": 5,
+            "hist": {
+              "1": 24,
+              "2": 92,
+              "3": 15,
+              "4": 17,
+              "5": 1
+            }
+          }
+        }
+      }
+    },
+    "io_first": {
+      "single": {
+        "stream": "single_io_first_seed700_steps1200",
+        "steps": 1200,
+        "onset_resource": "disk",
+        "onset_tau": 11600.0,
+        "window": [
+          150,
+          1200
+        ],
+        "host_cells_in_window": 16800,
+        "host_cell_label_counts": {
+          "0": 16163,
+          "1": 504,
+          "2": 93,
+          "3": 40
+        },
+        "onset_positives_h1": {
+          "positives": 24,
+          "valid_cells": 16760,
+          "in_class_cells": 40,
+          "prevalence": 0.001431980906921241
+        },
+        "tasks_born_in_window": 1420,
+        "tasks_born_in_window_above_tau": 0,
+        "tasks_born_in_window_peak_median": 1.0,
+        "tasks_born_in_window_peak_p90": 1.0,
+        "tasks_born_in_window_peak_max": 1.0,
+        "onset_label_run_lengths": {
+          "n": 24,
+          "median": 2.0,
+          "mean": 1.6666666666666667,
+          "p90": 2.6999999999999993,
+          "max": 3,
+          "hist": {
+            "1": 11,
+            "2": 10,
+            "3": 3
+          }
+        }
+      },
+      "dev_phases": {
+        "C1_io": {
+          "stream": "dev_seed700_steps2880",
+          "steps": 2880,
+          "onset_resource": "disk",
+          "onset_tau": 11600.0,
+          "window": [
+            1140,
+            1560
+          ],
+          "host_cells_in_window": 6720,
+          "host_cell_label_counts": {
+            "0": 6434,
+            "1": 228,
+            "2": 42,
+            "3": 16
+          },
+          "onset_positives_h1": {
+            "positives": 11,
+            "valid_cells": 6704,
+            "in_class_cells": 16,
+            "prevalence": 0.0016408114558472554
+          },
+          "tasks_born_in_window": 589,
+          "tasks_born_in_window_above_tau": 0,
+          "tasks_born_in_window_peak_median": 1.0,
+          "tasks_born_in_window_peak_p90": 1.0,
+          "tasks_born_in_window_peak_max": 1.0,
+          "onset_label_run_lengths": {
+            "n": 51,
+            "median": 2.0,
+            "mean": 1.8823529411764706,
+            "p90": 3.0,
+            "max": 6,
+            "hist": {
+              "1": 19,
+              "2": 24,
+              "3": 6,
+              "5": 1,
+              "6": 1
+            }
+          }
+        },
+        "C2_recur": {
+          "stream": "dev_seed700_steps2880",
+          "steps": 2880,
+          "onset_resource": "disk",
+          "onset_tau": 11600.0,
+          "window": [
+            2160,
+            2520
+          ],
+          "host_cells_in_window": 5760,
+          "host_cell_label_counts": {
+            "0": 5551,
+            "1": 174,
+            "2": 25,
+            "3": 10
+          },
+          "onset_positives_h1": {
+            "positives": 5,
+            "valid_cells": 5750,
+            "in_class_cells": 10,
+            "prevalence": 0.0008695652173913044
+          },
+          "tasks_born_in_window": 510,
+          "tasks_born_in_window_above_tau": 0,
+          "tasks_born_in_window_peak_median": 1.0,
+          "tasks_born_in_window_peak_p90": 1.0,
+          "tasks_born_in_window_peak_max": 1.0,
+          "onset_label_run_lengths": {
+            "n": 51,
+            "median": 2.0,
+            "mean": 1.8823529411764706,
+            "p90": 3.0,
+            "max": 6,
+            "hist": {
+              "1": 19,
+              "2": 24,
+              "3": 6,
+              "5": 1,
+              "6": 1
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1091 @@
+{
+  "protocol": "023",
+  "round": "2A",
+  "arm": "A",
+  "probe_geometry": {
+    "start": 1000,
+    "length": 120
+  },
+  "cells": [
+    {
+      "checkpoint": "start",
+      "time_index": 0,
+      "probe": "compute_first",
+      "model_version": 0,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.4138050272469364,
+        "roc_auc": 0.9097870784976697,
+        "positives": 155,
+        "rows": 1920,
+        "prevalence": 0.08072916666666667
+      },
+      "diagnosis": {
+        "macro_f1": 0.18919106795732174,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.28738317757009346,
+            "recall": 0.9534883720930233,
+            "f1": 0.44165170556552963,
+            "support": 129
+          },
+          {
+            "class": 2,
+            "precision": 0.015580736543909348,
+            "recall": 1.0,
+            "f1": 0.030683403068340307,
+            "support": 22
+          },
+          {
+            "class": 3,
+            "precision": 0.05,
+            "recall": 1.0,
+            "f1": 0.09523809523809523,
+            "support": 4
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.07597116292752609,
+        "positives": 143,
+        "rows": 1765
+      }
+    },
+    {
+      "checkpoint": "start",
+      "time_index": 0,
+      "probe": "io_first",
+      "model_version": 0,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.49860215047526074,
+        "roc_auc": 0.9240230324601786,
+        "positives": 154,
+        "rows": 1920,
+        "prevalence": 0.08020833333333334
+      },
+      "diagnosis": {
+        "macro_f1": 0.17725403032749357,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.18421052631578946,
+            "recall": 0.9333333333333333,
+            "f1": 0.30769230769230765,
+            "support": 105
+          },
+          {
+            "class": 2,
+            "precision": 0.02572347266881029,
+            "recall": 1.0,
+            "f1": 0.050156739811912224,
+            "support": 32
+          },
+          {
+            "class": 3,
+            "precision": 0.09722222222222222,
+            "recall": 0.8235294117647058,
+            "f1": 0.17391304347826086,
+            "support": 17
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.08372988214559392,
+        "positives": 150,
+        "rows": 1766
+      }
+    },
+    {
+      "checkpoint": "start",
+      "time_index": 0,
+      "probe": "memory_first",
+      "model_version": 0,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.49653530632752996,
+        "roc_auc": 0.9282639028157655,
+        "positives": 131,
+        "rows": 1920,
+        "prevalence": 0.06822916666666666
+      },
+      "diagnosis": {
+        "macro_f1": 0.15442398973716467,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.1354679802955665,
+            "recall": 0.9649122807017544,
+            "f1": 0.2375809935205183,
+            "support": 57
+          },
+          {
+            "class": 2,
+            "precision": 0.03862660944206009,
+            "recall": 0.9310344827586207,
+            "f1": 0.07417582417582419,
+            "support": 58
+          },
+          {
+            "class": 3,
+            "precision": 0.08620689655172414,
+            "recall": 0.625,
+            "f1": 0.15151515151515152,
+            "support": 16
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.05520814446800973,
+        "positives": 121,
+        "rows": 1789
+      }
+    },
+    {
+      "checkpoint": "after_A1",
+      "time_index": 720,
+      "probe": "compute_first",
+      "model_version": 720,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.4138050272469364,
+        "roc_auc": 0.9097870784976697,
+        "positives": 155,
+        "rows": 1920,
+        "prevalence": 0.08072916666666667
+      },
+      "diagnosis": {
+        "macro_f1": 0.18919106795732174,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.28738317757009346,
+            "recall": 0.9534883720930233,
+            "f1": 0.44165170556552963,
+            "support": 129
+          },
+          {
+            "class": 2,
+            "precision": 0.015580736543909348,
+            "recall": 1.0,
+            "f1": 0.030683403068340307,
+            "support": 22
+          },
+          {
+            "class": 3,
+            "precision": 0.05,
+            "recall": 1.0,
+            "f1": 0.09523809523809523,
+            "support": 4
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.07597116292752609,
+        "positives": 143,
+        "rows": 1765
+      }
+    },
+    {
+      "checkpoint": "after_A1",
+      "time_index": 720,
+      "probe": "io_first",
+      "model_version": 720,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.49860215047526074,
+        "roc_auc": 0.9240230324601786,
+        "positives": 154,
+        "rows": 1920,
+        "prevalence": 0.08020833333333334
+      },
+      "diagnosis": {
+        "macro_f1": 0.17725403032749357,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.18421052631578946,
+            "recall": 0.9333333333333333,
+            "f1": 0.30769230769230765,
+            "support": 105
+          },
+          {
+            "class": 2,
+            "precision": 0.02572347266881029,
+            "recall": 1.0,
+            "f1": 0.050156739811912224,
+            "support": 32
+          },
+          {
+            "class": 3,
+            "precision": 0.09722222222222222,
+            "recall": 0.8235294117647058,
+            "f1": 0.17391304347826086,
+            "support": 17
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.08372988214559392,
+        "positives": 150,
+        "rows": 1766
+      }
+    },
+    {
+      "checkpoint": "after_A1",
+      "time_index": 720,
+      "probe": "memory_first",
+      "model_version": 720,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.49653530632752996,
+        "roc_auc": 0.9282639028157655,
+        "positives": 131,
+        "rows": 1920,
+        "prevalence": 0.06822916666666666
+      },
+      "diagnosis": {
+        "macro_f1": 0.15442398973716467,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.1354679802955665,
+            "recall": 0.9649122807017544,
+            "f1": 0.2375809935205183,
+            "support": 57
+          },
+          {
+            "class": 2,
+            "precision": 0.03862660944206009,
+            "recall": 0.9310344827586207,
+            "f1": 0.07417582417582419,
+            "support": 58
+          },
+          {
+            "class": 3,
+            "precision": 0.08620689655172414,
+            "recall": 0.625,
+            "f1": 0.15151515151515152,
+            "support": 16
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.05520814446800973,
+        "positives": 121,
+        "rows": 1789
+      }
+    },
+    {
+      "checkpoint": "after_B1",
+      "time_index": 1140,
+      "probe": "compute_first",
+      "model_version": 1140,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.4138050272469364,
+        "roc_auc": 0.9097870784976697,
+        "positives": 155,
+        "rows": 1920,
+        "prevalence": 0.08072916666666667
+      },
+      "diagnosis": {
+        "macro_f1": 0.18919106795732174,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.28738317757009346,
+            "recall": 0.9534883720930233,
+            "f1": 0.44165170556552963,
+            "support": 129
+          },
+          {
+            "class": 2,
+            "precision": 0.015580736543909348,
+            "recall": 1.0,
+            "f1": 0.030683403068340307,
+            "support": 22
+          },
+          {
+            "class": 3,
+            "precision": 0.05,
+            "recall": 1.0,
+            "f1": 0.09523809523809523,
+            "support": 4
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.07597116292752609,
+        "positives": 143,
+        "rows": 1765
+      }
+    },
+    {
+      "checkpoint": "after_B1",
+      "time_index": 1140,
+      "probe": "io_first",
+      "model_version": 1140,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.49860215047526074,
+        "roc_auc": 0.9240230324601786,
+        "positives": 154,
+        "rows": 1920,
+        "prevalence": 0.08020833333333334
+      },
+      "diagnosis": {
+        "macro_f1": 0.17725403032749357,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.18421052631578946,
+            "recall": 0.9333333333333333,
+            "f1": 0.30769230769230765,
+            "support": 105
+          },
+          {
+            "class": 2,
+            "precision": 0.02572347266881029,
+            "recall": 1.0,
+            "f1": 0.050156739811912224,
+            "support": 32
+          },
+          {
+            "class": 3,
+            "precision": 0.09722222222222222,
+            "recall": 0.8235294117647058,
+            "f1": 0.17391304347826086,
+            "support": 17
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.08372988214559392,
+        "positives": 150,
+        "rows": 1766
+      }
+    },
+    {
+      "checkpoint": "after_B1",
+      "time_index": 1140,
+      "probe": "memory_first",
+      "model_version": 1140,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.49653530632752996,
+        "roc_auc": 0.9282639028157655,
+        "positives": 131,
+        "rows": 1920,
+        "prevalence": 0.06822916666666666
+      },
+      "diagnosis": {
+        "macro_f1": 0.15442398973716467,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.1354679802955665,
+            "recall": 0.9649122807017544,
+            "f1": 0.2375809935205183,
+            "support": 57
+          },
+          {
+            "class": 2,
+            "precision": 0.03862660944206009,
+            "recall": 0.9310344827586207,
+            "f1": 0.07417582417582419,
+            "support": 58
+          },
+          {
+            "class": 3,
+            "precision": 0.08620689655172414,
+            "recall": 0.625,
+            "f1": 0.15151515151515152,
+            "support": 16
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.05520814446800973,
+        "positives": 121,
+        "rows": 1789
+      }
+    },
+    {
+      "checkpoint": "after_C1",
+      "time_index": 1560,
+      "probe": "compute_first",
+      "model_version": 1560,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.4138050272469364,
+        "roc_auc": 0.9097870784976697,
+        "positives": 155,
+        "rows": 1920,
+        "prevalence": 0.08072916666666667
+      },
+      "diagnosis": {
+        "macro_f1": 0.18919106795732174,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.28738317757009346,
+            "recall": 0.9534883720930233,
+            "f1": 0.44165170556552963,
+            "support": 129
+          },
+          {
+            "class": 2,
+            "precision": 0.015580736543909348,
+            "recall": 1.0,
+            "f1": 0.030683403068340307,
+            "support": 22
+          },
+          {
+            "class": 3,
+            "precision": 0.05,
+            "recall": 1.0,
+            "f1": 0.09523809523809523,
+            "support": 4
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.07597116292752609,
+        "positives": 143,
+        "rows": 1765
+      }
+    },
+    {
+      "checkpoint": "after_C1",
+      "time_index": 1560,
+      "probe": "io_first",
+      "model_version": 1560,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.49860215047526074,
+        "roc_auc": 0.9240230324601786,
+        "positives": 154,
+        "rows": 1920,
+        "prevalence": 0.08020833333333334
+      },
+      "diagnosis": {
+        "macro_f1": 0.17725403032749357,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.18421052631578946,
+            "recall": 0.9333333333333333,
+            "f1": 0.30769230769230765,
+            "support": 105
+          },
+          {
+            "class": 2,
+            "precision": 0.02572347266881029,
+            "recall": 1.0,
+            "f1": 0.050156739811912224,
+            "support": 32
+          },
+          {
+            "class": 3,
+            "precision": 0.09722222222222222,
+            "recall": 0.8235294117647058,
+            "f1": 0.17391304347826086,
+            "support": 17
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.08372988214559392,
+        "positives": 150,
+        "rows": 1766
+      }
+    },
+    {
+      "checkpoint": "after_C1",
+      "time_index": 1560,
+      "probe": "memory_first",
+      "model_version": 1560,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.49653530632752996,
+        "roc_auc": 0.9282639028157655,
+        "positives": 131,
+        "rows": 1920,
+        "prevalence": 0.06822916666666666
+      },
+      "diagnosis": {
+        "macro_f1": 0.15442398973716467,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.1354679802955665,
+            "recall": 0.9649122807017544,
+            "f1": 0.2375809935205183,
+            "support": 57
+          },
+          {
+            "class": 2,
+            "precision": 0.03862660944206009,
+            "recall": 0.9310344827586207,
+            "f1": 0.07417582417582419,
+            "support": 58
+          },
+          {
+            "class": 3,
+            "precision": 0.08620689655172414,
+            "recall": 0.625,
+            "f1": 0.15151515151515152,
+            "support": 16
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.05520814446800973,
+        "positives": 121,
+        "rows": 1789
+      }
+    },
+    {
+      "checkpoint": "after_F1",
+      "time_index": 1800,
+      "probe": "compute_first",
+      "model_version": 1800,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.4138050272469364,
+        "roc_auc": 0.9097870784976697,
+        "positives": 155,
+        "rows": 1920,
+        "prevalence": 0.08072916666666667
+      },
+      "diagnosis": {
+        "macro_f1": 0.18919106795732174,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.28738317757009346,
+            "recall": 0.9534883720930233,
+            "f1": 0.44165170556552963,
+            "support": 129
+          },
+          {
+            "class": 2,
+            "precision": 0.015580736543909348,
+            "recall": 1.0,
+            "f1": 0.030683403068340307,
+            "support": 22
+          },
+          {
+            "class": 3,
+            "precision": 0.05,
+            "recall": 1.0,
+            "f1": 0.09523809523809523,
+            "support": 4
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.07597116292752609,
+        "positives": 143,
+        "rows": 1765
+      }
+    },
+    {
+      "checkpoint": "after_F1",
+      "time_index": 1800,
+      "probe": "io_first",
+      "model_version": 1800,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.49860215047526074,
+        "roc_auc": 0.9240230324601786,
+        "positives": 154,
+        "rows": 1920,
+        "prevalence": 0.08020833333333334
+      },
+      "diagnosis": {
+        "macro_f1": 0.17725403032749357,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.18421052631578946,
+            "recall": 0.9333333333333333,
+            "f1": 0.30769230769230765,
+            "support": 105
+          },
+          {
+            "class": 2,
+            "precision": 0.02572347266881029,
+            "recall": 1.0,
+            "f1": 0.050156739811912224,
+            "support": 32
+          },
+          {
+            "class": 3,
+            "precision": 0.09722222222222222,
+            "recall": 0.8235294117647058,
+            "f1": 0.17391304347826086,
+            "support": 17
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.08372988214559392,
+        "positives": 150,
+        "rows": 1766
+      }
+    },
+    {
+      "checkpoint": "after_F1",
+      "time_index": 1800,
+      "probe": "memory_first",
+      "model_version": 1800,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.49653530632752996,
+        "roc_auc": 0.9282639028157655,
+        "positives": 131,
+        "rows": 1920,
+        "prevalence": 0.06822916666666666
+      },
+      "diagnosis": {
+        "macro_f1": 0.15442398973716467,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.1354679802955665,
+            "recall": 0.9649122807017544,
+            "f1": 0.2375809935205183,
+            "support": 57
+          },
+          {
+            "class": 2,
+            "precision": 0.03862660944206009,
+            "recall": 0.9310344827586207,
+            "f1": 0.07417582417582419,
+            "support": 58
+          },
+          {
+            "class": 3,
+            "precision": 0.08620689655172414,
+            "recall": 0.625,
+            "f1": 0.15151515151515152,
+            "support": 16
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.05520814446800973,
+        "positives": 121,
+        "rows": 1789
+      }
+    },
+    {
+      "checkpoint": "after_A2",
+      "time_index": 2160,
+      "probe": "compute_first",
+      "model_version": 2160,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.4138050272469364,
+        "roc_auc": 0.9097870784976697,
+        "positives": 155,
+        "rows": 1920,
+        "prevalence": 0.08072916666666667
+      },
+      "diagnosis": {
+        "macro_f1": 0.18919106795732174,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.28738317757009346,
+            "recall": 0.9534883720930233,
+            "f1": 0.44165170556552963,
+            "support": 129
+          },
+          {
+            "class": 2,
+            "precision": 0.015580736543909348,
+            "recall": 1.0,
+            "f1": 0.030683403068340307,
+            "support": 22
+          },
+          {
+            "class": 3,
+            "precision": 0.05,
+            "recall": 1.0,
+            "f1": 0.09523809523809523,
+            "support": 4
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.07597116292752609,
+        "positives": 143,
+        "rows": 1765
+      }
+    },
+    {
+      "checkpoint": "after_A2",
+      "time_index": 2160,
+      "probe": "io_first",
+      "model_version": 2160,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.49860215047526074,
+        "roc_auc": 0.9240230324601786,
+        "positives": 154,
+        "rows": 1920,
+        "prevalence": 0.08020833333333334
+      },
+      "diagnosis": {
+        "macro_f1": 0.17725403032749357,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.18421052631578946,
+            "recall": 0.9333333333333333,
+            "f1": 0.30769230769230765,
+            "support": 105
+          },
+          {
+            "class": 2,
+            "precision": 0.02572347266881029,
+            "recall": 1.0,
+            "f1": 0.050156739811912224,
+            "support": 32
+          },
+          {
+            "class": 3,
+            "precision": 0.09722222222222222,
+            "recall": 0.8235294117647058,
+            "f1": 0.17391304347826086,
+            "support": 17
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.08372988214559392,
+        "positives": 150,
+        "rows": 1766
+      }
+    },
+    {
+      "checkpoint": "after_A2",
+      "time_index": 2160,
+      "probe": "memory_first",
+      "model_version": 2160,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.49653530632752996,
+        "roc_auc": 0.9282639028157655,
+        "positives": 131,
+        "rows": 1920,
+        "prevalence": 0.06822916666666666
+      },
+      "diagnosis": {
+        "macro_f1": 0.15442398973716467,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.1354679802955665,
+            "recall": 0.9649122807017544,
+            "f1": 0.2375809935205183,
+            "support": 57
+          },
+          {
+            "class": 2,
+            "precision": 0.03862660944206009,
+            "recall": 0.9310344827586207,
+            "f1": 0.07417582417582419,
+            "support": 58
+          },
+          {
+            "class": 3,
+            "precision": 0.08620689655172414,
+            "recall": 0.625,
+            "f1": 0.15151515151515152,
+            "support": 16
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.05520814446800973,
+        "positives": 121,
+        "rows": 1789
+      }
+    },
+    {
+      "checkpoint": "after_C2",
+      "time_index": 2520,
+      "probe": "compute_first",
+      "model_version": 2520,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.4138050272469364,
+        "roc_auc": 0.9097870784976697,
+        "positives": 155,
+        "rows": 1920,
+        "prevalence": 0.08072916666666667
+      },
+      "diagnosis": {
+        "macro_f1": 0.18919106795732174,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.28738317757009346,
+            "recall": 0.9534883720930233,
+            "f1": 0.44165170556552963,
+            "support": 129
+          },
+          {
+            "class": 2,
+            "precision": 0.015580736543909348,
+            "recall": 1.0,
+            "f1": 0.030683403068340307,
+            "support": 22
+          },
+          {
+            "class": 3,
+            "precision": 0.05,
+            "recall": 1.0,
+            "f1": 0.09523809523809523,
+            "support": 4
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.07597116292752609,
+        "positives": 143,
+        "rows": 1765
+      }
+    },
+    {
+      "checkpoint": "after_C2",
+      "time_index": 2520,
+      "probe": "io_first",
+      "model_version": 2520,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.49860215047526074,
+        "roc_auc": 0.9240230324601786,
+        "positives": 154,
+        "rows": 1920,
+        "prevalence": 0.08020833333333334
+      },
+      "diagnosis": {
+        "macro_f1": 0.17725403032749357,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.18421052631578946,
+            "recall": 0.9333333333333333,
+            "f1": 0.30769230769230765,
+            "support": 105
+          },
+          {
+            "class": 2,
+            "precision": 0.02572347266881029,
+            "recall": 1.0,
+            "f1": 0.050156739811912224,
+            "support": 32
+          },
+          {
+            "class": 3,
+            "precision": 0.09722222222222222,
+            "recall": 0.8235294117647058,
+            "f1": 0.17391304347826086,
+            "support": 17
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.08372988214559392,
+        "positives": 150,
+        "rows": 1766
+      }
+    },
+    {
+      "checkpoint": "after_C2",
+      "time_index": 2520,
+      "probe": "memory_first",
+      "model_version": 2520,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.49653530632752996,
+        "roc_auc": 0.9282639028157655,
+        "positives": 131,
+        "rows": 1920,
+        "prevalence": 0.06822916666666666
+      },
+      "diagnosis": {
+        "macro_f1": 0.15442398973716467,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.1354679802955665,
+            "recall": 0.9649122807017544,
+            "f1": 0.2375809935205183,
+            "support": 57
+          },
+          {
+            "class": 2,
+            "precision": 0.03862660944206009,
+            "recall": 0.9310344827586207,
+            "f1": 0.07417582417582419,
+            "support": 58
+          },
+          {
+            "class": 3,
+            "precision": 0.08620689655172414,
+            "recall": 0.625,
+            "f1": 0.15151515151515152,
+            "support": 16
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.05520814446800973,
+        "positives": 121,
+        "rows": 1789
+      }
+    },
+    {
+      "checkpoint": "after_B2",
+      "time_index": 2880,
+      "probe": "compute_first",
+      "model_version": 2880,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.4138050272469364,
+        "roc_auc": 0.9097870784976697,
+        "positives": 155,
+        "rows": 1920,
+        "prevalence": 0.08072916666666667
+      },
+      "diagnosis": {
+        "macro_f1": 0.18919106795732174,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.28738317757009346,
+            "recall": 0.9534883720930233,
+            "f1": 0.44165170556552963,
+            "support": 129
+          },
+          {
+            "class": 2,
+            "precision": 0.015580736543909348,
+            "recall": 1.0,
+            "f1": 0.030683403068340307,
+            "support": 22
+          },
+          {
+            "class": 3,
+            "precision": 0.05,
+            "recall": 1.0,
+            "f1": 0.09523809523809523,
+            "support": 4
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.07597116292752609,
+        "positives": 143,
+        "rows": 1765
+      }
+    },
+    {
+      "checkpoint": "after_B2",
+      "time_index": 2880,
+      "probe": "io_first",
+      "model_version": 2880,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.49860215047526074,
+        "roc_auc": 0.9240230324601786,
+        "positives": 154,
+        "rows": 1920,
+        "prevalence": 0.08020833333333334
+      },
+      "diagnosis": {
+        "macro_f1": 0.17725403032749357,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.18421052631578946,
+            "recall": 0.9333333333333333,
+            "f1": 0.30769230769230765,
+            "support": 105
+          },
+          {
+            "class": 2,
+            "precision": 0.02572347266881029,
+            "recall": 1.0,
+            "f1": 0.050156739811912224,
+            "support": 32
+          },
+          {
+            "class": 3,
+            "precision": 0.09722222222222222,
+            "recall": 0.8235294117647058,
+            "f1": 0.17391304347826086,
+            "support": 17
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.08372988214559392,
+        "positives": 150,
+        "rows": 1766
+      }
+    },
+    {
+      "checkpoint": "after_B2",
+      "time_index": 2880,
+      "probe": "memory_first",
+      "model_version": 2880,
+      "learner_hash": "9c2e30aa4f5d980d010fb58167321dbf8c5d6f54f7a1cad7fa4c81d3c0f27f5a",
+      "detection": {
+        "pr_auc": 0.49653530632752996,
+        "roc_auc": 0.9282639028157655,
+        "positives": 131,
+        "rows": 1920,
+        "prevalence": 0.06822916666666666
+      },
+      "diagnosis": {
+        "macro_f1": 0.15442398973716467,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.1354679802955665,
+            "recall": 0.9649122807017544,
+            "f1": 0.2375809935205183,
+            "support": 57
+          },
+          {
+            "class": 2,
+            "precision": 0.03862660944206009,
+            "recall": 0.9310344827586207,
+            "f1": 0.07417582417582419,
+            "support": 58
+          },
+          {
+            "class": 3,
+            "precision": 0.08620689655172414,
+            "recall": 0.625,
+            "f1": 0.15151515151515152,
+            "support": 16
+          }
+        ]
+      },
+      "onset": {
+        "ap": 0.05520814446800973,
+        "positives": 121,
+        "rows": 1789
+      }
+    }
+  ]
+}

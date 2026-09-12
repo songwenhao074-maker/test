@@ -1,0 +1,85 @@
+{
+  "kind": "round2a_amendment",
+  "amendment_id": "online-budget-s4",
+  "protocol": "023",
+  "round": "2A",
+  "directive": "指令/FTMOE_PROTOCOL023_ROUND2A_DIRECTIVE_20260912.md §10",
+  "status": "frozen",
+  "why": [
+    "Protocol 022 measured that fixed C keeps improving as the update budget grows (0.4256 -> 0.6891 PR-AUC over 100 -> 1600 updates, still +0.0323 at the tail), so an unconstrained online budget cannot support any statement about a capacity plateau.",
+    "S4 therefore runs under a deployment-plausible online budget, registered here BEFORE the run and not changed afterwards."
+  ],
+  "registered_online_process": {
+    "update_every_scored_intervals": 4,
+    "batch_size": 32,
+    "gradient_steps_per_opportunity": 1,
+    "replay_buffer_intervals": 64,
+    "optimizer": "AdamW",
+    "learning_rate": 1e-4,
+    "weight_decay": 1e-4,
+    "clip_grad_norm": 1.0,
+    "loss": "0.7*detection CE + 0.3*resource CE + 0.5*ranking + 0.10*distillation(MSE to the frozen base detection logits) + 0.25*anchor(total)",
+    "anchor_source": "artifacts/ftmoe_online/protocol_020/adaptation_data/v1 train_indices[:24], rows 476..507 (the Protocol 020 R1 anchor pool)",
+    "label_maturity": "a label is usable only one interval after its own interval was observed (the settled index is strictly older than the read index)",
+    "checkpoint_cadence": "at every registered phase boundary (7 checkpoints)"
+  },
+  "frozen_configuration": {
+    "update_every_scored_intervals": 4,
+    "batch_size": 32,
+    "gradient_steps_per_opportunity": 1,
+    "replay_buffer_intervals": 64,
+    "learning_rate": 1e-4,
+    "weight_decay": 1e-4,
+    "clip_grad_norm": 1.0,
+    "optimizer": "AdamW",
+    "anchor_weight": 0.25,
+    "distillation_weight": 0.10,
+    "detection_weight": 0.7,
+    "resource_weight": 0.3,
+    "ranking_weight": 0.5,
+    "gradient_steps_per_update": 1
+  },
+  "implied_budget_per_phase": {
+    "A1_compute": {"scored_intervals": 420, "update_opportunities": 105},
+    "B1_memory": {"scored_intervals": 420, "update_opportunities": 105},
+    "C1_io": {"scored_intervals": 420, "update_opportunities": 105},
+    "F1_baseline": {"scored_intervals": 240, "update_opportunities": 60},
+    "A2_recur": {"scored_intervals": 360, "update_opportunities": 90},
+    "C2_recur": {"scored_intervals": 360, "update_opportunities": 90},
+    "B2_recur": {"scored_intervals": 360, "update_opportunities": 90},
+    "F0_baseline": {"scored_intervals": 300, "update_opportunities": 75},
+    "note": "update opportunities are floor(scored_intervals / 4) with the opportunity taken on the last interval of each window of four; the realised counts are written to update_log.jsonl and must match this table"
+  },
+  "runtime_benchmark": {
+    "required_by": "directive §10 ('先做 runtime benchmark，把最终配置写入 online_budget.json')",
+    "runner": "run_ftmoe_protocol023_s4.py --arm A|C --benchmark",
+    "measured": {
+      "arm_A": {
+        "intervals": 200,
+        "updates": 0,
+        "elapsed_seconds": 1.42,
+        "prediction_mean_seconds": 0.00697
+      },
+      "arm_C": {
+        "intervals": 400,
+        "updates": 100,
+        "elapsed_seconds": 9.13,
+        "prediction_mean_seconds": 0.00814,
+        "update_mean_seconds": 0.0577
+      },
+      "measured_at_utc": "2026-09-13T01:00:00+00:00",
+      "note": "measured on the calibrated development stream with the frozen configuration above; the benchmark changed no parameter -- it only confirmed the run is affordable (a full 2880-interval arm is seconds of compute, so no budget compromise was needed)"
+    },
+    "note": "filled in by the benchmark run before the formal S4 start; the configuration above is not changed by it"
+  },
+  "forbidden_after_freeze": [
+    "changing the update interval, the batch size or the number of gradient steps",
+    "changing the learning rate, the optimiser or the loss weights",
+    "running C-wide",
+    "running C-budget",
+    "any per-phase budget adjustment"
+  ],
+  "arms_in_this_round": ["A", "C"],
+  "arms_forbidden_in_this_round": ["D", "C-wide", "C-budget"],
+  "frozen_at_utc": "2026-09-12T22:05:00+00:00"
+}

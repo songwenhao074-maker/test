@@ -1,0 +1,79 @@
+{
+  "protocol": "023",
+  "round": "2A",
+  "arm": "A",
+  "recurrence": [
+    {
+      "recurrence_phase": "A2_recur",
+      "first_exposure_phase": "A1_compute",
+      "previous_exposure_end_pr_auc": 0.40615510299679497,
+      "recurrence_first_100_pr_auc": 0.48995551009640453,
+      "recurrence_late_pr_auc": 0.4276686358502586,
+      "windows": {
+        "previous_exposure_end": [
+          620,
+          720
+        ],
+        "recurrence_first_100": [
+          1800,
+          1900
+        ],
+        "recurrence_late": [
+          2060,
+          2160
+        ]
+      },
+      "relearning_gap": -0.08380040709960956,
+      "relearning_gap_definition": "previous exposure end score - recurrence first-100 score",
+      "recovery_gain_within_recurrence": -0.06228687424614593
+    },
+    {
+      "recurrence_phase": "C2_recur",
+      "first_exposure_phase": "C1_io",
+      "previous_exposure_end_pr_auc": 0.5742608844208409,
+      "recurrence_first_100_pr_auc": 0.5952442261656306,
+      "recurrence_late_pr_auc": 0.5239839860165709,
+      "windows": {
+        "previous_exposure_end": [
+          1460,
+          1560
+        ],
+        "recurrence_first_100": [
+          2160,
+          2260
+        ],
+        "recurrence_late": [
+          2420,
+          2520
+        ]
+      },
+      "relearning_gap": -0.020983341744789663,
+      "relearning_gap_definition": "previous exposure end score - recurrence first-100 score",
+      "recovery_gain_within_recurrence": -0.07126024014905963
+    },
+    {
+      "recurrence_phase": "B2_recur",
+      "first_exposure_phase": "B1_memory",
+      "previous_exposure_end_pr_auc": 0.5662817360723565,
+      "recurrence_first_100_pr_auc": 0.35419551220306744,
+      "recurrence_late_pr_auc": 0.39766736521469975,
+      "windows": {
+        "previous_exposure_end": [
+          1040,
+          1140
+        ],
+        "recurrence_first_100": [
+          2520,
+          2620
+        ],
+        "recurrence_late": [
+          2780,
+          2880
+        ]
+      },
+      "relearning_gap": 0.2120862238692891,
+      "relearning_gap_definition": "previous exposure end score - recurrence first-100 score",
+      "recovery_gain_within_recurrence": 0.04347185301163231
+    }
+  ]
+}

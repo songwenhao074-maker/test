@@ -1,0 +1,152 @@
+{
+  "compute_first": {
+    "stream": "single_compute_first_seed700_steps1200",
+    "n_cascade_tasks": 342,
+    "n_familiar_tasks": 1279,
+    "registered_floors": {
+      "cpu": 4400.0,
+      "ram": 4500.0,
+      "disk": 16000.0
+    },
+    "registered_sequence": [
+      [
+        "cpu",
+        0
+      ],
+      [
+        "ram",
+        4
+      ],
+      [
+        "disk",
+        8
+      ]
+    ],
+    "per_resource": {
+      "cpu": {
+        "cascade_peak_min": 4400.0,
+        "cascade_peak_median": 4400.0,
+        "cascade_peak_max": 5200.0,
+        "cascade_tasks_above_floor": 342,
+        "familiar_peak_max": 1860.0,
+        "registered_floor": 4400.0
+      },
+      "ram": {
+        "cascade_peak_min": 1.9213333333333331,
+        "cascade_peak_median": 2278.1802333333335,
+        "cascade_peak_max": 6000.0,
+        "cascade_tasks_above_floor": 142,
+        "familiar_peak_max": 1400.0,
+        "registered_floor": 4500.0
+      },
+      "disk": {
+        "cascade_peak_min": 1.0,
+        "cascade_peak_median": 1.0,
+        "cascade_peak_max": 1.0,
+        "cascade_tasks_above_floor": 0,
+        "familiar_peak_max": 1.0,
+        "registered_floor": 16000.0
+      }
+    }
+  },
+  "memory_first": {
+    "stream": "single_memory_first_seed700_steps1200",
+    "n_cascade_tasks": 342,
+    "n_familiar_tasks": 1279,
+    "registered_floors": {
+      "cpu": 4400.0,
+      "ram": 4500.0,
+      "disk": 16000.0
+    },
+    "registered_sequence": [
+      [
+        "ram",
+        0
+      ],
+      [
+        "disk",
+        3
+      ],
+      [
+        "cpu",
+        6
+      ]
+    ],
+    "per_resource": {
+      "cpu": {
+        "cascade_peak_min": 0.0,
+        "cascade_peak_median": 275.78485087764716,
+        "cascade_peak_max": 5200.0,
+        "cascade_tasks_above_floor": 115,
+        "familiar_peak_max": 1860.0,
+        "registered_floor": 4400.0
+      },
+      "ram": {
+        "cascade_peak_min": 1.9213333333333331,
+        "cascade_peak_median": 4500.0,
+        "cascade_peak_max": 6000.0,
+        "cascade_tasks_above_floor": 297,
+        "familiar_peak_max": 1400.0,
+        "registered_floor": 4500.0
+      },
+      "disk": {
+        "cascade_peak_min": 1.0,
+        "cascade_peak_median": 1.0,
+        "cascade_peak_max": 1.0,
+        "cascade_tasks_above_floor": 0,
+        "familiar_peak_max": 1.0,
+        "registered_floor": 16000.0
+      }
+    }
+  },
+  "io_first": {
+    "stream": "single_io_first_seed700_steps1200",
+    "n_cascade_tasks": 342,
+    "n_familiar_tasks": 1279,
+    "registered_floors": {
+      "cpu": 4400.0,
+      "ram": 4500.0,
+      "disk": 16000.0
+    },
+    "registered_sequence": [
+      [
+        "disk",
+        0
+      ],
+      [
+        "cpu",
+        3
+      ],
+      [
+        "ram",
+        6
+      ]
+    ],
+    "per_resource": {
+      "cpu": {
+        "cascade_peak_min": 0.0,
+        "cascade_peak_median": 5200.0,
+        "cascade_peak_max": 5200.0,
+        "cascade_tasks_above_floor": 189,
+        "familiar_peak_max": 1860.0,
+        "registered_floor": 4400.0
+      },
+      "ram": {
+        "cascade_peak_min": 1.9213333333333331,
+        "cascade_peak_median": 159.38306666666668,
+        "cascade_peak_max": 6000.0,
+        "cascade_tasks_above_floor": 129,
+        "familiar_peak_max": 1400.0,
+        "registered_floor": 4500.0
+      },
+      "disk": {
+        "cascade_peak_min": 1.0,
+        "cascade_peak_median": 1.0,
+        "cascade_peak_max": 1.0,
+        "cascade_tasks_above_floor": 0,
+        "familiar_peak_max": 1.0,
+        "registered_floor": 16000.0
+      }
+    }
+  }
+}
