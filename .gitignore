@@ -141,85 +141,18 @@ graphernew.py
 
 # --- Excluded for GitHub: large artifacts & generated data (dir-level rules only) ---
 # NOTE: recovery/*.py, recovery/PreGANSrc/src|data|checkpointsplus ARE tracked on purpose
-# --- Excluded for GitHub: large artifacts & generated data (dir-level rules only) ---
-# NOTE: recovery/*.py, recovery/PreGANSrc/src|data|checkpointsplus ARE tracked on purpose
 backup/
 artifacts/*
 !artifacts/ftmoe_online/
-!artifacts/ftmoe_end_to_end/
-recovery/PreGANSrc/checkpoints_qos_overload_ms_tol1/
-recovery/PreGANSrc/plots/
 framework/install_scripts/ssh_keys/
 
-# ---- artifacts/ftmoe_online: keep registration/gate jsons, pilot analysis and replay streams ----
-artifacts/ftmoe_online/pilot/runs/
-artifacts/ftmoe_online/adapted_bwgd2_016/runs/
-artifacts/ftmoe_online/capacity_017/
-artifacts/ftmoe_online/distribution_audit_015/
-artifacts/ftmoe_online/failed_attempts/
-artifacts/ftmoe_online/scenario_review_20260905/
-artifacts/ftmoe_online/streams/*
-!artifacts/ftmoe_online/streams/seed301_steps300/
-!artifacts/ftmoe_online/streams/seed301_steps1000/
-!artifacts/ftmoe_online/streams/seed302_steps1000/
-!artifacts/ftmoe_online/streams/seed401_steps2000/
-!artifacts/ftmoe_online/streams/seed402_steps2000/
-!artifacts/ftmoe_online/streams/seed403_steps2000/
+# ---- protocol-023 publication policy (2026-09-13) ----
+# The active protocol publishes its registration and evidence — *.json, *.jsonl, *.npz
+# and *.md — but NOT model checkpoints: round-2A writes ~20 .pt files into
+# protocol_023/round2a/checkpoints/. Every reported number can be re-checked from the
+# JSON/NPZ evidence alone. To publish a specific weight use 'git add -f <path>'.
+artifacts/ftmoe_online/protocol_023/**/*.pt
 
-# ---- artifacts/ftmoe_end_to_end: keep only online-branch inputs ----
-# (start checkpoints for model seeds 1/2/6/17/42, sha provenance, protocol_004_physical data)
-artifacts/ftmoe_end_to_end/*
-!artifacts/ftmoe_end_to_end/comparison_014_complete.json
-!artifacts/ftmoe_end_to_end/data/
-artifacts/ftmoe_end_to_end/data/*
-!artifacts/ftmoe_end_to_end/data/protocol_004_physical/
-!artifacts/ftmoe_end_to_end/diagnosis_reassessment/
-artifacts/ftmoe_end_to_end/diagnosis_reassessment/*
-!artifacts/ftmoe_end_to_end/diagnosis_reassessment/physical_lr0003_e30/
-artifacts/ftmoe_end_to_end/diagnosis_reassessment/physical_lr0003_e30/*
-!artifacts/ftmoe_end_to_end/diagnosis_reassessment/physical_lr0003_e30/v4_seed1.json
-!artifacts/ftmoe_end_to_end/diagnosis_reassessment/physical_lr0003_e30/v4_seed2.json
-!artifacts/ftmoe_end_to_end/diagnosis_reassessment/physical_lr0003_e30/v4_seed6.json
-!artifacts/ftmoe_end_to_end/runs/
-artifacts/ftmoe_end_to_end/runs/*
-!artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/
-!artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/
-artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/*
-!artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed17/
-artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed17/*
-!artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed17/best.pt
-!artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed42/
-artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed42/*
-!artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed42/best.pt
-artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/*
-!artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed1/
-artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed1/*
-!artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed1/checkpoints_by_epoch/
-artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed1/checkpoints_by_epoch/*
-!artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed1/checkpoints_by_epoch/epoch021.pt
-!artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed2/
-artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed2/*
-!artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed2/checkpoints_by_epoch/
-artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed2/checkpoints_by_epoch/*
-!artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed2/checkpoints_by_epoch/epoch023.pt
-!artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed6/
-artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed6/*
-!artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed6/checkpoints_by_epoch/
-artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed6/checkpoints_by_epoch/*
-!artifacts/ftmoe_end_to_end/runs/physical_lr0003_e30/v4_seed6/checkpoints_by_epoch/epoch015.pt
-!artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed17/
-artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed17/*
-!artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed17/best.pt
-!artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed42/
-artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed42/*
-!artifacts/ftmoe_end_to_end/runs/historical_confirm_lr0003_e30/v4_seed42/best.pt
-
-# ---- protocol-019/020 publication policy (2026-09-10): evidence yes, model weights no ----
-# Audit evidence (*.json, *.jsonl, *.npz, logs, *.exitcode) IS published so every reported
-# number can be re-checked. Intermediate/final .pt weights are NOT published: 759 files /
-# 3454.6 MB, which would push the repo past GitHub's ~1 GB guidance and past the ~2 GB
-# single-push limit. Local files are untouched; to publish a specific weight use
-# 'git add -f <path>' or delete the matching rule below. Already-tracked .pt files
-# (e.g. protocol_019/s3/adapted_v4_seed1/best.pt) stay tracked; ignore rules never untrack.
-artifacts/ftmoe_online/protocol_019/**/*.pt
-artifacts/ftmoe_online/protocol_020/**/*.pt
+# The one weight that IS tracked: protocol-023's registered frozen start checkpoint
+# (sha256 10c44bdb…). It is the starting point of every run and cannot be regenerated.
+!artifacts/ftmoe_online/protocol_020/s6/adapted_v4_seed1/best.pt

@@ -1,72 +1,117 @@
-<h1 align="center">PreGAN+</h1>
+<h1 align="center">PreGAN+ · FT-MoE online-learning track</h1>
 
-> **本地 FT-MoE 实验入口：** [项目最新上下文](PROJECT_CONTEXT_LATEST.md) · [文档索引](docs/README.md)。协议 014 消融已由用户验收并保存为[回档基线](docs/BASELINE_ACCEPTED_20260905.md)，原筛选结果保留。在线阶段已进入协议 020：R0-A 因果基础通过、R0-B 动态部署未通过；R1（冻结基础＋固定在线修正）完成 8×2000 步开发对照，减轻旧 C 漂移退化但尚未稳定超过 A。下一步为[离线覆盖审计与新模式注册](指令/FTMOE_PROTOCOL020_UNSEEN_REGIME_PLAN_20260909.md)，尚未开始；R2–R6 与 S10 未实施。历史在线 015/016 小试未达标（016 冻结 A 后半程 F1=0.143911，B/C/D 未运行），预留测试未使用。
->
-> **当前最新：协议 023（多机制循环漂移，动态增删专家 vs 固定在线微调）** — 协议 022 第一轮已交付（H0/H1/H2 通过，S5 容量诊断证明单一 regime 下 C 的收益随训练预算继续增长、未建立容量平台，故 D 无科学必要性），第二轮改问"三种异构机制 + 短驻留 + 再现"是否构成真实冲突。协议 023 第一轮只做 S0–S3（**不实现 D**）：三机制生成器、数据门禁与 marginal matching、跨机制专业化探针、梯度冲突与顺序遗忘。状态与证据入口：[协议 023 阶段文档](docs/FTMOE_ONLINE_PROTOCOL_023.md)、[计划](指令/FTMOE_PROTOCOL023_DYNAMIC_EXPERT_PLAN_20260912.md)、机器可读状态 `artifacts/ftmoe_online/protocol_023/gate_status.json`。协议 022 第一轮证据见其 [FINAL_REPORT](artifacts/ftmoe_online/protocol_022/FINAL_REPORT.md)。
+> **入口：** [项目现状与历史沿革](docs/PROJECT_STATUS_AND_HISTORY.md)（唯一状态入口）·
+> [协议 023 设计与结果](docs/FTMOE_ONLINE_PROTOCOL_023.md)
 
-<div align="center">
-  <a href="https://github.com/imperial-qore/PreGAN/blob/master/LICENSE">
-    <img src="https://img.shields.io/badge/License-BSD%203--Clause-red.svg" alt="License">
-  </a>
-   <a>
-    <img src="https://img.shields.io/badge/python-3.7%20%7C%203.8-blue.svg" alt="Python 3.7, 3.8">
-  </a>
-   <a>
-    <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fimperial-qore%2FPreGANPlus&count_bg=%23FFC401&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false" alt="Hits">
-  </a>
-   <a href="https://github.com/imperial-qore/PreGAN/actions">
-    <img src="https://github.com/imperial-qore/COSCO/workflows/DeFog-Benchmarks/badge.svg" alt="Actions Status">
-  </a>
- <br>
-   <a>
-    <img src="https://img.shields.io/docker/pulls/shreshthtuli/yolo?label=docker%20pulls%3A%20yolo" alt="Docker pulls yolo">
-  </a>
-   <a>
-    <img src="https://img.shields.io/docker/pulls/shreshthtuli/pocketsphinx?label=docker%20pulls%3A%20pocketsphinx" alt="Docker pulls pocketsphinx">
-  </a>
-   <a>
-    <img src="https://img.shields.io/docker/pulls/shreshthtuli/aeneas?label=docker%20pulls%3A%20aeneas" alt="Docker pulls aeneas">
-  </a>
-</div>
+本仓库 = 上游 **PreGAN+** 边缘计算故障容忍框架 + 一条附加的 **FT-MoE 在线学习研究线**。
 
-Typical mobile edge computing infrastructures have to contend with unreliable computing devices at their end-points. The limited resource capacities of mobile edge devices gives rise to frequent contentions, node overloads or failures. This is exacerbated by the strict deadlines of modern applications. To avoid failures, fault-tolerant approaches utilize preemptive migration to transfer active tasks across nodes and prevent nodes running at capacity. However, prior work struggles to dynamically adapt in settings with highly volatile workloads or even accurately detect and diagnose anomalies for optimal remediation. To meet the strict service level objectives of contemporary workloads, there is a need for dynamic fault-tolerant methods that can quickly adapt to changes in edge environments while having parsimonious remediation in the form of preemptive migration to avoid stressing the system network. This work proposes PreGAN, featuring a Generative Adversarial Network (GAN) based approach to predict contentions, pinpoint specific resource types with high chance of overload, and generate migration decisions to proactively avoid system downtime. PreGAN leverages coupled-simulations to train the GAN model at run-time and a few-shot fault classifier to update decisions of an underpinning scheduler. We also extend it to PreGAN+ that also periodically tunes the decision model using semi-supervised training and a Transformer based neural network for low tuning time, albeit with higher memory overheads.  Experiments on a Raspberry-Pi based edge environment demonstrate that both models outperform state-of-the-art baselines in fault detection and diagnosis scores by up to 12.5% and 31.2% respectively. This also translates in improvements in Quality of Service against baseline approaches.
+---
 
-## Quick Test
-Clone repo.
+## 1. 这是什么
+
+**PreGAN+** 针对移动边缘基础设施的争用与过载：用 GAN 预测争用、用 few-shot 分类器定位
+具体过载资源，并生成**抢占式迁移**决策，在节点被打满前主动迁移任务。仓库内含 16 主机的
+Raspberry-Pi 边缘模拟器与多种调度器、恢复策略基线。
+
+在其之上，本仓库附加研究一个问题：
+
+> 边缘环境的资源需求机制会**漂移、切换并再现**。固定拓扑的在线微调（fixed C）是否足够，
+> 还是必须**动态增删专家**（D）？
+
+**当前结论（协议 023 第二轮 A）：`D_eligible = false`。** 在冻结的在线预算下，fixed C 相对
+冻结基线的增益只有 +0.0049 / +0.0020 / +0.0203（门槛 +0.03），0/3 达标；既不遗忘，也不产生
+梯度冲突。这是本协议族第一个**反对**需要动态专家的测量。详见
+[项目现状](docs/PROJECT_STATUS_AND_HISTORY.md)。
+
+---
+
+## 2. 快速开始
+
 ```console
 git clone https://github.com/imperial-qore/PreGANPlus.git
-cd PreGAN/
-```
-Install dependencies.
-```console
-sudo apt -y update
-python3 -m pip --upgrade pip
-python3 -m pip install matplotlib scikit-learn
+cd PreGANPlus
 python3 -m pip install -r requirements.txt
-python3 -m pip install "torch>=1.11" "dgl>=1.1"
-export PATH=$PATH:~/.local/bin
+python3 -m pip install "torch>=1.11"
 ```
-The default recovery method is `FTMoERecovery`, a local implementation inspired by the accompanying FT-MoE paper. It extends PreGAN+ with schedule-aware graph encoding, adaptive Top-any MoE routing, cross-attention fusion, and MoE-only online tuning. Dataset, metric and ablation differences are documented in the current project context; this is not a claim of an exact paper reproduction. Use `-r` to select a baseline (`preganplus`, `pregan`, `pcft`, `dftm`, `eclb`, or `cmodlb`).
+
+本机已配置好的环境：**`D:\Anaconda\envs\dynmoe\python.exe`**
+（Python 3.8.20、torch 2.4.1+cpu、numpy 1.19.2）。
+
+### 跑模拟器（上游路径）
 
 ```bash
-python main.py -r ftmoe
+D:\Anaconda\envs\dynmoe\python.exe main.py -r ftmoe
 ```
 
-The bundled dataset is retained for compatibility with PreGAN+. Current offline full-model experiments use `artifacts/ftmoe_end_to_end/data/protocol_004_physical` and `train_ftmoe_end_to_end.py`; the simulator quick test above is a separate workflow. The paper's edge-fault dataset is not bundled, so local scores are not directly comparable with its reported results.
+`-r` 可选 `ftmoe`（默认 → `FTMoEProgressiveRecovery`）、`preganplus`、`pregan`、`pcft`、
+`dftm`、`eclb`、`cmodlb`。无 `-e` 时走 `RPiEdge` 模拟器 + `BWGD2` 合成负载。
 
-## External Links
-| Items | Contents | 
+> 注意：`main.py` 在解析参数**之前**就 import 全部 9 个 recovery 模块（`main.py:54-62`），
+> 因此 `recovery/*.py` 不能删任何一个。
+
+### 跑协议 023 实验链
+
+```powershell
+$env:PYTHONPATH="F:\PreGANPlus-master"
+cd F:\PreGANPlus-master
+$py = "D:\Anaconda\envs\dynmoe\python.exe"
+
+# 回归基线（必须保持 206 tests OK）
+& $py -m unittest test_ftmoe_protocol023_core test_ftmoe_protocol023_regimes test_ftmoe_protocol023_s2 test_ftmoe_protocol023_gradient
+
+# 生成器独立验证（A-01..A-04）
+& $py verify_ftmoe_protocol023_generator.py
+
+# 采集 + 独立验证（单进程，约 7 分钟/流）
+& $py run_ftmoe_protocol023_s2.py
+& $py verify_ftmoe_protocol023_stream.py artifacts/ftmoe_online/protocol_023/development_streams/dev_seed700_steps2880
+
+# 数据门禁 / 专业化 / 梯度
+& $py analyze_ftmoe_protocol023_s2.py
+& $py probe_ftmoe_protocol023_specialization.py
+& $py probe_ftmoe_protocol023_gradient.py
+```
+
+**运行纪律：** 单进程顺序执行（同一时刻只跑一个实验进程）；在线链路 2.5–3.0 GiB 内存 guard，
+离线/采集链路 4.5 GiB guard + 磁盘 ≥20 GiB；不得覆盖历史 checkpoint 或产物。
+torch 的 stderr warning 会让 pwsh 报 `exit 1`，**以产物判定成败**。
+
+---
+
+## 3. 目录
+
+| 路径 | 内容 |
+|---|---|
+| `main.py` | 上游入口（模拟器 + 恢复策略选择） |
+| `framework/` `simulator/` `scheduler/` `stats/` `metrics/` `utils/` | 上游模拟器与基线 |
+| `recovery/` | 恢复/预测模型；`recovery/PreGANSrc/src/ftmoe_*.py` 是 FT-MoE 实现 |
+| `*_ftmoe_protocol023_*.py`、`ftmoe_protocol02{2,3}_core.py` | 协议 023 实验链（根目录，不移动以免破坏 import 与哈希登记） |
+| `artifacts/ftmoe_online/protocol_023/` | 当前协议的全部注册与证据 |
+| `artifacts/ftmoe_online/protocol_020/`、`adapted_bwgd2_016/` | 协议 023 依赖的冻结起点与配置 |
+| `docs/` | [项目现状与历史](docs/PROJECT_STATUS_AND_HISTORY.md) · [协议 023](docs/FTMOE_ONLINE_PROTOCOL_023.md) |
+| `指令/` | 协议 023 的上游计划与两轮 directive（SHA256 已登记在 `protocol.json`） |
+
+---
+
+## 4. 已知限制（不得只取最好看的指标）
+
+- **HR@100% 与 NDCG@100% 在本数据上相等**（单资源标签），都等于真实异常样本上的资源 top-1
+  准确率、含检测漏报；`S=(F1+HR+NDCG)/3` 实际给诊断两倍权重。
+- 开发集异常以 CPU 类为主，**近乎恒定预测 CPU 的诊断准确率约 0.898224**。
+- **无训练物理规则的开发基线 F1≈0.93057、诊断≈0.98194**，高于当时候选的完整模型。
+- 论文参考 F1/HR/NDCG = 0.8766/0.6496/0.6021；数据、标签与指标实现有差异，**不能据数值更高
+  声称复现成功或优于论文**。
+- 全部在线结论基于**开发**种子 700；confirmation 种子 701–703 未使用。预留测试 201–205
+  从未生成，保持封闭。
+
+---
+
+## 5. External Links & License
+
+| Items | Contents |
 | --- | --- |
-| **Pre-print** | (coming soon) |
 | **Video** | https://youtu.be/Pp82aZu5dJw |
-| **Contact**| Shreshth Tuli ([@shreshthtuli](https://github.com/shreshthtuli))  |
-| **Funding**| Imperial President's scholarship |
+| **Contact** | Shreshth Tuli ([@shreshthtuli](https://github.com/shreshthtuli)) |
+| **Funding** | Imperial President's scholarship |
 
-
-## License
-
-BSD-3-Clause. 
-Copyright (c) 2022, Shreshth Tuli.
-All rights reserved.
-
-See License file for more details.
+BSD-3-Clause. Copyright (c) 2022, Shreshth Tuli. See [LICENSE](LICENSE).
