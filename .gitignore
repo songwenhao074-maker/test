@@ -147,12 +147,12 @@ artifacts/*
 framework/install_scripts/ssh_keys/
 
 # ---- protocol-023 publication policy (2026-09-13) ----
-# The active protocol publishes its registration and evidence — *.json, *.jsonl, *.npz
-# and *.md — but NOT model checkpoints: round-2A writes ~20 .pt files into
+# The active protocol publishes its registration and evidence -- *.json, *.jsonl, *.npz
+# and *.md -- but NOT model checkpoints: round-2A writes ~20 .pt files into
 # protocol_023/round2a/checkpoints/. Every reported number can be re-checked from the
 # JSON/NPZ evidence alone. To publish a specific weight use 'git add -f <path>'.
 artifacts/ftmoe_online/protocol_023/**/*.pt
 
 # The one weight that IS tracked: protocol-023's registered frozen start checkpoint
-# (sha256 10c44bdb…). It is the starting point of every run and cannot be regenerated.
+# (sha256 10c44bdb...). It is the starting point of every run and cannot be regenerated.
 !artifacts/ftmoe_online/protocol_020/s6/adapted_v4_seed1/best.pt
