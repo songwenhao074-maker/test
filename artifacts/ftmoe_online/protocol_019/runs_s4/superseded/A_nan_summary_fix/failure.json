@@ -1,6 +1,0 @@
-{
-  "error": "Out of range float values are not JSON compliant: nan",
-  "step": 300,
-  "traceback": "Traceback (most recent call last):\n  File \"run_ftmoe_protocol019_s4.py\", line 224, in run\n    write_json(out / \"summary.json\", summary)\n  File \"F:\\PreGANPlus-master\\run_ftmoe_online.py\", line 34, in write_json\n    temporary.write_text(json.dumps(value,ensure_ascii=False,indent=2,allow_nan=False)+'\\n',encoding='utf8')\n  File \"D:\\Anaconda\\envs\\dynmoe\\lib\\json\\__init__.py\", line 234, in dumps\n    return cls(\n  File \"D:\\Anaconda\\envs\\dynmoe\\lib\\json\\encoder.py\", line 201, in encode\n    chunks = list(chunks)\n  File \"D:\\Anaconda\\envs\\dynmoe\\lib\\json\\encoder.py\", line 431, in _iterencode\n    yield from _iterencode_dict(o, _current_indent_level)\n  File \"D:\\Anaconda\\envs\\dynmoe\\lib\\json\\encoder.py\", line 405, in _iterencode_dict\n    yield from chunks\n  File \"D:\\Anaconda\\envs\\dynmoe\\lib\\json\\encoder.py\", line 397, in _iterencode_dict\n    yield _floatstr(value)\n  File \"D:\\Anaconda\\envs\\dynmoe\\lib\\json\\encoder.py\", line 239, in floatstr\n    raise ValueError(\nValueError: Out of range float values are not JSON compliant: nan\n",
-  "next_action": "Report before changing the registered experiment"
-}
