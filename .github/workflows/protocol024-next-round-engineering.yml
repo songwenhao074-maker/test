@@ -7,10 +7,12 @@ on:
       - 'ftmoe_protocol024_eval.py'
       - 'ftmoe_protocol024_dynamic_residual.py'
       - 'ftmoe_protocol024_session.py'
+      - 'ftmoe_protocol024_lifecycle.py'
       - 'test_ftmoe_protocol024_eval.py'
       - 'test_ftmoe_protocol024_dynamic_residual.py'
       - 'test_ftmoe_protocol024_next_round_*.py'
       - 'maintenance/run_protocol024_next_round_integrity.py'
+      - 'maintenance/run_protocol024_lifecycle_debug.py'
       - '.github/workflows/protocol024-next-round-engineering.yml'
   workflow_dispatch:
 
@@ -50,10 +52,17 @@ jobs:
         run: |
           python maintenance/run_protocol024_next_round_integrity.py \
             --out artifacts/ftmoe_online/protocol_024/next_round_v1/integrity_gates_ci.json
+      - name: Run causal lifecycle toy, inflight-resume, and old-stream debug
+        run: |
+          python maintenance/run_protocol024_lifecycle_debug.py \
+            --natural-intervals 760 \
+            --out artifacts/ftmoe_online/protocol_024/next_round_v1/lifecycle_debug_ci.json
       - name: Upload engineering evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: protocol024-next-round-engineering
-          path: artifacts/ftmoe_online/protocol_024/next_round_v1/integrity_gates_ci.json
+          path: |
+            artifacts/ftmoe_online/protocol_024/next_round_v1/integrity_gates_ci.json
+            artifacts/ftmoe_online/protocol_024/next_round_v1/lifecycle_debug_ci.json
           if-no-files-found: warn
