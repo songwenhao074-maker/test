@@ -1,0 +1,21 @@
+{
+  "protocol": "024",
+  "round": "next_round_v1",
+  "environment_id": "github_ubuntu22_cpu_v1",
+  "registered_before_first_simulated_interval": true,
+  "python": "3.8",
+  "runner": "GitHub-hosted ubuntu-22.04",
+  "torch": "2.4.1+cpu",
+  "dgl": "1.1.3",
+  "single_experiment_process": true,
+  "torch_threads": 3,
+  "interop_threads": 1,
+  "available_ram_guard_gib": 2.5,
+  "available_disk_guard_gib": 5.0,
+  "priority": "POSIX nice +10",
+  "reason_for_p24_disk_guard": "Protocol-023's 20 GiB guard was registered for a local workstation. The GitHub-hosted runner exposed 10.897 GiB free before interval 0, so the inherited 20 GiB threshold can never run here. Protocol-024 artifacts are bounded arrays for 4981x16 hosts plus model outputs and are far below 5 GiB; 5 GiB therefore preserves a substantial safety margin without changing experiment physics.",
+  "scientific_parameters_changed": false,
+  "response_law_config_changed": false,
+  "label_rule_changed": false,
+  "confirmation_seeds_used": false
+}
