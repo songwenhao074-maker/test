@@ -16,21 +16,9 @@
     "old_tol1_results_are_separate_task": true
   },
   "response_laws": {
-    "R1": {
-      "name": "short_compute_pulse_fast_release",
-      "physical_story": "short compute-intensive burst with fast release back toward familiar demand",
-      "audit_only_id": true
-    },
-    "R2": {
-      "name": "sustained_inference_working_set_growth",
-      "physical_story": "sustained inference CPU pressure followed by lagged working-set/RAM growth",
-      "audit_only_id": true
-    },
-    "R3": {
-      "name": "background_writeback_backlog",
-      "physical_story": "background write-back/disk queue accumulation followed by causal drain/recovery",
-      "audit_only_id": true
-    }
+    "R1": {"name": "short_compute_pulse_fast_release", "physical_story": "short compute-intensive burst with fast release back toward familiar demand", "audit_only_id": true},
+    "R2": {"name": "sustained_inference_working_set_growth", "physical_story": "sustained inference CPU pressure followed by lagged working-set/RAM growth", "audit_only_id": true},
+    "R3": {"name": "background_writeback_backlog", "physical_story": "background write-back/disk queue accumulation followed by causal drain/recovery", "audit_only_id": true}
   },
   "timeline": [
     {"name": "F0", "response_law": null, "start": 0, "end": 300, "length": 300},
@@ -48,16 +36,7 @@
   "guard_rows": 1,
   "inputs": {
     "allowed": "common 12-step telemetry + scheduler/graph context already available to C and D",
-    "forbidden": [
-      "response_law_id",
-      "mode_id",
-      "phase_id",
-      "event_id",
-      "known_future_switch_time",
-      "future_label",
-      "future_demand",
-      "future_capacity"
-    ]
+    "forbidden": ["response_law_id", "mode_id", "phase_id", "event_id", "known_future_switch_time", "future_label", "future_demand", "future_capacity"]
   },
   "arms": {
     "A": "frozen base",
@@ -103,6 +82,36 @@
     "recurrence_switches_total": 6,
     "normal_FPR_D_minus_C_max": 0.01,
     "development_only_not_confirmation_gate": true
+  },
+  "pre_valid_result_protocol_corrections": {
+    "applied_before_any_accepted_D_C_performance_result": true,
+    "response_law_v1_bytes_or_numerics_changed": false,
+    "learnability_split": {
+      "history": 12,
+      "horizon": 1,
+      "required_gap": 13,
+      "train_prediction_intervals": [0, 3887],
+      "gap_prediction_intervals": [3887, 3900],
+      "validation_prediction_intervals": [3900, 4980],
+      "reason": "directive requires at least 12+h intervals between temporal probe train and validation"
+    },
+    "anchor": {
+      "source": "independent already-observed Protocol-023 calibrated development stream",
+      "target": "raw_label[i+1] same host/resource class",
+      "legacy_stored_tol1_labels_used": false,
+      "new_response_law_stream_used": false,
+      "selection": "deterministic stride 6 from first full 12-step window; not target-dependent"
+    },
+    "lifecycle_calibration": {
+      "config_id": "loss_trigger_v2_pre_result_protocol_fix",
+      "previous_config_id": "loss_trigger_v1",
+      "previous_config_valid_performance_result": false,
+      "calibration_prediction_intervals": [0, 600],
+      "reason": "old 256-interval calibration lies entirely in F0=300; corrected prefix must contain both normal and fault host-steps",
+      "numeric_threshold": "materialized after budget selection by separate lifecycle-off pass and frozen before formal pilot",
+      "D_C_performance_used_for_correction": false
+    },
+    "generation_source_run_id": 34839589954
   },
   "confirmation_run": false
 }

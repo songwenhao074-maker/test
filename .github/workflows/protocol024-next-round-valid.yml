@@ -1,0 +1,172 @@
+name: Protocol-024 valid next-round development pilot
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [protocol-024-next-round-gpt56]
+    paths:
+      - 'ftmoe_protocol024_anchor.py'
+      - 'test_ftmoe_protocol024_anchor.py'
+      - 'probe_ftmoe_protocol024_learnability.py'
+      - 'run_ftmoe_protocol024_budget.py'
+      - 'calibrate_ftmoe_protocol024_lifecycle.py'
+      - 'run_ftmoe_protocol024_pilot.py'
+      - 'artifacts/ftmoe_online/protocol_024/next_round_v1/lifecycle_config.json'
+      - 'artifacts/ftmoe_online/protocol_024/next_round_v1/registration.json'
+      - '.github/workflows/protocol024-next-round-valid.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  valid-development-pilot:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 240
+    env:
+      OMP_NUM_THREADS: '3'
+      MKL_NUM_THREADS: '3'
+      OPENBLAS_NUM_THREADS: '3'
+      ROOT_OUT: artifacts/ftmoe_online/protocol_024/next_round_v1
+      SOURCE_GENERATION_RUN_ID: '34839589954'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+      - name: Install online dependencies with CPU PyTorch
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3
+      - name: Download the immutable response-law stream from generation run
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol024-next-round-v1-development
+          path: /tmp/p24-generation
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 34839589954
+      - name: Reuse only generated data bytes, discard superseded downstream outputs
+        run: |
+          test -f /tmp/p24-generation/data/stream.npz
+          test -f /tmp/p24-generation/data/manifest.json
+          rm -rf "$ROOT_OUT/data" "$ROOT_OUT/probes" "$ROOT_OUT/budget" "$ROOT_OUT/runs"
+          rm -f "$ROOT_OUT/comparison.json" "$ROOT_OUT/status.json" "$ROOT_OUT/lifecycle_calibration.json" "$ROOT_OUT/anchor_manifest.json"
+          mkdir -p "$ROOT_OUT"
+          cp -a /tmp/p24-generation/data "$ROOT_OUT/data"
+      - name: Verify corrected protocol code and anchor target
+        run: |
+          python -m unittest -v test_ftmoe_protocol024_anchor.py test_ftmoe_protocol024_response_laws.py
+          python -m py_compile ftmoe_protocol024_anchor.py probe_ftmoe_protocol024_learnability.py run_ftmoe_protocol024_budget.py calibrate_ftmoe_protocol024_lifecycle.py run_ftmoe_protocol024_pilot.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from ftmoe_protocol024_anchor import load_protocol024_raw_next_anchor, anchor_metadata
+          a=load_protocol024_raw_next_anchor()
+          m=anchor_metadata(a)
+          assert m['legacy_stored_labels_used'] is False
+          assert m['new_response_law_stream_used'] is False
+          assert m['future_row_offset']==1 and m['anchor_samples']>0
+          root=Path('artifacts/ftmoe_online/protocol_024/next_round_v1')
+          (root/'anchor_manifest.json').write_text(json.dumps(m,indent=2,allow_nan=False)+'\n')
+          print(json.dumps(m,indent=2,allow_nan=False))
+          PY
+      - name: Audit reused stream labels, bytes, and model-input separation
+        run: |
+          python - <<'PY'
+          import hashlib, json, numpy as np
+          from pathlib import Path
+          root=Path('artifacts/ftmoe_online/protocol_024/next_round_v1/data')
+          m=json.loads((root/'manifest.json').read_text())
+          assert m['protocol']=='024' and m['family']=='protocol024_response_law_v1'
+          assert m['steps']==4980 and m['guard_rows']==1 and m['seed']==700
+          h=hashlib.sha256()
+          with (root/'stream.npz').open('rb') as f:
+              for b in iter(lambda:f.read(4*1024*1024),b''): h.update(b)
+          assert h.hexdigest()==m['stream_sha256']
+          with np.load(root/'stream.npz') as d:
+              assert d['raw_labels'].shape==(4981,16)
+              ratio=d['overload_ratio']
+              expected=np.where((ratio>1.0).any(-1), ratio.argmax(-1)+1, 0)
+              assert np.array_equal(expected,d['raw_labels'])
+              assert not set(m['audit_only_npz_keys']) & set(m['model_input_keys'])
+              for key in m['model_input_keys']: assert key in d.files
+              for key in ('host_features','demands','schedules','capacities','overload_ratio'): assert np.isfinite(d[key]).all()
+          audit=json.loads((root/'audit.json').read_text())
+          assert audit['direct_label_assignment_from_response_law'] is False
+          result={'source_generation_run_id':34839589954,'stream_sha256':m['stream_sha256'],'stream_label_recompute_equal':True,'audit_ids_excluded_from_model_inputs':True,'direct_law_to_label':False}
+          (root/'reuse_audit.json').write_text(json.dumps(result,indent=2)+'\n')
+          print(json.dumps(result,indent=2))
+          PY
+      - name: Run gap-correct raw-history and frozen-z learnability probe
+        run: |
+          python probe_ftmoe_protocol024_learnability.py --stream "$ROOT_OUT/data" --out "$ROOT_OUT/probes/learnability.json"
+      - name: Enforce preregistered learnability gate
+        run: |
+          python - <<'PY'
+          import json
+          p=json.load(open('artifacts/ftmoe_online/protocol_024/next_round_v1/probes/learnability.json'))
+          assert p['actual_isolation_gap_intervals']>=13 and p['no_history_or_future_target_overlap'] is True
+          print(json.dumps({'raw_history_learnable':p['raw_history_learnable'],'z_retains_history_signal':p['z_retains_history_signal'],'history_ap':p['methods']['raw_history_12x7_logistic']['ap'],'z_ap':p['methods']['frozen_z_64d_logistic']['ap'],'validation_prevalence':p['validation_prevalence'],'proceed':p['proceed_to_budget_and_pilot']}))
+          if not p['raw_history_learnable']: raise SystemExit('RAW_HISTORY_UNLEARNABLE: stop before budget/pilot; only one response-law revision is allowed')
+          if not p['z_retains_history_signal']: raise SystemExit('FROZEN_Z_LOSES_HISTORY_SIGNAL: stop; add same registered temporal feature to C and D, rerun lifecycle-off equivalence, then resume')
+          PY
+      - name: Run bounded fixed-C budget comparison with raw-next anchor
+        run: |
+          python run_ftmoe_protocol024_budget.py --stream "$ROOT_OUT/data" --out "$ROOT_OUT/budget/comparison.json"
+      - name: Freeze numeric lifecycle threshold before formal pilot
+        run: |
+          python calibrate_ftmoe_protocol024_lifecycle.py --stream "$ROOT_OUT/data" --budget "$ROOT_OUT/budget/comparison.json" --lifecycle "$ROOT_OUT/lifecycle_config.json" --out "$ROOT_OUT/lifecycle_calibration.json"
+          python - <<'PY'
+          import json
+          p=json.load(open('artifacts/ftmoe_online/protocol_024/next_round_v1/lifecycle_config.json'))
+          c=json.load(open('artifacts/ftmoe_online/protocol_024/next_round_v1/lifecycle_calibration.json'))
+          assert p['fixed_loss_threshold'] is not None and c['fixed_loss_threshold']==p['fixed_loss_threshold']
+          assert c['positive_host_steps']>0 and c['normal_host_steps']>0 and c['D_C_performance_not_read'] is True
+          print(json.dumps({'fixed_loss_threshold':p['fixed_loss_threshold'],'positive_host_steps':c['positive_host_steps'],'normal_host_steps':c['normal_host_steps']}))
+          PY
+      - name: Run valid lifecycle-on A C D seed700 development pilot
+        run: |
+          python run_ftmoe_protocol024_pilot.py --stream "$ROOT_OUT/data" --budget "$ROOT_OUT/budget/comparison.json" --lifecycle "$ROOT_OUT/lifecycle_config.json" --out-root "$ROOT_OUT/runs/seed700_rawnext_lifecycle_v2_valid" --comparison "$ROOT_OUT/comparison.json"
+      - name: Write machine-readable valid-run status
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('artifacts/ftmoe_online/protocol_024/next_round_v1')
+          def read(rel):
+              p=root/rel
+              return json.loads(p.read_text()) if p.is_file() else None
+          learn=read('probes/learnability.json'); budget=read('budget/comparison.json'); calibration=read('lifecycle_calibration.json'); comp=read('comparison.json'); manifest=read('data/manifest.json')
+          status={'protocol':'024','round':'next_round_v1','confirmation_run':False,'engineering_passed':True,'new_stream_generated':manifest is not None,'stream_generation_source_run_id':34839589954,'stream_sha256':None if manifest is None else manifest.get('stream_sha256'),'learnability_completed':learn is not None,'learnability_passed':None if learn is None else bool(learn.get('proceed_to_budget_and_pilot')),'probe_isolation_gap_intervals':None if learn is None else learn.get('actual_isolation_gap_intervals'),'budget_comparison_completed':budget is not None,'selected_update_every':None if budget is None else budget.get('selected_update_every'),'lifecycle_calibration_completed':calibration is not None,'fixed_loss_threshold':None if calibration is None else calibration.get('fixed_loss_threshold'),'lifecycle_on_run_completed':comp is not None,'lifecycle_exercised':None if comp is None else bool(comp.get('lifecycle',{}).get('lifecycle_exercised')),'development_signal':None if comp is None else comp.get('development_signal'),'response_law_config_id':'response_law_v1','lifecycle_config_id':'loss_trigger_v2_pre_result_protocol_fix','target':'raw_next_fault','anchor_target':'independent historical raw_label[i+1]','legacy_anchor_labels_used':False,'seeds':{'replay':700,'model':1,'confirmation_used':[]},'protocol_corrections':['13-interval learnability train/validation isolation gap','old tol1 anchor replaced by independent historical raw[i+1] anchor','numeric lifecycle threshold frozen before pilot on 600-interval prefix containing normal and fault host-steps']}
+          if comp is not None and not status['lifecycle_exercised']: status['lifecycle_not_exercised_reason']=comp.get('lifecycle',{}).get('lifecycle_not_exercised_reason')
+          (root/'status.json').write_text(json.dumps(status,indent=2,allow_nan=False)+'\n')
+          print(json.dumps(status,indent=2,allow_nan=False))
+          PY
+      - name: Upload valid Protocol-024 development evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol024-next-round-v1-valid-development
+          path: |
+            artifacts/ftmoe_online/protocol_024/next_round_v1/data
+            artifacts/ftmoe_online/protocol_024/next_round_v1/probes
+            artifacts/ftmoe_online/protocol_024/next_round_v1/budget
+            artifacts/ftmoe_online/protocol_024/next_round_v1/runs
+            artifacts/ftmoe_online/protocol_024/next_round_v1/comparison.json
+            artifacts/ftmoe_online/protocol_024/next_round_v1/status.json
+            artifacts/ftmoe_online/protocol_024/next_round_v1/anchor_manifest.json
+            artifacts/ftmoe_online/protocol_024/next_round_v1/lifecycle_calibration.json
+            artifacts/ftmoe_online/protocol_024/next_round_v1/registration.json
+            artifacts/ftmoe_online/protocol_024/next_round_v1/response_law_config.json
+            artifacts/ftmoe_online/protocol_024/next_round_v1/lifecycle_config.json
+            artifacts/ftmoe_online/protocol_024/next_round_v1/budget_policy.json
+            artifacts/ftmoe_online/protocol_024/next_round_v1/integrity_gates.json
+            artifacts/ftmoe_online/protocol_024/next_round_v1/problem_log.json
+          if-no-files-found: warn
+          compression-level: 6

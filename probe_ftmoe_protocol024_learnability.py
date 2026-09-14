@@ -1,15 +1,21 @@
 """Registered Protocol-024 learnability probe for response_law_v1.
 
-Train split: [0,3900) = familiar prefix + all three long first exposures.
-Validation split: [3900,4980) = the six registered recurrences.  Every method
-predicts exactly raw_label[t+1] > 0 and uses no audit law/phase/event ID.
+The split is deliberately separated by HISTORY+h = 12+1 = 13 complete
+intervals so no validation 12-step input history shares rows with the training
+side and no training raw[t+1] target touches the validation history.
 
-Pre-generation decision rule:
-- raw/history is learnable iff its validation AP is at least prevalence + 0.05;
-- frozen z is considered to retain the signal iff its AP is no more than 0.05
-  below the raw/history AP.
-Persistence/current-pressure are reported as required baselines but are not a
-requirement that history must beat current overload pressure.
+Train prediction times: [0,3887)
+Isolation gap:          [3887,3900)
+Validation times:       [3900,4980) (all six recurrences)
+
+Every method predicts exactly same-host raw_label[t+1] > 0 and uses no audit
+law/phase/event ID.
+
+Registered decision rule:
+- raw/history is learnable iff validation AP >= prevalence + 0.05;
+- frozen z retains the signal iff its AP is no more than 0.05 below history.
+Persistence/current-pressure are reported required baselines, not a requirement
+that history beat current overload pressure.
 """
 from __future__ import annotations
 
@@ -28,9 +34,12 @@ from ftmoe_protocol024_eval import average_precision_report
 from recovery.PreGANSrc.src.ftmoe_online_r1 import FrozenResidualFTMoE
 
 
-TRAIN_END = 3900
+TRAIN_END = 3887
+VALID_START = 3900
 VALID_END = 4980
 HISTORY = 12
+HORIZON = 1
+ISOLATION_GAP = HISTORY + HORIZON
 MIN_AP_OVER_PREVALENCE = 0.05
 MAX_Z_AP_GAP = 0.05
 
@@ -86,6 +95,9 @@ def run(stream_dir, out_path):
     bundle = s4.build_replay(stream_dir)
     if bundle["steps"] != VALID_END:
         raise ValueError("learnability probe requires registered 4980-step stream")
+    if VALID_START - TRAIN_END < ISOLATION_GAP:
+        raise AssertionError("learnability split lost the registered 13-interval gap")
+
     arrays = bundle["arrays"]
     raw = np.asarray(arrays["raw_labels"], dtype=np.int64)
     host = np.asarray(arrays["host_features"][:VALID_END], dtype=np.float32)
@@ -95,11 +107,19 @@ def run(stream_dir, out_path):
     target = (raw[1:VALID_END + 1] > 0).astype(np.int64)
 
     train_t = np.arange(0, TRAIN_END)
-    valid_t = np.arange(TRAIN_END, VALID_END)
+    valid_t = np.arange(VALID_START, VALID_END)
     train_y = target[train_t].reshape(-1)
     valid_y = target[valid_t].reshape(-1)
     if train_y.sum() == 0 or valid_y.sum() == 0:
         raise RuntimeError("future-fault learnability split has no positives")
+    if train_y.sum() == train_y.size or valid_y.sum() == valid_y.size:
+        raise RuntimeError("future-fault learnability split has no negatives")
+
+    train_last_target_row = TRAIN_END
+    valid_first_history_row = VALID_START - HISTORY + 1
+    if train_last_target_row >= valid_first_history_row:
+        raise AssertionError(
+            "train future target overlaps the first validation input history")
 
     history = _history_features(host)
     current_x = host.reshape(VALID_END * 16, 7)
@@ -120,21 +140,29 @@ def run(stream_dir, out_path):
     z_x = z.reshape(VALID_END * 16, -1)
     z_score, z_meta = _fit_score(z_x[train_rows], train_y, z_x[valid_rows])
 
-    persistence = (raw[TRAIN_END:VALID_END] > 0).astype(np.float64).reshape(-1)
-    current_pressure = ratio[TRAIN_END:VALID_END].max(axis=-1).reshape(-1)
+    persistence = (raw[VALID_START:VALID_END] > 0).astype(np.float64).reshape(-1)
+    current_pressure = ratio[VALID_START:VALID_END].max(axis=-1).reshape(-1)
 
     result = {
         "protocol": "024", "kind": "future_fault_learnability",
         "target": "raw_label[t+1] > 0 same host",
         "audit_ids_used_as_features": False,
-        "train_intervals": [0, TRAIN_END],
-        "validation_intervals": [TRAIN_END, VALID_END],
+        "history_intervals": HISTORY,
+        "target_horizon": HORIZON,
+        "required_isolation_gap_intervals": ISOLATION_GAP,
+        "actual_isolation_gap_intervals": int(VALID_START - TRAIN_END),
+        "train_prediction_intervals": [0, TRAIN_END],
+        "isolation_gap_prediction_intervals": [TRAIN_END, VALID_START],
+        "validation_prediction_intervals": [VALID_START, VALID_END],
+        "train_last_future_raw_row": int(train_last_target_row),
+        "validation_first_history_raw_row": int(valid_first_history_row),
+        "no_history_or_future_target_overlap": True,
         "train_positive_host_steps": int(train_y.sum()),
         "validation_positive_host_steps": int(valid_y.sum()),
         "validation_prevalence": float(valid_y.mean()),
         "gate": {"min_ap_over_prevalence": MIN_AP_OVER_PREVALENCE,
                  "max_frozen_z_ap_gap_to_history": MAX_Z_AP_GAP,
-                 "registered_before_stream_generation": True},
+                 "registered_before_valid_model_result": True},
         "methods": {
             "persistence_current_fault": _report(valid_y, persistence),
             "current_pressure": _report(valid_y, current_pressure),

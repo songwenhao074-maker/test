@@ -1,4 +1,12 @@
-"""Protocol-024 seed700 lifecycle-on A/C/D development pilot and comparison."""
+"""Protocol-024 seed700 lifecycle-on A/C/D development pilot and comparison.
+
+This is the first valid next-round performance runner. All three arms use the
+same raw_next_fault target, selected live-update budget, and independent
+historical raw[i+1] anchor. D additionally receives the causal lifecycle. The
+numeric lifecycle loss threshold must already have been frozen by
+``calibrate_ftmoe_protocol024_lifecycle.py``; the formal run recomputes its
+calibration statistic only as an equality audit, never as a tuning decision.
+"""
 from __future__ import annotations
 
 import argparse
@@ -10,6 +18,8 @@ import time
 import numpy as np
 
 import run_ftmoe_protocol023_s4 as s4
+from ftmoe_protocol024_anchor import (
+    anchor_metadata, load_protocol024_raw_next_anchor)
 from ftmoe_protocol024_eval import (
     average_precision_report, binary_detection_metrics,
     positive_resource_macro_f1, temporal_onset_metrics)
@@ -25,7 +35,7 @@ LIFECYCLE_KEYS = (
     "loss_percentile", "candidate_train_intervals", "validation_intervals",
     "accept_relative_loss_improvement", "normal_probability_allowance",
     "cooldown_intervals", "retirement_enabled", "hard_delete_enabled",
-    "debug_force_trigger_after")
+    "debug_force_trigger_after", "fixed_loss_threshold")
 
 
 def _phase_defs(manifest):
@@ -60,7 +70,7 @@ def _run_arm(arm, stream_dir, bundle, anchor, update_every,
         "development_only": True, "confirmation_run": False,
         "target": NEXT_TARGET_MODE,
         "update_every": int(update_every), "model_seed": 1,
-        "replay_seed": 700}
+        "replay_seed": 700, "anchor": anchor_metadata(anchor)}
     cls = LifecycleProtocol024Session if arm == "D" else Protocol024Session
     kwargs = {}
     if arm == "D":
@@ -68,15 +78,12 @@ def _run_arm(arm, stream_dir, bundle, anchor, update_every,
     session = cls(
         arm, 1, bundle, _budget(update_every), out_dir,
         anchor=anchor, learning_rate=1e-4,
-        run_id="seed700_rawnext_lifecycle_v1",
+        run_id="seed700_rawnext_lifecycle_v2_valid",
         stream_dir=stream_dir, phase_defs=phases,
         target_mode=NEXT_TARGET_MODE,
         stream_sha=bundle["manifest"]["stream_sha256"],
         registration=registration, **kwargs)
 
-    # Only a compact set of resumable checkpoints is retained: after each first
-    # exposure and final.  Recurrence state is fully represented by final output
-    # + lifecycle ledger, avoiding hundreds of MB of redundant checkpoints.
     checkpoint_boundaries = {
         p["end"]: p["name"] for p in phases if p["name"] in FIRST_NAMES}
     checkpoints = []
@@ -104,9 +111,10 @@ def _run_arm(arm, stream_dir, bundle, anchor, update_every,
         "update_p95_seconds": float(np.percentile(update_seconds, 95)) if update_seconds else None,
         "full": session._metric_block(0, session.steps),
         "phase_metrics": metrics,
-        "checkpoints": checkpoints,
+        "checkpoints": [str(p) for p in checkpoints],
         "predictions_file": predictions_path.name,
         "frozen_base_hash": session.model.frozen_hash(),
+        "anchor": anchor_metadata(anchor),
     }
     if arm == "D":
         controller = session.lifecycle_controller
@@ -114,6 +122,14 @@ def _run_arm(arm, stream_dir, bundle, anchor, update_every,
         counts = dict(Counter(row["kind"] for row in events))
         _write_jsonl(out_dir / "lifecycle.jsonl", events)
         accepted = int(counts.get("candidate_accepted", 0))
+        fixed = float(lifecycle_config["fixed_loss_threshold"])
+        actual = float(controller.calibration_threshold)
+        tolerance = max(1e-8, abs(fixed) * 1e-6)
+        threshold_match = bool(abs(actual - fixed) <= tolerance)
+        if not threshold_match:
+            raise AssertionError(
+                "formal lifecycle recomputed calibration threshold %.12g does not match preregistered %.12g (tol %.3g)"
+                % (actual, fixed, tolerance))
         summary["lifecycle"] = {
             "event_counts": counts,
             "candidate_created": int(counts.get("candidate_created", 0)),
@@ -123,17 +139,22 @@ def _run_arm(arm, stream_dir, bundle, anchor, update_every,
             "retirements": int(counts.get("expert_retired", 0)),
             "reactivations": int(counts.get("expert_reactivated", 0)),
             "purges": int(counts.get("expert_purged", 0)),
-            "lifecycle_exercised": bool(accepted > 0 or
-                                       counts.get("expert_reactivated", 0) > 0 or
-                                       counts.get("expert_retired", 0) > 0),
+            "lifecycle_exercised": bool(
+                accepted > 0 or counts.get("expert_reactivated", 0) > 0 or
+                counts.get("expert_retired", 0) > 0),
             "lifecycle_not_exercised_reason": (
                 None if accepted > 0 else
                 "lifecycle was ON and candidates were causally trained/qualified, but no candidate passed frozen acceptance; retirement was preregistered disabled"),
             "final_topology": session.model.learner.topology_manifest(),
-            "calibration_threshold": controller.calibration_threshold,
+            "calibration_threshold": actual,
+            "registered_fixed_loss_threshold": fixed,
+            "calibration_threshold_match": threshold_match,
+            "calibration_threshold_tolerance": tolerance,
             "extra_compute": controller.extra_compute,
             "last_decision": controller.last_decision,
             "ledger_file": "lifecycle.jsonl",
+            "hard_delete_enabled": bool(lifecycle_config["hard_delete_enabled"]),
+            "retirement_enabled": bool(lifecycle_config["retirement_enabled"]),
         }
     (out_dir / "summary.json").write_text(
         json.dumps(summary, indent=2, allow_nan=False) + "\n", encoding="utf8")
@@ -182,7 +203,6 @@ def _comparison(sessions, summaries, bundle, phases, update_every):
     recur_valid = [x["D_minus_C_ap"] for x in recur if x["D_minus_C_ap"] is not None]
     first_valid = [x["D_minus_C_ap"] for x in first if x["D_minus_C_ap"] is not None]
 
-    # Threshold-FPR development check on the union of recurrence first-100 rows.
     recur_idx = []
     for item in recur:
         recur_idx.extend(range(item["intervals"][0], item["intervals"][1]))
@@ -211,11 +231,7 @@ def _comparison(sessions, summaries, bundle, phases, update_every):
             "persistence": _baseline_report(persistence[start:end], target[start:end]),
             "current_pressure": _baseline_report(pressure[start:end], target[start:end])})
 
-    full = {}
-    worst = {}
-    onset = {}
-    diagnosis = {}
-    laws = {}
+    full, worst, onset, diagnosis, laws = {}, {}, {}, {}, {}
     for arm, session in sessions.items():
         full[arm] = binary_detection_metrics(session.predictions["probability"],
                                              session.predictions["labels"])
@@ -242,6 +258,7 @@ def _comparison(sessions, summaries, bundle, phases, update_every):
         "development_only": True, "confirmation_run": False,
         "target": NEXT_TARGET_MODE, "model_seed": 1, "replay_seed": 700,
         "selected_update_every": int(update_every),
+        "anchor": summaries["C"]["anchor"],
         "switch_first100": switches,
         "first_exposure_mean_D_minus_C": (float(np.mean(first_valid)) if first_valid else None),
         "recurrence": {
@@ -272,17 +289,24 @@ def run(stream_dir, budget_path, lifecycle_path, out_root, comparison_path):
     budget_result = json.loads(Path(budget_path).read_text(encoding="utf8"))
     update_every = int(budget_result["selected_update_every"])
     lifecycle_all = json.loads(Path(lifecycle_path).read_text(encoding="utf8"))
+    if lifecycle_all.get("fixed_loss_threshold") is None:
+        raise ValueError("formal pilot requires a precomputed fixed_loss_threshold")
     lifecycle_config = {k: lifecycle_all[k] for k in LIFECYCLE_KEYS}
+    if lifecycle_config["debug_force_trigger_after"] is not None:
+        raise ValueError("formal pilot forbids forced lifecycle triggers")
+
     bundle = s4.build_replay(stream_dir)
     if bundle["steps"] != 4980:
         raise ValueError("formal pilot requires registered 4980-step stream")
     phases = _phase_defs(bundle["manifest"])
+    anchor = load_protocol024_raw_next_anchor()
+    meta = anchor_metadata(anchor)
+    if meta.get("legacy_stored_labels_used") is not False:
+        raise AssertionError("formal raw-next pilot cannot use legacy anchor labels")
+
     sessions, summaries = {}, {}
     for arm in ("A", "C", "D"):
-        # Fresh replay and anchor objects for each arm; model seed and raw bytes
-        # stay identical.
         arm_bundle = s4.build_replay(stream_dir)
-        anchor = s4.load_anchor_pool(arm_bundle["replay"].time_scale)
         sessions[arm], summaries[arm] = _run_arm(
             arm, stream_dir, arm_bundle, anchor, update_every,
             lifecycle_config, out_root)

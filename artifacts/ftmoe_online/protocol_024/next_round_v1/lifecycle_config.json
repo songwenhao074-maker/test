@@ -1,9 +1,17 @@
 {
   "protocol": "024",
   "round": "next_round_v1",
-  "config_id": "loss_trigger_v1",
-  "frozen_before_formal_lifecycle_run": true,
-  "calibration_intervals": 256,
+  "config_id": "loss_trigger_v2_pre_result_protocol_fix",
+  "previous_config_id": "loss_trigger_v1",
+  "previous_config_valid_performance_result": false,
+  "replacement_reason": "pre-result protocol audit: 256 calibration intervals lie entirely inside F0=300; directive requires calibration prefix containing both normal and fault observations. No D-C performance had been accepted/read for this correction.",
+  "structural_config_frozen_before_valid_lifecycle_run": true,
+  "numeric_threshold_frozen_before_formal_pilot": true,
+  "calibration_intervals": 600,
+  "calibration_prefix_prediction_intervals": [0, 600],
+  "calibration_prefix_story": "fixed F0=300 plus first 300 intervals of R1_first; chosen before valid D-C performance so calibration cannot be restricted to zero-fault F0",
+  "fixed_loss_threshold": null,
+  "loss_threshold_materialization": "calibrate_ftmoe_protocol024_lifecycle.py computes p99 of 32-interval mean matured supervised loss after budget selection and writes the numeric value into the runtime artifact before formal A/C/D pilot",
   "trigger_window": 32,
   "consecutive_abnormal_windows": 2,
   "loss_percentile": 99.0,
@@ -26,6 +34,8 @@
     "initial_active": 4,
     "max_resident_active_plus_dormant_plus_shadow": 8
   },
-  "calibration_note": "numeric loss threshold is deterministically derived once from the first 256 matured development intervals using the 99th percentile of 32-interval window means; it is not changed after observing D-C performance",
+  "calibration_audit_rule": "formal D must recompute the same 600-interval statistic and match fixed_loss_threshold within max(1e-8,1e-6*abs(threshold)); mismatch invalidates the run",
+  "max_preregistered_calibration_configs": 2,
+  "this_is_second_and_final_preregistered_calibration_config": true,
   "confirmation_seeds_used": false
 }
