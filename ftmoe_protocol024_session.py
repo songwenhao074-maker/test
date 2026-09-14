@@ -13,11 +13,9 @@ checkpoint/restore helpers.
 from __future__ import annotations
 
 from copy import deepcopy
-import random
 
 import numpy as np
 import torch
-import torch.nn.functional as F
 
 import run_ftmoe_protocol023_s4 as s4
 from ftmoe_protocol024_dynamic_residual import DynamicResidualBank
@@ -25,7 +23,7 @@ from recovery.PreGANSrc.src.ftmoe_online_r1 import FrozenResidualFTMoE
 
 
 class DynamicResidualFTMoE(FrozenResidualFTMoE):
-    """Fixed-C model with only its learner residual bank made dynamic."""
+    """Standalone fixed-C model with only its learner residual bank dynamic."""
 
     def __init__(self, checkpoint, method, seed, max_experts=8, ramp_updates=10):
         if method != "D":
@@ -59,9 +57,10 @@ class Protocol024Session(s4.PrequentialS4):
                  max_experts=8, ramp_updates=10):
         if arm not in ("A", "C", "D"):
             raise ValueError("arm must be A, C, or D")
-        # Build the registered A/C session first.  For D we replace only the
-        # learner model before any step is scored, resetting all RNGs so its
-        # t=0 initialization is independent of the temporary C construction.
+        # Build the registered A/C session first. For D, convert that exact
+        # learner bank in place BEFORE any scored interval. This is stronger
+        # than constructing a second nominally identical model: it guarantees
+        # that D starts from the exact same C tensors and RNG realization.
         super().__init__("A" if arm == "A" else "C", seed, replay_bundle,
                          budget, out_dir, probe_paths=probe_paths, anchor=anchor,
                          learning_rate=learning_rate)
@@ -69,14 +68,13 @@ class Protocol024Session(s4.PrequentialS4):
         if arm != "D":
             return
 
-        torch.manual_seed(self.seed)
-        np.random.seed(self.seed)
-        random.seed(self.seed)
-        self.model = DynamicResidualFTMoE(
-            replay_bundle["checkpoint"], "D", self.seed,
-            max_experts=max_experts, ramp_updates=ramp_updates)
-        self.model.eval()
+        source = self.model.learner
+        self.model.learner = DynamicResidualBank(
+            source, max_experts=max_experts, ramp_updates=ramp_updates)
+        self.model.requested_method = "D"
+        self.model.set_trainability()
         self.model.set_deployment("learner", 1.0)
+        self.model.eval()
         trainable = [p for p in self.model.parameters() if p.requires_grad]
         self.optimizer = torch.optim.AdamW(
             trainable, lr=self.learning_rate, weight_decay=1e-4)
@@ -192,7 +190,7 @@ def restore_dynamic_bank(source_bank, snapshot):
     shadow = None if shadow is None else str(shadow)
     next_id = int(topology["next_id"])
 
-    # Dynamic ids are allocated monotonically.  Recreate every allocated id in
+    # Dynamic ids are allocated monotonically. Recreate every allocated id in
     # order; a live shadow, if present, must be the last allocated id because
     # the bank supports at most one candidate at a time.
     if shadow is not None and int(shadow) != next_id - 1:
