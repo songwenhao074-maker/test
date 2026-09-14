@@ -1,0 +1,31 @@
+{
+  "date": "2026-09-14",
+  "repository": "songwenhao074-maker/FT-MoE",
+  "remote_main_before": "2bf24474034369c5882329a53ba67e44ba1b3f77",
+  "remote_protocol023_before": "ca3907466d8b549adbb5c0238fcc3c61859e3f45",
+  "local_before": "1ccd6b1",
+  "method": "Merge remote documentation history with local pruning; fast-forward main and protocol-023 to the same resulting commit; no history rewrite or branch deletion",
+  "removed_old_files": 1022,
+  "retained_bitbrain_csv_files": 500,
+  "retained_mature_C_checkpoints": 7,
+  "required_generation_logs_added": 8,
+  "required_assets_verified": 759,
+  "required_assets_bytes": 694103341,
+  "clean_index_export_checks_passed": true,
+  "regression_tests_passed": 206,
+  "stream_verifiers_passed": 8,
+  "smoke_test": "A/C 24-step prefix passed after correcting partial-run test scope; online algorithm unchanged",
+  "excluded_local_only": [
+    ".claude/settings.local.json",
+    "826 MiB protocol014 snapshot.zip and expanded archive",
+    "temporary validation directories and console logs"
+  ],
+  "known_experiment_limitations": [
+    "D is not implemented in protocol023",
+    "Legacy stage onset metric flattens time/host axes",
+    "Legacy full S4 misses settlement for penultimate interval",
+    "Resource macro-F1 definition needs clarification",
+    "Fresh Python environment installation and other operating systems not validated"
+  ],
+  "handoff": "docs/GITHUB_EXPERIMENT_HANDOFF.md"
+}

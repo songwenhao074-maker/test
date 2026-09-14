@@ -1,6 +1,8 @@
 # Binary payloads: never apply EOL conversion, never attempt text diffs.
 *.pt    binary
 *.npz   binary
+*.npy   binary
+*.ckpt  binary
 
 # Published evidence: keep bytes exactly as produced so files still match the
 # sha256 manifests recorded next to them (core.autocrlf=true is set globally).

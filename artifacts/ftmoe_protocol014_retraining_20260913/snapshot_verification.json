@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "files_verified": 2532,
+  "archive_bytes": 865943486,
+  "archive_sha256": "f14f72a7c5da6d323a64c966552e5a435ed50aeb8fdd0c810721e0aab9642b15",
+  "original_snapshot_restored": false,
+  "models_retrained": 30
+}

@@ -1,0 +1,319 @@
+{
+  "source": "artifacts\\ftmoe_online\\protocol_023\\round2a\\fixed_c_prequential",
+  "scope": "Saved development seed 700 predictions only; no training or model selection",
+  "onset_correction": "h=1 along time for the same host; omit unobserved phase-tail future; report raw and tolerance labels separately",
+  "arms": {
+    "A": [
+      {
+        "phase": "F0_baseline",
+        "late_detection_ap": null,
+        "whole_detection_ap": null,
+        "legacy_onset_ap_reproduced": null,
+        "corrected_onset_tolerance": {
+          "ap": null,
+          "positives": 0,
+          "rows": 4784
+        },
+        "corrected_onset_raw": {
+          "ap": null,
+          "positives": 0,
+          "rows": 4784
+        }
+      },
+      {
+        "phase": "A1_compute",
+        "late_detection_ap": 0.40615510299679497,
+        "whole_detection_ap": 0.42008002778709574,
+        "legacy_onset_ap_reproduced": 0.09169296918725493,
+        "corrected_onset_tolerance": {
+          "ap": 0.04041655557556019,
+          "positives": 128,
+          "rows": 6012
+        },
+        "corrected_onset_raw": {
+          "ap": 0.050370261377088346,
+          "positives": 147,
+          "rows": 6294
+        }
+      },
+      {
+        "phase": "B1_memory",
+        "late_detection_ap": 0.5662817360723565,
+        "whole_detection_ap": 0.4751831918540081,
+        "legacy_onset_ap_reproduced": 0.10582133798329903,
+        "corrected_onset_tolerance": {
+          "ap": 0.14371520028565302,
+          "positives": 163,
+          "rows": 5919
+        },
+        "corrected_onset_raw": {
+          "ap": 0.10967075286693603,
+          "positives": 198,
+          "rows": 6290
+        }
+      },
+      {
+        "phase": "C1_io",
+        "late_detection_ap": 0.5742608844208409,
+        "whole_detection_ap": 0.5432593700113236,
+        "legacy_onset_ap_reproduced": 0.11567408557552357,
+        "corrected_onset_tolerance": {
+          "ap": 0.22183466543285044,
+          "positives": 146,
+          "rows": 5870
+        },
+        "corrected_onset_raw": {
+          "ap": 0.17722495958404905,
+          "positives": 170,
+          "rows": 6190
+        }
+      },
+      {
+        "phase": "F1_baseline",
+        "late_detection_ap": null,
+        "whole_detection_ap": 0.03558161788240253,
+        "legacy_onset_ap_reproduced": 0.0015463436114413931,
+        "corrected_onset_tolerance": {
+          "ap": 0.021739130434782608,
+          "positives": 1,
+          "rows": 3819
+        },
+        "corrected_onset_raw": {
+          "ap": 0.025,
+          "positives": 1,
+          "rows": 3822
+        }
+      },
+      {
+        "phase": "A2_recur",
+        "late_detection_ap": 0.4276686358502586,
+        "whole_detection_ap": 0.45881627582413975,
+        "legacy_onset_ap_reproduced": 0.11041456481506567,
+        "corrected_onset_tolerance": {
+          "ap": 0.05133970526516767,
+          "positives": 128,
+          "rows": 5055
+        },
+        "corrected_onset_raw": {
+          "ap": 0.06774218233059977,
+          "positives": 151,
+          "rows": 5343
+        }
+      },
+      {
+        "phase": "C2_recur",
+        "late_detection_ap": 0.5239839860165709,
+        "whole_detection_ap": 0.49973123271170244,
+        "legacy_onset_ap_reproduced": 0.0943051950938169,
+        "corrected_onset_tolerance": {
+          "ap": 0.2135925379017793,
+          "positives": 117,
+          "rows": 5138
+        },
+        "corrected_onset_raw": {
+          "ap": 0.15207923374843815,
+          "positives": 137,
+          "rows": 5395
+        }
+      },
+      {
+        "phase": "B2_recur",
+        "late_detection_ap": 0.39766736521469975,
+        "whole_detection_ap": 0.43864594281052066,
+        "legacy_onset_ap_reproduced": 0.08639798428273382,
+        "corrected_onset_tolerance": {
+          "ap": 0.12100147114546445,
+          "positives": 129,
+          "rows": 5126
+        },
+        "corrected_onset_raw": {
+          "ap": 0.09678595557909811,
+          "positives": 153,
+          "rows": 5445
+        }
+      }
+    ],
+    "C": [
+      {
+        "phase": "F0_baseline",
+        "late_detection_ap": null,
+        "whole_detection_ap": null,
+        "legacy_onset_ap_reproduced": null,
+        "corrected_onset_tolerance": {
+          "ap": null,
+          "positives": 0,
+          "rows": 4784
+        },
+        "corrected_onset_raw": {
+          "ap": null,
+          "positives": 0,
+          "rows": 4784
+        }
+      },
+      {
+        "phase": "A1_compute",
+        "late_detection_ap": 0.4110735372274651,
+        "whole_detection_ap": 0.4244135141919106,
+        "legacy_onset_ap_reproduced": 0.09123894956887338,
+        "corrected_onset_tolerance": {
+          "ap": 0.04058644543070212,
+          "positives": 128,
+          "rows": 6012
+        },
+        "corrected_onset_raw": {
+          "ap": 0.05075804652787821,
+          "positives": 147,
+          "rows": 6294
+        }
+      },
+      {
+        "phase": "B1_memory",
+        "late_detection_ap": 0.5682995390550101,
+        "whole_detection_ap": 0.4780079715709801,
+        "legacy_onset_ap_reproduced": 0.10594933934871745,
+        "corrected_onset_tolerance": {
+          "ap": 0.14019869695667844,
+          "positives": 163,
+          "rows": 5919
+        },
+        "corrected_onset_raw": {
+          "ap": 0.10940303680621595,
+          "positives": 198,
+          "rows": 6290
+        }
+      },
+      {
+        "phase": "C1_io",
+        "late_detection_ap": 0.5946058760196611,
+        "whole_detection_ap": 0.5527113967860077,
+        "legacy_onset_ap_reproduced": 0.11539621958762523,
+        "corrected_onset_tolerance": {
+          "ap": 0.21772791154280974,
+          "positives": 146,
+          "rows": 5870
+        },
+        "corrected_onset_raw": {
+          "ap": 0.1771021046926928,
+          "positives": 170,
+          "rows": 6190
+        }
+      },
+      {
+        "phase": "F1_baseline",
+        "late_detection_ap": null,
+        "whole_detection_ap": 0.05213356347376966,
+        "legacy_onset_ap_reproduced": 0.0018289914822869884,
+        "corrected_onset_tolerance": {
+          "ap": 0.030303030303030304,
+          "positives": 1,
+          "rows": 3819
+        },
+        "corrected_onset_raw": {
+          "ap": 0.03571428571428571,
+          "positives": 1,
+          "rows": 3822
+        }
+      },
+      {
+        "phase": "A2_recur",
+        "late_detection_ap": 0.4847744190431783,
+        "whole_detection_ap": 0.48852686097034276,
+        "legacy_onset_ap_reproduced": 0.11057202118455613,
+        "corrected_onset_tolerance": {
+          "ap": 0.05140606667396569,
+          "positives": 128,
+          "rows": 5055
+        },
+        "corrected_onset_raw": {
+          "ap": 0.06931166077542741,
+          "positives": 151,
+          "rows": 5343
+        }
+      },
+      {
+        "phase": "C2_recur",
+        "late_detection_ap": 0.6536765047387946,
+        "whole_detection_ap": 0.608991850341704,
+        "legacy_onset_ap_reproduced": 0.09418153757556073,
+        "corrected_onset_tolerance": {
+          "ap": 0.2032109976869765,
+          "positives": 117,
+          "rows": 5138
+        },
+        "corrected_onset_raw": {
+          "ap": 0.1488362960960689,
+          "positives": 137,
+          "rows": 5395
+        }
+      },
+      {
+        "phase": "B2_recur",
+        "late_detection_ap": 0.49487714405047345,
+        "whole_detection_ap": 0.4944450275110803,
+        "legacy_onset_ap_reproduced": 0.08664114567483061,
+        "corrected_onset_tolerance": {
+          "ap": 0.10466525010307207,
+          "positives": 129,
+          "rows": 5126
+        },
+        "corrected_onset_raw": {
+          "ap": 0.09081536313578613,
+          "positives": 153,
+          "rows": 5445
+        }
+      }
+    ]
+  },
+  "late_detection_gain_C_minus_A": [
+    {
+      "phase": "A1_compute",
+      "A": 0.40615510299679497,
+      "C": 0.4110735372274651,
+      "gain": 0.004918434230670121
+    },
+    {
+      "phase": "B1_memory",
+      "A": 0.5662817360723565,
+      "C": 0.5682995390550101,
+      "gain": 0.002017802982653527
+    },
+    {
+      "phase": "C1_io",
+      "A": 0.5742608844208409,
+      "C": 0.5946058760196611,
+      "gain": 0.020344991598820195
+    },
+    {
+      "phase": "A2_recur",
+      "A": 0.4276686358502586,
+      "C": 0.4847744190431783,
+      "gain": 0.0571057831929197
+    },
+    {
+      "phase": "C2_recur",
+      "A": 0.5239839860165709,
+      "C": 0.6536765047387946,
+      "gain": 0.12969251872222365
+    },
+    {
+      "phase": "B2_recur",
+      "A": 0.39766736521469975,
+      "C": 0.49487714405047345,
+      "gain": 0.0972097788357737
+    }
+  ],
+  "unsettled_rows": {
+    "A": {
+      "interval_indices": [
+        2878
+      ],
+      "host_step_count": 16
+    },
+    "C": {
+      "interval_indices": [
+        2878
+      ],
+      "host_step_count": 16
+    }
+  }
+}

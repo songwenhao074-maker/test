@@ -1,0 +1,5 @@
+{
+  "valid_snapshot_extract": true,
+  "nonempty_destination_rejected": true,
+  "corrupt_content_rejected": true
+}

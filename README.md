@@ -3,6 +3,9 @@
 > **入口：** [项目现状与历史沿革](docs/PROJECT_STATUS_AND_HISTORY.md)（唯一状态入口）·
 > [协议 023 设计与结果](docs/FTMOE_ONLINE_PROTOCOL_023.md)
 
+> **从 GitHub 继续实验：先读 [交接与依赖检查](docs/GITHUB_EXPERIMENT_HANDOFF.md)，再读
+> [2026-09-14 结果复核与新场景建议](docs/ONLINE_D_ANALYSIS_AND_NEXT_SCENARIO_20260914.md)。**
+
 本仓库 = 上游 **PreGAN+** 边缘计算故障容忍框架 + 一条附加的 **FT-MoE 在线学习研究线**。
 
 ---
@@ -18,20 +21,22 @@ Raspberry-Pi 边缘模拟器与多种调度器、恢复策略基线。
 > 边缘环境的资源需求机制会**漂移、切换并再现**。固定拓扑的在线微调（fixed C）是否足够，
 > 还是必须**动态增删专家**（D）？
 
-**当前结论（协议 023 第二轮 A）：`D_eligible = false`。** 在冻结的在线预算下，fixed C 相对
-冻结基线的增益只有 +0.0049 / +0.0020 / +0.0203（门槛 +0.03），0/3 达标；既不遗忘，也不产生
-梯度冲突。这是本协议族第一个**反对**需要动态专家的测量。详见
-[项目现状](docs/PROJECT_STATUS_AND_HISTORY.md)。
+**历史协议 023 第二轮 A：`D_eligible = false`，D 尚未实现或测试。** C 首次接触三机制的
+末段增益为 +0.0049 / +0.0020 / +0.0203；再次出现时增益为 +0.0571 / +0.0972 / +0.1297
+（compute / memory / io）。未测得达到旧门槛的遗忘和梯度冲突。2026-09-14 审计发现阶段
+onset 时间轴错误及倒数第二行漏结算，已独立重算，运行器尚未修复。新实验应先修评估，
+再直接研究 D 在合理有利情形下的优势，不沿用旧计划中禁止实现 D 的通用门禁。
 
 ---
 
 ## 2. 快速开始
 
 ```console
-git clone https://github.com/imperial-qore/PreGANPlus.git
-cd PreGANPlus
-python3 -m pip install -r requirements.txt
-python3 -m pip install "torch>=1.11"
+git clone --depth 1 https://github.com/songwenhao074-maker/FT-MoE.git
+cd FT-MoE
+# Use Python 3.8 for the recorded reference environment.
+python -m pip install -r requirements-online.txt
+python maintenance/verify_experiment_handoff.py
 ```
 
 本机已配置好的环境：**`D:\Anaconda\envs\dynmoe\python.exe`**
@@ -62,14 +67,10 @@ $py = "D:\Anaconda\envs\dynmoe\python.exe"
 # 生成器独立验证（A-01..A-04）
 & $py verify_ftmoe_protocol023_generator.py
 
-# 采集 + 独立验证（单进程，约 7 分钟/流）
-& $py run_ftmoe_protocol023_s2.py
+# 验证已经发布的流（不要向已有注册目录重复采集）
 & $py verify_ftmoe_protocol023_stream.py artifacts/ftmoe_online/protocol_023/development_streams/dev_seed700_steps2880
 
-# 数据门禁 / 专业化 / 梯度
-& $py analyze_ftmoe_protocol023_s2.py
-& $py probe_ftmoe_protocol023_specialization.py
-& $py probe_ftmoe_protocol023_gradient.py
+# 新采集、训练和分析请使用新协议/新输出目录，先参照交接文档。
 ```
 
 **运行纪律：** 单进程顺序执行（同一时刻只跑一个实验进程）；在线链路 2.5–3.0 GiB 内存 guard，

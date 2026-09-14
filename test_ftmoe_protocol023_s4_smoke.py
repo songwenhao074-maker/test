@@ -35,6 +35,23 @@ def run_once(arm, intervals=24):
         if session.update_log and session.cursor % 4 == 0:
             pass
     integrity = s4.prequential_integrity(session)
+    # This smoke intentionally stops before the full stream's guard row.
+    # Keep the full-run audit visible, but test the observed prefix explicitly.
+    # Do not weaken prequential_integrity() or claim finalization was tested.
+    prefix_checks = {key: value for key, value in integrity.items()
+                     if key not in ("passed", "final_interval_settled_on_the_stream_guard_row")}
+    prefix_checks["all_mature_prefix_rows_settled"] = bool(np.array_equal(
+        np.flatnonzero(session.predictions["settled_at"] >= 0),
+        np.arange(max(0, intervals - 2))))
+    prefix_checks["observed_predictions_finite"] = bool(np.isfinite(
+        session.predictions["probability"][:intervals]).all())
+    prefix_checks["unobserved_predictions_unwritten"] = bool(np.isnan(
+        session.predictions["probability"][intervals:]).all())
+    prefix_checks["updates_match_partial_budget"] = (
+        session.updates == (intervals // 4 if arm == "C" else 0))
+    prefix_checks["expected_learner_change"] = (
+        (session.predictions["learner_hash"][0] != session.learner_hash) == (arm == "C"))
+    prefix_checks["passed"] = all(prefix_checks.values())
     # settlement rule: label index must be strictly older than the read index
     settled = session.predictions["settled_at"]
     idx = np.arange(session.steps)
@@ -42,6 +59,8 @@ def run_once(arm, intervals=24):
     return {
         "arm": arm, "intervals": session.cursor, "updates": session.updates,
         "integrity": integrity,
+        "smoke_integrity": prefix_checks,
+        "scope": "Partial prefix only; final guard-row settlement is not tested here.",
         "settlement_lag_min": int(lag.min()) if lag.size else None,
         "settlement_lag_max": int(lag.max()) if lag.size else None,
         "first_learner_hash": session.predictions["learner_hash"][0][:16],
@@ -65,7 +84,7 @@ def main():
     (SCRATCH / "smoke.json").write_text(
         json.dumps(results, indent=2, ensure_ascii=False) + "\n", encoding="utf8")
     print(json.dumps(results, indent=2, ensure_ascii=False))
-    ok = all(r["integrity"]["passed"] and r["frozen_unchanged"] for r in results)
+    ok = all(r["smoke_integrity"]["passed"] and r["frozen_unchanged"] for r in results)
     print("SMOKE", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 

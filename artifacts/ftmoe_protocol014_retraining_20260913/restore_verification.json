@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "verified_files": 2532,
+  "archive_sha256": "f14f72a7c5da6d323a64c966552e5a435ed50aeb8fdd0c810721e0aab9642b15",
+  "restored_to": "F:\\PreGANPlus-master\\artifacts\\ftmoe_protocol014_retraining_20260913\\restore_validation",
+  "snapshot_type": "retrained_protocol014_baseline"
+}

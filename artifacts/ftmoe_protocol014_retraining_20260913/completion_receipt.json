@@ -1,0 +1,10 @@
+{
+  "complete": true,
+  "models": 30,
+  "epoch_checkpoints": 900,
+  "checkpoint_index_paths_verified": true,
+  "training_workers_running": false,
+  "temporary_restore_removed": true,
+  "archive_bytes": 865943486,
+  "completed_local": "2026-09-14T00:42:05.821050+08:00"
+}

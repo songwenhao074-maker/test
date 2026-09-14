@@ -1,0 +1,1383 @@
+{
+  "status": "all_30_models_retrained",
+  "models": [
+    {
+      "arm": "v0",
+      "seed": 1,
+      "best_epoch": 24,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v0_seed1\\v0_seed1\\summary.json",
+      "A_last": {
+        "f1": 0.6036350607255568,
+        "precision": 0.5741504203448695,
+        "recall": 0.6614604083947845,
+        "diagnosis_hr_at_100pct": 0.7164273103932118,
+        "diagnosis_ndcg_at_100pct": 0.7164273103932118,
+        "hr_at_100": 0.9966666666666667,
+        "ndcg_at_100": 0.9973848698269282,
+        "diagnostic_pair_ndcg_at_100": 0.9973848698269282,
+        "pr_auc": 0.7309388685028176,
+        "positive_class_macro_f1": 0.6277701688936588,
+        "tp": 245.0,
+        "fp": 183.33333333333334,
+        "fn": 136.0,
+        "tn": 2667.6666666666665,
+        "score": 0.6788298938373268
+      },
+      "B_best": {
+        "f1": 0.6206335705641445,
+        "precision": 0.6277334255816057,
+        "recall": 0.6415530963638403,
+        "diagnosis_hr_at_100pct": 0.7173584090896736,
+        "diagnosis_ndcg_at_100pct": 0.7173584090896736,
+        "hr_at_100": 0.9966666666666667,
+        "ndcg_at_100": 0.9973366635062516,
+        "diagnostic_pair_ndcg_at_100": 0.9973366635062516,
+        "pr_auc": 0.7358329975763945,
+        "positive_class_macro_f1": 0.6303307527059877,
+        "tp": 237.66666666666666,
+        "fp": 142.66666666666666,
+        "fn": 143.33333333333334,
+        "tn": 2708.3333333333335,
+        "score": 0.6851167962478306
+      }
+    },
+    {
+      "arm": "v0",
+      "seed": 2,
+      "best_epoch": 3,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v0_seed2\\v0_seed2\\summary.json",
+      "A_last": {
+        "f1": 0.6270626750142174,
+        "precision": 0.6237640668551211,
+        "recall": 0.658347495179686,
+        "diagnosis_hr_at_100pct": 0.7141604051083484,
+        "diagnosis_ndcg_at_100pct": 0.7141604051083484,
+        "hr_at_100": 0.9733333333333333,
+        "ndcg_at_100": 0.9796916485314577,
+        "diagnostic_pair_ndcg_at_100": 0.9796916485314577,
+        "pr_auc": 0.7447210670430314,
+        "positive_class_macro_f1": 0.621969742230179,
+        "tp": 243.66666666666666,
+        "fp": 147.66666666666666,
+        "fn": 137.33333333333334,
+        "tn": 2703.3333333333335,
+        "score": 0.6851278284103047
+      },
+      "B_best": {
+        "f1": 0.5427683400510818,
+        "precision": 0.3994171193804896,
+        "recall": 0.8547129088664304,
+        "diagnosis_hr_at_100pct": 0.8882122645703694,
+        "diagnosis_ndcg_at_100pct": 0.8882122645703694,
+        "hr_at_100": 0.69,
+        "ndcg_at_100": 0.6470491409655386,
+        "diagnostic_pair_ndcg_at_100": 0.6470491409655386,
+        "pr_auc": 0.5548819479491751,
+        "positive_class_macro_f1": 0.3240754146196102,
+        "tp": 323.6666666666667,
+        "fp": 486.0,
+        "fn": 57.333333333333336,
+        "tn": 2365.0,
+        "score": 0.7730642897306068
+      }
+    },
+    {
+      "arm": "v0",
+      "seed": 6,
+      "best_epoch": 2,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v0_seed6\\v0_seed6\\summary.json",
+      "A_last": {
+        "f1": 0.6110393639198188,
+        "precision": 0.5783250997859241,
+        "recall": 0.6727048071782146,
+        "diagnosis_hr_at_100pct": 0.7179850262194262,
+        "diagnosis_ndcg_at_100pct": 0.7179850262194262,
+        "hr_at_100": 0.9933333333333333,
+        "ndcg_at_100": 0.9941405438587566,
+        "diagnostic_pair_ndcg_at_100": 0.9941405438587566,
+        "pr_auc": 0.7300256096871802,
+        "positive_class_macro_f1": 0.6294285723679011,
+        "tp": 248.66666666666666,
+        "fp": 179.66666666666666,
+        "fn": 132.33333333333334,
+        "tn": 2671.3333333333335,
+        "score": 0.6823364721195571
+      },
+      "B_best": {
+        "f1": 0.47480880271066256,
+        "precision": 0.3273344236662467,
+        "recall": 0.8685140825779144,
+        "diagnosis_hr_at_100pct": 0.8982236015279584,
+        "diagnosis_ndcg_at_100pct": 0.8982236015279584,
+        "hr_at_100": 0.3499999999999999,
+        "ndcg_at_100": 0.3252660557636153,
+        "diagnostic_pair_ndcg_at_100": 0.3252660557636153,
+        "pr_auc": 0.4748340779630194,
+        "positive_class_macro_f1": 0.3154375596376607,
+        "tp": 331.6666666666667,
+        "fp": 673.6666666666666,
+        "fn": 49.333333333333336,
+        "tn": 2177.3333333333335,
+        "score": 0.7570853352555265
+      }
+    },
+    {
+      "arm": "v0",
+      "seed": 17,
+      "best_epoch": 3,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v0_seed17\\v0_seed17\\summary.json",
+      "A_last": {
+        "f1": 0.5825637325637326,
+        "precision": 0.5491747446486539,
+        "recall": 0.6500180753982235,
+        "diagnosis_hr_at_100pct": 0.7201529643977241,
+        "diagnosis_ndcg_at_100pct": 0.7201529643977241,
+        "hr_at_100": 0.9933333333333333,
+        "ndcg_at_100": 0.9939956600750038,
+        "diagnostic_pair_ndcg_at_100": 0.9939956600750038,
+        "pr_auc": 0.7290179593403701,
+        "positive_class_macro_f1": 0.6318357337794581,
+        "tp": 240.66666666666666,
+        "fp": 204.33333333333334,
+        "fn": 140.33333333333334,
+        "tn": 2646.6666666666665,
+        "score": 0.6742898871197269
+      },
+      "B_best": {
+        "f1": 0.474098239400565,
+        "precision": 0.325425102424631,
+        "recall": 0.880349216992899,
+        "diagnosis_hr_at_100pct": 0.8982236015279584,
+        "diagnosis_ndcg_at_100pct": 0.8982236015279584,
+        "hr_at_100": 0.30333333333333334,
+        "ndcg_at_100": 0.3209585133909739,
+        "diagnostic_pair_ndcg_at_100": 0.3209585133909739,
+        "pr_auc": 0.44327769024426916,
+        "positive_class_macro_f1": 0.3154375596376607,
+        "tp": 335.6666666666667,
+        "fp": 691.0,
+        "fn": 45.333333333333336,
+        "tn": 2160.0,
+        "score": 0.7568484808188273
+      }
+    },
+    {
+      "arm": "v0",
+      "seed": 42,
+      "best_epoch": 3,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v0_seed42\\v0_seed42\\summary.json",
+      "A_last": {
+        "f1": 0.6217591450520269,
+        "precision": 0.6162634594799264,
+        "recall": 0.6551759846603727,
+        "diagnosis_hr_at_100pct": 0.713855923541639,
+        "diagnosis_ndcg_at_100pct": 0.713855923541639,
+        "hr_at_100": 0.9966666666666667,
+        "ndcg_at_100": 0.9971793208015383,
+        "diagnostic_pair_ndcg_at_100": 0.9971793208015383,
+        "pr_auc": 0.7264070021747489,
+        "positive_class_macro_f1": 0.6276618258931834,
+        "tp": 242.66666666666666,
+        "fp": 154.0,
+        "fn": 138.33333333333334,
+        "tn": 2697.0,
+        "score": 0.6831569973784349
+      },
+      "B_best": {
+        "f1": 0.515084957611143,
+        "precision": 0.3888147046860737,
+        "recall": 0.7676046000529521,
+        "diagnosis_hr_at_100pct": 0.8982236015279584,
+        "diagnosis_ndcg_at_100pct": 0.8982236015279584,
+        "hr_at_100": 0.5133333333333333,
+        "ndcg_at_100": 0.47382773691568136,
+        "diagnostic_pair_ndcg_at_100": 0.47382773691568136,
+        "pr_auc": 0.49105225409199754,
+        "positive_class_macro_f1": 0.3154375596376607,
+        "tp": 290.3333333333333,
+        "fp": 456.3333333333333,
+        "fn": 90.66666666666667,
+        "tn": 2394.6666666666665,
+        "score": 0.7705107202223532
+      }
+    },
+    {
+      "arm": "v1",
+      "seed": 1,
+      "best_epoch": 24,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v1_seed1\\v1_seed1\\summary.json",
+      "A_last": {
+        "f1": 0.6719364176980598,
+        "precision": 0.6637059255791206,
+        "recall": 0.7037820744812131,
+        "diagnosis_hr_at_100pct": 0.7193195735891628,
+        "diagnosis_ndcg_at_100pct": 0.7193195735891628,
+        "hr_at_100": 0.9966666666666667,
+        "ndcg_at_100": 0.9974442171871374,
+        "diagnostic_pair_ndcg_at_100": 0.9974442171871374,
+        "pr_auc": 0.7793098774000637,
+        "positive_class_macro_f1": 0.6413365106111332,
+        "tp": 260.0,
+        "fp": 132.0,
+        "fn": 121.0,
+        "tn": 2719.0,
+        "score": 0.7035251882921285
+      },
+      "B_best": {
+        "f1": 0.7148844655622618,
+        "precision": 0.7732232109712882,
+        "recall": 0.6846703018938101,
+        "diagnosis_hr_at_100pct": 0.7220025446689743,
+        "diagnosis_ndcg_at_100pct": 0.7220025446689743,
+        "hr_at_100": 0.9966666666666667,
+        "ndcg_at_100": 0.9973848698269282,
+        "diagnostic_pair_ndcg_at_100": 0.9973848698269282,
+        "pr_auc": 0.7880041761967483,
+        "positive_class_macro_f1": 0.6442430720495907,
+        "tp": 253.0,
+        "fp": 75.66666666666667,
+        "fn": 128.0,
+        "tn": 2775.3333333333335,
+        "score": 0.7196298516334035
+      }
+    },
+    {
+      "arm": "v1",
+      "seed": 2,
+      "best_epoch": 3,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v1_seed2\\v1_seed2\\summary.json",
+      "A_last": {
+        "f1": 0.6538758274702474,
+        "precision": 0.6520046500390345,
+        "recall": 0.6814237992926134,
+        "diagnosis_hr_at_100pct": 0.7108508168987843,
+        "diagnosis_ndcg_at_100pct": 0.7108508168987843,
+        "hr_at_100": 0.9966666666666667,
+        "ndcg_at_100": 0.9972073193401302,
+        "diagnostic_pair_ndcg_at_100": 0.9972073193401302,
+        "pr_auc": 0.7546862515037022,
+        "positive_class_macro_f1": 0.6579148755745363,
+        "tp": 251.33333333333334,
+        "fp": 134.0,
+        "fn": 129.66666666666666,
+        "tn": 2717.0,
+        "score": 0.6918591537559386
+      },
+      "B_best": {
+        "f1": 0.5712886302150276,
+        "precision": 0.4815496854902741,
+        "recall": 0.7195426049030136,
+        "diagnosis_hr_at_100pct": 0.8910206962187583,
+        "diagnosis_ndcg_at_100pct": 0.8910206962187583,
+        "hr_at_100": 0.81,
+        "ndcg_at_100": 0.8094267063247947,
+        "diagnostic_pair_ndcg_at_100": 0.8094267063247947,
+        "pr_auc": 0.6040249062749025,
+        "positive_class_macro_f1": 0.3991520868614146,
+        "tp": 267.6666666666667,
+        "fp": 293.0,
+        "fn": 113.33333333333333,
+        "tn": 2558.0,
+        "score": 0.7844433408841814
+      }
+    },
+    {
+      "arm": "v1",
+      "seed": 6,
+      "best_epoch": 2,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v1_seed6\\v1_seed6\\summary.json",
+      "A_last": {
+        "f1": 0.6270751727128747,
+        "precision": 0.6101584290057676,
+        "recall": 0.6736932439602262,
+        "diagnosis_hr_at_100pct": 0.7229349025841012,
+        "diagnosis_ndcg_at_100pct": 0.7229349025841012,
+        "hr_at_100": 0.9566666666666667,
+        "ndcg_at_100": 0.9677049369041866,
+        "diagnostic_pair_ndcg_at_100": 0.9677049369041866,
+        "pr_auc": 0.7326252293646949,
+        "positive_class_macro_f1": 0.6278147213186073,
+        "tp": 248.33333333333334,
+        "fp": 158.33333333333334,
+        "fn": 132.66666666666666,
+        "tn": 2692.6666666666665,
+        "score": 0.6909816592936924
+      },
+      "B_best": {
+        "f1": 0.5027753174138706,
+        "precision": 0.35989478191375074,
+        "recall": 0.8382947546136897,
+        "diagnosis_hr_at_100pct": 0.8982236015279584,
+        "diagnosis_ndcg_at_100pct": 0.8982236015279584,
+        "hr_at_100": 0.39999999999999997,
+        "ndcg_at_100": 0.4222313854970429,
+        "diagnostic_pair_ndcg_at_100": 0.4222313854970429,
+        "pr_auc": 0.5003877842299418,
+        "positive_class_macro_f1": 0.3154375596376607,
+        "tp": 318.0,
+        "fp": 563.0,
+        "fn": 63.0,
+        "tn": 2288.0,
+        "score": 0.7664075068232625
+      }
+    },
+    {
+      "arm": "v1",
+      "seed": 17,
+      "best_epoch": 3,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v1_seed17\\v1_seed17\\summary.json",
+      "A_last": {
+        "f1": 0.6207938434273386,
+        "precision": 0.6075830969376086,
+        "recall": 0.6595830754428572,
+        "diagnosis_hr_at_100pct": 0.7258259065613871,
+        "diagnosis_ndcg_at_100pct": 0.7258259065613871,
+        "hr_at_100": 0.9966666666666667,
+        "ndcg_at_100": 0.9962524059783918,
+        "diagnostic_pair_ndcg_at_100": 0.9962524059783918,
+        "pr_auc": 0.7495847272752671,
+        "positive_class_macro_f1": 0.6331603465149441,
+        "tp": 243.66666666666666,
+        "fp": 158.66666666666666,
+        "fn": 137.33333333333334,
+        "tn": 2692.3333333333335,
+        "score": 0.6908152188500377
+      },
+      "B_best": {
+        "f1": 0.5029206015413523,
+        "precision": 0.352595914561302,
+        "recall": 0.8842407263033624,
+        "diagnosis_hr_at_100pct": 0.8982236015279584,
+        "diagnosis_ndcg_at_100pct": 0.8982236015279584,
+        "hr_at_100": 0.43,
+        "ndcg_at_100": 0.4894936915098142,
+        "diagnostic_pair_ndcg_at_100": 0.4894936915098142,
+        "pr_auc": 0.4754154226684621,
+        "positive_class_macro_f1": 0.3154375596376607,
+        "tp": 335.3333333333333,
+        "fp": 615.3333333333334,
+        "fn": 45.666666666666664,
+        "tn": 2235.6666666666665,
+        "score": 0.7664559348657564
+      }
+    },
+    {
+      "arm": "v1",
+      "seed": 42,
+      "best_epoch": 3,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v1_seed42\\v1_seed42\\summary.json",
+      "A_last": {
+        "f1": 0.6629284708934478,
+        "precision": 0.6880663607947978,
+        "recall": 0.668536593916742,
+        "diagnosis_hr_at_100pct": 0.7329613751006939,
+        "diagnosis_ndcg_at_100pct": 0.7329613751006939,
+        "hr_at_100": 0.9966666666666667,
+        "ndcg_at_100": 0.9973049259172937,
+        "diagnostic_pair_ndcg_at_100": 0.9973049259172937,
+        "pr_auc": 0.7147411818132631,
+        "positive_class_macro_f1": 0.6539460615472642,
+        "tp": 246.66666666666666,
+        "fp": 113.33333333333333,
+        "fn": 134.33333333333334,
+        "tn": 2737.6666666666665,
+        "score": 0.7096170736982786
+      },
+      "B_best": {
+        "f1": 0.5458793373461274,
+        "precision": 0.41503629506704653,
+        "recall": 0.805168165037138,
+        "diagnosis_hr_at_100pct": 0.895137181774872,
+        "diagnosis_ndcg_at_100pct": 0.895137181774872,
+        "hr_at_100": 0.5833333333333333,
+        "ndcg_at_100": 0.5439378802093634,
+        "diagnostic_pair_ndcg_at_100": 0.5439378802093634,
+        "pr_auc": 0.5341541466685557,
+        "positive_class_macro_f1": 0.3148710824960624,
+        "tp": 304.0,
+        "fp": 432.3333333333333,
+        "fn": 77.0,
+        "tn": 2418.6666666666665,
+        "score": 0.7787179002986239
+      }
+    },
+    {
+      "arm": "v2",
+      "seed": 1,
+      "best_epoch": 25,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v2_seed1\\v2_seed1\\summary.json",
+      "A_last": {
+        "f1": 0.9195790391415476,
+        "precision": 0.9009346193500368,
+        "recall": 0.9403455006770608,
+        "diagnosis_hr_at_100pct": 0.9116694386931813,
+        "diagnosis_ndcg_at_100pct": 0.9116694386931813,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.963815691663771,
+        "positive_class_macro_f1": 0.8036377456332963,
+        "tp": 357.6666666666667,
+        "fp": 40.333333333333336,
+        "fn": 23.333333333333332,
+        "tn": 2810.6666666666665,
+        "score": 0.9143059721759701
+      },
+      "B_best": {
+        "f1": 0.9206491365814307,
+        "precision": 0.898118730117274,
+        "recall": 0.945711442836684,
+        "diagnosis_hr_at_100pct": 0.9130039860629179,
+        "diagnosis_ndcg_at_100pct": 0.9130039860629179,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9660420769437598,
+        "positive_class_macro_f1": 0.8059947164343381,
+        "tp": 359.6666666666667,
+        "fp": 41.666666666666664,
+        "fn": 21.333333333333332,
+        "tn": 2809.3333333333335,
+        "score": 0.9155523695690887
+      }
+    },
+    {
+      "arm": "v2",
+      "seed": 2,
+      "best_epoch": 9,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v2_seed2\\v2_seed2\\summary.json",
+      "A_last": {
+        "f1": 0.9006765263109585,
+        "precision": 0.9132417238220917,
+        "recall": 0.892945293506915,
+        "diagnosis_hr_at_100pct": 0.8289922206218924,
+        "diagnosis_ndcg_at_100pct": 0.8289922206218924,
+        "hr_at_100": 0.9966666666666667,
+        "ndcg_at_100": 0.9972824241377962,
+        "diagnostic_pair_ndcg_at_100": 0.9972824241377962,
+        "pr_auc": 0.9402278814085184,
+        "positive_class_macro_f1": 0.7313489810071623,
+        "tp": 336.6666666666667,
+        "fp": 33.0,
+        "fn": 44.333333333333336,
+        "tn": 2818.0,
+        "score": 0.8528869891849143
+      },
+      "B_best": {
+        "f1": 0.8941905552654638,
+        "precision": 0.866777739662752,
+        "recall": 0.925667312334154,
+        "diagnosis_hr_at_100pct": 0.9127278306824161,
+        "diagnosis_ndcg_at_100pct": 0.9127278306824161,
+        "hr_at_100": 0.9966666666666667,
+        "ndcg_at_100": 0.9974027128932379,
+        "diagnostic_pair_ndcg_at_100": 0.9974027128932379,
+        "pr_auc": 0.9600028442913427,
+        "positive_class_macro_f1": 0.7609956903832499,
+        "tp": 352.0,
+        "fp": 56.0,
+        "fn": 29.0,
+        "tn": 2795.0,
+        "score": 0.9065487388767653
+      }
+    },
+    {
+      "arm": "v2",
+      "seed": 6,
+      "best_epoch": 2,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v2_seed6\\v2_seed6\\summary.json",
+      "A_last": {
+        "f1": 0.9216464167074956,
+        "precision": 0.911811385526487,
+        "recall": 0.9329206861300481,
+        "diagnosis_hr_at_100pct": 0.8300500391055966,
+        "diagnosis_ndcg_at_100pct": 0.8300500391055966,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9465071722587629,
+        "positive_class_macro_f1": 0.7247743316996117,
+        "tp": 354.6666666666667,
+        "fp": 35.0,
+        "fn": 26.333333333333332,
+        "tn": 2816.0,
+        "score": 0.8605821649728962
+      },
+      "B_best": {
+        "f1": 0.8792448651598498,
+        "precision": 0.8973186304931101,
+        "recall": 0.864556582728896,
+        "diagnosis_hr_at_100pct": 0.9448881507124659,
+        "diagnosis_ndcg_at_100pct": 0.9448881507124659,
+        "hr_at_100": 0.9966666666666667,
+        "ndcg_at_100": 0.997495968929229,
+        "diagnostic_pair_ndcg_at_100": 0.997495968929229,
+        "pr_auc": 0.943535914217926,
+        "positive_class_macro_f1": 0.8170929270232711,
+        "tp": 328.6666666666667,
+        "fp": 40.0,
+        "fn": 52.333333333333336,
+        "tn": 2811.0,
+        "score": 0.9230070555282605
+      }
+    },
+    {
+      "arm": "v2",
+      "seed": 17,
+      "best_epoch": 2,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v2_seed17\\v2_seed17\\summary.json",
+      "A_last": {
+        "f1": 0.9165594322469803,
+        "precision": 0.9036342403438162,
+        "recall": 0.9312665216345984,
+        "diagnosis_hr_at_100pct": 0.9050502622740532,
+        "diagnosis_ndcg_at_100pct": 0.9050502622740532,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9683437654410233,
+        "positive_class_macro_f1": 0.7954019737544965,
+        "tp": 354.0,
+        "fp": 38.666666666666664,
+        "fn": 27.0,
+        "tn": 2812.3333333333335,
+        "score": 0.908886652265029
+      },
+      "B_best": {
+        "f1": 0.8874567286348573,
+        "precision": 0.9043755964523986,
+        "recall": 0.8735340762274627,
+        "diagnosis_hr_at_100pct": 0.9533430310625057,
+        "diagnosis_ndcg_at_100pct": 0.9533430310625057,
+        "hr_at_100": 0.9933333333333333,
+        "ndcg_at_100": 0.9920785862215671,
+        "diagnostic_pair_ndcg_at_100": 0.9920785862215671,
+        "pr_auc": 0.9474036955529299,
+        "positive_class_macro_f1": 0.8232058648507875,
+        "tp": 331.3333333333333,
+        "fp": 36.666666666666664,
+        "fn": 49.666666666666664,
+        "tn": 2814.3333333333335,
+        "score": 0.9313809302532895
+      }
+    },
+    {
+      "arm": "v2",
+      "seed": 42,
+      "best_epoch": 24,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v2_seed42\\v2_seed42\\summary.json",
+      "A_last": {
+        "f1": 0.9223118825491164,
+        "precision": 0.9125691545662153,
+        "recall": 0.9331161019058486,
+        "diagnosis_hr_at_100pct": 0.9550489232633143,
+        "diagnosis_ndcg_at_100pct": 0.9550489232633143,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9675663454456768,
+        "positive_class_macro_f1": 0.856951142962644,
+        "tp": 354.6666666666667,
+        "fp": 34.666666666666664,
+        "fn": 26.333333333333332,
+        "tn": 2816.3333333333335,
+        "score": 0.9441365763585816
+      },
+      "B_best": {
+        "f1": 0.9251306434556251,
+        "precision": 0.9158838526658183,
+        "recall": 0.9357013650977599,
+        "diagnosis_hr_at_100pct": 0.9575238614456518,
+        "diagnosis_ndcg_at_100pct": 0.9575238614456518,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9657826957207325,
+        "positive_class_macro_f1": 0.8574390229058032,
+        "tp": 355.6666666666667,
+        "fp": 33.0,
+        "fn": 25.333333333333332,
+        "tn": 2818.0,
+        "score": 0.9467261221156429
+      }
+    },
+    {
+      "arm": "v3",
+      "seed": 1,
+      "best_epoch": 21,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v3_seed1\\v3_seed1\\summary.json",
+      "A_last": {
+        "f1": 0.9050078284796536,
+        "precision": 0.8507238337525544,
+        "recall": 0.9681951785938612,
+        "diagnosis_hr_at_100pct": 0.9353610020328528,
+        "diagnosis_ndcg_at_100pct": 0.9353610020328528,
+        "hr_at_100": 0.9966666666666667,
+        "ndcg_at_100": 0.9973848698269282,
+        "diagnostic_pair_ndcg_at_100": 0.9973848698269282,
+        "pr_auc": 0.9804767921288161,
+        "positive_class_macro_f1": 0.8259729571658779,
+        "tp": 369.0,
+        "fp": 66.66666666666667,
+        "fn": 12.0,
+        "tn": 2784.3333333333335,
+        "score": 0.9252432775151197
+      },
+      "B_best": {
+        "f1": 0.8950356460995178,
+        "precision": 0.8316755339656102,
+        "recall": 0.9698493430893107,
+        "diagnosis_hr_at_100pct": 0.9547431824779399,
+        "diagnosis_ndcg_at_100pct": 0.9547431824779399,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9802199933492002,
+        "positive_class_macro_f1": 0.8582177980996478,
+        "tp": 369.6666666666667,
+        "fp": 75.66666666666667,
+        "fn": 11.333333333333334,
+        "tn": 2775.3333333333335,
+        "score": 0.9348406703517992
+      }
+    },
+    {
+      "arm": "v3",
+      "seed": 2,
+      "best_epoch": 14,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v3_seed2\\v3_seed2\\summary.json",
+      "A_last": {
+        "f1": 0.8948572892292351,
+        "precision": 0.8372300554083679,
+        "recall": 0.9645811088175877,
+        "diagnosis_hr_at_100pct": 0.9398935533839144,
+        "diagnosis_ndcg_at_100pct": 0.9398935533839144,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9805659342262848,
+        "positive_class_macro_f1": 0.8355683022204788,
+        "tp": 367.6666666666667,
+        "fp": 75.33333333333333,
+        "fn": 13.333333333333334,
+        "tn": 2775.6666666666665,
+        "score": 0.9248814653323546
+      },
+      "B_best": {
+        "f1": 0.8848620629838381,
+        "precision": 0.8190102027860139,
+        "recall": 0.9627315285463376,
+        "diagnosis_hr_at_100pct": 0.9705926062569853,
+        "diagnosis_ndcg_at_100pct": 0.9705926062569853,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9775161830112552,
+        "positive_class_macro_f1": 0.8852894990650815,
+        "tp": 367.0,
+        "fp": 83.0,
+        "fn": 14.0,
+        "tn": 2768.0,
+        "score": 0.9420157584992696
+      }
+    },
+    {
+      "arm": "v3",
+      "seed": 6,
+      "best_epoch": 14,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v3_seed6\\v3_seed6\\summary.json",
+      "A_last": {
+        "f1": 0.9036361774540902,
+        "precision": 0.8510589616624196,
+        "recall": 0.9660272404155631,
+        "diagnosis_hr_at_100pct": 0.9241267019337659,
+        "diagnosis_ndcg_at_100pct": 0.9241267019337659,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9852959296899123,
+        "positive_class_macro_f1": 0.8154422669725201,
+        "tp": 368.3333333333333,
+        "fp": 68.33333333333333,
+        "fn": 12.666666666666666,
+        "tn": 2782.6666666666665,
+        "score": 0.9172965271072074
+      },
+      "B_best": {
+        "f1": 0.900775277149742,
+        "precision": 0.8472590578611521,
+        "recall": 0.9640673351347391,
+        "diagnosis_hr_at_100pct": 0.9628620509245981,
+        "diagnosis_ndcg_at_100pct": 0.9628620509245981,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9820096731522806,
+        "positive_class_macro_f1": 0.8717572531804519,
+        "tp": 367.6666666666667,
+        "fp": 69.66666666666667,
+        "fn": 13.333333333333334,
+        "tn": 2781.3333333333335,
+        "score": 0.9421664596663127
+      }
+    },
+    {
+      "arm": "v3",
+      "seed": 17,
+      "best_epoch": 22,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v3_seed17\\v3_seed17\\summary.json",
+      "A_last": {
+        "f1": 0.8945541896651683,
+        "precision": 0.8380697673224363,
+        "recall": 0.9614946890645012,
+        "diagnosis_hr_at_100pct": 0.9333033888641283,
+        "diagnosis_ndcg_at_100pct": 0.9333033888641283,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9805649099830807,
+        "positive_class_macro_f1": 0.8243414195948887,
+        "tp": 366.6666666666667,
+        "fp": 74.0,
+        "fn": 14.333333333333334,
+        "tn": 2777.0,
+        "score": 0.9203869891311417
+      },
+      "B_best": {
+        "f1": 0.8971204695365488,
+        "precision": 0.8379690452599448,
+        "recall": 0.9673756641256381,
+        "diagnosis_hr_at_100pct": 0.9623621535820881,
+        "diagnosis_ndcg_at_100pct": 0.9623621535820881,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9799326599412598,
+        "positive_class_macro_f1": 0.870739491987079,
+        "tp": 369.0,
+        "fp": 74.33333333333333,
+        "fn": 12.0,
+        "tn": 2776.6666666666665,
+        "score": 0.9406149255669084
+      }
+    },
+    {
+      "arm": "v3",
+      "seed": 42,
+      "best_epoch": 30,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v3_seed42\\v3_seed42\\summary.json",
+      "A_last": {
+        "f1": 0.8943903775102274,
+        "precision": 0.8340853727072745,
+        "recall": 0.9666525983266504,
+        "diagnosis_hr_at_100pct": 0.9636967009518247,
+        "diagnosis_ndcg_at_100pct": 0.9636967009518247,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9775345187147626,
+        "positive_class_macro_f1": 0.8717823693699076,
+        "tp": 368.6666666666667,
+        "fp": 76.66666666666667,
+        "fn": 12.333333333333334,
+        "tn": 2774.3333333333335,
+        "score": 0.940594593137959
+      },
+      "B_best": {
+        "f1": 0.8943903775102274,
+        "precision": 0.8340853727072745,
+        "recall": 0.9666525983266504,
+        "diagnosis_hr_at_100pct": 0.9636967009518247,
+        "diagnosis_ndcg_at_100pct": 0.9636967009518247,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9775345187147626,
+        "positive_class_macro_f1": 0.8717823693699076,
+        "tp": 368.6666666666667,
+        "fp": 76.66666666666667,
+        "fn": 12.333333333333334,
+        "tn": 2774.3333333333335,
+        "score": 0.940594593137959
+      }
+    },
+    {
+      "arm": "v4",
+      "seed": 1,
+      "best_epoch": 21,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v4_seed1\\v4_seed1\\summary.json",
+      "A_last": {
+        "f1": 0.9076618444729495,
+        "precision": 0.8571701010827862,
+        "recall": 0.9661236890847985,
+        "diagnosis_hr_at_100pct": 0.9573006929891742,
+        "diagnosis_ndcg_at_100pct": 0.9573006929891742,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9838762009382238,
+        "positive_class_macro_f1": 0.8606178022269731,
+        "tp": 368.0,
+        "fp": 63.333333333333336,
+        "fn": 13.0,
+        "tn": 2787.6666666666665,
+        "score": 0.9407544101504327
+      },
+      "B_best": {
+        "f1": 0.9050659449310952,
+        "precision": 0.8523809560318968,
+        "recall": 0.9667364298742123,
+        "diagnosis_hr_at_100pct": 0.9713156720559729,
+        "diagnosis_ndcg_at_100pct": 0.9713156720559729,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9835485350874998,
+        "positive_class_macro_f1": 0.8931804927475638,
+        "tp": 368.3333333333333,
+        "fp": 66.0,
+        "fn": 12.666666666666666,
+        "tn": 2785.0,
+        "score": 0.9492324296810136
+      }
+    },
+    {
+      "arm": "v4",
+      "seed": 2,
+      "best_epoch": 23,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v4_seed2\\v4_seed2\\summary.json",
+      "A_last": {
+        "f1": 0.9086624113448508,
+        "precision": 0.8594487939047216,
+        "recall": 0.9663329812009375,
+        "diagnosis_hr_at_100pct": 0.9573006929891742,
+        "diagnosis_ndcg_at_100pct": 0.9573006929891742,
+        "hr_at_100": 0.9966666666666667,
+        "ndcg_at_100": 0.9975879215174103,
+        "diagnostic_pair_ndcg_at_100": 0.9975879215174103,
+        "pr_auc": 0.9838351369914164,
+        "positive_class_macro_f1": 0.8621108756753024,
+        "tp": 368.3333333333333,
+        "fp": 63.666666666666664,
+        "fn": 12.666666666666666,
+        "tn": 2787.3333333333335,
+        "score": 0.9410879324410665
+      },
+      "B_best": {
+        "f1": 0.913124661033426,
+        "precision": 0.867399452993694,
+        "recall": 0.9673617877852997,
+        "diagnosis_hr_at_100pct": 0.973484869452936,
+        "diagnosis_ndcg_at_100pct": 0.973484869452936,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9818501557973711,
+        "positive_class_macro_f1": 0.9052125493142583,
+        "tp": 368.6666666666667,
+        "fp": 60.666666666666664,
+        "fn": 12.333333333333334,
+        "tn": 2790.3333333333335,
+        "score": 0.953364799979766
+      }
+    },
+    {
+      "arm": "v4",
+      "seed": 6,
+      "best_epoch": 15,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v4_seed6\\v4_seed6\\summary.json",
+      "A_last": {
+        "f1": 0.9149081619648628,
+        "precision": 0.8713824754352482,
+        "recall": 0.9665410140984116,
+        "diagnosis_hr_at_100pct": 0.9578005903316842,
+        "diagnosis_ndcg_at_100pct": 0.9578005903316842,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9868326008985919,
+        "positive_class_macro_f1": 0.8636890703519402,
+        "tp": 368.3333333333333,
+        "fp": 59.333333333333336,
+        "fn": 12.666666666666666,
+        "tn": 2791.6666666666665,
+        "score": 0.9435031142094105
+      },
+      "B_best": {
+        "f1": 0.8926555086990332,
+        "precision": 0.8240700905435888,
+        "recall": 0.9744922194499464,
+        "diagnosis_hr_at_100pct": 0.9782405892604755,
+        "diagnosis_ndcg_at_100pct": 0.9782405892604755,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9827675363028566,
+        "positive_class_macro_f1": 0.93039058640962,
+        "tp": 371.3333333333333,
+        "fp": 80.33333333333333,
+        "fn": 9.666666666666666,
+        "tn": 2770.6666666666665,
+        "score": 0.9497122290733281
+      }
+    },
+    {
+      "arm": "v4",
+      "seed": 17,
+      "best_epoch": 22,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v4_seed17\\v4_seed17\\summary.json",
+      "A_last": {
+        "f1": 0.9105943076759059,
+        "precision": 0.8630631449866669,
+        "recall": 0.9666387219863121,
+        "diagnosis_hr_at_100pct": 0.9574948495463097,
+        "diagnosis_ndcg_at_100pct": 0.9574948495463097,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9850777676566409,
+        "positive_class_macro_f1": 0.8622865690181909,
+        "tp": 368.3333333333333,
+        "fp": 62.0,
+        "fn": 12.666666666666666,
+        "tn": 2789.0,
+        "score": 0.9418613355895085
+      },
+      "B_best": {
+        "f1": 0.9067760427041937,
+        "precision": 0.8561991981691781,
+        "recall": 0.9672640798973994,
+        "diagnosis_hr_at_100pct": 0.9699811246862363,
+        "diagnosis_ndcg_at_100pct": 0.9699811246862363,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9831680187603511,
+        "positive_class_macro_f1": 0.8863315267863436,
+        "tp": 368.6666666666667,
+        "fp": 66.33333333333333,
+        "fn": 12.333333333333334,
+        "tn": 2784.6666666666665,
+        "score": 0.9489127640255554
+      }
+    },
+    {
+      "arm": "v4",
+      "seed": 42,
+      "best_epoch": 23,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_attention_v4_seed42\\v4_seed42\\summary.json",
+      "A_last": {
+        "f1": 0.9076649643336872,
+        "precision": 0.8579119792844248,
+        "recall": 0.9662352733130373,
+        "diagnosis_hr_at_100pct": 0.9649335404336611,
+        "diagnosis_ndcg_at_100pct": 0.9649335404336611,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9858600195146351,
+        "positive_class_macro_f1": 0.8804002592869428,
+        "tp": 368.3333333333333,
+        "fp": 64.33333333333333,
+        "fn": 12.666666666666666,
+        "tn": 2786.6666666666665,
+        "score": 0.9458440150670032
+      },
+      "B_best": {
+        "f1": 0.9080470992029928,
+        "precision": 0.8562208431566328,
+        "recall": 0.9692239851782234,
+        "diagnosis_hr_at_100pct": 0.9669911536023852,
+        "diagnosis_ndcg_at_100pct": 0.9669911536023852,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9850208171767257,
+        "positive_class_macro_f1": 0.8863718899474545,
+        "tp": 369.3333333333333,
+        "fp": 65.33333333333333,
+        "fn": 11.666666666666666,
+        "tn": 2785.6666666666665,
+        "score": 0.9473431354692544
+      }
+    },
+    {
+      "arm": "v4_gated",
+      "seed": 1,
+      "best_epoch": 21,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_gated_v4_seed1\\v4_seed1\\summary.json",
+      "A_last": {
+        "f1": 0.9088024398332953,
+        "precision": 0.8554341006294405,
+        "recall": 0.9716989233605609,
+        "diagnosis_hr_at_100pct": 0.9531564547523835,
+        "diagnosis_ndcg_at_100pct": 0.9531564547523835,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9835687926073241,
+        "positive_class_macro_f1": 0.8537008451273925,
+        "tp": 370.3333333333333,
+        "fp": 65.0,
+        "fn": 10.666666666666666,
+        "tn": 2786.0,
+        "score": 0.9383717831126875
+      },
+      "B_best": {
+        "f1": 0.9065458379192757,
+        "precision": 0.855616891699366,
+        "recall": 0.966958339112025,
+        "diagnosis_hr_at_100pct": 0.9663657956912978,
+        "diagnosis_ndcg_at_100pct": 0.9663657956912978,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.982839191508953,
+        "positive_class_macro_f1": 0.8823123376898495,
+        "tp": 368.6666666666667,
+        "fp": 65.33333333333333,
+        "fn": 12.333333333333334,
+        "tn": 2785.6666666666665,
+        "score": 0.9464258097672905
+      }
+    },
+    {
+      "arm": "v4_gated",
+      "seed": 2,
+      "best_epoch": 23,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_gated_v4_seed2\\v4_seed2\\summary.json",
+      "A_last": {
+        "f1": 0.9060062505807478,
+        "precision": 0.8555319423875408,
+        "recall": 0.9661249483034634,
+        "diagnosis_hr_at_100pct": 0.9477066810451983,
+        "diagnosis_ndcg_at_100pct": 0.9477066810451983,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9820532841767897,
+        "positive_class_macro_f1": 0.8479381695800953,
+        "tp": 368.3333333333333,
+        "fp": 66.0,
+        "fn": 12.666666666666666,
+        "tn": 2785.0,
+        "score": 0.933806537557048
+      },
+      "B_best": {
+        "f1": 0.9067005649787521,
+        "precision": 0.8578659129213447,
+        "recall": 0.9651938496070015,
+        "diagnosis_hr_at_100pct": 0.9727618036539484,
+        "diagnosis_ndcg_at_100pct": 0.9727618036539484,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9797903383712262,
+        "positive_class_macro_f1": 0.903104874746354,
+        "tp": 368.0,
+        "fp": 65.0,
+        "fn": 13.0,
+        "tn": 2786.0,
+        "score": 0.9507413907622163
+      }
+    },
+    {
+      "arm": "v4_gated",
+      "seed": 6,
+      "best_epoch": 11,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_gated_v4_seed6\\v4_seed6\\summary.json",
+      "A_last": {
+        "f1": 0.9102423458989856,
+        "precision": 0.86409904913267,
+        "recall": 0.9653041746165755,
+        "diagnosis_hr_at_100pct": 0.9595524627150339,
+        "diagnosis_ndcg_at_100pct": 0.9595524627150339,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9856728358101865,
+        "positive_class_macro_f1": 0.8695752276660018,
+        "tp": 368.0,
+        "fp": 62.333333333333336,
+        "fn": 13.0,
+        "tn": 2788.6666666666665,
+        "score": 0.9431157571096844
+      },
+      "B_best": {
+        "f1": 0.8851208555721574,
+        "precision": 0.8142131921525486,
+        "recall": 0.9716012154726607,
+        "diagnosis_hr_at_100pct": 0.980186618200961,
+        "diagnosis_ndcg_at_100pct": 0.980186618200961,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9821758916754258,
+        "positive_class_macro_f1": 0.9277868762655802,
+        "tp": 370.3333333333333,
+        "fp": 87.0,
+        "fn": 10.666666666666666,
+        "tn": 2764.0,
+        "score": 0.9484980306580265
+      }
+    },
+    {
+      "arm": "v4_gated",
+      "seed": 17,
+      "best_epoch": 22,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_gated_v4_seed17\\v4_seed17\\summary.json",
+      "A_last": {
+        "f1": 0.9104590053478713,
+        "precision": 0.8646918876041276,
+        "recall": 0.9660272404155631,
+        "diagnosis_hr_at_100pct": 0.9571891087609353,
+        "diagnosis_ndcg_at_100pct": 0.9571891087609353,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9851519650434369,
+        "positive_class_macro_f1": 0.8616408218164292,
+        "tp": 368.3333333333333,
+        "fp": 62.666666666666664,
+        "fn": 12.666666666666666,
+        "tn": 2788.3333333333335,
+        "score": 0.9416124076232473
+      },
+      "B_best": {
+        "f1": 0.9081881340106664,
+        "precision": 0.8601258747730364,
+        "recall": 0.9660272404155631,
+        "diagnosis_hr_at_100pct": 0.970704190485224,
+        "diagnosis_ndcg_at_100pct": 0.970704190485224,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9828374118253702,
+        "positive_class_macro_f1": 0.8889119175253045,
+        "tp": 368.3333333333333,
+        "fp": 64.66666666666667,
+        "fn": 12.666666666666666,
+        "tn": 2786.3333333333335,
+        "score": 0.9498655049937049
+      }
+    },
+    {
+      "arm": "v4_gated",
+      "seed": 42,
+      "best_epoch": 30,
+      "summary": "artifacts\\ftmoe_end_to_end\\runs\\retrained_014_gated_v4_seed42\\v4_seed42\\summary.json",
+      "A_last": {
+        "f1": 0.9113413776853818,
+        "precision": 0.8616132495310808,
+        "recall": 0.9710735654494735,
+        "diagnosis_hr_at_100pct": 0.9645162154200476,
+        "diagnosis_ndcg_at_100pct": 0.9645162154200476,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9853450372527268,
+        "positive_class_macro_f1": 0.8803538238168026,
+        "tp": 370.0,
+        "fp": 63.666666666666664,
+        "fn": 11.0,
+        "tn": 2787.3333333333335,
+        "score": 0.9467912695084925
+      },
+      "B_best": {
+        "f1": 0.9113413776853818,
+        "precision": 0.8616132495310808,
+        "recall": 0.9710735654494735,
+        "diagnosis_hr_at_100pct": 0.9645162154200476,
+        "diagnosis_ndcg_at_100pct": 0.9645162154200476,
+        "hr_at_100": 1.0,
+        "ndcg_at_100": 1.0,
+        "diagnostic_pair_ndcg_at_100": 1.0,
+        "pr_auc": 0.9853450372527268,
+        "positive_class_macro_f1": 0.8803538238168026,
+        "tp": 370.0,
+        "fp": 63.666666666666664,
+        "fn": 11.0,
+        "tn": 2787.3333333333335,
+        "score": 0.9467912695084925
+      }
+    }
+  ],
+  "aggregate": {
+    "A_last": {
+      "v0": {
+        "f1": {
+          "mean": 0.6092119954550704,
+          "std": 0.01746889460828029
+        },
+        "diagnosis_hr_at_100pct": {
+          "mean": 0.7165163259320699,
+          "std": 0.002646613281005069
+        },
+        "diagnosis_ndcg_at_100pct": {
+          "mean": 0.7165163259320699,
+          "std": 0.002646613281005069
+        }
+      },
+      "v1": {
+        "f1": {
+          "mean": 0.6473219464403936,
+          "std": 0.02239453757725496
+        },
+        "diagnosis_hr_at_100pct": {
+          "mean": 0.7223785149468259,
+          "std": 0.008161432927186137
+        },
+        "diagnosis_ndcg_at_100pct": {
+          "mean": 0.7223785149468259,
+          "std": 0.008161432927186137
+        }
+      },
+      "v2": {
+        "f1": {
+          "mean": 0.9161546593912198,
+          "std": 0.008937751630394827
+        },
+        "diagnosis_hr_at_100pct": {
+          "mean": 0.8861621767916075,
+          "std": 0.05515827205983217
+        },
+        "diagnosis_ndcg_at_100pct": {
+          "mean": 0.8861621767916075,
+          "std": 0.05515827205983217
+        }
+      },
+      "v3": {
+        "f1": {
+          "mean": 0.8984891724676748,
+          "std": 0.005349283179772046
+        },
+        "diagnosis_hr_at_100pct": {
+          "mean": 0.9392762694332972,
+          "std": 0.014809224587737315
+        },
+        "diagnosis_ndcg_at_100pct": {
+          "mean": 0.9392762694332972,
+          "std": 0.014809224587737315
+        }
+      },
+      "v4": {
+        "f1": {
+          "mean": 0.9098983379584512,
+          "std": 0.0030454919912684397
+        },
+        "diagnosis_hr_at_100pct": {
+          "mean": 0.9589660732580008,
+          "std": 0.0033421735829230414
+        },
+        "diagnosis_ndcg_at_100pct": {
+          "mean": 0.9589660732580008,
+          "std": 0.0033421735829230414
+        }
+      },
+      "v4_gated": {
+        "f1": {
+          "mean": 0.9093702838692564,
+          "std": 0.002089867477199877
+        },
+        "diagnosis_hr_at_100pct": {
+          "mean": 0.9564241845387198,
+          "std": 0.006374267062074026
+        },
+        "diagnosis_ndcg_at_100pct": {
+          "mean": 0.9564241845387198,
+          "std": 0.006374267062074026
+        }
+      }
+    },
+    "B_best": {
+      "v0": {
+        "f1": {
+          "mean": 0.5254787820675194,
+          "std": 0.06055741314799825
+        },
+        "diagnosis_hr_at_100pct": {
+          "mean": 0.8600482956487836,
+          "std": 0.0798837824726856
+        },
+        "diagnosis_ndcg_at_100pct": {
+          "mean": 0.8600482956487836,
+          "std": 0.0798837824726856
+        }
+      },
+      "v1": {
+        "f1": {
+          "mean": 0.5675496704157279,
+          "std": 0.08741246817098994
+        },
+        "diagnosis_hr_at_100pct": {
+          "mean": 0.8609215251437042,
+          "std": 0.07771429115580869
+        },
+        "diagnosis_ndcg_at_100pct": {
+          "mean": 0.8609215251437042,
+          "std": 0.07771429115580869
+        }
+      },
+      "v2": {
+        "f1": {
+          "mean": 0.9013343858194454,
+          "std": 0.020438273418837916
+        },
+        "diagnosis_hr_at_100pct": {
+          "mean": 0.9362973719931915,
+          "std": 0.021869070237913964
+        },
+        "diagnosis_ndcg_at_100pct": {
+          "mean": 0.9362973719931915,
+          "std": 0.021869070237913964
+        }
+      },
+      "v3": {
+        "f1": {
+          "mean": 0.8944367666559747,
+          "std": 0.0059037008600700755
+        },
+        "diagnosis_hr_at_100pct": {
+          "mean": 0.9628513388386871,
+          "std": 0.005626354834133677
+        },
+        "diagnosis_ndcg_at_100pct": {
+          "mean": 0.9628513388386871,
+          "std": 0.005626354834133677
+        }
+      },
+      "v4": {
+        "f1": {
+          "mean": 0.905133851314148,
+          "std": 0.007595236854275122
+        },
+        "diagnosis_hr_at_100pct": {
+          "mean": 0.9720026818116011,
+          "std": 0.004206615627557894
+        },
+        "diagnosis_ndcg_at_100pct": {
+          "mean": 0.9720026818116011,
+          "std": 0.004206615627557894
+        }
+      },
+      "v4_gated": {
+        "f1": {
+          "mean": 0.9035793540332466,
+          "std": 0.010496999736913159
+        },
+        "diagnosis_hr_at_100pct": {
+          "mean": 0.9709069246902958,
+          "std": 0.0061452706682042346
+        },
+        "diagnosis_ndcg_at_100pct": {
+          "mean": 0.9709069246902958,
+          "std": 0.0061452706682042346
+        }
+      }
+    }
+  },
+  "historical_results_not_overwritten": true,
+  "reserved_tests_accessed": false,
+  "epoch_checkpoint_count": 900,
+  "retained_resume_files": 30
+}

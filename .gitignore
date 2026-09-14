@@ -156,3 +156,12 @@ artifacts/ftmoe_online/protocol_023/**/*.pt
 # The one weight that IS tracked: protocol-023's registered frozen start checkpoint
 # (sha256 10c44bdb...). It is the starting point of every run and cannot be regenerated.
 !artifacts/ftmoe_online/protocol_020/s6/adapted_v4_seed1/best.pt
+
+# Local tool permissions and disposable self-test outputs.
+.claude/settings.local.json
+artifacts/ftmoe_online/protocol_023/_selftest/
+artifacts/ftmoe_online/protocol_023/round2a/_s4_smoke/
+maintenance/github_sync_20260914/*.stdout.txt
+maintenance/github_sync_20260914/*.stderr.txt
+# Required by the stream verifier, even for an already collected stream.
+!artifacts/ftmoe_online/protocol_023/development_streams/*/generation.log

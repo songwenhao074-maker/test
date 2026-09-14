@@ -1,0 +1,112 @@
+{
+  "checks": [
+    {
+      "command": [
+        "python",
+        "verify_ftmoe_protocol023_generator.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "python",
+        "main.py",
+        "--help"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "python",
+        "verify_ftmoe_protocol023_stream.py",
+        "artifacts\\ftmoe_online\\protocol_023\\development_streams\\dev_seed700_steps2880"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "python",
+        "verify_ftmoe_protocol023_stream.py",
+        "artifacts\\ftmoe_online\\protocol_023\\development_streams\\dev_seed700_steps2880_calibrated",
+        "--tag-suffix",
+        "_calibrated"
+      ],
+      "exit_code": 0,
+      "initial_exit_code": 1,
+      "check_count": 63,
+      "failed_checks": []
+    },
+    {
+      "command": [
+        "python",
+        "verify_ftmoe_protocol023_stream.py",
+        "artifacts\\ftmoe_online\\protocol_023\\development_streams\\single_compute_first_seed700_steps1200"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "python",
+        "verify_ftmoe_protocol023_stream.py",
+        "artifacts\\ftmoe_online\\protocol_023\\development_streams\\single_compute_first_seed700_steps1200_calibrated",
+        "--tag-suffix",
+        "_calibrated"
+      ],
+      "exit_code": 0,
+      "initial_exit_code": 1,
+      "check_count": 63,
+      "failed_checks": []
+    },
+    {
+      "command": [
+        "python",
+        "verify_ftmoe_protocol023_stream.py",
+        "artifacts\\ftmoe_online\\protocol_023\\development_streams\\single_io_first_seed700_steps1200"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "python",
+        "verify_ftmoe_protocol023_stream.py",
+        "artifacts\\ftmoe_online\\protocol_023\\development_streams\\single_io_first_seed700_steps1200_calibrated",
+        "--tag-suffix",
+        "_calibrated"
+      ],
+      "exit_code": 0,
+      "initial_exit_code": 1,
+      "check_count": 63,
+      "failed_checks": []
+    },
+    {
+      "command": [
+        "python",
+        "verify_ftmoe_protocol023_stream.py",
+        "artifacts\\ftmoe_online\\protocol_023\\development_streams\\single_memory_first_seed700_steps1200"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "python",
+        "verify_ftmoe_protocol023_stream.py",
+        "artifacts\\ftmoe_online\\protocol_023\\development_streams\\single_memory_first_seed700_steps1200_calibrated",
+        "--tag-suffix",
+        "_calibrated"
+      ],
+      "exit_code": 0,
+      "initial_exit_code": 1,
+      "check_count": 63,
+      "failed_checks": []
+    }
+  ],
+  "all_passed": true,
+  "regression_tests": {
+    "count": 206,
+    "passed": true,
+    "seconds": 40.051
+  },
+  "pip_check": "No broken requirements found",
+  "fresh_environment_install_tested": false,
+  "initial_invocation_note": "Calibrated stream checks initially omitted required --tag-suffix _calibrated; rerun below with documented argument. No stream or verifier changed."
+}

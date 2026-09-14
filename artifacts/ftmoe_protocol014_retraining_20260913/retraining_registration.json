@@ -1,0 +1,93 @@
+{
+  "purpose": "User-authorized retraining to replace the deleted 2026-09-05 accepted baseline archive",
+  "original_snapshot_recovered": false,
+  "training_is_new": true,
+  "model_seeds": [
+    1,
+    2,
+    6,
+    17,
+    42
+  ],
+  "variants": [
+    "v0",
+    "v1",
+    "v2",
+    "v3",
+    "v4",
+    "v4_gated"
+  ],
+  "expected_models": 30,
+  "epochs": 30,
+  "learning_rate": 0.0003,
+  "expert_dropout": 0.0,
+  "moe_context": "none",
+  "independent_initialization": true,
+  "all_parameters_trainable": true,
+  "batch_size": 32,
+  "optimizer": "AdamW",
+  "weight_decay": 0.0001,
+  "warmup_epochs": 5,
+  "cosine_eta_min": 1e-05,
+  "gradient_clip_norm": 1,
+  "eagate_temperature": [
+    1.0,
+    0.2
+  ],
+  "loss": {
+    "detection_ce": 0.7,
+    "resource_ce": 0.3,
+    "ranking": 0.5,
+    "router_balance": 0.01,
+    "detection_class_weights": [
+      0.6,
+      2.0
+    ]
+  },
+  "B_best": "Per model seed, maximize (F1+HR+NDCG)/3 over three equally weighted development replays; earliest tie; threshold 0.5",
+  "A_last": "epoch 30",
+  "threads": 3,
+  "interop_threads": 1,
+  "dataloader_workers": 0,
+  "priority": "BelowNormal",
+  "available_ram_guard_gib": 4.5,
+  "disk_guard_gib": 20,
+  "train_replay_seeds": [
+    42,
+    1,
+    6,
+    17,
+    23
+  ],
+  "development_replay_seeds": [
+    31,
+    101,
+    102
+  ],
+  "reserved_tests_accessed": false,
+  "qos_started": false,
+  "source_and_data_sha256": {
+    "train_ftmoe_end_to_end.py": "b6c9c09d990ba02d31fa0c13326f7de45844c6926fcc097a40e8a0bcc723863a",
+    "train_ftmoe_ablation_existing.py": "84c2b384ff18fbea02ce29f43e0ad1f4086b75bc2e6233cbff09483bb3622e1d",
+    "recovery/PreGANSrc/src/ftmoe_ablation.py": "673ac6212a8a7b59771d86013e0a1fe9036551e1011a4078e3e9c0194b21c7c0",
+    "recovery/PreGANSrc/src/ftmoe_end_to_end.py": "44b4f48979bf228994f9a088e18ccc0e534d1d97e37c28c17adde0417a65f6a0",
+    "recovery/PreGANSrc/src/ftmoe_context.py": "8880e68ea257e71adce3dd6d0d099b4cd104f230e2267a19df0995eb62a52d9b",
+    "recovery/PreGANSrc/src/ftmoe_expert_regularization.py": "9b25a0be3369b82c99a92f9dc7bf58ebc7998ebb38a77a16a023b64edec38316",
+    "recovery/PreGANSrc/src/ftmoe_fusion_controls.py": "4037ab20b34535bd142acbaeb734419f43b74b02bcd7a0a6a3015e02fe8c05cd",
+    "recovery/PreGANSrc/src/ftmoe_source_fusion.py": "c784fae238630345f681cea51ea629d94aa608411365c1cb58e6180be268a469",
+    "artifacts/ftmoe_end_to_end/data/protocol_004_physical/manifest.json": "0a6af14e81cc70d379e554616a00229f7416fe79adfd53d944449a050835af1c",
+    "artifacts/ftmoe_end_to_end/data/protocol_004_physical/time_series.npy": "5a3271e83e656a3c26e3c739c2da74c0b986d86e39f2b7fc610547b8cca492c1",
+    "artifacts/ftmoe_end_to_end/data/protocol_004_physical/container_demand_series.npy": "99cf6fd91dc25e81ed6a61451d4dac35136e74615a7a79f0a82b5d506572e5b5",
+    "artifacts/ftmoe_end_to_end/data/protocol_004_physical/schedule_series.npy": "9abce9f0380ad9e755dfca54a43478af7e85b27b7d4fa1ca1339007a7bb7979d",
+    "artifacts/ftmoe_end_to_end/data/protocol_004_physical/labels.npy": "82c44220f6894d266a24de0a43d18edf3334a3867e70b9b7439e1d1b8531bac9"
+  },
+  "retain": [
+    "every epoch checkpoint",
+    "best.pt",
+    "last.pt",
+    "resume.pt with optimizer and RNG",
+    "metrics",
+    "source snapshots"
+  ],
+  "scope": "The accepted protocol-014 configuration only; earlier unrelated experiments and deleted plots are not retrained or fabricated."
+}

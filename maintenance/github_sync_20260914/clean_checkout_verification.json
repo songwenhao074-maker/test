@@ -1,0 +1,135 @@
+{
+  "source": "git staged index exported without local untracked/ignored files; LF text checkout",
+  "python_environment": "existing dynmoe environment; not a fresh pip install",
+  "checks": [
+    {
+      "command": [
+        "python",
+        "main.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "seconds": 9.422
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "test_ftmoe_protocol023_core",
+        "test_ftmoe_protocol023_regimes",
+        "test_ftmoe_protocol023_s2",
+        "test_ftmoe_protocol023_gradient"
+      ],
+      "exit_code": 0,
+      "seconds": 44.172
+    },
+    {
+      "command": [
+        "python",
+        "maintenance/verify_experiment_handoff.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.875,
+      "asset_check": {
+        "passed": true,
+        "checked_files": 759,
+        "checked_bytes": 694103341,
+        "failures": [],
+        "scope": "File completeness only; run regression tests separately. Known legacy metric bugs remain."
+      }
+    },
+    {
+      "command": [
+        "python",
+        "test_ftmoe_protocol023_s4_smoke.py"
+      ],
+      "exit_code": 0,
+      "seconds": 8.656,
+      "initial_exit_code": 1,
+      "scope_fix": "Validate 24-step observed prefix instead of requiring final settlement of full 2880-step stream"
+    },
+    {
+      "command": [
+        "python",
+        "verify_ftmoe_protocol023_stream.py",
+        "artifacts\\ftmoe_online\\protocol_023\\development_streams\\dev_seed700_steps2880"
+      ],
+      "exit_code": 0,
+      "seconds": 1.719
+    },
+    {
+      "command": [
+        "python",
+        "verify_ftmoe_protocol023_stream.py",
+        "artifacts\\ftmoe_online\\protocol_023\\development_streams\\dev_seed700_steps2880_calibrated",
+        "--tag-suffix",
+        "_calibrated"
+      ],
+      "exit_code": 0,
+      "seconds": 2.781
+    },
+    {
+      "command": [
+        "python",
+        "verify_ftmoe_protocol023_stream.py",
+        "artifacts\\ftmoe_online\\protocol_023\\development_streams\\single_compute_first_seed700_steps1200"
+      ],
+      "exit_code": 0,
+      "seconds": 0.938
+    },
+    {
+      "command": [
+        "python",
+        "verify_ftmoe_protocol023_stream.py",
+        "artifacts\\ftmoe_online\\protocol_023\\development_streams\\single_compute_first_seed700_steps1200_calibrated",
+        "--tag-suffix",
+        "_calibrated"
+      ],
+      "exit_code": 0,
+      "seconds": 1.562
+    },
+    {
+      "command": [
+        "python",
+        "verify_ftmoe_protocol023_stream.py",
+        "artifacts\\ftmoe_online\\protocol_023\\development_streams\\single_io_first_seed700_steps1200"
+      ],
+      "exit_code": 0,
+      "seconds": 0.875
+    },
+    {
+      "command": [
+        "python",
+        "verify_ftmoe_protocol023_stream.py",
+        "artifacts\\ftmoe_online\\protocol_023\\development_streams\\single_io_first_seed700_steps1200_calibrated",
+        "--tag-suffix",
+        "_calibrated"
+      ],
+      "exit_code": 0,
+      "seconds": 1.688
+    },
+    {
+      "command": [
+        "python",
+        "verify_ftmoe_protocol023_stream.py",
+        "artifacts\\ftmoe_online\\protocol_023\\development_streams\\single_memory_first_seed700_steps1200"
+      ],
+      "exit_code": 0,
+      "seconds": 0.906
+    },
+    {
+      "command": [
+        "python",
+        "verify_ftmoe_protocol023_stream.py",
+        "artifacts\\ftmoe_online\\protocol_023\\development_streams\\single_memory_first_seed700_steps1200_calibrated",
+        "--tag-suffix",
+        "_calibrated"
+      ],
+      "exit_code": 0,
+      "seconds": 1.734
+    }
+  ],
+  "all_passed": true,
+  "resolved_initial_failure": "Eight generation.log files were ignored locally but required by stream verifier; now tracked and exported."
+}
