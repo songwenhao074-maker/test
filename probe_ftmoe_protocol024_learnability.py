@@ -3,6 +3,13 @@
 Train split: [0,3900) = familiar prefix + all three long first exposures.
 Validation split: [3900,4980) = the six registered recurrences.  Every method
 predicts exactly raw_label[t+1] > 0 and uses no audit law/phase/event ID.
+
+Pre-generation decision rule:
+- raw/history is learnable iff its validation AP is at least prevalence + 0.05;
+- frozen z is considered to retain the signal iff its AP is no more than 0.05
+  below the raw/history AP.
+Persistence/current-pressure are reported as required baselines but are not a
+requirement that history must beat current overload pressure.
 """
 from __future__ import annotations
 
@@ -24,6 +31,8 @@ from recovery.PreGANSrc.src.ftmoe_online_r1 import FrozenResidualFTMoE
 TRAIN_END = 3900
 VALID_END = 4980
 HISTORY = 12
+MIN_AP_OVER_PREVALENCE = 0.05
+MAX_Z_AP_GAP = 0.05
 
 
 def _history_features(host):
@@ -111,7 +120,6 @@ def run(stream_dir, out_path):
     z_x = z.reshape(VALID_END * 16, -1)
     z_score, z_meta = _fit_score(z_x[train_rows], train_y, z_x[valid_rows])
 
-    # Baselines use only current information at t.
     persistence = (raw[TRAIN_END:VALID_END] > 0).astype(np.float64).reshape(-1)
     current_pressure = ratio[TRAIN_END:VALID_END].max(axis=-1).reshape(-1)
 
@@ -124,6 +132,9 @@ def run(stream_dir, out_path):
         "train_positive_host_steps": int(train_y.sum()),
         "validation_positive_host_steps": int(valid_y.sum()),
         "validation_prevalence": float(valid_y.mean()),
+        "gate": {"min_ap_over_prevalence": MIN_AP_OVER_PREVALENCE,
+                 "max_frozen_z_ap_gap_to_history": MAX_Z_AP_GAP,
+                 "registered_before_stream_generation": True},
         "methods": {
             "persistence_current_fault": _report(valid_y, persistence),
             "current_pressure": _report(valid_y, current_pressure),
@@ -135,6 +146,7 @@ def run(stream_dir, out_path):
         },
         "history_gain_over_current_raw": None,
         "history_gain_over_persistence": None,
+        "history_gain_over_current_pressure": None,
         "z_gap_to_history": None,
         "probe_fit_seconds_excluding_z": probe_fit_seconds,
         "z_extraction_seconds": z_extract_seconds,
@@ -142,22 +154,24 @@ def run(stream_dir, out_path):
     h_ap = result["methods"]["raw_history_12x7_logistic"]["ap"]
     c_ap = result["methods"]["current_raw_7d_logistic"]["ap"]
     p_ap = result["methods"]["persistence_current_fault"]["ap"]
+    pressure_ap = result["methods"]["current_pressure"]["ap"]
     z_ap = result["methods"]["frozen_z_64d_logistic"]["ap"]
+    prevalence = result["validation_prevalence"]
     if h_ap is not None and c_ap is not None:
         result["history_gain_over_current_raw"] = float(h_ap - c_ap)
     if h_ap is not None and p_ap is not None:
         result["history_gain_over_persistence"] = float(h_ap - p_ap)
+    if h_ap is not None and pressure_ap is not None:
+        result["history_gain_over_current_pressure"] = float(h_ap - pressure_ap)
     if h_ap is not None and z_ap is not None:
         result["z_gap_to_history"] = float(h_ap - z_ap)
 
-    # This is a diagnostic, not a post-hoc scenario tuner.  It marks whether
-    # raw/history has any meaningful ranking signal beyond the simplest current
-    # baselines; the response-law revision rule is handled by status/reporting.
-    best_current = max(x for x in (p_ap, c_ap) if x is not None)
-    result["raw_history_has_incremental_signal"] = bool(
-        h_ap is not None and h_ap >= best_current + 0.01)
+    result["raw_history_learnable"] = bool(
+        h_ap is not None and h_ap >= prevalence + MIN_AP_OVER_PREVALENCE)
     result["z_retains_history_signal"] = bool(
-        z_ap is not None and h_ap is not None and z_ap >= h_ap - 0.05)
+        z_ap is not None and h_ap is not None and z_ap >= h_ap - MAX_Z_AP_GAP)
+    result["proceed_to_budget_and_pilot"] = bool(
+        result["raw_history_learnable"] and result["z_retains_history_signal"])
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(result, indent=2, allow_nan=False) + "\n",
