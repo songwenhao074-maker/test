@@ -1,0 +1,38 @@
+{
+  "protocol": "024",
+  "round": "next_round_v1",
+  "response_law_config_changed_by_any_entry": false,
+  "confirmation_seeds_used": false,
+  "problems": [
+    {
+      "id": "P24-NR-01",
+      "workflow_run": 34839090171,
+      "status": "fixed",
+      "simulated_intervals_before_failure": 0,
+      "failure": "AttributeError: psutil.BELOW_NORMAL_PRIORITY_CLASS is not available on GitHub-hosted Ubuntu",
+      "cause": "Protocol-023 configure() encoded a Windows process-priority constant",
+      "fix": "Protocol-024 portable launcher maps below-normal intent to POSIX nice +10 before importing the collector",
+      "scientific_effect": "none; failure occurred before simulator initialization/interval collection and no response-law numeric changed"
+    },
+    {
+      "id": "P24-NR-02",
+      "workflow_run": 34839261178,
+      "status": "fixed",
+      "simulated_intervals_before_failure": 0,
+      "failure": "ModuleNotFoundError: prepare_ftmoe_protocol024_stream",
+      "cause": "maintenance launcher was executed with maintenance/ as sys.path[0] and repo root was not importable",
+      "fix": "insert repository root into sys.path in the Protocol-024 launcher",
+      "scientific_effect": "none; failure occurred before collector import and no response-law numeric changed"
+    },
+    {
+      "id": "P24-NR-03",
+      "workflow_run": 34839373891,
+      "status": "fixed",
+      "simulated_intervals_before_failure": 0,
+      "failure": "RuntimeError: inherited disk guard requires 20 GiB but GitHub-hosted runner exposed 10.897 GiB",
+      "cause": "Protocol-023 disk guard was registered for a local workstation rather than the hosted CI filesystem",
+      "fix": "register Protocol-024 hosted-CI environment with 5 GiB free-disk guard, preserving RAM 2.5 GiB, one process and 3 threads",
+      "scientific_effect": "none; guard failed before simulator construction and response_law_v1 remains byte-identical"
+    }
+  ]
+}
