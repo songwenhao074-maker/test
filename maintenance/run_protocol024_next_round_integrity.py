@@ -1,6 +1,6 @@
 """Protocol-024 next-round engineering gate on the tracked seed-700 replay.
 
-This is not a performance experiment.  It executes real A/C/D sessions only to
+This is not a performance experiment. It executes real A/C/D sessions only to
 prove namespace isolation, dynamic gap restore, optimizer preservation and an
 uninterrupted-vs-resume next-update trajectory before lifecycle-on experiments.
 """
@@ -96,7 +96,6 @@ def run(out_path):
     with tempfile.TemporaryDirectory(prefix="p24_next_integrity_") as temp:
         temp = Path(temp)
         saved = {}
-        # Actually save one checkpoint for every arm in an isolated P24 run dir.
         for arm in ("A", "C", "D"):
             session = make_session(arm, bundle, frozen, anchor,
                                    temp / ("arm_" + arm), "integrity_namespace")
@@ -120,16 +119,14 @@ def run(out_path):
                 raise AssertionError("checkpoint escaped P24 temporary namespace")
         result["checkpoint_namespace"] = saved
 
-        # Real online Adam state exists before topology mutation.
         uninterrupted = make_session("D", bundle, frozen, anchor,
                                      temp / "resume_source", "resume_gate")
         for _ in range(7):
             uninterrupted.step()
-        old_name, old_step = first_adam_step_by_name(uninterrupted)
-        if old_name is None:
+        pre_birth_name, pre_birth_step = first_adam_step_by_name(uninterrupted)
+        if pre_birth_name is None:
             raise AssertionError("no pre-birth Adam moment was created")
 
-        # Force only topology events (test-only): reject id4, activate id5.
         bank = uninterrupted.model.learner
         rejected = bank.create_shadow("0")
         uninterrupted.create_shadow_optimizer()
@@ -139,8 +136,8 @@ def run(out_path):
         uninterrupted.activate_shadow()
         bank.ramp_step()
         uninterrupted.learner_hash = uninterrupted.learner_state_hash()
-        same_name, same_step = first_adam_step_by_name(uninterrupted)
-        if old_name != same_name or old_step != same_step:
+        preserved_name, preserved_step = first_adam_step_by_name(uninterrupted)
+        if pre_birth_name != preserved_name or pre_birth_step != preserved_step:
             raise AssertionError("existing Adam moment changed during birth")
         if rejected != "4" or child != "5":
             raise AssertionError("gap-ID fixture did not create 4->reject,5->activate")
@@ -152,9 +149,6 @@ def run(out_path):
         if resumed.learner_state_hash() != uninterrupted.learner_state_hash():
             raise AssertionError("behavior hash differs immediately after restore")
 
-        # The next step is t=7, therefore it includes the next registered C/D
-        # online update opportunity (update_every=4). Compare prediction AND
-        # post-update tensors, not one forward only.
         p_live, c_live = uninterrupted.step()
         hash_live = uninterrupted.learner_state_hash()
         tensor_live = bank_tensor_digest(uninterrupted)
@@ -173,8 +167,7 @@ def run(out_path):
         if updates_live != updates_resume:
             raise AssertionError("resume update count diverged")
 
-        # Retire/reactivate must preserve archived old optimizer moments.
-        old_name, old_step = first_adam_step_by_name(uninterrupted)
+        post_update_name, post_update_step = first_adam_step_by_name(uninterrupted)
         uninterrupted.model.learner.set_ramp("5", 1.0)
         uninterrupted.retire_expert("5")
         uninterrupted.reactivate_expert("5")
@@ -185,8 +178,11 @@ def run(out_path):
         result["resume_gate"] = {
             "rejected_id": rejected, "activated_id": child,
             "topology_after_restore": resumed.model.learner.topology_manifest(),
-            "preexisting_adam_name": old_name,
-            "preexisting_adam_step": old_step,
+            "preexisting_adam_name": pre_birth_name,
+            "pre_birth_adam_step": pre_birth_step,
+            "preserved_after_birth_step": preserved_step,
+            "post_update_adam_name": post_update_name,
+            "post_update_adam_step": post_update_step,
             "prediction_detection_max_abs": pred_detection_diff,
             "prediction_class_max_abs": pred_class_diff,
             "post_update_behavior_hash_equal": hash_live == hash_resume,
@@ -211,7 +207,8 @@ def run(out_path):
             result["resume_gate"]["post_update_behavior_hash_equal"]
             and result["resume_gate"]["post_update_tensor_digest_equal"]
             and updates_live == updates_resume),
-        "preexisting_optimizer_moments_preserved": same_step == old_step,
+        "preexisting_optimizer_moments_preserved": preserved_step == pre_birth_step,
+        "reactivation_optimizer_archive_present": archive_has_child,
     }
     result["passed"] = all(result["checks"].values())
     out_path = Path(out_path)
