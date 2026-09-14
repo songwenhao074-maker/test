@@ -20,9 +20,9 @@ def _as_finite_float(value, name):
 def average_precision_report(y, score):
     """Tie-invariant non-interpolated AP plus an explicit degenerate reason.
 
-    Scores are accumulated by *score group* rather than by input order.  Hence
+    Scores are accumulated by *score group* rather than by input order. Hence
     equal-score samples produce AP equal to prevalence and shuffling equal-score
-    rows cannot change the result.  AP is undefined when only one class is
+    rows cannot change the result. AP is undefined when only one class is
     present; Protocol-024 reports null plus a reason instead of inventing 0.
     """
     y = np.asarray(y, dtype=np.int64).reshape(-1)
@@ -46,7 +46,6 @@ def average_precision_report(y, score):
     order = np.argsort(-score, kind="mergesort")
     y_sorted = y[order]
     score_sorted = score[order]
-    # End index (exclusive) of every equal-score group.
     end = np.r_[np.flatnonzero(score_sorted[1:] != score_sorted[:-1]) + 1,
                 y_sorted.size]
     start = np.r_[0, end[:-1]]
@@ -68,14 +67,50 @@ def average_precision(y, score):
     return average_precision_report(y, score)["ap"]
 
 
+def binary_detection_metrics(probability, labels, threshold=0.5):
+    """Future/current fault detection report over known rows.
+
+    ``labels`` may be resource labels 0..3 or binary 0/1; -1 means unknown.
+    AP uses the tie-safe implementation above. Threshold metrics are included
+    only as diagnostics; the new pilot's primary metric is AP.
+    """
+    probability = _as_finite_float(probability, "probability")
+    labels = np.asarray(labels, dtype=np.int64)
+    if probability.shape != labels.shape:
+        raise ValueError("probability and labels must have the same shape")
+    if ((labels < -1) | (labels > 3)).any():
+        raise ValueError("labels must use -1/0/1/2/3")
+    known = labels >= 0
+    score = probability[known].reshape(-1)
+    truth = (labels[known] > 0).astype(np.int64).reshape(-1)
+    report = average_precision_report(truth, score)
+    report["prevalence"] = (None if truth.size == 0
+                            else float(truth.mean()))
+    report["threshold"] = float(threshold)
+    if truth.size:
+        pred = score >= float(threshold)
+        positive = truth > 0
+        tp = int((pred & positive).sum())
+        fp = int((pred & ~positive).sum())
+        fn = int((~pred & positive).sum())
+        tn = int((~pred & ~positive).sum())
+        report.update({"tp": tp, "fp": fp, "fn": fn, "tn": tn,
+                       "recall": (tp / (tp + fn) if tp + fn else None),
+                       "fpr": (fp / (fp + tn) if fp + tn else None)})
+    else:
+        report.update({"tp": 0, "fp": 0, "fn": 0, "tn": 0,
+                       "recall": None, "fpr": None})
+    return report
+
+
 def temporal_onset_metrics(probability, labels, horizon=1):
     """Same-host future onset AP over [time, host] arrays.
 
     Target(t,h)=1 iff host h is known-normal at t and becomes faulty in one of
-    t+1..t+horizon.  Unknown current/future labels are excluded.  The last
+    t+1..t+horizon. Unknown current/future labels are excluded. The last
     ``horizon`` rows are excluded because their complete future is outside the
-    supplied block.  Probability is always aligned to the *current* row; a
-    caller using a future-shifted training target must not shift this again.
+    supplied block. Probability is aligned to the *current* row; a caller using
+    a future-shifted training target must not shift this again.
     """
     probability = _as_finite_float(probability, "probability")
     labels = np.asarray(labels, dtype=np.int64)
@@ -109,11 +144,7 @@ def temporal_onset_metrics(probability, labels, horizon=1):
 
 
 def positive_resource_macro_f1(class_probability, labels):
-    """CPU/RAM/Disk macro-F1 on known true-fault rows only.
-
-    labels: -1=unknown, 0=normal, 1=CPU, 2=RAM, 3=Disk.
-    class_probability: labels.shape + (3,).
-    """
+    """CPU/RAM/Disk macro-F1 on known true-fault rows only."""
     class_probability = _as_finite_float(class_probability, "class_probability")
     labels = np.asarray(labels, dtype=np.int64)
     if (class_probability.shape[:-1] != labels.shape
@@ -183,12 +214,7 @@ def assert_complete_settlement(labels, raw_labels, settled, scored_steps=None):
 
 
 def finalize_two_pending(raw_seen, labels, raw_labels, settled, settled_at, steps):
-    """Settle the two tail rows left by the historical t-2 tolerance rule.
-
-    This function intentionally also verifies *all earlier rows*.  A hidden
-    earlier settlement hole is therefore a hard failure, which is required by
-    the next-round directive.
-    """
+    """Settle the two tail rows left by the historical t-2 tolerance rule."""
     raw_seen = np.asarray(raw_seen)
     labels = np.asarray(labels)
     raw_labels = np.asarray(raw_labels)
@@ -207,13 +233,7 @@ def finalize_two_pending(raw_seen, labels, raw_labels, settled, settled_at, step
 
 
 def raw_next_target(raw_seen, index, observed_until):
-    """Future target raw_label[index+1] with one publication-delay gate.
-
-    ``observed_until`` is the current scored cursor whose raw row has already
-    been physically observed.  A prediction at ``index`` may enter training
-    only when ``observed_until >= index + 2``; this enforces the directive's
-    t -> t+1 future event -> t+2 earliest-training order.
-    """
+    """Future raw_label[index+1] with the registered publication-delay gate."""
     raw_seen = np.asarray(raw_seen, dtype=np.int64)
     if index < 0 or observed_until < index + 2:
         raise ValueError("raw-next target has not matured through publication delay")
