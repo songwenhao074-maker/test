@@ -1,0 +1,31 @@
+{
+  "protocol": "024",
+  "round": "next_round_v1",
+  "config_id": "loss_trigger_v1",
+  "frozen_before_formal_lifecycle_run": true,
+  "calibration_intervals": 256,
+  "trigger_window": 32,
+  "consecutive_abnormal_windows": 2,
+  "loss_percentile": 99.0,
+  "candidate_train_intervals": 64,
+  "validation_intervals": 32,
+  "accept_relative_loss_improvement": 0.01,
+  "normal_probability_allowance": 0.01,
+  "cooldown_intervals": 64,
+  "retirement_enabled": false,
+  "hard_delete_enabled": false,
+  "debug_force_trigger_after": null,
+  "trigger_input": "matured supervised loss only",
+  "candidate_parent": "highest causal observed routing mass among current active experts",
+  "candidate_training": "64 distinct matured intervals after creation; shadow optimizer only",
+  "qualification": "32 later distinct intervals; live and candidate-deployed full-model logits recorded before label reveal",
+  "acceptance": "paired supervised-loss relative improvement >=1% and normal-host mean anomaly probability <= live+0.01",
+  "activation_optimizer_rule": "candidate Adam moments reset on activation; existing live expert moments preserved by stable expert_id|tensor_name keys",
+  "dormant_reactivation_rule": "not exercised in this first three-law pilot because retirement is disabled; dormant infrastructure remains available",
+  "capacity": {
+    "initial_active": 4,
+    "max_resident_active_plus_dormant_plus_shadow": 8
+  },
+  "calibration_note": "numeric loss threshold is deterministically derived once from the first 256 matured development intervals using the 99th percentile of 32-interval window means; it is not changed after observing D-C performance",
+  "confirmation_seeds_used": false
+}
