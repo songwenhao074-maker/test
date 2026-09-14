@@ -7,6 +7,8 @@ on:
       - 'ftmoe_protocol024_eval.py'
       - 'ftmoe_protocol024_dynamic_residual.py'
       - 'ftmoe_protocol024_session.py'
+      - 'test_ftmoe_protocol024_eval.py'
+      - 'test_ftmoe_protocol024_dynamic_residual.py'
       - 'test_ftmoe_protocol024_next_round_*.py'
       - 'maintenance/run_protocol024_next_round_integrity.py'
       - '.github/workflows/protocol024-next-round-engineering.yml'
