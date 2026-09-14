@@ -2,7 +2,7 @@
 
 This module deliberately reuses Protocol-023's ``PrequentialS4`` machinery so
 A, C and D share the same stream, replay/anchor selection, loss, optimizer
-family, update opportunities and prediction-before-label ordering.  D changes
+family, update opportunities and prediction-before-label ordering. D changes
 only the residual-bank container and (later) lifecycle policy.
 
 It also contains the evaluator/integrity fixes required before the registered
@@ -37,8 +37,6 @@ class DynamicResidualFTMoE(FrozenResidualFTMoE):
         self.set_deployment("learner", 1.0)
 
     def auxiliary_losses(self, output):
-        # Preserve the archived prototype term, but make router balancing use
-        # the *current* active count instead of Protocol-023's fixed four.
         prototype, _ = super().auxiliary_losses(output)
         probabilities = output.get("correction_router_probabilities")
         if probabilities is None:
@@ -57,10 +55,6 @@ class Protocol024Session(s4.PrequentialS4):
                  max_experts=8, ramp_updates=10):
         if arm not in ("A", "C", "D"):
             raise ValueError("arm must be A, C, or D")
-        # Build the registered A/C session first. For D, convert that exact
-        # learner bank in place BEFORE any scored interval. This is stronger
-        # than constructing a second nominally identical model: it guarantees
-        # that D starts from the exact same C tensors and RNG realization.
         super().__init__("A" if arm == "A" else "C", seed, replay_bundle,
                          budget, out_dir, probe_paths=probe_paths, anchor=anchor,
                          learning_rate=learning_rate)
@@ -83,13 +77,24 @@ class Protocol024Session(s4.PrequentialS4):
         self.protocol024_dynamic_container = True
         self.lifecycle_events = []
 
-    def finish(self):
-        """Settle BOTH still-pending tail records after reading the guard row.
+    def step(self):
+        """Run D through the exact same update gate as C.
 
-        Protocol-023's historical runner settled only ``steps-1`` here, leaving
-        ``steps-2`` unscored.  Protocol-024 does not mutate that historical
-        artifact; it fixes the behavior in the new session.
+        Protocol-023 hard-codes its online-update condition as ``arm == 'C'``.
+        D must therefore temporarily present itself as C while executing the
+        inherited strict-prequential step; all data/order/loss mechanics stay
+        identical, and the externally visible Protocol-024 arm remains D.
         """
+        if self.arm != "D":
+            return super().step()
+        self.arm = "C"
+        try:
+            return super().step()
+        finally:
+            self.arm = "D"
+
+    def finish(self):
+        """Settle BOTH still-pending tail records after reading the guard row."""
         if self.cursor != self.steps:
             raise ValueError("cannot finalize a partial stream (%d/%d)"
                              % (self.cursor, self.steps))
@@ -190,9 +195,6 @@ def restore_dynamic_bank(source_bank, snapshot):
     shadow = None if shadow is None else str(shadow)
     next_id = int(topology["next_id"])
 
-    # Dynamic ids are allocated monotonically. Recreate every allocated id in
-    # order; a live shadow, if present, must be the last allocated id because
-    # the bank supports at most one candidate at a time.
     if shadow is not None and int(shadow) != next_id - 1:
         raise ValueError("snapshot shadow id is not the most recent allocation")
     while target.next_id < next_id:
@@ -213,7 +215,7 @@ def restore_dynamic_bank(source_bank, snapshot):
     if target.shadow_id != shadow:
         raise ValueError("snapshot shadow topology cannot be reconstructed")
 
-    target.ids = list(active)  # restore routing order, not merely membership
+    target.ids = list(active)
     target.ramp = {str(k): float(v) for k, v in topology["ramp"].items()}
     target.next_id = next_id
 
