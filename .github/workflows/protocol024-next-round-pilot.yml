@@ -7,6 +7,7 @@ on:
     paths:
       - 'simulator/workload/BitbrainWorkloadProtocol024.py'
       - 'prepare_ftmoe_protocol024_stream.py'
+      - 'maintenance/run_protocol024_stream_collect.py'
       - 'probe_ftmoe_protocol024_learnability.py'
       - 'run_ftmoe_protocol024_budget.py'
       - 'run_ftmoe_protocol024_pilot.py'
@@ -44,10 +45,10 @@ jobs:
       - name: Verify frozen response-law registration
         run: |
           python -m unittest -v test_ftmoe_protocol024_response_laws.py
-          python -m py_compile prepare_ftmoe_protocol024_stream.py probe_ftmoe_protocol024_learnability.py run_ftmoe_protocol024_budget.py run_ftmoe_protocol024_pilot.py
+          python -m py_compile maintenance/run_protocol024_stream_collect.py prepare_ftmoe_protocol024_stream.py probe_ftmoe_protocol024_learnability.py run_ftmoe_protocol024_budget.py run_ftmoe_protocol024_pilot.py
       - name: Generate registered seed700 response-law stream
         run: |
-          python prepare_ftmoe_protocol024_stream.py --output "$ROOT_OUT/data"
+          python maintenance/run_protocol024_stream_collect.py --output "$ROOT_OUT/data"
       - name: Audit stream labels and input separation
         run: |
           python - <<'PY'
