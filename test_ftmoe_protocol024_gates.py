@@ -62,7 +62,8 @@ class Protocol024GateTests(unittest.TestCase):
     def test_same_host_onset_does_not_cross_host_boundary(self):
         # Host 0 faults at t=1. Host 1 is already faulted at t=0. Flatten-then-
         # shift can leak host-1 state into host-0; temporal same-host shifting
-        # must produce only one eligible positive onset here.
+        # must produce only one eligible positive onset here. There are exactly
+        # two eligible current-normal rows before the final incomplete horizon.
         labels = np.array([
             [0, 1],
             [1, 0],
@@ -75,7 +76,7 @@ class Protocol024GateTests(unittest.TestCase):
         ], dtype=np.float64)
         result = same_host_onset_metrics(probability, labels, horizon=1)
         self.assertEqual(result["positives"], 1)
-        self.assertEqual(result["rows"], 3)
+        self.assertEqual(result["rows"], 2)
         self.assertAlmostEqual(result["ap"], 1.0, places=12)
 
     def test_positive_only_resource_f1_excludes_normal_rows(self):
