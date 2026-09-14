@@ -1,5 +1,8 @@
 # Protocol-024：当前问题与下一步阻塞项（2026-09-14）
 
+> **历史问题清单，已被后续进展部分覆盖。** session 已接入；当前未解决问题及最小复现见
+> [最新审阅](PROTOCOL024_REVIEW_20260914.md)，执行顺序以 [下一轮指示](PROTOCOL024_NEXT_DIRECTIVE_20260914.md) 为准。
+
 本文件只记录 **Protocol-024 continuation** 的问题，不修改 Protocol-023 已注册结论。
 
 ## 1. D 的模型公平性问题已经定位

@@ -1,5 +1,11 @@
 # 项目现状与历史沿革
 
+**当前进度补充（Protocol-024，2026-09-14）：** 已审阅 `674c626` 的 continuation 结果，15项单测通过，
+追加 lifecycle-off 1140步/285更新 C-D 等价检查通过，覆盖825个原始异常host-step。尚无生命周期开启的性能结果。
+新增发现：实际阶段指标仍继承旧 evaluator、保存函数仍指向023、拒绝候选后ID空缺恢复失败；休眠不释放总容量。
+请先读 [最新审阅](PROTOCOL024_REVIEW_20260914.md) 与 [下一轮指示](PROTOCOL024_NEXT_DIRECTIVE_20260914.md)，
+以下历史章节保留为历史记录。新场景拟注册 raw next-fault 预测任务，不能与旧tol1检测AP混表。
+
 本文件是**唯一**的当前状态入口，取代此前的 `PROJECT_CONTEXT_LATEST.md` 与 6 份根目录历史报告。
 日常只需读这一份 + [`docs/FTMOE_ONLINE_PROTOCOL_023.md`](FTMOE_ONLINE_PROTOCOL_023.md)（当前协议细节）。
 

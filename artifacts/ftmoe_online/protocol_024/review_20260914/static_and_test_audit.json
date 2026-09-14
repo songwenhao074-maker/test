@@ -1,0 +1,28 @@
+{
+  "source_commit": "674c6267dc9e3aec268c1da186278f77d45224f5",
+  "unit_test_modules": [
+    "test_ftmoe_protocol024_dynamic_residual",
+    "test_ftmoe_protocol024_eval",
+    "test_ftmoe_protocol024_gates"
+  ],
+  "unit_tests_passed": 15,
+  "seconds": 0.257,
+  "ci_run_verified": 34800910318,
+  "ci_job_verified": 103843227377,
+  "ci_conclusion": "success",
+  "checkpoint_namespace": {
+    "save_checkpoint_inherited": true,
+    "target_directory": "artifacts\\ftmoe_online\\protocol_023\\round2a\\checkpoints",
+    "risk": "Inherited save_checkpoint uses Protocol023 global CKPT_DIR and fixed filenames and can overwrite registered historical weights. It was NOT invoked in this review."
+  },
+  "timeline_namespace": {
+    "phase_metrics_uses_P23_global_PHASES": true,
+    "checkpoint_names_use_P23_global_CHECKPOINT_NAMES": true
+  },
+  "review_action": "Diagnostics and lifecycle-off equivalence only; no original experiment file was modified.",
+  "protected_asset_verification": {
+    "files_checked": 759,
+    "passed": true,
+    "bytes_checked": 694103341
+  }
+}

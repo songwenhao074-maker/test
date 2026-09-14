@@ -1,0 +1,130 @@
+{
+  "source_commit": "674c6267dc9e3aec268c1da186278f77d45224f5",
+  "formal_D_performance_result": false,
+  "diagnostics": {
+    "evaluator_wiring": {
+      "phase_metrics_inherited_unchanged": true,
+      "probe_scores_inherited_unchanged": true,
+      "actual_phase_output_onset": {
+        "ap": 0.0625,
+        "positives": 1,
+        "rows": 6719
+      },
+      "correct_same_host_onset": {
+        "ap": 1.0,
+        "positives": 1,
+        "rows": 6703
+      },
+      "fixture": "One onset at t=301, host=0; highest prediction at t=300, host=0"
+    },
+    "duplicate_onset_unknown_handling": {
+      "session_helper": {
+        "ap": 0.5,
+        "positives": 1,
+        "rows": 2,
+        "horizon": 1
+      },
+      "eval_helper": {
+        "ap": null,
+        "positives": 0,
+        "rows": 0
+      }
+    },
+    "restore_after_rejection": {
+      "restored": false,
+      "error_type": "ValueError",
+      "error": "snapshot active topology cannot be reconstructed",
+      "rejected_id": "4",
+      "activated_id": "5",
+      "topology": {
+        "active_ids": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "5"
+        ],
+        "dormant_ids": [],
+        "shadow_id": null,
+        "next_id": 6,
+        "ramp": {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0,
+          "5": 0.0
+        },
+        "max_experts": 8,
+        "ramp_updates": 10
+      }
+    },
+    "retirement_capacity": {
+      "birth_after_retirement_allowed": false,
+      "error": "expert capacity reached",
+      "active": 7,
+      "dormant": 1,
+      "max_experts": 8
+    },
+    "topology_optimizer_and_hash": {
+      "ramp_changes_output_max_abs": 0.05423332750797272,
+      "active_hash_unchanged_when_ramp_changes": true,
+      "new_child_tensors_missing_from_preexisting_optimizer": 6,
+      "note": "Lifecycle integration is not implemented; optimizer registration must be added before enabling it."
+    },
+    "extreme_logit_ramp_zero": {
+      "forward_ok_at_ramp_zero": false,
+      "error": "all active routing ramps are zero"
+    }
+  },
+  "extended_lifecycle_off_smoke": {
+    "protocol": "024",
+    "kind": "integrated_strict_prequential_C_D_equivalence_smoke",
+    "formal_model_result": false,
+    "seed": 1,
+    "intervals": 1140,
+    "updates_C": 285,
+    "updates_D": 285,
+    "probability_max_abs": 1.1920928955078125e-07,
+    "class_probability_max_abs": 4.470348358154297e-07,
+    "D_topology": {
+      "active_ids": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "dormant_ids": [],
+      "shadow_id": null,
+      "next_id": 4,
+      "ramp": {
+        "0": 1.0,
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      },
+      "max_experts": 8,
+      "ramp_updates": 10
+    },
+    "checks": {
+      "updates_equal": true,
+      "frozen_C_unchanged": true,
+      "frozen_D_unchanged": true,
+      "lifecycle_disabled": true
+    },
+    "passed": true,
+    "interpretation": "Protocol024Session D matches C while lifecycle is disabled. This is an integration/fairness gate, not evidence that D improves C."
+  },
+  "smoke_exposure": {
+    "raw_fault_host_steps": 825,
+    "raw_fault_classes": [
+      1,
+      2,
+      3
+    ],
+    "phases": [
+      "F0_baseline",
+      "A1_compute",
+      "B1_memory"
+    ]
+  }
+}
