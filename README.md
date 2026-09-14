@@ -1,5 +1,9 @@
 <h1 align="center">PreGAN+ · FT-MoE online-learning track</h1>
 
+> **最新（2026-09-14，Protocol-024）：** [最新结果审阅](docs/PROTOCOL024_REVIEW_20260914.md) ·
+> [下一轮实验指示](docs/PROTOCOL024_NEXT_DIRECTIVE_20260914.md)。D 已接入共同 session，
+> lifecycle-off 的 1140 步等价检查通过；尚无动态性能结果。评估接线、保存目录与恢复缺口详见审阅。
+
 > **入口：** [项目现状与历史沿革](docs/PROJECT_STATUS_AND_HISTORY.md)（唯一状态入口）·
 > [协议 023 设计与结果](docs/FTMOE_ONLINE_PROTOCOL_023.md)
 

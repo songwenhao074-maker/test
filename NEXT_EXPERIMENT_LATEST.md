@@ -1,7 +1,11 @@
 # 下一轮实验入口
 
-2026-09-14：以 [最新复核与场景建议](docs/ONLINE_D_ANALYSIS_AND_NEXT_SCENARIO_20260914.md) 和 [GitHub 交接](docs/GITHUB_EXPERIMENT_HANDOFF.md) 为当前依据。
+当前唯一下一轮执行指示：[Protocol-024：修复实际链路，交付首个动态 pilot](docs/PROTOCOL024_NEXT_DIRECTIVE_20260914.md)。
 
-先修复已发现的评估问题，再直接探索合理有利场景下 A/C/D 的差异。旧 C Rescue / specialist gate 可作为诊断参考，不再作为禁止新协议实现 D 的必要门禁。尚未开始新训练。
+先读 [最新结果审阅与1140步追加验证](docs/PROTOCOL024_REVIEW_20260914.md)，再执行上述指示。
 
-此前远端计划全文保留于 Git 提交 ca3907466d8b549adbb5c0238fcc3c61859e3f45，不代表已经执行。
+最新实现已接入 C/D 共同在线 session；关闭生命周期时等价。尚未产生生命周期开启的 D 性能结果。
+
+下一轮重点：隔离检查点目录、接通实际 evaluator、修复候选拒绝后的恢复与动态 optimizer，然后完成因果生命周期和三个 response-law 的 A/C/D pilot。新性能实验注册 raw next-fault 目标；旧 tol1 检测结果保持原样、不混表。701～703仍保留确认用途。
+
+更早 C Rescue / 负梯度 / specialist 必要性门禁不再是禁止新协议实施 D 的通用条件。历史指示保留于 Git。
