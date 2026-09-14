@@ -1,0 +1,108 @@
+{
+  "protocol": "024",
+  "round": "next_round_v1",
+  "source_directive_commit": "952b6930701b5475d6ac94803b22b55d83f17a47",
+  "registered_before_new_stream_generation": true,
+  "development_seed": 700,
+  "model_seed": 1,
+  "forbidden_confirmation_seeds": [701, 702, 703],
+  "forbidden_legacy_generation_seeds": [201, 202, 203, 204, 205],
+  "target": {
+    "mode": "raw_next_fault",
+    "detection": "at prediction time t, predict same-host raw_label[t+1] > 0",
+    "resource": "future raw resource class raw_label[t+1]",
+    "earliest_training_use": "t+2 after one publication-delay interval",
+    "onset_evaluation": "probability[t] versus current raw[t] and future raw[t+1]; no second shift",
+    "old_tol1_results_are_separate_task": true
+  },
+  "response_laws": {
+    "R1": {
+      "name": "short_compute_pulse_fast_release",
+      "physical_story": "short compute-intensive burst with fast release back toward familiar demand",
+      "audit_only_id": true
+    },
+    "R2": {
+      "name": "sustained_inference_working_set_growth",
+      "physical_story": "sustained inference CPU pressure followed by lagged working-set/RAM growth",
+      "audit_only_id": true
+    },
+    "R3": {
+      "name": "background_writeback_backlog",
+      "physical_story": "background write-back/disk queue accumulation followed by causal drain/recovery",
+      "audit_only_id": true
+    }
+  },
+  "timeline": [
+    {"name": "F0", "response_law": null, "start": 0, "end": 300, "length": 300},
+    {"name": "R1_first", "response_law": "R1", "start": 300, "end": 1500, "length": 1200},
+    {"name": "R2_first", "response_law": "R2", "start": 1500, "end": 2700, "length": 1200},
+    {"name": "R3_first", "response_law": "R3", "start": 2700, "end": 3900, "length": 1200},
+    {"name": "R1_rec1", "response_law": "R1", "start": 3900, "end": 4080, "length": 180},
+    {"name": "R3_rec1", "response_law": "R3", "start": 4080, "end": 4260, "length": 180},
+    {"name": "R2_rec1", "response_law": "R2", "start": 4260, "end": 4440, "length": 180},
+    {"name": "R1_rec2", "response_law": "R1", "start": 4440, "end": 4620, "length": 180},
+    {"name": "R2_rec2", "response_law": "R2", "start": 4620, "end": 4800, "length": 180},
+    {"name": "R3_rec2", "response_law": "R3", "start": 4800, "end": 4980, "length": 180}
+  ],
+  "scored_intervals": 4980,
+  "guard_rows": 1,
+  "inputs": {
+    "allowed": "common 12-step telemetry + scheduler/graph context already available to C and D",
+    "forbidden": [
+      "response_law_id",
+      "mode_id",
+      "phase_id",
+      "event_id",
+      "known_future_switch_time",
+      "future_label",
+      "future_demand",
+      "future_capacity"
+    ]
+  },
+  "arms": {
+    "A": "frozen base",
+    "C": "same frozen base + fixed four-expert residual bank",
+    "D": "same frozen base + same four initial residual experts with causal lifecycle, max resident experts 8"
+  },
+  "model_constraints": {
+    "initial_experts_C": 4,
+    "initial_experts_D": 4,
+    "max_resident_experts_D": 8,
+    "hard_delete_claim_enabled": false,
+    "learning_rate": 0.0001,
+    "batch_size_candidate": 32,
+    "replay_buffer_candidate": 64,
+    "gradient_steps_candidate": 1,
+    "anchor_weight": 0.25,
+    "distill_weight": 0.10,
+    "budget_update_every_candidates": [4, 1]
+  },
+  "lifecycle_structural_defaults": {
+    "trigger_feature": "matured supervised loss increase; z distance for dormant reuse/new birth decision",
+    "router_entropy_margin": "diagnostic only",
+    "trigger_window_distinct_intervals": 32,
+    "consecutive_abnormal_windows": 2,
+    "candidate_training_distinct_mature_intervals": 64,
+    "prospective_validation_distinct_intervals": 32,
+    "accept_relative_supervised_loss_improvement_min": 0.01,
+    "one_shadow_at_a_time": true,
+    "shadow_excluded_from_live_forward": true,
+    "numeric_thresholds_require_seed700_stable_prefix_calibration": true,
+    "max_preregistered_calibration_configs": 2
+  },
+  "primary_metric": {
+    "name": "switch_first_100_future_fault_AP",
+    "window": 100,
+    "aggregation": "equal-weight mean over registered switches",
+    "paired_comparison": "D-C",
+    "report_groups": ["first_exposures", "six_recurrences", "each_switch"]
+  },
+  "development_signal_reference": {
+    "recurrence_mean_D_minus_C_min": 0.03,
+    "positive_recurrence_switches_min": 4,
+    "recurrence_switches_total": 6,
+    "normal_FPR_D_minus_C_max": 0.01,
+    "development_only_not_confirmation_gate": true
+  },
+  "confirmation_run": false
+}
