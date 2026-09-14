@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "protocol": "024",
+  "kind": "structural_validation_only",
+  "date": "2026-09-14",
+  "source_main_commit": "92f9559593de41768d7cc4f3ddf40656b95850d5",
+  "status": "PASS",
+  "formal_model_result": false,
+  "new_stream_collected": false,
+  "new_A_C_D_training_run": false,
+  "tests": {
+    "passed": 9,
+    "failed": 0,
+    "items": [
+      "same-host temporal onset axis",
+      "phase-tail onset exclusion",
+      "two-tail-row final settlement",
+      "positive-only resource macro-F1",
+      "fixed-vs-dynamic residual t0 equivalence",
+      "shadow candidate excluded from deployment",
+      "ramp-0 birth output continuity",
+      "same-id retire/reactivate",
+      "max expert capacity enforcement"
+    ]
+  },
+  "confirmed_existing_evidence": {
+    "mean_late_detection_gain_C_minus_A_first_exposure": 0.00909374293738128,
+    "mean_late_detection_gain_C_minus_A_recurrence": 0.09466936025030569,
+    "mean_corrected_raw_onset_gain_C_minus_A_first_exposure": -9.286004288219796e-07,
+    "mean_corrected_raw_onset_gain_C_minus_A_recurrence": -0.0025480172169511928,
+    "unsettled_interval_index_in_protocol023_saved_predictions": 2878,
+    "unsettled_host_steps_per_arm": 16,
+    "protocol023_D_implemented": false,
+    "confirmation_seeds_untouched": [701, 702, 703]
+  },
+  "architecture_finding": "Protocol-020 OnlineEAGateV3 lifecycle logic is reference material only; Protocol-024 D must operate on the same FrozenResidualFTMoE residual bank as fixed C so lifecycle is the principal difference.",
+  "next_required_stage": "strict-prequential DynamicResidualBank integration with causal shadow validation and topology-safe save/resume, followed by seed700 response-law scenario pilot"
+}
