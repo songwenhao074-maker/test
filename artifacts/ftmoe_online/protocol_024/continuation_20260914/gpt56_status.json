@@ -1,0 +1,59 @@
+{
+  "protocol": "024",
+  "continuation": "gpt56_20260914",
+  "base_branch": "protocol-024",
+  "work_branch": "protocol-024-continuation-gpt56",
+  "formal_model_result": false,
+  "completed": {
+    "strict_prequential_D_session_integrated": true,
+    "tail_two_record_settlement_fixed": true,
+    "same_host_onset_metric_added": true,
+    "positive_only_resource_macro_f1_added": true,
+    "dynamic_bank_topology_tensor_snapshot_roundtrip": true,
+    "integrity_unit_tests_passed": 6,
+    "integrated_C_D_lifecycle_disabled_equivalence_passed": true
+  },
+  "ci": {
+    "final_success_run_id": 34800910318,
+    "final_success_job_id": 103843227377,
+    "head_sha": "1f243c138dedf4fc4a1c30fd1100e5037c8ff384",
+    "integrity_tests": "6/6 PASS",
+    "integrated_smoke": {
+      "seed": 1,
+      "intervals": 24,
+      "updates_C": 6,
+      "updates_D": 6,
+      "probability_max_abs": 0.0,
+      "class_probability_max_abs": 0.0,
+      "D_active_ids": ["0", "1", "2", "3"],
+      "D_dormant_ids": [],
+      "D_shadow_id": null,
+      "lifecycle_disabled": true,
+      "passed": true
+    }
+  },
+  "debug_history": [
+    {
+      "run_id": 34800605704,
+      "issue": "same-host onset unit test expected 3 eligible rows; mathematically correct count was 2",
+      "classification": "test expectation bug"
+    },
+    {
+      "run_id": 34800700673,
+      "issue": "integrated C/D diverged after online updates because Protocol-023 step updates only when self.arm == 'C'; D was accidentally excluded",
+      "classification": "fairness/integration bug",
+      "fix": "Protocol024Session D executes inherited strict-prequential step through the same C update gate while retaining external D identity"
+    }
+  ],
+  "remaining_blockers_before_formal_ACD_pilot": [
+    "Freeze/calibrate dense-router novelty and matured-loss trigger thresholds on seed-700 stationary/baseline data; do not reuse old EAGate numeric thresholds.",
+    "Implement a separate shadow optimizer and causal future-matured candidate qualification ledger so a candidate never affects live forward before activation.",
+    "Extend save/resume beyond bank topology/tensors to optimizer moments, ramp/age, activation EMA, trigger state and candidate validation ledger; add next-prediction resume-equivalence test.",
+    "Freeze a causal dormant-expert reactivation matching rule and threshold.",
+    "Implement the new business response-law scenario generator; do not reuse only CPU/RAM/Disk ordering regimes.",
+    "Run allowed raw/history and frozen 64-D z learnability probes before giving D any architecture advantage.",
+    "Freeze first-exposure/recurrence residence and update budget from seed-700 diagnosis.",
+    "Only then run the registered minimal A/C/D seed-700 pilot; confirmation seeds 701/702/703 must not be used for tuning."
+  ],
+  "interpretation": "This continuation closes engineering/evaluator fairness gates only. It is not evidence that D outperforms C, and no Protocol-024 formal A/C/D model result has been produced yet."
+}
