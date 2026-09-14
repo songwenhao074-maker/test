@@ -7,6 +7,7 @@ on:
       - 'ftmoe_protocol024_session.py'
       - 'ftmoe_protocol024_dynamic_residual.py'
       - 'test_ftmoe_protocol024_gates.py'
+      - 'run_ftmoe_protocol024_session_smoke.py'
       - '.github/workflows/protocol024-continuation-gates.yml'
   workflow_dispatch:
 
@@ -33,3 +34,15 @@ jobs:
       - name: Run Protocol-024 integrity gates
         run: |
           python -m unittest -v test_ftmoe_protocol024_gates.py
+      - name: Run integrated strict-prequential C/D session smoke
+        run: |
+          python run_ftmoe_protocol024_session_smoke.py \
+            --intervals 24 \
+            --out artifacts/ftmoe_online/protocol_024/continuation_20260914/integrated_session_smoke.json
+      - name: Upload integrated session result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol024-integrated-session-smoke
+          path: artifacts/ftmoe_online/protocol_024/continuation_20260914/integrated_session_smoke.json
+          if-no-files-found: warn
