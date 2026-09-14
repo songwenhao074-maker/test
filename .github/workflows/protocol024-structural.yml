@@ -1,0 +1,31 @@
+name: Protocol-024 structural validation
+
+on:
+  push:
+    branches: [protocol-024]
+    paths:
+      - 'ftmoe_protocol024_*.py'
+      - 'test_ftmoe_protocol024_*.py'
+      - '.github/workflows/protocol024-structural.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  structural-tests:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: 'pip'
+      - name: Install minimal test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy==1.19.2 torch==2.4.1
+      - name: Run Protocol-024 structural tests
+        run: |
+          python -m unittest -v test_ftmoe_protocol024_eval test_ftmoe_protocol024_dynamic_residual
