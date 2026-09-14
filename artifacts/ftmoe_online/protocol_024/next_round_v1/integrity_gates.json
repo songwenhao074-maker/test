@@ -1,0 +1,84 @@
+{
+  "protocol": "024",
+  "round": "next_round_v1",
+  "kind": "engineering_integrity_evidence",
+  "formal_performance_result": false,
+  "github_actions": {
+    "run_id": 34820878935,
+    "job_id": 103901945374,
+    "head_sha": "87ec708716979d4a6413cf33928f115def57e61e",
+    "conclusion": "success",
+    "artifact_id": 10338470841,
+    "artifact_zip_sha256": "083996c2003ec0f56fea2a0b19554320d4f4f62754f0bc3bf6e79f11e031ca3b"
+  },
+  "unit_gates": {
+    "tests_run": 26,
+    "passed": 26,
+    "failed": 0,
+    "covered": [
+      "fixed-vs-dynamic t0 residual equivalence",
+      "shadow exclusion from live forward",
+      "ramp-zero output continuity",
+      "stable log-space routing with extreme shadow logit",
+      "behavior hash changes when ramp changes",
+      "gap-ID restore after rejected candidate",
+      "mixed active/dormant/shadow gap topology restore",
+      "purge frees resident capacity while next_id stays monotonic",
+      "dormant freeze and same-ID reactivation",
+      "same-host onset",
+      "unknown and phase-tail exclusion",
+      "horizon>1 onset",
+      "tie-invariant AP",
+      "explicit null+reason for degenerate AP",
+      "NaN prediction rejection",
+      "positive-only resource macro-F1",
+      "full settlement assertion including earlier holes",
+      "raw-next publication-delay gate",
+      "actual Protocol024Session phase_metrics/probe_scores/save_checkpoint overrides"
+    ]
+  },
+  "real_seed700_gate": {
+    "source_stream_sha256": "54d155260a0cac71ff5d383f9c3b7270ff9ac96c4209881c2dbd1bd63bffd0f2",
+    "protected_protocol023": {
+      "file_count": 120,
+      "bytes": 41608044,
+      "manifest_sha256_before": "450c3ed4b8d70d14649ff252f53d89aba262da52a36de73769b4850a08ca3e4e",
+      "manifest_sha256_after": "450c3ed4b8d70d14649ff252f53d89aba262da52a36de73769b4850a08ca3e4e",
+      "unchanged": true
+    },
+    "checkpoint_namespace": {
+      "A": {"protocol": "024", "run_id": "integrity_namespace", "time_index": 5, "updates": 0, "isolated": true},
+      "C": {"protocol": "024", "run_id": "integrity_namespace", "time_index": 5, "updates": 1, "isolated": true},
+      "D": {"protocol": "024", "run_id": "integrity_namespace", "time_index": 5, "updates": 1, "isolated": true}
+    },
+    "resume_gate": {
+      "rejected_candidate_id": "4",
+      "activated_candidate_id": "5",
+      "restored_active_ids": ["0", "1", "2", "3", "5"],
+      "restored_next_id": 6,
+      "restored_new_expert_ramp": 0.1,
+      "pre_birth_adam_step": 1.0,
+      "adam_step_immediately_after_birth": 1.0,
+      "adam_step_after_next_online_update": 2.0,
+      "next_detection_probability_max_abs": 0.0,
+      "next_resource_probability_max_abs": 0.0,
+      "post_update_behavior_hash_equal": true,
+      "post_update_tensor_digest_equal": true,
+      "updates_uninterrupted": 2,
+      "updates_resumed": 2,
+      "reactivation_optimizer_archive_present": true
+    }
+  },
+  "checks": {
+    "evaluator_actual_path_fixed": true,
+    "checkpoint_namespace_isolated": true,
+    "protocol023_assets_unchanged": true,
+    "gap_id_restore_passed": true,
+    "behavior_hash_includes_ramp_topology": true,
+    "old_live_optimizer_moments_preserved_across_birth": true,
+    "resume_next_prediction_equal": true,
+    "resume_next_update_equal": true,
+    "resident_capacity_purge_semantics_tested": true
+  },
+  "engineering_passed": true
+}
