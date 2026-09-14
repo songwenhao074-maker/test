@@ -31,8 +31,21 @@
       "simulated_intervals_before_failure": 0,
       "failure": "RuntimeError: inherited disk guard requires 20 GiB but GitHub-hosted runner exposed 10.897 GiB",
       "cause": "Protocol-023 disk guard was registered for a local workstation rather than the hosted CI filesystem",
-      "fix": "register Protocol-024 hosted-CI environment with 5 GiB free-disk guard, preserving RAM 2.5 GiB, one process and 3 threads",
-      "scientific_effect": "none; guard failed before simulator construction and response_law_v1 remains byte-identical"
+      "fix": "register Protocol-024 hosted-CI environment with 5 GiB free-disk guard, preserving one process and 3 threads",
+      "scientific_effect": "none; guard failed before simulator construction and response_law_v1 remains unchanged"
+    },
+    {
+      "id": "P24-NR-04",
+      "workflow_run": 34839589954,
+      "status": "fixed_for_rerun",
+      "simulated_intervals_before_failure": null,
+      "simulator_definitely_started": true,
+      "generation_step_elapsed_seconds_approx": 5278,
+      "failure": "RuntimeError: RAM guard below 2.5 GiB for 180 s (available 2.479 GiB)",
+      "cause": "The P24 2.5 GiB emergency free-RAM threshold was too close to normal GitHub-hosted runner steady-state availability. The simulator ran for about 88 minutes without an allocation/OOM error before a periodic 50-interval guard check intentionally aborted it.",
+      "fix": "lower only the hosted-CI emergency free-RAM guard to 1.5 GiB; keep disk guard 5 GiB, one experiment process, three CPU threads, workload, seed, scheduler, response-law numerics, timeline and label rule unchanged",
+      "scientific_effect": "no finalized stream or model result was produced; this is an execution-environment safety threshold correction only. response_law_v1 and all scientific parameters remain unchanged",
+      "exact_interval_note": "collector checks RAM every 50 intervals but the failed run did not emit the current t, so the exact simulated interval count is not reconstructed from wall time"
     }
   ]
 }
