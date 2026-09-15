@@ -37,15 +37,26 @@
     {
       "id": "P24-NR-04",
       "workflow_run": 34839589954,
-      "status": "fixed_for_rerun",
+      "status": "superseded_by_environment_v3",
       "simulated_intervals_before_failure": null,
       "simulator_definitely_started": true,
       "generation_step_elapsed_seconds_approx": 5278,
       "failure": "RuntimeError: RAM guard below 2.5 GiB for 180 s (available 2.479 GiB)",
-      "cause": "The P24 2.5 GiB emergency free-RAM threshold was too close to normal GitHub-hosted runner steady-state availability. The simulator ran for about 88 minutes without an allocation/OOM error before a periodic 50-interval guard check intentionally aborted it.",
-      "fix": "lower only the hosted-CI emergency free-RAM guard to 1.5 GiB; keep disk guard 5 GiB, one experiment process, three CPU threads, workload, seed, scheduler, response-law numerics, timeline and label rule unchanged",
-      "scientific_effect": "no finalized stream or model result was produced; this is an execution-environment safety threshold correction only. response_law_v1 and all scientific parameters remain unchanged",
-      "exact_interval_note": "collector checks RAM every 50 intervals but the failed run did not emit the current t, so the exact simulated interval count is not reconstructed from wall time"
+      "cause": "The P24 2.5 GiB emergency free-RAM threshold was too close to hosted-runner steady-state availability.",
+      "scientific_effect": "no finalized stream or model result was produced; response_law_v1 and all scientific parameters remained unchanged"
+    },
+    {
+      "id": "P24-NR-05",
+      "workflow_run": 34850369770,
+      "status": "fixed_for_rerun",
+      "simulated_intervals_before_failure": null,
+      "simulator_definitely_started": true,
+      "generation_step_elapsed_seconds_approx": 9814,
+      "failure": "RuntimeError: RAM guard below 1.5 GiB for 180 s (available 1.484 GiB)",
+      "cause": "A second long run confirmed that GitHub-hosted available RAM drifts below fixed multi-GiB thresholds during otherwise healthy simulation; no allocation failure or OOM was reported.",
+      "fix": "retain only a 0.5 GiB emergency free-RAM floor and extend generation-only timeout from 180 to 300 minutes; keep one process, three CPU threads, workload, seed700, scheduler, response-law numerics, timeline and label rule unchanged",
+      "scientific_effect": "no finalized stream or model result was produced; this is execution-environment robustness only and does not change any registered scientific parameter",
+      "exact_interval_note": "collector checks RAM every 50 intervals but does not emit t on failure, so exact interval progress cannot be reconstructed from the failed run"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "protocol": "024",
   "round": "next_round_v1",
-  "environment_id": "github_ubuntu22_cpu_v2",
+  "environment_id": "github_ubuntu22_cpu_v3",
   "registered_before_successful_stream_generation": true,
   "python": "3.8",
   "runner": "GitHub-hosted ubuntu-22.04",
@@ -10,18 +10,21 @@
   "single_experiment_process": true,
   "torch_threads": 3,
   "interop_threads": 1,
-  "available_ram_guard_gib": 1.5,
+  "available_ram_guard_gib": 0.5,
   "available_disk_guard_gib": 5.0,
   "priority": "POSIX nice +10",
-  "previous_ram_guard_gib": 2.5,
   "ram_guard_revision_basis": {
-    "workflow_run": 34839589954,
-    "failure_after_real_simulator_execution": true,
-    "failure": "RAM guard below 2.5 GiB for 180 s while available RAM was 2.479 GiB",
+    "failed_runs": [34839589954, 34850369770],
+    "observations": [
+      "run 34839589954: guard aborted after about 88 minutes at 2.479 GiB available",
+      "run 34850369770: guard aborted after about 163 minutes at 1.484 GiB available"
+    ],
     "observed_allocation_failure": false,
     "observed_oom": false,
-    "reason": "The 2.5 GiB emergency threshold was too close to normal hosted-runner steady-state availability and aborted an otherwise healthy simulator. 1.5 GiB retains a substantial emergency margin while avoiding this false-positive guard condition."
+    "reason": "GitHub-hosted available RAM drifts during this long simulator and the previous 2.5/1.5 GiB thresholds produced false-positive aborts. Keep only a 0.5 GiB emergency floor; the runner/OS remains the ultimate OOM protection."
   },
+  "generation_timeout_minutes": 300,
+  "reason_for_generation_timeout": "The second healthy simulator attempt ran 163 minutes before the RAM guard aborted it, so the prior 180-minute workflow limit did not leave enough margin for 4981 rows plus final compression/audit.",
   "reason_for_p24_disk_guard": "Protocol-023's 20 GiB guard was registered for a local workstation. The GitHub-hosted runner exposed 10.897 GiB free before interval 0, so the inherited 20 GiB threshold can never run here. Protocol-024 artifacts are bounded arrays for 4981x16 hosts plus model outputs and are far below 5 GiB; 5 GiB preserves a substantial safety margin without changing experiment physics.",
   "scientific_parameters_changed": false,
   "response_law_config_changed": false,

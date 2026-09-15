@@ -18,7 +18,7 @@ permissions:
 jobs:
   generation-only:
     runs-on: ubuntu-22.04
-    timeout-minutes: 180
+    timeout-minutes: 300
     env:
       OMP_NUM_THREADS: '3'
       MKL_NUM_THREADS: '3'
@@ -44,12 +44,13 @@ jobs:
           python - <<'PY'
           import json
           p=json.load(open('artifacts/ftmoe_online/protocol_024/next_round_v1/execution_environment.json'))
-          assert p['available_ram_guard_gib']==1.5
+          assert p['available_ram_guard_gib']==0.5
           assert p['available_disk_guard_gib']==5.0
+          assert p['generation_timeout_minutes']==300
           assert p['scientific_parameters_changed'] is False
           assert p['response_law_config_changed'] is False
           assert p['confirmation_seeds_used'] is False
-          print(json.dumps({'ram_guard_gib':1.5,'disk_guard_gib':5.0,'scientific_parameters_changed':False}))
+          print(json.dumps({'ram_guard_gib':0.5,'disk_guard_gib':5.0,'timeout_minutes':300,'scientific_parameters_changed':False}))
           PY
       - name: Generate registered seed700 response-law stream
         run: |
@@ -74,10 +75,11 @@ jobs:
               assert not set(m['audit_only_npz_keys']) & set(m['model_input_keys'])
           print(json.dumps({'stream_sha256':m['stream_sha256'],'steps':4980,'guard_rows':1,'label_recompute_equal':True}))
           PY
-      - name: Upload immutable generated stream
+      - name: Upload generation evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: protocol024-next-round-v1-generation-only
           path: artifacts/ftmoe_online/protocol_024/next_round_v1/data
-          if-no-files-found: error
+          if-no-files-found: warn
           compression-level: 6

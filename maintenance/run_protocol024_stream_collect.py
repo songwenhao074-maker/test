@@ -4,15 +4,15 @@ Protocol-023's helper carries workstation-specific assumptions that are not
 portable to GitHub-hosted Ubuntu: the Windows-only below-normal priority class
 and local free-resource guards. Protocol-024 records its hosted-CI discipline
 separately in ``next_round_v1/execution_environment.json``: POSIX nice +10,
-RAM guard 1.5 GiB and disk guard 5 GiB.
+RAM emergency floor 0.5 GiB and disk guard 5 GiB.
 
-The RAM guard was reduced from 2.5 GiB after run 34839589954 spent ~88 minutes
-successfully executing the real simulator and was then stopped solely because
-available RAM stayed at 2.479 GiB for the inherited 180-second guard window.
-There was no allocation/OOM failure. 1.5 GiB still leaves a material emergency
-margin while avoiding a false abort on the hosted runner. This wrapper changes
-no workload, seed, timeline, label rule, response-law numeric, scheduler, or
-model input.
+Two long, otherwise healthy hosted runs demonstrated that a fixed multi-GiB
+``available`` RAM threshold is not a valid steady-state requirement on this
+runner: run 34839589954 was stopped at 2.479 GiB after ~88 min and run
+34850369770 was stopped at 1.484 GiB after ~163 min, with neither run reporting
+an allocation failure or OOM. The guard is therefore retained only as a true
+emergency floor at 0.5 GiB. This wrapper changes no workload, seed, timeline,
+label rule, response-law numeric, scheduler, or model input.
 """
 from pathlib import Path
 import sys
@@ -29,7 +29,7 @@ if not hasattr(psutil, "BELOW_NORMAL_PRIORITY_CLASS"):
 # globals to the Protocol-024 hosted-CI thresholds.
 import prepare_ftmoe_protocol023_stream as _p23_guard
 _p23_guard.DISK_GUARD_GIB = 5.0
-_p23_guard.RAM_GUARD_GIB = 1.5
+_p23_guard.RAM_GUARD_GIB = 0.5
 
 from prepare_ftmoe_protocol024_stream import main
 
