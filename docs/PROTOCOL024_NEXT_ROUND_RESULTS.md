@@ -46,23 +46,28 @@ finalizer workflow run：`34953715809`，**success**。
 
 正式 downstream run：`34953810201`。
 
-执行顺序：
+当前 GitHub Actions 状态：
 
-1. 校验 immutable stream SHA、恢复 provenance、label 重算和 anchor target；
-2. 运行 13-interval 隔离的 raw-history / frozen-z learnability probe；
-3. 按预注册 gate 判断是否允许继续；
-4. 若通过，比较固定 C 的 `update_every=4` 与 `update_every=1`；
-5. 冻结 lifecycle loss threshold；
-6. 在同一 seed700 / raw_next_fault 目标下运行 lifecycle-on A/C/D pilot；
-7. 输出 `status.json`、`comparison.json`、各 arm predictions/checkpoints 与 D lifecycle ledger。
+- immutable stream / provenance / label / anchor 校验：**通过**；
+- 13-interval 隔离的 raw-history / frozen-z learnability probe：**完成**；
+- 预注册 learnability gate：**通过**；
+- 当前正在执行固定 C 的 `update_every=4` 与 `update_every=1` 预算比较；
+- lifecycle threshold calibration 与 lifecycle-on A/C/D pilot 尚未开始。
 
-若 learnability gate 不通过，workflow 会停止在 gate，不会为了得到 D 优势继续修改 response-law 参数或使用确认种子。
+learnability gate 已通过意味着 response_law_v1 至少满足本轮预注册的“可继续进入模型开发”条件；没有因为场景不可学而触发 response-law 修订。具体 AP/prevalence/z-gap 将在 run 完成并取得 artifact 后写入本文件。
+
+后续顺序：
+
+1. 完成 C update budget 选择；
+2. 冻结 lifecycle loss threshold；
+3. 在同一 seed700 / raw_next_fault 目标下运行 lifecycle-on A/C/D pilot；
+4. 输出 `status.json`、`comparison.json`、各 arm predictions/checkpoints 与 D lifecycle ledger。
 
 ## 尚未完成
 
 以下项目仍不能标记完成：
 
-- learnability 是否通过；
+- learnability 的具体 AP / prevalence / frozen-z gap 数值落盘汇总；
 - C 的最终 update budget；
 - lifecycle-on D 是否实际发生 candidate birth / acceptance / reactivation / retirement；
 - recurrence first-100 窗口中的 D−C AP；
@@ -73,8 +78,7 @@ finalizer workflow run：`34953715809`，**success**。
 
 优先读取 run `34953810201` 的 artifact `protocol024-next-round-v1-recovered-valid-development`。
 
-- 若 learnability fail：按预注册规则判断是 raw/history 本身不可学，还是 frozen-z 丢失历史信号；只允许对应的一次 response-law/共同特征修订，不能扫描确认种子。
-- 若 lifecycle 没有事件：根据 `lifecycle.jsonl` 区分 trigger 未发生、candidate 样本不足、qualification 失败或 cooldown/阈值问题。
+- 若后续 lifecycle 没有事件：根据 `lifecycle.jsonl` 区分 trigger 未发生、candidate 样本不足、qualification 失败或 cooldown/阈值问题。
 - 若 lifecycle 已执行但 D≈C：比较同一 recurrence 群体上的专业化与部署前后 paired loss，不无限增加容量。
 - 若 D 更差：先查 topology action 前后 logit jump、选择性训练、旧业务退化和 D 额外预算。
 - 只有 lifecycle-on A/C/D 完成并有有效 recurrence coverage 后，才讨论是否进入 701–703 确认阶段。
