@@ -57,6 +57,21 @@
       "fix": "retain only a 0.5 GiB emergency free-RAM floor and extend generation-only timeout from 180 to 300 minutes; keep one process, three CPU threads, workload, seed700, scheduler, response-law numerics, timeline and label rule unchanged",
       "scientific_effect": "no finalized stream or model result was produced; this is execution-environment robustness only and does not change any registered scientific parameter",
       "exact_interval_note": "collector checks RAM every 50 intervals but does not emit t on failure, so exact interval progress cannot be reconstructed from the failed run"
+    },
+    {
+      "id": "P24-NR-06",
+      "workflow_run": 34918496058,
+      "status": "fixed_and_rerun_started",
+      "simulator_definitely_completed_main_collection": true,
+      "generation_step_elapsed_seconds_approx": 11039,
+      "failure": "NameError: name 'SCORED_STEPS' is not defined while constructing final per-response-law audit",
+      "cause": "The registered constant is named SCORDED_STEPS=4980, but the final audit block referenced SCORED_STEPS once. The stream had already been written before this finalization bug.",
+      "fix_commit": "4bab9047f0494372b2540f9a622ca7ccd427d5ac",
+      "fix": "portable launcher aliases the intended collector constant in the Protocol-024 module namespace before invoking main(); no workload or model setting changes",
+      "rerun_workflow_run": 34951444062,
+      "rerun_status_at_record_time": "in_progress",
+      "scientific_effect": "none; this is a post-collection audit-finalization symbol typo. No seed, response-law numeric, timeline, scheduler, label rule, model input or scientific hyperparameter changed.",
+      "evidence": "run 34918496058 passed dependency installation and all 4 response-law tests; failure occurred after np.savez_compressed(stream_path, ...) and before manifest/audit finalization; three intermediate files were uploaded as artifact 10381312155"
     }
   ]
 }
