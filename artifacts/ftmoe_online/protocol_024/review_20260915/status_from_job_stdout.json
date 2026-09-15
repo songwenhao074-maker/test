@@ -1,0 +1,27 @@
+{
+  "protocol": "024",
+  "round": "next_round_v1",
+  "confirmation_run": false,
+  "engineering_passed": true,
+  "new_stream_generated": true,
+  "stream_generation_source_run_id": 34918496058,
+  "stream_finalizer_run_id": 34953715809,
+  "stream_recovered_without_simulator_rerun": true,
+  "stream_sha256": "468725ff2f164bee89017bfa329d63e20566659a42d2a0492e977e744c7ae946",
+  "learnability_completed": true,
+  "learnability_passed": true,
+  "budget_comparison_completed": true,
+  "selected_update_every": 4,
+  "lifecycle_calibration_completed": true,
+  "fixed_loss_threshold": 0.7022458374191777,
+  "lifecycle_on_run_completed": true,
+  "lifecycle_exercised": false,
+  "development_signal": false,
+  "target": "raw_next_fault",
+  "seeds": {
+    "replay": 700,
+    "model": 1,
+    "confirmation_used": []
+  },
+  "lifecycle_not_exercised_reason": "lifecycle was ON and candidates were causally trained/qualified, but no candidate passed frozen acceptance; retirement was preregistered disabled"
+}

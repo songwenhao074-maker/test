@@ -1,9 +1,10 @@
 # 从 GitHub 继续 FT-MoE 实验
 
-**最新入口更新（Protocol-024 审阅，2026-09-14）：** 先读 [最新审阅](PROTOCOL024_REVIEW_20260914.md)
-和 [下一轮执行指示](PROTOCOL024_NEXT_DIRECTIVE_20260914.md)。main 已整合 continuation 分支的 P24 工程成果。
-下文为此前 023 同步时的资产/环境交接；“D 尚未实现”等状态只指历史 023，不代表当前 P24 尚无容器/session。
-P24 尚未启用生命周期做正式性能对比，且继承的保存函数可能指向 P23，下一轮须先隔离再运行。
+**最新入口更新（2026-09-15）：** 先读 [本次审阅](PROTOCOL024_REVIEW_20260915.md) 和
+[next_round_v2 指示](PROTOCOL024_NEXT_DIRECTIVE_20260915.md)。默认分支整合 next-round 分支的成功运行代码与结果。
+v1 lifecycle-on pilot 已完成，但 candidate_created=0，D=C。P24 已有独立保存目录、evaluator 与恢复修复证据。
+下一轮复用 SHA256 已固定的 stream，不重跑三小时模拟器。Actions 34953810201 的原始产物取回与长期归档方法见新指示。
+下文是历史 P23 的资产/环境交接；发生状态冲突时以本段和最新指示为准。
 
 更新：2026-09-14。本次同步合并远端 `ca39074` 的文档历史与本地 `1ccd6b1` 的精简历史；不改写历史实验结果。
 

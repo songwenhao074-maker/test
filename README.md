@@ -1,8 +1,9 @@
 <h1 align="center">PreGAN+ · FT-MoE online-learning track</h1>
 
-> **最新（2026-09-14，Protocol-024）：** [最新结果审阅](docs/PROTOCOL024_REVIEW_20260914.md) ·
-> [下一轮实验指示](docs/PROTOCOL024_NEXT_DIRECTIVE_20260914.md)。D 已接入共同 session，
-> lifecycle-off 的 1140 步等价检查通过；尚无动态性能结果。评估接线、保存目录与恢复缺口详见审阅。
+> **最新（2026-09-15，Protocol-024）：** [结果审阅](docs/PROTOCOL024_REVIEW_20260915.md) ·
+> [下一轮实验指示](docs/PROTOCOL024_NEXT_DIRECTIVE_20260915.md) · [v1 结果](docs/PROTOCOL024_NEXT_ROUND_RESULTS.md)。
+> 真实 lifecycle-on pilot 已完成；候选创建为0，C=D AP=0.667584，尚无 D 优势。
+> 下一轮复用数据，检验预算内主动候选、记忆保留与快速复用；确认种子继续封存。
 
 > **入口：** [项目现状与历史沿革](docs/PROJECT_STATUS_AND_HISTORY.md)（唯一状态入口）·
 > [协议 023 设计与结果](docs/FTMOE_ONLINE_PROTOCOL_023.md)
@@ -28,7 +29,7 @@ Raspberry-Pi 边缘模拟器与多种调度器、恢复策略基线。
 **历史协议 023 第二轮 A：`D_eligible = false`，D 尚未实现或测试。** C 首次接触三机制的
 末段增益为 +0.0049 / +0.0020 / +0.0203；再次出现时增益为 +0.0571 / +0.0972 / +0.1297
 （compute / memory / io）。未测得达到旧门槛的遗忘和梯度冲突。2026-09-14 审计发现阶段
-onset 时间轴错误及倒数第二行漏结算，已独立重算，运行器尚未修复。新实验应先修评估，
+onset 时间轴错误及倒数第二行漏结算，已独立重算，这些旧问题已在 P24 新链路修复，历史 P23 产物不回写。新实验应按最新指示，
 再直接研究 D 在合理有利情形下的优势，不沿用旧计划中禁止实现 D 的通用门禁。
 
 ---

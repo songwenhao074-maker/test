@@ -1,11 +1,9 @@
-# 当前项目入口
+# 当前项目上下文（2026-09-15）
 
-先读 [Protocol-024 最新结果审阅](docs/PROTOCOL024_REVIEW_20260914.md) 和 [下一轮实验指示](docs/PROTOCOL024_NEXT_DIRECTIVE_20260914.md)。
+目标：在现实合理、可明确解释且允许公开资源不对称的在线情形中，验证动态专家 D 的优势。
 
-当前成果：15项P24单测通过；lifecycle-off C/D扩展到1140步，各285更新、覆盖825个异常host-step，概率差在浮点容差内。D尚未启用动态策略做性能对比。
+最新结果为 Protocol-024 next_round_v1，Actions 34953810201 已成功完成。数据可学，固定 C 明显优于冻结 A；D 触发器未创建候选，因此 D=C，尚无动态机制优势证据。v1 的 pressure/persistence 基线比模型取得了更晚的信息，须修正部署比较。
 
-当前缺口：实际阶段评估仍走旧代码；继承的保存函数指向023旧目录；拒绝候选后ID空缺无法恢复；优化器、行为哈希、完整resume与容量回收待完成。
+先读 [最新审阅](docs/PROTOCOL024_REVIEW_20260915.md)，执行 [next_round_v2 指示](docs/PROTOCOL024_NEXT_DIRECTIVE_20260915.md)。工程修复已推进，不重复旧普遍 D 禁入门禁。保留所有负开发结果，确认701–703和测试201–205未使用。
 
-目标：在合理有利的特定在线情形下实测D的优势，公开比较条件并保留失败结果。优先完成可审计的动态pilot，不再只重复容器等价测试。
-
-资产与环境见 [GitHub 交接](docs/GITHUB_EXPERIMENT_HANDOFF.md)，历史见 [项目现状](docs/PROJECT_STATUS_AND_HISTORY.md)。
+源码/结果基点 b2410d74bccb44889521549da7c3b7c7b47c0a9e；本次提交增加审阅、stdout证据摘录与指示，未运行新性能实验。

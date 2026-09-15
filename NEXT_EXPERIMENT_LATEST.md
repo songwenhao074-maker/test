@@ -1,11 +1,11 @@
 # 下一轮实验入口
 
-当前唯一下一轮执行指示：[Protocol-024：修复实际链路，交付首个动态 pilot](docs/PROTOCOL024_NEXT_DIRECTIVE_20260914.md)。
+当前执行指示：[Protocol-024 next_round_v2](docs/PROTOCOL024_NEXT_DIRECTIVE_20260915.md)。
 
-先读 [最新结果审阅与1140步追加验证](docs/PROTOCOL024_REVIEW_20260914.md)，再执行上述指示。
+先读 [2026-09-15 结果审阅](docs/PROTOCOL024_REVIEW_20260915.md) 和 [v1 原始阶段结果](docs/PROTOCOL024_NEXT_ROUND_RESULTS.md)。
 
-最新实现已接入 C/D 共同在线 session；关闭生命周期时等价。尚未产生生命周期开启的 D 性能结果。
+最新有效 pilot：seed700/model1，A AP=0.510442，C=D AP=0.667584；D candidate_created=0，development_signal=false。不能称 D 已优于 C。
 
-下一轮重点：隔离检查点目录、接通实际 evaluator、修复候选拒绝后的恢复与动态 optimizer，然后完成因果生命周期和三个 response-law 的 A/C/D pilot。新性能实验注册 raw next-fault 目标；旧 tol1 检测结果保持原样、不混表。701～703仍保留确认用途。
+下一步：复用不可变 stream，修正基线可得时点；注册周期性后台候选训练并因果验收，再检验专家保留、退役和快速复用。只有实际发生硬删除时才讨论其贡献。确认701–703、测试201–205继续封存。
 
-更早 C Rescue / 负梯度 / specialist 必要性门禁不再是禁止新协议实施 D 的通用条件。历史指示保留于 Git。
+本次审阅不运行新实验，不覆盖 v1 证据。下一模型直接执行 v2 指示，并将结果保存于独立 run_id。

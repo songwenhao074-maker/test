@@ -1,3 +1,14 @@
+# 2026-09-15 当前状态补充
+
+Protocol-024 next_round_v1 已完成真实 A/C/D pilot（Actions 34953810201）。A AP=0.510442，C=D AP=0.667584；
+D candidate_created=0，development_signal=false。本轮未启动动态专家拓扑变化，不能声称 D 优于 C。
+
+当前入口：[结果审阅](PROTOCOL024_REVIEW_20260915.md) 与 [next_round_v2 指示](PROTOCOL024_NEXT_DIRECTIVE_20260915.md)。
+本次审阅核验成功运行及 stdout 的比较结果，并发现 pressure/persistence 的可得时点错位；
+未独立重算原 NPZ。确认种子仍未使用。下文保留历史记录，旧“尚无生命周期性能运行”等只描述当时状态。
+
+---
+
 # 项目现状与历史沿革
 
 **当前进度补充（Protocol-024，2026-09-14）：** 已审阅 `674c626` 的 continuation 结果，15项单测通过，

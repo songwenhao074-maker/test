@@ -1,0 +1,1152 @@
+{
+  "protocol": "024",
+  "round": "next_round_v1",
+  "development_only": true,
+  "confirmation_run": false,
+  "target": "raw_next_fault",
+  "model_seed": 1,
+  "replay_seed": 700,
+  "selected_update_every": 4,
+  "anchor": {
+    "protocol": "024",
+    "kind": "independent_historical_raw_next_anchor",
+    "target": "raw_label[i+1] same host/resource class",
+    "legacy_stored_labels_used": false,
+    "new_response_law_stream_used": false,
+    "source_stream": "/home/runner/work/FT-MoE/FT-MoE/artifacts/ftmoe_online/protocol_023/development_streams/dev_seed700_steps2880_calibrated",
+    "source_stream_sha256": "54d155260a0cac71ff5d383f9c3b7270ff9ac96c4209881c2dbd1bd63bffd0f2",
+    "source_steps": 2880,
+    "history_intervals": 12,
+    "index_start": 11,
+    "index_end_inclusive": 2879,
+    "index_stride": 6,
+    "anchor_samples": 479,
+    "indices_sha256": "febd6b53e9df170d8e2b34770fceeb3616ebb615f9d36306cbcb0fb2f11f8608",
+    "future_row_offset": 1,
+    "selection_depends_on_target": false,
+    "fully_observed_historical_source": true
+  },
+  "switch_first100": [
+    {
+      "phase": "R1_first",
+      "response_law": "R1",
+      "intervals": [
+        300,
+        400
+      ],
+      "arms": {
+        "A": {
+          "ap": 0.1680369480542884,
+          "reason": null,
+          "rows": 1600,
+          "positives": 87,
+          "negatives": 1513,
+          "prevalence": 0.054375,
+          "threshold": 0.5,
+          "tp": 0,
+          "fp": 30,
+          "fn": 87,
+          "tn": 1483,
+          "recall": 0,
+          "fpr": 0.01982815598149372
+        },
+        "C": {
+          "ap": 0.1690995721221725,
+          "reason": null,
+          "rows": 1600,
+          "positives": 87,
+          "negatives": 1513,
+          "prevalence": 0.054375,
+          "threshold": 0.5,
+          "tp": 0,
+          "fp": 30,
+          "fn": 87,
+          "tn": 1483,
+          "recall": 0,
+          "fpr": 0.01982815598149372
+        },
+        "D": {
+          "ap": 0.1690995721221725,
+          "reason": null,
+          "rows": 1600,
+          "positives": 87,
+          "negatives": 1513,
+          "prevalence": 0.054375,
+          "threshold": 0.5,
+          "tp": 0,
+          "fp": 30,
+          "fn": 87,
+          "tn": 1483,
+          "recall": 0,
+          "fpr": 0.01982815598149372
+        }
+      },
+      "D_minus_C_ap": 0
+    },
+    {
+      "phase": "R2_first",
+      "response_law": "R2",
+      "intervals": [
+        1500,
+        1600
+      ],
+      "arms": {
+        "A": {
+          "ap": 0.5324515258922903,
+          "reason": null,
+          "rows": 1600,
+          "positives": 244,
+          "negatives": 1356,
+          "prevalence": 0.1525,
+          "threshold": 0.5,
+          "tp": 126,
+          "fp": 109,
+          "fn": 118,
+          "tn": 1247,
+          "recall": 0.5163934426229508,
+          "fpr": 0.0803834808259587
+        },
+        "C": {
+          "ap": 0.6646240785323811,
+          "reason": null,
+          "rows": 1600,
+          "positives": 244,
+          "negatives": 1356,
+          "prevalence": 0.1525,
+          "threshold": 0.5,
+          "tp": 166,
+          "fp": 144,
+          "fn": 78,
+          "tn": 1212,
+          "recall": 0.680327868852459,
+          "fpr": 0.10619469026548672
+        },
+        "D": {
+          "ap": 0.6646240785323811,
+          "reason": null,
+          "rows": 1600,
+          "positives": 244,
+          "negatives": 1356,
+          "prevalence": 0.1525,
+          "threshold": 0.5,
+          "tp": 166,
+          "fp": 144,
+          "fn": 78,
+          "tn": 1212,
+          "recall": 0.680327868852459,
+          "fpr": 0.10619469026548672
+        }
+      },
+      "D_minus_C_ap": 0
+    },
+    {
+      "phase": "R3_first",
+      "response_law": "R3",
+      "intervals": [
+        2700,
+        2800
+      ],
+      "arms": {
+        "A": {
+          "ap": 0.5577792948451301,
+          "reason": null,
+          "rows": 1600,
+          "positives": 87,
+          "negatives": 1513,
+          "prevalence": 0.054375,
+          "threshold": 0.5,
+          "tp": 68,
+          "fp": 80,
+          "fn": 19,
+          "tn": 1433,
+          "recall": 0.7816091954022989,
+          "fpr": 0.05287508261731659
+        },
+        "C": {
+          "ap": 0.6100605821342018,
+          "reason": null,
+          "rows": 1600,
+          "positives": 87,
+          "negatives": 1513,
+          "prevalence": 0.054375,
+          "threshold": 0.5,
+          "tp": 67,
+          "fp": 61,
+          "fn": 20,
+          "tn": 1452,
+          "recall": 0.7701149425287356,
+          "fpr": 0.0403172504957039
+        },
+        "D": {
+          "ap": 0.6100605821342018,
+          "reason": null,
+          "rows": 1600,
+          "positives": 87,
+          "negatives": 1513,
+          "prevalence": 0.054375,
+          "threshold": 0.5,
+          "tp": 67,
+          "fp": 61,
+          "fn": 20,
+          "tn": 1452,
+          "recall": 0.7701149425287356,
+          "fpr": 0.0403172504957039
+        }
+      },
+      "D_minus_C_ap": 0
+    },
+    {
+      "phase": "R1_rec1",
+      "response_law": "R1",
+      "intervals": [
+        3900,
+        4000
+      ],
+      "arms": {
+        "A": {
+          "ap": 0.2895296754681495,
+          "reason": null,
+          "rows": 1600,
+          "positives": 109,
+          "negatives": 1491,
+          "prevalence": 0.068125,
+          "threshold": 0.5,
+          "tp": 29,
+          "fp": 56,
+          "fn": 80,
+          "tn": 1435,
+          "recall": 0.26605504587155965,
+          "fpr": 0.03755868544600939
+        },
+        "C": {
+          "ap": 0.4241757751569646,
+          "reason": null,
+          "rows": 1600,
+          "positives": 109,
+          "negatives": 1491,
+          "prevalence": 0.068125,
+          "threshold": 0.5,
+          "tp": 47,
+          "fp": 54,
+          "fn": 62,
+          "tn": 1437,
+          "recall": 0.43119266055045874,
+          "fpr": 0.03621730382293763
+        },
+        "D": {
+          "ap": 0.4241757751569646,
+          "reason": null,
+          "rows": 1600,
+          "positives": 109,
+          "negatives": 1491,
+          "prevalence": 0.068125,
+          "threshold": 0.5,
+          "tp": 47,
+          "fp": 54,
+          "fn": 62,
+          "tn": 1437,
+          "recall": 0.43119266055045874,
+          "fpr": 0.03621730382293763
+        }
+      },
+      "D_minus_C_ap": 0
+    },
+    {
+      "phase": "R3_rec1",
+      "response_law": "R3",
+      "intervals": [
+        4080,
+        4180
+      ],
+      "arms": {
+        "A": {
+          "ap": 0.663621219666546,
+          "reason": null,
+          "rows": 1600,
+          "positives": 58,
+          "negatives": 1542,
+          "prevalence": 0.03625,
+          "threshold": 0.5,
+          "tp": 48,
+          "fp": 57,
+          "fn": 10,
+          "tn": 1485,
+          "recall": 0.8275862068965517,
+          "fpr": 0.03696498054474708
+        },
+        "C": {
+          "ap": 0.6746530061611652,
+          "reason": null,
+          "rows": 1600,
+          "positives": 58,
+          "negatives": 1542,
+          "prevalence": 0.03625,
+          "threshold": 0.5,
+          "tp": 47,
+          "fp": 42,
+          "fn": 11,
+          "tn": 1500,
+          "recall": 0.8103448275862069,
+          "fpr": 0.027237354085603113
+        },
+        "D": {
+          "ap": 0.6746530061611652,
+          "reason": null,
+          "rows": 1600,
+          "positives": 58,
+          "negatives": 1542,
+          "prevalence": 0.03625,
+          "threshold": 0.5,
+          "tp": 47,
+          "fp": 42,
+          "fn": 11,
+          "tn": 1500,
+          "recall": 0.8103448275862069,
+          "fpr": 0.027237354085603113
+        }
+      },
+      "D_minus_C_ap": 0
+    },
+    {
+      "phase": "R2_rec1",
+      "response_law": "R2",
+      "intervals": [
+        4260,
+        4360
+      ],
+      "arms": {
+        "A": {
+          "ap": 0.6098336187449983,
+          "reason": null,
+          "rows": 1600,
+          "positives": 236,
+          "negatives": 1364,
+          "prevalence": 0.1475,
+          "threshold": 0.5,
+          "tp": 132,
+          "fp": 65,
+          "fn": 104,
+          "tn": 1299,
+          "recall": 0.559322033898305,
+          "fpr": 0.047653958944281524
+        },
+        "C": {
+          "ap": 0.8192719537215778,
+          "reason": null,
+          "rows": 1600,
+          "positives": 236,
+          "negatives": 1364,
+          "prevalence": 0.1475,
+          "threshold": 0.5,
+          "tp": 193,
+          "fp": 60,
+          "fn": 43,
+          "tn": 1304,
+          "recall": 0.8177966101694916,
+          "fpr": 0.04398826979472141
+        },
+        "D": {
+          "ap": 0.8192719537215778,
+          "reason": null,
+          "rows": 1600,
+          "positives": 236,
+          "negatives": 1364,
+          "prevalence": 0.1475,
+          "threshold": 0.5,
+          "tp": 193,
+          "fp": 60,
+          "fn": 43,
+          "tn": 1304,
+          "recall": 0.8177966101694916,
+          "fpr": 0.04398826979472141
+        }
+      },
+      "D_minus_C_ap": 0
+    },
+    {
+      "phase": "R1_rec2",
+      "response_law": "R1",
+      "intervals": [
+        4440,
+        4540
+      ],
+      "arms": {
+        "A": {
+          "ap": 0.3874079286884453,
+          "reason": null,
+          "rows": 1600,
+          "positives": 116,
+          "negatives": 1484,
+          "prevalence": 0.0725,
+          "threshold": 0.5,
+          "tp": 34,
+          "fp": 18,
+          "fn": 82,
+          "tn": 1466,
+          "recall": 0.29310344827586204,
+          "fpr": 0.012129380053908356
+        },
+        "C": {
+          "ap": 0.5443803935456034,
+          "reason": null,
+          "rows": 1600,
+          "positives": 116,
+          "negatives": 1484,
+          "prevalence": 0.0725,
+          "threshold": 0.5,
+          "tp": 58,
+          "fp": 56,
+          "fn": 58,
+          "tn": 1428,
+          "recall": 0.5,
+          "fpr": 0.03773584905660377
+        },
+        "D": {
+          "ap": 0.5443803935456034,
+          "reason": null,
+          "rows": 1600,
+          "positives": 116,
+          "negatives": 1484,
+          "prevalence": 0.0725,
+          "threshold": 0.5,
+          "tp": 58,
+          "fp": 56,
+          "fn": 58,
+          "tn": 1428,
+          "recall": 0.5,
+          "fpr": 0.03773584905660377
+        }
+      },
+      "D_minus_C_ap": 0
+    },
+    {
+      "phase": "R2_rec2",
+      "response_law": "R2",
+      "intervals": [
+        4620,
+        4720
+      ],
+      "arms": {
+        "A": {
+          "ap": 0.5970139311031902,
+          "reason": null,
+          "rows": 1600,
+          "positives": 246,
+          "negatives": 1354,
+          "prevalence": 0.15375,
+          "threshold": 0.5,
+          "tp": 100,
+          "fp": 50,
+          "fn": 146,
+          "tn": 1304,
+          "recall": 0.4065040650406504,
+          "fpr": 0.03692762186115214
+        },
+        "C": {
+          "ap": 0.7786401560518418,
+          "reason": null,
+          "rows": 1600,
+          "positives": 246,
+          "negatives": 1354,
+          "prevalence": 0.15375,
+          "threshold": 0.5,
+          "tp": 174,
+          "fp": 52,
+          "fn": 72,
+          "tn": 1302,
+          "recall": 0.7073170731707317,
+          "fpr": 0.03840472673559823
+        },
+        "D": {
+          "ap": 0.7786401560518418,
+          "reason": null,
+          "rows": 1600,
+          "positives": 246,
+          "negatives": 1354,
+          "prevalence": 0.15375,
+          "threshold": 0.5,
+          "tp": 174,
+          "fp": 52,
+          "fn": 72,
+          "tn": 1302,
+          "recall": 0.7073170731707317,
+          "fpr": 0.03840472673559823
+        }
+      },
+      "D_minus_C_ap": 0
+    },
+    {
+      "phase": "R3_rec2",
+      "response_law": "R3",
+      "intervals": [
+        4800,
+        4900
+      ],
+      "arms": {
+        "A": {
+          "ap": 0.5894683639484432,
+          "reason": null,
+          "rows": 1600,
+          "positives": 120,
+          "negatives": 1480,
+          "prevalence": 0.075,
+          "threshold": 0.5,
+          "tp": 97,
+          "fp": 102,
+          "fn": 23,
+          "tn": 1378,
+          "recall": 0.8083333333333333,
+          "fpr": 0.06891891891891892
+        },
+        "C": {
+          "ap": 0.6981412432609759,
+          "reason": null,
+          "rows": 1600,
+          "positives": 120,
+          "negatives": 1480,
+          "prevalence": 0.075,
+          "threshold": 0.5,
+          "tp": 107,
+          "fp": 73,
+          "fn": 13,
+          "tn": 1407,
+          "recall": 0.8916666666666667,
+          "fpr": 0.04932432432432433
+        },
+        "D": {
+          "ap": 0.6981412432609759,
+          "reason": null,
+          "rows": 1600,
+          "positives": 120,
+          "negatives": 1480,
+          "prevalence": 0.075,
+          "threshold": 0.5,
+          "tp": 107,
+          "fp": 73,
+          "fn": 13,
+          "tn": 1407,
+          "recall": 0.8916666666666667,
+          "fpr": 0.04932432432432433
+        }
+      },
+      "D_minus_C_ap": 0
+    }
+  ],
+  "first_exposure_mean_D_minus_C": 0,
+  "recurrence": {
+    "valid_switches": 6,
+    "total_switches": 6,
+    "coverage": 1,
+    "mean_D_minus_C_ap": 0,
+    "positive_D_minus_C_switches": 0,
+    "threshold_metrics": {
+      "A": {
+        "ap": 0.5113911892298003,
+        "reason": null,
+        "rows": 9600,
+        "positives": 885,
+        "negatives": 8715,
+        "prevalence": 0.0921875,
+        "threshold": 0.5,
+        "tp": 440,
+        "fp": 348,
+        "fn": 445,
+        "tn": 8367,
+        "recall": 0.4971751412429379,
+        "fpr": 0.039931153184165236
+      },
+      "C": {
+        "ap": 0.6967346533706623,
+        "reason": null,
+        "rows": 9600,
+        "positives": 885,
+        "negatives": 8715,
+        "prevalence": 0.0921875,
+        "threshold": 0.5,
+        "tp": 626,
+        "fp": 337,
+        "fn": 259,
+        "tn": 8378,
+        "recall": 0.7073446327683616,
+        "fpr": 0.03866896156052783
+      },
+      "D": {
+        "ap": 0.6967346533706623,
+        "reason": null,
+        "rows": 9600,
+        "positives": 885,
+        "negatives": 8715,
+        "prevalence": 0.0921875,
+        "threshold": 0.5,
+        "tp": 626,
+        "fp": 337,
+        "fn": 259,
+        "tn": 8378,
+        "recall": 0.7073446327683616,
+        "fpr": 0.03866896156052783
+      }
+    },
+    "normal_fpr_D_minus_C": 0
+  },
+  "full_detection": {
+    "A": {
+      "ap": 0.5104419247613106,
+      "reason": null,
+      "rows": 79680,
+      "positives": 6923,
+      "negatives": 72757,
+      "prevalence": 0.08688504016064257,
+      "threshold": 0.5,
+      "tp": 3448,
+      "fp": 2855,
+      "fn": 3475,
+      "tn": 69902,
+      "recall": 0.4980499783330926,
+      "fpr": 0.039240210563931996
+    },
+    "C": {
+      "ap": 0.6675838917027174,
+      "reason": null,
+      "rows": 79680,
+      "positives": 6923,
+      "negatives": 72757,
+      "prevalence": 0.08688504016064257,
+      "threshold": 0.5,
+      "tp": 4697,
+      "fp": 2775,
+      "fn": 2226,
+      "tn": 69982,
+      "recall": 0.6784630940343782,
+      "fpr": 0.038140660005222864
+    },
+    "D": {
+      "ap": 0.6675838917027174,
+      "reason": null,
+      "rows": 79680,
+      "positives": 6923,
+      "negatives": 72757,
+      "prevalence": 0.08688504016064257,
+      "threshold": 0.5,
+      "tp": 4697,
+      "fp": 2775,
+      "fn": 2226,
+      "tn": 69982,
+      "recall": 0.6784630940343782,
+      "fpr": 0.038140660005222864
+    }
+  },
+  "raw_same_host_onset": {
+    "A": {
+      "ap": 0.10521744246134249,
+      "reason": null,
+      "rows": 72745,
+      "positives": 1658,
+      "negatives": 71087,
+      "horizon": 1
+    },
+    "C": {
+      "ap": 0.16011418522431947,
+      "reason": null,
+      "rows": 72745,
+      "positives": 1658,
+      "negatives": 71087,
+      "horizon": 1
+    },
+    "D": {
+      "ap": 0.16011418522431947,
+      "reason": null,
+      "rows": 72745,
+      "positives": 1658,
+      "negatives": 71087,
+      "horizon": 1
+    }
+  },
+  "future_positive_resource_macro_f1": {
+    "A": {
+      "macro_f1": 0.7644556348816848,
+      "reason": null,
+      "rows": 6923,
+      "per_class": [
+        {
+          "class": 1,
+          "precision": 0.950538579907672,
+          "recall": 0.8278766992150105,
+          "f1": 0.8849774866966843,
+          "support": 5223
+        },
+        {
+          "class": 2,
+          "precision": 0.35639880952380953,
+          "recall": 0.8936567164179104,
+          "f1": 0.5095744680851064,
+          "support": 536
+        },
+        {
+          "class": 3,
+          "precision": 0.9572815533980582,
+          "recall": 0.8470790378006873,
+          "f1": 0.8988149498632634,
+          "support": 1164
+        }
+      ]
+    },
+    "C": {
+      "macro_f1": 0.8391675283057686,
+      "reason": null,
+      "rows": 6923,
+      "per_class": [
+        {
+          "class": 1,
+          "precision": 0.9492502883506344,
+          "recall": 0.945433658816772,
+          "f1": 0.947338129496403,
+          "support": 5223
+        },
+        {
+          "class": 2,
+          "precision": 0.5863192182410424,
+          "recall": 0.6716417910447762,
+          "f1": 0.6260869565217392,
+          "support": 536
+        },
+        {
+          "class": 3,
+          "precision": 0.9683830171635049,
+          "recall": 0.9209621993127147,
+          "f1": 0.9440774988991634,
+          "support": 1164
+        }
+      ]
+    },
+    "D": {
+      "macro_f1": 0.8391675283057686,
+      "reason": null,
+      "rows": 6923,
+      "per_class": [
+        {
+          "class": 1,
+          "precision": 0.9492502883506344,
+          "recall": 0.945433658816772,
+          "f1": 0.947338129496403,
+          "support": 5223
+        },
+        {
+          "class": 2,
+          "precision": 0.5863192182410424,
+          "recall": 0.6716417910447762,
+          "f1": 0.6260869565217392,
+          "support": 536
+        },
+        {
+          "class": 3,
+          "precision": 0.9683830171635049,
+          "recall": 0.9209621993127147,
+          "f1": 0.9440774988991634,
+          "support": 1164
+        }
+      ]
+    }
+  },
+  "per_response_law_detection": {
+    "A": {
+      "R1": {
+        "ap": 0.2529707054360357,
+        "reason": null,
+        "rows": 24960,
+        "positives": 1536,
+        "negatives": 23424,
+        "prevalence": 0.06153846153846154,
+        "threshold": 0.5,
+        "tp": 224,
+        "fp": 406,
+        "fn": 1312,
+        "tn": 23018,
+        "recall": 0.14583333333333334,
+        "fpr": 0.017332650273224042
+      },
+      "R2": {
+        "ap": 0.5904748551567759,
+        "reason": null,
+        "rows": 24960,
+        "positives": 4116,
+        "negatives": 20844,
+        "prevalence": 0.16490384615384615,
+        "threshold": 0.5,
+        "tp": 2094,
+        "fp": 1220,
+        "fn": 2022,
+        "tn": 19624,
+        "recall": 0.5087463556851312,
+        "fpr": 0.058530032623296875
+      },
+      "R3": {
+        "ap": 0.6455421919353096,
+        "reason": null,
+        "rows": 24960,
+        "positives": 1270,
+        "negatives": 23690,
+        "prevalence": 0.050881410256410256,
+        "threshold": 0.5,
+        "tp": 1129,
+        "fp": 1187,
+        "fn": 141,
+        "tn": 22503,
+        "recall": 0.8889763779527559,
+        "fpr": 0.05010552975939215
+      }
+    },
+    "C": {
+      "R1": {
+        "ap": 0.32609385611576075,
+        "reason": null,
+        "rows": 24960,
+        "positives": 1536,
+        "negatives": 23424,
+        "prevalence": 0.06153846153846154,
+        "threshold": 0.5,
+        "tp": 417,
+        "fp": 605,
+        "fn": 1119,
+        "tn": 22819,
+        "recall": 0.271484375,
+        "fpr": 0.02582821038251366
+      },
+      "R2": {
+        "ap": 0.7752548985081055,
+        "reason": null,
+        "rows": 24960,
+        "positives": 4116,
+        "negatives": 20844,
+        "prevalence": 0.16490384615384615,
+        "threshold": 0.5,
+        "tp": 3185,
+        "fp": 1195,
+        "fn": 931,
+        "tn": 19649,
+        "recall": 0.7738095238095238,
+        "fpr": 0.057330646708885054
+      },
+      "R3": {
+        "ap": 0.6582309514796163,
+        "reason": null,
+        "rows": 24960,
+        "positives": 1270,
+        "negatives": 23690,
+        "prevalence": 0.050881410256410256,
+        "threshold": 0.5,
+        "tp": 1094,
+        "fp": 933,
+        "fn": 176,
+        "tn": 22757,
+        "recall": 0.8614173228346457,
+        "fpr": 0.03938370620514985
+      }
+    },
+    "D": {
+      "R1": {
+        "ap": 0.32609385611576075,
+        "reason": null,
+        "rows": 24960,
+        "positives": 1536,
+        "negatives": 23424,
+        "prevalence": 0.06153846153846154,
+        "threshold": 0.5,
+        "tp": 417,
+        "fp": 605,
+        "fn": 1119,
+        "tn": 22819,
+        "recall": 0.271484375,
+        "fpr": 0.02582821038251366
+      },
+      "R2": {
+        "ap": 0.7752548985081055,
+        "reason": null,
+        "rows": 24960,
+        "positives": 4116,
+        "negatives": 20844,
+        "prevalence": 0.16490384615384615,
+        "threshold": 0.5,
+        "tp": 3185,
+        "fp": 1195,
+        "fn": 931,
+        "tn": 19649,
+        "recall": 0.7738095238095238,
+        "fpr": 0.057330646708885054
+      },
+      "R3": {
+        "ap": 0.6582309514796163,
+        "reason": null,
+        "rows": 24960,
+        "positives": 1270,
+        "negatives": 23690,
+        "prevalence": 0.050881410256410256,
+        "threshold": 0.5,
+        "tp": 1094,
+        "fp": 933,
+        "fn": 176,
+        "tn": 22757,
+        "recall": 0.8614173228346457,
+        "fpr": 0.03938370620514985
+      }
+    }
+  },
+  "worst_response_law": {
+    "A": {
+      "response_law": "R1",
+      "ap": 0.2529707054360357
+    },
+    "C": {
+      "response_law": "R1",
+      "ap": 0.32609385611576075
+    },
+    "D": {
+      "response_law": "R1",
+      "ap": 0.32609385611576075
+    }
+  },
+  "baselines": {
+    "full": {
+      "persistence_current_fault": {
+        "ap": 0.5991412739994846,
+        "reason": null,
+        "rows": 79680,
+        "positives": 6923,
+        "negatives": 72757,
+        "prevalence": 0.08688504016064257
+      },
+      "current_pressure": {
+        "ap": 0.7984777388399438,
+        "reason": null,
+        "rows": 79680,
+        "positives": 6923,
+        "negatives": 72757,
+        "prevalence": 0.08688504016064257
+      }
+    },
+    "switch_first100": [
+      {
+        "phase": "R1_first",
+        "persistence": {
+          "ap": 0.3051863687409169,
+          "reason": null,
+          "rows": 1600,
+          "positives": 87,
+          "negatives": 1513,
+          "prevalence": 0.054375
+        },
+        "current_pressure": {
+          "ap": 0.4557974987825786,
+          "reason": null,
+          "rows": 1600,
+          "positives": 87,
+          "negatives": 1513,
+          "prevalence": 0.054375
+        }
+      },
+      {
+        "phase": "R2_first",
+        "persistence": {
+          "ap": 0.7240056436441817,
+          "reason": null,
+          "rows": 1600,
+          "positives": 244,
+          "negatives": 1356,
+          "prevalence": 0.1525
+        },
+        "current_pressure": {
+          "ap": 0.914908312896424,
+          "reason": null,
+          "rows": 1600,
+          "positives": 244,
+          "negatives": 1356,
+          "prevalence": 0.1525
+        }
+      },
+      {
+        "phase": "R3_first",
+        "persistence": {
+          "ap": 0.5334169278996865,
+          "reason": null,
+          "rows": 1600,
+          "positives": 87,
+          "negatives": 1513,
+          "prevalence": 0.054375
+        },
+        "current_pressure": {
+          "ap": 0.757812543398944,
+          "reason": null,
+          "rows": 1600,
+          "positives": 87,
+          "negatives": 1513,
+          "prevalence": 0.054375
+        }
+      },
+      {
+        "phase": "R1_rec1",
+        "persistence": {
+          "ap": 0.390177752293578,
+          "reason": null,
+          "rows": 1600,
+          "positives": 109,
+          "negatives": 1491,
+          "prevalence": 0.068125
+        },
+        "current_pressure": {
+          "ap": 0.5942593046091027,
+          "reason": null,
+          "rows": 1600,
+          "positives": 109,
+          "negatives": 1491,
+          "prevalence": 0.068125
+        }
+      },
+      {
+        "phase": "R3_rec1",
+        "persistence": {
+          "ap": 0.44175089179548155,
+          "reason": null,
+          "rows": 1600,
+          "positives": 58,
+          "negatives": 1542,
+          "prevalence": 0.03625
+        },
+        "current_pressure": {
+          "ap": 0.7020888601659466,
+          "reason": null,
+          "rows": 1600,
+          "positives": 58,
+          "negatives": 1542,
+          "prevalence": 0.03625
+        }
+      },
+      {
+        "phase": "R2_rec1",
+        "persistence": {
+          "ap": 0.7468227582210633,
+          "reason": null,
+          "rows": 1600,
+          "positives": 236,
+          "negatives": 1364,
+          "prevalence": 0.1475
+        },
+        "current_pressure": {
+          "ap": 0.942512415081808,
+          "reason": null,
+          "rows": 1600,
+          "positives": 236,
+          "negatives": 1364,
+          "prevalence": 0.1475
+        }
+      },
+      {
+        "phase": "R1_rec2",
+        "persistence": {
+          "ap": 0.4297277483053345,
+          "reason": null,
+          "rows": 1600,
+          "positives": 116,
+          "negatives": 1484,
+          "prevalence": 0.0725
+        },
+        "current_pressure": {
+          "ap": 0.6504917936786653,
+          "reason": null,
+          "rows": 1600,
+          "positives": 116,
+          "negatives": 1484,
+          "prevalence": 0.0725
+        }
+      },
+      {
+        "phase": "R2_rec2",
+        "persistence": {
+          "ap": 0.7200694444444445,
+          "reason": null,
+          "rows": 1600,
+          "positives": 246,
+          "negatives": 1354,
+          "prevalence": 0.15375
+        },
+        "current_pressure": {
+          "ap": 0.9403590524572083,
+          "reason": null,
+          "rows": 1600,
+          "positives": 246,
+          "negatives": 1354,
+          "prevalence": 0.15375
+        }
+      },
+      {
+        "phase": "R3_rec2",
+        "persistence": {
+          "ap": 0.5577777777777777,
+          "reason": null,
+          "rows": 1600,
+          "positives": 120,
+          "negatives": 1480,
+          "prevalence": 0.075
+        },
+        "current_pressure": {
+          "ap": 0.8343824277971535,
+          "reason": null,
+          "rows": 1600,
+          "positives": 120,
+          "negatives": 1480,
+          "prevalence": 0.075
+        }
+      }
+    ]
+  },
+  "lifecycle": {
+    "event_counts": {
+      "calibration_frozen": 1,
+      "loss_window": 136
+    },
+    "candidate_created": 0,
+    "candidate_accepted": 0,
+    "candidate_rejected": 0,
+    "births": 0,
+    "retirements": 0,
+    "reactivations": 0,
+    "purges": 0,
+    "lifecycle_exercised": false,
+    "lifecycle_not_exercised_reason": "lifecycle was ON and candidates were causally trained/qualified, but no candidate passed frozen acceptance; retirement was preregistered disabled",
+    "final_topology": {
+      "active_ids": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "dormant_ids": [],
+      "shadow_id": null,
+      "next_id": 4,
+      "ramp": {
+        "0": 1,
+        "1": 1,
+        "2": 1,
+        "3": 1
+      },
+      "max_experts": 8,
+      "ramp_updates": 10,
+      "topology_version": 0,
+      "behavior_version": 0
+    },
+    "calibration_threshold": 0.7022458374191777,
+    "registered_fixed_loss_threshold": 0.7022458374191777,
+    "calibration_threshold_match": true,
+    "calibration_threshold_tolerance": 7.022458374191776e-7,
+    "extra_compute": {
+      "shadow_train_steps": 0,
+      "shadow_train_seconds": 0,
+      "shadow_validation_forwards": 0,
+      "shadow_validation_seconds": 0
+    },
+    "last_decision": null,
+    "ledger_file": "lifecycle.jsonl",
+    "hard_delete_enabled": false,
+    "retirement_enabled": false
+  },
+  "development_signal": false,
+  "development_signal_reason": "all six recurrence windows evaluable; frozen >=0.03, >=4/6 positive, FPR delta<=0.01 rule applied"
+}
