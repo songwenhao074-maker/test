@@ -1,0 +1,88 @@
+name: Protocol-024 finalize immutable generated stream
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [protocol-024-next-round-gpt56]
+    paths:
+      - 'maintenance/finalize_protocol024_existing_stream.py'
+      - '.github/workflows/protocol024-finalize-existing-generation.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  finalize-existing-generation:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    env:
+      SOURCE_RUN_ID: '34918496058'
+      SOURCE_ARTIFACT: 'protocol024-next-round-v1-generation-only'
+      EXPECTED_STREAM_SHA: '468725ff2f164bee89017bfa329d63e20566659a42d2a0492e977e744c7ae946'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+      - name: Install finalizer dependency only
+        run: python -m pip install numpy==1.19.2
+      - name: Download immutable stream bytes from completed simulator run
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol024-next-round-v1-generation-only
+          path: /tmp/p24-source
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 34918496058
+      - name: Verify source artifact and preserve stream bytes
+        run: |
+          test -f /tmp/p24-source/stream.npz
+          test -f /tmp/p24-source/failure.json
+          test -f /tmp/p24-source/generation.log
+          ACTUAL=$(sha256sum /tmp/p24-source/stream.npz | awk '{print $1}')
+          test "$ACTUAL" = "$EXPECTED_STREAM_SHA"
+          rm -rf /tmp/p24-finalized
+          mkdir -p /tmp/p24-finalized
+          cp /tmp/p24-source/stream.npz /tmp/p24-finalized/stream.npz
+          cp /tmp/p24-source/generation.log /tmp/p24-finalized/generation.log
+          cp /tmp/p24-source/failure.json /tmp/p24-finalized/source_failure.json
+      - name: Deterministically finalize audit and manifest without simulator rerun
+        run: |
+          python maintenance/finalize_protocol024_existing_stream.py \
+            --data-dir /tmp/p24-finalized \
+            --source-run-id "$SOURCE_RUN_ID" \
+            --source-artifact "$SOURCE_ARTIFACT" \
+            --expected-sha "$EXPECTED_STREAM_SHA"
+      - name: Audit recovered generation package
+        run: |
+          python - <<'PY'
+          import hashlib, json, numpy as np
+          from pathlib import Path
+          root=Path('/tmp/p24-finalized')
+          m=json.loads((root/'manifest.json').read_text())
+          a=json.loads((root/'audit.json').read_text())
+          r=json.loads((root/'recovery_audit.json').read_text())
+          h=hashlib.sha256((root/'stream.npz').read_bytes()).hexdigest()
+          assert h=='468725ff2f164bee89017bfa329d63e20566659a42d2a0492e977e744c7ae946'
+          assert m['steps']==4980 and m['guard_rows']==1 and m['seed']==700
+          assert m['recovery_provenance']['finalization_only'] is True
+          assert m['recovery_provenance']['simulator_rerun'] is False
+          assert m['recovery_provenance']['stream_bytes_mutated'] is False
+          assert a['direct_label_assignment_from_response_law'] is False
+          assert r['label_recompute_equal'] and r['phase_vector_equal'] and r['law_vector_equal']
+          with np.load(root/'stream.npz') as d:
+              ratio=d['overload_ratio']
+              expected=np.where((ratio>1.0).any(-1), ratio.argmax(-1)+1, 0)
+              assert d['raw_labels'].shape==(4981,16)
+              assert np.array_equal(expected,d['raw_labels'])
+          print(json.dumps({'stream_sha256':h,'rows':4981,'scored':4980,'guard':1,'recovery_only':True,'simulator_rerun':False,'events_recovered':r['events_recovered']}))
+          PY
+      - name: Upload finalized immutable generation package
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol024-next-round-v1-finalized-generation
+          path: /tmp/p24-finalized
+          if-no-files-found: error
+          compression-level: 6
