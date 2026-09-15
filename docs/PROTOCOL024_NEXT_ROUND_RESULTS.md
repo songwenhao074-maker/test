@@ -4,81 +4,91 @@
 
 ## 当前结论
 
-本轮已经把 seed700 response-law 新流从“模拟完成但 finalizer 崩溃”的状态恢复为可审计的 immutable generation package，并启动正式的 learnability → budget → lifecycle-on A/C/D 开发链路。**目前仍不能声称 D 优于 C**；性能结论必须等 downstream valid run 完成。
+seed700 / model seed1 的 Protocol-024 valid development pilot 已完成，GitHub Actions run `34953810201` 全部步骤成功。工程链路、immutable stream、learnability、预算选择、lifecycle threshold calibration 和 lifecycle-on A/C/D 都完成。
 
-## 已确认的生成结果
+**本轮不能声称 D 优于 C。** 原因不是 D 性能下降，而是冻结 lifecycle trigger 在正式 pilot 中没有被真正触发：D 没有创建 candidate，因此 D 与 C 的预测和指标完全相同，`development_signal=false`。按预注册规则，本轮不使用确认种子 701–703，也不为得到有利结果事后修改 threshold。
 
-- 执行分支：`protocol-024-next-round-gpt56`。
-- 原 generation run：`34918496058`，主模拟过程运行约 11039 秒；4 个 response-law 单测通过。
-- 原 run 在 `stream.npz` 已经写盘后，因 `SCORED_STEPS` / `SCORDED_STEPS` 拼写错误在最终 audit 阶段失败。
-- 原 artifact：`10381312155`，其中 `stream.npz` 完整存在。
+## 生成与恢复来源
+
+- 分支：`protocol-024-next-round-gpt56`。
+- 原 generation run：`34918496058`；主模拟约 11039 秒后完成 stream 写盘，但 final audit 因 `SCORED_STEPS` / `SCORDED_STEPS` 拼写错误失败。
 - immutable stream SHA256：`468725ff2f164bee89017bfa329d63e20566659a42d2a0492e977e744c7ae946`。
-- stream 维度已核对：4980 scored intervals + 1 guard row；`raw_labels=(4981,16)`，`host_features=(4981,16,7)`，调度、容量、overload 和 audit 数组均存在。
-- raw label 可以严格由 `overload_ratio` 重算；phase vector 与 response-law vector 与冻结时间线一致。
-- 从 audit 数组恢复到 1954 个 response-law event；未把 audit ID 用作模型输入。
+- 4980 scored intervals + 1 guard row；`raw_labels=(4981,16)`、`host_features=(4981,16,7)`。
+- raw label、phase vector、response-law vector 均通过重算审计；恢复 1954 个 response-law event。
+- finalizer run `34953715809`：success；`finalization_only=true`、`simulator_rerun=false`、`stream_bytes_mutated=false`。
+- downstream valid run `34953810201`：success；artifact `10391150168`，名称 `protocol024-next-round-v1-recovered-valid-development`。
 
-## finalization 恢复
+## Learnability probe
 
-新增：
+13-interval isolation gap 满足要求，train/validation history 与 future target 不重叠。validation prevalence=`0.0882523`。
 
-- `maintenance/finalize_protocol024_existing_stream.py`
-- `.github/workflows/protocol024-finalize-existing-generation.yml`
+- persistence current fault AP：`0.602924`
+- current pressure AP：`0.807905`
+- current raw 7D logistic AP：`0.744792`
+- raw history 12x7 logistic AP：`0.866506`
+- frozen-z 64D logistic AP：`0.837763`
+- history gain over current raw：`+0.121713`
+- history gain over current pressure：`+0.058600`
+- frozen-z gap to raw history：`0.028742`
 
-finalizer workflow run：`34953715809`，**success**。
+因此 `raw_history_learnable=true`、`z_retains_history_signal=true`、`proceed_to_budget_and_pilot=true`。response_law_v1 没有因为不可学而被修改。
 
-该 run 做的是纯 finalization：下载原 `stream.npz`，验证固定 SHA，重算 label/phase/law audit，生成 `manifest.json`、`audit.json`、`events_recovered.json` 和 `recovery_audit.json`，然后上传 artifact：
+## 固定 C 的 update budget
 
-- artifact id：`10389922674`
-- artifact name：`protocol024-next-round-v1-finalized-generation`
+比较规则预注册为：只有 u1 相比 u4 的 first-exposure mean AP 增益 `>0.05` 且 p95 update latency 有限时才选择 u1，否则选择 u4。
 
-关键 provenance：`finalization_only=true`、`simulator_rerun=false`、`stream_bytes_mutated=false`。response-law 参数、seed700、timeline、scheduler、label rule、模型输入和训练超参数均未改变。
+- u4：first-exposure mean AP=`0.481261`，full AP=`0.667584`，update p95=`0.04773 s`，总耗时约 `77.65 s`。
+- u1：first-exposure mean AP=`0.474242`，full AP=`0.720371`，update p95=`0.05331 s`，总耗时约 `281.08 s`。
+- u1−u4 first-exposure mean AP=`-0.007019`。
 
-## 后续 workflow 接线问题与修复
+因此冻结选择：`update_every=4`。虽然 u1 full AP 更高，但不满足预注册的 first-exposure 选择条件，不能事后改规则。
 
-原 `protocol024-next-round-valid.yml` 还有两个确定性工程问题：
+## Lifecycle calibration
 
-1. 硬编码旧 generation run `34839589954`，不是当前有效来源；
-2. 假设 artifact 解压后存在 `data/stream.npz`，但实际上传目录会展开为 artifact 根目录的 `stream.npz`。
+最终使用第二个且最后一个预注册 calibration config `loss_trigger_v2_pre_result_protocol_fix`。600 interval calibration prefix 包含 F0=300 和 R1_first 的前 300 intervals，避免旧 256-prefix 全落在零故障 F0 的协议问题。
 
-因此新增 `.github/workflows/protocol024-recovered-valid-pilot.yml`，固定读取 finalizer run `34953715809` 的 immutable artifact，并正确复制 artifact 根目录到本次 `$ROOT_OUT/data`。
+冻结参数：32-interval matured supervised-loss window，p99 threshold=`0.7022458374191777`，连续异常窗口数=2；candidate train=64 intervals，validation=32；accept relative loss improvement>=1%，normal anomaly probability allowance=0.01；cooldown=64；retirement/hard-delete=false；无 forced trigger。正式 D 重算 threshold 与冻结值一致。
 
-## 正在执行
+## Lifecycle-on A/C/D pilot
 
-正式 downstream run：`34953810201`。
+A/C/D 均使用同一 seed700 stream、model seed1、raw_next_fault target 和相同 anchor；C/D 使用 `update_every=4`。D 的 lifecycle 开启。
 
-当前 GitHub Actions 状态：
+### Full detection
 
-- immutable stream / provenance / label / anchor 校验：**通过**；
-- 13-interval 隔离的 raw-history / frozen-z learnability probe：**完成**；
-- 预注册 learnability gate：**通过**；
-- 当前正在执行固定 C 的 `update_every=4` 与 `update_every=1` 预算比较；
-- lifecycle threshold calibration 与 lifecycle-on A/C/D pilot 尚未开始。
+- A：AP=`0.510442`，Recall=`0.498050`，FPR=`0.039240`。
+- C：AP=`0.667584`，Recall=`0.678463`，FPR=`0.038141`。
+- D：AP=`0.667584`，Recall=`0.678463`，FPR=`0.038141`。
 
-learnability gate 已通过意味着 response_law_v1 至少满足本轮预注册的“可继续进入模型开发”条件；没有因为场景不可学而触发 response-law 修订。具体 AP/prevalence/z-gap 将在 run 完成并取得 artifact 后写入本文件。
+future-positive resource macro-F1：A=`0.764456`，C=`0.839168`，D=`0.839168`。raw same-host onset AP：A=`0.105217`，C=`0.160114`，D=`0.160114`。C/D 最差 response law 均为 R1，AP=`0.326094`。
 
-后续顺序：
+### First-100 switch windows
 
-1. 完成 C update budget 选择；
-2. 冻结 lifecycle loss threshold；
-3. 在同一 seed700 / raw_next_fault 目标下运行 lifecycle-on A/C/D pilot；
-4. 输出 `status.json`、`comparison.json`、各 arm predictions/checkpoints 与 D lifecycle ledger。
+所有 D−C AP 都为 0：
 
-## 尚未完成
+- R1_first：C=D=`0.169100`
+- R2_first：C=D=`0.664624`
+- R3_first：C=D=`0.610061`
+- R1_rec1：C=D=`0.424176`
+- R3_rec1：C=D=`0.674653`
+- R2_rec1：C=D=`0.819272`
+- R1_rec2：C=D=`0.544380`
+- R2_rec2：C=D=`0.778640`
+- R3_rec2：C=D=`0.698141`
 
-以下项目仍不能标记完成：
+六个 recurrence window coverage=1.0；mean D−C AP=`0.0`，positive D−C switches=`0/6`，normal FPR D−C=`0.0`。预注册 development rule 要求 mean>=0.03、至少 4/6 positive、FPR delta<=0.01，因此 `development_signal=false`。
 
-- learnability 的具体 AP / prevalence / frozen-z gap 数值落盘汇总；
-- C 的最终 update budget；
-- lifecycle-on D 是否实际发生 candidate birth / acceptance / reactivation / retirement；
-- recurrence first-100 窗口中的 D−C AP；
-- `development_signal`；
-- 确认种子 701–703（本轮仍禁止使用）。
+## Lifecycle ledger：本轮真正的阻塞
 
-## 下一步判定规则
+D ledger 只有：`calibration_frozen=1`、`loss_window=136`。没有 candidate_created / accepted / rejected，没有 birth/reactivation/retirement/purge；最终 topology 仍为 active experts `[0,1,2,3]`，topology_version=0，extra shadow compute=0。
 
-优先读取 run `34953810201` 的 artifact `protocol024-next-round-v1-recovered-valid-development`。
+136 个 monitoring loss windows 中只有两个超过冻结 threshold：cursor 1529 的 mean loss=`0.740665`，cursor 2169 的 mean loss=`0.747093`；两次都只是 `consecutive_abnormal=1`，中间被正常窗口打断。由于预注册 trigger 要求连续 2 个异常窗口，**candidate 从未创建**。因此当前 artifact 中通用说明“candidate causally trained/qualified but none accepted”并不精确；ledger 证明更准确的原因是“trigger condition never reached”。
 
-- 若后续 lifecycle 没有事件：根据 `lifecycle.jsonl` 区分 trigger 未发生、candidate 样本不足、qualification 失败或 cooldown/阈值问题。
-- 若 lifecycle 已执行但 D≈C：比较同一 recurrence 群体上的专业化与部署前后 paired loss，不无限增加容量。
-- 若 D 更差：先查 topology action 前后 logit jump、选择性训练、旧业务退化和 D 额外预算。
-- 只有 lifecycle-on A/C/D 完成并有有效 recurrence coverage 后，才讨论是否进入 701–703 确认阶段。
+D 总耗时约 `125.31 s`，C 约 `80.09 s`；D prediction p95=`0.00524 s`，C=`0.00445 s`；D update p95=`0.05656 s`，C=`0.04907 s`。这些是 lifecycle monitoring/controller 的执行开销，但没有 shadow candidate train/validation compute。
+
+## 当前科学判定与下一步
+
+这不是确定性工程失败，因此不应修改当前结果后重跑同一个已注册 pilot，也不应直接进入 701–703 confirmation。当前结论是：response-law stream 可学，online C 明显优于 A，但当前冻结的 p99 + consecutive-2 lifecycle trigger 对该 stream 太保守，导致 D 的动态专家机制没有被 exercised，因而 D=C。
+
+下一位模型应把问题作为 **lifecycle trigger sensitivity / protocol redesign** 分析，而不是把本轮包装成 D 优于 C。若要启动新的开发轮，应在新的预注册 protocol/version 中、在读取确认种子前明确制定 trigger 修订依据（例如基于本轮 ledger 的触发覆盖诊断），并保留本轮 negative development result；不得回写或覆盖本轮 `development_signal=false`。
+
+确认种子 701–703：**未使用**。
