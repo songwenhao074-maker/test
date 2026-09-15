@@ -31,7 +31,13 @@ import prepare_ftmoe_protocol023_stream as _p23_guard
 _p23_guard.DISK_GUARD_GIB = 5.0
 _p23_guard.RAM_GUARD_GIB = 0.5
 
-from prepare_ftmoe_protocol024_stream import main
+# The registered collector constant is SCORDED_STEPS. The long hosted run at
+# fe718b1 reached final audit construction and exposed a single legacy typo
+# (SCORED_STEPS) there. Alias the intended constant in the module namespace so
+# the finalized stream can be audited without changing any scientific setting.
+import prepare_ftmoe_protocol024_stream as _p24
+_p24.SCORED_STEPS = _p24.SCORDED_STEPS
+main = _p24.main
 
 
 if __name__ == "__main__":
