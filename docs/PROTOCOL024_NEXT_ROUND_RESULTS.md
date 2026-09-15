@@ -4,40 +4,77 @@
 
 ## 当前结论
 
-本轮尚未得到可用于论文结论的 A/C/D 动态性能结果。当前已经完成的是工程链路继续执行、一次真实 4980-step response-law 长跑的故障定位，以及不改变科学参数的修复与重跑启动。
+本轮已经把 seed700 response-law 新流从“模拟完成但 finalizer 崩溃”的状态恢复为可审计的 immutable generation package，并启动正式的 learnability → budget → lifecycle-on A/C/D 开发链路。**目前仍不能声称 D 优于 C**；性能结论必须等 downstream valid run 完成。
 
-### 已确认
+## 已确认的生成结果
 
-- 当前执行分支：`protocol-024-next-round-gpt56`，基于 main 的 Protocol-024 下一轮指示继续实现。
-- 下一轮 runner、动态 residual/lifecycle、response-law generator、learnability/budget/pilot 入口已存在于该分支。
-- 2026-09-15 的 generation run `34918496058`：依赖安装成功；4 个 response-law 单测全部通过；seed700 生成过程运行约 11039 秒。
-- 该 run 在主 stream 已写盘后、最终 per-response-law audit 构造阶段失败：`NameError: SCORED_STEPS is not defined`。
-- 根因是纯符号拼写错误：注册常量为 `SCORDED_STEPS=4980`，最终审计块有一处误写成 `SCORED_STEPS`。
-- 失败 run 上传了 artifact `10381312155`，包含 3 个中间文件；因此这不是 simulator 未启动或早期 OOM，而是收尾审计错误。
-- 修复提交：`4bab9047f0494372b2540f9a622ca7ccd427d5ac`。修复未改变 seed、timeline、response-law 数值、scheduler、label rule、模型输入或训练超参数。
-- 修复后 push 已启动 generation run `34951444062`；记录本文时状态为 `in_progress`。
+- 执行分支：`protocol-024-next-round-gpt56`。
+- 原 generation run：`34918496058`，主模拟过程运行约 11039 秒；4 个 response-law 单测通过。
+- 原 run 在 `stream.npz` 已经写盘后，因 `SCORED_STEPS` / `SCORDED_STEPS` 拼写错误在最终 audit 阶段失败。
+- 原 artifact：`10381312155`，其中 `stream.npz` 完整存在。
+- immutable stream SHA256：`468725ff2f164bee89017bfa329d63e20566659a42d2a0492e977e744c7ae946`。
+- stream 维度已核对：4980 scored intervals + 1 guard row；`raw_labels=(4981,16)`，`host_features=(4981,16,7)`，调度、容量、overload 和 audit 数组均存在。
+- raw label 可以严格由 `overload_ratio` 重算；phase vector 与 response-law vector 与冻结时间线一致。
+- 从 audit 数组恢复到 1954 个 response-law event；未把 audit ID 用作模型输入。
 
-## 当前未完成
+## finalization 恢复
 
-以下项目不能标记为完成，也不能据此声称 D 优于 C：
+新增：
 
-1. seed700 的 finalized `stream.npz + manifest.json + audit.json` 尚未由成功 workflow 产出并通过最终 hash/label 重算审计。
-2. learnability probe 尚未在 finalized 新流上完成。
-3. C 的 update_every=4 / update_every=1 预算比较尚未完成。
-4. lifecycle-on A/C/D pilot 尚未完成；因此暂无 birth/reactivate/retire/purge 的真实性能对比证据。
-5. `development_signal` 与确认种子 701-703 均未执行；confirmation_run 仍为 false。
+- `maintenance/finalize_protocol024_existing_stream.py`
+- `.github/workflows/protocol024-finalize-existing-generation.yml`
 
-## 问题记录
+finalizer workflow run：`34953715809`，**success**。
 
-完整问题表见：
-`artifacts/ftmoe_online/protocol_024/next_round_v1/problem_log.json`。
+该 run 做的是纯 finalization：下载原 `stream.npz`，验证固定 SHA，重算 label/phase/law audit，生成 `manifest.json`、`audit.json`、`events_recovered.json` 和 `recovery_audit.json`，然后上传 artifact：
 
-新增问题 `P24-NR-06` 记录了 run `34918496058` 的收尾 NameError、修复 commit、证据与重跑 run。此前 P24-NR-01~05 主要是 GitHub-hosted Ubuntu 的路径/优先级/磁盘/RAM guard 适配问题。
+- artifact id：`10389922674`
+- artifact name：`protocol024-next-round-v1-finalized-generation`
 
-## 对下一位模型的直接建议
+关键 provenance：`finalization_only=true`、`simulator_rerun=false`、`stream_bytes_mutated=false`。response-law 参数、seed700、timeline、scheduler、label rule、模型输入和训练超参数均未改变。
 
-不要重新设计场景或修改 response-law 参数。先检查 run `34951444062` 的结论：
+## 后续 workflow 接线问题与修复
 
-- 若成功：下载 generation artifact，核对 manifest SHA、4980 scored + 1 guard、raw label 由 overload ratio 可重算，然后进入 `protocol024-next-round-valid.yml` 的 learnability/budget/A-C-D 链路。
-- 若仍失败：优先修复确定性的工程错误，并保持 registration/lifecycle_config/response_law_config 不变；不要使用 701-703 确认种子绕过开发流问题。
-- 只有 lifecycle-on D 真正发生出生/复用/退役等事件并完成同流 A/C/D 预序贯比较后，才讨论 D-C 性能差异。
+原 `protocol024-next-round-valid.yml` 还有两个确定性工程问题：
+
+1. 硬编码旧 generation run `34839589954`，不是当前有效来源；
+2. 假设 artifact 解压后存在 `data/stream.npz`，但实际上传目录会展开为 artifact 根目录的 `stream.npz`。
+
+因此新增 `.github/workflows/protocol024-recovered-valid-pilot.yml`，固定读取 finalizer run `34953715809` 的 immutable artifact，并正确复制 artifact 根目录到本次 `$ROOT_OUT/data`。
+
+## 正在执行
+
+正式 downstream run：`34953810201`。
+
+执行顺序：
+
+1. 校验 immutable stream SHA、恢复 provenance、label 重算和 anchor target；
+2. 运行 13-interval 隔离的 raw-history / frozen-z learnability probe；
+3. 按预注册 gate 判断是否允许继续；
+4. 若通过，比较固定 C 的 `update_every=4` 与 `update_every=1`；
+5. 冻结 lifecycle loss threshold；
+6. 在同一 seed700 / raw_next_fault 目标下运行 lifecycle-on A/C/D pilot；
+7. 输出 `status.json`、`comparison.json`、各 arm predictions/checkpoints 与 D lifecycle ledger。
+
+若 learnability gate 不通过，workflow 会停止在 gate，不会为了得到 D 优势继续修改 response-law 参数或使用确认种子。
+
+## 尚未完成
+
+以下项目仍不能标记完成：
+
+- learnability 是否通过；
+- C 的最终 update budget；
+- lifecycle-on D 是否实际发生 candidate birth / acceptance / reactivation / retirement；
+- recurrence first-100 窗口中的 D−C AP；
+- `development_signal`；
+- 确认种子 701–703（本轮仍禁止使用）。
+
+## 下一步判定规则
+
+优先读取 run `34953810201` 的 artifact `protocol024-next-round-v1-recovered-valid-development`。
+
+- 若 learnability fail：按预注册规则判断是 raw/history 本身不可学，还是 frozen-z 丢失历史信号；只允许对应的一次 response-law/共同特征修订，不能扫描确认种子。
+- 若 lifecycle 没有事件：根据 `lifecycle.jsonl` 区分 trigger 未发生、candidate 样本不足、qualification 失败或 cooldown/阈值问题。
+- 若 lifecycle 已执行但 D≈C：比较同一 recurrence 群体上的专业化与部署前后 paired loss，不无限增加容量。
+- 若 D 更差：先查 topology action 前后 logit jump、选择性训练、旧业务退化和 D 额外预算。
+- 只有 lifecycle-on A/C/D 完成并有有效 recurrence coverage 后，才讨论是否进入 701–703 确认阶段。
