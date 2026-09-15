@@ -1,0 +1,93 @@
+{
+  "protocol": "024",
+  "round": "next_round_v1",
+  "date": "2026-09-15",
+  "confirmation_run": false,
+  "source_generation": {
+    "run_id": 34918496058,
+    "artifact_id": 10381312155,
+    "failure_stage": "post-generation finalization",
+    "failure": "NameError: SCORED_STEPS is not defined",
+    "registered_constant_in_source": "SCORDED_STEPS=4980",
+    "stream_sha256": "468725ff2f164bee89017bfa329d63e20566659a42d2a0492e977e744c7ae946"
+  },
+  "stream_integrity": {
+    "rows": 4981,
+    "scored_intervals": 4980,
+    "guard_rows": 1,
+    "hosts": 16,
+    "host_features_shape": [4981, 16, 7],
+    "raw_labels_shape": [4981, 16],
+    "all_numeric_arrays_finite": true,
+    "label_recompute_from_overload_ratio_equal": true,
+    "scientific_arrays_modified_during_recovery": false,
+    "class_counts_scored": {"0": 72759, "1": 5223, "2": 536, "3": 1162},
+    "positive_host_step_rate": 0.08685993975903615,
+    "unique_response_events_recovered": 1954,
+    "events_by_mechanism": {"R1": 650, "R2": 666, "R3": 638}
+  },
+  "scheduler_pressure_audit": {
+    "overall": {
+      "deployment_attempts": 8000,
+      "deployment_rejected": 1174,
+      "deployment_rejection_rate": 0.14675,
+      "migration_attempts": 1766,
+      "migration_rejected": 581,
+      "migration_rejection_rate": 0.3289920724801812
+    },
+    "R1": {
+      "deployment_rejection_rate": 0.10790464240903387,
+      "migration_rejection_rate": 0.3067484662576687,
+      "positive_rate": 0.06161858974358975,
+      "event_related_fraction_of_positive_host_steps": 0.9889466840052016,
+      "class_counts": {"0": 23422, "1": 1518, "2": 9, "3": 11}
+    },
+    "R2": {
+      "deployment_rejection_rate": 0.22994269340974213,
+      "migration_rejection_rate": 0.4866785079928952,
+      "positive_rate": 0.16466346153846154,
+      "event_related_fraction_of_positive_host_steps": 0.9982968369829683,
+      "class_counts": {"0": 20850, "1": 3585, "2": 522, "3": 3}
+    },
+    "R3": {
+      "deployment_rejection_rate": 0.10504376823676533,
+      "migration_rejection_rate": 0.2251655629139073,
+      "positive_rate": 0.05096153846153846,
+      "event_related_fraction_of_positive_host_steps": 0.9827044025157232,
+      "class_counts": {"0": 23688, "1": 119, "2": 5, "3": 1148}
+    },
+    "risk": "R2 deployment/migration rejection is materially high. Protocol interpretation must verify that response-law separability is not primarily mediated by rejection/scheduling artifacts."
+  },
+  "registered_learnability_reproduction_without_frozen_z": {
+    "split": {
+      "train_prediction_intervals": [0, 3887],
+      "isolation_gap_prediction_intervals": [3887, 3900],
+      "validation_prediction_intervals": [3900, 4980],
+      "isolation_gap_intervals": 13
+    },
+    "train_positive_host_steps": 5381,
+    "validation_positive_host_steps": 1525,
+    "validation_prevalence": 0.08825231481481481,
+    "persistence_current_fault_ap": 0.6029244623964355,
+    "current_pressure_ap": 0.8079054722706652,
+    "current_raw_7d_logistic_ap": 0.7447213882290792,
+    "raw_history_12x7_logistic_ap": 0.866557793158662,
+    "raw_history_learnability_gate": true,
+    "frozen_z_64d_ap": null,
+    "frozen_z_gate_pending_official_workflow": true,
+    "note": "Reproduced from immutable stream with the registered sklearn LogisticRegression split. Frozen-z extraction requires the repository model/checkpoint path and is delegated to the official resumed workflow."
+  },
+  "resume_workflow": {
+    "branch": "protocol-024-resume-gpt56-20260915",
+    "workflow": ".github/workflows/protocol024-resume-valid.yml",
+    "run_id": 34948819437,
+    "source_stream_run_id": 34918496058,
+    "purpose": "recover metadata -> official frozen-z learnability -> fixed-C budget -> lifecycle calibration -> lifecycle-on A/C/D pilot"
+  },
+  "known_engineering_issues": [
+    "prepare_ftmoe_protocol024_stream.py uses SCORED_STEPS once although the registered global constant is SCORDED_STEPS; this caused the post-generation NameError.",
+    "The pre-existing protocol024-next-round-valid.yml hardcodes generation run 34839589954, whose artifact contains no stream.npz because that earlier run stopped on the RAM guard.",
+    "The recovered stream cannot reconstruct live-only full response_events payload, short_trace_skips, or exact generation elapsed seconds; these are explicitly marked unrecoverable instead of fabricated.",
+    "The original collector typo still exists on the base experiment branch and should be corrected before any future generation run."
+  ]
+}
