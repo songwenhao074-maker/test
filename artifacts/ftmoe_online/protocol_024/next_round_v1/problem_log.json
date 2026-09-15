@@ -61,17 +61,45 @@
     {
       "id": "P24-NR-06",
       "workflow_run": 34918496058,
-      "status": "fixed_and_rerun_started",
+      "status": "fixed_by_immutable_finalization",
       "simulator_definitely_completed_main_collection": true,
       "generation_step_elapsed_seconds_approx": 11039,
       "failure": "NameError: name 'SCORED_STEPS' is not defined while constructing final per-response-law audit",
-      "cause": "The registered constant is named SCORDED_STEPS=4980, but the final audit block referenced SCORED_STEPS once. The stream had already been written before this finalization bug.",
-      "fix_commit": "4bab9047f0494372b2540f9a622ca7ccd427d5ac",
-      "fix": "portable launcher aliases the intended collector constant in the Protocol-024 module namespace before invoking main(); no workload or model setting changes",
-      "rerun_workflow_run": 34951444062,
-      "rerun_status_at_record_time": "in_progress",
-      "scientific_effect": "none; this is a post-collection audit-finalization symbol typo. No seed, response-law numeric, timeline, scheduler, label rule, model input or scientific hyperparameter changed.",
-      "evidence": "run 34918496058 passed dependency installation and all 4 response-law tests; failure occurred after np.savez_compressed(stream_path, ...) and before manifest/audit finalization; three intermediate files were uploaded as artifact 10381312155"
+      "cause": "The registered constant is named SCORDED_STEPS=4980, but the final audit block referenced SCORED_STEPS once. The immutable stream had already been written before this post-save finalization bug.",
+      "source_artifact_id": 10381312155,
+      "source_stream_sha256": "468725ff2f164bee89017bfa329d63e20566659a42d2a0492e977e744c7ae946",
+      "symbol_fix_commit": "4bab9047f0494372b2540f9a622ca7ccd427d5ac",
+      "recovery_finalizer_commit": "1288825bab8cd5018982dcbc7c941b6ddd2b7d49",
+      "recovery_workflow_commit": "0ad989d8604473ff6e49b8e80fdc0110332dba22",
+      "recovery_workflow_run": 34953715809,
+      "recovery_workflow_conclusion": "success",
+      "recovered_artifact_id": 10389922674,
+      "recovered_artifact_name": "protocol024-next-round-v1-finalized-generation",
+      "recovery_checks": {
+        "rows": 4981,
+        "scored_intervals": 4980,
+        "guard_rows": 1,
+        "label_recompute_equal": true,
+        "phase_vector_equal": true,
+        "law_vector_equal": true,
+        "events_recovered": 1954,
+        "stream_bytes_mutated": false,
+        "simulator_rerun": false
+      },
+      "redundant_full_rerun": 34951444062,
+      "redundant_full_rerun_note": "started before immutable recovery was implemented; it is not the registered source for downstream analysis",
+      "scientific_effect": "none; finalization recovery preserves the exact stream bytes and does not change seed, response-law numeric, timeline, scheduler, label rule, model inputs or scientific hyperparameters"
+    },
+    {
+      "id": "P24-NR-07",
+      "status": "fixed_and_downstream_started",
+      "failure": "existing valid workflow was wired to obsolete generation run 34839589954 and expected data/stream.npz even though actions/upload-artifact expands the uploaded data directory contents at artifact root",
+      "cause": "the downstream workflow retained a stale source run id/artifact name and an incorrect artifact directory-layout assumption from an earlier generation design",
+      "fix_commit": "bae6f53707c1ed7d92f28e99dd3be418f99153de",
+      "fix": "add recovered valid pilot workflow that waits for finalizer run 34953715809, downloads protocol024-next-round-v1-finalized-generation, verifies root-level stream/manifest/audit, then installs those bytes into the registered P24 data directory before learnability/budget/pilot",
+      "downstream_workflow_run": 34953810201,
+      "downstream_status_at_record_time": "in_progress",
+      "scientific_effect": "none; only source-artifact plumbing changed. response_law_v1, lifecycle configuration, target, model seed and replay seed remain frozen"
     }
   ]
 }
