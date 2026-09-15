@@ -1,0 +1,151 @@
+name: Protocol-024 next-round v2a periodic candidates
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [protocol-024-next-round-v2-gpt56]
+    paths:
+      - 'ftmoe_protocol024_v2a.py'
+      - 'ftmoe_protocol024_v2a_qualification.py'
+      - 'run_ftmoe_protocol024_v2a.py'
+      - 'run_ftmoe_protocol024_v2a_qualified.py'
+      - 'test_ftmoe_protocol024_v2a.py'
+      - 'artifacts/ftmoe_online/protocol_024/next_round_v2/registration.json'
+      - '.github/workflows/protocol024-next-round-v2a.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  v2a-development:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 240
+    env:
+      OMP_NUM_THREADS: '3'
+      MKL_NUM_THREADS: '3'
+      OPENBLAS_NUM_THREADS: '3'
+      ROOT_OUT: artifacts/ftmoe_online/protocol_024/next_round_v2
+      SOURCE_RUN_ID: '34953715809'
+      SOURCE_ARTIFACT: protocol024-next-round-v1-finalized-generation
+      EXPECTED_STREAM_SHA: 468725ff2f164bee89017bfa329d63e20566659a42d2a0492e977e744c7ae946
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+      - name: Install online dependencies with CPU PyTorch
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3
+      - name: Download immutable finalized seed700 stream
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.SOURCE_ARTIFACT }}
+          path: /tmp/p24-v2-source
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ env.SOURCE_RUN_ID }}
+      - name: Install and verify immutable data
+        run: |
+          rm -rf "$ROOT_OUT/data"
+          mkdir -p "$ROOT_OUT/data"
+          cp -a /tmp/p24-v2-source/. "$ROOT_OUT/data/"
+          python - <<'PY'
+          import hashlib,json,numpy as np
+          from pathlib import Path
+          root=Path('artifacts/ftmoe_online/protocol_024/next_round_v2/data')
+          m=json.loads((root/'manifest.json').read_text())
+          h=hashlib.sha256((root/'stream.npz').read_bytes()).hexdigest()
+          assert h=='468725ff2f164bee89017bfa329d63e20566659a42d2a0492e977e744c7ae946'
+          assert m['stream_sha256']==h and m['steps']==4980 and m['guard_rows']==1 and m['seed']==700
+          with np.load(root/'stream.npz') as d:
+              assert d['raw_labels'].shape==(4981,16)
+              expected=np.where((d['overload_ratio']>1.0).any(-1),d['overload_ratio'].argmax(-1)+1,0)
+              assert np.array_equal(expected,d['raw_labels'])
+          print(json.dumps({'stream_sha256':h,'rows':4981,'simulator_rerun':False}))
+          PY
+      - name: Verify v2a implementation and causal helpers
+        run: |
+          python -m py_compile ftmoe_protocol024_v2a.py ftmoe_protocol024_v2a_qualification.py run_ftmoe_protocol024_v2a.py run_ftmoe_protocol024_v2a_qualified.py
+          python -m unittest -v test_ftmoe_protocol024_v2a.py test_ftmoe_protocol024_anchor.py test_ftmoe_protocol024_next_round_eval.py
+          python - <<'PY'
+          import json
+          p=json.load(open('artifacts/ftmoe_online/protocol_024/next_round_v2/registration.json'))
+          assert p['registered_before_v2a_results'] is True
+          assert p['stream']['replay_seed']==700 and p['model']['model_seed']==1
+          assert p['confirmation_seeds_forbidden']==[701,702,703]
+          assert p['v2a']['proposal_start_matured']==600 and p['v2a']['proposal_every_matured']==256
+          assert p['v2a']['second_budget']['allowed_only_if_first_budget_accepts_zero'] is True
+          print(json.dumps({'registration':'ok','first_budget':'distinct64_single','second_budget':'conditional'}))
+          PY
+      - name: Run v2a first registered shadow budget
+        run: |
+          python run_ftmoe_protocol024_v2a_qualified.py \
+            --stream "$ROOT_OUT/data" \
+            --out-root "$ROOT_OUT/runs/v2a_distinct64_seed700_model1" \
+            --shadow-budget-version distinct64_single
+      - name: Run conditional second registered shadow budget
+        run: |
+          python - <<'PY' >/tmp/p24_v2a_second.env
+          import json
+          p=json.load(open('artifacts/ftmoe_online/protocol_024/next_round_v2/runs/v2a_distinct64_seed700_model1/status.json'))
+          print('RUN_SECOND=1' if p['candidate_accepted']==0 else 'RUN_SECOND=0')
+          PY
+          cat /tmp/p24_v2a_second.env
+          source /tmp/p24_v2a_second.env
+          if [ "$RUN_SECOND" = "1" ]; then
+            python run_ftmoe_protocol024_v2a_qualified.py \
+              --stream "$ROOT_OUT/data" \
+              --out-root "$ROOT_OUT/runs/v2a_buffer128_seed700_model1" \
+              --shadow-budget-version buffer128_4x4
+          else
+            echo 'Second budget correctly skipped because first budget accepted at least one candidate.'
+          fi
+      - name: Write v2a round status and advancement decision
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('artifacts/ftmoe_online/protocol_024/next_round_v2')
+          def read(path):
+              p=root/path
+              return json.loads(p.read_text()) if p.is_file() else None
+          first=read(Path('runs/v2a_distinct64_seed700_model1/status.json'))
+          second=read(Path('runs/v2a_buffer128_seed700_model1/status.json'))
+          accepted=0
+          if first: accepted=max(accepted,int(first.get('candidate_accepted',0)))
+          if second: accepted=max(accepted,int(second.get('candidate_accepted',0)))
+          status={
+            'protocol':'024','round':'next_round_v2','stage':'v2a',
+            'first_budget':first,'second_budget':second,
+            'v2a_any_candidate_accepted':accepted>0,
+            'advance_to_v2b':accepted>0,
+            'confirmation_run':False,
+            'confirmation_seeds_used':[],
+            'stream_sha256':'468725ff2f164bee89017bfa329d63e20566659a42d2a0492e977e744c7ae946',
+            'simulator_rerun':False,
+            'no_further_shadow_budget_search': bool(second is not None and accepted==0)
+          }
+          (root/'status.json').write_text(json.dumps(status,indent=2,allow_nan=False)+'\n')
+          print(json.dumps(status,indent=2,allow_nan=False))
+          PY
+      - name: Upload v2a evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol024-next-round-v2a-development
+          path: |
+            artifacts/ftmoe_online/protocol_024/next_round_v2/registration.json
+            artifacts/ftmoe_online/protocol_024/next_round_v2/status.json
+            artifacts/ftmoe_online/protocol_024/next_round_v2/data/manifest.json
+            artifacts/ftmoe_online/protocol_024/next_round_v2/data/audit.json
+            artifacts/ftmoe_online/protocol_024/next_round_v2/data/recovery_audit.json
+            artifacts/ftmoe_online/protocol_024/next_round_v2/runs
+          if-no-files-found: warn
+          compression-level: 6

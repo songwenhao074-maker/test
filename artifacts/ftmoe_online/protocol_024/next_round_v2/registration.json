@@ -1,0 +1,87 @@
+{
+  "protocol": "024",
+  "round": "next_round_v2",
+  "registered_before_v2a_results": true,
+  "base_branch": "protocol-024-next-round-gpt56",
+  "base_review_commit": "f67e3204263205327b20ac9d724892f2a0c91829",
+  "implementation_basis_commit": "b2410d74bccb44889521549da7c3b7c7b47c0a9e",
+  "stream": {
+    "replay_seed": 700,
+    "sha256": "468725ff2f164bee89017bfa329d63e20566659a42d2a0492e977e744c7ae946",
+    "scored_intervals": 4980,
+    "guard_rows": 1,
+    "source_finalizer_run": 34953715809,
+    "source_artifact": "protocol024-next-round-v1-finalized-generation",
+    "regenerate_simulator": false
+  },
+  "model": {
+    "model_seed": 1,
+    "target": "raw_next_fault",
+    "learning_rate": 0.0001,
+    "update_every": 4,
+    "batch_size": 32,
+    "replay_buffer_intervals": 64,
+    "gradient_steps_per_opportunity": 1,
+    "anchor_weight": 0.25,
+    "distill_weight": 0.10,
+    "target_matures_no_earlier_than": "t+2"
+  },
+  "anchor_split": {
+    "source": "shared independent historical raw-next anchor",
+    "rule": "anchor_position modulo 5 == 0 is candidate guard; all other positions are online-train anchor",
+    "target_dependent": false,
+    "guard_never_used_for_training": true,
+    "rerun_A_C_D_required": true
+  },
+  "availability": {
+    "pre_prediction_or_pre_simulation": ["host_features[t]", "demands[t]", "schedules[t] scheduler decision", "capacities[t]"],
+    "post_prediction_only": ["raw[t]", "overload_ratio[t]", "post_totals[t]"],
+    "future": ["raw[t+1]"],
+    "deployable_pressure_mapping": {"cpu_feature": 0, "ram_size_feature": 1, "disk_size_feature": 4},
+    "deployable_persistence": "raw[t-1] for prediction t; t=0 excluded"
+  },
+  "v2a": {
+    "proposal_start_matured": 600,
+    "proposal_every_matured": 256,
+    "proposal_formula": "matured_count = 600 + 256*k, k>=0",
+    "phase_or_law_ids_used": false,
+    "max_shadow": 1,
+    "max_resident_experts": 8,
+    "initial_live_experts": 4,
+    "parent_rule": "unchanged cumulative observed routing-mass rule from v1",
+    "ramp_live_updates": 10,
+    "validation_intervals": 32,
+    "accept_relative_supervised_loss_improvement": 0.01,
+    "mean_normal_probability_allowance": 0.01,
+    "validation_fpr_delta_at_0_5_max": 0.01,
+    "old_knowledge_guard_loss_relative_increase_max": 0.02,
+    "old_knowledge_guard_fpr_delta_at_0_5_max": 0.01,
+    "missing_required_guard_class_policy": "reject_as_unavailable",
+    "first_budget": {
+      "id": "distinct64_single",
+      "distinct_matured_train_intervals": 64,
+      "updates_per_interval": 1,
+      "validation_intervals": 32
+    },
+    "second_budget": {
+      "id": "buffer128_4x4",
+      "allowed_only_if_first_budget_accepts_zero": true,
+      "train_horizon_distinct_matured_intervals": 128,
+      "recent_buffer_intervals": 64,
+      "minibatch": 32,
+      "update_every_new_matured_intervals": 4,
+      "updates_per_opportunity": 4,
+      "validation_intervals": 32
+    },
+    "no_further_search_if_second_budget_accepts_zero": true
+  },
+  "v2b_gate": "execute only if v2a has at least one causally accepted specialist",
+  "confirmation_seeds_forbidden": [701, 702, 703],
+  "test_seeds_forbidden": [201, 202, 203, 204, 205],
+  "development_signal": {
+    "primary": "equal-weight mean D-C AP over six registered recurrence first100 windows",
+    "mean_D_minus_C_min": 0.03,
+    "positive_windows_min": 4,
+    "normal_fpr_delta_max": 0.01
+  }
+}
