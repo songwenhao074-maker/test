@@ -6,7 +6,10 @@ on:
     branches: [protocol-025-gpt56-20260916]
     paths:
       - 'ftmoe_protocol025_model.py'
+      - 'ftmoe_protocol025_session.py'
+      - 'run_ftmoe_protocol025_development.py'
       - 'test_ftmoe_protocol025_model.py'
+      - 'test_ftmoe_protocol025_session.py'
       - 'artifacts/ftmoe_online/protocol_025/method_registration.json'
       - '.github/workflows/protocol025-method-ci.yml'
 
@@ -48,10 +51,10 @@ jobs:
           assert m['test_seeds_forbidden']==[201,202,203,204,205]
           print({'method_registration':'passed','residual_dim':73,'primary_comparator':'C_fixed5'})
           PY
-      - name: Compile and unit-test registered model only
+      - name: Compile and unit-test registered model/session/runner only
         run: |
-          python -m py_compile ftmoe_protocol025_model.py test_ftmoe_protocol025_model.py
-          python -m unittest -v test_ftmoe_protocol025_model.py
+          python -m py_compile ftmoe_protocol025_model.py ftmoe_protocol025_session.py run_ftmoe_protocol025_development.py test_ftmoe_protocol025_model.py test_ftmoe_protocol025_session.py
+          python -m unittest -v test_ftmoe_protocol025_model.py test_ftmoe_protocol025_session.py
       - name: Assert no Protocol025 model result exists yet
         run: |
           python - <<'PY'
