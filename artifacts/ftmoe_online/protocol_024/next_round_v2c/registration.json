@@ -1,0 +1,112 @@
+{
+  "protocol": "024",
+  "round": "next_round_v2c",
+  "development_only": true,
+  "registered_before_v2c_results": true,
+  "design_source": "v2 implementation defect identified after next_round_v2; replacement-consistent qualification only",
+  "base_commit": "c2ada4446199c0c9a660ac096d2a92cdb224262e",
+  "directive_commit": "cd873a4ef44a22bda07177612f8f58a8934b4910",
+  "stream": {
+    "replay_seed": 700,
+    "model_seed": 1,
+    "steps": 4980,
+    "guard_rows": 1,
+    "sha256": "468725ff2f164bee89017bfa329d63e20566659a42d2a0492e977e744c7ae946",
+    "finalizer_run": 34953715809,
+    "simulator_rerun": false
+  },
+  "sealed": {
+    "confirmation_seeds": [701, 702, 703],
+    "test_seeds": [201, 202, 203, 204, 205],
+    "must_not_read_or_generate": true
+  },
+  "common_online": {
+    "target": "raw_next_fault",
+    "target_maturity": "t+2",
+    "update_every_scored_intervals": 4,
+    "learning_rate": 0.0001,
+    "batch_size": 32,
+    "replay_buffer_intervals": 64,
+    "gradient_steps_per_opportunity": 1,
+    "anchor_weight": 0.25,
+    "distill_weight": 0.10,
+    "anchor_guard_split": "same deterministic modulo-5 split as v2"
+  },
+  "birth": {
+    "proposal_start_matured": 600,
+    "proposal_every_matured": 256,
+    "shadow_budget_version": "buffer128_4x4",
+    "buffer_train_horizon_intervals": 128,
+    "buffer_size": 64,
+    "buffer_minibatch": 32,
+    "buffer_update_every_matured": 4,
+    "buffer_updates_per_opportunity": 4,
+    "validation_intervals": 32,
+    "accept_relative_loss_improvement": 0.01,
+    "normal_probability_allowance": 0.01,
+    "validation_fpr_delta_allowance": 0.01,
+    "guard_loss_relative_increase_allowance": 0.02,
+    "guard_fpr_delta_allowance": 0.01,
+    "target_deployment_topology": "four generalists + new specialist; old specialist excluded",
+    "target_forward_shared_by": ["shadow_training", "prospective_validation", "old_knowledge_guard"]
+  },
+  "memory": {
+    "generalist_ids": ["0", "1", "2", "3"],
+    "specialist_frozen": true,
+    "max_live_specialists": 1,
+    "resident_limit": 8,
+    "reuse_every_matured": 32,
+    "reuse_recent_z_intervals": 32,
+    "reuse_validation_intervals": 16,
+    "reuse_match": "max cosine to frozen centroid with causal q10 within-memory threshold",
+    "crossfade_prediction_intervals": 8,
+    "purge_rule": "oldest last causal acceptance then expert ID",
+    "reuse_precedes_birth_if_same_due": true
+  },
+  "required_arms": ["C-u4", "D-v2c", "D-v2c-no-reuse"],
+  "no_reuse_arm": {
+    "only_change": "disable reuse proposals/validation/reactivation",
+    "birth_training_freezing_capacity_rules": "identical to D-v2c",
+    "independent_replay_from_t0": true
+  },
+  "timeline_accounting": {
+    "record_due_before_state_action": true,
+    "conservation": "due = started + skipped_busy + skipped_no_memory + skipped_no_match + skipped_capacity",
+    "separate_not_yet_eligible": true,
+    "candidate_conservation": "created = accepted + rejected + pending",
+    "pending_end_rule": "stream_end_censored"
+  },
+  "replacement_equivalence_test": {
+    "paths": ["no_old_specialist", "old_specialist_active", "dormant_reuse"],
+    "nonzero_distinct_expert_outputs": true,
+    "extreme_router_logits": true,
+    "atol": 0.000002,
+    "rtol": 0.000002
+  },
+  "checkpoint_recovery": {
+    "source": "real birth/retirement/reactivation checkpoint",
+    "compare_next_prediction": true,
+    "compare_next_complete_live_update_model_tensors": true,
+    "compare_adam_state": true,
+    "compare_rng": true,
+    "compare_prediction_after_update": true,
+    "compare_next_nonempty_lifecycle_event": true,
+    "compare_active_dormant_ids_ramp_candidate_state": true
+  },
+  "primary_windows": {
+    "first": ["R1_first", "R2_first", "R3_first"],
+    "recurrence": ["R1_rec1", "R3_rec1", "R2_rec1", "R1_rec2", "R2_rec2", "R3_rec2"],
+    "window_length": 100,
+    "primary_benefit": "equal-weight six recurrence first100 D-v2c minus C AP"
+  },
+  "development_signal": {
+    "mean_recurrence_ap_delta_min": 0.03,
+    "positive_recurrence_windows_min": 4,
+    "normal_fpr_delta_max": 0.01
+  },
+  "advancement": {
+    "if_signal": "run registered C-u1/compute-matched C, C-fixed8 and applicable ablations before confirmation",
+    "if_no_signal": "finish bounded diagnostics, preregister and advance to Protocol-025; do not tune v2c thresholds",
+    "confirmation_not_automatic": true
+  }
+}
