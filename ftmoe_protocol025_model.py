@@ -37,7 +37,12 @@ class RegisteredResidualExpert(nn.Sequential):
 
 
 class RegisteredFixedResidualBank(nn.Module):
-    """Deterministic N-expert bank with shared-prefix initialization."""
+    """Deterministic N-expert bank with shared-prefix initialization.
+
+    When ``topk`` is set, only the selected expert MLPs are executed for each
+    token. The full router is still evaluated, as is standard sparse-MoE
+    accounting, but unselected expert forwards are not performed.
+    """
     def __init__(self, expert_count: int, topk: int | None = None):
         super().__init__()
         self.expert_count = int(expert_count)
@@ -59,13 +64,31 @@ class RegisteredFixedResidualBank(nn.Module):
         if z.shape[-1] != RESIDUAL_INPUT_DIM:
             raise ValueError("Protocol025 residual input must be 73-D")
         logits = self.router(z)
-        if self.topk is not None and self.topk < self.expert_count:
-            indices = torch.topk(logits, self.topk, dim=-1).indices
-            keep = torch.zeros_like(logits, dtype=torch.bool).scatter_(-1, indices, True)
-            logits = logits.masked_fill(~keep, float("-inf"))
-        probabilities = torch.softmax(logits, dim=-1)
-        outputs = torch.stack([expert(z) for expert in self.experts], dim=-2)
-        correction = (probabilities.unsqueeze(-1) * outputs).sum(dim=-2)
+        if self.topk is None or self.topk >= self.expert_count:
+            probabilities = torch.softmax(logits, dim=-1)
+            outputs = torch.stack([expert(z) for expert in self.experts], dim=-2)
+            correction = (probabilities.unsqueeze(-1) * outputs).sum(dim=-2)
+            return correction, probabilities
+
+        indices = torch.topk(logits, self.topk, dim=-1).indices
+        keep = torch.zeros_like(logits, dtype=torch.bool).scatter_(-1, indices, True)
+        routed_logits = logits.masked_fill(~keep, float("-inf"))
+        probabilities = torch.softmax(routed_logits, dim=-1)
+
+        flat_z = z.reshape(-1, z.shape[-1])
+        flat_prob = probabilities.reshape(-1, self.expert_count)
+        flat_idx = indices.reshape(-1, self.topk)
+        flat_correction = z.new_zeros((flat_z.shape[0], CORRECTION_SIZE))
+        for expert_id, expert in enumerate(self.experts):
+            selected = (flat_idx == int(expert_id)).any(dim=-1)
+            if not bool(selected.any()):
+                continue
+            expert_out = expert(flat_z[selected])
+            flat_correction[selected] = (
+                flat_correction[selected]
+                + flat_prob[selected, expert_id].unsqueeze(-1) * expert_out
+            )
+        correction = flat_correction.reshape(*z.shape[:-1], CORRECTION_SIZE)
         return correction, probabilities
 
 
