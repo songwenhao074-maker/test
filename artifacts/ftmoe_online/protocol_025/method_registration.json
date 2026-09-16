@@ -47,7 +47,7 @@
     "C_fixed4": {"experts":4,"router":"dense_softmax","live_active_experts":4},
     "C_fixed5": {"experts":5,"router":"dense_softmax","live_active_experts":5},
     "C_fixed8_dense": {"experts":8,"router":"dense_softmax","live_active_experts":8},
-    "C_fixed8_top5": {"experts":8,"router":"top5_then_softmax","live_active_experts":5},
+    "C_fixed8_top5": {"experts":8,"router":"top5_then_softmax","live_active_experts":5,"expert_mlp_execution":"selected_five_only_per_token","router_execution":"all_eight_logits"},
     "D_dynamic": {"generalists":4,"max_live_specialists":1,"resident_limit":8,"shadow_counts_as_resident":true,"normal_live_active_experts":5,"crossfade_may_temporarily_activate_two_specialists":true}
   },
   "dynamic_policy": {
