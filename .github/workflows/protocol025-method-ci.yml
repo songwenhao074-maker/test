@@ -3,7 +3,7 @@ name: Protocol-025 frozen method unit tests
 on:
   workflow_dispatch:
   push:
-    branches: [protocol-025-gpt56-20260916]
+    branches: [protocol-025-revision1-gpt56-20260916]
     paths:
       - 'ftmoe_protocol025_model.py'
       - 'ftmoe_protocol025_session.py'
@@ -12,6 +12,7 @@ on:
       - 'test_ftmoe_protocol025_model.py'
       - 'test_ftmoe_protocol025_session.py'
       - 'artifacts/ftmoe_online/protocol_025/method_registration.json'
+      - 'artifacts/ftmoe_online/protocol_025/data_revision_001.json'
       - '.github/workflows/protocol025-method-ci.yml'
 
 permissions:
@@ -38,11 +39,13 @@ jobs:
           python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
           python -m pip install -r /tmp/requirements-online-ci.txt
           python -m pip install dgl==1.1.3
-      - name: Verify method registration is frozen before model results
+      - name: Verify method and single data revision are frozen before model results
         run: |
           python - <<'PY'
           import json
           m=json.load(open('artifacts/ftmoe_online/protocol_025/method_registration.json'))
+          r=json.load(open('artifacts/ftmoe_online/protocol_025/registration.json'))
+          d=json.load(open('artifacts/ftmoe_online/protocol_025/data_revision_001.json'))
           assert m['registered_before_any_model_result'] is True
           assert m['development_seed']==700 and m['model_seed']==1
           assert m['common_observable_input']['residual_input_dim']==73
@@ -51,7 +54,13 @@ jobs:
           assert m['evaluation']['active_budget_primary_comparator']=='C_fixed5'
           assert m['confirmation_seeds_forbidden']==[701,702,703]
           assert m['test_seeds_forbidden']==[201,202,203,204,205]
-          print({'method_registration':'passed','residual_dim':73,'primary_comparator':'C_fixed5','top5_sparse_mlp':True})
+          assert r['data_revision']['used_count']==1
+          assert r['data_revision']['active_revision_id']=='data_revision_001'
+          assert r['data_revision']['pre_revision_stream_eligible_for_model_results'] is False
+          assert r['data_revision']['no_further_data_revision_allowed'] is True
+          assert d['registered_before_any_protocol025_model_result'] is True
+          assert d['uses_only_allowed_data_revision'] is True
+          print({'method_registration':'passed','residual_dim':73,'primary_comparator':'C_fixed5','data_revision':'001','top5_sparse_mlp':True})
           PY
       - name: Compile and unit-test registered model/session/runner only
         run: |
