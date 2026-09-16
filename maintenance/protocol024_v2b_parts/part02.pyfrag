@@ -80,7 +80,9 @@
                            "step": 0,
                            "total": int(self.v2b_config["crossfade_prediction_intervals"])}
         self.phase = "transition"
-        self._event(session, "specialist_crossfade_started", **self.transition)
+        event_payload = dict(self.transition)
+        event_payload["transition_kind"] = event_payload.pop("kind")
+        self._event(session, "specialist_crossfade_started", **event_payload)
 
     def before_prediction(self, session, index):
         if self.transition is None:
