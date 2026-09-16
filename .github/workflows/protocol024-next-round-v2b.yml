@@ -11,6 +11,10 @@ on:
       - 'artifacts/ftmoe_online/protocol_024/next_round_v2/registration.json'
       - '.github/workflows/protocol024-next-round-v2b.yml'
 
+permissions:
+  contents: read
+  actions: read
+
 jobs:
   v2b-development:
     runs-on: ubuntu-22.04
