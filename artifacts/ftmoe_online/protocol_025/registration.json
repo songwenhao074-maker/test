@@ -40,7 +40,17 @@
   "data_audit_before_model_results": ["causal_collection_order","positive_negative_counts_per_phase","event_lengths","physical_parameter_meaning"],
   "allowed_data_revision_count": 1,
   "revision_must_be_registered_before_model_results": true,
-  "generation": {"immutable_chunked":true,"resumable_checkpoints":true,"no_posthoc_npz_splicing":true},
+  "generation": {
+    "immutable_chunked": true,
+    "resumable_checkpoints": true,
+    "no_posthoc_npz_splicing": true,
+    "task_response_event_probability": 0.30,
+    "chunk_intervals": 200,
+    "checkpoint_at_chunk_boundary": true,
+    "resume_state_serializer": "dill",
+    "resume_requires_matching_registration_sha256": true,
+    "final_stream_assembled_only_from_current_run_chunks": true
+  },
   "confirmation_policy": "do not use confirmation/test seeds until complete configuration, comparator set and primary metric are frozen after development",
   "source_directive": "docs/PROTOCOL024_NEXT_DIRECTIVE_20260916.md"
 }
