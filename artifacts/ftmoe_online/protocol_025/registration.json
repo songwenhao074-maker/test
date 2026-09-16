@@ -40,6 +40,14 @@
   "data_audit_before_model_results": ["causal_collection_order","positive_negative_counts_per_phase","event_lengths","physical_parameter_meaning"],
   "allowed_data_revision_count": 1,
   "revision_must_be_registered_before_model_results": true,
+  "data_revision": {
+    "used_count": 1,
+    "active_revision_id": "data_revision_001",
+    "registration_file": "artifacts/ftmoe_online/protocol_025/data_revision_001.json",
+    "pre_revision_generation_run": 35101949642,
+    "pre_revision_stream_eligible_for_model_results": false,
+    "no_further_data_revision_allowed": true
+  },
   "generation": {
     "immutable_chunked": true,
     "resumable_checkpoints": true,
