@@ -23,13 +23,22 @@ class TestProtocol025Model(unittest.TestCase):
             self.assertTrue(torch.equal(b4.router.bias[i], b5.router.bias[i]))
             self.assertTrue(torch.equal(b4.router.bias[i], b8.router.bias[i]))
 
-    def test_top5_router_has_exactly_five_nonzero_probabilities(self):
+    def test_top5_router_executes_exactly_five_expert_token_forwards(self):
         bank = RegisteredFixedResidualBank(8, topk=5)
+        counts = [0] * 8
+        handles = []
+        for i, expert in enumerate(bank.experts):
+            def hook(_module, args, _output, i=i):
+                counts[i] += int(args[0].shape[0])
+            handles.append(expert.register_forward_hook(hook))
         z = torch.randn(3, 16, RESIDUAL_INPUT_DIM)
         _, p = bank(z)
+        for handle in handles:
+            handle.remove()
         self.assertTrue(torch.isfinite(p).all())
         self.assertTrue(torch.allclose(p.sum(-1), torch.ones_like(p.sum(-1)), atol=1e-7, rtol=1e-7))
         self.assertTrue(torch.equal((p > 0).sum(-1), torch.full((3,16), 5, dtype=torch.long)))
+        self.assertEqual(sum(counts), 3 * 16 * 5)
 
     def test_common_features_use_current_and_past_pressure_only(self):
         # Replay-style normalized host window [B,16,12,7]. Use unit scales.
