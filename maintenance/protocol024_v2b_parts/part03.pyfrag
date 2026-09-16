@@ -1,0 +1,170 @@
+                context = s4.graph_context(anchor["ids"][left:right],
+                                           anchor["before"][left:right],
+                                           anchor["caps"][left:right])
+                out = session.model.predict_deployment(
+                    anchor["x"][left:right], anchor["schedule"][left:right],
+                    anchor["graph_x"][left:right], graph_context=context)
+                correction, _ = self._preview_specialist(
+                    session, key, session.model._last_z.detach())
+                live_det.append(out["detection_logits"].detach().cpu())
+                live_cls.append(out["class_logits"].detach().cpu())
+                cand_det.append((out["base_final_detection_logits"] +
+                                 correction[..., :2]).detach().cpu())
+                cand_cls.append((out["base_final_class_logits"] +
+                                 correction[..., 2:]).detach().cpu())
+                targets.append(labels[left:right].detach().cpu())
+                self.extra_compute["reuse_guard_forwards"] += 1
+        live_det, live_cls = torch.cat(live_det, 0), torch.cat(live_cls, 0)
+        cand_det, cand_cls = torch.cat(cand_det, 0), torch.cat(cand_cls, 0)
+        target = torch.cat(targets, 0)
+        live_loss = _loss_from_logits(live_det, live_cls, target)
+        cand_loss = _loss_from_logits(cand_det, cand_cls, target)
+        live_fpr, normal_rows = fixed_threshold_fpr(live_det, target)
+        cand_fpr, _ = fixed_threshold_fpr(cand_det, target)
+        positive_rows = int((target.reshape(-1) > 0).sum().item())
+        available = normal_rows > 0 and positive_rows > 0
+        self.extra_compute["reuse_guard_seconds"] += time.perf_counter() - started
+        return {
+            "available": bool(available), "rows": int(target.numel()),
+            "normal_rows": int(normal_rows), "positive_rows": int(positive_rows),
+            "live_loss": float(live_loss), "candidate_loss": float(cand_loss),
+            "relative_loss_increase": float((cand_loss-live_loss)/max(abs(live_loss),1e-12)),
+            "live_fpr_0p5": live_fpr, "candidate_fpr_0p5": cand_fpr,
+            "fpr_delta_0p5": (None if live_fpr is None or cand_fpr is None
+                               else float(cand_fpr-live_fpr)),
+        }
+
+    def _maybe_start_reuse(self, session):
+        self.reuse_opportunities += 1
+        bank = session.model.learner
+        dormant = [str(k) for k in bank.dormant_experts.keys()
+                   if str(k) in self.specialist_memory]
+        if not dormant:
+            self.reuse_skipped_no_memory += 1
+            self._event(session, "reuse_skipped_no_memory")
+            return False
+        width = int(self.v2b_config["reuse_recent_z_intervals"])
+        if len(self.recent_z) < width:
+            self.reuse_skipped_no_match += 1
+            self._event(session, "reuse_skipped_insufficient_z", available=len(self.recent_z),
+                        required=width)
+            return False
+        current = _unit(np.asarray(self.recent_z[-width:]).mean(axis=0))
+        scored = []
+        for key in dormant:
+            mem = self.specialist_memory[key]
+            sim = float(np.dot(current, np.asarray(mem["centroid"], dtype=np.float64)))
+            scored.append((sim, -int(key), key, float(mem["similarity_threshold"])))
+        scored.sort(reverse=True)
+        sim, _, key, threshold = scored[0]
+        if sim < threshold:
+            self.reuse_skipped_no_match += 1
+            self._event(session, "reuse_skipped_no_match", best_id=key,
+                        similarity=sim, required_similarity=threshold)
+            return False
+        self.reuse_candidate_id = key
+        self.reuse_prelabel = {}
+        self.reuse_pairs = []
+        self.phase = "reuse_validation"
+        self._event(session, "reuse_candidate_selected", expert_id=key,
+                    similarity=sim, required_similarity=threshold,
+                    selection="max cosine to frozen memory centroid")
+        return True
+
+    def _score_reuse(self, session, index, target):
+        rec = self.reuse_prelabel.pop(int(index), None)
+        if rec is None:
+            return
+        if not rec.get("recorded_before_label", False):
+            raise AssertionError("reuse validation prediction was not pre-label")
+        live_loss = _loss_from_logits(rec["live_detection_logits"],
+                                      rec["live_class_logits"], target)
+        cand_loss = _loss_from_logits(rec["candidate_detection_logits"],
+                                      rec["candidate_class_logits"], target)
+        live_normal, normal_rows = _normal_anomaly_mean(rec["live_detection_logits"], target)
+        cand_normal, _ = _normal_anomaly_mean(rec["candidate_detection_logits"], target)
+        live_det = torch.as_tensor(rec["live_detection_logits"], dtype=torch.float32)
+        cand_det = torch.as_tensor(rec["candidate_detection_logits"], dtype=torch.float32)
+        target_t = torch.as_tensor(target, dtype=torch.long).reshape(-1)
+        normal = target_t == 0
+        live_fp = int((torch.softmax(live_det,-1)[:,1][normal]>=0.5).sum().item()) if bool(normal.any()) else 0
+        cand_fp = int((torch.softmax(cand_det,-1)[:,1][normal]>=0.5).sum().item()) if bool(normal.any()) else 0
+        self.reuse_pairs.append({
+            "index": int(index), "live_loss": live_loss, "candidate_loss": cand_loss,
+            "normal_rows": int(normal_rows), "live_normal_probability": live_normal,
+            "candidate_normal_probability": cand_normal, "live_fp_0p5": live_fp,
+            "candidate_fp_0p5": cand_fp,
+            "candidate_route_probability_mean": rec["candidate_route_probability_mean"],
+            "prediction_cursor": rec["prediction_cursor"],
+            "label_published_at_cursor": int(session.cursor),
+        })
+        if len(self.reuse_pairs) >= int(self.v2b_config["reuse_validation_intervals"]):
+            self._decide_reuse(session)
+
+    def _decide_reuse(self, session):
+        pairs = self.reuse_pairs[:int(self.v2b_config["reuse_validation_intervals"])]
+        live = float(np.mean([x["live_loss"] for x in pairs]))
+        cand = float(np.mean([x["candidate_loss"] for x in pairs]))
+        improvement = (live-cand)/max(abs(live),1e-12)
+        normal_pairs = [x for x in pairs if x["normal_rows"]>0]
+        if normal_pairs:
+            w=[x["normal_rows"] for x in normal_pairs]
+            live_normal=float(np.average([x["live_normal_probability"] for x in normal_pairs],weights=w))
+            cand_normal=float(np.average([x["candidate_normal_probability"] for x in normal_pairs],weights=w))
+            normal_ok=cand_normal <= live_normal + float(self.config["normal_probability_allowance"])
+        else:
+            live_normal=cand_normal=None; normal_ok=False
+        normal_rows=sum(x["normal_rows"] for x in pairs)
+        live_fp=sum(x["live_fp_0p5"] for x in pairs); cand_fp=sum(x["candidate_fp_0p5"] for x in pairs)
+        live_fpr=live_fp/float(normal_rows) if normal_rows else None
+        cand_fpr=cand_fp/float(normal_rows) if normal_rows else None
+        fpr_delta=None if live_fpr is None else cand_fpr-live_fpr
+        fpr_ok=fpr_delta is not None and fpr_delta <= float(self.v2_config["validation_fpr_delta_allowance"])
+        key=str(self.reuse_candidate_id)
+        guard=self._reuse_guard_report(session,key)
+        guard_loss_ok=bool(guard["available"] and guard["relative_loss_increase"] <= float(self.v2_config["guard_loss_relative_increase_allowance"]))
+        guard_fpr_ok=bool(guard["available"] and guard["fpr_delta_0p5"] is not None and guard["fpr_delta_0p5"] <= float(self.v2_config["guard_fpr_delta_allowance"]))
+        loss_ok=improvement >= float(self.config["accept_relative_loss_improvement"])
+        accept=bool(loss_ok and normal_ok and fpr_ok and guard_loss_ok and guard_fpr_ok)
+        reasons=[]
+        if not loss_ok: reasons.append("relative_loss_improvement_below_1pct")
+        if not normal_ok: reasons.append("mean_normal_probability_guard_failed_or_unavailable")
+        if not fpr_ok: reasons.append("validation_fpr_delta_failed_or_unavailable")
+        if not guard["available"]: reasons.append("old_knowledge_guard_unavailable")
+        elif not guard_loss_ok: reasons.append("old_knowledge_guard_loss_regression")
+        elif not guard_fpr_ok: reasons.append("old_knowledge_guard_fpr_regression")
+        decision={
+            "expert_id":key,"live_mean_loss":live,"candidate_mean_loss":cand,
+            "relative_improvement":float(improvement),"required_relative_improvement":float(self.config["accept_relative_loss_improvement"]),
+            "live_normal_probability":live_normal,"candidate_normal_probability":cand_normal,
+            "normal_safety_ok":bool(normal_ok),"validation_live_fpr_0p5":live_fpr,
+            "validation_candidate_fpr_0p5":cand_fpr,"validation_fpr_delta_0p5":fpr_delta,
+            "validation_fpr_ok":bool(fpr_ok),"guard":guard,"guard_loss_ok":bool(guard_loss_ok),
+            "guard_fpr_ok":bool(guard_fpr_ok),"validation_intervals":len(pairs),
+            "candidate_route_probability_mean":float(np.mean([x["candidate_route_probability_mean"] for x in pairs])),
+            "accepted":accept,"reject_reasons":reasons,
+        }
+        if accept:
+            old=self.active_specialist_id
+            session.reactivate_expert(key)
+            self.specialist_memory[key]["last_causal_accept_matured"] = int(self.matured_count)
+            self.reuse_accepted += 1; self.reactivations += 1
+            self._event(session,"specialist_reactivated",**decision)
+            self._begin_transition(session,old,key,"reactivation")
+        else:
+            self.reuse_rejected += 1
+            self._event(session,"reuse_candidate_rejected",**decision)
+            self.phase="monitoring"
+        self.reuse_candidate_id=None; self.reuse_prelabel={}; self.reuse_pairs=[]
+
+    def _decide_candidate(self, session):
+        candidate_id = str(self.candidate_id)
+        old_active = self.active_specialist_id
+        accepted_before = len(self.accepted_ids)
+        super()._decide_candidate(session)
+        if len(self.accepted_ids) > accepted_before:
+            self.specialist_memory[candidate_id] = self._memory_from_recent_z(candidate_id)
+            self._event(session, "specialist_memory_frozen", expert_id=candidate_id,
+                        similarity_threshold=float(self.specialist_memory[candidate_id]["similarity_threshold"]),
+                        centroid_rows=int(self.specialist_memory[candidate_id]["centroid_rows"]))
+            self._begin_transition(session, old_active, candidate_id, "birth")

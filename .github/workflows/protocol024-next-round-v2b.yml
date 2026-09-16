@@ -1,0 +1,100 @@
+name: Protocol-024 next-round v2b specialist memory
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [protocol-024-next-round-v2-gpt56]
+    paths:
+      - 'maintenance/protocol024_v2b_parts/**'
+      - 'run_ftmoe_protocol024_v2b.py'
+      - 'test_ftmoe_protocol024_v2b.py'
+      - 'artifacts/ftmoe_online/protocol_024/next_round_v2/registration.json'
+      - '.github/workflows/protocol024-next-round-v2b.yml'
+
+jobs:
+  v2b-development:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 180
+    env:
+      OMP_NUM_THREADS: 3
+      MKL_NUM_THREADS: 3
+      OPENBLAS_NUM_THREADS: 3
+      ROOT_OUT: artifacts/ftmoe_online/protocol_024/next_round_v2
+      STREAM_RUN_ID: '34953715809'
+      STREAM_ARTIFACT: protocol024-next-round-v1-finalized-generation
+      V2A_RUN_ID: '34989082187'
+      V2A_ARTIFACT: protocol024-next-round-v2a-development
+      EXPECTED_STREAM_SHA: 468725ff2f164bee89017bfa329d63e20566659a42d2a0492e977e744c7ae946
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+      - name: Install online dependencies with CPU PyTorch
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3
+      - name: Download immutable stream
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.STREAM_ARTIFACT }}
+          path: /tmp/p24-v2-stream
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ env.STREAM_RUN_ID }}
+      - name: Download completed v2a evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.V2A_ARTIFACT }}
+          path: /tmp/p24-v2a
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ env.V2A_RUN_ID }}
+      - name: Verify v2b gate and provenance
+        run: |
+          rm -rf "$ROOT_OUT/data"
+          mkdir -p "$ROOT_OUT/data"
+          cp -a /tmp/p24-v2-stream/. "$ROOT_OUT/data/"
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path('artifacts/ftmoe_online/protocol_024/next_round_v2/data')
+          h=hashlib.sha256((root/'stream.npz').read_bytes()).hexdigest()
+          assert h=='468725ff2f164bee89017bfa329d63e20566659a42d2a0492e977e744c7ae946'
+          s=json.load(open('/tmp/p24-v2a/status.json'))
+          assert s['advance_to_v2b'] is True and s['v2a_any_candidate_accepted'] is True
+          assert s['second_budget']['candidate_accepted']==4
+          r=json.load(open('artifacts/ftmoe_online/protocol_024/next_round_v2/registration.json'))
+          v=r['v2b_registration']
+          assert v['registered_before_v2b_results'] is True
+          assert v['birth_shadow_budget']=='buffer128_4x4'
+          assert v['reuse_every_matured']==32 and v['reuse_validation_intervals']==16
+          assert v['crossfade_prediction_intervals']==8
+          assert r['confirmation_seeds_forbidden']==[701,702,703]
+          print({'stream_sha256':h,'v2b_gate':'passed','accepted_v2a':4})
+          PY
+      - name: Assemble and verify v2b implementation
+        run: |
+          cat maintenance/protocol024_v2b_parts/part*.pyfrag > ftmoe_protocol024_v2b.py
+          python -m py_compile ftmoe_protocol024_v2b.py run_ftmoe_protocol024_v2b.py
+          python -m unittest -v test_ftmoe_protocol024_v2b.py test_ftmoe_protocol024_v2a.py test_ftmoe_protocol024_next_round_eval.py
+      - name: Run independent v2b replay from t0
+        run: |
+          rm -rf "$ROOT_OUT/runs/v2b_memory_seed700_model1"
+          python run_ftmoe_protocol024_v2b.py \
+            --stream "$ROOT_OUT/data" \
+            --v2a-root /tmp/p24-v2a \
+            --out-root "$ROOT_OUT/runs/v2b_memory_seed700_model1"
+      - name: Upload v2b evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol024-next-round-v2b-development
+          path: |
+            artifacts/ftmoe_online/protocol_024/next_round_v2/registration.json
+            artifacts/ftmoe_online/protocol_024/next_round_v2/runs/v2b_memory_seed700_model1
+          if-no-files-found: warn

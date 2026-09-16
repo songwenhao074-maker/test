@@ -1,0 +1,33 @@
+{
+  "protocol": "024",
+  "round": "next_round_v2",
+  "entries": [
+    {
+      "id": "P24-V2-ENG-01",
+      "stage": "v2a",
+      "actions_run": 34980970874,
+      "status": "fixed",
+      "kind": "deterministic_engineering_failure",
+      "symptom": "result aggregation raised ValueError: average precision target must be binary 0/1",
+      "cause": "deployable baseline passed raw resource classes 0/1/2/3 directly to the binary detection AP evaluator",
+      "fix_commit": "57878a0d1485c662dd6f148dc61822e4d84ab16d",
+      "fix": "binarize baseline target as fault=(raw_next_resource_class>0) before AP evaluation",
+      "scientific_effect": "none; stream, seeds, model, candidate proposal, training budgets and qualification thresholds unchanged",
+      "successful_rerun": 34989082187
+    },
+    {
+      "id": "P24-V2-SCI-01",
+      "stage": "v2a",
+      "actions_run": 34989082187,
+      "status": "v2b_gate_open",
+      "kind": "development_result",
+      "first_budget": {"candidate_created": 18, "candidate_accepted": 0, "candidate_rejected": 17},
+      "second_budget": {"candidate_created": 17, "candidate_accepted": 4, "candidate_rejected": 13, "capacity_blocked": 1},
+      "second_budget_recurrence_mean_D_minus_C_ap": 0.0035665343616063105,
+      "second_budget_positive_recurrence_windows": 4,
+      "second_budget_normal_fpr_D_minus_C": -0.00045897877223178424,
+      "development_signal": false,
+      "interpretation": "causally accepted specialists exist, so v2b memory/reuse must be tested; v2a itself does not meet the development-signal threshold"
+    }
+  ]
+}

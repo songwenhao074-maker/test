@@ -1,0 +1,170 @@
+        ids = list(self.generalist_ids) + [key]
+        experts, weights, biases = {}, {}, {}
+        for gid in self.generalist_ids:
+            experts[gid] = bank.experts[gid]
+            weights[gid] = bank.router_weights[gid]
+            biases[gid] = bank.router_biases[gid]
+        if key in bank.experts:
+            experts[key] = bank.experts[key]
+            weights[key] = bank.router_weights[key]
+            biases[key] = bank.router_biases[key]
+        elif key in bank.dormant_experts:
+            experts[key] = bank.dormant_experts[key]
+            weights[key] = bank.dormant_router_weights[key]
+            biases[key] = bank.dormant_router_biases[key]
+        else:
+            raise KeyError("specialist memory is not resident: %s" % key)
+        ramps = {x: 1.0 for x in ids}
+        return bank._mixture(z, ids, experts, weights, biases, ramps)
+
+    def _resident_specialist_bytes(self, session, key):
+        bank = session.model.learner
+        key = str(key)
+        if key in bank.dormant_experts:
+            param = _parameter_bytes(bank.dormant_experts[key],
+                                     bank.dormant_router_weights[key],
+                                     bank.dormant_router_biases[key])
+        elif key in bank.experts:
+            param = _parameter_bytes(bank.experts[key], bank.router_weights[key],
+                                     bank.router_biases[key])
+        else:
+            param = 0
+        prefix = key + "|"
+        optimizer = sum(_tensor_bytes(v) for name, v in session.optimizer_archive.items()
+                        if str(name).startswith(prefix))
+        private = _tensor_bytes(self.specialist_memory.get(key, {}))
+        return {"parameter_bytes": int(param), "optimizer_archive_bytes": int(optimizer),
+                "private_stat_bytes": int(private),
+                "total_bytes": int(param + optimizer + private)}
+
+    def _free_capacity_for_shadow(self, session):
+        bank = session.model.learner
+        if bank.resident_count() < bank.max_experts:
+            return True
+        dormant = [str(k) for k in bank.dormant_experts.keys()
+                   if str(k) in self.specialist_memory]
+        if not dormant:
+            self.capacity_blocked += 1
+            self._event(session, "proposal_skipped_capacity",
+                        reason="capacity_full_no_dormant_specialist_to_purge",
+                        resident_count=bank.resident_count(), max_experts=bank.max_experts)
+            return False
+        key = min(dormant, key=lambda k: (
+            int(self.specialist_memory[k]["last_causal_accept_matured"]), int(k)))
+        before = self._resident_specialist_bytes(session, key)
+        session.purge_expert(key)
+        self.specialist_memory.pop(key, None)
+        self.purges += 1
+        self.purged_bytes += int(before["total_bytes"])
+        self._event(session, "specialist_purged", expert_id=key,
+                    purge_rule="oldest causal acceptance, expert ID tie-break",
+                    released_bytes=before)
+        return bank.resident_count() < bank.max_experts
+
+    def _start_candidate(self, session, reason):
+        if session.model.learner.resident_count() >= session.model.learner.max_experts:
+            if not self._free_capacity_for_shadow(session):
+                return False
+        return super()._start_candidate(session, reason)
+
+    def _begin_transition(self, session, old_id, new_id, kind):
+        old_id = None if old_id is None else str(old_id)
+        new_id = str(new_id)
+        if old_id == new_id:
+            raise AssertionError("crossfade old/new specialist IDs must differ")
+        session.model.learner.set_ramp(new_id, 0.0)
+        if old_id is not None:
+            session.model.learner.set_ramp(old_id, 1.0)
+        self.active_specialist_id = new_id
+        self.transition = {"old_id": old_id, "new_id": new_id, "kind": str(kind),
+                           "step": 0,
+                           "total": int(self.v2b_config["crossfade_prediction_intervals"])}
+        self.phase = "transition"
+        self._event(session, "specialist_crossfade_started", **self.transition)
+
+    def before_prediction(self, session, index):
+        if self.transition is None:
+            return
+        tr = self.transition
+        step = int(tr["step"]) + 1
+        total = int(tr["total"])
+        alpha = min(1.0, step / float(total))
+        bank = session.model.learner
+        general_before = _stable_generalist_hash(bank, self.generalist_ids)
+        bank.set_ramp(tr["new_id"], alpha)
+        if tr["old_id"] is not None:
+            bank.set_ramp(tr["old_id"], 1.0 - alpha)
+        general_after = _stable_generalist_hash(bank, self.generalist_ids)
+        if general_before != general_after:
+            raise AssertionError("crossfade mutated generalist parameters")
+        tr["step"] = step
+        tr["alpha"] = alpha
+        self._event(session, "specialist_crossfade_step",
+                    prediction_index=int(index), old_id=tr["old_id"],
+                    new_id=tr["new_id"], step=step, total=total, alpha=alpha,
+                    generalist_parameter_hash_unchanged=True)
+
+    def _finish_transition_after_prediction(self, session, index, output):
+        if self.transition is None:
+            return
+        routed = output.get("correction_router_probabilities")
+        if routed is not None:
+            values = routed.detach()
+            if not torch.isfinite(values).all():
+                raise RuntimeError("non-finite live routing during specialist crossfade")
+            if not torch.allclose(values.sum(-1), torch.ones_like(values.sum(-1)),
+                                  atol=1e-6, rtol=1e-6):
+                raise AssertionError("live routing lost normalization during crossfade")
+        tr = self.transition
+        if int(tr["step"]) < int(tr["total"]):
+            return
+        old_id, new_id, kind = tr["old_id"], tr["new_id"], tr["kind"]
+        if old_id is not None:
+            session.retire_expert(old_id)
+            self.retirements += 1
+            self._event(session, "specialist_retired", expert_id=old_id,
+                        replacement_id=new_id, prediction_index=int(index))
+        session.model.learner.set_ramp(new_id, 1.0)
+        self.transition = None
+        self.phase = "monitoring"
+        self._event(session, "specialist_crossfade_completed", expert_id=new_id,
+                    transition_kind=kind, prediction_index=int(index),
+                    routing_normalization_checked=True)
+        if kind == "reactivation" and not self.reactivation_checkpoint_records:
+            self.checkpoint_request = {
+                "label": "v2b_after_first_reactivation",
+                "event_count": len(self.events),
+                "expert_id": new_id,
+            }
+
+    def on_pre_label_prediction(self, session, index, output):
+        super().on_pre_label_prediction(session, index, output)
+        if self.phase == "reuse_validation" and self.reuse_candidate_id is not None:
+            started = time.perf_counter()
+            with torch.no_grad():
+                correction, routed = self._preview_specialist(
+                    session, self.reuse_candidate_id, session.model._last_z.detach())
+                det = output["base_final_detection_logits"] + correction[..., :2]
+                cls = output["base_final_class_logits"] + correction[..., 2:]
+            self.reuse_prelabel[int(index)] = {
+                "candidate_detection_logits": det[0].detach().cpu().numpy(),
+                "candidate_class_logits": cls[0].detach().cpu().numpy(),
+                "live_detection_logits": output["detection_logits"][0].detach().cpu().numpy(),
+                "live_class_logits": output["class_logits"][0].detach().cpu().numpy(),
+                "candidate_route_probability_mean": float(routed[..., -1].mean().cpu()),
+                "prediction_cursor": int(session.cursor),
+                "recorded_before_label": True,
+            }
+            self.extra_compute["reuse_validation_forwards"] += 1
+            self.extra_compute["reuse_validation_seconds"] += time.perf_counter() - started
+        self._finish_transition_after_prediction(session, index, output)
+        self._sync_session(session)
+
+    def _reuse_guard_report(self, session, key):
+        anchor = self.guard_anchor
+        labels = anchor["labels"]
+        started = time.perf_counter()
+        live_det, live_cls, cand_det, cand_cls, targets = [], [], [], [], []
+        with torch.no_grad():
+            for left in range(0, int(labels.shape[0]), 32):
+                right = min(int(labels.shape[0]), left + 32)

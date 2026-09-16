@@ -1,0 +1,122 @@
+
+    def on_matured(self, session, index, target):
+        if session.arm != "D": return
+        index=int(index)
+        loss=self._current_live_loss(session,index,target)
+        if not math.isfinite(loss): raise RuntimeError("non-finite matured supervised loss")
+        self.loss_history.append(loss); self.matured_count += 1
+        self._diagnostic(session,index,target,loss)
+
+        if self.phase == "candidate_training":
+            self._buffer_train(session,index,target); self._sync_session(session); return
+        if self.phase == "candidate_validation":
+            self._score_candidate_validation(session,index,target); self._sync_session(session); return
+        if self.phase == "reuse_validation":
+            self._score_reuse(session,index,target); self._sync_session(session); return
+        if self.phase == "cooldown":
+            self.cooldown_left -= 1
+            if self.cooldown_left <= 0:
+                self.phase="monitoring"; self._event(session,"cooldown_complete")
+            self._sync_session(session); return
+        if self.phase == "transition":
+            self._sync_session(session); return
+        if self.phase != "monitoring":
+            raise RuntimeError("unexpected v2b lifecycle phase %s" % self.phase)
+
+        reuse_due = bool(self.specialist_memory) and self.matured_count % int(self.v2b_config["reuse_every_matured"]) == 0
+        birth_due = proposal_due(self.matured_count,self.v2_config["proposal_start_matured"],self.v2_config["proposal_every_matured"])
+        if reuse_due:
+            if self._maybe_start_reuse(session):
+                self._sync_session(session); return
+        if birth_due:
+            self.proposal_opportunities += 1
+            if self.phase != "monitoring" or session.model.learner.shadow_id is not None:
+                self.proposal_skipped += 1; self._event(session,"proposal_skipped_busy",reason="candidate_or_reuse_busy",controller_phase=self.phase)
+            elif self._start_candidate(session,"periodic_background_budget"):
+                self._sync_session(session); return
+        self._sync_session(session)
+
+    def on_after_live_update(self, session, index):
+        # v2b specialist ramps are prediction-count based, never live-update based.
+        self._sync_session(session)
+
+    def pop_checkpoint_request(self):
+        value=self.checkpoint_request
+        self.checkpoint_request=None
+        return value
+
+
+class V2BProtocol024Session(QualifiedV2AProtocol024Session):
+    """v2b session: generic experts train online, specialists stay frozen."""
+
+    def __init__(self, *args, guard_anchor=None, v2b_config=None, **kwargs):
+        cfg=dict(V2B_DEFAULT); cfg.update(v2b_config or {})
+        self.generalist_ids=set(str(x) for x in cfg["generalist_ids"])
+        super().__init__(*args,guard_anchor=guard_anchor,v2a_config=cfg,**kwargs)
+        self.lifecycle_controller=MemoryResidualLifecycle(guard_anchor=guard_anchor,config=cfg)
+        self.lifecycle_state=self.lifecycle_controller.state_dict(); self.lifecycle_state["enabled"]=True
+        self._apply_specialist_freeze()
+        self.lifecycle_controller._sync_session(self)
+
+    def _active_named_parameters(self):
+        named=super()._active_named_parameters()
+        if getattr(self,"arm",None)!="D" or not hasattr(self,"generalist_ids"):
+            return named
+        return [(name,p) for name,p in named if str(name).split("|",1)[0] in self.generalist_ids]
+
+    def _apply_specialist_freeze(self):
+        if getattr(self,"arm",None)!="D": return
+        bank=self.model.learner
+        bank.set_role_trainability()
+        for key in list(bank.experts.keys()):
+            if str(key) in self.generalist_ids: continue
+            for p in bank.experts[key].parameters(): p.requires_grad_(False); p.grad=None
+            bank.router_weights[key].requires_grad_(False); bank.router_weights[key].grad=None
+            bank.router_biases[key].requires_grad_(False); bank.router_biases[key].grad=None
+        self._rebuild_live_optimizer()
+
+    def activate_shadow(self):
+        key=super().activate_shadow(); self._apply_specialist_freeze(); return key
+    def retire_expert(self,key):
+        key=super().retire_expert(key); self._apply_specialist_freeze(); return key
+    def reactivate_expert(self,key):
+        key=super().reactivate_expert(key); self._apply_specialist_freeze(); return key
+    def purge_expert(self,key):
+        result=super().purge_expert(key); self._apply_specialist_freeze(); return result
+
+    def restore_checkpoint(self,path):
+        payload=super().restore_checkpoint(path); self._apply_specialist_freeze(); return payload
+
+    def step(self):
+        t=self.cursor
+        if t>=self.steps: raise StopIteration
+        self.lifecycle_controller.before_prediction(self,t)
+        started=time.perf_counter()
+        x,sched,graph,context=s4.window_batch(self.replay,[t])
+        out=self.model.predict_deployment(x,sched,graph,graph_context=context)
+        probability=torch.softmax(out["detection_logits"],-1)[0,:,1].detach().numpy().astype(np.float32)
+        classes=torch.softmax(out["class_logits"],-1)[0].detach().numpy().astype(np.float32)
+        if not (np.isfinite(probability).all() and np.isfinite(classes).all()): raise RuntimeError("non-finite prediction at %d"%t)
+        self.predictions["probability"][t]=probability; self.predictions["class_probability"][t]=classes
+        self.predictions["detection_logits"][t]=out["detection_logits"][0].detach().cpu().numpy()
+        self.predictions["class_logits"][t]=out["class_logits"][0].detach().cpu().numpy()
+        self.predictions["model_version"][t]=self.model_version; self.predictions["learner_hash"][t]=self.learner_hash
+        self.predictions["prediction_seconds"][t]=time.perf_counter()-started
+        if not np.all(self.raw_seen[t]==-1): raise AssertionError("label read before prediction")
+        self.lifecycle_controller.on_pre_label_prediction(self,t,out)
+        self.raw_seen[t]=np.asarray(self.bundle["arrays"]["raw_labels"][t],dtype=np.int64).copy(); self.predictions["raw_labels"][t]=self.raw_seen[t]
+        settled_now=t-2
+        if settled_now>=0:
+            target=self._mature_label(settled_now,t); self.predictions["labels"][settled_now]=target
+            self.predictions["settled_at"][settled_now]=t; self.settled[settled_now]=True; self.buffer.append(settled_now)
+            if len(self.buffer)>self.buffer_limit: self.buffer=self.buffer[-self.buffer_limit:]
+            self.lifecycle_controller.on_matured(self,settled_now,target)
+        if (t+1)%self.update_every==0:
+            self.update(t); self.lifecycle_controller.on_after_live_update(self,t)
+        self.model_version+=1; self.cursor=t+1; self.lifecycle_controller._sync_session(self)
+        req=self.lifecycle_controller.pop_checkpoint_request()
+        if req is not None:
+            record=self.save_checkpoint(req["label"],t)
+            self.lifecycle_controller.reactivation_checkpoint_records.append({**req,**record})
+            self.lifecycle_controller._sync_session(self)
+        return probability,classes

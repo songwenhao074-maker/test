@@ -1,0 +1,170 @@
+"""Protocol-024 next_round_v2b: bounded specialist memory and causal reuse.
+
+v2b is a development-stage extension of the registered v2a policy.  It keeps
+four generalists on the common u4 online budget, freezes causally accepted
+specialists as memory, permits at most one specialist to influence live
+predictions outside an eight-prediction cross-fade, and proposes dormant-memory
+reuse using only recent visible z representations.
+"""
+from __future__ import annotations
+
+from copy import deepcopy
+import hashlib
+import math
+import time
+
+import numpy as np
+import torch
+
+import run_ftmoe_protocol023_s4 as s4
+from ftmoe_protocol024_lifecycle import _loss_from_logits, _normal_anomaly_mean
+from ftmoe_protocol024_v2a import V2A_DEFAULT, proposal_due, fixed_threshold_fpr
+from ftmoe_protocol024_v2a_qualification import (
+    QualifiedPeriodicResidualLifecycle,
+    QualifiedV2AProtocol024Session,
+)
+
+
+V2B_DEFAULT = dict(V2A_DEFAULT)
+V2B_DEFAULT.update({
+    "shadow_budget_version": "buffer128_4x4",
+    "candidate_train_intervals": 128,
+    "generalist_ids": ["0", "1", "2", "3"],
+    "max_live_specialists": 1,
+    "reuse_every_matured": 32,
+    "reuse_recent_z_intervals": 32,
+    "reuse_validation_intervals": 16,
+    "memory_similarity_quantile": 10.0,
+    "crossfade_prediction_intervals": 8,
+    "reuse_precedes_birth_if_same_matured_count": True,
+    "freeze_specialist_parameters": True,
+})
+
+
+def _unit(vector):
+    value = np.asarray(vector, dtype=np.float64).reshape(-1)
+    norm = float(np.linalg.norm(value))
+    return value / max(norm, 1e-12)
+
+
+def _tensor_bytes(value):
+    if torch.is_tensor(value):
+        return int(value.numel() * value.element_size())
+    if isinstance(value, np.ndarray):
+        return int(value.nbytes)
+    if isinstance(value, dict):
+        return sum(_tensor_bytes(v) for v in value.values())
+    if isinstance(value, (list, tuple)):
+        return sum(_tensor_bytes(v) for v in value)
+    return 0
+
+
+def _parameter_bytes(expert, weight, bias):
+    total = sum(int(p.numel() * p.element_size()) for p in expert.parameters())
+    total += int(weight.numel() * weight.element_size())
+    total += int(bias.numel() * bias.element_size())
+    return total
+
+
+def _stable_generalist_hash(bank, generalist_ids):
+    digest = hashlib.sha256()
+    with torch.no_grad():
+        for key in generalist_ids:
+            for p in bank.experts[key].parameters():
+                digest.update(p.detach().cpu().contiguous().numpy().tobytes())
+            digest.update(bank.router_weights[key].detach().cpu().contiguous().numpy().tobytes())
+            digest.update(bank.router_biases[key].detach().cpu().contiguous().numpy().tobytes())
+    return digest.hexdigest()
+
+
+class MemoryResidualLifecycle(QualifiedPeriodicResidualLifecycle):
+    """Periodic birth + frozen specialist bank + causal dormant-memory reuse."""
+
+    def __init__(self, guard_anchor, config=None):
+        cfg = dict(V2B_DEFAULT)
+        cfg.update(config or {})
+        super().__init__(guard_anchor=guard_anchor, config=cfg)
+        self.v2b_config = cfg
+        self.generalist_ids = [str(x) for x in cfg["generalist_ids"]]
+        self.specialist_memory = {}
+        self.active_specialist_id = None
+        self.reuse_candidate_id = None
+        self.reuse_prelabel = {}
+        self.reuse_pairs = []
+        self.reuse_opportunities = 0
+        self.reuse_skipped_no_memory = 0
+        self.reuse_skipped_no_match = 0
+        self.reuse_skipped_busy = 0
+        self.reuse_accepted = 0
+        self.reuse_rejected = 0
+        self.retirements = 0
+        self.reactivations = 0
+        self.purges = 0
+        self.purged_bytes = 0
+        self.transition = None
+        self.checkpoint_request = None
+        self.reactivation_checkpoint_records = []
+        self.extra_compute.setdefault("reuse_validation_forwards", 0)
+        self.extra_compute.setdefault("reuse_validation_seconds", 0.0)
+        self.extra_compute.setdefault("reuse_guard_forwards", 0)
+        self.extra_compute.setdefault("reuse_guard_seconds", 0.0)
+
+    def state_dict(self):
+        state = super().state_dict()
+        state["v2b"] = deepcopy({
+            "v2b_config": self.v2b_config,
+            "specialist_memory": self.specialist_memory,
+            "active_specialist_id": self.active_specialist_id,
+            "reuse_candidate_id": self.reuse_candidate_id,
+            "reuse_prelabel": self.reuse_prelabel,
+            "reuse_pairs": self.reuse_pairs,
+            "reuse_opportunities": self.reuse_opportunities,
+            "reuse_skipped_no_memory": self.reuse_skipped_no_memory,
+            "reuse_skipped_no_match": self.reuse_skipped_no_match,
+            "reuse_skipped_busy": self.reuse_skipped_busy,
+            "reuse_accepted": self.reuse_accepted,
+            "reuse_rejected": self.reuse_rejected,
+            "retirements": self.retirements,
+            "reactivations": self.reactivations,
+            "purges": self.purges,
+            "purged_bytes": self.purged_bytes,
+            "transition": self.transition,
+            "checkpoint_request": self.checkpoint_request,
+            "reactivation_checkpoint_records": self.reactivation_checkpoint_records,
+        })
+        return state
+
+    def load_state_dict(self, state):
+        payload = dict(state)
+        v2b = payload.pop("v2b", None)
+        super().load_state_dict(payload)
+        if v2b is None:
+            raise ValueError("v2b lifecycle checkpoint lacks v2b state")
+        if dict(v2b["v2b_config"]) != self.v2b_config:
+            raise ValueError("v2b config mismatch on resume")
+        for key, value in v2b.items():
+            if key != "v2b_config":
+                setattr(self, key, deepcopy(value))
+
+    def _memory_from_recent_z(self, expert_id):
+        width = int(self.v2b_config["reuse_recent_z_intervals"])
+        if len(self.recent_z) < width:
+            raise RuntimeError("cannot register specialist memory without recent z window")
+        rows = np.asarray(self.recent_z[-width:], dtype=np.float64)
+        centroid = _unit(rows.mean(axis=0))
+        similarity = rows @ centroid
+        threshold = float(np.percentile(similarity, float(
+            self.v2b_config["memory_similarity_quantile"])))
+        return {
+            "expert_id": str(expert_id),
+            "centroid": centroid,
+            "similarity_threshold": threshold,
+            "centroid_rows": width,
+            "created_matured": int(self.matured_count),
+            "last_causal_accept_matured": int(self.matured_count),
+            "memory_rule": "recent visible z centroid; q10 within-window cosine threshold",
+        }
+
+    def _preview_specialist(self, session, expert_id, z):
+        bank = session.model.learner
+        key = str(expert_id)
