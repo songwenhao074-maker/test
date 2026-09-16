@@ -1,11 +1,11 @@
 name: Protocol-025 frozen five-comparator development
 
 # Intentionally does NOT trigger when this workflow file is created/edited.
-# The only push trigger is the post-audit immutable data lock.
+# The only push trigger is the post-audit immutable revision-1 data lock.
 on:
   workflow_dispatch:
   push:
-    branches: [protocol-025-gpt56-20260916]
+    branches: [protocol-025-revision1-gpt56-20260916]
     paths:
       - 'artifacts/ftmoe_online/protocol_025/data_lock.json'
 
@@ -35,20 +35,26 @@ jobs:
           python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
           python -m pip install -r /tmp/requirements-online-ci.txt
           python -m pip install dgl==1.1.3 requests
-      - name: Verify frozen method and data lock
+      - name: Verify frozen method and revision-1 data lock
         run: |
           python - <<'PY'
           import json
           d=json.load(open('artifacts/ftmoe_online/protocol_025/data_lock.json'))
           m=json.load(open('artifacts/ftmoe_online/protocol_025/method_registration.json'))
+          r=json.load(open('artifacts/ftmoe_online/protocol_025/registration.json'))
           assert d['protocol']=='025' and d['development_seed']==700 and d['audit_pass'] is True
           assert d['model_results_seen_before_lock'] is False
-          assert isinstance(d['generation_run_id'],int) and d['stream_sha256']
+          assert d['data_revision_id']=='data_revision_001'
+          assert d['data_revision_sha256']
+          assert d['pre_revision_generation_run']==35101949642
+          assert isinstance(d['generation_run_id'],int) and d['generation_run_id']!=35101949642
+          assert d['stream_sha256']
+          assert r['data_revision']['used_count']==1 and r['data_revision']['no_further_data_revision_allowed'] is True
           assert m['registered_before_any_model_result'] is True
           assert m['evaluation']['active_budget_primary_comparator']=='C_fixed5'
           assert m['confirmation_seeds_forbidden']==[701,702,703]
           assert m['test_seeds_forbidden']==[201,202,203,204,205]
-          print({'data_lock':'passed','stream_sha256':d['stream_sha256'],'generation_run_id':d['generation_run_id']})
+          print({'data_lock':'passed','revision':d['data_revision_id'],'stream_sha256':d['stream_sha256'],'generation_run_id':d['generation_run_id']})
           PY
       - name: Download locked generation artifact
         env:
@@ -67,13 +73,12 @@ jobs:
           r=requests.get(a['archive_download_url'],headers=headers,timeout=180,allow_redirects=True); r.raise_for_status()
           root=Path('/tmp/p25-generation'); root.mkdir(parents=True,exist_ok=True)
           zipfile.ZipFile(io.BytesIO(r.content)).extractall(root)
-          manifests=list(root.rglob('manifest.json')); manifests=[p for p in manifests if 'protocol_025' in str(p) or p.parent.name=='data_seed700' or (p.parent/'data_audit.json').exists()]
-          assert len(manifests)>=1, list(root.rglob('manifest.json'))
+          manifests=list(root.rglob('manifest.json'))
           data_root=next(p.parent for p in manifests if (p.parent/'stream.npz').exists() and (p.parent/'data_audit.json').exists())
           Path('/tmp/p25_stream_path').write_text(str(data_root))
           print({'artifact_id':a['id'],'data_root':str(data_root)})
           PY
-      - name: Reverify immutable stream and audit before model execution
+      - name: Reverify immutable revision-1 stream and audit before model execution
         run: |
           STREAM="$(cat /tmp/p25_stream_path)"
           python - "$STREAM" <<'PY'
@@ -82,12 +87,16 @@ jobs:
           root=Path(sys.argv[1]); lock=json.load(open('artifacts/ftmoe_online/protocol_025/data_lock.json')); m=json.load(open(root/'manifest.json')); a=json.load(open(root/'data_audit.json'))
           h=hashlib.sha256((root/'stream.npz').read_bytes()).hexdigest()
           assert h==lock['stream_sha256']==m['stream_sha256']
+          assert m['data_revision_id']=='data_revision_001' and a['data_revision_id']=='data_revision_001'
+          assert m['data_revision_sha256']==lock['data_revision_sha256']==a['data_revision_sha256']
+          assert m['pre_revision_stream_eligible_for_model_results'] is False
           assert a['audit_pass'] is True and a['model_results_seen'] is False
-          f0=a['per_phase']['F0']; assert f0['positive_host_steps']>0 and f0['negative_host_steps']>0
+          assert all(a['gates'].values()), a['gates']
+          assert a['F0_guard']['positive_rows']>0 and a['F0_guard']['normal_rows']>0
           assert all(x['ap_defined'] for x in a['recurrence_first100_class_coverage'].values())
           with np.load(root/'stream.npz') as d:
               ratio=d['overload_ratio']; expected=np.where((ratio>1).any(-1),ratio.argmax(-1)+1,0); assert np.array_equal(expected,d['raw_labels'])
-          print({'stream_sha256':h,'audit_pass':True,'F0_positive':f0['positive_host_steps'],'F0_negative':f0['negative_host_steps']})
+          print({'stream_sha256':h,'audit_pass':True,'revision':'data_revision_001','F0_positive':a['F0_guard']['positive_rows'],'F0_normal':a['F0_guard']['normal_rows']})
           PY
       - name: Compile frozen Protocol025 model/session/runner
         run: |
@@ -123,7 +132,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: protocol025-development-seed700-model1
+          name: protocol025-development-seed700-model1-revision1
           path: artifacts/ftmoe_online/protocol_025/development_seed700_model1
           if-no-files-found: warn
           compression-level: 6
