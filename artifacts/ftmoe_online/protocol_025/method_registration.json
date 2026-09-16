@@ -22,17 +22,20 @@
     "F0_prefix_is_causal_burn_in": true,
     "no_future_phase_or_service_id": true
   },
-  "common_observable_head": {
+  "common_observable_input": {
     "enabled": true,
     "features": ["normalized_cpu_pressure","normalized_ram_pressure","normalized_disk_pressure","cpu_delta_1","ram_delta_1","disk_delta_1","cpu_slope_4","ram_slope_4","disk_slope_4"],
-    "architecture": "LayerNorm(9)-Linear(9,16)-GELU-Linear(16,5)",
-    "final_layer_zero_initialized": true,
-    "shared_identically_by_all_learned_comparators": true,
-    "trained_only_on_matured_causal_labels": true,
-    "D_shadow_training_does_not_update_common_head": true
+    "integration": "concatenate_to_frozen_base_z_before_residual_router_and_experts",
+    "base_z_dim": 64,
+    "common_feature_dim": 9,
+    "residual_input_dim": 73,
+    "extra_shared_trainable_head": false,
+    "same_features_and_integration_for_all_learned_comparators": true,
+    "causal_current_and_past_only": true,
+    "reason": "direct concatenation exposes the preregistered pressure/change history identically to C and D without adding a separate shared learned predictor that could confound expert-lifecycle effects"
   },
   "fixed_bank_initialization": {
-    "expert_architecture": "LayerNorm(64)-Linear(64,32)-GELU-Linear(32,5)",
+    "expert_architecture": "LayerNorm(73)-Linear(73,32)-GELU-Linear(32,5)",
     "final_layer_zero_initialized": true,
     "per_expert_seed_base": 250100,
     "router_row_seed_base": 250200,
