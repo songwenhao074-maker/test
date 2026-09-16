@@ -28,6 +28,19 @@
       "second_budget_normal_fpr_D_minus_C": -0.00045897877223178424,
       "development_signal": false,
       "interpretation": "causally accepted specialists exist, so v2b memory/reuse must be tested; v2a itself does not meet the development-signal threshold"
+    },
+    {
+      "id": "P24-V2-ENG-02",
+      "stage": "v2b",
+      "actions_run": 35049944247,
+      "status": "fixed_and_rerun_started",
+      "kind": "deterministic_engineering_failure",
+      "symptom": "actions/download-artifact failed before any v2b model execution with Resource not accessible by integration",
+      "cause": "the initial v2b workflow did not explicitly grant GITHUB_TOKEN actions: read permission for cross-run artifact retrieval",
+      "fix_commit": "28863969bee786a869374f297208520d64bf8740",
+      "fix": "add explicit permissions: contents: read and actions: read to the v2b workflow",
+      "scientific_effect": "none; no model replay began and no stream, seed, target, birth budget, reuse, qualification, crossfade, purge or evaluation rule changed",
+      "replacement_run": 35050072123
     }
   ]
 }
