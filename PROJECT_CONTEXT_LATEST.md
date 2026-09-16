@@ -1,9 +1,9 @@
 # 当前项目上下文（2026-09-16）
 
-目标：在合理现实、允许公开计算/存储不对称的特定在线情形中，验证动态增删专家D的优势。
+目标：在合理现实、允许公开计算/存储不对称的特定在线情形中，验证动态增删专家 D 的优势。
 
-最新结果：Protocol-024 v2a/v2b，源码结果基点c2ada4446199c0c9a660ac096d2a92cdb224262e。v2b有出生、退役、复用，但六次复现AP平均仅增0.0017037；C全程AP=0.669545，D-v2b=0.667103，可部署压力基线=0.779012。硬删除未发生。
+Protocol-024 v2c 已完成并通过全部工程资格检查，接受的 run 为 `35074464132`。replacement preview/deployment equivalence、机会计数守恒、candidate 守恒和严格 checkpoint recovery 均通过。生命周期：birth=5、retirement=4、reactivation=0、purge=2。
 
-最新审阅发现birth preview与实际replacement不一致，以及忙碌机会漏记、恢复检查范围偏窄。已用真实DynamicResidualBank完成合成反例，不冒充seed700复算。
+科学结论仍为负开发结果：六个 recurrence first100 的 D-v2c−C AP 等权平均为 -0.00009536（2/6 为正），远低于 +0.03 development reference；全程 AP C=0.6695451，D-v2c=0.6670999。`development_signal=false`。不再调整 v2c 阈值，不启动 701–703；201–205 也继续封存。
 
-当前唯一执行入口：[下一步指示](docs/PROTOCOL024_NEXT_DIRECTIVE_20260916.md)；依据：[完整审阅](docs/PROTOCOL024_REVIEW_20260916.md)。先v2c纠正重放，必要时进入新的服务更替场景。保留负开发结果；确认701–703、测试201–205不使用。
+完整结果见 [Protocol-024 v2c results](docs/PROTOCOL024_V2C_RESULTS.md)。当前下一步是独立的 Protocol-025 多服务进入/退出/复现与容量约束开发场景；其数据与方法必须先注册后生成/运行，不能把新结果回写成 v2c。
