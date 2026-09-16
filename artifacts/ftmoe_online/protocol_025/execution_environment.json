@@ -1,0 +1,19 @@
+{
+  "protocol": "025",
+  "development_seed": 700,
+  "model_seed": 1,
+  "hosted_runner": "ubuntu-22.04",
+  "python": "3.8",
+  "cpu_torch": "2.4.1",
+  "omp_threads": 3,
+  "mkl_threads": 3,
+  "openblas_threads": 3,
+  "available_ram_guard_gib": 0.5,
+  "available_disk_guard_gib": 5.0,
+  "generation_timeout_minutes": 360,
+  "chunk_intervals": 200,
+  "resume_serializer": "dill",
+  "generation_only_before_model_results": true,
+  "confirmation_seeds_used": false,
+  "test_seeds_used": false
+}
