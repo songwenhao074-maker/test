@@ -1,0 +1,46 @@
+{
+  "protocol": "025",
+  "registered_before_generation": true,
+  "claim_type": "prediction_advantage_same_active_budget",
+  "development_seed": 700,
+  "model_seed": 1,
+  "confirmation_seeds_forbidden": [701, 702, 703],
+  "test_seeds_forbidden": [201, 202, 203, 204, 205],
+  "target": "raw_next_fault",
+  "scored_intervals": 5520,
+  "guard_intervals": 1,
+  "timeline": [
+    ["F0", "baseline", 300], ["S1_first", "S1", 600], ["S2_first", "S2", 600], ["S3_first", "S3", 600],
+    ["S1_rec1", "S1", 180], ["S3_rec1", "S3", 180], ["S2_rec1", "S2", 180],
+    ["S4_first", "S4", 600], ["S5_first", "S5", 600], ["S6_first", "S6", 600],
+    ["S4_rec1", "S4", 180], ["S2_rec2", "S2", 180], ["S6_rec1", "S6", 180], ["S1_rec2", "S1", 180], ["S5_rec1", "S5", 180], ["S3_rec2", "S3", 180]
+  ],
+  "service_laws": {
+    "S1": {"name":"cpu_short_pulse","driver":"cpu_demand","rise_intervals":6,"hold_intervals":10,"decay_intervals":8,"peak_capacity_fraction":1.18,"history_signal":"positive cpu slope"},
+    "S2": {"name":"ram_growth","driver":"working_set","growth_intervals":24,"plateau_intervals":12,"release_intervals":10,"peak_capacity_fraction":1.12,"history_signal":"ram level plus positive slope"},
+    "S3": {"name":"io_writeback","driver":"disk_write_backlog","accumulate_intervals":14,"flush_intervals":12,"peak_capacity_fraction":1.20,"cpu_coupling":0.15,"history_signal":"write backlog and write slope"},
+    "S4": {"name":"cache_warmup_decay","driver":"cache_miss_pressure","warmup_intervals":16,"decay_half_life_intervals":12,"initial_capacity_fraction":1.16,"floor_capacity_fraction":0.55,"history_signal":"high pressure with negative slope"},
+    "S5": {"name":"periodic_workingset_release","driver":"ram_working_set","period_intervals":36,"growth_intervals":22,"release_intervals":6,"peak_capacity_fraction":1.14,"release_fraction":0.42,"history_signal":"phase inferred from ram level and slope"},
+    "S6": {"name":"writeback_cpu_competition","driver":"io_cpu_competition","backlog_build_intervals":12,"competition_intervals":14,"disk_peak_capacity_fraction":1.13,"cpu_peak_capacity_fraction":1.10,"coupling":0.35,"history_signal":"joint cpu/write slopes and backlog"}
+  },
+  "causality": {
+    "labels_from_physical_capacity_exceedance": true,
+    "generator_service_id_not_model_input": true,
+    "future_switch_times_not_model_input": true,
+    "common_observable_features": ["normalized_cpu_pressure","normalized_ram_pressure","normalized_disk_pressure","cpu_delta_1","ram_delta_1","disk_delta_1","cpu_slope_4","ram_slope_4","disk_slope_4"],
+    "common_features_identical_for_C_and_D": true,
+    "common_feature_rule_frozen_before_results": true
+  },
+  "capacity": {"generalists":4,"D_max_live_specialists":1,"resident_expert_limit":8,"shadow_counts_as_resident":true,"purge_dormant_only":true},
+  "comparators": ["C_fixed4","C_fixed5","C_fixed8_dense","C_fixed8_top5","D_dynamic"],
+  "primary_metric": "equal_weight_mean_D_minus_C_fixed4_AP_over_all_registered_recurrence_first100",
+  "secondary_metrics": ["recall","fpr","full_stream_ap","resource_macro_f1","onset_ap","cumulative_optimizer_steps","training_interval_repeats","cpu_seconds","peak_rss_bytes","resident_bytes","p95_inference_latency"],
+  "resource_claim_secondary_only": true,
+  "purge_claim_requires": ["real_capacity_block","purge_gt_0","D_no_purge_control"],
+  "data_audit_before_model_results": ["causal_collection_order","positive_negative_counts_per_phase","event_lengths","physical_parameter_meaning"],
+  "allowed_data_revision_count": 1,
+  "revision_must_be_registered_before_model_results": true,
+  "generation": {"immutable_chunked":true,"resumable_checkpoints":true,"no_posthoc_npz_splicing":true},
+  "confirmation_policy": "do not use confirmation/test seeds until complete configuration, comparator set and primary metric are frozen after development",
+  "source_directive": "docs/PROTOCOL024_NEXT_DIRECTIVE_20260916.md"
+}
