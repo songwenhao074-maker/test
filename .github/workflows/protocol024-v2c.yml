@@ -7,6 +7,7 @@ on:
     paths:
       - 'ftmoe_protocol024_v2c.py'
       - 'run_ftmoe_protocol024_v2c.py'
+      - 'run_ftmoe_protocol024_v2c_recovery.py'
       - 'test_ftmoe_protocol024_v2c.py'
       - 'artifacts/ftmoe_online/protocol_024/next_round_v2c/registration.json'
       - '.github/workflows/protocol024-v2c.yml'
@@ -87,11 +88,12 @@ jobs:
           assert r['birth']['target_deployment_topology'].startswith('four generalists + new specialist')
           assert r['sealed']['confirmation_seeds']==[701,702,703]
           assert r['required_arms']==['C-u4','D-v2c','D-v2c-no-reuse']
+          assert r['checkpoint_recovery']['source']=='real birth/retirement/reactivation checkpoint'
           print(json.dumps({'stream_sha256':h,'registration':'v2c_frozen','simulator_rerun':False}))
           PY
       - name: Verify replacement implementation and regression tests
         run: |
-          python -m py_compile ftmoe_protocol024_v2c.py run_ftmoe_protocol024_v2c.py
+          python -m py_compile ftmoe_protocol024_v2c.py run_ftmoe_protocol024_v2c.py run_ftmoe_protocol024_v2c_recovery.py
           python -m unittest -v \
             test_ftmoe_protocol024_v2c.py \
             test_ftmoe_protocol024_v2b.py \
@@ -100,12 +102,23 @@ jobs:
       - name: Run bounded v2c replay and no-reuse diagnostic
         run: |
           OUT="$ROOT_OUT/runs/run_${GITHUB_RUN_ID}"
-          python run_ftmoe_protocol024_v2c.py \
+          python run_ftmoe_protocol024_v2c_recovery.py \
             --stream /tmp/p24-v2c-stream \
             --v2a-root /tmp/p24-v2a \
             --v2b-root /tmp/p24-v2b \
             --out-root "$OUT" \
             --github-run-id "$GITHUB_RUN_ID"
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          out=Path(os.environ['ROOT_OUT'])/'runs'/('run_'+os.environ['GITHUB_RUN_ID'])
+          s=json.load(open(out/'status.json')); a=json.load(open(out/'checkpoint_recovery_audit.json'))
+          assert s['checkpoint_recovery_verified'] is True
+          assert a['available'] is True and a['verified'] is True
+          assert a['registered_source_class']=='real birth/retirement/reactivation checkpoint'
+          assert a['next_prediction_match'] and a['next_live_update_match'] and a['prediction_after_update_match']
+          assert a['next_nonempty_event_covered'] and a['next_event_match']
+          PY
       - name: Add immutable stream manifest and run provenance
         if: always()
         run: |
