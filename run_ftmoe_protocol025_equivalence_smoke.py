@@ -23,8 +23,17 @@ def _budget():
     return out
 
 
-def _phases(manifest):
-    return [{'name':p['name'],'start':int(p['start']),'end':int(p['end']),'regime':p.get('response_law')} for p in manifest['timeline']]
+def _engineering_phases(steps):
+    """One metadata-only phase for the legacy P23 replay used by this smoke.
+
+    Protocol-023 development manifests predate the Protocol-024/025 timeline
+    field.  This smoke exercises only fixed-vs-dynamic forward/update wiring,
+    never phase semantics, so synthesizing one phase over the *known replay
+    length* removes an engineering metadata dependency without changing any
+    Protocol-025 registered scientific setting or reading Protocol-025 data.
+    """
+    return [{'name':'engineering_only','start':0,'end':int(steps),
+             'regime':'legacy_p23_replay'}]
 
 
 def run(intervals=24):
@@ -32,7 +41,7 @@ def run(intervals=24):
     registration={'protocol':'025','kind':'engineering_equivalence_smoke','formal_protocol025_result':False,'service_ids_used':False}
     with tempfile.TemporaryDirectory(prefix='p25_equiv_') as td:
         root=Path(td)
-        common=dict(seed=1,replay_bundle=bundle,budget=_budget(),run_id='p25_engineering_smoke',stream_dir=s4.DEV_STREAM,phase_defs=_phases(bundle['manifest']),stream_sha=sha,registration=registration,learning_rate=1e-4)
+        common=dict(seed=1,replay_bundle=bundle,budget=_budget(),run_id='p25_engineering_smoke',stream_dir=s4.DEV_STREAM,phase_defs=_engineering_phases(bundle['steps']),stream_sha=sha,registration=registration,learning_rate=1e-4)
         fixed=Protocol025FixedSession('C_fixed4',out_dir=root/'fixed',**common)
         dynamic=Protocol025DynamicSession(out_dir=root/'dynamic',guard_anchor=None,**common)
         pmax=cmax=0.0
