@@ -27,12 +27,13 @@ permissions:
 jobs:
   generation-audit:
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 720
     env:
       OMP_NUM_THREADS: '3'
       MKL_NUM_THREADS: '3'
       OPENBLAS_NUM_THREADS: '3'
       ROOT_OUT: artifacts/ftmoe_online/protocol_025/data_seed700
+      PUSH_RECOVERY_RUN_ID: '35114741391'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -73,22 +74,16 @@ jobs:
           print({'registration':'passed','revision':'data_revision_001','seed':700,'scored':5520,'chunk':200,'event_probability':0.30})
           PY
       - name: Restore prior revision-1 generation checkpoint
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.resume_run_id != '' }}
         uses: actions/download-artifact@v4
         with:
           name: protocol025-seed700-generation-revision1-progress
           path: ${{ env.ROOT_OUT }}
           github-token: ${{ github.token }}
           repository: ${{ github.repository }}
-          run-id: ${{ inputs.resume_run_id }}
+          run-id: ${{ github.event_name == 'workflow_dispatch' && inputs.resume_run_id || env.PUSH_RECOVERY_RUN_ID }}
       - name: Generate immutable revision-1 chunks and final stream
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ inputs.resume_run_id }}" ]; then
-            python maintenance/run_protocol025_stream_collect.py --output "$ROOT_OUT" --resume
-          else
-            rm -rf "$ROOT_OUT"
-            python maintenance/run_protocol025_stream_collect.py --output "$ROOT_OUT"
-          fi
+          python maintenance/run_protocol025_stream_collect.py --output "$ROOT_OUT" --resume
       - name: Apply strengthened revision-1 model-free audit
         run: |
           python audit_ftmoe_protocol025_revision1.py --data-root "$ROOT_OUT"
