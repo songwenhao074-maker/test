@@ -1,0 +1,129 @@
+name: Protocol-025 frozen five-comparator development
+
+# Intentionally does NOT trigger when this workflow file is created/edited.
+# The only push trigger is the post-audit immutable data lock.
+on:
+  workflow_dispatch:
+  push:
+    branches: [protocol-025-gpt56-20260916]
+    paths:
+      - 'artifacts/ftmoe_online/protocol_025/data_lock.json'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  development-comparison:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 180
+    env:
+      OMP_NUM_THREADS: '3'
+      MKL_NUM_THREADS: '3'
+      OPENBLAS_NUM_THREADS: '3'
+      OUT_ROOT: artifacts/ftmoe_online/protocol_025/development_seed700_model1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+      - name: Install CPU dependencies
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 requests
+      - name: Verify frozen method and data lock
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('artifacts/ftmoe_online/protocol_025/data_lock.json'))
+          m=json.load(open('artifacts/ftmoe_online/protocol_025/method_registration.json'))
+          assert d['protocol']=='025' and d['development_seed']==700 and d['audit_pass'] is True
+          assert d['model_results_seen_before_lock'] is False
+          assert isinstance(d['generation_run_id'],int) and d['stream_sha256']
+          assert m['registered_before_any_model_result'] is True
+          assert m['evaluation']['active_budget_primary_comparator']=='C_fixed5'
+          assert m['confirmation_seeds_forbidden']==[701,702,703]
+          assert m['test_seeds_forbidden']==[201,202,203,204,205]
+          print({'data_lock':'passed','stream_sha256':d['stream_sha256'],'generation_run_id':d['generation_run_id']})
+          PY
+      - name: Download locked generation artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import io,json,os,requests,zipfile
+          from pathlib import Path
+          lock=json.load(open('artifacts/ftmoe_online/protocol_025/data_lock.json'))
+          repo=os.environ['GITHUB_REPOSITORY']; run=lock['generation_run_id']; headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'}
+          listing=requests.get(f'https://api.github.com/repos/{repo}/actions/runs/{run}/artifacts',headers=headers,timeout=60); listing.raise_for_status()
+          matches=[a for a in listing.json()['artifacts'] if a['name']==lock['artifact_name'] and not a['expired']]
+          assert len(matches)==1, matches
+          a=matches[0]
+          if lock.get('artifact_id') is not None: assert int(a['id'])==int(lock['artifact_id'])
+          r=requests.get(a['archive_download_url'],headers=headers,timeout=180,allow_redirects=True); r.raise_for_status()
+          root=Path('/tmp/p25-generation'); root.mkdir(parents=True,exist_ok=True)
+          zipfile.ZipFile(io.BytesIO(r.content)).extractall(root)
+          manifests=list(root.rglob('manifest.json')); manifests=[p for p in manifests if 'protocol_025' in str(p) or p.parent.name=='data_seed700' or (p.parent/'data_audit.json').exists()]
+          assert len(manifests)>=1, list(root.rglob('manifest.json'))
+          data_root=next(p.parent for p in manifests if (p.parent/'stream.npz').exists() and (p.parent/'data_audit.json').exists())
+          Path('/tmp/p25_stream_path').write_text(str(data_root))
+          print({'artifact_id':a['id'],'data_root':str(data_root)})
+          PY
+      - name: Reverify immutable stream and audit before model execution
+        run: |
+          STREAM="$(cat /tmp/p25_stream_path)"
+          python - "$STREAM" <<'PY'
+          import hashlib,json,sys,numpy as np
+          from pathlib import Path
+          root=Path(sys.argv[1]); lock=json.load(open('artifacts/ftmoe_online/protocol_025/data_lock.json')); m=json.load(open(root/'manifest.json')); a=json.load(open(root/'data_audit.json'))
+          h=hashlib.sha256((root/'stream.npz').read_bytes()).hexdigest()
+          assert h==lock['stream_sha256']==m['stream_sha256']
+          assert a['audit_pass'] is True and a['model_results_seen'] is False
+          f0=a['per_phase']['F0']; assert f0['positive_host_steps']>0 and f0['negative_host_steps']>0
+          assert all(x['ap_defined'] for x in a['recurrence_first100_class_coverage'].values())
+          with np.load(root/'stream.npz') as d:
+              ratio=d['overload_ratio']; expected=np.where((ratio>1).any(-1),ratio.argmax(-1)+1,0); assert np.array_equal(expected,d['raw_labels'])
+          print({'stream_sha256':h,'audit_pass':True,'F0_positive':f0['positive_host_steps'],'F0_negative':f0['negative_host_steps']})
+          PY
+      - name: Compile frozen Protocol025 model/session/runner
+        run: |
+          python -m py_compile ftmoe_protocol025_model.py ftmoe_protocol025_session.py run_ftmoe_protocol025_development.py
+          python -m unittest -v test_ftmoe_protocol025_model.py test_ftmoe_protocol025_session.py
+      - name: Run all five preregistered comparators once
+        run: |
+          STREAM="$(cat /tmp/p25_stream_path)"
+          rm -rf "$OUT_ROOT"
+          python run_ftmoe_protocol025_development.py \
+            --stream "$STREAM" \
+            --out-root "$OUT_ROOT" \
+            --method-registration artifacts/ftmoe_online/protocol_025/method_registration.json \
+            --data-lock artifacts/ftmoe_online/protocol_025/data_lock.json
+      - name: Verify result completeness and seed seal
+        run: |
+          python - <<'PY'
+          import json
+          root='artifacts/ftmoe_online/protocol_025/development_seed700_model1/'
+          s=json.load(open(root+'status.json')); c=json.load(open(root+'comparison.json'))
+          assert s['completed'] is True and s['development_only'] is True and s['confirmation_run'] is False
+          assert s['confirmation_seeds_used']==[] and s['test_seeds_used']==[]
+          assert len(c['recurrence_first100'])==9
+          assert c['primary']['valid_windows']==9
+          assert set(c['full'])=={'C_fixed4','C_fixed5','C_fixed8_dense','C_fixed8_top5','D_dynamic'}
+          life=json.load(open(root+'D_dynamic/summary.json'))['lifecycle']
+          assert life['candidate_conservation'] is True
+          assert life['opportunity_accounting']['birth']['conserved'] is True
+          assert life['opportunity_accounting']['reuse']['conserved'] is True
+          print({'primary':c['primary'],'purges':life['purges'],'candidate_conservation':True})
+          PY
+      - name: Upload frozen Protocol025 development evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol025-development-seed700-model1
+          path: artifacts/ftmoe_online/protocol_025/development_seed700_model1
+          if-no-files-found: warn
+          compression-level: 6
