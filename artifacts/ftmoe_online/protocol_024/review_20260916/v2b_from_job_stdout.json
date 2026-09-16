@@ -1,0 +1,264 @@
+[
+  {
+    "status": {
+      "protocol": "024",
+      "round": "next_round_v2",
+      "stage": "v2b",
+      "completed": true,
+      "development_signal": false,
+      "births": 2,
+      "retirements": 3,
+      "reactivations": 2,
+      "purges": 0,
+      "checkpoint_recovery_verified": true,
+      "confirmation_run": false,
+      "confirmation_seeds_used": [],
+      "run_additional_controls_only_if_development_signal": false
+    },
+    "recurrence": {
+      "mean_D_v2b_minus_C_ap": 0.0017037292201963854,
+      "positive_windows": 4,
+      "valid_windows": 6,
+      "C_threshold_metrics": {
+        "ap": 0.6982941697669625,
+        "reason": null,
+        "rows": 9600,
+        "positives": 885,
+        "negatives": 8715,
+        "prevalence": 0.0921875,
+        "threshold": 0.5,
+        "tp": 625,
+        "fp": 330,
+        "fn": 260,
+        "tn": 8385,
+        "recall": 0.7062146892655368,
+        "fpr": 0.0378657487091222
+      },
+      "D_v2b_threshold_metrics": {
+        "ap": 0.7004755054243419,
+        "reason": null,
+        "rows": 9600,
+        "positives": 885,
+        "negatives": 8715,
+        "prevalence": 0.0921875,
+        "threshold": 0.5,
+        "tp": 623,
+        "fp": 332,
+        "fn": 262,
+        "tn": 8383,
+        "recall": 0.703954802259887,
+        "fpr": 0.0380952380952381
+      },
+      "normal_fpr_D_v2b_minus_C": 0.0002294893861158956
+    },
+    "full": {
+      "C": {
+        "detection": {
+          "ap": 0.6695451244166467,
+          "reason": null,
+          "rows": 79680,
+          "positives": 6923,
+          "negatives": 72757,
+          "prevalence": 0.08688504016064257,
+          "threshold": 0.5,
+          "tp": 4705,
+          "fp": 2764,
+          "fn": 2218,
+          "tn": 69993,
+          "recall": 0.6796186624295826,
+          "fpr": 0.03798947180340036
+        },
+        "onset": {
+          "ap": 0.16117557336045962,
+          "reason": null,
+          "rows": 72745,
+          "positives": 1658,
+          "negatives": 71087,
+          "horizon": 1
+        },
+        "resource": {
+          "macro_f1": 0.8387937258232716,
+          "reason": null,
+          "rows": 6923,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.9497690531177829,
+              "recall": 0.9448592762780011,
+              "f1": 0.9473078030521164,
+              "support": 5223
+            },
+            {
+              "class": 2,
+              "precision": 0.5818476499189628,
+              "recall": 0.6697761194029851,
+              "f1": 0.6227233304423244,
+              "support": 536
+            },
+            {
+              "class": 3,
+              "precision": 0.9693693693693693,
+              "recall": 0.9243986254295533,
+              "f1": 0.9463500439753738,
+              "support": 1164
+            }
+          ]
+        }
+      },
+      "D_v2b": {
+        "detection": {
+          "ap": 0.6671033068033857,
+          "reason": null,
+          "rows": 79680,
+          "positives": 6923,
+          "negatives": 72757,
+          "prevalence": 0.08688504016064257,
+          "threshold": 0.5,
+          "tp": 4689,
+          "fp": 2761,
+          "fn": 2234,
+          "tn": 69996,
+          "recall": 0.6773075256391737,
+          "fpr": 0.03794823865744877
+        },
+        "onset": {
+          "ap": 0.15780487225836431,
+          "reason": null,
+          "rows": 72745,
+          "positives": 1658,
+          "negatives": 71087,
+          "horizon": 1
+        },
+        "resource": {
+          "macro_f1": 0.8381552139793306,
+          "reason": null,
+          "rows": 6923,
+          "per_class": [
+            {
+              "class": 1,
+              "precision": 0.9524271844660194,
+              "recall": 0.9391154508902929,
+              "f1": 0.9457244770076159,
+              "support": 5223
+            },
+            {
+              "class": 2,
+              "precision": 0.5648854961832062,
+              "recall": 0.6902985074626866,
+              "f1": 0.621326616288833,
+              "support": 536
+            },
+            {
+              "class": 3,
+              "precision": 0.9669051878354203,
+              "recall": 0.9286941580756014,
+              "f1": 0.9474145486415425,
+              "support": 1164
+            }
+          ]
+        }
+      }
+    },
+    "lifecycle": {
+      "event_counts": {
+        "diagnostic_window": 619,
+        "v1_p99_diagnostic_only": 1,
+        "candidate_created": 18,
+        "candidate_training_budget_registered": 18,
+        "candidate_training_complete": 17,
+        "candidate_accepted": 2,
+        "specialist_memory_frozen": 2,
+        "specialist_crossfade_started": 4,
+        "specialist_crossfade_step": 32,
+        "candidate_first_influence_prediction": 2,
+        "candidate_full_ramp_prediction": 2,
+        "specialist_crossfade_completed": 4,
+        "reuse_skipped_no_memory": 2,
+        "specialist_retired": 3,
+        "reuse_candidate_selected": 10,
+        "reuse_candidate_rejected": 8,
+        "candidate_rejected": 15,
+        "cooldown_complete": 15,
+        "reuse_skipped_no_match": 37,
+        "specialist_reactivated": 2
+      },
+      "births": 2,
+      "retirements": 3,
+      "reactivations": 2,
+      "purges": 0,
+      "purged_bytes": 0,
+      "reuse_opportunities": 49,
+      "reuse_accepted": 2,
+      "reuse_rejected": 8,
+      "reuse_skipped_no_memory": 2,
+      "reuse_skipped_no_match": 37,
+      "reuse_skipped_busy": 0,
+      "accepted_birth_ids": [
+        "4",
+        "5"
+      ],
+      "active_specialist_id": "5",
+      "resident_memory_ids": [
+        "4",
+        "5"
+      ],
+      "final_topology": {
+        "active_ids": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "5"
+        ],
+        "dormant_ids": [
+          "4"
+        ],
+        "shadow_id": "21",
+        "next_id": 22,
+        "ramp": {
+          "0": 1,
+          "1": 1,
+          "2": 1,
+          "3": 1,
+          "5": 1
+        },
+        "max_experts": 8,
+        "ramp_updates": 10,
+        "topology_version": 40,
+        "behavior_version": 96
+      },
+      "extra_compute": {
+        "shadow_train_steps": 1700,
+        "shadow_train_seconds": 48.59118067299994,
+        "shadow_validation_forwards": 578,
+        "shadow_validation_seconds": 0.20233241099961674,
+        "shadow_train_examples": 54400,
+        "guard_forwards": 51,
+        "guard_seconds": 1.3928920429999039,
+        "route_diagnostic_forwards": 578,
+        "reuse_validation_forwards": 180,
+        "reuse_validation_seconds": 0.08182299700044382,
+        "reuse_guard_forwards": 30,
+        "reuse_guard_seconds": 0.7939664319999054
+      },
+      "reactivation_checkpoint_records": [
+        {
+          "label": "v2b_after_first_reactivation",
+          "event_count": 664,
+          "expert_id": "4",
+          "file": "v2b_after_first_reactivation.pt",
+          "path": "artifacts/ftmoe_online/protocol_024/next_round_v2/runs/v2b_memory_seed700_model1/arm_D_v2b/checkpoints/v2b_after_first_reactivation.pt",
+          "sha256": "b2528c1ea353e2d6bbb38002d7779e71969342dd200e4cdb1df87fd91c78e5de",
+          "protocol": "024",
+          "run_id": "seed700_model1_v2b_memory_buffer128_4x4",
+          "arm": "D",
+          "phase": "v2b_after_first_reactivation",
+          "time_index": 4123,
+          "stream_sha256": "468725ff2f164bee89017bfa329d63e20566659a42d2a0492e977e744c7ae946",
+          "learner_hash": "0664157f554d85e0ec900cefc492b58418acb7405b47612c217f2a349a25df5f",
+          "update_count": 1031
+        }
+      ]
+    }
+  }
+]

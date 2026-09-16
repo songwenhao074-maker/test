@@ -1,3 +1,14 @@
+# 2026-09-16 当前状态补充
+
+Protocol-024 v2a/v2b均完成。v2b出生2次、退役3次、复用2次、硬删除0次；复现AP等权平均增益+0.0017037，
+全程C=0.669545、D-v2b=0.667103；development_signal=false。确认种子未使用。
+
+本次发现birth preview与replacement部署不一致，真实bank合成反例已通过。另有忙碌机会漏记及恢复检查范围不足。
+本次读取源码和Actions stdout，未独立重算原NPZ。当前入口：[审阅](PROTOCOL024_REVIEW_20260916.md)、
+[下一步指示](PROTOCOL024_NEXT_DIRECTIVE_20260916.md)。下文保留历史判断，不代表当前状态。
+
+---
+
 # 2026-09-15 当前状态补充
 
 Protocol-024 next_round_v1 已完成真实 A/C/D pilot（Actions 34953810201）。A AP=0.510442，C=D AP=0.667584；

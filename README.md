@@ -1,9 +1,9 @@
 <h1 align="center">PreGAN+ · FT-MoE online-learning track</h1>
 
-> **最新（2026-09-15，Protocol-024）：** [结果审阅](docs/PROTOCOL024_REVIEW_20260915.md) ·
-> [下一轮实验指示](docs/PROTOCOL024_NEXT_DIRECTIVE_20260915.md) · [v1 结果](docs/PROTOCOL024_NEXT_ROUND_RESULTS.md)。
-> 真实 lifecycle-on pilot 已完成；候选创建为0，C=D AP=0.667584，尚无 D 优势。
-> 下一轮复用数据，检验预算内主动候选、记忆保留与快速复用；确认种子继续封存。
+> **最新（2026-09-16，Protocol-024 v2）：** [结果审阅](docs/PROTOCOL024_REVIEW_20260916.md) ·
+> [下一步指示](docs/PROTOCOL024_NEXT_DIRECTIVE_20260916.md) · [v2结果入口](docs/PROTOCOL024_V2_RESULTS.md)。
+> v2b出生2次、退役3次、复用2次；复现AP仅增0.0017037，全程AP略降。
+> 先修birth验收与替换部署不一致，再执行限定重放；必要时推进服务更替与容量约束新情形。确认种子封存。
 
 > **入口：** [项目现状与历史沿革](docs/PROJECT_STATUS_AND_HISTORY.md)（唯一状态入口）·
 > [协议 023 设计与结果](docs/FTMOE_ONLINE_PROTOCOL_023.md)

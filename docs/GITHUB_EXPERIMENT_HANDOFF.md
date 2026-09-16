@@ -1,10 +1,10 @@
 # 从 GitHub 继续 FT-MoE 实验
 
-**最新入口更新（2026-09-15）：** 先读 [本次审阅](PROTOCOL024_REVIEW_20260915.md) 和
-[next_round_v2 指示](PROTOCOL024_NEXT_DIRECTIVE_20260915.md)。默认分支整合 next-round 分支的成功运行代码与结果。
-v1 lifecycle-on pilot 已完成，但 candidate_created=0，D=C。P24 已有独立保存目录、evaluator 与恢复修复证据。
-下一轮复用 SHA256 已固定的 stream，不重跑三小时模拟器。Actions 34953810201 的原始产物取回与长期归档方法见新指示。
-下文是历史 P23 的资产/环境交接；发生状态冲突时以本段和最新指示为准。
+**最新入口更新（2026-09-16）：** 先读 [v2审阅](PROTOCOL024_REVIEW_20260916.md)，执行
+[v2c与后续情形指示](PROTOCOL024_NEXT_DIRECTIVE_20260916.md)。默认分支已整合v2代码和结果。
+v2b不是零触发：birth=2、retirement=3、reactivation=2，但收益不足。优先纠正birth preview与最终replacement模型不一致。
+复用已固定SHA256的数据；原始结果见Actions 34989082187、35051303612。轻量stdout证据见review_20260916目录。
+下文为历史P23资产/环境记录，旧状态以本段与最新指示更新。
 
 更新：2026-09-14。本次同步合并远端 `ca39074` 的文档历史与本地 `1ccd6b1` 的精简历史；不改写历史实验结果。
 

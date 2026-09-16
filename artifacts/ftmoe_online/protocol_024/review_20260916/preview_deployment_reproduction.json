@@ -1,0 +1,13 @@
+{
+  "kind": "synthetic_reviewed_bank_reproduction",
+  "source_commit": "c2ada4446199c0c9a660ac096d2a92cdb224262e",
+  "live_anomaly_logit": 0.3999999761581421,
+  "qualification_anomaly_logit": 0.5000000596046448,
+  "deployed_anomaly_logit": -1.399999976158142,
+  "live_positive_CE": 0.5130152702331543,
+  "qualification_positive_CE": 0.4740769863128662,
+  "deployed_positive_CE": 1.6204173564910889,
+  "preview_deployment_max_abs": 1.9000000953674316,
+  "is_seed700_performance_evidence": false,
+  "qualification_CE_relative_improvement": 0.07590082825915002
+}

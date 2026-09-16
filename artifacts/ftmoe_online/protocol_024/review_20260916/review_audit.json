@@ -1,0 +1,89 @@
+{
+  "review_date": "2026-09-16",
+  "source_commit": "c2ada4446199c0c9a660ac096d2a92cdb224262e",
+  "runs": [
+    {
+      "stage": "v2a",
+      "run_id": 34989082187,
+      "job_id": 104448712296,
+      "log_sha256": "aea9d7f96d7518a551ce5ddfdb245b46f41a58684f174b3857e580259e0386f6"
+    },
+    {
+      "stage": "v2b",
+      "run_id": 35051303612,
+      "job_id": 104652079418,
+      "log_sha256": "d9fe00153d4054df1b4cdb58cce5933e2c61aa6f95ff2802eb3981a9891ab4cb",
+      "artifact_id": 10429441883,
+      "artifact_sha256": "525409e74634b4e3a361ced00400b292b395a3ca9914e228caded1c7852b07a2"
+    }
+  ],
+  "verification": {
+    "successful_job_steps_checked": true,
+    "source_code_reviewed": true,
+    "stdout_results_parsed": true,
+    "raw_npz_recomputed": false,
+    "full_lifecycle_ledger_read": false,
+    "artifact_download_error": "HTTP 403 from returned ZIP reference",
+    "real_bank_synthetic_reproduction_passed": true,
+    "new_performance_runs": 0
+  },
+  "metrics": {
+    "C_full_AP": 0.6695451244166467,
+    "D_v2b_full_AP": 0.6671033068033857,
+    "D_v2b_full_minus_C": -0.0024418176132610103,
+    "v2a_recurrence_mean_delta": 0.0035665343616063105,
+    "v2b_recurrence_mean_delta": 0.0017037292201963854,
+    "v2b_minus_v2a_recurrence_gain": -0.0018628051414099251,
+    "deployable_pressure_AP": 0.7790123780200184,
+    "development_signal": false
+  },
+  "findings": [
+    {
+      "id": "V2-R16-01",
+      "severity": "high",
+      "evidence": "source+synthetic_runtime",
+      "finding": "Birth training, validation and guard preview generalists+old specialist+shadow; deployment replaces old specialist. Reuse preview already models replacement."
+    },
+    {
+      "id": "V2-R16-02",
+      "severity": "medium",
+      "evidence": "source",
+      "finding": "Busy-state early returns omit due proposal opportunities; reuse_skipped_busy is never incremented."
+    },
+    {
+      "id": "V2-R16-03",
+      "severity": "medium",
+      "evidence": "source",
+      "finding": "Four restored predictions do not establish next-update tensor/Adam/RNG equality or matching next lifecycle event."
+    },
+    {
+      "id": "V2-R16-04",
+      "severity": "medium",
+      "evidence": "stdout",
+      "finding": "One pending shadow remains at stream end in v2a first budget and v2b."
+    },
+    {
+      "id": "V2-R16-05",
+      "severity": "hypothesis",
+      "evidence": "code/timeline inference; ledger confirmation required",
+      "finding": "Accepted earliest IDs 4 and 5 may both have been trained/qualified in R1_first; do not assume a three-law memory bank."
+    },
+    {
+      "id": "V2-R16-06",
+      "severity": "scientific",
+      "evidence": "stdout",
+      "finding": "37 of 49 counted reuse opportunities fail representation match; aggregate centroid/threshold utility needs diagnostic, not automatic threshold lowering."
+    }
+  ],
+  "next": "v2c replacement-consistent replay, then separately registered service-churn development scenario if necessary",
+  "confirmation_seeds_used": [],
+  "publication_validation": {
+    "stdout_extraction_exact_match": true,
+    "extracted_v2a_objects": 3,
+    "extracted_v2b_objects": 1,
+    "python_syntax_passed": true,
+    "json_syntax_passed": true,
+    "relative_markdown_links_passed": true,
+    "reviewed_bank_synthetic_reproduction_passed": true
+  }
+}

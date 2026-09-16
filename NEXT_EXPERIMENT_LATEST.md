@@ -1,11 +1,9 @@
-# 下一轮实验入口
+# 下一轮实验入口（2026-09-16）
 
-当前执行指示：[Protocol-024 next_round_v2](docs/PROTOCOL024_NEXT_DIRECTIVE_20260915.md)。
+执行 [v2c与后续情形指示](docs/PROTOCOL024_NEXT_DIRECTIVE_20260916.md)，先读 [v2结果审阅](docs/PROTOCOL024_REVIEW_20260916.md)。
 
-先读 [2026-09-15 结果审阅](docs/PROTOCOL024_REVIEW_20260915.md) 和 [v1 原始阶段结果](docs/PROTOCOL024_NEXT_ROUND_RESULTS.md)。
+v2b已完成：birth=2、retirement=3、reactivation=2、purge=0；复现first100等权AP增益+0.0017037，全程AP略低于C，development_signal=false。不是上一轮的零触发状态。
 
-最新有效 pilot：seed700/model1，A AP=0.510442，C=D AP=0.667584；D candidate_created=0，development_signal=false。不能称 D 已优于 C。
+本次发现birth训练/验收模型与实际替换部署拓扑不一致，已运行真实bank合成反例。先进行一次v2c修复重放与限定诊断；若收益仍小，推进已说明的Protocol-025服务进入/退出/复现与容量约束情形。不要继续无界扫阈值。
 
-下一步：复用不可变 stream，修正基线可得时点；注册周期性后台候选训练并因果验收，再检验专家保留、退役和快速复用。只有实际发生硬删除时才讨论其贡献。确认701–703、测试201–205继续封存。
-
-本次审阅不运行新实验，不覆盖 v1 证据。下一模型直接执行 v2 指示，并将结果保存于独立 run_id。
+只用seed700/model1，确认701–703及测试201–205继续封存。旧v1/v2结果不覆盖。本次审阅未重跑性能实验。
