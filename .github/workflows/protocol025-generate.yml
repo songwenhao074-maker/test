@@ -4,17 +4,19 @@ on:
   workflow_dispatch:
     inputs:
       resume_run_id:
-        description: 'Optional prior failed Protocol025 generation run ID to resume from its uploaded checkpoint artifact'
+        description: 'Optional prior failed Protocol025 revision-1 generation run ID to resume from its uploaded checkpoint artifact'
         required: false
         default: ''
   push:
-    branches: [protocol-025-gpt56-20260916]
+    branches: [protocol-025-revision1-gpt56-20260916]
     paths:
       - 'simulator/workload/BitbrainWorkloadProtocol025.py'
       - 'prepare_ftmoe_protocol025_stream.py'
+      - 'audit_ftmoe_protocol025_revision1.py'
       - 'maintenance/run_protocol025_stream_collect.py'
       - 'test_ftmoe_protocol025_generation.py'
       - 'artifacts/ftmoe_online/protocol_025/registration.json'
+      - 'artifacts/ftmoe_online/protocol_025/data_revision_001.json'
       - 'artifacts/ftmoe_online/protocol_025/execution_environment.json'
       - '.github/workflows/protocol025-generate.yml'
 
@@ -44,13 +46,14 @@ jobs:
           python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
           python -m pip install -r /tmp/requirements-online-ci.txt
           python -m pip install dgl==1.1.3 dill==0.3.8
-      - name: Verify preregistration and generator invariants
+      - name: Verify preregistration, single revision and generator invariants
         run: |
-          python -m py_compile simulator/workload/BitbrainWorkloadProtocol025.py prepare_ftmoe_protocol025_stream.py maintenance/run_protocol025_stream_collect.py
+          python -m py_compile simulator/workload/BitbrainWorkloadProtocol025.py prepare_ftmoe_protocol025_stream.py audit_ftmoe_protocol025_revision1.py maintenance/run_protocol025_stream_collect.py
           python -m unittest -v test_ftmoe_protocol025_generation.py
           python - <<'PY'
           import json
           r=json.load(open('artifacts/ftmoe_online/protocol_025/registration.json'))
+          d=json.load(open('artifacts/ftmoe_online/protocol_025/data_revision_001.json'))
           e=json.load(open('artifacts/ftmoe_online/protocol_025/execution_environment.json'))
           assert r['registered_before_generation'] is True
           assert r['development_seed']==700 and r['model_seed']==1
@@ -60,19 +63,25 @@ jobs:
           assert r['generation']['task_response_event_probability']==0.30
           assert r['generation']['chunk_intervals']==200
           assert r['comparators']==['C_fixed4','C_fixed5','C_fixed8_dense','C_fixed8_top5','D_dynamic']
+          assert r['data_revision']['used_count']==1
+          assert r['data_revision']['active_revision_id']=='data_revision_001'
+          assert r['data_revision']['pre_revision_stream_eligible_for_model_results'] is False
+          assert r['data_revision']['no_further_data_revision_allowed'] is True
+          assert d['revision_number']==1 and d['registered_before_any_protocol025_model_result'] is True
+          assert d['uses_only_allowed_data_revision'] is True
           assert e['generation_only_before_model_results'] is True
-          print({'registration':'passed','seed':700,'scored':5520,'chunk':200,'event_probability':0.30})
+          print({'registration':'passed','revision':'data_revision_001','seed':700,'scored':5520,'chunk':200,'event_probability':0.30})
           PY
-      - name: Restore prior generation checkpoint
+      - name: Restore prior revision-1 generation checkpoint
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.resume_run_id != '' }}
         uses: actions/download-artifact@v4
         with:
-          name: protocol025-seed700-generation-progress
+          name: protocol025-seed700-generation-revision1-progress
           path: ${{ env.ROOT_OUT }}
           github-token: ${{ github.token }}
           repository: ${{ github.repository }}
           run-id: ${{ inputs.resume_run_id }}
-      - name: Generate immutable chunks and final stream
+      - name: Generate immutable revision-1 chunks and final stream
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ inputs.resume_run_id }}" ]; then
             python maintenance/run_protocol025_stream_collect.py --output "$ROOT_OUT" --resume
@@ -80,7 +89,10 @@ jobs:
             rm -rf "$ROOT_OUT"
             python maintenance/run_protocol025_stream_collect.py --output "$ROOT_OUT"
           fi
-      - name: Gate model-free data audit before any model experiment
+      - name: Apply strengthened revision-1 model-free audit
+        run: |
+          python audit_ftmoe_protocol025_revision1.py --data-root "$ROOT_OUT"
+      - name: Gate revision-1 data before any model experiment
         run: |
           python - <<'PY'
           import hashlib,json,numpy as np
@@ -89,21 +101,30 @@ jobs:
           m=json.load(open(root/'manifest.json'))
           a=json.load(open(root/'data_audit.json'))
           assert m['protocol']=='025' and m['seed']==700 and m['steps']==5520 and m['guard_rows']==1
+          assert m['data_revision_id']=='data_revision_001'
+          assert m['pre_revision_generation_run']==35101949642
+          assert m['pre_revision_stream_eligible_for_model_results'] is False
           h=hashlib.sha256((root/'stream.npz').read_bytes()).hexdigest(); assert h==m['stream_sha256']
           with np.load(root/'stream.npz') as d:
               ratio=d['overload_ratio']; expected=np.where((ratio>1.0).any(-1),ratio.argmax(-1)+1,0)
               assert np.array_equal(expected,d['raw_labels'])
               assert d['raw_labels'].shape==(5521,16)
               assert not set(m['audit_only_npz_keys']) & set(m['model_input_keys'])
+          assert a['kind']=='pre_model_data_audit_revision1'
           assert a['model_results_seen'] is False
+          assert a['data_revision_id']=='data_revision_001'
+          assert a['revision_allowed_if_failed']==0
+          assert a['no_further_data_revision_allowed'] is True
           assert a['audit_pass'] is True, json.dumps(a['gates'],sort_keys=True)
-          print(json.dumps({'stream_sha256':m['stream_sha256'],'audit_pass':True,'gates':a['gates']},indent=2))
+          assert all(a['gates'].values()), a['gates']
+          assert a['F0_guard']['positive_rows']>0 and a['F0_guard']['normal_rows']>0
+          print(json.dumps({'stream_sha256':m['stream_sha256'],'audit_pass':True,'revision':'data_revision_001','gates':a['gates']},indent=2))
           PY
-      - name: Upload generation and audit evidence
+      - name: Upload revision-1 generation and audit evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: protocol025-seed700-generation-progress
+          name: protocol025-seed700-generation-revision1-progress
           path: artifacts/ftmoe_online/protocol_025/data_seed700
           if-no-files-found: warn
           compression-level: 6
