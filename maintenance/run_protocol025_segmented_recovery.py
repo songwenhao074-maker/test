@@ -1,8 +1,8 @@
 """Portable launcher for the frozen Protocol-025 segmented recovery implementation.
 
 Engineering-only repair: load the implementation from the pinned pre-fix commit
-and apply Linux execution compatibility shims. No scientific setting, generator
-source, seed, feature, service law, comparator, or metric is changed.
+and apply Linux execution/import compatibility shims. No scientific setting,
+generator source, seed, feature, service law, comparator, or metric is changed.
 """
 from pathlib import Path
 import sys
@@ -12,6 +12,13 @@ import psutil
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
+
+# scheduler.GOBI normally appends this relative path before code imports
+# ``src.constants``.  The pinned segmented recovery imports src.constants
+# directly first, so reproduce the same import environment explicitly.
+BAGTI_ROOT = REPO_ROOT / "scheduler" / "BaGTI"
+if str(BAGTI_ROOT) not in sys.path:
+    sys.path.append(str(BAGTI_ROOT))
 
 if not hasattr(psutil, "BELOW_NORMAL_PRIORITY_CLASS"):
     psutil.BELOW_NORMAL_PRIORITY_CLASS = 10
