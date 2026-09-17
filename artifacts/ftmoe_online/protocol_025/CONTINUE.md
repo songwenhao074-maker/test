@@ -10,14 +10,15 @@ Updated: 2026-09-18. **Read this first in the next session.**
 - Pre-revision run `35101949642` is evidence-only and ineligible for model/data lock.
 - No valid Protocol-025 `data_lock.json` exists and no Protocol-025 model result has been run.
 
-## Generation status / failure cause
+## Generation status / deterministic audit blocker
 - Best valid revision-1 source checkpoint: run `35114741391`, artifact `protocol025-seed700-generation-revision1-progress`, artifact id `10469412410`; its committed resume manifest is `next_t=5400` with 27 registered immutable chunks ending at 5400.
 - Earlier monolithic recovery run `35152128413` failed repeatedly from hosted-runner shutdown/SIGTERM; this motivated segmented recovery.
-- Segmented run `35233644677` successfully completed prepare-base and all 12 transient segments through `next_t=5520`. This establishes that the engineering recovery can deterministically advance the frozen state from 5400 through 5520 without changing scientific settings.
-- Its final segment failed deterministically before audit with `FileExistsError: immutable chunk already exists: .../chunks/chunk_005400_005521.npz` while attempting the registered final 5400:5521 chunk.
-- Root cause: the interrupted source artifact can physically contain an orphan chunk file written after the last committed `resume_manifest.json`. The manifest still registers only 27 chunks ending at 5400, but prepare-base previously verified the registered files without rejecting/deleting extra unreferenced chunk files. The orphan `chunk_005400_005521.npz` was therefore copied into the supposedly immutable base and collided with the correct final write at t=5521.
-- This is an engineering checkpoint-hygiene defect, not a scientific/data-gate result. The orphan is explicitly outside the committed checkpoint manifest and must not be treated as valid evidence.
-- Fix commit `d6aac325c0cf8cf72f1f6dfb570445732b08f45f`: prepare-base now constructs the exact registered filename set from `resume_manifest.json`, verifies every registered SHA256, deletes only unregistered `chunk_*.npz` files, and asserts the remaining directory equals the registered set before uploading the segmented base. No S1-S6 semantics, registration, seed, response law, label/feature, comparator, or metric is changed.
+- Segmented run `35233644677` advanced the frozen state through `next_t=5520`; its final segment exposed an orphan unregistered `chunk_005400_005521.npz` checkpoint-hygiene defect. Fix commit `d6aac325c0cf8cf72f1f6dfb570445732b08f45f` removed only manifest-unregistered chunk files from the recovery base; no scientific setting changed.
+- Recovery run `35254809015` then completed the full frozen generation successfully to `next_t=5521`. Final stream SHA256 is `46b1dbdd885683bd45c146ffc3cbe68dd151bf60a10c1663eda45b68f12d7c42`; final registered chunk `5400:5521` SHA256 is `fc3e9887961e6e99f29d0f386e4da9dd318367010f9028a6233599829eef4c10`. The generator's own `data_audit.json` reported `audit_pass=true`.
+- The **strengthened revision-1 audit failed deterministically**, so the stream is NOT eligible for data lock or model runs. All strengthened gates passed except `F0_guard_has_positive_and_negative`.
+- Exact evidence from run `35254809015`, final job `105357470988`: strengthened audit reports `F0_guard.normal_rows=960`, `F0_guard.positive_rows=0`, target=`raw_next_fault`, with indices `0,5,...,295`. Thus the registered F0 baseline guard contains no positive next-fault examples under the frozen revision-1 stream.
+- Other strengthened gates passed: revision provenance, pre-revision ineligibility, 5521x16 shape, physical-capacity label recomputation, finite common 9D causal features, events for every service, event revision provenance, S4 floor/half-life semantics, S5 periodic release semantics/minimum trace, positive+negative examples in every service phase, and all nine recurrence first100 AP windows being defined.
+- This is now a **scientific/data acceptance blocker under the preregistered strengthened gate**, not a transient runner failure. Per the frozen protocol, do not create `data_lock.json`, do not run any comparator, do not change S1-S6/data revision/seed/event probability/labels/features to manufacture F0 positives, and do not unseal seeds 701-703 or 201-205.
 
 ## Segmented engineering recovery
 - Workflow: `.github/workflows/protocol025-revision1-segmented-recovery.yml`.
@@ -26,10 +27,10 @@ Updated: 2026-09-18. **Read this first in the next session.**
 - The canonical collector also has a resume-only bookkeeping defect: `stats.saveStats(..., migrations, ...)` references local `migrations` assigned only in non-resume initialization. The wrapper defines this bookkeeping argument as current `executed`; causal time_series/schedule_series and collected model-input arrays do not depend on that bookkeeping argument.
 
 ## Next action
-1. Monitor the new segmented recovery automatically triggered by fix commit `d6aac325c0cf8cf72f1f6dfb570445732b08f45f`. Confirm prepare-base reports removal of the orphan final chunk and exact equality to the 27 manifest-registered chunks.
-2. Continue through `5521`; then run `audit_ftmoe_protocol025_revision1.py` and strengthened pre-model data gate. Only a full audit pass is eligible for locking.
-3. Only if the strengthened audit passes, create `data_lock.json` with the successful revision-1 run/artifact, stream SHA, revision SHA, `data_revision_id=data_revision_001`, `pre_revision_generation_run=35101949642`, and `model_results_seen_before_lock=false`.
-4. The lock should run exactly `C_fixed4`, `C_fixed5`, `C_fixed8_dense`, `C_fixed8_top5`, `D_dynamic` once on seed700/model1. Primary result = equal-weight `D_dynamic - C_fixed5` AP over the 9 recurrence first-100 windows; also report legacy `D_dynamic - C_fixed4`. Run D-no-purge only if actual capacity pressure/block and purge>0.
+1. Treat run `35254809015` as completed generation evidence but **audit-ineligible for model locking** because F0 guard has 0 positive rows.
+2. Do not rerun the same frozen seed700 stream expecting a different outcome: generation is deterministic and would reproduce the same F0 guard failure.
+3. Do not make another scientific data revision: `data_revision_001` already consumed the single allowed pre-model revision. Any future continuation requires an explicit protocol-level decision outside the frozen Protocol-025 rules (for example, accepting Protocol-025 as a preregistered negative/data-gate outcome and designing a separately preregistered successor protocol). Preserve this result rather than tuning around it.
+4. No five-comparator development run is permitted from this stream; therefore no D-no-purge diagnostic is applicable yet.
 
 ## Non-negotiable
 - Do not alter S1-S6 semantics/parameters/timeline, event probability `0.30`, `raw_next_fault` target, common 9D causal features, LR/accept/reuse thresholds, comparator definitions, or primary metric.
