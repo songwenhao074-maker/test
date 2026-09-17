@@ -7,7 +7,7 @@ boundaries (or the final 5521 boundary). Rows between the last immutable chunk
 and the transient stop are stored only in ``transient_partial.npz`` and are
 reloaded on the next runner.
 
-The wrapper is pinned to the exact canonical generator source SHA below so a
+The wrapper is pinned to the exact canonical generator Git blob below so a
 future scientific-code change cannot silently reuse this recovery path.
 """
 from __future__ import annotations
@@ -36,21 +36,22 @@ _p23_guard.RAM_GUARD_GIB = 0.5
 
 import prepare_ftmoe_protocol025_stream as P
 
-CANONICAL_GENERATOR_SHA256 = "3f3437e45f4d9c58182613e7ad96cf89fcda5d10"
+CANONICAL_GENERATOR_GIT_BLOB_SHA1 = "3f3437e45f4d9c58182613e7ad96cf89fcda5d10"
 TRANSIENT_NAME = "transient_partial.npz"
 
 
-def _sha(path: Path) -> str:
-    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def _git_blob_sha1(path: Path) -> str:
+    data = Path(path).read_bytes()
+    return hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + b"\0" + data).hexdigest()
 
 
 def _assert_canonical_source() -> None:
     source = ROOT / "prepare_ftmoe_protocol025_stream.py"
-    actual = _sha(source)
-    if actual != CANONICAL_GENERATOR_SHA256:
+    actual = _git_blob_sha1(source)
+    if actual != CANONICAL_GENERATOR_GIT_BLOB_SHA1:
         raise AssertionError(
-            "segmented recovery is pinned to canonical generator %s, got %s"
-            % (CANONICAL_GENERATOR_SHA256, actual)
+            "segmented recovery is pinned to canonical generator blob %s, got %s"
+            % (CANONICAL_GENERATOR_GIT_BLOB_SHA1, actual)
         )
 
 
@@ -182,12 +183,6 @@ def collect_segment(output: Path, max_intervals: int):
         os.chdir(P.ROOT)
 
         import torch
-        from simulator.Simulator import Simulator
-        from simulator.environment.RPiEdge import RPiEdge
-        from simulator.environment.RPiCapacity import RPiCapacity
-        from scheduler.GOBI import GOBIScheduler
-        from recovery.Recovery import Recovery
-        from stats.Stats import Stats
         from src.constants import MODEL_SAVE_PATH
 
         bitbrain = P.ROOT / "simulator/workload/datasets/bitbrain/rnd"
@@ -310,6 +305,13 @@ def collect_segment(output: Path, max_intervals: int):
                     arrays["overload_ratio"][t].argmax(-1) + 1,
                     0,
                 )
+                # The canonical resume branch leaves ``migrations`` unbound.
+                # ``Stats.saveStats`` uses this argument only for bookkeeping
+                # counts/metrics; the causal time_series and schedule_series
+                # used by recovery/scheduling are independent of the argument.
+                # Use the actually executed migration list so resume is defined
+                # without changing the generated model-input stream semantics.
+                migrations = executed
                 stats.saveStats(deployed, migrations, destroyed, selected, decision, 0)
                 generated += 1
 
