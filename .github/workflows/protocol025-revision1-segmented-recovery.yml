@@ -1,0 +1,171 @@
+name: Protocol-025 revision-1 segmented recovery
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [protocol-025-revision1-gpt56-20260916]
+    paths:
+      - 'maintenance/run_protocol025_segmented_recovery.py'
+      - '.github/workflows/protocol025-segment-worker.yml'
+      - '.github/workflows/protocol025-revision1-segmented-recovery.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  prepare-base:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 120
+    steps:
+      - name: Restore best valid revision-1 checkpoint
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol025-seed700-generation-revision1-progress
+          path: /tmp/p25-base
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 35114741391
+
+      - name: Remove interrupted temporary state and verify 5400 checkpoint
+        run: |
+          rm -f /tmp/p25-base/resume_state.tmp /tmp/p25-base/failure.json
+          python - <<'PY'
+          import hashlib,json,pathlib
+          root=pathlib.Path('/tmp/p25-base')
+          m=json.load(open(root/'resume_manifest.json'))
+          assert m['protocol']=='025' and int(m['next_t'])==5400
+          assert len(m['chunks'])==27 and int(m['chunks'][-1]['end'])==5400
+          h=hashlib.sha256((root/'resume_state.dill').read_bytes()).hexdigest()
+          assert h==m['state_sha256'], (h,m['state_sha256'])
+          for rec in m['chunks']:
+              p=root/'chunks'/rec['file']
+              assert p.is_file()
+              assert hashlib.sha256(p.read_bytes()).hexdigest()==rec['sha256']
+          print({'next_t':5400,'chunks':27,'state_sha256':h})
+          PY
+
+      - name: Upload immutable chunk base once
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol025-r1-chunks-base
+          path: /tmp/p25-base/chunks
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 1
+
+      - name: Upload initial 5400 state once
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol025-r1-state-5400
+          path: |
+            /tmp/p25-base/resume_state.dill
+            /tmp/p25-base/resume_manifest.json
+            /tmp/p25-base/generation.log
+          if-no-files-found: error
+          compression-level: 1
+          retention-days: 1
+
+  segment-01:
+    needs: prepare-base
+    uses: ./.github/workflows/protocol025-segment-worker.yml
+    with:
+      output_overlay: protocol025-r1-overlay-5410
+      expected_next_t: 5410
+
+  segment-02:
+    needs: segment-01
+    uses: ./.github/workflows/protocol025-segment-worker.yml
+    with:
+      prior_overlay: protocol025-r1-overlay-5410
+      output_overlay: protocol025-r1-overlay-5420
+      expected_next_t: 5420
+
+  segment-03:
+    needs: segment-02
+    uses: ./.github/workflows/protocol025-segment-worker.yml
+    with:
+      prior_overlay: protocol025-r1-overlay-5420
+      output_overlay: protocol025-r1-overlay-5430
+      expected_next_t: 5430
+
+  segment-04:
+    needs: segment-03
+    uses: ./.github/workflows/protocol025-segment-worker.yml
+    with:
+      prior_overlay: protocol025-r1-overlay-5430
+      output_overlay: protocol025-r1-overlay-5440
+      expected_next_t: 5440
+
+  segment-05:
+    needs: segment-04
+    uses: ./.github/workflows/protocol025-segment-worker.yml
+    with:
+      prior_overlay: protocol025-r1-overlay-5440
+      output_overlay: protocol025-r1-overlay-5450
+      expected_next_t: 5450
+
+  segment-06:
+    needs: segment-05
+    uses: ./.github/workflows/protocol025-segment-worker.yml
+    with:
+      prior_overlay: protocol025-r1-overlay-5450
+      output_overlay: protocol025-r1-overlay-5460
+      expected_next_t: 5460
+
+  segment-07:
+    needs: segment-06
+    uses: ./.github/workflows/protocol025-segment-worker.yml
+    with:
+      prior_overlay: protocol025-r1-overlay-5460
+      output_overlay: protocol025-r1-overlay-5470
+      expected_next_t: 5470
+
+  segment-08:
+    needs: segment-07
+    uses: ./.github/workflows/protocol025-segment-worker.yml
+    with:
+      prior_overlay: protocol025-r1-overlay-5470
+      output_overlay: protocol025-r1-overlay-5480
+      expected_next_t: 5480
+
+  segment-09:
+    needs: segment-08
+    uses: ./.github/workflows/protocol025-segment-worker.yml
+    with:
+      prior_overlay: protocol025-r1-overlay-5480
+      output_overlay: protocol025-r1-overlay-5490
+      expected_next_t: 5490
+
+  segment-10:
+    needs: segment-09
+    uses: ./.github/workflows/protocol025-segment-worker.yml
+    with:
+      prior_overlay: protocol025-r1-overlay-5490
+      output_overlay: protocol025-r1-overlay-5500
+      expected_next_t: 5500
+
+  segment-11:
+    needs: segment-10
+    uses: ./.github/workflows/protocol025-segment-worker.yml
+    with:
+      prior_overlay: protocol025-r1-overlay-5500
+      output_overlay: protocol025-r1-overlay-5510
+      expected_next_t: 5510
+
+  segment-12:
+    needs: segment-11
+    uses: ./.github/workflows/protocol025-segment-worker.yml
+    with:
+      prior_overlay: protocol025-r1-overlay-5510
+      output_overlay: protocol025-r1-overlay-5520
+      expected_next_t: 5520
+
+  segment-13-final:
+    needs: segment-12
+    uses: ./.github/workflows/protocol025-segment-worker.yml
+    with:
+      prior_overlay: protocol025-r1-overlay-5520
+      output_overlay: protocol025-r1-unused-final
+      expected_next_t: 5521
+      final_segment: true
