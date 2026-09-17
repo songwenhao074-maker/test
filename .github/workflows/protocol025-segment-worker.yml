@@ -1,0 +1,176 @@
+name: Protocol-025 segmented recovery worker
+
+on:
+  workflow_call:
+    inputs:
+      prior_overlay:
+        required: false
+        type: string
+        default: ''
+      output_overlay:
+        required: true
+        type: string
+      expected_next_t:
+        required: true
+        type: number
+      final_segment:
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  recover-segment:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    env:
+      OMP_NUM_THREADS: '3'
+      MKL_NUM_THREADS: '3'
+      OPENBLAS_NUM_THREADS: '3'
+      ROOT_OUT: artifacts/ftmoe_online/protocol_025/data_seed700
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+
+      - name: Install CPU dependencies
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8
+
+      - name: Restore immutable chunk base
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol025-r1-chunks-base
+          path: ${{ env.ROOT_OUT }}/chunks
+
+      - name: Restore initial 5400 state
+        if: inputs.prior_overlay == ''
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol025-r1-state-5400
+          path: ${{ env.ROOT_OUT }}
+
+      - name: Restore latest transient state
+        if: inputs.prior_overlay != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.prior_overlay }}
+          path: ${{ env.ROOT_OUT }}
+
+      - name: Verify engineering-only recovery prerequisites
+        run: |
+          rm -f "$ROOT_OUT/resume_state.tmp" "$ROOT_OUT/failure_segmented.json"
+          python -m py_compile maintenance/run_protocol025_segmented_recovery.py prepare_ftmoe_protocol025_stream.py audit_ftmoe_protocol025_revision1.py
+          python - <<'PY'
+          import json, pathlib
+          root=pathlib.Path('artifacts/ftmoe_online/protocol_025/data_seed700')
+          m=json.load(open(root/'resume_manifest.json'))
+          assert m['protocol']=='025'
+          assert m['registration_sha256']=='0cd6c887d1978cc2db8ed8df66d061a6a3d99d0d22a28787cf6078eb4a029b0c'
+          assert len(m['chunks'])==27
+          assert m['chunks'][-1]['end']==5400
+          print({'resume_next_t':m['next_t'],'immutable_chunks':len(m['chunks'])})
+          PY
+
+      - name: Generate at most ten additional intervals
+        run: |
+          python maintenance/run_protocol025_segmented_recovery.py \
+            --output "$ROOT_OUT" --resume --max-intervals 10
+
+      - name: Verify segment boundary
+        env:
+          EXPECTED_NEXT_T: ${{ inputs.expected_next_t }}
+          FINAL_SEGMENT: ${{ inputs.final_segment }}
+        run: |
+          python - <<'PY'
+          import json, os, pathlib
+          root=pathlib.Path('artifacts/ftmoe_online/protocol_025/data_seed700')
+          r=json.load(open(root/'resume_manifest.json'))
+          expected=int(float(os.environ['EXPECTED_NEXT_T']))
+          assert int(r['next_t'])==expected, (r['next_t'],expected)
+          final=os.environ['FINAL_SEGMENT'].lower()=='true'
+          if final:
+              assert expected==5521
+              assert (root/'manifest.json').is_file()
+              assert r.get('engineering_transient_checkpoint') is None
+          else:
+              t=r.get('engineering_transient_checkpoint')
+              assert t is not None and int(t['start'])==5400 and int(t['end'])==expected
+              assert not (root/'manifest.json').exists()
+          print({'next_t':expected,'final':final})
+          PY
+
+      - name: Upload transient recovery overlay
+        if: ${{ !inputs.final_segment }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.output_overlay }}
+          path: |
+            ${{ env.ROOT_OUT }}/resume_state.dill
+            ${{ env.ROOT_OUT }}/resume_manifest.json
+            ${{ env.ROOT_OUT }}/transient_partial.npz
+            ${{ env.ROOT_OUT }}/generation.log
+          if-no-files-found: error
+          compression-level: 1
+          retention-days: 1
+
+      - name: Apply strengthened revision-1 model-free audit
+        if: inputs.final_segment
+        run: |
+          python audit_ftmoe_protocol025_revision1.py --data-root "$ROOT_OUT"
+
+      - name: Gate final revision-1 data before any model experiment
+        if: inputs.final_segment
+        run: |
+          python - <<'PY'
+          import hashlib,json,numpy as np
+          from pathlib import Path
+          root=Path('artifacts/ftmoe_online/protocol_025/data_seed700')
+          m=json.load(open(root/'manifest.json'))
+          a=json.load(open(root/'data_audit.json'))
+          assert m['protocol']=='025' and m['seed']==700 and m['steps']==5520 and m['guard_rows']==1
+          assert m['data_revision_id']=='data_revision_001'
+          assert m['pre_revision_generation_run']==35101949642
+          assert m['pre_revision_stream_eligible_for_model_results'] is False
+          h=hashlib.sha256((root/'stream.npz').read_bytes()).hexdigest(); assert h==m['stream_sha256']
+          with np.load(root/'stream.npz') as d:
+              ratio=d['overload_ratio']; expected=np.where((ratio>1.0).any(-1),ratio.argmax(-1)+1,0)
+              assert np.array_equal(expected,d['raw_labels'])
+              assert d['raw_labels'].shape==(5521,16)
+              assert not set(m['audit_only_npz_keys']) & set(m['model_input_keys'])
+          assert a['kind']=='pre_model_data_audit_revision1'
+          assert a['model_results_seen'] is False
+          assert a['data_revision_id']=='data_revision_001'
+          assert a['revision_allowed_if_failed']==0
+          assert a['no_further_data_revision_allowed'] is True
+          assert a['audit_pass'] is True, json.dumps(a['gates'],sort_keys=True)
+          assert all(a['gates'].values()), a['gates']
+          assert a['F0_guard']['positive_rows']>0 and a['F0_guard']['normal_rows']>0
+          print(json.dumps({'stream_sha256':m['stream_sha256'],'audit_pass':True,'revision':'data_revision_001','gates':a['gates']},indent=2))
+          PY
+
+      - name: Upload final locked-data candidate
+        if: inputs.final_segment
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol025-seed700-generation-revision1-final-segmented
+          path: |
+            ${{ env.ROOT_OUT }}/manifest.json
+            ${{ env.ROOT_OUT }}/stream.npz
+            ${{ env.ROOT_OUT }}/data_audit.json
+            ${{ env.ROOT_OUT }}/common_observable_features.npz
+            ${{ env.ROOT_OUT }}/events.json
+            ${{ env.ROOT_OUT }}/generation.log
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 7
