@@ -1,13 +1,17 @@
 """Portable launcher for the frozen Protocol-025 segmented recovery implementation.
 
 Engineering-only repair: load the implementation from the pinned pre-fix commit
-and apply the Linux psutil compatibility shim already used by the canonical CI
-launcher. No scientific setting, generator source, seed, feature, or metric is
-changed.
+and apply Linux execution compatibility shims. No scientific setting, generator
+source, seed, feature, service law, comparator, or metric is changed.
 """
 from pathlib import Path
+import sys
 import urllib.request
 import psutil
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 if not hasattr(psutil, "BELOW_NORMAL_PRIORITY_CLASS"):
     psutil.BELOW_NORMAL_PRIORITY_CLASS = 10
@@ -18,5 +22,7 @@ with urllib.request.urlopen(URL, timeout=60) as response:
     source = response.read()
 
 # Preserve the repository-local __file__ expected by the pinned implementation.
+# The repository root is also explicitly on sys.path because invoking this
+# launcher by filename otherwise makes Python put maintenance/ at sys.path[0].
 code = compile(source, str(Path(__file__).resolve()), "exec")
 exec(code, {"__name__": "__main__", "__file__": str(Path(__file__).resolve())})
