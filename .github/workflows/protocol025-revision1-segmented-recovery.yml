@@ -38,11 +38,22 @@ jobs:
           assert len(m['chunks'])==27 and int(m['chunks'][-1]['end'])==5400
           h=hashlib.sha256((root/'resume_state.dill').read_bytes()).hexdigest()
           assert h==m['state_sha256'], (h,m['state_sha256'])
+          registered={rec['file'] for rec in m['chunks']}
           for rec in m['chunks']:
               p=root/'chunks'/rec['file']
               assert p.is_file()
               assert hashlib.sha256(p.read_bytes()).hexdigest()==rec['sha256']
-          print({'next_t':5400,'chunks':27,'state_sha256':h})
+          # The interrupted source artifact can contain files written after the
+          # last committed resume_manifest. They are not registered checkpoint
+          # state and must never be promoted into the segmented immutable base.
+          orphan=[]
+          for p in (root/'chunks').glob('chunk_*.npz'):
+              if p.name not in registered:
+                  orphan.append(p.name)
+                  p.unlink()
+          remaining={p.name for p in (root/'chunks').glob('chunk_*.npz')}
+          assert remaining==registered, (remaining-registered, registered-remaining)
+          print({'next_t':5400,'chunks':27,'state_sha256':h,'removed_orphan_chunks':sorted(orphan)})
           PY
 
       - name: Upload immutable chunk base once
