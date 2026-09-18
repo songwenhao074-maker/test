@@ -1,10 +1,10 @@
 # 从 GitHub 继续 FT-MoE 实验
 
-**最新入口更新（2026-09-16）：** 先读 [v2审阅](PROTOCOL024_REVIEW_20260916.md)，执行
-[v2c与后续情形指示](PROTOCOL024_NEXT_DIRECTIVE_20260916.md)。默认分支已整合v2代码和结果。
-v2b不是零触发：birth=2、retirement=3、reactivation=2，但收益不足。优先纠正birth preview与最终replacement模型不一致。
-复用已固定SHA256的数据；原始结果见Actions 34989082187、35051303612。轻量stdout证据见review_20260916目录。
-下文为历史P23资产/环境记录，旧状态以本段与最新指示更新。
+**最新入口更新（2026-09-18）：** 当前仓库songwenhao074-maker/test，ID1358898099未变。
+先读 [最新审阅](PROTOCOL025_REVIEW_20260918.md)，执行 [Protocol-026指示](PROTOCOL026_NEXT_DIRECTIVE_20260918.md)。
+Protocol-025按原规则保持不合格，不回写旧audit；新协议使用同一数据与正常回归保护集。
+恢复材料已归档在run35292728416/artifact10526683176（到期2026-12-17），包括5520状态和截至5400的chunk。
+新指示包含最后1个guard interval的恢复办法。下文为历史资产/环境说明，旧状态以新入口更新。
 
 更新：2026-09-14。本次同步合并远端 `ca39074` 的文档历史与本地 `1ccd6b1` 的精简历史；不改写历史实验结果。
 

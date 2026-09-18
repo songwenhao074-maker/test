@@ -1,3 +1,15 @@
+# 2026-09-18 后续协议决定
+
+下文保持Protocol-025原有失败事实与冻结规则；不将其改成通过。
+当前继续工作已另行注册Protocol-026，见 [执行指示](../../../docs/PROTOCOL026_NEXT_DIRECTIVE_20260918.md)
+与 [审阅](../../../docs/PROTOCOL025_REVIEW_20260918.md)。
+
+恢复材料已成功保存在run35292728416、artifact10526683176，保留至2026-12-17。
+新协议复用同一物理数据，修订F0保护集用途；不是给Protocol-025再修改服务参数。
+下一模型应执行新入口，不再重复请求协议决定。确认与测试种子仍封存。
+
+---
+
 # Protocol-025 continuation handoff
 
 Updated: 2026-09-18. **Read this first in the next session.**

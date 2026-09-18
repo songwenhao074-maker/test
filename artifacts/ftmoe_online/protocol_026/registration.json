@@ -1,0 +1,143 @@
+{
+  "protocol": "026",
+  "status": "registered_not_executed",
+  "registered_on": "2026-09-18",
+  "repository_id": 1358898099,
+  "repository_full_name": "songwenhao074-maker/test",
+  "rationale": "Reuse unchanged physical data under a separately registered historical normal-regression guard. Preserve Protocol025 as ineligible under its own two-class F0 guard rule.",
+  "reviewed_source_commit": "973a431260ebcceffc134a9eef036ea475056244",
+  "development_set_reuse_disclosed": true,
+  "protocol025_model_performance_seen": false,
+  "source": {
+    "protocol": "025",
+    "data_revision": "data_revision_001",
+    "source_protocol025_audit_pass": false,
+    "failed_gate": "F0_guard_has_positive_and_negative",
+    "generation_run": 35254809015,
+    "final_job": 105357470988,
+    "expected_stream_sha256": "46b1dbdd885683bd45c146ffc3cbe68dd151bf60a10c1663eda45b68f12d7c42",
+    "expected_final_chunk_sha256": "fc3e9887961e6e99f29d0f386e4da9dd318367010f9028a6233599829eef4c10",
+    "scored_intervals": 5520,
+    "guard_rows": 1,
+    "hosts": 16,
+    "preservation_run": 35292728416,
+    "preservation_artifact_id": 10526683176,
+    "preservation_artifact_name": "protocol025-recovery-evidence-preserved-20260918",
+    "preservation_zip_digest": "sha256:f2337ce4e00f4419b64b618b4eef72ab2d95f7def882ded4f5ddeb68bf2cd092",
+    "archive_contains_complete_stream": false,
+    "recovery_next_t": 5520,
+    "allowed_remaining_simulation_intervals": 1,
+    "no_full_regeneration": true
+  },
+  "seeds": {
+    "replay": 700,
+    "model": 1,
+    "confirmation_forbidden": [
+      701,
+      702,
+      703
+    ],
+    "test_forbidden": [
+      201,
+      202,
+      203,
+      204,
+      205
+    ]
+  },
+  "source_registration": "artifacts/ftmoe_online/protocol_025/registration.json",
+  "source_method_registration": "artifacts/ftmoe_online/protocol_025/method_registration.json",
+  "scientific_data_changed": false,
+  "data_lock_created": false,
+  "eligibility_verified": false,
+  "normal_guard": {
+    "role": "historical_normal_regression_guard",
+    "prediction_indices": "0,5,...,295",
+    "target": "same-host raw[t+1], inside F0",
+    "normal_rows_observed": 960,
+    "positive_rows_observed": 0,
+    "eligible_rows": "known normal rows from fixed F0 subset",
+    "require_normal_rows": true,
+    "require_positive_rows": false,
+    "decision_use_after_targets_mature": true,
+    "first_proposal_matured_count": 600,
+    "normal_NLL_ratio_max": 1.02,
+    "normal_NLL_absolute_tolerance": 0.000001,
+    "FPR_threshold": 0.5,
+    "FPR_delta_max": 0.01,
+    "nonfinite_or_no_normal_rows": "unavailable_reject_deployment",
+    "positive_only_metrics": "null_with_reason_not_part_of_normal_guard_acceptance",
+    "applies_to": [
+      "birth",
+      "reuse"
+    ],
+    "generalists_may_have_trained_on_F0": true,
+    "independent_holdout_claim": false,
+    "candidate_training_on_guard_rows": false,
+    "positive_fault_memory_protection_claim": false
+  },
+  "unchanged_method": {
+    "common_input_dim": 73,
+    "common_observable_dim": 9,
+    "target": "raw_next_fault",
+    "label_maturity": "t+2",
+    "optimizer": "AdamW",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "update_every": 4,
+    "batch_size": 32,
+    "replay_buffer_intervals": 64,
+    "distill_weight": 0.1,
+    "shadow_budget": "buffer128_4x4",
+    "candidate_relative_loss_improvement_min": 0.01,
+    "resident_expert_limit": 8,
+    "generalists": 4,
+    "max_steady_live_specialists": 1,
+    "crossfade_peak_live_experts": 6,
+    "crossfade_intervals": 8,
+    "source_dynamic_policy_unchanged_except_normal_guard": true
+  },
+  "comparators": [
+    "C_fixed4",
+    "C_fixed5",
+    "C_fixed8_dense",
+    "C_fixed8_top5",
+    "D_dynamic"
+  ],
+  "pressure_reference": {
+    "score": "max current causal CPU/RAM/Disk capacity ratio",
+    "threshold": 1,
+    "AP_uses_raw_score": true
+  },
+  "model_probability_threshold": 0.5,
+  "evaluation": {
+    "primary": "equal-weight mean D_dynamic-C_fixed5 AP across all nine registered recurrence first100 windows",
+    "secondary_comparator": "C_fixed4",
+    "report_all_comparators": true,
+    "normal_FPR_scope": "pooled known-normal rows of same nine first100 windows",
+    "development_reference": {
+      "valid_windows": 9,
+      "mean_delta_min": 0.03,
+      "positive_windows_min": 6,
+      "FPR_delta_max": 0.01
+    },
+    "statistical_confirmation": false
+  },
+  "runtime": {
+    "one_arm_per_process": true,
+    "sequential_arms": true,
+    "parent_does_not_retain_models": true,
+    "per_arm_peak_RSS": true,
+    "raw_evidence_archived_on_failure": true,
+    "actual_data_hash_required": true
+  },
+  "followup": {
+    "if_development_signal": [
+      "D_no_reuse",
+      "appropriate_compute_budget_control",
+      "D_no_purge_only_with_actual_capacity_pressure_and_purge"
+    ],
+    "if_negative": "preserve all results and bounded diagnosis; no within-protocol outcome-driven retuning",
+    "automatic_confirmation": false
+  }
+}

@@ -1,9 +1,9 @@
 <h1 align="center">PreGAN+ · FT-MoE online-learning track</h1>
 
-> **最新（2026-09-16，Protocol-024 v2）：** [结果审阅](docs/PROTOCOL024_REVIEW_20260916.md) ·
-> [下一步指示](docs/PROTOCOL024_NEXT_DIRECTIVE_20260916.md) · [v2结果入口](docs/PROTOCOL024_V2_RESULTS.md)。
-> v2b出生2次、退役3次、复用2次；复现AP仅增0.0017037，全程AP略降。
-> 先修birth验收与替换部署不一致，再执行限定重放；必要时推进服务更替与容量约束新情形。确认种子封存。
+> **最新（2026-09-18）：** [结果审阅](docs/PROTOCOL025_REVIEW_20260918.md) ·
+> [Protocol-026下一步指示](docs/PROTOCOL026_NEXT_DIRECTIVE_20260918.md)。
+> v2c仍无D优势；Protocol-025因F0保护集缺正例停止，尚未跑模型。
+> 保留原失败，复用同一数据开展正常保护集用途修订后的五方法比较。恢复证据已归档，确认种子封存。
 
 > **入口：** [项目现状与历史沿革](docs/PROJECT_STATUS_AND_HISTORY.md)（唯一状态入口）·
 > [协议 023 设计与结果](docs/FTMOE_ONLINE_PROTOCOL_023.md)
@@ -37,7 +37,7 @@ onset 时间轴错误及倒数第二行漏结算，已独立重算，这些旧�
 ## 2. 快速开始
 
 ```console
-git clone --depth 1 https://github.com/songwenhao074-maker/FT-MoE.git
+git clone --depth 1 https://github.com/songwenhao074-maker/test.git FT-MoE
 cd FT-MoE
 # Use Python 3.8 for the recorded reference environment.
 python -m pip install -r requirements-online.txt

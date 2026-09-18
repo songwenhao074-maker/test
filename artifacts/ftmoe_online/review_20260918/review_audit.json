@@ -1,0 +1,167 @@
+{
+  "date": "2026-09-18",
+  "repository": {
+    "id": 1358898099,
+    "old_name": "songwenhao074-maker/FT-MoE",
+    "current_name": "songwenhao074-maker/test"
+  },
+  "reviewed_head": "973a431260ebcceffc134a9eef036ea475056244",
+  "verified": {
+    "v2c_run_id": 35074464132,
+    "v2c_job_id": 104723432309,
+    "v2c_result_from_stdout": true,
+    "protocol025_run_id": 35254809015,
+    "protocol025_final_job_id": 105357470988,
+    "audit_result_from_stdout": true,
+    "source_reviewed": true,
+    "raw_npz_recomputed_locally": false,
+    "new_model_runs": 0,
+    "new_simulation_steps": 0
+  },
+  "v2c": {
+    "recurrence_mean_delta": -0.00009535669826217046,
+    "development_signal": false,
+    "birth": 5,
+    "retirement": 4,
+    "reactivation": 0,
+    "purge": 2
+  },
+  "protocol025": {
+    "audit_pass": false,
+    "passed_gates": [
+      "revision_registered_before_model_results",
+      "pre_revision_stream_ineligible",
+      "stream_shape_5521x16",
+      "label_rule_physical_capacity_recompute",
+      "common_observable_features_finite_5521x16x9",
+      "events_every_service",
+      "event_revision_provenance",
+      "S4_registered_floor_half_life_effective",
+      "S5_periodic_release_fraction_effective",
+      "S5_event_windows_respect_minimum_trace",
+      "all_service_phases_have_positive_and_negative",
+      "all_nine_recurrence_first100_ap_defined"
+    ],
+    "failed_gates": [
+      "F0_guard_has_positive_and_negative"
+    ],
+    "F0_guard": {
+      "indices": [
+        0,
+        5,
+        10,
+        15,
+        20,
+        25,
+        30,
+        35,
+        40,
+        45,
+        50,
+        55,
+        60,
+        65,
+        70,
+        75,
+        80,
+        85,
+        90,
+        95,
+        100,
+        105,
+        110,
+        115,
+        120,
+        125,
+        130,
+        135,
+        140,
+        145,
+        150,
+        155,
+        160,
+        165,
+        170,
+        175,
+        180,
+        185,
+        190,
+        195,
+        200,
+        205,
+        210,
+        215,
+        220,
+        225,
+        230,
+        235,
+        240,
+        245,
+        250,
+        255,
+        260,
+        265,
+        270,
+        275,
+        280,
+        285,
+        290,
+        295
+      ],
+      "normal_rows": 960,
+      "positive_rows": 0,
+      "target": "raw_next_fault"
+    },
+    "stream_sha256": "46b1dbdd885683bd45c146ffc3cbe68dd151bf60a10c1663eda45b68f12d7c42",
+    "valid_model_result_exists": false
+  },
+  "evidence_preservation": {
+    "run_id": 35292728416,
+    "job_id": 105438842739,
+    "commit": "254a2ceacadce40b1a545954945f5dc5ac2c4446",
+    "conclusion": "success",
+    "artifact_id": 10526683176,
+    "digest": "sha256:f2337ce4e00f4419b64b618b4eef72ab2d95f7def882ded4f5ddeb68bf2cd092",
+    "expires_at": "2026-12-17T00:48:31Z",
+    "simulation_steps": 0,
+    "model_steps": 0,
+    "complete_stream_in_archive": false,
+    "restorable_next_t": 5520
+  },
+  "findings": [
+    {
+      "id": "R18-01",
+      "kind": "observed",
+      "finding": "Protocol025 fails only its F0 two-class guard requirement; other 12 strengthened gates pass."
+    },
+    {
+      "id": "R18-02",
+      "kind": "source+artifact_listing",
+      "finding": "Final artifact upload was skipped after audit failure; one-day recovery artifacts required preservation."
+    },
+    {
+      "id": "R18-03",
+      "kind": "source",
+      "finding": "Sequentially retained sessions and process ru_maxrss confound per-arm memory accounting."
+    },
+    {
+      "id": "R18-04",
+      "kind": "source",
+      "finding": "Raw pressure is assessed at default probability threshold 0.5; new protocol must separately declare a pressure threshold."
+    },
+    {
+      "id": "R18-05",
+      "kind": "registered_design",
+      "finding": "D crossfade can execute six experts, so five-active comparability only holds outside transitions."
+    }
+  ],
+  "decision": "Preserve Protocol025 negative eligibility outcome. Register Protocol026 on identical data with normal-regression guard; do not unseal confirmation seeds.",
+  "validation": {
+    "v2c_stdout_log_sha256": "04085928d6a70a7057680dd2e89aceff0356ed4968595b2ee98368e0e73016ee",
+    "protocol025_stdout_log_sha256": "60fcc380c941ccd90f73a1d12e76e527f192b363afa88ad7aa28ea6ba3b8aac1",
+    "extractor_matches_original_stdout": true,
+    "json_and_python_syntax_passed": true,
+    "relative_links_passed": true,
+    "protocol026_not_executed": true
+  }
+}
