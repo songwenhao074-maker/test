@@ -1,0 +1,86 @@
+{
+  "protocol": "027",
+  "recorded_at": "2026-09-21",
+  "purpose": "Strengthen the registered-stream recovery blocker without changing any registered scientific setting.",
+  "registered": {
+    "generation_run": 35254809015,
+    "final_job": 105357470988,
+    "stream_sha256": "46b1dbdd885683bd45c146ffc3cbe68dd151bf60a10c1663eda45b68f12d7c42",
+    "final_chunk_sha256": "fc3e9887961e6e99f29d0f386e4da9dd318367010f9028a6233599829eef4c10"
+  },
+  "preservation": {
+    "run": 35292728416,
+    "artifact_id": 10526683176,
+    "artifact_name": "protocol025-recovery-evidence-preserved-20260918",
+    "directly_preserved_source_overlay": {
+      "source_run": 35254809015,
+      "artifact_id": 10516563749,
+      "artifact_name": "protocol025-r1-overlay-5520",
+      "artifact_digest": "sha256:a90a3e2dd18ea9cc69ddb9b6f22e6c1a943856f9ba294727f0850a6515413b14"
+    },
+    "state_5520_files": {
+      "resume_manifest.json": "669751f788b2b949d88d8bdabf368629bd2af0e4dab4663f705432c3495820e4",
+      "resume_state.dill": "3b21419805557bf6c19a065d23621f024f7dba68a9ef56df006fbfd95394ed22",
+      "transient_partial.npz": "07cee5ba883fb94b23c5bd824a4ea7fa73f23d76a023ac1f6357fcd2890dc9f6"
+    },
+    "conclusion": "The current preservation is not a reconstructed substitute: its state_5520 was copied from the exact overlay-5520 artifact used by the registered recovery run."
+  },
+  "exact_old_workflow_reproduction": {
+    "run": 35596448071,
+    "head_sha": "30d44d9fdb6aa5500735a6a4d290fff3127a625a",
+    "attempt_1": {
+      "job_id": 106322249796,
+      "result": "recovery_hashes_matched_registered",
+      "stream_sha256": "46b1dbdd885683bd45c146ffc3cbe68dd151bf60a10c1663eda45b68f12d7c42",
+      "final_chunk_sha256": "fc3e9887961e6e99f29d0f386e4da9dd318367010f9028a6233599829eef4c10"
+    },
+    "attempt_2": {
+      "job_id": 106392757871,
+      "result": "recovery_hash_assertion_failed_before_model_audit_or_training",
+      "stream_sha256": "fdea84306ac752611e4d0b1b4cd2300d0e0dcbc62ace07ac94096d904b310761",
+      "final_chunk_sha256": "21cd73359a4837b7c2d58456e4c85da63e0023c9088bab5dc87e87dccf529d48"
+    },
+    "same_logged_environment": {
+      "runner_version": "2.337.0",
+      "runner_image": "ubuntu-22.04",
+      "runner_image_version": "20260907.292.1",
+      "python": "3.8.18",
+      "torch": "2.4.1+cpu",
+      "numpy": "1.19.2",
+      "dgl": "1.1.3",
+      "dill": "0.3.8",
+      "psutil": "7.2.2"
+    },
+    "conclusion": "The exact same old workflow and commit no longer deterministically reproduce the registered final bytes; main-only Protocol-027 code changes are not the cause."
+  },
+  "historical_orphan_comparison": {
+    "source_run": 35114741391,
+    "artifact_id": 10469412410,
+    "artifact_name": "protocol025-seed700-generation-revision1-progress",
+    "orphan_file": "chunks/chunk_005400_005521.npz",
+    "orphan_sha256": "21cd73359a4837b7c2d58456e4c85da63e0023c9088bab5dc87e87dccf529d48",
+    "compared_to_maintenance_run": 35604239834,
+    "compared_artifact_id": 10641512835,
+    "byte_equal": true,
+    "bytes": 54820,
+    "npz_array_count": 21,
+    "all_arrays_array_equal": true,
+    "maximum_absolute_difference_across_numeric_arrays": 0,
+    "conclusion": "The currently reproducible final chunk is byte-for-byte identical to the orphan final chunk already present in the 2026-09-16 revision1 progress artifact."
+  },
+  "current_assessment": {
+    "proven_not_caused_by": [
+      "Protocol-027 feature-padding fix",
+      "main-only recovery workflow changes",
+      "a reconstructed or substituted state_5520 checkpoint",
+      "runner image version change",
+      "Python/torch/numpy/dgl/dill/psutil version change"
+    ],
+    "remaining_hypothesis": "Runtime/hardware-sensitive numerical execution in the final simulator/scheduler interval is the leading explanation, but the original registered full arrays were not retained, so the exact array-level delta to fc3e/46b1 cannot be proven.",
+    "registered_hashes_must_not_be_replaced": true,
+    "model_training_allowed": false,
+    "c_fixed5_run": false,
+    "d_dynamic_run": false,
+    "stop_reason": "The handoff requires actual registered stream/final-chunk hashes to pass before training. They do not pass under the now-reproducible recovery path, and no original registered full copy is downloadable."
+  }
+}
