@@ -1,4 +1,4 @@
-name: Protocol-025 revision-1 pre-generation semantic gate
+name: "历史参考 / Protocol-025 revision-1 pre-generation semantic gate"
 
 on:
   workflow_dispatch:

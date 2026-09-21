@@ -2,11 +2,19 @@ name: Protocol-027 single D/C pilot
 
 on:
   push:
-    branches:
-      - protocol-027-pilot-gpt56-20260921
+    branches: [main]
     paths:
       - .github/workflows/protocol027-pilot.yml
+      - ftmoe_protocol025_model.py
+      - audit_ftmoe_protocol027.py
+      - test_ftmoe_protocol027_features.py
   workflow_dispatch:
+    inputs:
+      run_models:
+        description: 'Run the registered C_fixed5/D_dynamic pilot after the audit'
+        type: boolean
+        required: true
+        default: false
 
 permissions:
   contents: write
@@ -26,6 +34,7 @@ jobs:
       OPENBLAS_NUM_THREADS: "3"
       STREAM_ROOT: artifacts/ftmoe_online/protocol_025/data_seed700
       METHOD_REG: artifacts/ftmoe_online/protocol_025/method_registration.json
+      RUN_MODELS: ${{ github.event_name == 'workflow_dispatch' && inputs.run_models || false }}
       P027_REG: artifacts/ftmoe_online/protocol_027/registration.json
     steps:
       - uses: actions/checkout@v4
@@ -46,7 +55,7 @@ jobs:
       - name: Compile and run targeted Protocol-027 checks
         run: |
           python -m py_compile ftmoe_protocol027_normal_guard.py audit_ftmoe_protocol027.py run_ftmoe_protocol027_pilot.py finalize_ftmoe_protocol027.py
-          python -m unittest -v test_ftmoe_protocol027_guard.py test_ftmoe_protocol025_model.py test_ftmoe_protocol025_session.py test_ftmoe_protocol024_v2c.py
+          python -m unittest -v test_ftmoe_protocol027_features.py test_ftmoe_protocol027_handoff.py test_ftmoe_protocol027_guard.py test_ftmoe_protocol025_model.py test_ftmoe_protocol025_session.py test_ftmoe_protocol024_v2c.py
 
       - name: Download preserved Protocol-025 recovery evidence
         uses: actions/download-artifact@v4
@@ -137,11 +146,11 @@ jobs:
           set +e
           python audit_ftmoe_protocol027.py --data-root "$STREAM_ROOT" --output-root "$RUN_DIR"
           AUDIT_RC=$?
-          if [ "$AUDIT_RC" -eq 0 ]; then
+          if [ "$AUDIT_RC" -eq 0 ] && [ "$RUN_MODELS" = "true" ]; then
             python run_ftmoe_protocol027_pilot.py               --stream "$STREAM_ROOT"               --out-root "$RUN_DIR"               --method-registration "$METHOD_REG"               --registration "$P027_REG"               --data-lock "$RUN_DIR/data_lock.json"               --eligibility "$RUN_DIR/eligibility.json"               --run-id "$GITHUB_RUN_ID"
             RUN_RC=$?
           else
-            RUN_RC=99
+            RUN_RC=0
           fi
           export RUN_DIR AUDIT_RC RUN_RC
           python - <<'PY'
@@ -151,10 +160,34 @@ jobs:
               'protocol':'027',
               'github_run_id':int(os.environ['GITHUB_RUN_ID']),
               'audit_returncode':int(os.environ['AUDIT_RC']),
+              'run_models':os.environ['RUN_MODELS']=='true',
               'runner_returncode':int(os.environ['RUN_RC'])
           },indent=2)+'\n')
           PY
           exit 0
+
+      - name: Persist status even if the runner never started
+        if: always()
+        run: |
+          python finalize_ftmoe_protocol027.py --status-only \
+            --run-root "artifacts/ftmoe_online/protocol_027/runtime/run_${GITHUB_RUN_ID}" \
+            --git-dest "artifacts/ftmoe_online/protocol_027/runs/run_${GITHUB_RUN_ID}" \
+            --run-id "$GITHUB_RUN_ID" --repository "$GITHUB_REPOSITORY"
+
+      - name: Preserve restored physical stream independently of model eligibility
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol027-restored-stream-${{ github.run_id }}
+          path: |
+            artifacts/ftmoe_online/protocol_025/data_seed700/stream.npz
+            artifacts/ftmoe_online/protocol_025/data_seed700/common_observable_features.npz
+            artifacts/ftmoe_online/protocol_025/data_seed700/manifest.json
+            artifacts/ftmoe_online/protocol_025/data_seed700/data_audit.json
+            artifacts/ftmoe_online/protocol_025/data_seed700/chunks/chunk_005400_005521.npz
+          if-no-files-found: warn
+          compression-level: 1
+          retention-days: 90
 
       - name: Upload complete Protocol-027 evidence
         if: always()
@@ -194,6 +227,8 @@ jobs:
               raise SystemExit('Protocol027 compact status.json missing')
           s=json.loads(p.read_text())
           print(json.dumps(s,indent=2))
-          if not s.get('completed'):
+          if os.environ['RUN_MODELS'] != 'true' and s.get('eligibility_verified'):
+              print('Data audit passed; C/D training was not requested.')
+          elif not s.get('completed'):
               raise SystemExit('Protocol027 ended with a documented blocker')
           PY

@@ -5,6 +5,32 @@ from pathlib import Path
 
 COMPARATORS=("C_fixed5","D_dynamic")
 
+def ensure_status(root, run_id):
+    """Persist a useful status even when eligibility prevents the runner starting."""
+    root = Path(root)
+    existing = read_json(root / "status.json")
+    if existing is not None:
+        return existing
+    eligibility = read_json(root / "eligibility.json", {})
+    execution = read_json(root / "workflow_execution.json", {})
+    failed = [k for k, value in eligibility.get("gates", {}).items() if not value]
+    eligible = eligibility.get("protocol027_data_eligible") is True
+    audit_only = execution.get("run_models") is False
+    status = {
+        "protocol": "027", "github_run_id": str(run_id), "completed": False,
+        "audit_only": audit_only, "eligibility_verified": eligible,
+        "completed_comparators": [], "failed_comparators": [],
+        "failed_eligibility_gates": failed, "development_signal": None,
+        "confirmation_run": False, "confirmation_seeds_used": [], "test_seeds_used": [],
+        "automatic_followups_started": [],
+        "blocker": ("data_eligibility_failed: " + ", ".join(failed)) if failed else
+                   (None if eligible and audit_only else "execution_stopped_before_runner_status"),
+        "state": "ready_for_two_arm_pilot" if eligible and audit_only else "blocked",
+    }
+    root.mkdir(parents=True, exist_ok=True)
+    (root / "status.json").write_text(json.dumps(status, indent=2) + "\n", encoding="utf8")
+    return status
+
 def read_json(path, default=None):
     p=Path(path)
     return json.loads(p.read_text(encoding="utf8")) if p.is_file() else default
@@ -23,17 +49,16 @@ def main():
     ap.add_argument("--repository",required=True)
     ap.add_argument("--artifact-id",default="")
     ap.add_argument("--artifact-url",default="")
+    ap.add_argument("--status-only", action="store_true")
     args=ap.parse_args()
 
     root=Path(args.run_root)
     dest=Path(args.git_dest)
     dest.mkdir(parents=True,exist_ok=True)
 
-    status=read_json(root/"status.json",{
-        "protocol":"027","completed":False,
-        "blocker":"execution_stopped_before_runner_status",
-        "github_run_id":args.run_id,
-    })
+    status=ensure_status(root, args.run_id)
+    if args.status_only:
+        return
     cmp=read_json(root/"comparison.json")
     life=(cmp or {}).get("lifecycle") or {}
 
@@ -59,11 +84,15 @@ def main():
             f"- Retirements: {life.get('retirements',0)}.",
             f"- Reactivations: {life.get('reactivations',0)}.",
             f"- Purges: {life.get('purges',0)}.",
-            f"- Reuse-benefit claim allowed by observed reactivation: {life.get('reuse_benefit_claim_allowed',False)}.","",
+            f"- Reuse observed: {life.get('reactivations',0)>0}; causal reuse benefit is not established by event counts alone.","",
             "## Main limitation","",
             "This is one registered development trajectory (replay seed700/model1), and D is allowed additional background training and resident memory; it is not a statistical confirmation or an equal-total-cost comparison.","",
             "No follow-up experiment was started automatically.",
         ]
+    elif status.get("audit_only") and status.get("eligibility_verified"):
+        lines += ["## Maintenance verification", "",
+                  "The full data eligibility audit passed. Neither comparator was run.",
+                  "The repository is ready for the registered two-arm pilot; no performance claim is made."]
     else:
         lines += [
             "## Blocker","",
@@ -100,7 +129,14 @@ def main():
     }
     (dest/"ARTIFACT_INDEX.json").write_text(json.dumps(index,indent=2)+"\n",encoding="utf8")
 
-    if status.get("completed") and cmp:
+    if status.get("audit_only") and status.get("eligibility_verified"):
+        next_lines = ["# 当前实验入口", "",
+            "Protocol-027全流数据资格检查已通过；C/D模型尚未运行。", "",
+            "唯一待执行任务：[Protocol-027两组试跑](docs/PROTOCOL027_SINGLE_TASK_DIRECTIVE_20260921.md)。",
+            "在main手动启动Protocol-027工作流，run_models=true；只运行C_fixed5与D_dynamic，交付后停止。",
+            "每份指示只规划一个任务；不自动追加A/B、其他C、消融或种子。", "",
+            f"本次仅维护验证：run {args.run_id}；[记录](docs/PROTOCOL027_RESULTS.md)。", ""]
+    elif status.get("completed") and cmp:
         p=cmp["primary"]; full=cmp["full_stream"]
         next_lines=[
             "# 下一步实验入口（2026-09-21）","",

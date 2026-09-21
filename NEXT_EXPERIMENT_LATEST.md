@@ -1,7 +1,7 @@
-# 下一步实验入口（2026-09-21）
+# 当前唯一任务
 
-Protocol-027 已启动执行但未形成两组完整结果，当前为 documented blocker。详情见 [Protocol-027 Results](docs/PROTOCOL027_RESULTS.md)。
+继续 [Protocol-027两组试跑](docs/PROTOCOL027_SINGLE_TASK_DIRECTIVE_20260921.md)，先读 [当前交接](docs/GITHUB_EXPERIMENT_HANDOFF.md)，使用默认分支main。
 
-GitHub Actions run: 35596448071。紧凑证据：artifacts/ftmoe_online/protocol_027/runs/run_35596448071/。
+run35596448071因开头补齐窗口的9维特征不一致停止；C/D都未运行。修复已提交，维护审计结果以 [结果页](docs/PROTOCOL027_RESULTS.md) 为准，不能把代码修复写成模型成功。
 
-未自动启动额外方法、种子、消融或参数搜索；需要先分析本次确定性工程/数据阻塞证据。
+当前工作流默认仅审计；手动选择run_models=true才运行C_fixed5、D_dynamic。两组结果交付后停止，每份指示只安排一个任务。A/B、其他C、消融与种子搜索后置。

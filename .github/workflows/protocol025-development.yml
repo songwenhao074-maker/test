@@ -1,4 +1,4 @@
-name: Protocol-025 frozen five-comparator development
+name: "历史参考 / Protocol-025 frozen five-comparator development"
 
 # Intentionally does NOT trigger when this workflow file is created/edited.
 # The only push trigger is the post-audit immutable revision-1 data lock.

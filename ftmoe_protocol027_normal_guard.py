@@ -125,6 +125,7 @@ class Protocol027NormalGuardLifecycle(ReplacementConsistentLifecycle):
                 context = s4.graph_context(anchor["ids"][left:right],
                                            anchor["before"][left:right],
                                            anchor["caps"][left:right])
+                context["observed_history_length"] = anchor["observed_history_length"][left:right]
                 out = session.model.predict_deployment(
                     anchor["x"][left:right], anchor["schedule"][left:right],
                     anchor["graph_x"][left:right], graph_context=context)
@@ -153,6 +154,7 @@ class Protocol027NormalGuardLifecycle(ReplacementConsistentLifecycle):
                 context = s4.graph_context(anchor["ids"][left:right],
                                            anchor["before"][left:right],
                                            anchor["caps"][left:right])
+                context["observed_history_length"] = anchor["observed_history_length"][left:right]
                 out = session.model.predict_deployment(
                     anchor["x"][left:right], anchor["schedule"][left:right],
                     anchor["graph_x"][left:right], graph_context=context)

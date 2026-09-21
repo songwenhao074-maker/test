@@ -1,3 +1,5 @@
+> 历史计划，仅供查证。027只执行 [当前单任务](PROTOCOL027_SINGLE_TASK_DIRECTIVE_20260921.md)，不要将本文的STOP、额外方法或后续任务叠加到027。
+
 # Protocol-024 next_round_v2 执行指示（2026-09-15）
 
 ## 任务与边界

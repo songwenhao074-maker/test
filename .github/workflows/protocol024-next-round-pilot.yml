@@ -1,4 +1,4 @@
-name: Protocol-024 next-round response-law generation
+name: "历史参考 / Protocol-024 next-round response-law generation"
 
 # Generation-only workflow. Downstream learnability/budget/A-C-D evaluation is
 # intentionally split into protocol024-next-round-valid.yml so the expensive

@@ -116,6 +116,15 @@ def causal_common_features(time_windows, graph_context, time_scale, graph_scale)
     current = pressure[:,:,-1,:]
     delta = current - pressure[:,:,-2,:]
     slope4 = (current - pressure[:,:,-5,:]) / 4.0
+    # Match the registered stored feature: slope4 is zero until four *real*
+    # lag intervals exist. Repeated padding must not create an early slope.
+    history = graph_context.get("observed_history_length")
+    if history is not None:
+        history = torch.as_tensor(history, device=time_windows.device).reshape(-1)
+        if history.numel() != time_windows.shape[0] or bool(((history < 1) | (history > 12)).any()):
+            raise ValueError("invalid observed history length")
+        delta = torch.where((history >= 2)[:, None, None], delta, torch.zeros_like(delta))
+        slope4 = torch.where((history >= 5)[:, None, None], slope4, torch.zeros_like(slope4))
     out = torch.cat([current, delta, slope4], dim=-1)
     if not torch.isfinite(out).all():
         raise RuntimeError("non-finite Protocol025 common observable features")

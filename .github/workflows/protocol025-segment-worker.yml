@@ -1,4 +1,4 @@
-name: Protocol-025 segmented recovery worker
+name: "历史参考 / Protocol-025 segmented recovery worker"
 
 on:
   workflow_call:

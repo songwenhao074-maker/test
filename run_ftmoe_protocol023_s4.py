@@ -297,9 +297,12 @@ def window_batch(replay, indices):
         ids.append(cid)
         before.append(bf)
         caps.append(cp)
-    return (torch.stack(hosts), torch.stack(schedules), torch.stack(graphs),
-            graph_context(torch.stack(ids), torch.stack(before),
-                          torch.stack(caps)))
+    context = graph_context(torch.stack(ids), torch.stack(before), torch.stack(caps))
+    # ReplayV3 repeats row zero to fill early windows. This metadata distinguishes
+    # padding from real observations; it is never a learned model input.
+    context["observed_history_length"] = torch.tensor(
+        [min(int(index) + 1, 12) for index in indices], dtype=torch.long)
+    return torch.stack(hosts), torch.stack(schedules), torch.stack(graphs), context
 
 
 def make_probes():

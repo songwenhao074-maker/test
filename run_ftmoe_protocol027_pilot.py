@@ -1,6 +1,10 @@
 """Protocol-027: exactly C_fixed5 vs D_dynamic on seed700/model1."""
 from __future__ import annotations
-import argparse, hashlib, json, os, resource, subprocess, sys, time, traceback
+import argparse, hashlib, json, os, subprocess, sys, time, traceback
+try:
+    import resource
+except ImportError:  # Windows reference environment
+    resource = None
 from collections import Counter, defaultdict
 from pathlib import Path
 import numpy as np
@@ -43,6 +47,7 @@ def build_guard(bundle):
     n=int((y==0).sum()); pos=int((y>0).sum())
     if n==0: raise RuntimeError("Protocol027 normal guard has no normal rows")
     if not all(torch.isfinite(out[k]).all() for k in ("x","schedule","graph_x","caps")):raise RuntimeError("nonfinite guard input")
+    out["observed_history_length"] = torch.as_tensor(np.minimum(idx + 1, 12), dtype=torch.long)
     out["meta"]={"protocol":"027","role":"historical_normal_regression_guard","source_phase":"F0","prediction_indices":idx.tolist(),"target":"same-host raw[t+1] inside F0","normal_rows":n,"positive_rows":pos,"positive_rows_required":False,"normal_nll_limit":"candidate <= live*1.02 + 1e-6","fpr_threshold":0.5,"candidate_minus_live_fpr_max":0.01,"candidate_training_on_guard_rows":False}
     return out
 
@@ -57,7 +62,12 @@ def opt_bytes(s):
     n+=tensor_bytes(getattr(s,"optimizer_archive",{})); sh=getattr(s,"shadow_optimizer",None)
     if sh is not None:n+=tensor_bytes(sh.state_dict())
     return int(n+tensor_bytes(getattr(s,"shadow_optimizer_state",None)))
-def rss_bytes():return int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024)
+def rss_bytes():
+    if resource is not None:
+        scale = 1 if sys.platform == "darwin" else 1024
+        return int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * scale)
+    import psutil
+    return int(psutil.Process().memory_info().peak_wset)
 def samples(s):return int(sum(int(r.get("batch_size",0))*int(r.get("gradient_steps",1)) for r in s.update_log))
 def metrics(prob,cls,y):return {"detection":binary_detection_metrics(prob,y,threshold=.5),"resource":positive_resource_macro_f1(cls,y)}
 def phase_metrics(prob,cls,y,pdefs):
@@ -99,7 +109,7 @@ def run_arm(name,stream,arm_dir,method_registration,registration,run_id):
             for reason in (r.get("decision") or {}).get("reject_reasons",[]):rejects[str(reason)]+=1
         for e in events:byphase[event_phase(e.get("cursor",0),pdefs)][e["kind"]]+=1
         acc=sum(r.get("accepted") is True for r in records); rej=sum(r.get("accepted") is False for r in records); pending=sum(r.get("accepted") is None for r in records)
-        life={"candidate_created":len(records),"candidate_accepted":acc,"candidate_rejected":rej,"candidate_pending":pending,"candidate_conservation":len(records)==acc+rej+pending,"stream_end_censored_ids":[r["candidate_id"] for r in records if r.get("stream_end_censored")],"births":int(ec.get("candidate_accepted",0)),"retirements":int(ctrl.retirements),"reactivations":int(ctrl.reactivations),"purges":int(ctrl.purges),"purged_bytes":int(ctrl.purged_bytes),"event_counts":dict(ec),"event_counts_by_phase":{k:dict(v) for k,v in byphase.items()},"candidate_reject_reasons":dict(rejects),"accepted_birth_ids":list(ctrl.accepted_ids),"resident_memory_ids":sorted(ctrl.specialist_memory.keys(),key=int),"opportunity_accounting":ctrl.due_conservation(),"final_topology":s.model.learner.topology_manifest(),"extra_compute":dict(ctrl.extra_compute),"reuse_benefit_claim_allowed":bool(ctrl.reactivations>0)}
+        life={"candidate_created":len(records),"candidate_accepted":acc,"candidate_rejected":rej,"candidate_pending":pending,"candidate_conservation":len(records)==acc+rej+pending,"stream_end_censored_ids":[r["candidate_id"] for r in records if r.get("stream_end_censored")],"births":int(ec.get("candidate_accepted",0)),"retirements":int(ctrl.retirements),"reactivations":int(ctrl.reactivations),"purges":int(ctrl.purges),"purged_bytes":int(ctrl.purged_bytes),"event_counts":dict(ec),"event_counts_by_phase":{k:dict(v) for k,v in byphase.items()},"candidate_reject_reasons":dict(rejects),"accepted_birth_ids":list(ctrl.accepted_ids),"resident_memory_ids":sorted(ctrl.specialist_memory.keys(),key=int),"opportunity_accounting":ctrl.due_conservation(),"final_topology":s.model.learner.topology_manifest(),"extra_compute":dict(ctrl.extra_compute),"reuse_observed":bool(ctrl.reactivations>0),"reuse_benefit_claim_allowed":False}
         summary["lifecycle"]=life; cost.update({"shadow_training_steps":int(ctrl.extra_compute.get("shadow_train_steps",0)),"reuse_validation_forwards":int(ctrl.extra_compute.get("reuse_validation_forwards",0)),"guard_forwards":int(ctrl.extra_compute.get("guard_forwards",0)),"reuse_guard_forwards":int(ctrl.extra_compute.get("reuse_guard_forwards",0))})
         write_jsonl(out/"lifecycle.jsonl",events); write_json(out/"candidate_records.json",records); write_json(out/"opportunity_accounting.json",life["opportunity_accounting"]); write_json(out/"lifecycle_summary.json",life)
     write_json(out/"summary.json",summary); return summary

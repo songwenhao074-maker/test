@@ -1,7 +1,9 @@
-# 当前项目上下文（2026-09-21）
+# 当前上下文
 
-当前最新任务为 Protocol-027 单次 D/C 开发试跑。GitHub Actions run 35596448071；completed=False。
+目标与唯一执行范围：[Protocol-027单任务指示](docs/PROTOCOL027_SINGLE_TASK_DIRECTIVE_20260921.md)。六业务更替与短期复现，只比较C_fixed5与D_dynamic，seed700/model1。
 
-结果与问题：docs/PROTOCOL027_RESULTS.md。紧凑证据：artifacts/ftmoe_online/protocol_027/runs/run_35596448071/。大文件预测与日志：artifact protocol027-single-pilot-35596448071。
+实验实现和失败证据原先只在protocol-027-pilot-gpt56-20260921分支，现已整合进main。最新失败run35596448071是数据特征一致性问题，不是D性能失败。补齐历史斜率与生成器定义已统一，保留严格审计和原始数据。
 
-本协议只允许 C_fixed5 与 D_dynamic、replay seed700/model1。没有自动追加实验；后续由用户基于本次结果决定。
+025原两类guard失败保留；027使用正常guard。026五方法与自动后续计划已作废为当前执行计划；更早的D_eligible不是027前置要求。每份指示只完成一个任务。
+
+维护审计与模型运行分开报告，当前真实进度以 [最新结果](docs/PROTOCOL027_RESULTS.md) 为准。确认701—703、测试201—205封存。

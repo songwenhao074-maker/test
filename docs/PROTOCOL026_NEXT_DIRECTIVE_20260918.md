@@ -1,3 +1,5 @@
+> 历史计划，仅供查证。027只执行 [当前单任务](PROTOCOL027_SINGLE_TASK_DIRECTIVE_20260921.md)，不要将本文的STOP、额外方法或后续任务叠加到027。
+
 # Protocol-026：复用Protocol-025数据，完成首个五方法比较
 
 日期：2026-09-18。先读 [最新审阅](PROTOCOL025_REVIEW_20260918.md)。

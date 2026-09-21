@@ -1,4 +1,4 @@
-name: Preserve Protocol025 recovery evidence
+name: "历史参考 / Preserve Protocol025 recovery evidence"
 on:
   workflow_dispatch:
   push:

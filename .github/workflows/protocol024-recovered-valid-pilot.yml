@@ -1,4 +1,4 @@
-name: Protocol-024 recovered valid development pilot
+name: "历史参考 / Protocol-024 recovered valid development pilot"
 
 on:
   workflow_dispatch:

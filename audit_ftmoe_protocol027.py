@@ -48,6 +48,10 @@ def _runtime_feature_consistency(data_root):
         return {"passed": False, "reason": "stored_common_feature_shape_or_finite", "shape": list(stored.shape)}
     max_abs = 0.0
     checked = 0
+    failing_intervals = []
+    channel_max = np.zeros(9, dtype=np.float64)
+    early_max = 0.0
+    later_max = 0.0
     for left in range(0, EXPECTED_STEPS, 64):
         indices = list(range(left, min(EXPECTED_STEPS, left + 64)))
         x, _sched, _graph, context = s4.window_batch(bundle["replay"], indices)
@@ -59,10 +63,23 @@ def _runtime_feature_consistency(data_root):
             return {"passed": False, "reason": "runtime_common_feature_nonfinite", "first_index": left}
         diff = float(np.max(np.abs(got - want))) if got.size else 0.0
         max_abs = max(max_abs, diff)
+        errors = np.abs(got - want)
+        channel_max = np.maximum(channel_max, errors.max(axis=(0, 1)))
+        row_max = errors.max(axis=(1, 2))
+        failing_intervals.extend(int(i) for i, error in zip(indices, row_max) if error > 5e-5)
+        for i, error in zip(indices, row_max):
+            if i < 4:
+                early_max = max(early_max, float(error))
+            else:
+                later_max = max(later_max, float(error))
         checked += len(indices)
     return {"passed": bool(max_abs <= 5e-5), "checked_intervals": checked,
             "max_abs_difference": max_abs, "tolerance": 5e-5,
-            "includes_initial_padding_boundary": True}
+            "includes_initial_padding_boundary": True,
+            "failing_intervals": failing_intervals,
+            "max_abs_difference_by_channel": channel_max.tolist(),
+            "first_four_max_abs_difference": early_max,
+            "remaining_max_abs_difference": later_max}
 
 
 def audit(data_root, output_root):
@@ -164,6 +181,7 @@ def audit(data_root, output_root):
         "replay_seed": 700, "model_seed": 1,
         "confirmation_seeds_used": [], "test_seeds_used": [],
         "scientific_data_changed": False,
+        "common_features_sha256": sha256(data_root / "common_observable_features.npz"),
     }
     write_json(output_root / "data_lock.json", lock)
     print(json.dumps({"eligible": True, "stream_sha256": actual_stream_sha,

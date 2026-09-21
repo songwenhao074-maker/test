@@ -1,4 +1,4 @@
-name: Protocol-024 residual equivalence smoke
+name: "历史参考 / Protocol-024 residual equivalence smoke"
 
 on:
   push:
