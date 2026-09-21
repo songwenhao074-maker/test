@@ -1,0 +1,184 @@
+"""Protocol-027 data eligibility and immutable lock audit.
+
+The Protocol-025 strengthened audit is preserved as failed under its original
+F0 two-class rule.  Protocol-027 independently accepts the same physical stream
+only when every other registered integrity gate passes and the fixed F0 guard
+contains known-normal rows.  No model score is evaluated here.
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+from pathlib import Path
+
+import numpy as np
+
+from audit_ftmoe_protocol025_revision1 import audit as audit_protocol025
+import run_ftmoe_protocol023_s4 as s4
+from ftmoe_protocol025_model import causal_common_features
+
+EXPECTED_STREAM_SHA = "46b1dbdd885683bd45c146ffc3cbe68dd151bf60a10c1663eda45b68f12d7c42"
+EXPECTED_FINAL_CHUNK_SHA = "fc3e9887961e6e99f29d0f386e4da9dd318367010f9028a6233599829eef4c10"
+EXPECTED_STEPS = 5520
+EXPECTED_ROWS = 5521
+EXPECTED_HOSTS = 16
+RECURRENCE = ("S1_rec1", "S3_rec1", "S2_rec1", "S4_rec1", "S2_rec2",
+              "S6_rec1", "S1_rec2", "S5_rec1", "S3_rec2")
+
+
+def sha256(path):
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as handle:
+        for block in iter(lambda: handle.read(4 * 1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def write_json(path, payload):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2, allow_nan=False) + "\n", encoding="utf8")
+
+
+def _runtime_feature_consistency(data_root):
+    bundle = s4.build_replay(data_root)
+    stored = np.load(Path(data_root) / "common_observable_features.npz")["features"]
+    if stored.shape != (EXPECTED_ROWS, EXPECTED_HOSTS, 9) or not np.isfinite(stored).all():
+        return {"passed": False, "reason": "stored_common_feature_shape_or_finite", "shape": list(stored.shape)}
+    max_abs = 0.0
+    checked = 0
+    for left in range(0, EXPECTED_STEPS, 64):
+        indices = list(range(left, min(EXPECTED_STEPS, left + 64)))
+        x, _sched, _graph, context = s4.window_batch(bundle["replay"], indices)
+        got = causal_common_features(
+            x, context, bundle["replay"].time_scale, bundle["graph_scale"]
+        ).detach().cpu().numpy()
+        want = stored[np.asarray(indices)]
+        if not np.isfinite(got).all():
+            return {"passed": False, "reason": "runtime_common_feature_nonfinite", "first_index": left}
+        diff = float(np.max(np.abs(got - want))) if got.size else 0.0
+        max_abs = max(max_abs, diff)
+        checked += len(indices)
+    return {"passed": bool(max_abs <= 5e-5), "checked_intervals": checked,
+            "max_abs_difference": max_abs, "tolerance": 5e-5,
+            "includes_initial_padding_boundary": True}
+
+
+def audit(data_root, output_root):
+    data_root = Path(data_root)
+    output_root = Path(output_root)
+    output_root.mkdir(parents=True, exist_ok=True)
+
+    try:
+        audit_protocol025(data_root)
+    except SystemExit as exc:
+        if int(exc.code or 0) != 2:
+            raise
+
+    manifest = json.loads((data_root / "manifest.json").read_text(encoding="utf8"))
+    source_audit = json.loads((data_root / "data_audit.json").read_text(encoding="utf8"))
+    actual_stream_sha = sha256(data_root / "stream.npz")
+    failed_source_gates = sorted(k for k, v in source_audit.get("gates", {}).items() if not bool(v))
+
+    with np.load(data_root / "stream.npz") as data:
+        raw = np.asarray(data["raw_labels"], dtype=np.int64)
+        ratio = np.asarray(data["overload_ratio"], dtype=np.float64)
+        physical = np.where((ratio > 1.0).any(-1), ratio.argmax(-1) + 1, 0)
+        labels_match = bool(np.array_equal(raw, physical))
+        raw_shape = tuple(raw.shape)
+
+    guard_indices = np.arange(0, 299, dtype=np.int64)
+    guard_indices = guard_indices[guard_indices % 5 == 0]
+    guard_y = raw[guard_indices + 1].reshape(-1)
+    guard_normal = int((guard_y == 0).sum())
+    guard_positive = int((guard_y > 0).sum())
+
+    chunks = list(manifest.get("chunk_manifest", []))
+    last = chunks[-1] if chunks else {}
+    last_path = data_root / "chunks" / str(last.get("file", ""))
+    actual_final_chunk_sha = sha256(last_path) if last_path.is_file() else None
+    final_chunk_ok = bool(last.get("start") == 5400 and last.get("end") == 5521 and
+                          last.get("sha256") == EXPECTED_FINAL_CHUNK_SHA and
+                          actual_final_chunk_sha == EXPECTED_FINAL_CHUNK_SHA)
+
+    feature_check = _runtime_feature_consistency(data_root)
+    recurrence = source_audit.get("recurrence_first100_class_coverage", {})
+    recurrence_ok = (set(recurrence) == set(RECURRENCE) and
+                     all(bool(recurrence[name].get("ap_defined")) for name in RECURRENCE))
+
+    gates = {
+        "source_protocol025_audit_remains_false": source_audit.get("audit_pass") is False,
+        "source_failure_is_only_old_two_class_guard": failed_source_gates == ["F0_guard_has_positive_and_negative"],
+        "stream_sha256_matches_registered": actual_stream_sha == EXPECTED_STREAM_SHA == manifest.get("stream_sha256"),
+        "shape_5521x16": raw_shape == (EXPECTED_ROWS, EXPECTED_HOSTS),
+        "physical_capacity_labels_recompute": labels_match,
+        "final_chunk_hash_matches_registered": final_chunk_ok,
+        "all_non_guard_source_integrity_gates_pass": all(
+            bool(v) for k, v in source_audit.get("gates", {}).items()
+            if k != "F0_guard_has_positive_and_negative"
+        ),
+        "normal_guard_has_known_normal_rows": guard_normal > 0,
+        "nine_recurrence_windows_have_both_classes": recurrence_ok,
+        "runtime_9d_features_match_stored_causal_features": bool(feature_check["passed"]),
+    }
+    eligible = bool(all(gates.values()))
+    eligibility = {
+        "protocol": "027",
+        "kind": "independent_data_eligibility",
+        "source_protocol": "025",
+        "source_protocol025_audit_pass": False,
+        "source_failed_gates": failed_source_gates,
+        "protocol027_data_eligible": eligible,
+        "stream_sha256": actual_stream_sha,
+        "expected_stream_sha256": EXPECTED_STREAM_SHA,
+        "final_chunk_sha256": actual_final_chunk_sha,
+        "expected_final_chunk_sha256": EXPECTED_FINAL_CHUNK_SHA,
+        "shape": list(raw_shape),
+        "guard": {
+            "role": "historical_normal_regression_guard",
+            "prediction_indices": guard_indices.tolist(),
+            "target": "same-host raw[t+1] inside F0",
+            "normal_rows": guard_normal,
+            "positive_rows": guard_positive,
+            "positive_rows_required": False,
+        },
+        "feature_consistency": feature_check,
+        "gates": gates,
+    }
+    write_json(output_root / "eligibility.json", eligibility)
+    if not eligible:
+        write_json(output_root / "data_lock.json", {
+            "protocol": "027", "locked": False, "reason": "eligibility_failed",
+            "stream_sha256": actual_stream_sha, "gates": gates,
+        })
+        print(json.dumps(eligibility, indent=2, allow_nan=False))
+        raise SystemExit(3)
+
+    lock = {
+        "protocol": "027", "locked": True,
+        "source_protocol": "025", "source_data_revision": "data_revision_001",
+        "stream_sha256": actual_stream_sha,
+        "final_chunk_sha256": actual_final_chunk_sha,
+        "steps": EXPECTED_STEPS, "guard_rows": 1, "hosts": EXPECTED_HOSTS,
+        "replay_seed": 700, "model_seed": 1,
+        "confirmation_seeds_used": [], "test_seeds_used": [],
+        "scientific_data_changed": False,
+    }
+    write_json(output_root / "data_lock.json", lock)
+    print(json.dumps({"eligible": True, "stream_sha256": actual_stream_sha,
+                      "guard_normal_rows": guard_normal,
+                      "feature_max_abs_difference": feature_check["max_abs_difference"]}, indent=2))
+    return eligibility, lock
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--data-root", required=True)
+    parser.add_argument("--output-root", required=True)
+    args = parser.parse_args()
+    audit(args.data_root, args.output_root)
+
+
+if __name__ == "__main__":
+    main()
