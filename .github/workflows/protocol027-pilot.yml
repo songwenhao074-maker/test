@@ -55,7 +55,7 @@ jobs:
       - name: Compile and run targeted Protocol-027 checks
         run: |
           python -m py_compile ftmoe_protocol027_normal_guard.py audit_ftmoe_protocol027.py run_ftmoe_protocol027_pilot.py finalize_ftmoe_protocol027.py
-          python -m unittest -v test_ftmoe_protocol027_features.py test_ftmoe_protocol027_handoff.py test_ftmoe_protocol027_guard.py test_ftmoe_protocol025_model.py test_ftmoe_protocol025_session.py test_ftmoe_protocol024_v2c.py
+          python -m unittest -v test_ftmoe_protocol027_features.py test_ftmoe_protocol027_handoff.py test_ftmoe_protocol027_recovery.py test_ftmoe_protocol027_guard.py test_ftmoe_protocol025_model.py test_ftmoe_protocol025_session.py test_ftmoe_protocol024_v2c.py
 
       - name: Download preserved Protocol-025 recovery evidence
         uses: actions/download-artifact@v4
@@ -121,22 +121,9 @@ jobs:
           ]
           runpy.run_path('maintenance/run_protocol025_segmented_recovery.py',run_name='__main__')
           PY
-          python - <<'PY'
-          import hashlib,json,pathlib
-          root=pathlib.Path('artifacts/ftmoe_online/protocol_025/data_seed700')
-          resume=json.loads((root/'resume_manifest.json').read_text())
-          manifest=json.loads((root/'manifest.json').read_text())
-          assert resume['next_t']==5521
-          h=hashlib.sha256((root/'stream.npz').read_bytes()).hexdigest()
-          assert h=='46b1dbdd885683bd45c146ffc3cbe68dd151bf60a10c1663eda45b68f12d7c42'
-          assert manifest['stream_sha256']==h
-          last=manifest['chunk_manifest'][-1]
-          p=root/'chunks'/last['file']
-          ch=hashlib.sha256(p.read_bytes()).hexdigest()
-          assert (last['start'],last['end'])==(5400,5521)
-          assert ch==last['sha256']=='fc3e9887961e6e99f29d0f386e4da9dd318367010f9028a6233599829eef4c10'
-          print({'stream_sha256':h,'final_chunk_sha256':ch,'next_t':5521})
-          PY
+          python audit_ftmoe_protocol027.py --recovery-only \
+            --data-root "$STREAM_ROOT" \
+            --output-root "artifacts/ftmoe_online/protocol_027/runtime/run_${GITHUB_RUN_ID}"
 
       - name: Run Protocol-027 eligibility audit and registered C/D arms
         id: execute
@@ -183,6 +170,8 @@ jobs:
             artifacts/ftmoe_online/protocol_025/data_seed700/stream.npz
             artifacts/ftmoe_online/protocol_025/data_seed700/common_observable_features.npz
             artifacts/ftmoe_online/protocol_025/data_seed700/manifest.json
+            artifacts/ftmoe_online/protocol_025/data_seed700/events.json
+            artifacts/ftmoe_online/protocol_025/data_seed700/resume_manifest.json
             artifacts/ftmoe_online/protocol_025/data_seed700/data_audit.json
             artifacts/ftmoe_online/protocol_025/data_seed700/chunks/chunk_005400_005521.npz
           if-no-files-found: warn

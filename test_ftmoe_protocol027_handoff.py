@@ -16,6 +16,18 @@ class HandoffTests(unittest.TestCase):
             self.assertEqual(result["failed_comparators"], [])
             self.assertEqual(json.loads((p / "status.json").read_text()), result)
 
+    def test_recovery_failure_has_specific_durable_blocker(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = Path(d)
+            (p / "recovery_verification.json").write_text(json.dumps({"passed": False,
+                "gates": {"resume_next_t_5521": True, "stream_sha256_matches_registered": False}}))
+            result = ensure_status(p, "126")
+            self.assertEqual(result["state"], "blocked")
+            self.assertFalse(result["eligibility_verified"])
+            self.assertEqual(result["failed_comparators"], [])
+            self.assertEqual(result["blocker"], "data_recovery_failed: stream_sha256_matches_registered")
+            self.assertEqual(json.loads((p / "status.json").read_text()), result)
+
     def test_audit_only_is_ready_without_claiming_model_completion(self):
         with tempfile.TemporaryDirectory() as d:
             p = Path(d)

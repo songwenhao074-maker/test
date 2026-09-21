@@ -19,8 +19,14 @@
 - 完整恢复数据单独归档，避免模型审计失败后又丢失数据。
 - 成功复用事件只能说明发生过复用，不能单凭事件数宣称复用有因果收益。
 
-## 验证边界
+## 验证与未解决项
 
-执行边界特征、未来扰动、正常guard、替换一致性和失败交接的针对性测试；发布后对登记的5520步真实流进行维护审计，结果记录在027结果页和对应run的eligibility/status中。
+- 19项针对性测试在本地和GitHub Actions通过；随后新增恢复失败报告、文件替换拒绝及缺失文件诊断，本地恢复/交接5项通过。
+- [维护run35604239834](https://github.com/songwenhao074-maker/test/actions/runs/35604239834) 只恢复和检查数据，模型训练开关为false。恢复的stream SHA为`fdea84306ac752611e4d0b1b4cd2300d0e0dcbc62ace07ac94096d904b310761`，final chunk为`21cd73359a4837b7c2d58456e4c85da63e0023c9088bab5dc87e87dccf529d48`，不匹配原登记值，工作流正确阻止了后续执行。完整资格审计没有通过。
+- 下载保全归档和本次恢复stream，逐数组比较前5520行与27个原chunk及transient，完全一致；27个chunk原SHA也一致。Windows再恢复一次的完整数组与云端一致，但文件SHA因ZIP平台元数据不同而不同。**尚不能证明任一新副本与原登记完整stream等价，也未确定原登记哈希不符的根因。**
+- 对本次恢复stream的5520步模型输入单独验证，旧补齐逻辑复现最大误差`0.11541324853897095`；修复后`3.9411090790864023e-07`，小于原容差`5e-5`。这证明特征修复有效，不代表数据完整资格通过。
+- 数值诊断：[feature_and_recovery_diagnostic.json](../artifacts/ftmoe_online/protocol_027/maintenance_20260921/feature_and_recovery_diagnostic.json)。各次原失败记录保留。
 
-保留旧注册、原始数据、失败产物与性能记录。没有放宽实验标准，没有增加模型训练或参数搜索。
+恢复失败现在会先写`recovery_verification.json`，报告实际/期望哈希和具体失败项，最终status明确记`data_recovery_failed`。恢复归档补齐events和resume_manifest，便于后续检查。
+
+当前唯一未完成前置项是恢复原登记数据并通过哈希校验。没有C/D性能结果；不能说实验已经恢复可运行，也不能说D输给C。没有更换登记哈希、放宽容差、增加参数搜索或模型训练。

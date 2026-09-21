@@ -1,7 +1,7 @@
-# 当前项目上下文（2026-09-21）
+# 当前上下文：Protocol-027
 
-当前最新任务为 Protocol-027 单次 D/C 开发试跑。GitHub Actions run 35604239834；completed=False。
+研究目标：合理业务更替场景下，检验动态残差专家D是否超过固定残差专家C。当前只有C_fixed5与D_dynamic，seed700/model1；不扩展A/B或追加种子。
 
-结果与问题：docs/PROTOCOL027_RESULTS.md。紧凑证据：artifacts/ftmoe_online/protocol_027/runs/run_35604239834/。大文件预测与日志：artifact protocol027-single-pilot-35604239834。
+仓库整理已将实验分支实现并入main，统一入口并标记历史指令。run35596448071的首段补齐特征错误已修复，真实5520步输入检查通过原容差。维护run35604239834又暴露恢复文件与登记SHA不符；尚无027模型性能结果，也尚未通过完整资格审计。
 
-本协议只允许 C_fixed5 与 D_dynamic、replay seed700/model1。没有自动追加实验；后续由用户基于本次结果决定。
+见[当前交接](docs/GITHUB_EXPERIMENT_HANDOFF.md)、[整理记录](docs/REPOSITORY_CLEANUP_20260921.md)、[结果页](docs/PROTOCOL027_RESULTS.md)。本次只维护，没有训练两组模型。

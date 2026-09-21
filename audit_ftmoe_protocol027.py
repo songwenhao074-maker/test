@@ -41,6 +41,38 @@ def write_json(path, payload):
     path.write_text(json.dumps(payload, indent=2, allow_nan=False) + "\n", encoding="utf8")
 
 
+def verify_recovery(data_root, output_root):
+    """Record immutable recovery checks before a failed check stops execution."""
+    root = Path(data_root)
+    def read(name):
+        p = root / name
+        return json.loads(p.read_text(encoding="utf8")) if p.is_file() else {}
+    manifest = read("manifest.json")
+    resume = read("resume_manifest.json")
+    stream = root / "stream.npz"
+    actual_stream = sha256(stream) if stream.is_file() else None
+    chunks = manifest.get("chunk_manifest", [])
+    last = chunks[-1] if chunks else {}
+    chunk = root / "chunks" / last.get("file", "")
+    actual_chunk = sha256(chunk) if chunk.is_file() else None
+    gates = {
+        "resume_next_t_5521": resume.get("next_t") == EXPECTED_ROWS,
+        "stream_sha256_matches_registered": actual_stream == EXPECTED_STREAM_SHA == manifest.get("stream_sha256"),
+        "final_chunk_interval_5400_5521": (last.get("start"), last.get("end")) == (5400, EXPECTED_ROWS),
+        "final_chunk_hash_matches_registered": actual_chunk == EXPECTED_FINAL_CHUNK_SHA == last.get("sha256"),
+    }
+    result = {
+        "protocol": "027", "kind": "immutable_recovery_verification",
+        "passed": all(gates.values()), "gates": gates,
+        "next_t": resume.get("next_t"),
+        "stream_sha256": actual_stream, "expected_stream_sha256": EXPECTED_STREAM_SHA,
+        "final_chunk_sha256": actual_chunk, "expected_final_chunk_sha256": EXPECTED_FINAL_CHUNK_SHA,
+        "model_steps_run": 0,
+    }
+    write_json(Path(output_root) / "recovery_verification.json", result)
+    return result
+
+
 def _runtime_feature_consistency(data_root):
     bundle = s4.build_replay(data_root)
     stored = np.load(Path(data_root) / "common_observable_features.npz")["features"]
@@ -194,7 +226,12 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--data-root", required=True)
     parser.add_argument("--output-root", required=True)
+    parser.add_argument("--recovery-only", action="store_true")
     args = parser.parse_args()
+    if args.recovery_only:
+        result = verify_recovery(args.data_root, args.output_root)
+        print(json.dumps(result, indent=2))
+        raise SystemExit(0 if result["passed"] else 3)
     audit(args.data_root, args.output_root)
 
 

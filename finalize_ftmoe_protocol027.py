@@ -1,6 +1,6 @@
 """Finalize and compact a Protocol-027 GitHub Actions run for repository handoff."""
 from __future__ import annotations
-import argparse, hashlib, json, shutil
+import argparse, hashlib, json, os, shutil
 from pathlib import Path
 
 COMPARATORS=("C_fixed5","D_dynamic")
@@ -13,17 +13,21 @@ def ensure_status(root, run_id):
         return existing
     eligibility = read_json(root / "eligibility.json", {})
     execution = read_json(root / "workflow_execution.json", {})
+    recovery = read_json(root / "recovery_verification.json", {})
+    recovery_failed = [k for k, value in recovery.get("gates", {}).items() if not value]
     failed = [k for k, value in eligibility.get("gates", {}).items() if not value]
-    eligible = eligibility.get("protocol027_data_eligible") is True
-    audit_only = execution.get("run_models") is False
+    eligible = eligibility.get("protocol027_data_eligible") is True and not recovery_failed
+    audit_only = execution.get("run_models", os.environ.get("RUN_MODELS") == "true") is False
     status = {
         "protocol": "027", "github_run_id": str(run_id), "completed": False,
         "audit_only": audit_only, "eligibility_verified": eligible,
         "completed_comparators": [], "failed_comparators": [],
+        "failed_recovery_gates": recovery_failed,
         "failed_eligibility_gates": failed, "development_signal": None,
         "confirmation_run": False, "confirmation_seeds_used": [], "test_seeds_used": [],
         "automatic_followups_started": [],
-        "blocker": ("data_eligibility_failed: " + ", ".join(failed)) if failed else
+        "blocker": ("data_recovery_failed: " + ", ".join(recovery_failed)) if recovery_failed else
+                   ("data_eligibility_failed: " + ", ".join(failed)) if failed else
                    (None if eligible and audit_only else "execution_stopped_before_runner_status"),
         "state": "ready_for_two_arm_pilot" if eligible and audit_only else "blocked",
     }
@@ -101,7 +105,7 @@ def main():
         ]
     Path("docs/PROTOCOL027_RESULTS.md").write_text("\n".join(lines)+"\n",encoding="utf8")
 
-    keep=["eligibility.json","data_lock.json","guard_manifest.json","normal_guard_audit.json",
+    keep=["recovery_verification.json","eligibility.json","data_lock.json","guard_manifest.json","normal_guard_audit.json",
           "comparison.json","cost_profile.json","status.json","workflow_execution.json"]
     for name in keep:
         src=root/name

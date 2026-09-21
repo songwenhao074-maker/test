@@ -1,12 +1,9 @@
-# Protocol-027 Results
+# Protocol-027 当前结果与阻塞
 
-GitHub Actions run: 35604239834.
-Completed: False.
-Completed comparators: [].
-Failed comparators: [].
+**C_fixed5和D_dynamic均未完成训练；暂无027性能比较。**
 
-## Blocker
+- 首次run35596448071：正确登记哈希已恢复，特征一致性检查失败，最大差0.11541324853897095。补齐窗口的slope4计算错误现已修复。
+- 维护run35604239834：仅审计模式，19项测试通过；恢复stream/final chunk与登记SHA不符，在完整资格审计及C/D之前停止。原始运行记录仍保存在对应runs目录。
+- 本地后续诊断：前5520行与保全证据逐数组一致；修正后的5520步特征最大误差3.9411090790864023e-07，容差仍为5e-5。原登记完整文件等价性未证明，因此不能据此宣布数据合格。
 
-execution_stopped_before_runner_status
-
-No additional comparator, seed, ablation, or parameter search was started.
+证据与具体剩余问题：[仓库整理记录](REPOSITORY_CLEANUP_20260921.md)。后续先解决数据恢复前置项，不修改登记SHA，不自动增加实验。

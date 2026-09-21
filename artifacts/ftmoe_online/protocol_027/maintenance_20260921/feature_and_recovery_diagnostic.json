@@ -1,0 +1,177 @@
+{
+  "kind": "engineering_diagnostic_not_data_eligibility",
+  "source_run": 35604239834,
+  "model_steps_run": 0,
+  "registered_hashes_changed": false,
+  "cloud_stream_sha256": "fdea84306ac752611e4d0b1b4cd2300d0e0dcbc62ace07ac94096d904b310761",
+  "local_stream_sha256": "dfbf9947f8e2b3c87d1d5c9675851403e97caab22f87ee8591c9053603970a10",
+  "cloud_and_local_all_arrays_equal": true,
+  "preserved_prefix_intervals": [
+    0,
+    5520
+  ],
+  "preserved_prefix_checks": [
+    {
+      "file": "chunk_000000_000200.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_000200_000400.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_000400_000600.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_000600_000800.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_000800_001000.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_001000_001200.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_001200_001400.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_001400_001600.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_001600_001800.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_001800_002000.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_002000_002200.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_002200_002400.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_002400_002600.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_002600_002800.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_002800_003000.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_003000_003200.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_003200_003400.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_003400_003600.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_003600_003800.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_003800_004000.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_004000_004200.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_004200_004400.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_004400_004600.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_004600_004800.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_004800_005000.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_005000_005200.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "chunk_005200_005400.npz",
+      "hash_matches_preserved_manifest": true,
+      "all_arrays_equal": true
+    },
+    {
+      "file": "transient_partial.npz",
+      "all_arrays_equal": true
+    }
+  ],
+  "old_padding_first_four_max_abs_difference": 0.11541324853897095,
+  "corrected_feature_check": {
+    "passed": true,
+    "checked_intervals": 5520,
+    "max_abs_difference": 3.9411090790864023e-07,
+    "tolerance": 5e-05,
+    "includes_initial_padding_boundary": true,
+    "failing_intervals": [],
+    "max_abs_difference_by_channel": [
+      3.346381398650067e-07,
+      1.1920928955078125e-07,
+      3.0870694356366357e-07,
+      3.3354339090685414e-07,
+      1.419548105729973e-07,
+      3.9411090790864023e-07,
+      8.719527833100926e-08,
+      3.771856427192688e-08,
+      7.884331715279913e-08
+    ],
+    "first_four_max_abs_difference": 2.148075062269328e-08,
+    "remaining_max_abs_difference": 3.9411090790864023e-07
+  },
+  "limitation": "Original registered complete stream is unavailable; equality with that complete stream is not established. ZIP create_system differs between Windows and Linux; this explains their container-byte difference only, not mismatch with the original registered hash."
+}
