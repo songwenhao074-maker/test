@@ -1,5 +1,9 @@
 # 从 GitHub 继续 FT-MoE 实验
 
+**当前任务（2026-09-21，优先于下文历史计划）：** 执行 [Protocol-027单任务指示](PROTOCOL027_SINGLE_TASK_DIRECTIVE_20260921.md)。只跑C_fixed5与D_dynamic的一次六业务回归试验，完成报告后停止；不执行026的五方法或自动后续计划。正常保护及必要的数据恢复复用026技术说明。027尚未执行；此后每份指示只规划一个任务。
+
+---
+
 **最新入口更新（2026-09-18）：** 当前仓库songwenhao074-maker/test，ID1358898099未变。
 先读 [最新审阅](PROTOCOL025_REVIEW_20260918.md)，执行 [Protocol-026指示](PROTOCOL026_NEXT_DIRECTIVE_20260918.md)。
 Protocol-025按原规则保持不合格，不回写旧audit；新协议使用同一数据与正常回归保护集。

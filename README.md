@@ -1,15 +1,15 @@
 <h1 align="center">PreGAN+ · FT-MoE online-learning track</h1>
 
-> **最新（2026-09-18）：** [结果审阅](docs/PROTOCOL025_REVIEW_20260918.md) ·
-> [Protocol-026下一步指示](docs/PROTOCOL026_NEXT_DIRECTIVE_20260918.md)。
-> v2c仍无D优势；Protocol-025因F0保护集缺正例停止，尚未跑模型。
-> 保留原失败，复用同一数据开展正常保护集用途修订后的五方法比较。恢复证据已归档，确认种子封存。
+> **最新（2026-09-21）：** [Protocol-027单任务指示](docs/PROTOCOL027_SINGLE_TASK_DIRECTIVE_20260921.md)。
+> 复用六业务更替数据，只完成C_fixed5与D_dynamic的一次开发试跑；交付后停止。
+> 当前仅设计，尚未运行027。026五方法计划已由此任务替代；A/B及其他实验后置。
+> 此后每份实验指示只安排一个任务。历史结果保留，确认与测试种子封存。
 
 > **入口：** [项目现状与历史沿革](docs/PROJECT_STATUS_AND_HISTORY.md)（唯一状态入口）·
 > [协议 023 设计与结果](docs/FTMOE_ONLINE_PROTOCOL_023.md)
 
 > **从 GitHub 继续实验：先读 [交接与依赖检查](docs/GITHUB_EXPERIMENT_HANDOFF.md)，再读
-> [2026-09-14 结果复核与新场景建议](docs/ONLINE_D_ANALYSIS_AND_NEXT_SCENARIO_20260914.md)。**
+> [当前唯一任务](docs/PROTOCOL027_SINGLE_TASK_DIRECTIVE_20260921.md)。**
 
 本仓库 = 上游 **PreGAN+** 边缘计算故障容忍框架 + 一条附加的 **FT-MoE 在线学习研究线**。
 

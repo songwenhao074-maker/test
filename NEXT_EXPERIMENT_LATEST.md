@@ -1,12 +1,11 @@
-# 下一步实验入口（2026-09-18）
+# 下一步实验入口（2026-09-21）
 
-当前指示：[Protocol-026：复用数据，完成五方法比较](docs/PROTOCOL026_NEXT_DIRECTIVE_20260918.md)。
-先读 [最新审阅](docs/PROTOCOL025_REVIEW_20260918.md)；方法修订已登记于 [registration.json](artifacts/ftmoe_online/protocol_026/registration.json)。
+唯一执行指示：[Protocol-027：六业务更替场景中的一次D/C开发试跑](docs/PROTOCOL027_SINGLE_TASK_DIRECTIVE_20260921.md)。
 
-v2c工程修复通过，但复现AP平均D−C=-0.00009536。Protocol-025数据生成完成，唯一强化审计失败项为F0保护集960正常、0故障，不是D性能失败；尚无Protocol-025模型比较。
+只运行C_fixed5与D_dynamic，replay seed700/model1，复用Protocol-025 revision1的5520步数据。重点检验九个业务回归前100步的AP差，同时报告全程性能与实际开销。完成结果上传后停止，无自动追加实验。
 
-保留Protocol-025 audit_pass=false。新Protocol-026使用同一物理数据，将F0用于正常行为回归保护，不要求正类；不能回写旧协议为通过。先恢复并核验完整stream，然后完成五方法开发运行。
+本入口替代026五方法计划；旧协议与失败记录保留。027正常保护集沿用026定义，数据恢复只参考026第1节。登记：[registration.json](artifacts/ftmoe_online/protocol_027/registration.json)。
 
-恢复材料已归档：run35292728416，artifact10526683176，保留至2026-12-17。包含5520状态与不可变chunk，必要时只恢复最后1个guard interval，不重新生成全流。
+用户已明确：从现在起，每份实验指示只规划一个有交付和结束点的任务。先集中D对固定残差C，A/B后置；不跑其他对照、消融、确认或参数搜索。
 
-仓库当前名songwenhao074-maker/test，ID1358898099未变。仅seed700/model1，确认701–703及测试201–205封存。本次只完成审阅、注册与证据归档，未运行新性能实验。
+当前仅完成任务设计和发布，尚未实现027入口或运行027模型。最新完整结果仍为024 v2c。仓库：songwenhao074-maker/test。
