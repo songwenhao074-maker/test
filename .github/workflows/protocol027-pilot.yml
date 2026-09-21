@@ -1,0 +1,299 @@
+name: Protocol-027 single D/C pilot
+
+on:
+  push:
+    branches: [protocol-027-pilot-gpt56-20260921]
+    paths:
+      - '.github/workflows/protocol027-pilot.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: protocol027-single-pilot
+  cancel-in-progress: false
+
+jobs:
+  protocol027:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    env:
+      OMP_NUM_THREADS: '3'
+      MKL_NUM_THREADS: '3'
+      OPENBLAS_NUM_THREADS: '3'
+      STREAM_ROOT: artifacts/ftmoe_online/protocol_025/data_seed700
+      RESULT_ROOT: artifacts/ftmoe_online/protocol_027/runtime
+      METHOD_REG: artifacts/ftmoe_online/protocol_025/method_registration.json
+      P027_REG: artifacts/ftmoe_online/protocol_027/registration.json
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+
+      - name: Install CPU experiment dependencies
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil
+
+      - name: Compile and run targeted Protocol-027 checks
+        run: |
+          python -m py_compile ftmoe_protocol027_normal_guard.py audit_ftmoe_protocol027.py run_ftmoe_protocol027_pilot.py
+          python -m unittest -v             test_ftmoe_protocol027_guard.py             test_ftmoe_protocol025_model.py             test_ftmoe_protocol025_session.py             test_ftmoe_protocol024_v2c.py
+
+      - name: Download preserved Protocol-025 recovery evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol025-recovery-evidence-preserved-20260918
+          path: /tmp/p027_preserved
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 35292728416
+
+      - name: Verify preservation evidence and restore next_t=5520
+        run: |
+          python - <<'PY'
+          import hashlib, json, pathlib, shutil
+          src=pathlib.Path('/tmp/p027_preserved')
+          manifest=src/'preservation_manifest.json'
+          if not manifest.is_file():
+              hits=list(src.rglob('preservation_manifest.json'))
+              if len(hits)!=1: raise SystemExit('preservation_manifest.json not uniquely found')
+              src=hits[0].parent; manifest=hits[0]
+          m=json.loads(manifest.read_text())
+          assert m['kind']=='evidence_preservation_only'
+          assert m['source_run']==35254809015
+          assert m['simulation_steps_run']==0 and m['model_steps_run']==0
+          assert m['state_manifests']['state_5520']['next_t']==5520
+          for rel,meta in m['files'].items():
+              p=src/rel
+              assert p.is_file(), rel
+              h=hashlib.sha256()
+              with p.open('rb') as f:
+                  for block in iter(lambda:f.read(4*1024*1024),b''): h.update(block)
+              assert h.hexdigest()==meta['sha256'], rel
+              assert p.stat().st_size==meta['bytes'], rel
+          out=pathlib.Path('artifacts/ftmoe_online/protocol_025/data_seed700')
+          if out.exists(): shutil.rmtree(out)
+          (out/'chunks').mkdir(parents=True)
+          for p in (src/'chunks').iterdir():
+              if p.is_file(): shutil.copy2(p,out/'chunks'/p.name)
+          for p in (src/'state_5520').iterdir():
+              if p.is_file(): shutil.copy2(p,out/p.name)
+          r=json.loads((out/'resume_manifest.json').read_text())
+          assert r['next_t']==5520
+          assert len(r['chunks'])==27 and r['chunks'][-1]['end']==5400
+          print({'restored_next_t':r['next_t'],'immutable_chunks':len(r['chunks'])})
+          PY
+
+      - name: Recover only the registered final guard interval
+        run: |
+          python - <<'PY'
+          import psutil, runpy, sys
+          if not hasattr(psutil, 'BELOW_NORMAL_PRIORITY_CLASS'):
+              psutil.BELOW_NORMAL_PRIORITY_CLASS = 10
+          sys.argv=['maintenance/run_protocol025_segmented_recovery.py',
+                    '--output','artifacts/ftmoe_online/protocol_025/data_seed700',
+                    '--resume','--max-intervals','1']
+          runpy.run_path('maintenance/run_protocol025_segmented_recovery.py',run_name='__main__')
+          PY
+          python - <<'PY'
+          import hashlib,json,pathlib
+          root=pathlib.Path('artifacts/ftmoe_online/protocol_025/data_seed700')
+          resume=json.loads((root/'resume_manifest.json').read_text())
+          manifest=json.loads((root/'manifest.json').read_text())
+          assert resume['next_t']==5521
+          h=hashlib.sha256((root/'stream.npz').read_bytes()).hexdigest()
+          assert h=='46b1dbdd885683bd45c146ffc3cbe68dd151bf60a10c1663eda45b68f12d7c42'
+          assert manifest['stream_sha256']==h
+          last=manifest['chunk_manifest'][-1]
+          p=root/'chunks'/last['file']
+          ch=hashlib.sha256(p.read_bytes()).hexdigest()
+          assert (last['start'],last['end'])==(5400,5521)
+          assert ch==last['sha256']=='fc3e9887961e6e99f29d0f386e4da9dd318367010f9028a6233599829eef4c10'
+          print({'stream_sha256':h,'final_chunk_sha256':ch,'next_t':5521})
+          PY
+
+      - name: Run Protocol-027 eligibility audit and the two registered arms
+        id: execute
+        run: |
+          mkdir -p "$RESULT_ROOT"
+          RUN_DIR="$RESULT_ROOT/run_${GITHUB_RUN_ID}"
+          mkdir -p "$RUN_DIR"
+          set +e
+          python audit_ftmoe_protocol027.py             --data-root "$STREAM_ROOT"             --output-root "$RUN_DIR"
+          AUDIT_RC=$?
+          if [ "$AUDIT_RC" -eq 0 ]; then
+            python run_ftmoe_protocol027_pilot.py               --stream "$STREAM_ROOT"               --out-root "$RUN_DIR"               --method-registration "$METHOD_REG"               --registration "$P027_REG"               --data-lock "$RUN_DIR/data_lock.json"               --eligibility "$RUN_DIR/eligibility.json"               --run-id "$GITHUB_RUN_ID"
+            RUN_RC=$?
+          else
+            RUN_RC=99
+          fi
+          export RUN_DIR AUDIT_RC RUN_RC
+          python - <<'PY'
+          import json,os,pathlib
+          p=pathlib.Path(os.environ['RUN_DIR'])/'workflow_execution.json'
+          p.write_text(json.dumps({
+              'protocol':'027','github_run_id':os.environ['GITHUB_RUN_ID'],
+              'audit_returncode':int(os.environ['AUDIT_RC']),
+              'runner_returncode':int(os.environ['RUN_RC'])
+          },indent=2)+'\n')
+          PY
+          echo "run_dir=$RUN_DIR" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Build bounded result report
+        if: always()
+        env:
+          RUN_DIR: ${{ steps.execute.outputs.run_dir }}
+        run: |
+          python - <<'PY'
+          import json,os,pathlib
+          root=pathlib.Path(os.environ.get('RUN_DIR') or ('artifacts/ftmoe_online/protocol_027/runtime/run_'+os.environ['GITHUB_RUN_ID']))
+          status=json.loads((root/'status.json').read_text()) if (root/'status.json').is_file() else {
+              'protocol':'027','completed':False,'blocker':'execution_stopped_before_runner_status',
+              'github_run_id':os.environ['GITHUB_RUN_ID']
+          }
+          cmp=json.loads((root/'comparison.json').read_text()) if (root/'comparison.json').is_file() else None
+          life=(cmp or {}).get('lifecycle') or {}
+          lines=['# Protocol-027 Results','',
+              f"GitHub Actions run: {os.environ['GITHUB_RUN_ID']}.",
+              f"Completed: {status.get('completed',False)}.",
+              f"Completed comparators: {status.get('completed_comparators',[])}.",
+              f"Failed comparators: {status.get('failed_comparators',[])}.",'']
+          if cmp:
+              p=cmp['primary']; full=cmp['full_stream']
+              mean=p['equal_weight_mean_D_minus_C_fixed5_ap']
+              lines += [
+                  '## Registered D/C answer','',
+                  f"- Nine-window valid count: {p['valid_windows']}/9.",
+                  f"- Equal-weight recurrence-first100 AP delta (D-C): {mean}.",
+                  f"- Positive recurrence windows: {p['positive_windows']}/9.",
+                  f"- Pooled normal-FPR delta (D-C): {p['pooled_normal_fpr_delta_D_minus_C']}.",
+                  f"- Development signal: {p['development_signal']}.",
+                  f"- Full-stream AP delta (D-C): {full['D_minus_C_fixed5_ap']}.",'',
+                  '## Dynamic lifecycle','',
+                  f"- Births: {life.get('births',0)}.",
+                  f"- Retirements: {life.get('retirements',0)}.",
+                  f"- Reactivations: {life.get('reactivations',0)}.",
+                  f"- Purges: {life.get('purges',0)}.",
+                  f"- Reuse-benefit claim allowed by observed reactivation: {life.get('reuse_benefit_claim_allowed',False)}.",'',
+                  '## Main limitation','',
+                  'This is one registered development trajectory (replay seed700/model1), and D is allowed additional background training and resident memory; it is not a statistical confirmation or an equal-total-cost comparison.','',
+                  'No follow-up experiment was started automatically.'
+              ]
+          else:
+              lines += ['## Blocker','',str(status.get('blocker') or 'See workflow logs and archived evidence.'),'',
+                        'No additional comparator, seed, ablation, or parameter search was started.']
+          pathlib.Path('docs/PROTOCOL027_RESULTS.md').write_text('\n'.join(lines)+'\n',encoding='utf8')
+          PY
+
+      - name: Upload complete Protocol-027 evidence
+        if: always()
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol027-single-pilot-${{ github.run_id }}
+          path: |
+            artifacts/ftmoe_online/protocol_027/runtime/run_${{ github.run_id }}/
+            docs/PROTOCOL027_RESULTS.md
+          if-no-files-found: warn
+          compression-level: 3
+          retention-days: 90
+
+      - name: Commit compact results and handoff to GitHub
+        if: always()
+        env:
+          ARTIFACT_ID: ${{ steps.upload.outputs.artifact-id }}
+          ARTIFACT_URL: ${{ steps.upload.outputs.artifact-url }}
+          RUN_DIR: ${{ steps.execute.outputs.run_dir }}
+        run: |
+          python - <<'PY'
+          import hashlib,json,os,pathlib,shutil
+          run_id=os.environ['GITHUB_RUN_ID']
+          root=pathlib.Path(os.environ.get('RUN_DIR') or ('artifacts/ftmoe_online/protocol_027/runtime/run_'+run_id))
+          dest=pathlib.Path('artifacts/ftmoe_online/protocol_027/runs')/('run_'+run_id)
+          dest.mkdir(parents=True,exist_ok=True)
+          keep=['eligibility.json','data_lock.json','guard_manifest.json','normal_guard_audit.json',
+                'comparison.json','cost_profile.json','status.json','workflow_execution.json']
+          for name in keep:
+              src=root/name
+              if src.is_file(): shutil.copy2(src,dest/name)
+          for arm in ['C_fixed5','D_dynamic']:
+              for name in ['summary.json','lifecycle_summary.json','candidate_records.json','opportunity_accounting.json','failure.json']:
+                  src=root/arm/name
+                  if src.is_file():
+                      out=dest/arm/name; out.parent.mkdir(parents=True,exist_ok=True); shutil.copy2(src,out)
+          files={}
+          for p in sorted(dest.rglob('*')):
+              if p.is_file():
+                  files[str(p.relative_to(dest))]={'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'bytes':p.stat().st_size}
+          idx={'protocol':'027','github_run_id':int(run_id),
+               'workflow_url':'https://github.com/'+os.environ['GITHUB_REPOSITORY']+'/actions/runs/'+run_id,
+               'artifact_id':os.environ.get('ARTIFACT_ID') or None,
+               'artifact_url':os.environ.get('ARTIFACT_URL') or None,
+               'artifact_name':'protocol027-single-pilot-'+run_id,
+               'retention_days':90,'files_committed_to_git':files,
+               'large_evidence_location':'GitHub Actions artifact; predictions and logs are intentionally not committed to git'}
+          (dest/'ARTIFACT_INDEX.json').write_text(json.dumps(idx,indent=2)+'\n')
+          status=json.loads((dest/'status.json').read_text()) if (dest/'status.json').is_file() else {'completed':False,'blocker':'missing status'}
+          if status.get('completed'):
+              cmp=json.loads((dest/'comparison.json').read_text())
+              p=cmp['primary']; full=cmp['full_stream']; life=cmp.get('lifecycle') or {}
+              next_text=f"""# 下一步实验入口（2026-09-21）
+
+Protocol-027 单任务已执行并停止。结果见 [Protocol-027 Results](docs/PROTOCOL027_RESULTS.md)。
+
+本次仅运行 C_fixed5 与 D_dynamic，replay seed700/model1；未启动 A/B、其他固定拓扑、消融、确认种子、测试种子或参数搜索。
+
+九个业务回归前100步等权 AP 差 D-C = {p['equal_weight_mean_D_minus_C_fixed5_ap']}；正差窗口 {p['positive_windows']}/9；development_signal={str(p['development_signal']).lower()}。全程 AP 差 D-C = {full['D_minus_C_fixed5_ap']}。D 实际 reactivation={life.get('reactivations',0)}，purge={life.get('purges',0)}。
+
+完整大文件证据位于 GitHub Actions run {run_id} 的 artifact protocol027-single-pilot-{run_id}。任务已到登记结束点，不自动安排下一实验。
+"""
+          else:
+              next_text=f"""# 下一步实验入口（2026-09-21）
+
+Protocol-027 已启动执行但未形成两组完整结果，当前为 documented blocker。详情见 [Protocol-027 Results](docs/PROTOCOL027_RESULTS.md) 与 artifacts/ftmoe_online/protocol_027/runs/run_{run_id}/status.json。
+
+GitHub Actions run: {run_id}。未自动启动额外方法、种子、消融或参数搜索。需要先分析本次确定性工程/数据阻塞证据。
+"""
+          pathlib.Path('NEXT_EXPERIMENT_LATEST.md').write_text(next_text,encoding='utf8')
+          context=f"""# 当前项目上下文（2026-09-21）
+
+当前最新任务为 Protocol-027 单次 D/C 开发试跑。GitHub Actions run {run_id}；completed={status.get('completed',False)}。
+
+结果与问题：docs/PROTOCOL027_RESULTS.md。紧凑证据：artifacts/ftmoe_online/protocol_027/runs/run_{run_id}/。大文件预测与日志：artifact protocol027-single-pilot-{run_id}。
+
+本协议只允许 C_fixed5 与 D_dynamic、replay seed700/model1。没有自动追加实验；后续由用户基于本次结果决定。
+"""
+          pathlib.Path('PROJECT_CONTEXT_LATEST.md').write_text(context,encoding='utf8')
+          PY
+          rm -rf artifacts/ftmoe_online/protocol_027/runtime
+          git config user.name "protocol027-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/PROTOCOL027_RESULTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md artifacts/ftmoe_online/protocol_027/runs/
+          git commit -m "results: record Protocol027 single D/C pilot run ${GITHUB_RUN_ID}" || true
+          git push origin HEAD:${GITHUB_REF_NAME}
+
+      - name: Final Protocol-027 completion gate
+        if: always()
+        env:
+          RUN_DIR: ${{ steps.execute.outputs.run_dir }}
+        run: |
+          python - <<'PY'
+          import json,os,pathlib,sys
+          p=pathlib.Path(os.environ.get('RUN_DIR') or ('artifacts/ftmoe_online/protocol_027/runtime/run_'+os.environ['GITHUB_RUN_ID']))/'status.json'
+          if not p.is_file():
+              raise SystemExit('Protocol027 status.json missing')
+          s=json.loads(p.read_text())
+          print(json.dumps(s,indent=2))
+          if not s.get('completed'):
+              raise SystemExit('Protocol027 ended with a documented blocker')
+          PY
