@@ -18,6 +18,14 @@ run35596448071已恢复正确物理数据，但9维特征审计失败，两组�
 
 这仍是027单任务的前置恢复问题，不增加实验。接手时先寻找原登记完整数据副本，或定位最后一步/序列化的差异；以原登记stream和final chunk SHA实际通过为结束条件。未解决就提交明确阻塞并停止，不能开展两组训练。详细证据见 [整理记录](REPOSITORY_CLEANUP_20260921.md)。
 
+## 2026-09-21进一步恢复复现结论
+
+已对旧成功工作流做原样重跑：run `35596448071` attempt 2、job `106392757871` 使用同一head `30d44d9f...`、同一旧workflow和同一保全artifact，但恢复得到stream `fdea84306ac752611e4d0b1b4cd2300d0e0dcbc62ace07ac94096d904b310761`、final chunk `21cd73359a4837b7c2d58456e4c85da63e0023c9088bab5dc87e87dccf529d48`，在哈希断言处停止，未进入模型审计或训练。attempt 1曾在完全相同head/workflow下得到登记 `46b1.../fc3e...`。两次日志中的runner image、Python、torch、numpy、DGL、dill、psutil版本一致。
+
+保全artifact `10526683176` 的manifest确认，其 `state_5520` 直接保存自原登记run `35254809015` 的 `protocol025-r1-overlay-5520`（artifact `10516563749`），不是后续重建状态。另将run `35114741391` 尚未过期的revision1进度artifact `10469412410` 中孤立的 `chunk_005400_005521.npz` 与维护run `35604239834` 的恢复尾chunk比较：两者54,820字节逐字节相同，21个NPZ数组全部完全相等，最大数值差为0；二者SHA均为 `21cd7335...`。
+
+因此当前可以排除main特征修复、维护workflow改动、错误checkpoint替换以及已记录软件镜像/依赖版本变化。现有证据最符合“最后一个模拟/调度interval存在底层运行时或硬件敏感的数值执行差异”；但由于原登记完整stream/final chunk字节未保留，无法证明与 `fc3e.../46b1...` 的数组级差异。按本协议规则，这仍是硬阻塞：不得替换登记SHA，不得启动C/D。详细机器可读证据见 `artifacts/ftmoe_online/protocol_027/maintenance_20260921/recovery_reproduction_blocker.json`。
+
 ## 唯一运行入口
 
 GitHub Actions选择 **Protocol-027 single D/C pilot**，分支选择 `main`：
