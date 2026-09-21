@@ -1,0 +1,17 @@
+{
+  "protocol": "027",
+  "github_run_id": "35604239834",
+  "completed": false,
+  "audit_only": false,
+  "eligibility_verified": false,
+  "completed_comparators": [],
+  "failed_comparators": [],
+  "failed_eligibility_gates": [],
+  "development_signal": null,
+  "confirmation_run": false,
+  "confirmation_seeds_used": [],
+  "test_seeds_used": [],
+  "automatic_followups_started": [],
+  "blocker": "execution_stopped_before_runner_status",
+  "state": "blocked"
+}

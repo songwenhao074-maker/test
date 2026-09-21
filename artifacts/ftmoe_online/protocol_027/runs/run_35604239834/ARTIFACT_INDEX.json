@@ -1,0 +1,16 @@
+{
+  "protocol": "027",
+  "github_run_id": 35604239834,
+  "workflow_url": "https://github.com/songwenhao074-maker/test/actions/runs/35604239834",
+  "artifact_id": "10641732714",
+  "artifact_url": "https://github.com/songwenhao074-maker/test/actions/runs/35604239834/artifacts/10641732714",
+  "artifact_name": "protocol027-single-pilot-35604239834",
+  "retention_days": 90,
+  "files_committed_to_git": {
+    "status.json": {
+      "sha256": "41914ddcc8dd363826ac76f81f9b142c6408309fd326732ea7ee9f4dcf9fdb7e",
+      "bytes": 460
+    }
+  },
+  "large_evidence_location": "GitHub Actions artifact; predictions and logs are intentionally not committed to git"
+}
