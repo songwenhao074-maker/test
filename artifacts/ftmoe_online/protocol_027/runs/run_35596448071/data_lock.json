@@ -1,0 +1,18 @@
+{
+  "protocol": "027",
+  "locked": false,
+  "reason": "eligibility_failed",
+  "stream_sha256": "46b1dbdd885683bd45c146ffc3cbe68dd151bf60a10c1663eda45b68f12d7c42",
+  "gates": {
+    "source_protocol025_audit_remains_false": true,
+    "source_failure_is_only_old_two_class_guard": true,
+    "stream_sha256_matches_registered": true,
+    "shape_5521x16": true,
+    "physical_capacity_labels_recompute": true,
+    "final_chunk_hash_matches_registered": true,
+    "all_non_guard_source_integrity_gates_pass": true,
+    "normal_guard_has_known_normal_rows": true,
+    "nine_recurrence_windows_have_both_classes": true,
+    "runtime_9d_features_match_stored_causal_features": false
+  }
+}

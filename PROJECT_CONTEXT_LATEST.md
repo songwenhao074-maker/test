@@ -1,11 +1,7 @@
 # 当前项目上下文（2026-09-21）
 
-当前目标：找到合理现实情形，使动态残差专家D优于固定残差专家C。先回答D/C，之后再考虑全量微调B与冻结A。
+当前最新任务为 Protocol-027 单次 D/C 开发试跑。GitHub Actions run 35596448071；completed=False。
 
-用户最新工作方式：每份实验指示只安排一个任务，交付后停止，用户决定后续；不自动铺开多轮实验。
+结果与问题：docs/PROTOCOL027_RESULTS.md。紧凑证据：artifacts/ftmoe_online/protocol_027/runs/run_35596448071/。大文件预测与日志：artifact protocol027-single-pilot-35596448071。
 
-当前唯一任务：[Protocol-027单任务指示](docs/PROTOCOL027_SINGLE_TASK_DIRECTIVE_20260921.md)。复用六业务进入/退出/回归数据，只跑C_fixed5、D_dynamic各一次（seed700/model1）。主指标是九个回归前100步AP差的等权均值，另报全程性能和实际开销。D额外后台训练与记忆公开，不预先声称省算力。
-
-最新完整性能结果仍为024 v2c：全程AP C=0.669545、D=0.667100；复现AP平均差=-0.00009536；成功复用0。025数据生成完成，但原F0两类保护门禁失败，无模型比较；026五方法计划被本次027两方法任务替代，旧记录不改写。
-
-027状态为planned_not_executed；正常保护集按026定义，源数据不变。恢复材料run35292728416/artifact10526683176仍有效，必要时仅从5520恢复最后一个guard interval。确认701–703、测试201–205封存。仓库songwenhao074-maker/test。
+本协议只允许 C_fixed5 与 D_dynamic、replay seed700/model1。没有自动追加实验；后续由用户基于本次结果决定。
