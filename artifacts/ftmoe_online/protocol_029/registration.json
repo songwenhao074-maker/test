@@ -1,0 +1,75 @@
+{
+  "protocol": "029",
+  "status": "registered_before_protocol029_diagnostic_result",
+  "registered_on": "2026-09-22",
+  "source_directive": "docs/PROTOCOL029_SINGLE_TASK_DIRECTIVE_20260922.md",
+  "source_plan": "artifacts/ftmoe_online/protocol_029/plan.json",
+  "source_protocol": "028",
+  "source_protocol028_run_id": 35705211072,
+  "source_protocol028_artifact_id": 10684617851,
+  "source_protocol028_artifact_name": "protocol028-single-pilot-35705211072",
+  "source_protocol028_artifact_digest": "sha256:e3be1c97d0f629c9ed40f61cfd4561b6b04e37b68357a2c92a23ac8f14e2e27e",
+  "single_task": "One passive dormant-memory utility audit on an otherwise unchanged Protocol028 D_memory_protected replay.",
+  "replay_seed": 700,
+  "model_seed": 1,
+  "run_arms": ["D_memory_protected_with_passive_audit"],
+  "new_training_arms": 0,
+  "rerun_C": false,
+  "online_method_changed": false,
+  "source_data": {
+    "data_revision": "protocol027_data_revision_002",
+    "frozen_run_id": 35682811782,
+    "frozen_artifact_id": 10675401651,
+    "frozen_artifact_name": "protocol027-frozen-data-35682811782",
+    "frozen_artifact_digest": "sha256:111a4c5fc5c508a9e169fdbffe823ee36dc66c037c1775a6aa1abdbaba31c0a1",
+    "expected_stream_sha256": "fdea84306ac752611e4d0b1b4cd2300d0e0dcbc62ace07ac94096d904b310761",
+    "simulation_allowed": false
+  },
+  "unchanged_online_method": [
+    "Protocol028 D_memory_protected initialization",
+    "birth and full-capacity memory protection",
+    "online optimizer and replay buffer",
+    "reuse cadence and validation horizon",
+    "similarity selection",
+    "1% loss-improvement threshold",
+    "normal-probability/FPR/old-knowledge guards",
+    "resident/live expert limits",
+    "delayed-label semantics"
+  ],
+  "passive_observation": {
+    "at_every_prediction": [
+      "four generalists plus each currently accepted dormant specialist in replacement-consistent topology",
+      "four generalists only"
+    ],
+    "reuse_due_every_matured": 32,
+    "future_validation_prediction_intervals": 16,
+    "labels_visible_at_prediction": false,
+    "affects_controller_decision": false,
+    "trains_parameters": false,
+    "occupies_lifecycle_phase": false,
+    "post_hoc_best_candidate_is_oracle": true
+  },
+  "consistency_requirements": {
+    "source_predictions": "Protocol028 artifact D_memory_protected/predictions.npz",
+    "probability_max_abs_error": 0.000001,
+    "primary_ap_absolute_difference_max": 0.000001,
+    "labels_exact": true,
+    "raw_labels_exact": true,
+    "discrete_lifecycle_exact": true,
+    "passive_parameter_optimizer_rng_topology_mutation_allowed": false
+  },
+  "reporting": {
+    "recurrence_windows": ["S1_rec1","S3_rec1","S2_rec1","S4_rec1","S2_rec2","S6_rec1","S1_rec2","S5_rec1","S3_rec2"],
+    "window_length": 100,
+    "partial_coverage_must_not_be_compared_to_full_C_window": true,
+    "report_opportunity_intersections_without_double_counting": true,
+    "report_passive_overhead": true
+  },
+  "execution": {
+    "automatic_followups": [],
+    "extra_seeds_forbidden": true,
+    "A_B_forbidden": true,
+    "parameter_search_forbidden": true,
+    "stop_after": "Publish one Protocol029 diagnostic result or documented blocker and stop."
+  }
+}
