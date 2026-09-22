@@ -15,3 +15,7 @@ U/V首次各1600步，W长驻3200步；U/V之后交替短回归六次，每次12
 [030](docs/PROTOCOL030_RESULTS.md)同机旁路无干扰通过，后处理故障已恢复；[028](docs/PROTOCOL028_RESULTS.md)旧场景中D未领先C。旧结果保留。旧031“旧流＋九窗口”方案未执行，已被当前revision002替代；无需继续在旧流上追求D胜出。
 
 保留模拟器、工作负载、checkpoint、recovery及代码依赖；输出按scenario_id/run_id隔离，大产物记录artifact与哈希。[历史索引](docs/HISTORICAL_EXPERIMENTS.md) / [许可证](LICENSE)。
+
+## Protocol-031 latest
+
+Protocol-031 revision002已停止于显式blocker：generation_segment_failed。未追加reroll、seed、场景、A/B、阈值搜索或调参。 详见[Protocol-031 Results](docs/PROTOCOL031_RESULTS.md)。
