@@ -5,7 +5,7 @@
   "data_revision": "protocol031_data_revision_001",
   "status": "registered_before_generation",
   "registered_before_generation": true,
-  "source_code_commit": "01a7f397faf899be5ef30ac2deaaf610a7505fc0",
+  "source_code_commit": "2f04ca1307417b86d491cbde2303861fd09ae79a",
   "purpose": "Rare short recurring services after long dominant-service interference, under short training replay and sparse online updates",
   "replay_seed": 700,
   "model_seed": 1,
@@ -270,11 +270,29 @@
   "implementation_branch": "protocol-031-rare-recurrence-20260922",
   "implementation_registered_before_generation": true,
   "pre_generation_engineering_recovery": {
-    "blocked_run_id": 35751006955,
-    "blocker": "maintenance runner could not import repository-root module",
+    "blocked_run_id": 35751310965,
+    "blocker": "inherited configure used Windows-only psutil.BELOW_NORMAL_PRIORITY_CLASS on Linux",
     "simulator_initialized": false,
     "simulator_intervals_generated": 0,
     "full_generation_budget_consumed": 0,
     "scientific_parameters_changed": false
-  }
+  },
+  "pre_generation_engineering_recovery_history": [
+    {
+      "blocked_run_id": 35751006955,
+      "blocker": "maintenance runner could not import repository-root module",
+      "simulator_initialized": false,
+      "simulator_intervals_generated": 0,
+      "full_generation_budget_consumed": 0,
+      "scientific_parameters_changed": false
+    },
+    {
+      "blocked_run_id": 35751310965,
+      "blocker": "inherited configure used Windows-only psutil.BELOW_NORMAL_PRIORITY_CLASS on Linux",
+      "simulator_initialized": false,
+      "simulator_intervals_generated": 0,
+      "full_generation_budget_consumed": 0,
+      "scientific_parameters_changed": false
+    }
+  ]
 }
