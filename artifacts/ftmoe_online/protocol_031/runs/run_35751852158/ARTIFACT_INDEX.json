@@ -1,0 +1,22 @@
+{
+  "protocol": "031",
+  "plan_revision": 2,
+  "github_run_id": 35751852158,
+  "workflow_url": "https://github.com/songwenhao074-maker/test/actions/runs/35751852158",
+  "artifact_id": "10704648749",
+  "artifact_url": "https://github.com/songwenhao074-maker/test/actions/runs/35751852158/artifacts/10704648749",
+  "artifact_digest": "5ffb5eb84e95c1d6f77da98eedbe2c32d24a0c33840e05eb2277b30652f8ab1b",
+  "artifact_name": "protocol031-rare-recurrence-35751852158",
+  "retention_days": 90,
+  "files_committed_to_git": {
+    "pre_generation_receipt.json": {
+      "sha256": "4c2efd1f0494a526cee2460e2f690faa9d74545d08c1466da44028813d3d8803",
+      "bytes": 1427
+    },
+    "status.json": {
+      "sha256": "2276ae8ca7df052e835d80976d6e9d8e219f88bfbca6e351b4632ead9366d7d1",
+      "bytes": 442
+    }
+  },
+  "raw_evidence": "Actions artifact contains frozen-data evidence plus both full predictions, lifecycle/reuse logs and runner logs."
+}

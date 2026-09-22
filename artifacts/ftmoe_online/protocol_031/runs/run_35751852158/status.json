@@ -1,0 +1,16 @@
+{
+  "protocol": "031",
+  "plan_revision": 2,
+  "scenario_id": "protocol031_rare_recurrence_v1",
+  "data_revision": "protocol031_data_revision_001",
+  "run_id": "35751852158",
+  "completed": false,
+  "full_model_replays_started": 0,
+  "full_model_replay_budget": 2,
+  "completed_comparators": [],
+  "failed_comparators": [],
+  "A_B_runs": 0,
+  "automatic_followups_started": [],
+  "blocker": "generation_segment_failed",
+  "no_reroll": true
+}
