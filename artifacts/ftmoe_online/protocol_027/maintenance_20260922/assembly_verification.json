@@ -1,0 +1,15 @@
+{
+  "data_revision": "protocol027_data_revision_002",
+  "passed": true,
+  "simulation_steps_run": 0,
+  "prefix_array_equal_intervals": [
+    0,
+    5520
+  ],
+  "prefix_chunks_verified": 27,
+  "candidate_stream_sha256": "fdea84306ac752611e4d0b1b4cd2300d0e0dcbc62ace07ac94096d904b310761",
+  "candidate_final_chunk_sha256": "21cd73359a4837b7c2d58456e4c85da63e0023c9088bab5dc87e87dccf529d48",
+  "events_sha256": "b87efc921ab23bed821871c573131df36db1c7a3b78e6a88eddd0a1374c94909",
+  "source_candidate_run": 35604239834,
+  "equivalence_to_original_complete_stream": "not_established"
+}

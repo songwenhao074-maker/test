@@ -8,18 +8,18 @@
 
 1. 阅读 [当前交接说明](docs/GITHUB_EXPERIMENT_HANDOFF.md)。
 2. 查看 [最新执行状态](NEXT_EXPERIMENT_LATEST.md) 与 [结果/阻塞](docs/PROTOCOL027_RESULTS.md)。
-3. **当前仍有数据恢复哈希阻塞，先按交接说明处理，暂不启动C/D。** 恢复通过后，从默认分支 `main` 手动运行 Actions **Protocol-027 single D/C pilot**。`run_models=false`仅审计；`true`才执行登记的两组试跑。
+3. 从main手动运行 **Protocol-027 single D/C pilot**：`run_models=true`，首次`frozen_data_run_id`留空；工作流准备现存数据、审计、完整归档后只训练C/D。已有完整归档则填其run ID复用。
 
 ```console
 git clone --depth 1 https://github.com/songwenhao074-maker/test.git FT-MoE
 cd FT-MoE
 ```
 
-推送修复默认只触发数据审计，不自动训练。不要从旧协议分支、上游 `main.py` 或025五方法入口启动当前任务。
+工作流仅手动触发，推送不会自动准备数据或训练。不要从旧协议分支、上游 `main.py` 或025五方法入口启动当前任务。
 
 ## 已知事实
 
-- run35596448071的特征错误已修复，5520步输入误差由0.115413降至3.94e-7（容差5e-5）。随后维护run35604239834停在恢复文件哈希检查，C/D仍未训练。具体修复及剩余阻塞见 [整理记录](docs/REPOSITORY_CLEANUP_20260921.md)。
+- 原027失败是特征错误和旧登记文件恢复问题，没有模型结果。特征已修复；2026-09-22用户授权独立数据revision002，直接复用已有数据并完整冻结。[修订说明](docs/PROTOCOL027_DATA_REVISION_002_20260922.md)。
 - 最新已完成性能结果仍为024 v2c：C AP=0.669545、D AP=0.667100，成功复用0；不能声称D已经胜出。
 - 027复用025六业务数据，5520步、replay seed700/model1，9个回归窗口。D允许额外后台计算和有限记忆；不声称严格同总成本。
 - 历史B代表全量微调；当前C/D均冻结主干、训练残差专家。旧协议数值不能跨场景直接排名。

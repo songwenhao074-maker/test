@@ -1,0 +1,30 @@
+{
+  "protocol": "027",
+  "revision_id": "protocol027_data_revision_002",
+  "authorized_on": "2026-09-22",
+  "reason": "User authorized a separately identified, audited and archived data version instead of requiring recovery of an unavailable original file.",
+  "selection_basis": "Existing model-free recovery run35604239834, also reproduced by old workflow attempt2; no C/D scores exist.",
+  "prior_registration": "registration_original_20260921.json",
+  "original_stream_sha256": "46b1dbdd885683bd45c146ffc3cbe68dd151bf60a10c1663eda45b68f12d7c42",
+  "original_final_chunk_sha256": "fc3e9887961e6e99f29d0f386e4da9dd318367010f9028a6233599829eef4c10",
+  "expected_stream_sha256": "fdea84306ac752611e4d0b1b4cd2300d0e0dcbc62ace07ac94096d904b310761",
+  "expected_final_chunk_sha256": "21cd73359a4837b7c2d58456e4c85da63e0023c9088bab5dc87e87dccf529d48",
+  "candidate_run_id": 35604239834,
+  "candidate_artifact_id": 10641512835,
+  "candidate_artifact_complete_for_training": false,
+  "model_results_seen": false,
+  "equivalence_to_original_complete_stream": "not_established",
+  "service_laws_timeline_seeds_comparators_metrics_changed": false,
+  "freeze_full_bundle_before_models": true,
+  "allow_hash_replacement_after_model_results": false,
+  "prepare_by_copying_existing_artifacts_only": true,
+  "simulation_steps_allowed": 0,
+  "events_sidecar": {
+    "file": "artifacts/ftmoe_online/protocol_027/data_revision_002/events.json.gz",
+    "gzip_sha256": "3acc698238b8885e22eb8a6c6ae2caa0ec28747cf1ba06f84db1070588b4b646",
+    "uncompressed_sha256": "b87efc921ab23bed821871c573131df36db1c7a3b78e6a88eddd0a1374c94909",
+    "source": "2026-09-21 Windows recovery from preserved state_5520; all 22 resulting stream arrays equal the cloud candidate arrays. This sidecar fills the earlier cloud artifact omission.",
+    "not_a_claim_of_original_registered_stream_equivalence": true
+  },
+  "preservation_manifest_sha256": "b04c1cb9e552bdf6f0afae4942f63d9d77c5b902fd31d667bc17865379e1bd4c"
+}

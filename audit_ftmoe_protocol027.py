@@ -1,9 +1,9 @@
-"""Protocol-027 data eligibility and immutable lock audit.
+"""Protocol-027 eligibility for explicitly registered data revision 002.
 
-The Protocol-025 strengthened audit is preserved as failed under its original
-F0 two-class rule.  Protocol-027 independently accepts the same physical stream
-only when every other registered integrity gate passes and the fixed F0 guard
-contains known-normal rows.  No model score is evaluated here.
+The original Protocol-025 two-class guard failure stays historical evidence.
+This independent audit uses the existing normal-only Protocol-027 guard and
+checks the selected recovered dataset before either comparator can run.
+Equivalence to the unavailable original complete stream is not asserted.
 """
 from __future__ import annotations
 
@@ -18,8 +18,8 @@ from audit_ftmoe_protocol025_revision1 import audit as audit_protocol025
 import run_ftmoe_protocol023_s4 as s4
 from ftmoe_protocol025_model import causal_common_features
 
-EXPECTED_STREAM_SHA = "46b1dbdd885683bd45c146ffc3cbe68dd151bf60a10c1663eda45b68f12d7c42"
-EXPECTED_FINAL_CHUNK_SHA = "fc3e9887961e6e99f29d0f386e4da9dd318367010f9028a6233599829eef4c10"
+from ftmoe_protocol027_data import (EXPECTED_STREAM_SHA, EXPECTED_FINAL_CHUNK_SHA,
+    REVISION_ID, REVISION_PATH, verify_frozen)
 EXPECTED_STEPS = 5520
 EXPECTED_ROWS = 5521
 EXPECTED_HOSTS = 16
@@ -62,7 +62,7 @@ def verify_recovery(data_root, output_root):
         "final_chunk_hash_matches_registered": actual_chunk == EXPECTED_FINAL_CHUNK_SHA == last.get("sha256"),
     }
     result = {
-        "protocol": "027", "kind": "immutable_recovery_verification",
+        "protocol": "027", "data_revision": REVISION_ID, "kind": "immutable_recovery_verification",
         "passed": all(gates.values()), "gates": gates,
         "next_t": resume.get("next_t"),
         "stream_sha256": actual_stream, "expected_stream_sha256": EXPECTED_STREAM_SHA,
@@ -119,11 +119,14 @@ def audit(data_root, output_root):
     output_root = Path(output_root)
     output_root.mkdir(parents=True, exist_ok=True)
 
-    try:
-        audit_protocol025(data_root)
-    except SystemExit as exc:
-        if int(exc.code or 0) != 2:
-            raise
+    if (data_root / "frozen_data_manifest.json").is_file():
+        verify_frozen(data_root)
+    else:
+        try:
+            audit_protocol025(data_root)
+        except SystemExit as exc:
+            if int(exc.code or 0) != 2:
+                raise
 
     manifest = json.loads((data_root / "manifest.json").read_text(encoding="utf8"))
     source_audit = json.loads((data_root / "data_audit.json").read_text(encoding="utf8"))
@@ -156,7 +159,10 @@ def audit(data_root, output_root):
     recurrence_ok = (set(recurrence) == set(RECURRENCE) and
                      all(bool(recurrence[name].get("ap_defined")) for name in RECURRENCE))
 
+    assembly_path = data_root / "assembly_verification.json"
+    assembly = json.loads(assembly_path.read_text()) if assembly_path.is_file() else {}
     gates = {
+        "revision002_preserved_prefix_verified": assembly.get("passed") is True and assembly.get("data_revision") == REVISION_ID and assembly.get("candidate_stream_sha256") == actual_stream_sha,
         "source_protocol025_audit_remains_false": source_audit.get("audit_pass") is False,
         "source_failure_is_only_old_two_class_guard": failed_source_gates == ["F0_guard_has_positive_and_negative"],
         "stream_sha256_matches_registered": actual_stream_sha == EXPECTED_STREAM_SHA == manifest.get("stream_sha256"),
@@ -174,7 +180,7 @@ def audit(data_root, output_root):
     eligible = bool(all(gates.values()))
     eligibility = {
         "protocol": "027",
-        "kind": "independent_data_eligibility",
+        "kind": "independent_data_eligibility", "data_revision": REVISION_ID,
         "source_protocol": "025",
         "source_protocol025_audit_pass": False,
         "source_failed_gates": failed_source_gates,
@@ -207,12 +213,14 @@ def audit(data_root, output_root):
     lock = {
         "protocol": "027", "locked": True,
         "source_protocol": "025", "source_data_revision": "data_revision_001",
+        "data_revision": REVISION_ID, "data_revision_registration_sha256": sha256(REVISION_PATH),
         "stream_sha256": actual_stream_sha,
         "final_chunk_sha256": actual_final_chunk_sha,
         "steps": EXPECTED_STEPS, "guard_rows": 1, "hosts": EXPECTED_HOSTS,
         "replay_seed": 700, "model_seed": 1,
         "confirmation_seeds_used": [], "test_seeds_used": [],
-        "scientific_data_changed": False,
+        "scientific_data_changed": True,
+        "equivalence_to_original_complete_stream": "not_established",
         "common_features_sha256": sha256(data_root / "common_observable_features.npz"),
     }
     write_json(output_root / "data_lock.json", lock)

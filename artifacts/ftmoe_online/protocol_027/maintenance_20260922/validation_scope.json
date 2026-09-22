@@ -1,0 +1,12 @@
+{
+  "kind": "local_engineering_validation_not_model_experiment",
+  "data_revision": "protocol027_data_revision_002",
+  "simulation_steps_run": 0,
+  "C_fixed5_model_steps_run": 0,
+  "D_dynamic_model_steps_run": 0,
+  "full_data_eligibility_passed": true,
+  "frozen_bundle_files": 38,
+  "github_frozen_artifact_created": false,
+  "github_workflow_dispatched": false,
+  "events_source": "Preserved Windows recovery from 2026-09-21; resulting full stream arrays equal Linux candidate; actual event table pinned by SHA before any C/D run."
+}

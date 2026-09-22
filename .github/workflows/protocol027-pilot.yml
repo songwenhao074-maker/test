@@ -1,13 +1,6 @@
 name: Protocol-027 single D/C pilot
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/protocol027-pilot.yml
-      - ftmoe_protocol025_model.py
-      - audit_ftmoe_protocol027.py
-      - test_ftmoe_protocol027_features.py
   workflow_dispatch:
     inputs:
       run_models:
@@ -15,6 +8,11 @@ on:
         type: boolean
         required: true
         default: false
+      frozen_data_run_id:
+        description: 'Reuse a complete protocol027-frozen-data artifact from this run; blank prepares it once'
+        type: string
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -35,6 +33,7 @@ jobs:
       STREAM_ROOT: artifacts/ftmoe_online/protocol_025/data_seed700
       METHOD_REG: artifacts/ftmoe_online/protocol_025/method_registration.json
       RUN_MODELS: ${{ github.event_name == 'workflow_dispatch' && inputs.run_models || false }}
+      FROZEN_RUN_ID: ${{ inputs.frozen_data_run_id }}
       P027_REG: artifacts/ftmoe_online/protocol_027/registration.json
     steps:
       - uses: actions/checkout@v4
@@ -54,10 +53,25 @@ jobs:
 
       - name: Compile and run targeted Protocol-027 checks
         run: |
-          python -m py_compile ftmoe_protocol027_normal_guard.py audit_ftmoe_protocol027.py run_ftmoe_protocol027_pilot.py finalize_ftmoe_protocol027.py
-          python -m unittest -v test_ftmoe_protocol027_features.py test_ftmoe_protocol027_handoff.py test_ftmoe_protocol027_recovery.py test_ftmoe_protocol027_guard.py test_ftmoe_protocol025_model.py test_ftmoe_protocol025_session.py test_ftmoe_protocol024_v2c.py
+          python -m py_compile ftmoe_protocol027_normal_guard.py audit_ftmoe_protocol027.py run_ftmoe_protocol027_pilot.py finalize_ftmoe_protocol027.py ftmoe_protocol027_data.py prepare_ftmoe_protocol027_revision002.py
+          python -m unittest -v test_ftmoe_protocol027_features.py test_ftmoe_protocol027_handoff.py test_ftmoe_protocol027_recovery.py test_ftmoe_protocol027_data.py test_ftmoe_protocol027_guard.py test_ftmoe_protocol025_model.py test_ftmoe_protocol025_session.py test_ftmoe_protocol024_v2c.py
+
+      - name: Restore a complete frozen dataset without simulation
+        if: inputs.frozen_data_run_id != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol027-frozen-data-${{ inputs.frozen_data_run_id }}
+          path: artifacts/ftmoe_online/protocol_025/data_seed700
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.frozen_data_run_id }}
+
+      - name: Verify downloaded frozen dataset
+        if: inputs.frozen_data_run_id != ''
+        run: python ftmoe_protocol027_data.py --data-root "$STREAM_ROOT" --verify-only
 
       - name: Download preserved Protocol-025 recovery evidence
+        if: inputs.frozen_data_run_id == ''
         uses: actions/download-artifact@v4
         with:
           name: protocol025-recovery-evidence-preserved-20260918
@@ -66,92 +80,73 @@ jobs:
           repository: ${{ github.repository }}
           run-id: 35292728416
 
-      - name: Verify preservation evidence and restore next_t=5520
-        run: |
-          python - <<'PY'
-          import hashlib, json, pathlib, shutil
-          src=pathlib.Path('/tmp/p027_preserved')
-          manifest=src/'preservation_manifest.json'
-          if not manifest.is_file():
-              hits=list(src.rglob('preservation_manifest.json'))
-              if len(hits)!=1:
-                  raise SystemExit('preservation_manifest.json not uniquely found')
-              src=hits[0].parent
-              manifest=hits[0]
-          m=json.loads(manifest.read_text())
-          assert m['kind']=='evidence_preservation_only'
-          assert m['source_run']==35254809015
-          assert m['simulation_steps_run']==0 and m['model_steps_run']==0
-          assert m['state_manifests']['state_5520']['next_t']==5520
-          for rel,meta in m['files'].items():
-              p=src/rel
-              assert p.is_file(), rel
-              h=hashlib.sha256()
-              with p.open('rb') as f:
-                  for block in iter(lambda:f.read(4*1024*1024),b''):
-                      h.update(block)
-              assert h.hexdigest()==meta['sha256'], rel
-              assert p.stat().st_size==meta['bytes'], rel
-          out=pathlib.Path('artifacts/ftmoe_online/protocol_025/data_seed700')
-          if out.exists():
-              shutil.rmtree(out)
-          (out/'chunks').mkdir(parents=True)
-          for p in (src/'chunks').iterdir():
-              if p.is_file():
-                  shutil.copy2(p,out/'chunks'/p.name)
-          for p in (src/'state_5520').iterdir():
-              if p.is_file():
-                  shutil.copy2(p,out/p.name)
-          r=json.loads((out/'resume_manifest.json').read_text())
-          assert r['next_t']==5520
-          assert len(r['chunks'])==27 and r['chunks'][-1]['end']==5400
-          print({'restored_next_t':r['next_t'],'immutable_chunks':len(r['chunks'])})
-          PY
+      - name: Download the selected existing revision002 physical stream
+        if: inputs.frozen_data_run_id == ''
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol027-restored-stream-35604239834
+          path: /tmp/p027_candidate
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 35604239834
 
-      - name: Recover only the registered final guard interval
+      - name: Assemble revision002 without running the simulator
+        if: inputs.frozen_data_run_id == ''
         run: |
-          python - <<'PY'
-          import psutil, runpy, sys
-          if not hasattr(psutil, 'BELOW_NORMAL_PRIORITY_CLASS'):
-              psutil.BELOW_NORMAL_PRIORITY_CLASS = 10
-          sys.argv=[
-              'maintenance/run_protocol025_segmented_recovery.py',
-              '--output','artifacts/ftmoe_online/protocol_025/data_seed700',
-              '--resume','--max-intervals','1'
-          ]
-          runpy.run_path('maintenance/run_protocol025_segmented_recovery.py',run_name='__main__')
-          PY
-          python audit_ftmoe_protocol027.py --recovery-only \
-            --data-root "$STREAM_ROOT" \
-            --output-root "artifacts/ftmoe_online/protocol_027/runtime/run_${GITHUB_RUN_ID}"
+          python prepare_ftmoe_protocol027_revision002.py \
+            --preserved /tmp/p027_preserved --candidate /tmp/p027_candidate --output "$STREAM_ROOT"
 
-      - name: Run Protocol-027 eligibility audit and registered C/D arms
-        id: execute
+      - name: Run Protocol-027 eligibility audit
         run: |
           RUN_DIR="artifacts/ftmoe_online/protocol_027/runtime/run_${GITHUB_RUN_ID}"
           mkdir -p "$RUN_DIR"
-          set +e
           python audit_ftmoe_protocol027.py --data-root "$STREAM_ROOT" --output-root "$RUN_DIR"
-          AUDIT_RC=$?
-          if [ "$AUDIT_RC" -eq 0 ] && [ "$RUN_MODELS" = "true" ]; then
-            python run_ftmoe_protocol027_pilot.py               --stream "$STREAM_ROOT"               --out-root "$RUN_DIR"               --method-registration "$METHOD_REG"               --registration "$P027_REG"               --data-lock "$RUN_DIR/data_lock.json"               --eligibility "$RUN_DIR/eligibility.json"               --run-id "$GITHUB_RUN_ID"
-            RUN_RC=$?
-          else
-            RUN_RC=0
-          fi
-          export RUN_DIR AUDIT_RC RUN_RC
-          python - <<'PY'
-          import json,os,pathlib
-          p=pathlib.Path(os.environ['RUN_DIR'])/'workflow_execution.json'
-          p.write_text(json.dumps({
-              'protocol':'027',
-              'github_run_id':int(os.environ['GITHUB_RUN_ID']),
-              'audit_returncode':int(os.environ['AUDIT_RC']),
-              'run_models':os.environ['RUN_MODELS']=='true',
-              'runner_returncode':int(os.environ['RUN_RC'])
-          },indent=2)+'\n')
-          PY
-          exit 0
+
+      - name: Freeze and stage the complete audited dataset
+        run: |
+          python ftmoe_protocol027_data.py --data-root "$STREAM_ROOT" \
+            --eligibility "artifacts/ftmoe_online/protocol_027/runtime/run_${GITHUB_RUN_ID}/eligibility.json" \
+            --export-dir /tmp/protocol027-frozen-data
+
+      - name: Archive complete dataset before either comparator starts
+        id: frozen
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol027-frozen-data-${{ github.run_id }}
+          path: /tmp/protocol027-frozen-data/
+          if-no-files-found: error
+          compression-level: 1
+          retention-days: 90
+
+      - name: Record frozen data archive identity
+        env:
+          FROZEN_ARTIFACT_ID: ${{ steps.frozen.outputs.artifact-id }}
+          FROZEN_ARTIFACT_URL: ${{ steps.frozen.outputs.artifact-url }}
+          FROZEN_ARTIFACT_DIGEST: ${{ steps.frozen.outputs.artifact-digest }}
+        run: |
+          python - <<'PYTHON'
+          import json, os, pathlib
+          from ftmoe_protocol027_data import REVISION_ID, sha
+          root=pathlib.Path('artifacts/ftmoe_online/protocol_027/runtime')/('run_'+os.environ['GITHUB_RUN_ID'])
+          assert os.environ['FROZEN_ARTIFACT_ID'] and os.environ['FROZEN_ARTIFACT_DIGEST']
+          receipt={'data_revision':REVISION_ID,'complete_snapshot_uploaded':True,
+            'github_run_id':os.environ['GITHUB_RUN_ID'],'artifact_id':os.environ['FROZEN_ARTIFACT_ID'],
+            'artifact_url':os.environ['FROZEN_ARTIFACT_URL'],'artifact_digest':os.environ['FROZEN_ARTIFACT_DIGEST'],
+            'artifact_name':'protocol027-frozen-data-'+os.environ['GITHUB_RUN_ID'],
+            'frozen_manifest_sha256':sha(pathlib.Path(os.environ['STREAM_ROOT'])/'frozen_data_manifest.json'),
+            'restored_from_run':os.environ.get('FROZEN_RUN_ID') or None,'retention_days':90}
+          (root/'frozen_data_archive.json').write_text(json.dumps(receipt,indent=2)+'\n')
+          PYTHON
+
+      - name: Run only the registered C/D arms on the same archived dataset
+        if: env.RUN_MODELS == 'true'
+        run: |
+          RUN_DIR="artifacts/ftmoe_online/protocol_027/runtime/run_${GITHUB_RUN_ID}"
+          python run_ftmoe_protocol027_pilot.py \
+            --stream "$STREAM_ROOT" --out-root "$RUN_DIR" \
+            --method-registration "$METHOD_REG" --registration "$P027_REG" \
+            --data-lock "$RUN_DIR/data_lock.json" --eligibility "$RUN_DIR/eligibility.json" \
+            --run-id "$GITHUB_RUN_ID"
 
       - name: Persist status even if the runner never started
         if: always()
@@ -204,6 +199,8 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add docs/PROTOCOL027_RESULTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md artifacts/ftmoe_online/protocol_027/runs/
           git commit -m "results: record Protocol027 single D/C pilot run ${GITHUB_RUN_ID}" || true
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase FETCH_HEAD
           git push origin "HEAD:${GITHUB_REF_NAME}"
 
       - name: Final Protocol-027 completion gate
@@ -216,8 +213,8 @@ jobs:
               raise SystemExit('Protocol027 compact status.json missing')
           s=json.loads(p.read_text())
           print(json.dumps(s,indent=2))
-          if os.environ['RUN_MODELS'] != 'true' and s.get('eligibility_verified'):
-              print('Data audit passed; C/D training was not requested.')
+          if os.environ['RUN_MODELS'] != 'true' and s.get('state') == 'ready_for_two_arm_pilot':
+              print('Data audit passed and complete frozen data archived; C/D training was not requested.')
           elif not s.get('completed'):
               raise SystemExit('Protocol027 ended with a documented blocker')
           PY

@@ -28,11 +28,21 @@ class HandoffTests(unittest.TestCase):
             self.assertEqual(result["blocker"], "data_recovery_failed: stream_sha256_matches_registered")
             self.assertEqual(json.loads((p / "status.json").read_text()), result)
 
+    def test_eligible_but_unarchived_is_not_ready(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = Path(d)
+            (p / "eligibility.json").write_text(json.dumps({"protocol027_data_eligible": True}))
+            (p / "workflow_execution.json").write_text(json.dumps({"run_models": False}))
+            result = ensure_status(p, "127")
+            self.assertEqual(result["state"], "blocked")
+            self.assertEqual(result["blocker"], "complete_frozen_data_archive_required")
+
     def test_audit_only_is_ready_without_claiming_model_completion(self):
         with tempfile.TemporaryDirectory() as d:
             p = Path(d)
             (p / "eligibility.json").write_text(json.dumps({"protocol027_data_eligible": True, "gates": {"features": True}}))
             (p / "workflow_execution.json").write_text(json.dumps({"run_models": False}))
+            (p / "frozen_data_archive.json").write_text(json.dumps({"complete_snapshot_uploaded": True,"artifact_id": "99","artifact_digest": "digest"}))
             result = ensure_status(p, "124")
             self.assertEqual(result["state"], "ready_for_two_arm_pilot")
             self.assertFalse(result["completed"])

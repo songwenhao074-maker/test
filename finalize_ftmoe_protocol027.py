@@ -2,6 +2,7 @@
 from __future__ import annotations
 import argparse, hashlib, json, os, shutil
 from pathlib import Path
+from ftmoe_protocol027_data import REVISION_ID
 
 COMPARATORS=("C_fixed5","D_dynamic")
 
@@ -13,13 +14,16 @@ def ensure_status(root, run_id):
         return existing
     eligibility = read_json(root / "eligibility.json", {})
     execution = read_json(root / "workflow_execution.json", {})
+    archive = read_json(root / "frozen_data_archive.json", {})
+    archived = bool(archive.get("complete_snapshot_uploaded") and archive.get("artifact_id") and archive.get("artifact_digest"))
     recovery = read_json(root / "recovery_verification.json", {})
     recovery_failed = [k for k, value in recovery.get("gates", {}).items() if not value]
     failed = [k for k, value in eligibility.get("gates", {}).items() if not value]
     eligible = eligibility.get("protocol027_data_eligible") is True and not recovery_failed
     audit_only = execution.get("run_models", os.environ.get("RUN_MODELS") == "true") is False
     status = {
-        "protocol": "027", "github_run_id": str(run_id), "completed": False,
+        "protocol": "027", "data_revision": REVISION_ID, "github_run_id": str(run_id), "completed": False,
+        "frozen_data_archived": archived,
         "audit_only": audit_only, "eligibility_verified": eligible,
         "completed_comparators": [], "failed_comparators": [],
         "failed_recovery_gates": recovery_failed,
@@ -28,8 +32,9 @@ def ensure_status(root, run_id):
         "automatic_followups_started": [],
         "blocker": ("data_recovery_failed: " + ", ".join(recovery_failed)) if recovery_failed else
                    ("data_eligibility_failed: " + ", ".join(failed)) if failed else
-                   (None if eligible and audit_only else "execution_stopped_before_runner_status"),
-        "state": "ready_for_two_arm_pilot" if eligible and audit_only else "blocked",
+                   ("complete_frozen_data_archive_required" if eligible and not archived else
+                    (None if eligible and audit_only else "execution_stopped_before_runner_status")),
+        "state": "ready_for_two_arm_pilot" if eligible and audit_only and archived else "blocked",
     }
     root.mkdir(parents=True, exist_ok=True)
     (root / "status.json").write_text(json.dumps(status, indent=2) + "\n", encoding="utf8")
@@ -69,6 +74,7 @@ def main():
     lines=[
         "# Protocol-027 Results","",
         f"GitHub Actions run: {args.run_id}.",
+        f"Data revision: {REVISION_ID} (separately registered; original-file equivalence not established).",
         f"Completed: {status.get('completed',False)}.",
         f"Completed comparators: {status.get('completed_comparators',[])}.",
         f"Failed comparators: {status.get('failed_comparators',[])}.","",
@@ -93,7 +99,7 @@ def main():
             "This is one registered development trajectory (replay seed700/model1), and D is allowed additional background training and resident memory; it is not a statistical confirmation or an equal-total-cost comparison.","",
             "No follow-up experiment was started automatically.",
         ]
-    elif status.get("audit_only") and status.get("eligibility_verified"):
+    elif status.get("state") == "ready_for_two_arm_pilot":
         lines += ["## Maintenance verification", "",
                   "The full data eligibility audit passed. Neither comparator was run.",
                   "The repository is ready for the registered two-arm pilot; no performance claim is made."]
@@ -105,7 +111,7 @@ def main():
         ]
     Path("docs/PROTOCOL027_RESULTS.md").write_text("\n".join(lines)+"\n",encoding="utf8")
 
-    keep=["recovery_verification.json","eligibility.json","data_lock.json","guard_manifest.json","normal_guard_audit.json",
+    keep=["frozen_data_archive.json","recovery_verification.json","eligibility.json","data_lock.json","guard_manifest.json","normal_guard_audit.json",
           "comparison.json","cost_profile.json","status.json","workflow_execution.json"]
     for name in keep:
         src=root/name
@@ -133,11 +139,11 @@ def main():
     }
     (dest/"ARTIFACT_INDEX.json").write_text(json.dumps(index,indent=2)+"\n",encoding="utf8")
 
-    if status.get("audit_only") and status.get("eligibility_verified"):
+    if status.get("state") == "ready_for_two_arm_pilot":
         next_lines = ["# 当前实验入口", "",
             "Protocol-027全流数据资格检查已通过；C/D模型尚未运行。", "",
             "唯一待执行任务：[Protocol-027两组试跑](docs/PROTOCOL027_SINGLE_TASK_DIRECTIVE_20260921.md)。",
-            "在main手动启动Protocol-027工作流，run_models=true；只运行C_fixed5与D_dynamic，交付后停止。",
+            f"在main手动启动Protocol-027工作流，run_models=true，frozen_data_run_id={args.run_id}；只运行C_fixed5与D_dynamic，交付后停止。",
             "每份指示只规划一个任务；不自动追加A/B、其他C、消融或种子。", "",
             f"本次仅维护验证：run {args.run_id}；[记录](docs/PROTOCOL027_RESULTS.md)。", ""]
     elif status.get("completed") and cmp:
@@ -160,7 +166,7 @@ def main():
 
     context_lines=[
         "# 当前项目上下文（2026-09-21）","",
-        f"当前最新任务为 Protocol-027 单次 D/C 开发试跑。GitHub Actions run {args.run_id}；completed={status.get('completed',False)}。","",
+        f"当前最新任务为 Protocol-027 / {REVISION_ID} 单次 D/C 开发试跑。GitHub Actions run {args.run_id}；completed={status.get('completed',False)}。","",
         f"结果与问题：docs/PROTOCOL027_RESULTS.md。紧凑证据：artifacts/ftmoe_online/protocol_027/runs/run_{args.run_id}/。大文件预测与日志：artifact protocol027-single-pilot-{args.run_id}。","",
         "本协议只允许 C_fixed5 与 D_dynamic、replay seed700/model1。没有自动追加实验；后续由用户基于本次结果决定。","",
     ]

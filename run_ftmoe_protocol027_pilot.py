@@ -16,7 +16,7 @@ from ftmoe_protocol027_normal_guard import Protocol027DynamicSession
 
 COMPARATORS=("C_fixed5","D_dynamic")
 RECURRENCE=("S1_rec1","S3_rec1","S2_rec1","S4_rec1","S2_rec2","S6_rec1","S1_rec2","S5_rec1","S3_rec2")
-EXPECTED_STREAM_SHA="46b1dbdd885683bd45c146ffc3cbe68dd151bf60a10c1663eda45b68f12d7c42"
+from ftmoe_protocol027_data import EXPECTED_STREAM_SHA, REVISION_ID, verify_frozen
 
 def write_json(path,v):
     p=Path(path); p.parent.mkdir(parents=True,exist_ok=True); p.write_text(json.dumps(v,indent=2,allow_nan=False)+"\n",encoding="utf8")
@@ -84,12 +84,13 @@ def event_phase(cursor,pdefs):
 def run_arm(name,stream,arm_dir,method_registration,registration,run_id):
     if name not in COMPARATORS:raise ValueError(name)
     out=Path(arm_dir); out.mkdir(parents=True,exist_ok=False); stream=Path(stream)
+    verify_frozen(stream)
     method=json.loads(Path(method_registration).read_text()); reg=json.loads(Path(registration).read_text())
     if reg.get("protocol")!="027" or reg["seeds"].get("replay")!=700 or reg["seeds"].get("model")!=1:raise AssertionError("Protocol027 registration/seed mismatch")
     bundle=s4.build_replay(stream); bundle["stream_dir"]=str(stream); stream_sha=sha(stream/"stream.npz")
     if stream_sha!=EXPECTED_STREAM_SHA or bundle["manifest"].get("stream_sha256")!=EXPECTED_STREAM_SHA:raise AssertionError("stream hash mismatch")
     pdefs=phases(bundle["manifest"]); guard=build_guard(bundle); write_json(out/"guard_manifest.json",guard["meta"])
-    rr={"protocol":"027","comparator":name,"source_method_registration":method,"protocol027_registration":reg,"stream_sha256":stream_sha,"replay_seed":700,"model_seed":1,"confirmation_run":False,"test_run":False}
+    rr={"protocol":"027","comparator":name,"source_method_registration":method,"protocol027_registration":reg,"stream_sha256":stream_sha,"data_revision":REVISION_ID,"replay_seed":700,"model_seed":1,"confirmation_run":False,"test_run":False}
     kw=dict(seed=1,replay_bundle=bundle,budget=budget(),out_dir=out,run_id=f"protocol027_{run_id}_{name}",stream_dir=stream,phase_defs=pdefs,stream_sha=stream_sha,registration=rr,learning_rate=1e-4)
     s=Protocol027DynamicSession(guard_anchor=guard,**kw) if name=="D_dynamic" else Protocol025FixedSession("C_fixed5",**kw)
     w0=time.perf_counter(); c0=time.process_time(); peak_p=param_bytes(s); peak_o=opt_bytes(s); peak_e=5
@@ -102,7 +103,7 @@ def run_arm(name,stream,arm_dir,method_registration,registration,run_id):
     prob=s.predictions["probability"]; cls=s.predictions["class_probability"]; y=s.predictions["labels"]
     if (y<0).any() or (s.predictions["raw_labels"]<0).any():raise AssertionError("unsettled outputs")
     cost={"wall_seconds":float(wall),"cpu_seconds":float(cpu),"max_rss_bytes":rss_bytes(),"p95_inference_seconds":float(np.percentile(s.predictions["prediction_seconds"],95)),"online_update_opportunities_completed":int(s.updates),"online_sample_draws":samples(s),"final_resident_parameter_bytes":param_bytes(s),"peak_resident_parameter_bytes":int(peak_p),"final_optimizer_state_bytes":opt_bytes(s),"peak_optimizer_state_bytes":int(peak_o),"peak_live_expert_count":int(peak_e),"diagnostic_and_file_io_included_in_wall_and_cpu":False}
-    summary={"protocol":"027","comparator":name,"run_id":str(run_id),"completed":True,"development_only":True,"confirmation_run":False,"test_run":False,"stream_sha256":stream_sha,"manifest":s.comparator_manifest(),"full":metrics(prob,cls,y),"phases":phase_metrics(prob,cls,y,pdefs),"cost":cost}
+    summary={"protocol":"027","comparator":name,"run_id":str(run_id),"completed":True,"development_only":True,"confirmation_run":False,"test_run":False,"stream_sha256":stream_sha,"data_revision":REVISION_ID,"manifest":s.comparator_manifest(),"full":metrics(prob,cls,y),"phases":phase_metrics(prob,cls,y,pdefs),"cost":cost}
     if name=="D_dynamic":
         ctrl=s.lifecycle_controller; events=list(ctrl.events); records=list(ctrl.candidate_records.values()); ec=Counter(x["kind"] for x in events); rejects=Counter(); byphase=defaultdict(Counter)
         for r in records:
@@ -128,12 +129,20 @@ def compare(root,stream,run_id):
         rows.append({"phase":name,"service":p["regime"],"intervals":[a,b],"positive_rows":int((yy>0).sum()),"negative_rows":int((yy==0).sum()),"C_fixed5":cm,"D_dynamic":dm,"D_minus_C_fixed5_ap":delta,"valid":bool(valid),"invalid_reason":None if valid else "AP undefined for at least one comparator"})
     idx=np.asarray(pooled,np.int64); cm=binary_detection_metrics(c["probability"][idx],y[idx],.5); dm=binary_detection_metrics(d["probability"][idx],y[idx],.5); fd=None if cm["fpr"] is None or dm["fpr"] is None else float(dm["fpr"]-cm["fpr"]); mean=float(np.mean(deltas)) if valid_all and len(deltas)==9 else None
     signal=bool(mean is not None and mean>=.03 and pos>=6 and fd is not None and fd<=.01); ca=sums["C_fixed5"]["full"]["detection"]["ap"]; da=sums["D_dynamic"]["full"]["detection"]["ap"]; full_delta=None if ca is None or da is None else float(da-ca)
-    return {"protocol":"027","run_id":str(run_id),"development_only":True,"confirmation_run":False,"test_run":False,"stream_sha256":EXPECTED_STREAM_SHA,"recurrence_first100":rows,"primary":{"metric":"equal-weight mean D_dynamic-C_fixed5 AP across all nine recurrence first100 windows","valid_windows":sum(r["valid"] for r in rows),"required_valid_windows":9,"equal_weight_mean_D_minus_C_fixed5_ap":mean,"positive_windows":pos,"pooled_normal_fpr_C_fixed5":cm["fpr"],"pooled_normal_fpr_D_dynamic":dm["fpr"],"pooled_normal_fpr_delta_D_minus_C":fd,"numeric_lead_on_this_trajectory":None if mean is None else bool(mean>0),"development_signal":signal,"development_reference":{"mean_delta_min":.03,"positive_windows_min":6,"pooled_normal_fpr_delta_max":.01}},"full_stream":{"C_fixed5":sums["C_fixed5"]["full"],"D_dynamic":sums["D_dynamic"]["full"],"D_minus_C_fixed5_ap":full_delta,"D_ap_leads":None if full_delta is None else bool(full_delta>0)},"phase_metrics":{n:sums[n]["phases"] for n in COMPARATORS},"lifecycle":sums["D_dynamic"].get("lifecycle"),"cost_profile":{n:sums[n]["cost"] for n in COMPARATORS},"interpretation_limits":{"statistical_confirmation":False,"equal_total_cost":False,"D_extra_background_compute_allowed":True,"single_replay_seed":700,"single_model_seed":1}}
+    return {"protocol":"027","run_id":str(run_id),"development_only":True,"confirmation_run":False,"test_run":False,"stream_sha256":EXPECTED_STREAM_SHA,"data_revision":REVISION_ID,"recurrence_first100":rows,"primary":{"metric":"equal-weight mean D_dynamic-C_fixed5 AP across all nine recurrence first100 windows","valid_windows":sum(r["valid"] for r in rows),"required_valid_windows":9,"equal_weight_mean_D_minus_C_fixed5_ap":mean,"positive_windows":pos,"pooled_normal_fpr_C_fixed5":cm["fpr"],"pooled_normal_fpr_D_dynamic":dm["fpr"],"pooled_normal_fpr_delta_D_minus_C":fd,"numeric_lead_on_this_trajectory":None if mean is None else bool(mean>0),"development_signal":signal,"development_reference":{"mean_delta_min":.03,"positive_windows_min":6,"pooled_normal_fpr_delta_max":.01}},"full_stream":{"C_fixed5":sums["C_fixed5"]["full"],"D_dynamic":sums["D_dynamic"]["full"],"D_minus_C_fixed5_ap":full_delta,"D_ap_leads":None if full_delta is None else bool(full_delta>0)},"phase_metrics":{n:sums[n]["phases"] for n in COMPARATORS},"lifecycle":sums["D_dynamic"].get("lifecycle"),"cost_profile":{n:sums[n]["cost"] for n in COMPARATORS},"interpretation_limits":{"statistical_confirmation":False,"equal_total_cost":False,"D_extra_background_compute_allowed":True,"single_replay_seed":700,"single_model_seed":1}}
 
 def parent(args):
     root=Path(args.out_root); root.mkdir(parents=True,exist_ok=True)
     if (root/"status.json").exists() or any((root/n).exists() for n in COMPARATORS):raise FileExistsError("existing Protocol027 model run")
+    frozen = verify_frozen(args.stream)
+    receipt=json.loads((root/"frozen_data_archive.json").read_text())
+    if not receipt.get("complete_snapshot_uploaded") or not receipt.get("artifact_id") or not receipt.get("artifact_digest"):
+        raise RuntimeError("complete data archive is required before training")
+    if receipt.get("frozen_manifest_sha256") != sha(Path(args.stream)/"frozen_data_manifest.json"):
+        raise RuntimeError("archive receipt belongs to different frozen dataset")
     lock=json.loads(Path(args.data_lock).read_text()); elig=json.loads(Path(args.eligibility).read_text())
+    if any(item.get("data_revision") != REVISION_ID or item.get("stream_sha256") != EXPECTED_STREAM_SHA for item in (lock, elig)):
+        raise RuntimeError("data lock/eligibility belong to different revision")
     if not lock.get("locked") or not elig.get("protocol027_data_eligible"):raise RuntimeError("invalid data lock/eligibility")
     bundle=s4.build_replay(Path(args.stream)); guard=build_guard(bundle); write_json(root/"guard_manifest.json",guard["meta"]); write_json(root/"normal_guard_audit.json",{"protocol":"027","valid":guard["meta"]["normal_rows"]>0,**guard["meta"],"birth_and_reuse_guard_implementation":"shared normal_detection_guard_report","positive_rows_zero_policy":"allowed"}); del bundle,guard
     completed=[]; failed=[]; detail={}
@@ -146,7 +155,7 @@ def parent(args):
             failed.append(n); detail[n]={"returncode":p.returncode,"stderr_tail":se.read_text(errors="replace")[-8000:]}; write_json(root/f"{n}.failure.json",detail[n])
     comp=compare(root,args.stream,args.run_id) if completed==list(COMPARATORS) and not failed else None
     if comp is not None:write_json(root/"comparison.json",comp); write_json(root/"cost_profile.json",comp["cost_profile"])
-    status={"protocol":"027","run_id":str(args.run_id),"completed":comp is not None,"data_restored":True,"eligibility_verified":True,"normal_guard_valid":True,"completed_comparators":completed,"failed_comparators":failed,"failure_details":detail,"development_signal":None if comp is None else bool(comp["primary"]["development_signal"]),"confirmation_run":False,"test_run":False,"confirmation_seeds_used":[],"test_seeds_used":[],"automatic_followups_started":[],"blocker":None if comp is not None else "one_or_more_registered_arms_failed"}
+    status={"protocol":"027","data_revision":REVISION_ID,"frozen_data_archived":True,"frozen_data_archive":receipt,"run_id":str(args.run_id),"completed":comp is not None,"data_restored":True,"eligibility_verified":True,"normal_guard_valid":True,"completed_comparators":completed,"failed_comparators":failed,"failure_details":detail,"development_signal":None if comp is None else bool(comp["primary"]["development_signal"]),"confirmation_run":False,"test_run":False,"confirmation_seeds_used":[],"test_seeds_used":[],"automatic_followups_started":[],"blocker":None if comp is not None else "one_or_more_registered_arms_failed"}
     if comp is not None:status.update({"primary_mean_D_minus_C_fixed5_ap":comp["primary"]["equal_weight_mean_D_minus_C_fixed5_ap"],"positive_recurrence_windows":comp["primary"]["positive_windows"],"full_stream_D_minus_C_fixed5_ap":comp["full_stream"]["D_minus_C_fixed5_ap"],"D_reactivations":int((comp.get("lifecycle") or {}).get("reactivations",0)),"D_purges":int((comp.get("lifecycle") or {}).get("purges",0))})
     write_json(root/"status.json",status); print(json.dumps({"status":status,"primary":None if comp is None else comp["primary"]},indent=2,allow_nan=False))
 
