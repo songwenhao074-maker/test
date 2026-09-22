@@ -1,0 +1,223 @@
+name: Protocol-028 memory-protected D/C pilot
+# Maintenance definition; explicit launch comment will be added separately.
+
+on:
+  push:
+    branches: [protocol-028-memory-protected-20260922]
+    paths:
+      - .github/workflows/protocol028-pilot.yml
+  workflow_dispatch:
+    inputs:
+      run_models:
+        description: 'Run registered C_fixed5/D_memory_protected after verification'
+        type: boolean
+        required: true
+        default: false
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: protocol028-memory-protected-single-pilot
+  cancel-in-progress: false
+
+jobs:
+  protocol028:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    env:
+      OMP_NUM_THREADS: "3"
+      MKL_NUM_THREADS: "3"
+      OPENBLAS_NUM_THREADS: "3"
+      STREAM_ROOT: artifacts/ftmoe_online/protocol_025/data_seed700
+      METHOD_REG: artifacts/ftmoe_online/protocol_025/method_registration.json
+      P028_REG: artifacts/ftmoe_online/protocol_028/registration.json
+      RUN_MODELS: ${{ github.event_name == 'push' || inputs.run_models || false }}
+      SOURCE_RUN_ID: "35682811782"
+      SOURCE_ARTIFACT_ID: "10675401651"
+      SOURCE_ARTIFACT_NAME: protocol027-frozen-data-35682811782
+      SOURCE_ARTIFACT_DIGEST: sha256:111a4c5fc5c508a9e169fdbffe823ee36dc66c037c1775a6aa1abdbaba31c0a1
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.8"
+          cache: pip
+
+      - name: Install CPU experiment dependencies
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil
+
+      - name: Compile and run targeted Protocol-028 checks
+        run: |
+          python -m py_compile ftmoe_protocol028_memory_protected.py run_ftmoe_protocol028_pilot.py finalize_ftmoe_protocol028.py
+          python -m unittest -v \
+            test_ftmoe_protocol028.py \
+            test_ftmoe_protocol027_guard.py \
+            test_ftmoe_protocol027_data.py \
+            test_ftmoe_protocol025_model.py \
+            test_ftmoe_protocol025_session.py \
+            test_ftmoe_protocol024_v2c.py \
+            test_ftmoe_protocol024_dynamic_residual.py
+
+      - name: Verify registered frozen source artifact identity
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          RUN_DIR="artifacts/ftmoe_online/protocol_028/runtime/run_$GITHUB_RUN_ID"
+          mkdir -p "$RUN_DIR"
+          curl -fsSL \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$SOURCE_ARTIFACT_ID" \
+            > /tmp/protocol028_source_artifact.json
+          python - <<'PY'
+          import json, os, pathlib
+          src=json.load(open('/tmp/protocol028_source_artifact.json','r',encoding='utf8'))
+          expected={
+              'run_id':int(os.environ['SOURCE_RUN_ID']),
+              'artifact_id':int(os.environ['SOURCE_ARTIFACT_ID']),
+              'artifact_name':os.environ['SOURCE_ARTIFACT_NAME'],
+              'artifact_digest':os.environ['SOURCE_ARTIFACT_DIGEST'],
+          }
+          actual={
+              'run_id':int(src['workflow_run']['id']),
+              'artifact_id':int(src['id']),
+              'artifact_name':src['name'],
+              'artifact_digest':src.get('digest'),
+          }
+          if src.get('expired'):
+              raise SystemExit('registered frozen source artifact expired')
+          if actual != expected:
+              raise SystemExit('registered frozen source artifact identity mismatch: %r != %r' % (actual, expected))
+          actual.update({
+              'verified':True,
+              'expired':False,
+              'source_protocol':'027',
+              'data_revision':'protocol027_data_revision_002',
+          })
+          root=pathlib.Path('artifacts/ftmoe_online/protocol_028/runtime')/('run_'+os.environ['GITHUB_RUN_ID'])
+          (root/'source_frozen_artifact.json').write_text(json.dumps(actual,indent=2)+'\n',encoding='utf8')
+          PY
+
+      - name: Download exact Protocol-027 frozen dataset
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol027-frozen-data-35682811782
+          path: artifacts/ftmoe_online/protocol_025/data_seed700
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 35682811782
+
+      - name: Verify frozen bundle without simulation
+        run: |
+          python ftmoe_protocol027_data.py --data-root "$STREAM_ROOT" --verify-only
+
+      - name: Re-run inherited physical causal and coverage eligibility
+        run: |
+          RUN_DIR="artifacts/ftmoe_online/protocol_028/runtime/run_$GITHUB_RUN_ID"
+          python audit_ftmoe_protocol027.py --data-root "$STREAM_ROOT" --output-root "$RUN_DIR"
+
+      - name: Record Protocol-028 workflow execution
+        run: |
+          RUN_DIR="artifacts/ftmoe_online/protocol_028/runtime/run_$GITHUB_RUN_ID"
+          python - <<'PY'
+          import json, os, pathlib
+          root=pathlib.Path('artifacts/ftmoe_online/protocol_028/runtime')/('run_'+os.environ['GITHUB_RUN_ID'])
+          payload={
+              'protocol':'028',
+              'run_models':os.environ['RUN_MODELS'].lower()=='true',
+              'github_event':os.environ.get('GITHUB_EVENT_NAME'),
+              'github_run_id':int(os.environ['GITHUB_RUN_ID']),
+              'head_sha':os.environ.get('GITHUB_SHA'),
+              'head_ref':os.environ.get('GITHUB_REF_NAME'),
+              'simulation_rerun':False,
+              'source_frozen_run_id':int(os.environ['SOURCE_RUN_ID']),
+              'source_frozen_artifact_id':int(os.environ['SOURCE_ARTIFACT_ID']),
+          }
+          (root/'workflow_execution.json').write_text(json.dumps(payload,indent=2)+'\n',encoding='utf8')
+          PY
+
+      - name: Run only registered Protocol-028 C/D arms
+        if: env.RUN_MODELS == 'true'
+        run: |
+          RUN_DIR="artifacts/ftmoe_online/protocol_028/runtime/run_$GITHUB_RUN_ID"
+          python run_ftmoe_protocol028_pilot.py \
+            --stream "$STREAM_ROOT" \
+            --out-root "$RUN_DIR" \
+            --method-registration "$METHOD_REG" \
+            --registration "$P028_REG" \
+            --data-lock "$RUN_DIR/data_lock.json" \
+            --eligibility "$RUN_DIR/eligibility.json" \
+            --run-id "$GITHUB_RUN_ID"
+
+      - name: Persist status even if model runner never started
+        if: always()
+        run: |
+          python finalize_ftmoe_protocol028.py --status-only \
+            --run-root "artifacts/ftmoe_online/protocol_028/runtime/run_$GITHUB_RUN_ID" \
+            --git-dest "artifacts/ftmoe_online/protocol_028/runs/run_$GITHUB_RUN_ID" \
+            --run-id "$GITHUB_RUN_ID" --repository "$GITHUB_REPOSITORY"
+
+      - name: Upload complete Protocol-028 evidence
+        if: always()
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol028-single-pilot-${{ github.run_id }}
+          path: artifacts/ftmoe_online/protocol_028/runtime/run_${{ github.run_id }}/
+          if-no-files-found: warn
+          compression-level: 3
+          retention-days: 90
+
+      - name: Build Protocol-028 report and compact handoff
+        if: always()
+        env:
+          ARTIFACT_ID: ${{ steps.upload.outputs.artifact-id }}
+          ARTIFACT_URL: ${{ steps.upload.outputs.artifact-url }}
+          ARTIFACT_DIGEST: ${{ steps.upload.outputs.artifact-digest }}
+        run: |
+          python finalize_ftmoe_protocol028.py \
+            --run-root "artifacts/ftmoe_online/protocol_028/runtime/run_$GITHUB_RUN_ID" \
+            --git-dest "artifacts/ftmoe_online/protocol_028/runs/run_$GITHUB_RUN_ID" \
+            --run-id "$GITHUB_RUN_ID" --repository "$GITHUB_REPOSITORY" \
+            --artifact-id "$ARTIFACT_ID" --artifact-url "$ARTIFACT_URL" \
+            --artifact-digest "$ARTIFACT_DIGEST"
+
+      - name: Commit compact Protocol-028 results and handoff
+        if: always()
+        run: |
+          git config user.name "protocol028-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md \
+            docs/GITHUB_EXPERIMENT_HANDOFF.md docs/PROTOCOL028_RESULTS.md \
+            artifacts/ftmoe_online/protocol_028/runs/
+          git commit -m "results: record Protocol028 memory-protected D/C run $GITHUB_RUN_ID" || true
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase FETCH_HEAD
+          git push origin "HEAD:$GITHUB_REF_NAME"
+
+      - name: Final Protocol-028 completion gate
+        if: always()
+        run: |
+          python - <<'PY'
+          import json, os, pathlib
+          p=pathlib.Path('artifacts/ftmoe_online/protocol_028/runs')/('run_'+os.environ['GITHUB_RUN_ID'])/'status.json'
+          if not p.is_file():
+              raise SystemExit('Protocol028 compact status.json missing')
+          status=json.loads(p.read_text(encoding='utf8'))
+          print(json.dumps(status,indent=2))
+          if os.environ['RUN_MODELS'].lower() == 'true' and not status.get('completed'):
+              raise SystemExit('Protocol028 ended with a documented blocker')
+          PY
+
+      - name: Post Run actions/setup-python@v5
+        if: always()
+        run: true
