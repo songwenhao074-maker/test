@@ -5,7 +5,7 @@
   "data_revision": "protocol031_data_revision_001",
   "status": "registered_before_generation",
   "registered_before_generation": true,
-  "source_code_commit": "286536c774bd8fd0ae2257f40ee8e288a1826c28",
+  "source_code_commit": "01a7f397faf899be5ef30ac2deaaf610a7505fc0",
   "purpose": "Rare short recurring services after long dominant-service interference, under short training replay and sparse online updates",
   "replay_seed": 700,
   "model_seed": 1,
@@ -268,5 +268,13 @@
     "comparison_scope": "D versus C_fixed5 only on this registered deployment scenario; no A/B inference"
   },
   "implementation_branch": "protocol-031-rare-recurrence-20260922",
-  "implementation_registered_before_generation": true
+  "implementation_registered_before_generation": true,
+  "pre_generation_engineering_recovery": {
+    "blocked_run_id": 35751006955,
+    "blocker": "maintenance runner could not import repository-root module",
+    "simulator_initialized": false,
+    "simulator_intervals_generated": 0,
+    "full_generation_budget_consumed": 0,
+    "scientific_parameters_changed": false
+  }
 }
