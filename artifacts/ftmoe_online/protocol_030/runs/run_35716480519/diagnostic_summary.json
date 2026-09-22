@@ -1,0 +1,257 @@
+{
+  "protocol": "030",
+  "run_id": "35716480519",
+  "paired_audit_valid": true,
+  "online_method_changed": false,
+  "new_scientific_methods": 0,
+  "C_rerun": false,
+  "full_replays_completed": [
+    "audit_off",
+    "audit_on"
+  ],
+  "historical_028_match": {
+    "audit_off": false,
+    "audit_on": false
+  },
+  "opportunities": {
+    "protocol": "030",
+    "reuse_due_opportunities": 154,
+    "no_memory_opportunities": 94,
+    "opportunities_with_memory": 60,
+    "opportunities_with_at_least_one_completed_candidate_validation": 59,
+    "stream_end_censored_opportunities": 1,
+    "opportunities_with_any_all_gates_candidate": 5,
+    "passing_candidate_opportunities_blocked_by_busy": 5,
+    "passing_candidate_opportunities_blocked_by_similarity_or_rank": 5,
+    "original_selected_candidate_passed": 0,
+    "passing_condition_intersections": {
+      "busy+similarity": 5
+    },
+    "per_expert": {
+      "9": {
+        "opportunities_present": 60,
+        "completed_validations": 59,
+        "all_gates_pass": 5,
+        "censored": 1,
+        "similarity_ok": 5,
+        "highest_similarity": 38
+      },
+      "15": {
+        "opportunities_present": 44,
+        "completed_validations": 43,
+        "all_gates_pass": 0,
+        "censored": 1,
+        "similarity_ok": 0,
+        "highest_similarity": 6
+      },
+      "17": {
+        "opportunities_present": 36,
+        "completed_validations": 35,
+        "all_gates_pass": 0,
+        "censored": 1,
+        "similarity_ok": 6,
+        "highest_similarity": 16
+      }
+    },
+    "passing_candidates": [
+      {
+        "phase": "S6_first",
+        "due_cursor": 3937,
+        "expert_id": "9",
+        "controller": {
+          "busy": true,
+          "outcome": "busy",
+          "selected_expert_id": null
+        },
+        "similarity": {
+          "similarity": 0.843674630795904,
+          "required_similarity": 0.9879425571268068,
+          "similarity_ok": false,
+          "is_highest_similarity": true
+        },
+        "post_hoc_oracle_diagnostic": true
+      },
+      {
+        "phase": "S6_first",
+        "due_cursor": 3969,
+        "expert_id": "9",
+        "controller": {
+          "busy": true,
+          "outcome": "busy",
+          "selected_expert_id": null
+        },
+        "similarity": {
+          "similarity": 0.8589842710789972,
+          "required_similarity": 0.9879425571268068,
+          "similarity_ok": false,
+          "is_highest_similarity": true
+        },
+        "post_hoc_oracle_diagnostic": true
+      },
+      {
+        "phase": "S6_first",
+        "due_cursor": 4001,
+        "expert_id": "9",
+        "controller": {
+          "busy": true,
+          "outcome": "busy",
+          "selected_expert_id": null
+        },
+        "similarity": {
+          "similarity": 0.7572929774749817,
+          "required_similarity": 0.9879425571268068,
+          "similarity_ok": false,
+          "is_highest_similarity": true
+        },
+        "post_hoc_oracle_diagnostic": true
+      },
+      {
+        "phase": "S6_first",
+        "due_cursor": 4033,
+        "expert_id": "9",
+        "controller": {
+          "busy": true,
+          "outcome": "busy",
+          "selected_expert_id": null
+        },
+        "similarity": {
+          "similarity": 0.9507464520819465,
+          "required_similarity": 0.9879425571268068,
+          "similarity_ok": false,
+          "is_highest_similarity": true
+        },
+        "post_hoc_oracle_diagnostic": true
+      },
+      {
+        "phase": "S6_first",
+        "due_cursor": 4065,
+        "expert_id": "9",
+        "controller": {
+          "busy": true,
+          "outcome": "busy",
+          "selected_expert_id": null
+        },
+        "similarity": {
+          "similarity": 0.813789128867905,
+          "required_similarity": 0.9879425571268068,
+          "similarity_ok": false,
+          "is_highest_similarity": true
+        },
+        "post_hoc_oracle_diagnostic": true
+      }
+    ],
+    "post_hoc_oracle_diagnostic": true
+  },
+  "all_gates_passing_candidate_count": 5,
+  "all_gates_passing_candidates": [
+    {
+      "phase": "S6_first",
+      "due_cursor": 3937,
+      "expert_id": "9",
+      "controller": {
+        "busy": true,
+        "outcome": "busy",
+        "selected_expert_id": null
+      },
+      "similarity": {
+        "similarity": 0.843674630795904,
+        "required_similarity": 0.9879425571268068,
+        "similarity_ok": false,
+        "is_highest_similarity": true
+      },
+      "post_hoc_oracle_diagnostic": true
+    },
+    {
+      "phase": "S6_first",
+      "due_cursor": 3969,
+      "expert_id": "9",
+      "controller": {
+        "busy": true,
+        "outcome": "busy",
+        "selected_expert_id": null
+      },
+      "similarity": {
+        "similarity": 0.8589842710789972,
+        "required_similarity": 0.9879425571268068,
+        "similarity_ok": false,
+        "is_highest_similarity": true
+      },
+      "post_hoc_oracle_diagnostic": true
+    },
+    {
+      "phase": "S6_first",
+      "due_cursor": 4001,
+      "expert_id": "9",
+      "controller": {
+        "busy": true,
+        "outcome": "busy",
+        "selected_expert_id": null
+      },
+      "similarity": {
+        "similarity": 0.7572929774749817,
+        "required_similarity": 0.9879425571268068,
+        "similarity_ok": false,
+        "is_highest_similarity": true
+      },
+      "post_hoc_oracle_diagnostic": true
+    },
+    {
+      "phase": "S6_first",
+      "due_cursor": 4033,
+      "expert_id": "9",
+      "controller": {
+        "busy": true,
+        "outcome": "busy",
+        "selected_expert_id": null
+      },
+      "similarity": {
+        "similarity": 0.9507464520819465,
+        "required_similarity": 0.9879425571268068,
+        "similarity_ok": false,
+        "is_highest_similarity": true
+      },
+      "post_hoc_oracle_diagnostic": true
+    },
+    {
+      "phase": "S6_first",
+      "due_cursor": 4065,
+      "expert_id": "9",
+      "controller": {
+        "busy": true,
+        "outcome": "busy",
+        "selected_expert_id": null
+      },
+      "similarity": {
+        "similarity": 0.813789128867905,
+        "required_similarity": 0.9879425571268068,
+        "similarity_ok": false,
+        "is_highest_similarity": true
+      },
+      "post_hoc_oracle_diagnostic": true
+    }
+  ],
+  "post_hoc_oracle_diagnostic": true,
+  "interpretation_limit": "Paired validity establishes passive noninterference under the registered Protocol030 runtime only. Historical 028 match is separate. Oracle candidates are not an online policy or D>C evidence.",
+  "cost": {
+    "audit_off": {
+      "wall_seconds": 716.8662260890001,
+      "cpu_seconds": 716.835144474,
+      "p95_inference_seconds": 0.005652760350017161,
+      "max_rss_bytes": 396701696
+    },
+    "audit_on": {
+      "wall_seconds": 1722.9881732569997,
+      "cpu_seconds": 1722.890845317,
+      "p95_inference_seconds": 0.005653121350314904,
+      "max_rss_bytes": 409890816
+    },
+    "passive_prediction_overhead_seconds": 956.4813602699953,
+    "passive_guard_overhead_seconds": 50.65634649100002
+  },
+  "postprocessing_recovery": {
+    "source_artifact_id": 10690558198,
+    "source_artifact_digest": "sha256:16c0731df2712ac5cfc5554da0d2cd3f5cf83ce74bb2ae1230c94f19fc2502af",
+    "reason": "Both registered full replays completed. The Actions parent failed only while serializing a numpy.int64 index into paired_consistency JSON. Results were recovered from the immutable uploaded artifact without any additional replay.",
+    "additional_full_replays": 0
+  }
+}
