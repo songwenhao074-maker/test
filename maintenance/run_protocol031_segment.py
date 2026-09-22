@@ -21,6 +21,10 @@ ROOT=Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0,str(ROOT))
 
+BAGTI_ROOT=ROOT/"scheduler"/"BaGTI"
+if str(BAGTI_ROOT) not in sys.path:
+    sys.path.append(str(BAGTI_ROOT))
+
 import prepare_ftmoe_protocol031_stream as P
 
 TRANSIENT_NAME="transient_partial.npz"
