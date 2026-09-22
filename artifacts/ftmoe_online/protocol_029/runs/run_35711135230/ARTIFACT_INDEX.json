@@ -1,0 +1,57 @@
+{
+  "protocol": "029",
+  "github_run_id": 35711135230,
+  "workflow_url": "https://github.com/songwenhao074-maker/test/actions/runs/35711135230",
+  "artifact_id": "10688265540",
+  "artifact_url": "https://github.com/songwenhao074-maker/test/actions/runs/35711135230/artifacts/10688265540",
+  "artifact_digest": "56c5cbe760cea17abeb62b9bbb3d30116ecef338f2fcaa9afda3fe0eaf80bb16",
+  "artifact_name": "protocol029-memory-utility-35711135230",
+  "retention_days": 90,
+  "files_committed_to_git": {
+    "consistency.json": {
+      "sha256": "a79a9cbec970cda0e1097bb774b89e7435e4ff8d707d93d8fdb34919f0195de2",
+      "bytes": 670
+    },
+    "cost_profile.json": {
+      "sha256": "92998eb3eadb9cacd58102c4cb22f1253c39ccf8003b56a8ba1db0e9baa0a2b0",
+      "bytes": 431
+    },
+    "data_lock.json": {
+      "sha256": "bd3a831d925dcc9192b0fb820415b710acc5f323d344c5f7606ab4d46f1d62bb",
+      "bytes": 800
+    },
+    "diagnostic_summary.json": {
+      "sha256": "d0ace6d2c072feb7d22f4697c7525f03ef640983dc6d609cace617a750a08a1d",
+      "bytes": 72886
+    },
+    "eligibility.json": {
+      "sha256": "b4f3fbf4ae4f630abaf2452bdff408dc9085e4cfac0c7762f274481f367e18b6",
+      "bytes": 2807
+    },
+    "guard_manifest.json": {
+      "sha256": "5c0162d1940f69cb0dddd7b1e1b01a339ee24efe9efa667bf9822a5f69adabbe",
+      "bytes": 1026
+    },
+    "opportunity_audit.json": {
+      "sha256": "4c78879391db42457ca99885113779f09b7eae5f7062ffeac61c5cd680f4256d",
+      "bytes": 510831
+    },
+    "source_artifacts.json": {
+      "sha256": "5a7b4a8f52284da193049f34765272635a9f1ab0a7c76f1ec3a820d6986ce319",
+      "bytes": 587
+    },
+    "status.json": {
+      "sha256": "94d9ecac9b7a48680b2612e2539545927d06b34b3f9a36c6325ae35c3de9524b",
+      "bytes": 342
+    },
+    "window_memory_utility.json": {
+      "sha256": "0d676538033c6673f20f39d0b9dcdcd85901024a5c4a982c6fbbc4230f475ef7",
+      "bytes": 52995
+    },
+    "workflow_execution.json": {
+      "sha256": "1c30665f30d41c1c115e5732b64647fae60b028913719b1baf0ba62ecd4232e2",
+      "bytes": 292
+    }
+  },
+  "raw_evidence": "GitHub Actions artifact contains passive_predictions.npz and opportunity_audit_full.json"
+}

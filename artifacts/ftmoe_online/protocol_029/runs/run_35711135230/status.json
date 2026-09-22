@@ -1,0 +1,12 @@
+{
+  "protocol": "029",
+  "run_id": "35711135230",
+  "completed": true,
+  "diagnostic_valid": false,
+  "source_028_consistency_verified": false,
+  "reuse_due_count_matches_source": true,
+  "new_training_arms": 0,
+  "C_rerun": false,
+  "automatic_followups_started": [],
+  "blocker": "passive_diagnostic_failed_source_trajectory_consistency"
+}

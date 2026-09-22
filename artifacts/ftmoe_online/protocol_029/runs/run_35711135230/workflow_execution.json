@@ -1,0 +1,11 @@
+{
+  "protocol": "029",
+  "github_run_id": "35711135230",
+  "event": "push",
+  "head_sha": "8d3a5e851c3581c5c81ab44326d109c6ed2ca535",
+  "branch": "protocol-029-memory-utility-20260922",
+  "single_diagnostic_replay": true,
+  "rerun_C": false,
+  "new_training_arms": 0,
+  "simulation": false
+}

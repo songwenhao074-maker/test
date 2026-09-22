@@ -1,0 +1,11 @@
+{
+  "protocol027_frozen_run_id": 35682811782,
+  "protocol027_frozen_artifact_id": 10675401651,
+  "protocol027_frozen_artifact_name": "protocol027-frozen-data-35682811782",
+  "protocol027_frozen_artifact_digest": "sha256:111a4c5fc5c508a9e169fdbffe823ee36dc66c037c1775a6aa1abdbaba31c0a1",
+  "protocol028_run_id": 35705211072,
+  "protocol028_artifact_id": 10684617851,
+  "protocol028_artifact_name": "protocol028-single-pilot-35705211072",
+  "protocol028_artifact_digest": "sha256:e3be1c97d0f629c9ed40f61cfd4561b6b04e37b68357a2c92a23ac8f14e2e27e",
+  "required_source_files_present": true
+}

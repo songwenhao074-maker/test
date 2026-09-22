@@ -1,0 +1,9 @@
+{
+  "diagnostic_replay_wall_seconds": 1130.026913927,
+  "diagnostic_replay_cpu_seconds": 1413.787980477,
+  "passive_prediction_overhead_seconds": 200.0779337130049,
+  "passive_guard_overhead_seconds": 11.902723614000479,
+  "passive_prediction_forwards": 4516,
+  "passive_guard_evaluations": 137,
+  "timing_note": "Protocol029 total includes passive diagnostic overhead and is not a new method-cost comparison with historical C."
+}

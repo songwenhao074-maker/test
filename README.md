@@ -6,7 +6,7 @@
 
 ## 最新结果
 
-029诊断未通过028同轨迹一致性门禁；blocker=runner_exception。 详见[Protocol-029 Results](docs/PROTOCOL029_RESULTS.md)。
+029诊断未通过028同轨迹一致性门禁；blocker=passive_diagnostic_failed_source_trajectory_consistency。 详见[Protocol-029 Results](docs/PROTOCOL029_RESULTS.md)。
 
 029保持028线上算法、数据、训练、阈值和生命周期决策不变，只增加标签前只读旁路。它没有重跑C或新增训练组；事后最好专家是post_hoc_oracle_diagnostic，不能作为线上D>C结论。
 

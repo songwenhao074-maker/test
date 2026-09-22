@@ -1,0 +1,18 @@
+{
+  "diagnostic_valid": false,
+  "required_probability_max_abs_error": 1e-06,
+  "probability_max_abs_error": 1.1920928955078125e-06,
+  "class_probability_max_abs_error": 2.086162567138672e-06,
+  "labels_exact": true,
+  "raw_labels_exact": true,
+  "source_full_ap": 0.7110470277226265,
+  "diagnostic_full_ap": 0.7110471185720972,
+  "full_ap_absolute_difference": 9.08494707241303e-08,
+  "required_full_ap_absolute_difference_max": 1e-06,
+  "discrete_lifecycle_events_exact": true,
+  "source_discrete_event_count": 981,
+  "diagnostic_discrete_event_count": 981,
+  "final_lifecycle_counts_exact": true,
+  "passive_state_checks": 5657,
+  "passive_state_check_failures": 0
+}
