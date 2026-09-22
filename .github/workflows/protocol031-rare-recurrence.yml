@@ -1,5 +1,5 @@
 name: Protocol-031 revision002 rare-recurrence C/D pilot
-# Relaunch after preflight newline fix 2026-09-22; all prior attempts generated zero simulator intervals.
+# Relaunch after BaGTI import-path fix 2026-09-22; all prior attempts generated zero simulator intervals.
 
 on:
   push:
@@ -105,7 +105,7 @@ jobs:
           assert reg['protocol']=='031' and reg['plan_revision']==2
           assert reg['scenario_id']=='protocol031_rare_recurrence_v1'
           assert reg['registered_before_generation'] is True
-          assert reg['source_code_commit']=='2f04ca1307417b86d491cbde2303861fd09ae79a'
+          assert reg['source_code_commit']=='f550714b9220fbbdda2d2cea87481f876e8b49aa'
           assert method['arms']==['C_fixed5','D_nonblocking_reuse']
           assert method['full_replay_budget']==2
           assert method['D']['similarity_threshold_role']=='logged_only_not_admission_gate'
@@ -113,7 +113,8 @@ jobs:
           import psutil
           assert hasattr(psutil,'BELOW_NORMAL_PRIORITY_CLASS')
           assert psutil.BELOW_NORMAL_PRIORITY_CLASS==10 or isinstance(psutil.BELOW_NORMAL_PRIORITY_CLASS,int)
-          print({'protocol031_preflight':True,'source_code_commit':reg['source_code_commit'],'priority_compat':True})
+          import src.constants
+          print({'protocol031_preflight':True,'source_code_commit':reg['source_code_commit'],'priority_compat':True,'bagti_src_import':True})
           PY
 
       - name: Restore same registered generation state
