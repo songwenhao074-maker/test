@@ -1,0 +1,11 @@
+{
+  "protocol": "029",
+  "run_id": "35710915662",
+  "completed": false,
+  "diagnostic_valid": false,
+  "new_training_arms": 0,
+  "C_rerun": false,
+  "automatic_followups_started": [],
+  "blocker": "runner_exception",
+  "traceback": "Traceback (most recent call last):\n  File \"run_ftmoe_protocol029_diagnostic.py\", line 466, in main\n    run(args)\n  File \"run_ftmoe_protocol029_diagnostic.py\", line 316, in run\n    out.mkdir(parents=True, exist_ok=False)\n  File \"/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/pathlib.py\", line 1288, in mkdir\n    self._accessor.mkdir(self, mode)\nFileExistsError: [Errno 17] File exists: 'artifacts/ftmoe_online/protocol_029/runtime/run_35710915662'\n"
+}

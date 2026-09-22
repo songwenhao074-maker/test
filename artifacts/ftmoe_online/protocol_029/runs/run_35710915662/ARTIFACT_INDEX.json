@@ -1,0 +1,33 @@
+{
+  "protocol": "029",
+  "github_run_id": 35710915662,
+  "workflow_url": "https://github.com/songwenhao074-maker/test/actions/runs/35710915662",
+  "artifact_id": "10687250313",
+  "artifact_url": "https://github.com/songwenhao074-maker/test/actions/runs/35710915662/artifacts/10687250313",
+  "artifact_digest": "5a21ee4b8b6e10eed6c3eb1dd812c4e2a4e05f061c6613c9bcd5f184121d9f1b",
+  "artifact_name": "protocol029-memory-utility-35710915662",
+  "retention_days": 90,
+  "files_committed_to_git": {
+    "data_lock.json": {
+      "sha256": "bd3a831d925dcc9192b0fb820415b710acc5f323d344c5f7606ab4d46f1d62bb",
+      "bytes": 800
+    },
+    "eligibility.json": {
+      "sha256": "b4f3fbf4ae4f630abaf2452bdff408dc9085e4cfac0c7762f274481f367e18b6",
+      "bytes": 2807
+    },
+    "source_artifacts.json": {
+      "sha256": "5a7b4a8f52284da193049f34765272635a9f1ab0a7c76f1ec3a820d6986ce319",
+      "bytes": 587
+    },
+    "status.json": {
+      "sha256": "95c0a30b585c5a17dd1b15e0180d71887ba71468819e244c1a3b31de05e31278",
+      "bytes": 705
+    },
+    "workflow_execution.json": {
+      "sha256": "570ffd92fe57959e9fe75b417ac98cbcacf7ad6050275a5b941610e52943ebfa",
+      "bytes": 292
+    }
+  },
+  "raw_evidence": "GitHub Actions artifact contains passive_predictions.npz and opportunity_audit_full.json"
+}

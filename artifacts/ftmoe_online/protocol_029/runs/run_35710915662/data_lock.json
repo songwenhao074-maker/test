@@ -1,0 +1,20 @@
+{
+  "protocol": "027",
+  "locked": true,
+  "source_protocol": "025",
+  "source_data_revision": "data_revision_001",
+  "data_revision": "protocol027_data_revision_002",
+  "data_revision_registration_sha256": "7b85bb8ba4e83e7a1968b4e449126023d58c5eda007fbcaf37d89fcad63685da",
+  "stream_sha256": "fdea84306ac752611e4d0b1b4cd2300d0e0dcbc62ace07ac94096d904b310761",
+  "final_chunk_sha256": "21cd73359a4837b7c2d58456e4c85da63e0023c9088bab5dc87e87dccf529d48",
+  "steps": 5520,
+  "guard_rows": 1,
+  "hosts": 16,
+  "replay_seed": 700,
+  "model_seed": 1,
+  "confirmation_seeds_used": [],
+  "test_seeds_used": [],
+  "scientific_data_changed": true,
+  "equivalence_to_original_complete_stream": "not_established",
+  "common_features_sha256": "d8435428aed7840b99644b9d212ea2b6365e73e4f9b328719b6b8a69943ac34d"
+}
