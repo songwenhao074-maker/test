@@ -1,5 +1,5 @@
 name: Protocol-029 passive memory-utility diagnostic
-# Launch Protocol-029 passive diagnostic 2026-09-22
+# Launch Protocol-029 passive diagnostic 2026-09-22\n# fix isolated diagnostic output directory after deterministic runner-path blocker
 
 on:
   push:
@@ -45,9 +45,18 @@ jobs:
           python -m pip install -r /tmp/requirements-online-ci.txt
           python -m pip install dgl==1.1.3 dill==0.3.8 psutil
 
-      - name: Compile Protocol-029 diagnostic implementation
+      - name: Compile and run targeted Protocol-029 checks
         run: |
-          python -m py_compile             ftmoe_protocol029_memory_utility.py             run_ftmoe_protocol029_diagnostic.py             finalize_ftmoe_protocol029.py             ftmoe_protocol028_memory_protected.py             ftmoe_protocol027_data.py
+          python -m py_compile ftmoe_protocol029_memory_utility.py run_ftmoe_protocol029_diagnostic.py finalize_ftmoe_protocol029.py ftmoe_protocol028_memory_protected.py ftmoe_protocol027_data.py
+          python -m unittest -v \
+            test_ftmoe_protocol029.py \
+            test_ftmoe_protocol028.py \
+            test_ftmoe_protocol027_guard.py \
+            test_ftmoe_protocol027_data.py \
+            test_ftmoe_protocol025_model.py \
+            test_ftmoe_protocol025_session.py \
+            test_ftmoe_protocol024_v2c.py \
+            test_ftmoe_protocol024_dynamic_residual.py
 
       - name: Download exact frozen data from Protocol-027
         uses: actions/download-artifact@v4
@@ -127,7 +136,19 @@ jobs:
 
       - name: Run only the registered Protocol-029 passive diagnostic replay
         run: |
-          python run_ftmoe_protocol029_diagnostic.py             --stream "$STREAM_ROOT"             --out-root "$RUN_DIR"             --method-registration "$METHOD_REG"             --registration "$P029_REG"             --source-028-root "$SOURCE_028_ROOT"             --run-id "$GITHUB_RUN_ID"
+          set +e
+          python run_ftmoe_protocol029_diagnostic.py \
+            --stream "$STREAM_ROOT" \
+            --out-root "$RUN_DIR/diagnostic" \
+            --method-registration "$METHOD_REG" \
+            --registration "$P029_REG" \
+            --source-028-root "$SOURCE_028_ROOT" \
+            --run-id "$GITHUB_RUN_ID"
+          rc=$?
+          cp "$RUN_DIR/diagnostic/"*.json "$RUN_DIR/" 2>/dev/null || true
+          cp "$RUN_DIR/diagnostic/D_memory_protected_with_passive_audit/passive_predictions.npz" "$RUN_DIR/" 2>/dev/null || true
+          cp "$RUN_DIR/diagnostic/D_memory_protected_with_passive_audit/lifecycle.jsonl" "$RUN_DIR/" 2>/dev/null || true
+          exit $rc
 
       - name: Persist status if diagnostic runner stopped early
         if: always()
