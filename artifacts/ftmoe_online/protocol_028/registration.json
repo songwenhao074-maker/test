@@ -1,0 +1,130 @@
+{
+  "protocol": "028",
+  "status": "registered_before_protocol028_model_result",
+  "registered_on": "2026-09-22",
+  "source_directive": "docs/PROTOCOL028_SINGLE_TASK_DIRECTIVE_20260922.md",
+  "source_protocol027_result_commit": "81756266234e7649de76b92a74a22b82c2bbbaee",
+  "single_task": "One seed700/model1 C_fixed5 vs D_memory_protected development pilot on the Protocol027 revision002 frozen stream.",
+  "comparators": [
+    "C_fixed5",
+    "D_memory_protected"
+  ],
+  "seeds": {
+    "replay": 700,
+    "model": 1
+  },
+  "source_data": {
+    "data_revision": "protocol027_data_revision_002",
+    "frozen_run_id": 35682811782,
+    "frozen_artifact_id": 10675401651,
+    "frozen_artifact_name": "protocol027-frozen-data-35682811782",
+    "frozen_artifact_digest": "sha256:111a4c5fc5c508a9e169fdbffe823ee36dc66c037c1775a6aa1abdbaba31c0a1",
+    "expected_stream_sha256": "fdea84306ac752611e4d0b1b4cd2300d0e0dcbc62ace07ac94096d904b310761",
+    "source_registration_snapshot_must_remain_unchanged": true,
+    "simulation_allowed": false
+  },
+  "scientific_change": {
+    "only_change": "skip_birth_at_full_resident_capacity_preserve_accepted_memory",
+    "when": "resident_count >= 8 and a new shadow would otherwise be needed",
+    "behavior": "skip this birth; keep all accepted resident/dormant specialist memory; create no shadow; perform no purge",
+    "decision_inputs": [
+      "current resident count",
+      "current lifecycle state"
+    ],
+    "service_id_used": false,
+    "phase_boundary_used": false,
+    "future_label_used": false,
+    "capacity_increased": false
+  },
+  "unchanged_from_protocol027": [
+    "data",
+    "seed700/model1",
+    "initialization",
+    "online optimizer",
+    "64-step replay",
+    "candidate 128/32 schedule",
+    "reuse every 32 matured",
+    "reuse validation 16",
+    "similarity rule",
+    "1% supervised-loss improvement",
+    "Protocol027 normal guard",
+    "FPR thresholds",
+    "active/crossfade expert limits",
+    "resident limit 8",
+    "nine recurrence first100 windows",
+    "all evaluation metrics"
+  ],
+  "method_source": "artifacts/ftmoe_online/protocol_025/method_registration.json",
+  "normal_guard_source": "artifacts/ftmoe_online/protocol_027/registration.json",
+  "budget_disclosure": {
+    "C_fixed5_active": 5,
+    "D_generalists": 4,
+    "D_max_steady_specialists": 1,
+    "D_crossfade_peak_active": 6,
+    "D_resident_limit_including_shadow": 8,
+    "D_extra_background_training_allowed": true,
+    "equal_total_cost_claim": false
+  },
+  "evaluation": {
+    "primary": "equal-weight mean D_memory_protected-C_fixed5 AP across all nine registered recurrence first100 windows",
+    "recurrence_windows": [
+      "S1_rec1",
+      "S3_rec1",
+      "S2_rec1",
+      "S4_rec1",
+      "S2_rec2",
+      "S6_rec1",
+      "S1_rec2",
+      "S5_rec1",
+      "S3_rec2"
+    ],
+    "late_recurrence_windows": [
+      "S4_rec1",
+      "S2_rec2",
+      "S6_rec1",
+      "S1_rec2",
+      "S5_rec1",
+      "S3_rec2"
+    ],
+    "window_length": 100,
+    "development_reference": {
+      "valid_windows": 9,
+      "mean_delta_min": 0.03,
+      "positive_windows_min": 6,
+      "FPR_delta_max": 0.01
+    },
+    "statistical_confirmation": false,
+    "full_stream_advantage_reported_separately": true
+  },
+  "required_lifecycle_reporting": [
+    "birth_skipped_capacity_preserve_memory events and expert IDs",
+    "late recurrence reuse matching/validation/acceptance/reactivation",
+    "each reuse decision relative loss improvement, normal/FPR/guard values and reasons",
+    "reactivation count",
+    "purge count",
+    "candidate/reuse measured overhead"
+  ],
+  "runtime": {
+    "one_arm_per_process": true,
+    "sequential_arms": true,
+    "parent_does_not_retain_models": true,
+    "same_frozen_data_required": true
+  },
+  "execution": {
+    "maximum_full_comparator_runs": 2,
+    "automatic_followups": [],
+    "scientific_parameter_search": false,
+    "extra_arms_forbidden": [
+      "D_dynamic",
+      "A",
+      "B",
+      "C_fixed4",
+      "C_fixed8_dense",
+      "C_fixed8_top5",
+      "D_no_reuse",
+      "D_no_purge"
+    ],
+    "deterministic_engineering_fix_or_same_config_resume_allowed": true,
+    "stop_after": "Publish both-arm Protocol028 results or a documented blocker and stop."
+  }
+}
