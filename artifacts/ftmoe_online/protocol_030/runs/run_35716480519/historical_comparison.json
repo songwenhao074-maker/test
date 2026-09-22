@@ -1,0 +1,78 @@
+{
+  "audit_off": {
+    "historical_028_match": false,
+    "detection_probability": {
+      "max_abs_error": 8.642673492431641e-7,
+      "max_error_index": [
+        5076,
+        11
+      ],
+      "exact_equal_fraction": 0.3657155797101449
+    },
+    "class_probability": {
+      "max_abs_error": 0.000001430511474609375,
+      "max_error_index": [
+        3337,
+        2,
+        1
+      ],
+      "exact_equal_fraction": 0.21313405797101448
+    },
+    "labels_exact": true,
+    "raw_labels_exact": true,
+    "recurrence_ap_abs_differences": {
+      "S1_rec1": 0,
+      "S3_rec1": 0,
+      "S2_rec1": 0,
+      "S4_rec1": 0,
+      "S2_rec2": 0,
+      "S6_rec1": 0,
+      "S1_rec2": 0,
+      "S5_rec1": 0,
+      "S3_rec2": 0
+    },
+    "mean_recurrence_ap_abs_difference": 0,
+    "full_ap_abs_difference": 9.551872326429844e-8,
+    "discrete_lifecycle_events_exact": true,
+    "final_topology_exact": true,
+    "note": "Historical Protocol-028 used the registered three-thread profile; Protocol-030 uses the preregistered single-thread deterministic profile."
+  },
+  "audit_on": {
+    "historical_028_match": false,
+    "detection_probability": {
+      "max_abs_error": 8.642673492431641e-7,
+      "max_error_index": [
+        5076,
+        11
+      ],
+      "exact_equal_fraction": 0.3657155797101449
+    },
+    "class_probability": {
+      "max_abs_error": 0.000001430511474609375,
+      "max_error_index": [
+        3337,
+        2,
+        1
+      ],
+      "exact_equal_fraction": 0.21313405797101448
+    },
+    "labels_exact": true,
+    "raw_labels_exact": true,
+    "recurrence_ap_abs_differences": {
+      "S1_rec1": 0,
+      "S3_rec1": 0,
+      "S2_rec1": 0,
+      "S4_rec1": 0,
+      "S2_rec2": 0,
+      "S6_rec1": 0,
+      "S1_rec2": 0,
+      "S5_rec1": 0,
+      "S3_rec2": 0
+    },
+    "mean_recurrence_ap_abs_difference": 0,
+    "full_ap_abs_difference": 9.551872326429844e-8,
+    "discrete_lifecycle_events_exact": true,
+    "final_topology_exact": true,
+    "note": "Historical Protocol-028 used the registered three-thread profile; Protocol-030 uses the preregistered single-thread deterministic profile."
+  }
+}
