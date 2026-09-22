@@ -1,5 +1,6 @@
 name: Protocol-028 memory-protected D/C pilot
 # Maintenance definition; explicit launch comment will be added separately.
+# Launch registered Protocol-028 memory-protected D/C pilot 2026-09-22
 
 on:
   push:
