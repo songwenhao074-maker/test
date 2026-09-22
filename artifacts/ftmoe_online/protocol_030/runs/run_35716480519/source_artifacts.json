@@ -1,0 +1,49 @@
+{
+  "verified": true,
+  "artifacts": [
+    {
+      "artifact_id": 10675401651,
+      "run_id": 35682811782,
+      "name": "protocol027-frozen-data-35682811782",
+      "digest": "sha256:111a4c5fc5c508a9e169fdbffe823ee36dc66c037c1775a6aa1abdbaba31c0a1",
+      "verified_from_github_api": true,
+      "checks": {
+        "artifact_id": true,
+        "name": true,
+        "digest": true,
+        "run_id": true,
+        "not_expired": true
+      }
+    },
+    {
+      "artifact_id": 10684617851,
+      "run_id": 35705211072,
+      "name": "protocol028-single-pilot-35705211072",
+      "digest": "sha256:e3be1c97d0f629c9ed40f61cfd4561b6b04e37b68357a2c92a23ac8f14e2e27e",
+      "verified_from_github_api": true,
+      "checks": {
+        "artifact_id": true,
+        "name": true,
+        "digest": true,
+        "run_id": true,
+        "not_expired": true
+      }
+    },
+    {
+      "artifact_id": 10688265540,
+      "run_id": 35711135230,
+      "name": "protocol029-memory-utility-35711135230",
+      "digest": "sha256:56c5cbe760cea17abeb62b9bbb3d30116ecef338f2fcaa9afda3fe0eaf80bb16",
+      "verified_from_github_api": true,
+      "checks": {
+        "artifact_id": true,
+        "name": true,
+        "digest": true,
+        "run_id": true,
+        "not_expired": true
+      }
+    }
+  ],
+  "protocol028_required_files_present": true,
+  "protocol029_required_files_present": true
+}

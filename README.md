@@ -1,17 +1,13 @@
 # PreGAN+ / FT-MoE 在线实验
 
-目标：在合理业务更替与复现场景中检验动态残差专家D相对固定残差专家C的预测优势，保留负结果与证据边界。
+目标：在业务更替与复现场景中检验动态残差专家D，同时严格保留负结果和诊断有效性边界。
 
-**当前唯一下一步：[Protocol-030同机成对验证旁路无干扰](docs/PROTOCOL030_SINGLE_TASK_DIRECTIVE_20260922.md)，尚未实现/运行。**
+**当前状态：Protocol-030同机成对旁路无干扰验证已结束；暂无登记的下一实验。**
 
-## 当前结论
+## 最新结果
 
-[029结果](docs/PROTOCOL029_RESULTS.md)已交付，但一致性门禁失败。检测/分类概率差分别为1.19209e-6/2.08616e-6，均超过1e-6；生命周期一致，原因未确定。[完整分析](docs/PROTOCOL029_ANALYSIS_20260922.md)。
+030已执行但同机配对无干扰门禁未通过；blocker=execution_stopped_before_protocol030_status。因此旁路记忆效用诊断仍不能升级为有效科学结论。 详见[Protocol-030 Results](docs/PROTOCOL030_RESULTS.md)。
 
-五个潜在验收通过机会全部位于S6首次出现阶段，同时被busy与相似度条件阻挡；不是已成功复用，更不是回归D>C证据。有效D/C结果仍以[028](docs/PROTOCOL028_RESULTS.md)为准：全程AP C/D=0.719730/0.711047，九窗均值0.769551/0.766681，D正差3/9，墙钟约为C的10.35倍。C为固定残差专家，不是全量微调。
+030只运行两次原Protocol-028 D（audit_off/audit_on），固定单线程确定性CPU配置；未重跑C/A/B，未改数据、阈值、seed或线上策略。
 
-## 下一模型从这里继续
-
-读[当前交接](docs/GITHUB_EXPERIMENT_HANDOFF.md)和[030计划](artifacts/ftmoe_online/protocol_030/plan.json)。仅做同机audit_off/audit_on两个原D回放，不改科学策略，不跑C/A/B，不改旧失败判定；配对检查与历史匹配分开报告，交付后停止。
-
-保留冻结数据、checkpoint、recovery及代码依赖，输出按run_id隔离，大产物保存Actions artifact链接与哈希。[历史索引](docs/HISTORICAL_EXPERIMENTS.md) / [上游许可证](LICENSE)。
+历史有效D/C结论仍见[Protocol-028 Results](docs/PROTOCOL028_RESULTS.md)；029无效诊断和030结果均保留。当前等待新的明确实验指示。

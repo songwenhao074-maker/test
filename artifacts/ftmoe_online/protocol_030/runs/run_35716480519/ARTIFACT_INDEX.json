@@ -1,0 +1,37 @@
+{
+  "protocol": "030",
+  "github_run_id": 35716480519,
+  "workflow_url": "https://github.com/songwenhao074-maker/test/actions/runs/35716480519",
+  "artifact_id": "10690558198",
+  "artifact_url": "https://github.com/songwenhao074-maker/test/actions/runs/35716480519/artifacts/10690558198",
+  "artifact_digest": "16c0731df2712ac5cfc5554da0d2cd3f5cf83ce74bb2ae1230c94f19fc2502af",
+  "artifact_name": "protocol030-paired-diagnostic-35716480519",
+  "retention_days": 90,
+  "files_committed_to_git": {
+    "data_lock.json": {
+      "sha256": "bd3a831d925dcc9192b0fb820415b710acc5f323d344c5f7606ab4d46f1d62bb",
+      "bytes": 800
+    },
+    "eligibility.json": {
+      "sha256": "b4f3fbf4ae4f630abaf2452bdff408dc9085e4cfac0c7762f274481f367e18b6",
+      "bytes": 2807
+    },
+    "environment.json": {
+      "sha256": "24529e5af2f449ace06b22a339421327098ce4d0d119ba9425c4a630836b77ff",
+      "bytes": 9160
+    },
+    "source_artifacts.json": {
+      "sha256": "5b9841301fc153c7f429f5f349f83e471ff7be1412eead6adb48a0ab8d0c062d",
+      "bytes": 1379
+    },
+    "status.json": {
+      "sha256": "09072ba623720c098ee6398bdb2950c771b5bff4d7785a004e9014fa2e86c701",
+      "bytes": 251
+    },
+    "workflow_execution.json": {
+      "sha256": "8c182dcc43135bcb0b7c35aa083a5e93483db5d60ef3510bc1a56d114e59aa7a",
+      "bytes": 346
+    }
+  },
+  "raw_evidence": "Actions artifact contains both full predictions, lifecycle logs, state traces and audit_on passive predictions."
+}

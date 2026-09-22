@@ -1,0 +1,15 @@
+{
+  "protocol": "030",
+  "github_run_id": "35716480519",
+  "head_sha": "75bfc76ba9334724d1801d29b08db0d8e1b87b0e",
+  "branch": "protocol-030-paired-diagnostic-20260922",
+  "event": "push",
+  "full_replay_budget": 2,
+  "executions": [
+    "audit_off",
+    "audit_on"
+  ],
+  "C_rerun": false,
+  "new_scientific_methods": 0,
+  "simulation": false
+}
