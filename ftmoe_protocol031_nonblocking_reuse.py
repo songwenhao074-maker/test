@@ -90,14 +90,17 @@ class Protocol031NonblockingReuseLifecycle(Protocol028MemoryProtectedLifecycle):
             if k!="p031_config": setattr(self,k,deepcopy(v))
 
     def _pending_topology_valid(self,session):
-        if self.pending_reuse is None: return True
+        if self.pending_reuse is None:
+            return True
         slot=self.pending_reuse
         bank=session.model.learner
         key=str(slot["expert_id"])
+        active=None if self.active_specialist_id is None else str(self.active_specialist_id)
         return (
             self.transition is None
-            and str(self.active_specialist_id) if self.active_specialist_id is not None else None
-        ) == slot["active_specialist_id"] and key in bank.dormant_experts
+            and active==slot["active_specialist_id"]
+            and key in bank.dormant_experts
+        )
 
     def _cancel_pending(self,session,reason):
         slot=self.pending_reuse
@@ -240,11 +243,21 @@ class Protocol031NonblockingReuseLifecycle(Protocol028MemoryProtectedLifecycle):
         self.birth_cancelled_ids.append(cid)
         self.candidate_id=None; self.candidate_parent_id=None
         self.candidate_training_indices=[]; self.candidate_validation_indices=[]
+        consumed={
+            "training_indices_count":len((rec or {}).get("training_indices",[])),
+            "validation_pairs_count":len(self.validation_pairs),
+            "training_elapsed_distinct":int(self.training_elapsed_distinct),
+            "shadow_train_steps_total_at_cancel":int(self.extra_compute.get("shadow_train_steps",0)),
+        }
         self.training_buffer=[]; self.training_targets={}; self.training_elapsed_distinct=0
         self.prelabel_candidate={}; self.validation_pairs=[]
+        self.shadow_parameter_start_norm=None
         self.phase="monitoring"
+        if rec is not None:
+            rec["cancelled_budget"]=deepcopy(consumed)
         self._event(session,"candidate_cancelled_by_reuse",
-                    candidate_id=cid,reason="accepted_reuse_has_same_point_priority")
+                    candidate_id=cid,reason="accepted_reuse_has_same_point_priority",
+                    consumed_budget=consumed)
         return cid
 
     def _decide_pending_reuse(self,session):
@@ -338,6 +351,12 @@ class Protocol031NonblockingReuseLifecycle(Protocol028MemoryProtectedLifecycle):
         # Parent handles z history, birth candidate preview, ramps and transition completion.
         super().on_pre_label_prediction(session,index,output)
         slot=self.pending_reuse
+        if self.transition is not None and self.transition.get("kind")=="reactivation" and self.first_reuse_influence_cursor is None:
+            self.first_reuse_influence_cursor=int(index)
+            self._event(session,"reuse_first_influence_prediction",
+                        expert_id=str(self.transition["new_id"]),
+                        prediction_index=int(index),
+                        accepted_reuse=True)
         if slot is None: return
         if self.transition is not None:
             self._cancel_pending(session,"crossfade_started_or_active")
