@@ -5,7 +5,7 @@
   "data_revision": "protocol031_data_revision_001",
   "status": "registered_before_generation",
   "registered_before_generation": true,
-  "source_code_commit": "f811b884e4e7014d04cc91ee79b851e867dc1f14",
+  "source_code_commit": "286536c774bd8fd0ae2257f40ee8e288a1826c28",
   "purpose": "Rare short recurring services after long dominant-service interference, under short training replay and sparse online updates",
   "replay_seed": 700,
   "model_seed": 1,
@@ -266,5 +266,7 @@
     "no_global_D_optimality_claim": true,
     "no_hard_delete_benefit_claim": true,
     "comparison_scope": "D versus C_fixed5 only on this registered deployment scenario; no A/B inference"
-  }
+  },
+  "implementation_branch": "protocol-031-rare-recurrence-20260922",
+  "implementation_registered_before_generation": true
 }
