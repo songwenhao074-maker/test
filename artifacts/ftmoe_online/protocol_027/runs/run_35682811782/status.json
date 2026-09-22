@@ -1,0 +1,40 @@
+{
+  "protocol": "027",
+  "data_revision": "protocol027_data_revision_002",
+  "frozen_data_archived": true,
+  "frozen_data_archive": {
+    "data_revision": "protocol027_data_revision_002",
+    "complete_snapshot_uploaded": true,
+    "github_run_id": "35682811782",
+    "artifact_id": "10675401651",
+    "artifact_url": "https://github.com/songwenhao074-maker/test/actions/runs/35682811782/artifacts/10675401651",
+    "artifact_digest": "111a4c5fc5c508a9e169fdbffe823ee36dc66c037c1775a6aa1abdbaba31c0a1",
+    "artifact_name": "protocol027-frozen-data-35682811782",
+    "frozen_manifest_sha256": "37d61f67b20d267e4928d1fd81f410b8538095deea55b70a94ef17c7b36ea2ff",
+    "restored_from_run": null,
+    "retention_days": 90
+  },
+  "run_id": "35682811782",
+  "completed": true,
+  "data_restored": true,
+  "eligibility_verified": true,
+  "normal_guard_valid": true,
+  "completed_comparators": [
+    "C_fixed5",
+    "D_dynamic"
+  ],
+  "failed_comparators": [],
+  "failure_details": {},
+  "development_signal": false,
+  "confirmation_run": false,
+  "test_run": false,
+  "confirmation_seeds_used": [],
+  "test_seeds_used": [],
+  "automatic_followups_started": [],
+  "blocker": null,
+  "primary_mean_D_minus_C_fixed5_ap": -0.00279998964864609,
+  "positive_recurrence_windows": 3,
+  "full_stream_D_minus_C_fixed5_ap": -0.00867628351922467,
+  "D_reactivations": 0,
+  "D_purges": 1
+}

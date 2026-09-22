@@ -1,0 +1,12 @@
+{
+  "data_revision": "protocol027_data_revision_002",
+  "complete_snapshot_uploaded": true,
+  "github_run_id": "35682811782",
+  "artifact_id": "10675401651",
+  "artifact_url": "https://github.com/songwenhao074-maker/test/actions/runs/35682811782/artifacts/10675401651",
+  "artifact_digest": "111a4c5fc5c508a9e169fdbffe823ee36dc66c037c1775a6aa1abdbaba31c0a1",
+  "artifact_name": "protocol027-frozen-data-35682811782",
+  "frozen_manifest_sha256": "37d61f67b20d267e4928d1fd81f410b8538095deea55b70a94ef17c7b36ea2ff",
+  "restored_from_run": null,
+  "retention_days": 90
+}

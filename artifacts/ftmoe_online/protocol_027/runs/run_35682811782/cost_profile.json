@@ -1,0 +1,34 @@
+{
+  "C_fixed5": {
+    "wall_seconds": 47.37505757499997,
+    "cpu_seconds": 94.737892524,
+    "max_rss_bytes": 402071552,
+    "p95_inference_seconds": 0.0028576164000043034,
+    "online_update_opportunities_completed": 1380,
+    "online_sample_draws": 44032,
+    "final_resident_parameter_bytes": 55060,
+    "peak_resident_parameter_bytes": 55060,
+    "final_optimizer_state_bytes": 110248,
+    "peak_optimizer_state_bytes": 110248,
+    "peak_live_expert_count": 5,
+    "diagnostic_and_file_io_included_in_wall_and_cpu": false
+  },
+  "D_dynamic": {
+    "wall_seconds": 478.421680174,
+    "cpu_seconds": 632.059019785,
+    "max_rss_bytes": 406253568,
+    "p95_inference_seconds": 0.004427469899951575,
+    "online_update_opportunities_completed": 1380,
+    "online_sample_draws": 44032,
+    "final_resident_parameter_bytes": 88096,
+    "peak_resident_parameter_bytes": 88096,
+    "final_optimizer_state_bytes": 198504,
+    "peak_optimizer_state_bytes": 198504,
+    "peak_live_expert_count": 6,
+    "diagnostic_and_file_io_included_in_wall_and_cpu": false,
+    "shadow_training_steps": 1924,
+    "reuse_validation_forwards": 90,
+    "guard_forwards": 38,
+    "reuse_guard_forwards": 10
+  }
+}

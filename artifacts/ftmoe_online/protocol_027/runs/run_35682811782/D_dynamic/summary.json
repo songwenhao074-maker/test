@@ -1,0 +1,1226 @@
+{
+  "protocol": "027",
+  "comparator": "D_dynamic",
+  "run_id": "35682811782",
+  "completed": true,
+  "development_only": true,
+  "confirmation_run": false,
+  "test_run": false,
+  "stream_sha256": "fdea84306ac752611e4d0b1b4cd2300d0e0dcbc62ace07ac94096d904b310761",
+  "data_revision": "protocol027_data_revision_002",
+  "manifest": {
+    "name": "D_dynamic",
+    "generalists": 4,
+    "max_live_specialists": 1,
+    "resident_limit": 8,
+    "residual_input_dim": 73,
+    "lifecycle": "Protocol024-v2c replacement-consistent"
+  },
+  "full": {
+    "detection": {
+      "ap": 0.711053736756906,
+      "reason": null,
+      "rows": 88320,
+      "positives": 11284,
+      "negatives": 77036,
+      "prevalence": 0.1277626811594203,
+      "threshold": 0.5,
+      "tp": 7269,
+      "fp": 3619,
+      "fn": 4015,
+      "tn": 73417,
+      "recall": 0.6441864587025877,
+      "fpr": 0.046978036242795576
+    },
+    "resource": {
+      "macro_f1": 0.8931926419330917,
+      "reason": null,
+      "rows": 11284,
+      "per_class": [
+        {
+          "class": 1,
+          "precision": 0.9795018162947587,
+          "recall": 0.9635017866258295,
+          "f1": 0.9714359238291302,
+          "support": 7836
+        },
+        {
+          "class": 2,
+          "precision": 0.6846361185983828,
+          "recall": 0.8668941979522184,
+          "f1": 0.7650602409638554,
+          "support": 293
+        },
+        {
+          "class": 3,
+          "precision": 0.9357254290171607,
+          "recall": 0.9505546751188589,
+          "f1": 0.9430817610062894,
+          "support": 3155
+        }
+      ]
+    }
+  },
+  "phases": [
+    {
+      "phase": "F0",
+      "service": null,
+      "intervals": [
+        0,
+        300
+      ],
+      "positive_rows": 1,
+      "negative_rows": 4799,
+      "detection": {
+        "ap": 0.07142857142857142,
+        "reason": null,
+        "rows": 4800,
+        "positives": 1,
+        "negatives": 4799,
+        "prevalence": 0.00020833333333333335,
+        "threshold": 0.5,
+        "tp": 1,
+        "fp": 42,
+        "fn": 0,
+        "tn": 4757,
+        "recall": 1.0,
+        "fpr": 0.008751823296520108
+      },
+      "resource": {
+        "macro_f1": 0.0,
+        "reason": null,
+        "rows": 1,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 1
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S1_first",
+      "service": "S1",
+      "intervals": [
+        300,
+        900
+      ],
+      "positive_rows": 2768,
+      "negative_rows": 6832,
+      "detection": {
+        "ap": 0.6657820838141661,
+        "reason": null,
+        "rows": 9600,
+        "positives": 2768,
+        "negatives": 6832,
+        "prevalence": 0.28833333333333333,
+        "threshold": 0.5,
+        "tp": 924,
+        "fp": 378,
+        "fn": 1844,
+        "tn": 6454,
+        "recall": 0.3338150289017341,
+        "fpr": 0.055327868852459015
+      },
+      "resource": {
+        "macro_f1": 0.32912627278824463,
+        "reason": null,
+        "rows": 2768,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 1.0,
+            "recall": 0.9750722543352601,
+            "f1": 0.9873788183647338,
+            "support": 2768
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S2_first",
+      "service": "S2",
+      "intervals": [
+        900,
+        1500
+      ],
+      "positive_rows": 493,
+      "negative_rows": 9107,
+      "detection": {
+        "ap": 0.46790627291985953,
+        "reason": null,
+        "rows": 9600,
+        "positives": 493,
+        "negatives": 9107,
+        "prevalence": 0.051354166666666666,
+        "threshold": 0.5,
+        "tp": 275,
+        "fp": 434,
+        "fn": 218,
+        "tn": 8673,
+        "recall": 0.5578093306288032,
+        "fpr": 0.04765564950038432
+      },
+      "resource": {
+        "macro_f1": 0.616270337922403,
+        "reason": null,
+        "rows": 493,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.9706744868035191,
+            "recall": 0.9093406593406593,
+            "f1": 0.9390070921985816,
+            "support": 364
+          },
+          {
+            "class": 2,
+            "precision": 0.9206349206349206,
+            "recall": 0.8992248062015504,
+            "f1": 0.9098039215686274,
+            "support": 129
+          },
+          {
+            "class": 3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S3_first",
+      "service": "S3",
+      "intervals": [
+        1500,
+        2100
+      ],
+      "positive_rows": 584,
+      "negative_rows": 9016,
+      "detection": {
+        "ap": 0.8123877030035357,
+        "reason": null,
+        "rows": 9600,
+        "positives": 584,
+        "negatives": 9016,
+        "prevalence": 0.060833333333333336,
+        "threshold": 0.5,
+        "tp": 545,
+        "fp": 347,
+        "fn": 39,
+        "tn": 8669,
+        "recall": 0.9332191780821918,
+        "fpr": 0.03848713398402839
+      },
+      "resource": {
+        "macro_f1": 0.409435115939984,
+        "reason": null,
+        "rows": 584,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.15151515151515152,
+            "recall": 1.0,
+            "f1": 0.2631578947368421,
+            "support": 5
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 1.0,
+            "recall": 0.9326424870466321,
+            "f1": 0.9651474530831099,
+            "support": 579
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S1_rec1",
+      "service": "S1",
+      "intervals": [
+        2100,
+        2280
+      ],
+      "positive_rows": 781,
+      "negative_rows": 2099,
+      "detection": {
+        "ap": 0.7143572694189625,
+        "reason": null,
+        "rows": 2880,
+        "positives": 781,
+        "negatives": 2099,
+        "prevalence": 0.27118055555555554,
+        "threshold": 0.5,
+        "tp": 304,
+        "fp": 96,
+        "fn": 477,
+        "tn": 2003,
+        "recall": 0.3892445582586428,
+        "fpr": 0.045736064792758456
+      },
+      "resource": {
+        "macro_f1": 0.6497514830848163,
+        "reason": null,
+        "rows": 781,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 1.0,
+            "recall": 0.9894736842105263,
+            "f1": 0.9947089947089947,
+            "support": 760
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 0.9130434782608695,
+            "recall": 1.0,
+            "f1": 0.9545454545454545,
+            "support": 21
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S3_rec1",
+      "service": "S3",
+      "intervals": [
+        2280,
+        2460
+      ],
+      "positive_rows": 437,
+      "negative_rows": 2443,
+      "detection": {
+        "ap": 0.789548848656555,
+        "reason": null,
+        "rows": 2880,
+        "positives": 437,
+        "negatives": 2443,
+        "prevalence": 0.1517361111111111,
+        "threshold": 0.5,
+        "tp": 335,
+        "fp": 154,
+        "fn": 102,
+        "tn": 2289,
+        "recall": 0.7665903890160183,
+        "fpr": 0.06303724928366762
+      },
+      "resource": {
+        "macro_f1": 0.6506271978166168,
+        "reason": null,
+        "rows": 437,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.9553571428571429,
+            "recall": 1.0,
+            "f1": 0.9771689497716896,
+            "support": 214
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 1.0,
+            "recall": 0.9506726457399103,
+            "f1": 0.9747126436781608,
+            "support": 223
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S2_rec1",
+      "service": "S2",
+      "intervals": [
+        2460,
+        2640
+      ],
+      "positive_rows": 24,
+      "negative_rows": 2856,
+      "detection": {
+        "ap": 0.45431685070947164,
+        "reason": null,
+        "rows": 2880,
+        "positives": 24,
+        "negatives": 2856,
+        "prevalence": 0.008333333333333333,
+        "threshold": 0.5,
+        "tp": 21,
+        "fp": 47,
+        "fn": 3,
+        "tn": 2809,
+        "recall": 0.875,
+        "fpr": 0.016456582633053222
+      },
+      "resource": {
+        "macro_f1": 0.9393939393939394,
+        "reason": null,
+        "rows": 24,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.8333333333333334,
+            "recall": 1.0,
+            "f1": 0.9090909090909091,
+            "support": 10
+          },
+          {
+            "class": 2,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 2
+          },
+          {
+            "class": 3,
+            "precision": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "support": 12
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S4_first",
+      "service": "S4",
+      "intervals": [
+        2640,
+        3240
+      ],
+      "positive_rows": 1683,
+      "negative_rows": 7917,
+      "detection": {
+        "ap": 0.7796971319549345,
+        "reason": null,
+        "rows": 9600,
+        "positives": 1683,
+        "negatives": 7917,
+        "prevalence": 0.1753125,
+        "threshold": 0.5,
+        "tp": 1116,
+        "fp": 398,
+        "fn": 567,
+        "tn": 7519,
+        "recall": 0.6631016042780749,
+        "fpr": 0.05027156751294682
+      },
+      "resource": {
+        "macro_f1": 0.32932451393064743,
+        "reason": null,
+        "rows": 1683,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 1.0,
+            "recall": 0.976232917409388,
+            "f1": 0.9879735417919423,
+            "support": 1683
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S5_first",
+      "service": "S5",
+      "intervals": [
+        3240,
+        3840
+      ],
+      "positive_rows": 266,
+      "negative_rows": 9334,
+      "detection": {
+        "ap": 0.5258289431391384,
+        "reason": null,
+        "rows": 9600,
+        "positives": 266,
+        "negatives": 9334,
+        "prevalence": 0.027708333333333335,
+        "threshold": 0.5,
+        "tp": 220,
+        "fp": 363,
+        "fn": 46,
+        "tn": 8971,
+        "recall": 0.8270676691729323,
+        "fpr": 0.03889007928005143
+      },
+      "resource": {
+        "macro_f1": 0.654715381593367,
+        "reason": null,
+        "rows": 266,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.9941176470588236,
+            "recall": 0.976878612716763,
+            "f1": 0.9854227405247814,
+            "support": 173
+          },
+          {
+            "class": 2,
+            "precision": 0.968421052631579,
+            "recall": 0.989247311827957,
+            "f1": 0.9787234042553192,
+            "support": 93
+          },
+          {
+            "class": 3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S6_first",
+      "service": "S6",
+      "intervals": [
+        3840,
+        4440
+      ],
+      "positive_rows": 1656,
+      "negative_rows": 7944,
+      "detection": {
+        "ap": 0.8559389398481402,
+        "reason": null,
+        "rows": 9600,
+        "positives": 1656,
+        "negatives": 7944,
+        "prevalence": 0.1725,
+        "threshold": 0.5,
+        "tp": 1569,
+        "fp": 581,
+        "fn": 87,
+        "tn": 7363,
+        "recall": 0.947463768115942,
+        "fpr": 0.07313695871097683
+      },
+      "resource": {
+        "macro_f1": 0.4184281494380259,
+        "reason": null,
+        "rows": 1656,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.3050847457627119,
+            "recall": 0.3130434782608696,
+            "f1": 0.3090128755364807,
+            "support": 115
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 0.949673202614379,
+            "recall": 0.9428942245295263,
+            "f1": 0.946271572777597,
+            "support": 1541
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S4_rec1",
+      "service": "S4",
+      "intervals": [
+        4440,
+        4620
+      ],
+      "positive_rows": 595,
+      "negative_rows": 2285,
+      "detection": {
+        "ap": 0.7328850842137604,
+        "reason": null,
+        "rows": 2880,
+        "positives": 595,
+        "negatives": 2285,
+        "prevalence": 0.2065972222222222,
+        "threshold": 0.5,
+        "tp": 329,
+        "fp": 130,
+        "fn": 266,
+        "tn": 2155,
+        "recall": 0.5529411764705883,
+        "fpr": 0.05689277899343545
+      },
+      "resource": {
+        "macro_f1": 0.6473492488785862,
+        "reason": null,
+        "rows": 595,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 1.0,
+            "recall": 0.9858906525573192,
+            "f1": 0.9928952042628775,
+            "support": 567
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 0.9032258064516129,
+            "recall": 1.0,
+            "f1": 0.9491525423728813,
+            "support": 28
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S2_rec2",
+      "service": "S2",
+      "intervals": [
+        4620,
+        4800
+      ],
+      "positive_rows": 141,
+      "negative_rows": 2739,
+      "detection": {
+        "ap": 0.6763940035456194,
+        "reason": null,
+        "rows": 2880,
+        "positives": 141,
+        "negatives": 2739,
+        "prevalence": 0.04895833333333333,
+        "threshold": 0.5,
+        "tp": 93,
+        "fp": 86,
+        "fn": 48,
+        "tn": 2653,
+        "recall": 0.6595744680851063,
+        "fpr": 0.03139832055494706
+      },
+      "resource": {
+        "macro_f1": 0.6642335766423358,
+        "reason": null,
+        "rows": 141,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 1.0,
+            "recall": 0.9855072463768116,
+            "f1": 0.9927007299270074,
+            "support": 138
+          },
+          {
+            "class": 2,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 3
+          },
+          {
+            "class": 3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S6_rec1",
+      "service": "S6",
+      "intervals": [
+        4800,
+        4980
+      ],
+      "positive_rows": 575,
+      "negative_rows": 2305,
+      "detection": {
+        "ap": 0.8700386017695576,
+        "reason": null,
+        "rows": 2880,
+        "positives": 575,
+        "negatives": 2305,
+        "prevalence": 0.1996527777777778,
+        "threshold": 0.5,
+        "tp": 569,
+        "fp": 190,
+        "fn": 6,
+        "tn": 2115,
+        "recall": 0.9895652173913043,
+        "fpr": 0.0824295010845987
+      },
+      "resource": {
+        "macro_f1": 0.6319842758867149,
+        "reason": null,
+        "rows": 575,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.52,
+            "recall": 0.28888888888888886,
+            "f1": 0.3714285714285714,
+            "support": 45
+          },
+          {
+            "class": 2,
+            "precision": 1.0,
+            "recall": 0.4,
+            "f1": 0.5714285714285715,
+            "support": 10
+          },
+          {
+            "class": 3,
+            "precision": 0.9304029304029304,
+            "recall": 0.9769230769230769,
+            "f1": 0.953095684803002,
+            "support": 520
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S1_rec2",
+      "service": "S1",
+      "intervals": [
+        4980,
+        5160
+      ],
+      "positive_rows": 826,
+      "negative_rows": 2054,
+      "detection": {
+        "ap": 0.8225796781051395,
+        "reason": null,
+        "rows": 2880,
+        "positives": 826,
+        "negatives": 2054,
+        "prevalence": 0.28680555555555554,
+        "threshold": 0.5,
+        "tp": 573,
+        "fp": 147,
+        "fn": 253,
+        "tn": 1907,
+        "recall": 0.6937046004842615,
+        "fpr": 0.07156767283349562
+      },
+      "resource": {
+        "macro_f1": 0.6563464846212194,
+        "reason": null,
+        "rows": 826,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 1.0,
+            "recall": 0.9869451697127938,
+            "f1": 0.9934296977660972,
+            "support": 766
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 0.9523809523809523,
+            "recall": 1.0,
+            "f1": 0.975609756097561,
+            "support": 60
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S5_rec1",
+      "service": "S5",
+      "intervals": [
+        5160,
+        5340
+      ],
+      "positive_rows": 278,
+      "negative_rows": 2602,
+      "detection": {
+        "ap": 0.6866785496148622,
+        "reason": null,
+        "rows": 2880,
+        "positives": 278,
+        "negatives": 2602,
+        "prevalence": 0.09652777777777778,
+        "threshold": 0.5,
+        "tp": 224,
+        "fp": 122,
+        "fn": 54,
+        "tn": 2480,
+        "recall": 0.8057553956834532,
+        "fpr": 0.04688700999231361
+      },
+      "resource": {
+        "macro_f1": 0.5838819641416638,
+        "reason": null,
+        "rows": 278,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.961864406779661,
+            "recall": 1.0,
+            "f1": 0.980561555075594,
+            "support": 227
+          },
+          {
+            "class": 2,
+            "precision": 1.0,
+            "recall": 0.6274509803921569,
+            "f1": 0.7710843373493976,
+            "support": 51
+          },
+          {
+            "class": 3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S3_rec2",
+      "service": "S3",
+      "intervals": [
+        5340,
+        5520
+      ],
+      "positive_rows": 176,
+      "negative_rows": 2704,
+      "detection": {
+        "ap": 0.8088583367481567,
+        "reason": null,
+        "rows": 2880,
+        "positives": 176,
+        "negatives": 2704,
+        "prevalence": 0.06111111111111111,
+        "threshold": 0.5,
+        "tp": 171,
+        "fp": 104,
+        "fn": 5,
+        "tn": 2600,
+        "recall": 0.9715909090909091,
+        "fpr": 0.038461538461538464
+      },
+      "resource": {
+        "macro_f1": 0.6627218934911242,
+        "reason": null,
+        "rows": 176,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 2,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 5
+          },
+          {
+            "class": 3,
+            "precision": 1.0,
+            "recall": 0.9766081871345029,
+            "f1": 0.9881656804733728,
+            "support": 171
+          }
+        ]
+      }
+    }
+  ],
+  "cost": {
+    "wall_seconds": 478.421680174,
+    "cpu_seconds": 632.059019785,
+    "max_rss_bytes": 406253568,
+    "p95_inference_seconds": 0.004427469899951575,
+    "online_update_opportunities_completed": 1380,
+    "online_sample_draws": 44032,
+    "final_resident_parameter_bytes": 88096,
+    "peak_resident_parameter_bytes": 88096,
+    "final_optimizer_state_bytes": 198504,
+    "peak_optimizer_state_bytes": 198504,
+    "peak_live_expert_count": 6,
+    "diagnostic_and_file_io_included_in_wall_and_cpu": false,
+    "shadow_training_steps": 1924,
+    "reuse_validation_forwards": 90,
+    "guard_forwards": 38,
+    "reuse_guard_forwards": 10
+  },
+  "lifecycle": {
+    "candidate_created": 20,
+    "candidate_accepted": 4,
+    "candidate_rejected": 15,
+    "candidate_pending": 1,
+    "candidate_conservation": true,
+    "stream_end_censored_ids": [
+      "23"
+    ],
+    "births": 4,
+    "retirements": 3,
+    "reactivations": 0,
+    "purges": 1,
+    "purged_bytes": 11596,
+    "event_counts": {
+      "diagnostic_window": 686,
+      "v1_p99_diagnostic_only": 1,
+      "candidate_created": 20,
+      "candidate_training_budget_registered": 20,
+      "reuse_due_skipped_busy": 101,
+      "candidate_training_complete": 19,
+      "candidate_rejected": 15,
+      "cooldown_complete": 15,
+      "reuse_skipped_no_memory": 32,
+      "candidate_accepted": 4,
+      "specialist_memory_frozen": 4,
+      "specialist_crossfade_started": 4,
+      "specialist_crossfade_step": 32,
+      "candidate_first_influence_prediction": 4,
+      "candidate_full_ramp_prediction": 4,
+      "specialist_crossfade_completed": 4,
+      "specialist_retired": 3,
+      "reuse_skipped_no_match": 16,
+      "reuse_candidate_selected": 5,
+      "reuse_candidate_rejected": 5,
+      "specialist_purged": 1
+    },
+    "event_counts_by_phase": {
+      "F0": {
+        "diagnostic_window": 34
+      },
+      "S1_first": {
+        "diagnostic_window": 75,
+        "v1_p99_diagnostic_only": 1,
+        "candidate_created": 2,
+        "candidate_training_budget_registered": 2,
+        "reuse_due_skipped_busy": 7,
+        "candidate_training_complete": 1,
+        "candidate_rejected": 1,
+        "cooldown_complete": 1,
+        "reuse_skipped_no_memory": 3
+      },
+      "S2_first": {
+        "diagnostic_window": 75,
+        "reuse_due_skipped_busy": 12,
+        "candidate_training_complete": 3,
+        "candidate_rejected": 2,
+        "cooldown_complete": 2,
+        "reuse_skipped_no_memory": 6,
+        "candidate_created": 2,
+        "candidate_training_budget_registered": 2
+      },
+      "S3_first": {
+        "diagnostic_window": 75,
+        "reuse_due_skipped_busy": 12,
+        "candidate_rejected": 2,
+        "cooldown_complete": 2,
+        "reuse_skipped_no_memory": 7,
+        "candidate_created": 2,
+        "candidate_training_budget_registered": 2,
+        "candidate_training_complete": 2,
+        "candidate_accepted": 1,
+        "specialist_memory_frozen": 1,
+        "specialist_crossfade_started": 1,
+        "specialist_crossfade_step": 8,
+        "candidate_first_influence_prediction": 1,
+        "candidate_full_ramp_prediction": 1,
+        "specialist_crossfade_completed": 1
+      },
+      "S1_rec1": {
+        "diagnostic_window": 22,
+        "reuse_skipped_no_memory": 1,
+        "candidate_created": 1,
+        "candidate_training_budget_registered": 1,
+        "reuse_due_skipped_busy": 5,
+        "candidate_training_complete": 1
+      },
+      "S3_rec1": {
+        "diagnostic_window": 23,
+        "candidate_rejected": 1,
+        "cooldown_complete": 1,
+        "reuse_skipped_no_memory": 3,
+        "candidate_created": 1,
+        "candidate_training_budget_registered": 1,
+        "reuse_due_skipped_busy": 2
+      },
+      "S2_rec1": {
+        "diagnostic_window": 22,
+        "reuse_due_skipped_busy": 3,
+        "candidate_training_complete": 1,
+        "candidate_rejected": 1,
+        "cooldown_complete": 1,
+        "reuse_skipped_no_memory": 3
+      },
+      "S4_first": {
+        "diagnostic_window": 75,
+        "candidate_created": 3,
+        "candidate_training_budget_registered": 3,
+        "reuse_due_skipped_busy": 13,
+        "candidate_training_complete": 2,
+        "candidate_rejected": 2,
+        "cooldown_complete": 2,
+        "reuse_skipped_no_memory": 6
+      },
+      "S5_first": {
+        "diagnostic_window": 75,
+        "reuse_due_skipped_busy": 13,
+        "candidate_training_complete": 3,
+        "candidate_rejected": 2,
+        "cooldown_complete": 2,
+        "reuse_skipped_no_memory": 3,
+        "candidate_created": 2,
+        "candidate_training_budget_registered": 2,
+        "candidate_accepted": 1,
+        "specialist_memory_frozen": 1,
+        "specialist_crossfade_started": 1,
+        "specialist_crossfade_step": 8,
+        "candidate_first_influence_prediction": 1,
+        "candidate_full_ramp_prediction": 1,
+        "specialist_retired": 1,
+        "specialist_crossfade_completed": 1,
+        "reuse_skipped_no_match": 2
+      },
+      "S6_first": {
+        "diagnostic_window": 75,
+        "reuse_skipped_no_match": 5,
+        "reuse_candidate_selected": 2,
+        "reuse_candidate_rejected": 2,
+        "candidate_created": 2,
+        "candidate_training_budget_registered": 2,
+        "reuse_due_skipped_busy": 12,
+        "candidate_training_complete": 2,
+        "candidate_accepted": 2,
+        "specialist_memory_frozen": 2,
+        "specialist_crossfade_started": 2,
+        "specialist_crossfade_step": 16,
+        "candidate_first_influence_prediction": 2,
+        "candidate_full_ramp_prediction": 2,
+        "specialist_retired": 2,
+        "specialist_crossfade_completed": 2
+      },
+      "S4_rec1": {
+        "diagnostic_window": 23,
+        "specialist_purged": 1,
+        "candidate_created": 1,
+        "candidate_training_budget_registered": 1,
+        "reuse_due_skipped_busy": 5,
+        "candidate_training_complete": 1,
+        "candidate_rejected": 1,
+        "cooldown_complete": 1,
+        "reuse_skipped_no_match": 1
+      },
+      "S2_rec2": {
+        "diagnostic_window": 22,
+        "reuse_skipped_no_match": 2,
+        "candidate_created": 1,
+        "candidate_training_budget_registered": 1,
+        "reuse_due_skipped_busy": 3
+      },
+      "S6_rec1": {
+        "diagnostic_window": 23,
+        "reuse_due_skipped_busy": 3,
+        "candidate_training_complete": 1,
+        "candidate_rejected": 1,
+        "cooldown_complete": 1,
+        "reuse_candidate_selected": 2,
+        "reuse_candidate_rejected": 2,
+        "reuse_skipped_no_match": 1,
+        "candidate_created": 1,
+        "candidate_training_budget_registered": 1
+      },
+      "S1_rec2": {
+        "diagnostic_window": 22,
+        "reuse_due_skipped_busy": 4,
+        "candidate_training_complete": 1,
+        "candidate_rejected": 1,
+        "cooldown_complete": 1,
+        "reuse_skipped_no_match": 2
+      },
+      "S5_rec1": {
+        "diagnostic_window": 23,
+        "reuse_skipped_no_match": 1,
+        "candidate_created": 1,
+        "candidate_training_budget_registered": 1,
+        "reuse_due_skipped_busy": 4,
+        "candidate_training_complete": 1
+      },
+      "S3_rec2": {
+        "diagnostic_window": 22,
+        "reuse_due_skipped_busy": 3,
+        "candidate_rejected": 1,
+        "cooldown_complete": 1,
+        "reuse_skipped_no_match": 2,
+        "reuse_candidate_selected": 1,
+        "reuse_candidate_rejected": 1,
+        "candidate_created": 1,
+        "candidate_training_budget_registered": 1
+      }
+    },
+    "candidate_reject_reasons": {
+      "relative_loss_improvement_below_1pct": 12,
+      "old_knowledge_guard_loss_regression": 12,
+      "validation_fpr_delta_failed_or_unavailable": 4,
+      "mean_normal_probability_guard_failed_or_unavailable": 5
+    },
+    "accepted_birth_ids": [
+      "9",
+      "15",
+      "17",
+      "18"
+    ],
+    "resident_memory_ids": [
+      "15",
+      "17",
+      "18"
+    ],
+    "opportunity_accounting": {
+      "birth": {
+        "due": 20,
+        "accounted": 20,
+        "conserved": true,
+        "not_yet_eligible": 599,
+        "started": 20,
+        "skipped_busy": 0,
+        "skipped_no_memory": 0,
+        "skipped_no_match": 0,
+        "skipped_capacity": 0
+      },
+      "reuse": {
+        "due": 154,
+        "accounted": 154,
+        "conserved": true,
+        "not_yet_eligible": 18,
+        "started": 5,
+        "skipped_busy": 101,
+        "skipped_no_memory": 32,
+        "skipped_no_match": 16,
+        "skipped_capacity": 0
+      }
+    },
+    "final_topology": {
+      "active_ids": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "18"
+      ],
+      "dormant_ids": [
+        "15",
+        "17"
+      ],
+      "shadow_id": "23",
+      "next_id": 24,
+      "ramp": {
+        "0": 1.0,
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "18": 1.0
+      },
+      "max_experts": 8,
+      "ramp_updates": 8,
+      "topology_version": 43,
+      "behavior_version": 99
+    },
+    "extra_compute": {
+      "shadow_train_steps": 1924,
+      "shadow_train_seconds": 32.45112843100452,
+      "shadow_validation_forwards": 646,
+      "shadow_validation_seconds": 0.3921435670005735,
+      "shadow_train_examples": 61568,
+      "guard_forwards": 38,
+      "guard_seconds": 0.5387705620001384,
+      "route_diagnostic_forwards": 646,
+      "reuse_validation_forwards": 90,
+      "reuse_validation_seconds": 0.030936776000316968,
+      "reuse_guard_forwards": 10,
+      "reuse_guard_seconds": 0.14456400600010966,
+      "legacy_preview_audit_forwards": 646
+    },
+    "reuse_observed": false,
+    "reuse_benefit_claim_allowed": false
+  }
+}

@@ -1,0 +1,294 @@
+{
+  "candidate_created": 20,
+  "candidate_accepted": 4,
+  "candidate_rejected": 15,
+  "candidate_pending": 1,
+  "candidate_conservation": true,
+  "stream_end_censored_ids": [
+    "23"
+  ],
+  "births": 4,
+  "retirements": 3,
+  "reactivations": 0,
+  "purges": 1,
+  "purged_bytes": 11596,
+  "event_counts": {
+    "diagnostic_window": 686,
+    "v1_p99_diagnostic_only": 1,
+    "candidate_created": 20,
+    "candidate_training_budget_registered": 20,
+    "reuse_due_skipped_busy": 101,
+    "candidate_training_complete": 19,
+    "candidate_rejected": 15,
+    "cooldown_complete": 15,
+    "reuse_skipped_no_memory": 32,
+    "candidate_accepted": 4,
+    "specialist_memory_frozen": 4,
+    "specialist_crossfade_started": 4,
+    "specialist_crossfade_step": 32,
+    "candidate_first_influence_prediction": 4,
+    "candidate_full_ramp_prediction": 4,
+    "specialist_crossfade_completed": 4,
+    "specialist_retired": 3,
+    "reuse_skipped_no_match": 16,
+    "reuse_candidate_selected": 5,
+    "reuse_candidate_rejected": 5,
+    "specialist_purged": 1
+  },
+  "event_counts_by_phase": {
+    "F0": {
+      "diagnostic_window": 34
+    },
+    "S1_first": {
+      "diagnostic_window": 75,
+      "v1_p99_diagnostic_only": 1,
+      "candidate_created": 2,
+      "candidate_training_budget_registered": 2,
+      "reuse_due_skipped_busy": 7,
+      "candidate_training_complete": 1,
+      "candidate_rejected": 1,
+      "cooldown_complete": 1,
+      "reuse_skipped_no_memory": 3
+    },
+    "S2_first": {
+      "diagnostic_window": 75,
+      "reuse_due_skipped_busy": 12,
+      "candidate_training_complete": 3,
+      "candidate_rejected": 2,
+      "cooldown_complete": 2,
+      "reuse_skipped_no_memory": 6,
+      "candidate_created": 2,
+      "candidate_training_budget_registered": 2
+    },
+    "S3_first": {
+      "diagnostic_window": 75,
+      "reuse_due_skipped_busy": 12,
+      "candidate_rejected": 2,
+      "cooldown_complete": 2,
+      "reuse_skipped_no_memory": 7,
+      "candidate_created": 2,
+      "candidate_training_budget_registered": 2,
+      "candidate_training_complete": 2,
+      "candidate_accepted": 1,
+      "specialist_memory_frozen": 1,
+      "specialist_crossfade_started": 1,
+      "specialist_crossfade_step": 8,
+      "candidate_first_influence_prediction": 1,
+      "candidate_full_ramp_prediction": 1,
+      "specialist_crossfade_completed": 1
+    },
+    "S1_rec1": {
+      "diagnostic_window": 22,
+      "reuse_skipped_no_memory": 1,
+      "candidate_created": 1,
+      "candidate_training_budget_registered": 1,
+      "reuse_due_skipped_busy": 5,
+      "candidate_training_complete": 1
+    },
+    "S3_rec1": {
+      "diagnostic_window": 23,
+      "candidate_rejected": 1,
+      "cooldown_complete": 1,
+      "reuse_skipped_no_memory": 3,
+      "candidate_created": 1,
+      "candidate_training_budget_registered": 1,
+      "reuse_due_skipped_busy": 2
+    },
+    "S2_rec1": {
+      "diagnostic_window": 22,
+      "reuse_due_skipped_busy": 3,
+      "candidate_training_complete": 1,
+      "candidate_rejected": 1,
+      "cooldown_complete": 1,
+      "reuse_skipped_no_memory": 3
+    },
+    "S4_first": {
+      "diagnostic_window": 75,
+      "candidate_created": 3,
+      "candidate_training_budget_registered": 3,
+      "reuse_due_skipped_busy": 13,
+      "candidate_training_complete": 2,
+      "candidate_rejected": 2,
+      "cooldown_complete": 2,
+      "reuse_skipped_no_memory": 6
+    },
+    "S5_first": {
+      "diagnostic_window": 75,
+      "reuse_due_skipped_busy": 13,
+      "candidate_training_complete": 3,
+      "candidate_rejected": 2,
+      "cooldown_complete": 2,
+      "reuse_skipped_no_memory": 3,
+      "candidate_created": 2,
+      "candidate_training_budget_registered": 2,
+      "candidate_accepted": 1,
+      "specialist_memory_frozen": 1,
+      "specialist_crossfade_started": 1,
+      "specialist_crossfade_step": 8,
+      "candidate_first_influence_prediction": 1,
+      "candidate_full_ramp_prediction": 1,
+      "specialist_retired": 1,
+      "specialist_crossfade_completed": 1,
+      "reuse_skipped_no_match": 2
+    },
+    "S6_first": {
+      "diagnostic_window": 75,
+      "reuse_skipped_no_match": 5,
+      "reuse_candidate_selected": 2,
+      "reuse_candidate_rejected": 2,
+      "candidate_created": 2,
+      "candidate_training_budget_registered": 2,
+      "reuse_due_skipped_busy": 12,
+      "candidate_training_complete": 2,
+      "candidate_accepted": 2,
+      "specialist_memory_frozen": 2,
+      "specialist_crossfade_started": 2,
+      "specialist_crossfade_step": 16,
+      "candidate_first_influence_prediction": 2,
+      "candidate_full_ramp_prediction": 2,
+      "specialist_retired": 2,
+      "specialist_crossfade_completed": 2
+    },
+    "S4_rec1": {
+      "diagnostic_window": 23,
+      "specialist_purged": 1,
+      "candidate_created": 1,
+      "candidate_training_budget_registered": 1,
+      "reuse_due_skipped_busy": 5,
+      "candidate_training_complete": 1,
+      "candidate_rejected": 1,
+      "cooldown_complete": 1,
+      "reuse_skipped_no_match": 1
+    },
+    "S2_rec2": {
+      "diagnostic_window": 22,
+      "reuse_skipped_no_match": 2,
+      "candidate_created": 1,
+      "candidate_training_budget_registered": 1,
+      "reuse_due_skipped_busy": 3
+    },
+    "S6_rec1": {
+      "diagnostic_window": 23,
+      "reuse_due_skipped_busy": 3,
+      "candidate_training_complete": 1,
+      "candidate_rejected": 1,
+      "cooldown_complete": 1,
+      "reuse_candidate_selected": 2,
+      "reuse_candidate_rejected": 2,
+      "reuse_skipped_no_match": 1,
+      "candidate_created": 1,
+      "candidate_training_budget_registered": 1
+    },
+    "S1_rec2": {
+      "diagnostic_window": 22,
+      "reuse_due_skipped_busy": 4,
+      "candidate_training_complete": 1,
+      "candidate_rejected": 1,
+      "cooldown_complete": 1,
+      "reuse_skipped_no_match": 2
+    },
+    "S5_rec1": {
+      "diagnostic_window": 23,
+      "reuse_skipped_no_match": 1,
+      "candidate_created": 1,
+      "candidate_training_budget_registered": 1,
+      "reuse_due_skipped_busy": 4,
+      "candidate_training_complete": 1
+    },
+    "S3_rec2": {
+      "diagnostic_window": 22,
+      "reuse_due_skipped_busy": 3,
+      "candidate_rejected": 1,
+      "cooldown_complete": 1,
+      "reuse_skipped_no_match": 2,
+      "reuse_candidate_selected": 1,
+      "reuse_candidate_rejected": 1,
+      "candidate_created": 1,
+      "candidate_training_budget_registered": 1
+    }
+  },
+  "candidate_reject_reasons": {
+    "relative_loss_improvement_below_1pct": 12,
+    "old_knowledge_guard_loss_regression": 12,
+    "validation_fpr_delta_failed_or_unavailable": 4,
+    "mean_normal_probability_guard_failed_or_unavailable": 5
+  },
+  "accepted_birth_ids": [
+    "9",
+    "15",
+    "17",
+    "18"
+  ],
+  "resident_memory_ids": [
+    "15",
+    "17",
+    "18"
+  ],
+  "opportunity_accounting": {
+    "birth": {
+      "due": 20,
+      "accounted": 20,
+      "conserved": true,
+      "not_yet_eligible": 599,
+      "started": 20,
+      "skipped_busy": 0,
+      "skipped_no_memory": 0,
+      "skipped_no_match": 0,
+      "skipped_capacity": 0
+    },
+    "reuse": {
+      "due": 154,
+      "accounted": 154,
+      "conserved": true,
+      "not_yet_eligible": 18,
+      "started": 5,
+      "skipped_busy": 101,
+      "skipped_no_memory": 32,
+      "skipped_no_match": 16,
+      "skipped_capacity": 0
+    }
+  },
+  "final_topology": {
+    "active_ids": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "18"
+    ],
+    "dormant_ids": [
+      "15",
+      "17"
+    ],
+    "shadow_id": "23",
+    "next_id": 24,
+    "ramp": {
+      "0": 1.0,
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "18": 1.0
+    },
+    "max_experts": 8,
+    "ramp_updates": 8,
+    "topology_version": 43,
+    "behavior_version": 99
+  },
+  "extra_compute": {
+    "shadow_train_steps": 1924,
+    "shadow_train_seconds": 32.45112843100452,
+    "shadow_validation_forwards": 646,
+    "shadow_validation_seconds": 0.3921435670005735,
+    "shadow_train_examples": 61568,
+    "guard_forwards": 38,
+    "guard_seconds": 0.5387705620001384,
+    "route_diagnostic_forwards": 646,
+    "reuse_validation_forwards": 90,
+    "reuse_validation_seconds": 0.030936776000316968,
+    "reuse_guard_forwards": 10,
+    "reuse_guard_seconds": 0.14456400600010966,
+    "legacy_preview_audit_forwards": 646
+  },
+  "reuse_observed": false,
+  "reuse_benefit_claim_allowed": false
+}

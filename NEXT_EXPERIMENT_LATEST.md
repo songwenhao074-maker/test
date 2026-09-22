@@ -1,11 +1,9 @@
-# 当前唯一任务：Protocol-027两组试跑
+# 下一步实验入口（2026-09-21）
 
-2026-09-22用户已授权明确登记新数据版本，解除“必须复现不可取得的旧文件哈希”的限制。**采用protocol027_data_revision_002；旧版本不被改写为成功。**
+Protocol-027 单任务已执行并停止。结果见 [Protocol-027 Results](docs/PROTOCOL027_RESULTS.md)。
 
-从main读取[当前交接](docs/GITHUB_EXPERIMENT_HANDOFF.md)，执行[同一份单任务指示](docs/PROTOCOL027_SINGLE_TASK_DIRECTIVE_20260921.md)。只运行C_fixed5与D_dynamic，seed700/model1，完成后停止。
+本次仅运行 C_fixed5 与 D_dynamic，replay seed700/model1；未启动 A/B、其他固定拓扑、消融、确认种子、测试种子或参数搜索。
 
-连接器不能手动启动Actions时：在专用分支`protocol-027-pilot-gpt56-20260921`修改`.github/workflows/protocol027-pilot.yml`（可添加启动注释），提交时不加`[skip ci]`，push即启动一次D/C任务。普通文件及main推送不触发。当前修复提交带`[skip ci]`，没有启动C/D。
+九个业务回归前100步等权 AP 差 D-C = -0.00279998964864609；正差窗口 3/9；development_signal=false。全程 AP 差 D-C = -0.00867628351922467。D 实际 reactivation=0，purge=1。
 
-手动入口仍可用：run_models=true；首次frozen_data_run_id留空，已有完整归档则填其run ID。两种入口都先审计、完整归档，再运行两组。
-
-不再寻找旧46b1…/fc3e…哈希，不重新模拟，不从分数选择数据；物理、因果、覆盖、特征一致性和冻结文件校验仍必须通过。
+完整大文件证据位于 GitHub Actions run 35682811782 的 artifact protocol027-single-pilot-35682811782。任务已到登记结束点，不自动安排下一实验。

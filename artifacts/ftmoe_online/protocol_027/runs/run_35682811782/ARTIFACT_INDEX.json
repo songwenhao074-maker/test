@@ -1,0 +1,64 @@
+{
+  "protocol": "027",
+  "github_run_id": 35682811782,
+  "workflow_url": "https://github.com/songwenhao074-maker/test/actions/runs/35682811782",
+  "artifact_id": "10675901913",
+  "artifact_url": "https://github.com/songwenhao074-maker/test/actions/runs/35682811782/artifacts/10675901913",
+  "artifact_name": "protocol027-single-pilot-35682811782",
+  "retention_days": 90,
+  "files_committed_to_git": {
+    "C_fixed5/summary.json": {
+      "sha256": "81ecf7c4c4b198d7c6bb4e271a0c932a7cbf9b1ecf59d2d4de5b20ea8669fcfb",
+      "bytes": 21563
+    },
+    "D_dynamic/candidate_records.json": {
+      "sha256": "a6927095f9d05362dc589e0ec01165f541c9371c5de81c7b38710eb6b2f7b872",
+      "bytes": 288955
+    },
+    "D_dynamic/lifecycle_summary.json": {
+      "sha256": "6bafbef467cebd39ba60c2250a0ecc93cc222bec17871cbdcd36273e09c67766",
+      "bytes": 8355
+    },
+    "D_dynamic/opportunity_accounting.json": {
+      "sha256": "e6f84946bacf040eed9bc4545632f61caccc998b635d1291b45702ad383e5016",
+      "bytes": 465
+    },
+    "D_dynamic/summary.json": {
+      "sha256": "fb93e2e2d6f003362f4e83a719bf11253dd6a65087e20fcff152045be00b3c4d",
+      "bytes": 30726
+    },
+    "comparison.json": {
+      "sha256": "51f49485986f785b760a83bbbac773f59fe3e8a87b9da9373a4801c215c463fb",
+      "bytes": 65361
+    },
+    "cost_profile.json": {
+      "sha256": "bcd124c4ef0827e6dbc6eaa0dd3fc2cb921b4d78432bc6b99b7ea54b529ba582",
+      "bytes": 1190
+    },
+    "data_lock.json": {
+      "sha256": "bd3a831d925dcc9192b0fb820415b710acc5f323d344c5f7606ab4d46f1d62bb",
+      "bytes": 800
+    },
+    "eligibility.json": {
+      "sha256": "b4f3fbf4ae4f630abaf2452bdff408dc9085e4cfac0c7762f274481f367e18b6",
+      "bytes": 2807
+    },
+    "frozen_data_archive.json": {
+      "sha256": "54288279e095871fd2778e16f4de966de0b63bc2fe2cd7ee5147de7c27234da0",
+      "bytes": 567
+    },
+    "guard_manifest.json": {
+      "sha256": "03771b32473e23abd27f6ee617a98bc3a6e1db18f2a389d78d2f3becde59ea4b",
+      "bytes": 931
+    },
+    "normal_guard_audit.json": {
+      "sha256": "e18edd00c2250beec1d123e1317b889b822e226e869fb1df22263268189d2165",
+      "bytes": 1072
+    },
+    "status.json": {
+      "sha256": "e698208007755b148a7f2b1dbd47a480a55a629a35e504b436dc3e1870eca3f0",
+      "bytes": 1368
+    }
+  },
+  "large_evidence_location": "GitHub Actions artifact; predictions and logs are intentionally not committed to git"
+}

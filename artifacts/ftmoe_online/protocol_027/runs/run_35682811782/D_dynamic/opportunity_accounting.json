@@ -1,0 +1,24 @@
+{
+  "birth": {
+    "due": 20,
+    "accounted": 20,
+    "conserved": true,
+    "not_yet_eligible": 599,
+    "started": 20,
+    "skipped_busy": 0,
+    "skipped_no_memory": 0,
+    "skipped_no_match": 0,
+    "skipped_capacity": 0
+  },
+  "reuse": {
+    "due": 154,
+    "accounted": 154,
+    "conserved": true,
+    "not_yet_eligible": 18,
+    "started": 5,
+    "skipped_busy": 101,
+    "skipped_no_memory": 32,
+    "skipped_no_match": 16,
+    "skipped_capacity": 0
+  }
+}
