@@ -16,7 +16,15 @@
 
 ## 唯一执行入口
 
-GitHub Actions选择 **Protocol-027 single D/C pilot**，分支main，手动启动：
+连接器没有`workflow_dispatch`调用时，用push入口：
+
+1. 在专用分支`protocol-027-pilot-gpt56-20260921`操作；先确认它已包含main最新实验实现。
+2. 修改`.github/workflows/protocol027-pilot.yml`，例如添加一行带本次日期的启动注释，再提交/push。提交信息不要包含`[skip ci]`。
+3. GitHub自动启动同一工作流，`RUN_MODELS=true`，先准备、审计及完整归档，再执行一次C_fixed5/D_dynamic。查看新run状态并交付后停止。
+
+触发器仅匹配该分支的这个工作流文件。普通代码、结果提交和main推送不会启动训练；不需要增加token权限。仅同步维护而不启动时，在提交信息使用`[skip ci]`。此次恢复入口的提交使用该标记，留给接手模型启动。
+
+保留手动入口：GitHub Actions选择 **Protocol-027 single D/C pilot**，分支main，手动启动：
 
 - 首次直接完成本任务：`run_models=true`，`frozen_data_run_id`留空。工作流先准备、审计和完整归档，归档成功后才运行两组。
 - 如果只准备数据：`run_models=false`。这不等于实验完成；接手者继续同一任务时使用该run ID。
@@ -24,7 +32,7 @@ GitHub Actions选择 **Protocol-027 single D/C pilot**，分支main，手动启�
 
 仅`protocol027-frozen-data-*`是可训练的完整归档。原`protocol027-restored-stream-*`缺事件与前缀块，不能单独用于训练。完整归档含38个受校验文件及冻结清单：stream、特征、events、全部28个chunk、审计、来源核验及注册快照；不包含大dill状态。每次再上传完整副本延续90天保留期，receipt记录artifact ID、digest和清单SHA。若源artifact过期，先寻找完整冻结归档，不能以反复重模拟代替。
 
-工作流已取消push触发。此次维护不会自动训练。结果推送先fetch/rebase当前分支，遇到冲突保留artifact并报告，不强推。
+工作流已恢复上述专用分支push入口。此次维护提交带[skip ci]，不会自动训练。结果推送先fetch/rebase当前分支，遇到冲突保留artifact并报告，不强推。
 
 ## 结论边界
 

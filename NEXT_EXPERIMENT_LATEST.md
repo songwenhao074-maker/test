@@ -4,6 +4,8 @@
 
 从main读取[当前交接](docs/GITHUB_EXPERIMENT_HANDOFF.md)，执行[同一份单任务指示](docs/PROTOCOL027_SINGLE_TASK_DIRECTIVE_20260921.md)。只运行C_fixed5与D_dynamic，seed700/model1，完成后停止。
 
-工作流手动启动：run_models=true。首次frozen_data_run_id留空，自动拼装现存数据、审计、完整归档后再运行两组；如已有完整冻结归档，填入其run ID直接复用。当前维护提交没有启动C/D。
+连接器不能手动启动Actions时：在专用分支`protocol-027-pilot-gpt56-20260921`修改`.github/workflows/protocol027-pilot.yml`（可添加启动注释），提交时不加`[skip ci]`，push即启动一次D/C任务。普通文件及main推送不触发。当前修复提交带`[skip ci]`，没有启动C/D。
+
+手动入口仍可用：run_models=true；首次frozen_data_run_id留空，已有完整归档则填其run ID。两种入口都先审计、完整归档，再运行两组。
 
 不再寻找旧46b1…/fc3e…哈希，不重新模拟，不从分数选择数据；物理、因果、覆盖、特征一致性和冻结文件校验仍必须通过。

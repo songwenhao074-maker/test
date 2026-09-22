@@ -15,7 +15,7 @@ git clone --depth 1 https://github.com/songwenhao074-maker/test.git FT-MoE
 cd FT-MoE
 ```
 
-工作流仅手动触发，推送不会自动准备数据或训练。不要从旧协议分支、上游 `main.py` 或025五方法入口启动当前任务。
+连接器无手动触发工具时，在`protocol-027-pilot-gpt56-20260921`分支修改并推送`.github/workflows/protocol027-pilot.yml`即可启动一次D/C；main及其他文件推送不触发。维护提交用`[skip ci]`避免启动。不要从旧协议分支、上游 `main.py` 或025五方法入口启动当前任务。
 
 ## 已知事实
 

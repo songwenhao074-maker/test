@@ -1,6 +1,10 @@
 name: Protocol-027 single D/C pilot
 
 on:
+  push:
+    branches: [protocol-027-pilot-gpt56-20260921]
+    paths:
+      - .github/workflows/protocol027-pilot.yml
   workflow_dispatch:
     inputs:
       run_models:
@@ -32,8 +36,8 @@ jobs:
       OPENBLAS_NUM_THREADS: "3"
       STREAM_ROOT: artifacts/ftmoe_online/protocol_025/data_seed700
       METHOD_REG: artifacts/ftmoe_online/protocol_025/method_registration.json
-      RUN_MODELS: ${{ github.event_name == 'workflow_dispatch' && inputs.run_models || false }}
-      FROZEN_RUN_ID: ${{ inputs.frozen_data_run_id }}
+      RUN_MODELS: ${{ github.event_name == 'push' || inputs.run_models || false }}
+      FROZEN_RUN_ID: ${{ inputs.frozen_data_run_id || '' }}
       P027_REG: artifacts/ftmoe_online/protocol_027/registration.json
     steps:
       - uses: actions/checkout@v4
@@ -57,7 +61,7 @@ jobs:
           python -m unittest -v test_ftmoe_protocol027_features.py test_ftmoe_protocol027_handoff.py test_ftmoe_protocol027_recovery.py test_ftmoe_protocol027_data.py test_ftmoe_protocol027_guard.py test_ftmoe_protocol025_model.py test_ftmoe_protocol025_session.py test_ftmoe_protocol024_v2c.py
 
       - name: Restore a complete frozen dataset without simulation
-        if: inputs.frozen_data_run_id != ''
+        if: env.FROZEN_RUN_ID != ''
         uses: actions/download-artifact@v4
         with:
           name: protocol027-frozen-data-${{ inputs.frozen_data_run_id }}
@@ -67,11 +71,11 @@ jobs:
           run-id: ${{ inputs.frozen_data_run_id }}
 
       - name: Verify downloaded frozen dataset
-        if: inputs.frozen_data_run_id != ''
+        if: env.FROZEN_RUN_ID != ''
         run: python ftmoe_protocol027_data.py --data-root "$STREAM_ROOT" --verify-only
 
       - name: Download preserved Protocol-025 recovery evidence
-        if: inputs.frozen_data_run_id == ''
+        if: env.FROZEN_RUN_ID == ''
         uses: actions/download-artifact@v4
         with:
           name: protocol025-recovery-evidence-preserved-20260918
@@ -81,7 +85,7 @@ jobs:
           run-id: 35292728416
 
       - name: Download the selected existing revision002 physical stream
-        if: inputs.frozen_data_run_id == ''
+        if: env.FROZEN_RUN_ID == ''
         uses: actions/download-artifact@v4
         with:
           name: protocol027-restored-stream-35604239834
@@ -91,7 +95,7 @@ jobs:
           run-id: 35604239834
 
       - name: Assemble revision002 without running the simulator
-        if: inputs.frozen_data_run_id == ''
+        if: env.FROZEN_RUN_ID == ''
         run: |
           python prepare_ftmoe_protocol027_revision002.py \
             --preserved /tmp/p027_preserved --candidate /tmp/p027_candidate --output "$STREAM_ROOT"

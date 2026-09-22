@@ -7,3 +7,5 @@
 新入口复制既存artifact、原前缀chunk和固定事件表，不运行模拟器。完整审计、冻结归档成功后，C/D读取同一份数据。当前维护已完成本地准备/审计验证；云端完整归档及C/D实验由接手模型执行。
 
 [当前交接](docs/GITHUB_EXPERIMENT_HANDOFF.md) / [修订记录](docs/PROTOCOL027_DATA_REVISION_002_20260922.md) / [单任务](docs/PROTOCOL027_SINGLE_TASK_DIRECTIVE_20260921.md)。
+
+Actions入口补充：连接器无workflow_dispatch时，在protocol-027-pilot-gpt56-20260921分支修改并推送protocol027-pilot.yml可自动启动一次任务；main/结果提交不触发。入口修复提交带[skip ci]，本次未启动实验。
