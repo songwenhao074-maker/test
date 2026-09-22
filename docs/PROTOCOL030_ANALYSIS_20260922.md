@@ -1,3 +1,5 @@
+> 下一步计划修订说明：本页为030完成后的历史分析，正文末尾旧流031建议已被用户授权的[031 revision002新场景任务](PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md)替代。历史分析与数值保留。
+
 # Protocol-030分析（2026-09-22）
 
 证据基点：main 09560d348a94af356e1d6b7e5fe0f08fcbf5aba9；[030结果](PROTOCOL030_RESULTS.md)、[配对检查](../artifacts/ftmoe_online/protocol_030/runs/run_35716480519/paired_consistency.json)、[机会审计](../artifacts/ftmoe_online/protocol_030/runs/run_35716480519/opportunity_audit.json)。运行35716480519，完整artifact10690558198。

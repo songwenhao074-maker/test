@@ -1,39 +1,37 @@
-# Protocol-031：一次非阻塞复用D/C开发试跑
-日期：2026-09-22。状态：planned_not_implemented_not_run。基点：09560d348a94af356e1d6b7e5fe0f08fcbf5aba9。030已完成，不再重跑配对诊断。
+# Protocol-031 revision002：构建稀有业务回归场景并完成一次D/C试跑
+状态：planned_not_implemented_not_run。用户已明确授权替换尚未执行的旧031目标；当前只执行revision002。
 
 ## 唯一任务
-实现一个“非阻塞、经因果验证再激活”的复用策略包，在既有冻结业务流上运行C_fixed5与D_nonblocking_reuse各一次，判断能否产生实际复用并提高九回归窗口AP。共两次全流回放，完成后停止。
+**构建并冻结“长驻业务覆盖＋稀有旧业务短暂回归”场景，在其中运行C_fixed5与D_nonblocking_reuse各一次，检验D是否具有条件性优势，交付后停止。** 数据构建、必要实现和两组回放组成一个任务，不是自动开启一系列实验。
 
-这是联合策略试验：**相似度改为排序用途＋复用验证不再被新生训练占用的主phase阻塞**。不是单因素消融。背景验证计算是D的额外权限，必须计入成本。不得把030事后候选直接作为已验收专家。
+目标不是D在所有场景获胜，也不是预先把结果判为D最佳。本次比较范围仅C/D，A/B与其他固定结构未测。允许D更多驻留记忆/后台计算，按实际消耗披露。此试验同时改变场景、公共更新频率和D提议预算，不能解释为单因素消融。
 
-## 固定输入与对照
-C沿用Protocol025FixedSession的固定5残差专家；D继承028的四通用专家＋一个活动专用专家、最多8驻留（含shadow），正常8步crossfade可短暂6个活动专家。保持已验收专家冻结、满容量保护旧记忆、birth周期/128步训练/32步验收、在线学习率/预算、初始化、全部标签时序和guard。不改主干、特征、样本、模型种子或数据。
+## 当前唯一配置
+读取[场景规范](PROTOCOL031_RARE_RECURRENCE_SCENARIO.md)、[复用规范](PROTOCOL031_NONBLOCKING_REUSE_SPEC.md)、[机器登记](../artifacts/ftmoe_online/protocol_031/scenario_registration.json)与[plan.json](../artifacts/ftmoe_online/protocol_031/plan.json)。
 
-两组同一个Actions job、同一依赖环境、独立进程顺序执行，均使用030单线程确定性CPU设置（线程1、torch2.4.1 CPU、Python3.8、dgl1.1.3、dill0.3.8，seed700/model1）。不得运行030的全体专家旁路与逐步重型内容哈希作为日常方法路径；保留必要因果/拓扑检查，并计入实际开销。无需新增旧D对照，028/030仅作注明来源的历史参照。
+F0=300，U/V首次各1600，W长驻3200；之后U/V交替回归六次，每次128，中间W各1600，总15468计分步。U/V/W固定映射现有S1/S3/S4；采用既有物理需求规律，事件概率0.30。两组seed700/model1、共同73维因果输入、label t+2、训练重放64步、常规更新每16步。D新生从成熟数600开始，每1600步一次；复用每32步探测、一位候选、16个未来区间验收，并行主birth，不用业务ID控制。
 
-冻结数据：protocol027_data_revision_002；run35682811782/artifact10675401651，名称protocol027-frozen-data-35682811782，ZIP SHA256=111a4c5fc5c508a9e169fdbffe823ee36dc66c037c1775a6aa1abdbaba31c0a1；stream SHA256=fdea84306ac752611e4d0b1b4cd2300d0e0dcbc62ace07ac94096d904b310761。核验真实artifact元数据及文件，不重新模拟、不改027数据注册快照。031方法配置单独登记。
+相似度只用于排序；部署仍要求相对损失改善≥1%、normal概率增量≤0.01、验证FPR增量≤0.01、F0正常NLL≤live×1.02+1e-6及FPR增量≤0.01。容量仍最多8含shadow、满时保护已验收记忆。并发状态/取消规则按复用规范。
 
-## 唯一新策略的精确定义
-1. 沿用成熟数≥600且每32步到期的reuse时钟。至少32个历史可见z时，在已验收休眠专家中选择余弦相似度最高的一位，数值相同按较小ID；原q10阈值仅记录，不再据此拒绝启动。每次仅一位候选，不用未来标签挑选，不固定专家ID或业务阶段。
-2. 复用使用独立pending槽，不把birth主phase改成reuse_validation。monitoring、candidate_training、candidate_validation、cooldown均可启动/推进；已有pending槽时记skip_pending，crossfade期间记skip_transition，其他无记忆/历史不足分别记录。正常在线更新与shadow训练继续执行；监测不复制专家参数、不增加第九个驻留专家。
-3. 槽创建后取之后16个新预测区间：先产生真实live与“四通用专家＋候选、替换旧专用专家”的预测，再等原延迟标签成熟评分。候选/旧活动专家ID及角色需保持稳定；若birth先验收导致活动专用专家变化或进入crossfade，立即取消旧槽，记cancelled_topology_changed，不沿用旧验证样本。
-4. 满16个成熟配对后，必须沿用原全部验收：监督损失相对改善≥1%；正常样本平均异常概率增量≤0.01；验证FPR增量≤0.01；F0正常guard的candidate NLL≤live NLL×1.02＋1e-6、FPR增量≤0.01。任何不可用条件都不能算通过。guard只验收、不训练；不降低这些预测质量门槛。
-5. 同一成熟事件内，先完成已有reuse槽的到期验收，再执行原birth训练/验收；若reuse通过，先取消尚未验收的shadow（如有），释放其私有优化器、训练/验证缓存，再按原8步crossfade激活旧专家。取消shadow单列cancelled_by_reuse，不伪装为质量拒绝，不删除任何已验收记忆；旧活动专家按原规则退休。禁止同一点再接受birth或开始第二次切换。若reuse失败，仅清空该槽，birth及其cooldown状态不被重置。
-6. 当步已有reuse与birth处理完成后，再按reuse到期标志尝试开启新槽；若此时处于transition则跳过。birth仍按原到期规则，只把主phase和实际shadow状态用于忙碌判断，不因pending复用槽而停训。新birth与新reuse可同点开始；不积攒/追补错过的到期次数。每个成熟标签、计数与birth机会只能处理一次。
-7. 流尾不足16个成熟配对记censored；因拓扑改变取消与质量拒绝分开。保存pending槽以支持正确检查点恢复。新生日志满足created=accepted+rejected+cancelled+pending；reuse日志满足started=accepted+rejected+cancelled+censored+pending（同一记录只占一类；最终把未完成槽转为censored，pending=0），机会计数守恒。
+## 数据构建与执行顺序
+使用独立031注册、collector、audit、data verifier与输出目录。复用模拟器/工作负载基础设施，但不要将新timeline写回025/027注册，不覆盖旧流、旧结果或历史门禁。新场景ID=protocol031_rare_recurrence_v1，新数据revision=protocol031_data_revision_001；旧“不重新模拟/只用revision002/九窗first100”仅适用于已替代的计划。
 
-现实解释：已有专家缓存可在新专家训练期间做低成本试用验证；相似度负责排序，真实延迟反馈决定是否接管。其风险是更多无效验证与取消新生训练造成的浪费，必须报告，不能预先宣称更省资源。
+先实现配置与小型必要检查，登记最终代码commit和源资产哈希，再连续生成一个新流。采用200步不可变chunk与完整simulator/workload/scheduler/RNG断点；中断可按同注册同seed恢复，不能拼接旧实验片段。每次生成作业在时限前保存最新断点并上传，后续作业恢复同一流；源数据、模型checkpoint缺失则记录阻塞，不换合成来源。总预算一个完整数据流，断点恢复不是新场景或新seed。
 
-## 执行前必要检查
-独立031实现，不修改旧协议已完成行为。关闭继承的阻塞式reuse启动路径，避免新旧逻辑双跑；原_decide_reuse拒绝分支会写主phase=monitoring，不能原样套用后破坏正在进行的birth。检查：birth训练期间可验证reuse；低相似度可启动但质量门槛仍能拒绝；预测严格早于标签；失败不改变birth状态；成功取消未验收shadow且不超驻留/活动限制；birth先接管会取消旧槽；同点接管只有一次；计数和检查点恢复正确。
+完成模型无关审计后生成data_lock，填写真实stream/chunk/事件/注册SHA并冻结；登记中的预生成expected_stream_sha256=null不是免验哈希，模型入口必须核验冻结data_lock且禁止传空哈希。审计只要求U/V/W和本次六回归，不套用旧六业务/九窗口或旧stream固定SHA。未满足[场景数据门禁](PROTOCOL031_RARE_RECURRENCE_SCENARIO.md)就输出data_audit_failed并停止模型部分，不自动调物理参数或重抽seed。
 
-修复031产物序列化：numpy整数/浮点/数组与最大误差索引转换为JSON原生类型，非有限值附原因，不以default=str隐藏类型问题。先用小型结果fixture跑通汇总、status、索引及finalizer。最终索引在报告定稿后生成；原artifact索引与恢复文件索引分开。后处理失败时使用已保存产物恢复，不重跑模型。
+随后在同一模型job、相同依赖与硬件下，独立进程顺序运行C与D各一次。使用030单线程确定性CPU配置，Python3.8、torch2.4.1 CPU、dgl1.1.3、dill0.3.8；两组完全相同。C沿用固定5专家结构与初始化，正常训练所有专家和路由；D的共同前4专家初始化相同，额外shadow预算计入成本。不要带入030全体专家旁路/逐步重型内容哈希作为日常方法路径。
 
-实现.github/workflows/protocol031-nonblocking-reuse.yml，专用分支protocol-031-nonblocking-reuse-20260922，push仅匹配该workflow文件并保留workflow_dispatch；明确启动一次。普通文档/结果提交使用skip ci，不触发训练。运行器先持久化两组原始预测/日志，再进行比较与序列化。
+生成审计与比较应读新注册，不能调用硬编码protocol027旧哈希/5520步/九窗的父入口冒充031。旧历史注册中的seed封存、数据revision次数限制不用于阻止本次用户已授权的新场景；保持其历史文件原样。
 
-## 固定判断和交付
-主指标仍为全部九个回归first100窗口等权AP差D-C；报告9/9有效性、每窗差、正差窗口数、合并正常FPR差及全程AP。开发参考保持均值差≥0.03、至少6/9正差、合并FPR差≤0.01。数值领先但未达参考应如实标注；单条已反复查看的开发轨迹不能称统计确认。
+## 防止再出现报告故障
+开跑前用小型fixture验证NumPy标量/数组/索引转换、非有限值处理、六窗口汇总、status和finalizer；不要用default=str隐藏类型问题。先保存每组原始预测与日志，再比较。最终Git产物清单在报告定稿后生成，原始artifact和恢复报告各自记录哈希；后处理失败只从已有产物恢复，不追加全流训练。
 
-分别回答：是否真实reactivation>0；复用后性能是否提高；九窗主指标是否D>C。S6_first只是次要结果，不能用它替代九窗，也不要求复现原五次候选时点。对每次真实接管记录selection/validation/decision/first-influence游标、候选ID、全部验收数值、被取消birth的已消耗训练量。记录birth/retirement/purge（预期仍0）及容量保护，不声称本实验验证了硬删除收益。
+实现新.github/workflows/protocol031-rare-recurrence.yml，专用分支protocol-031-rare-recurrence-20260922，push仅匹配该workflow文件并保留workflow_dispatch。允许为同一数据流恢复作业，禁止普通文档/结果提交自动再训练。旧protocol031-nonblocking-reuse工作流/分支不作为当前启动入口。此次计划提交不启动任何实验，由接手模型实现并启动。
 
-输出两组墙钟、CPU、RSS、参数/优化器驻留字节、预测p95、候选/复用额外开销；明确计时范围。交付docs/PROTOCOL031_RESULTS.md、独立registration与run_id目录内comparison/status/逐次reuse/candidate/opportunity/cost紧凑JSON，以及完整artifact链接与SHA。结果回写main并同步所有当前入口后停止；不加A/B、额外种子、阈值搜索或场景重做。
+## 判定、交付、停止
+唯一主指标改为六回归first128等权AP差D-C；初步开发参考为6/6有效、均值≥0.03、至少4/6正差、合并正常FPR差≤0.01、W各阶段等权AP差≥-0.02。次要报告前32/64步、每次回归、W、全程AP/FPR及CPU/墙钟/RSS/驻留参数/优化器/p95/额外训练成本，不能用旧C结果与新D比较。
+
+另报告初学后与每次回归前的专家来源/驻留情况、真实复用与首次影响游标、完整验收数值及取消新生已消耗预算。没有形成或保留U/V有效记忆、未复用、D落后都如实交付；不得延长训练到通过、预装专家、按阶段ID切专家或事后挑获胜窗口。旧九窗口和029/030记录留作历史，不改写失败。
+
+交付docs/PROTOCOL031_RESULTS.md，独立方法registration、数据冻结manifest/data_lock/audit、run_id隔离的comparison/status/lifecycle/reuse/cost及完整artifact链接/SHA。结果必须标出scenario_id与plan_revision=2。回写main，同步README、AGENTS、NEXT、PROJECT_CONTEXT、当前handoff。完成一个新流和一对C/D（或明确阻塞）后停止；不自动加A/B、种子、阈值搜索、其他场景或后续协议。

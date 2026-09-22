@@ -1,9 +1,11 @@
-# 当前唯一任务：Protocol-031非阻塞复用D/C试跑
+# 当前唯一任务：031 revision002——构建稀有回归场景并做一次D/C试跑
 
-状态：planned_not_implemented_not_run。030已完成并通过同机旁路无干扰检查，不再重跑复现。
+状态：planned_not_implemented_not_run。用户目标是在明确特定场景下体现D优势，不要求旧场景或所有场景获胜。
 
-[030分析](docs/PROTOCOL030_ANALYSIS_20260922.md) / [031执行指示](docs/PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md) / [计划](artifacts/ftmoe_online/protocol_031/plan.json)。
+[唯一执行指示](docs/PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md) / [场景](docs/PROTOCOL031_RARE_RECURRENCE_SCENARIO.md) / [计划JSON](artifacts/ftmoe_online/protocol_031/plan.json) / [变更说明](docs/PROTOCOL031_PLAN_REVISION_002_20260922.md)。
 
-唯一任务：实现“相似度只排序、复用验证与新生训练并行”的策略包，运行C_fixed5与D_nonblocking_reuse各一次。旧专家仍须通过原1%损失改善及全部正常/FPR/guard验收才接管。数据、seed和九窗口主指标不变。
+新场景：F0 300；U/V初学各1600；W长驻3200；六次U/V交替回归各128，中间W各1600，共15468步。U/V/W采用S1/S3/S4物理规律。C/D常规更新均每16步、训练重放64、标签t+2；D新生周期1600，非阻塞复用验收保留。
 
-不要把030五次S6_first事后机会当作在线成功，也不要为了复现五次而指定专家或阶段。实际复用、回归AP领先与开发参考分别报告。先验证JSON产物序列化，避免重复030报告故障。结果回写main并停止，不自动追加实验。
+只构建一个新冻结数据流并跑C_fixed5与D_nonblocking_reuse各一次。主指标为六回归first128等权AP差，报告误报、W退化和总成本。尚未证明D最优；不从未测A/B作推断。
+
+旧031未执行方案已归档。旧“只用027 revision002/不重新模拟/九窗first100”不再是当前任务限制。数据审计失败或未形成有用记忆必须如实报告，不换seed/场景重试。完成或明确阻塞后写回main并停止。

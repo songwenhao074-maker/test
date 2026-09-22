@@ -1,0 +1,270 @@
+{
+  "protocol": "031",
+  "plan_revision": 2,
+  "scenario_id": "protocol031_rare_recurrence_v1",
+  "data_revision": "protocol031_data_revision_001",
+  "status": "registered_before_generation",
+  "registered_before_generation": true,
+  "source_code_commit": "f811b884e4e7014d04cc91ee79b851e867dc1f14",
+  "purpose": "Rare short recurring services after long dominant-service interference, under short training replay and sparse online updates",
+  "replay_seed": 700,
+  "model_seed": 1,
+  "scored_intervals": 15468,
+  "guard_intervals": 1,
+  "timeline": [
+    {
+      "name": "F0",
+      "service": "baseline",
+      "length": 300,
+      "start": 0,
+      "end": 300
+    },
+    {
+      "name": "U_first",
+      "service": "U",
+      "length": 1600,
+      "start": 300,
+      "end": 1900
+    },
+    {
+      "name": "V_first",
+      "service": "V",
+      "length": 1600,
+      "start": 1900,
+      "end": 3500
+    },
+    {
+      "name": "W_long",
+      "service": "W",
+      "length": 3200,
+      "start": 3500,
+      "end": 6700
+    },
+    {
+      "name": "U_rec1",
+      "service": "U",
+      "length": 128,
+      "start": 6700,
+      "end": 6828
+    },
+    {
+      "name": "W_gap1",
+      "service": "W",
+      "length": 1600,
+      "start": 6828,
+      "end": 8428
+    },
+    {
+      "name": "V_rec1",
+      "service": "V",
+      "length": 128,
+      "start": 8428,
+      "end": 8556
+    },
+    {
+      "name": "W_gap2",
+      "service": "W",
+      "length": 1600,
+      "start": 8556,
+      "end": 10156
+    },
+    {
+      "name": "U_rec2",
+      "service": "U",
+      "length": 128,
+      "start": 10156,
+      "end": 10284
+    },
+    {
+      "name": "W_gap3",
+      "service": "W",
+      "length": 1600,
+      "start": 10284,
+      "end": 11884
+    },
+    {
+      "name": "V_rec2",
+      "service": "V",
+      "length": 128,
+      "start": 11884,
+      "end": 12012
+    },
+    {
+      "name": "W_gap4",
+      "service": "W",
+      "length": 1600,
+      "start": 12012,
+      "end": 13612
+    },
+    {
+      "name": "U_rec3",
+      "service": "U",
+      "length": 128,
+      "start": 13612,
+      "end": 13740
+    },
+    {
+      "name": "W_gap5",
+      "service": "W",
+      "length": 1600,
+      "start": 13740,
+      "end": 15340
+    },
+    {
+      "name": "V_rec3",
+      "service": "V",
+      "length": 128,
+      "start": 15340,
+      "end": 15468
+    }
+  ],
+  "services": {
+    "U": {
+      "source_service_id": "S1",
+      "role": "rare_cpu_rise",
+      "parameters": {
+        "name": "cpu_short_pulse",
+        "driver": "cpu_demand",
+        "rise_intervals": 6,
+        "hold_intervals": 10,
+        "decay_intervals": 8,
+        "peak_capacity_fraction": 1.18,
+        "history_signal": "positive cpu slope"
+      }
+    },
+    "V": {
+      "source_service_id": "S3",
+      "role": "rare_io_writeback",
+      "parameters": {
+        "name": "io_writeback",
+        "driver": "disk_write_backlog",
+        "accumulate_intervals": 14,
+        "flush_intervals": 12,
+        "peak_capacity_fraction": 1.2,
+        "cpu_coupling": 0.15,
+        "history_signal": "write backlog and write slope"
+      }
+    },
+    "W": {
+      "source_service_id": "S4",
+      "role": "dominant_cache_warmup_decay",
+      "parameters": {
+        "name": "cache_warmup_decay",
+        "driver": "cache_miss_pressure",
+        "warmup_intervals": 16,
+        "decay_half_life_intervals": 12,
+        "initial_capacity_fraction": 1.16,
+        "floor_capacity_fraction": 0.55,
+        "history_signal": "high pressure with negative slope"
+      }
+    }
+  },
+  "service_implementation_source": "simulator/workload/BitbrainWorkloadProtocol025.py",
+  "source_law_revision": "Use pinned current implementation including registered S4 decay-floor fix; no amplitude/event-probability tuning",
+  "generation": {
+    "new_full_simulator_stream_required": true,
+    "source_path": "Bitbrain/GOBI/RPiEdge/simulationStep",
+    "event_probability": 0.3,
+    "chunk_intervals": 200,
+    "full_stream_budget": 1,
+    "resumable": true,
+    "checkpoint_must_include_simulator_scheduler_workload_and_RNG": true,
+    "no_posthoc_npz_splicing": true,
+    "same_law_new_creation_ids_and_events_on_recurrence": true,
+    "existing_tasks_continue_at_service_switch": true,
+    "phase_boundary_not_state_reset": true,
+    "expected_stream_sha256": null,
+    "freeze_actual_hashes_before_model_runs": true
+  },
+  "causality": {
+    "label_rule": "post-simulator argmax(CPU,RAM,Disk aggregate/capacity) if any ratio>1 else 0",
+    "target": "raw_next_fault",
+    "target_maturity": "t_plus_2",
+    "shared_features": "unchanged frozen base z64 plus causal pressure/delta/slope9",
+    "service_and_phase_ids_audit_only": true,
+    "future_switch_times_forbidden": true
+  },
+  "model_free_gates": {
+    "all_rows_and_chunks_complete": true,
+    "label_recompute_exact": true,
+    "finite_causal_features": true,
+    "scheduler_and_capacity_audit": true,
+    "required_event_services": [
+      "U",
+      "V",
+      "W"
+    ],
+    "positive_min_per_nonbaseline_phase": 32,
+    "negative_min_per_nonbaseline_phase": 32,
+    "normal_guard_available": true,
+    "failed_audit_allows_model_runs": false,
+    "reroll_after_audit_failure": false
+  },
+  "training": {
+    "online_update_every_scored_intervals": 16,
+    "online_gradient_steps_per_opportunity": 1,
+    "minibatch_intervals": 32,
+    "replay_matured_intervals": 64,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "distill_weight": 0.1,
+    "gradient_clip_norm": 1,
+    "both_arms_same_online_budget": true,
+    "historical_data_policy": "Only the latest64 matured intervals may enter parameter updates; immutable F0 guard and audit logs are exceptions for evaluation only"
+  },
+  "D_capacity_and_birth": {
+    "generalists": 4,
+    "max_live_specialists": 1,
+    "max_resident_experts_including_shadow": 8,
+    "crossfade_max_active_experts": 6,
+    "crossfade_prediction_intervals": 8,
+    "birth_start_matured": 600,
+    "birth_every_matured": 1600,
+    "birth_timing_uses_no_phase_ID": true,
+    "candidate_train_horizon_intervals": 128,
+    "candidate_replay_intervals": 64,
+    "candidate_minibatch_intervals": 32,
+    "candidate_update_every_matured": 4,
+    "candidate_updates_per_opportunity": 4,
+    "candidate_validation_intervals": 32,
+    "full_capacity_policy": "skip birth; preserve accepted memory",
+    "shadow_extra_compute_allowed_and_reported": true
+  },
+  "evaluation": {
+    "primary_windows": [
+      "U_rec1",
+      "V_rec1",
+      "U_rec2",
+      "V_rec2",
+      "U_rec3",
+      "V_rec3"
+    ],
+    "primary_window_length": 128,
+    "primary_metric": "equal-weight mean AP(D_nonblocking_reuse)-AP(C_fixed5) across all six U/V recurrence128 windows",
+    "development_reference": {
+      "required_valid_windows": 6,
+      "mean_AP_delta_min": 0.03,
+      "positive_windows_min": 4,
+      "pooled_recurrence_normal_FPR_delta_max": 0.01,
+      "mean_W_block_AP_delta_min": -0.02
+    },
+    "secondary": [
+      "each recurrence first32/first64 AP and FPR",
+      "W equal-weight block mean AP",
+      "full-stream AP and FPR",
+      "reactivation latency",
+      "memory coverage",
+      "total compute and storage"
+    ],
+    "no_best_window_selection": true
+  },
+  "interpretation": {
+    "deliberately_targets_memory_reuse": true,
+    "not_equal_total_resident_memory": true,
+    "not_equal_total_training_compute": true,
+    "no_global_D_optimality_claim": true,
+    "no_hard_delete_benefit_claim": true,
+    "comparison_scope": "D versus C_fixed5 only on this registered deployment scenario; no A/B inference"
+  }
+}

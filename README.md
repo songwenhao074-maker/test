@@ -1,17 +1,17 @@
 # PreGAN+ / FT-MoE 在线实验
 
-目标：在合理业务更替与复现场景中检验动态残差专家D相对固定残差专家C的预测优势，保留负结果。
+目标：在明确、合理的特定部署场景中检验动态残差专家D的优势，不要求D在所有场景获胜。
 
-**当前唯一下一步：[Protocol-031非阻塞复用D/C试跑](docs/PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md)，尚未实现/运行。**
+**当前唯一任务：[Protocol-031 revision002——构建稀有业务回归场景并做一次D/C试跑](docs/PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md)。尚未实现、生成或运行。**
 
-## 最新结论
+## 从这里继续
 
-[030结果](docs/PROTOCOL030_RESULTS.md)确认同机旁路无干扰：开关旁路的检测/分类概率逐元素相同，生命周期一致。两次回放后的JSON序列化故障已从完整artifact恢复，不需重跑030。[分析](docs/PROTOCOL030_ANALYSIS_20260922.md)。
+[当前交接](docs/GITHUB_EXPERIMENT_HANDOFF.md) / [场景设计](docs/PROTOCOL031_RARE_RECURRENCE_SCENARIO.md) / [计划JSON](artifacts/ftmoe_online/protocol_031/plan.json) / [计划变更](docs/PROTOCOL031_PLAN_REVISION_002_20260922.md)。
 
-五个潜在验收通过机会都在S6首次出现，且同时被busy和相似度硬准入阻挡；不是实际复用或D>C证据。[028](docs/PROTOCOL028_RESULTS.md)仍是已完成D/C参照：C/D全程AP=0.719730/0.711047，九窗均值=0.769551/0.766681，D正差3/9；D总成本并不更低。C是固定残差专家，不是全量微调。
+U/V首次各1600步，W长驻3200步；U/V之后交替短回归六次，每次128步，中间W各1600步，加F0共15468步。两组每16步更新、64步训练重放，D可保存少量旧专家并验证复用。生成一个新冻结流，C/D各跑一次；主指标为六回归first128平均AP差，并报告误报、W退化及资源开销。D额外记忆/后台计算如实披露，不从未测A/B推断最优。
 
-## 下一模型入口
+## 历史事实
 
-阅读[当前交接](docs/GITHUB_EXPERIMENT_HANDOFF.md)与[031计划](artifacts/ftmoe_online/protocol_031/plan.json)。只实现一个联合复用策略包并跑C/D各一次：相似度只排序，因果验证与新生训练并行，原预测质量门槛保持。九回归窗口主指标不变，完成后停止。
+[030](docs/PROTOCOL030_RESULTS.md)同机旁路无干扰通过，后处理故障已恢复；[028](docs/PROTOCOL028_RESULTS.md)旧场景中D未领先C。旧结果保留。旧031“旧流＋九窗口”方案未执行，已被当前revision002替代；无需继续在旧流上追求D胜出。
 
-保留冻结数据、checkpoint、recovery及代码依赖；输出按run_id隔离，大产物存Actions artifacts并记录哈希。[历史索引](docs/HISTORICAL_EXPERIMENTS.md) / [许可证](LICENSE)。
+保留模拟器、工作负载、checkpoint、recovery及代码依赖；输出按scenario_id/run_id隔离，大产物记录artifact与哈希。[历史索引](docs/HISTORICAL_EXPERIMENTS.md) / [许可证](LICENSE)。

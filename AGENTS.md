@@ -1,11 +1,13 @@
-# Current task: Protocol-031 single nonblocking-reuse D/C pilot
+# Current task: Protocol-031 revision002 rare-recurrence scenario pilot
 
-Read NEXT_EXPERIMENT_LATEST.md, docs/GITHUB_EXPERIMENT_HANDOFF.md and docs/PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md.
+Read NEXT_EXPERIMENT_LATEST.md, docs/GITHUB_EXPERIMENT_HANDOFF.md, docs/PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md and artifacts/ftmoe_online/protocol_031/plan.json.
 
-Protocol030 completed its paired audit, and same-job observer noninterference passed. Preserve its postprocessing recovery evidence and invalid historical029 status. The user has now requested the next task; there is no need to repeat 030 or ask permission because the old handoff said to wait.
+The user explicitly replaced the unrun old031 goal: construct a realistic deployment scenario where D can benefit from retained experts, then run one C/D development pilot. The current plan_revision is 2 and scenario_id is protocol031_rare_recurrence_v1. It is planned, not implemented or run.
 
-031 is planned, not implemented/run. Implement one joint reuse policy package (similarity ranking without hard admission threshold; one independent causal reuse-validation slot alongside birth training) and run C_fixed5/D_nonblocking_reuse once each. Keep predictive acceptance and normal/FPR guards unchanged. The directive fixes transition conflicts, shadow cancellation, delayed labels and accounting.
+One task: generate/freeze one new15468-step U/V/W simulator stream, perform model-free eligibility checks, run C_fixed5 and D_nonblocking_reuse once each on that same stream, publish all results and stop. Seed700/model1. C/D online updates every16 intervals; replay64; original t+2 label maturity. D birth starts600/every1600; reuse retains independent causal validation with unchanged predictive acceptance gates. Main metric is six recurrence first128 windows, not old nine first100.
 
-Formal full replay budget: two. Same frozen revision002 and seed700/model1, deterministic CPU profile from030. Nine recurrence first100 windows remain primary; S6_first and reactivation are secondary, not substitutes for D>C. This is not a single-factor ablation or statistical confirmation.
+Old031 revision001 restrictions (only old027 revision002 data, no new simulation, old nine windows, birth period256) are superseded by this explicit user directive. Do not alter old registrations/data/results. Do not run the old031-nonblocking-reuse workflow as the new experiment. Use protocol031-rare-recurrence and the new scenario_registration.json, data verifier and data_lock. A missing pre-generation hash must be filled and frozen before model runs, never bypassed.
 
-No A/B, extra seeds, parameter search, scenario change or automatic follow-up. Implement a separate031 workflow; documentation/results must not launch training. Verify JSON serialization before execution; recover postprocessing from saved artifacts instead of repeating model runs. Publish to main, synchronize every current entry point, and stop.
+The target is conditional D/C advantage, not guaranteed success, universal optimality, equal total resources or superiority over untested A/B. Disclose D's extra resident memory and shadow computation. Report failure to form useful memory; never prolong training, preload specialists or reroll seeds until favorable. No automatic A/B, extra scenario, seed, tuning or followup.
+
+Resume interrupted generation from matching immutable chunks/RNG snapshots for the same stream only. Formal full-model replay budget is two. Test JSON finalization before long runs; recover reports from saved output without retraining. Documentation/result updates must not launch training. Synchronize all entry points on completion and stop.
