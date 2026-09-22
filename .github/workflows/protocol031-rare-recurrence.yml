@@ -1,5 +1,5 @@
 name: Protocol-031 revision002 rare-recurrence C/D pilot
-# Launch authorized 2026-09-22: one seed700 stream, one C_fixed5 replay, one D_nonblocking_reuse replay.
+# Relaunch after pre-generation import-path fix 2026-09-22; first run generated zero simulator intervals.
 
 on:
   push:
@@ -105,7 +105,7 @@ jobs:
           assert reg['protocol']=='031' and reg['plan_revision']==2
           assert reg['scenario_id']=='protocol031_rare_recurrence_v1'
           assert reg['registered_before_generation'] is True
-          assert reg['source_code_commit']=='286536c774bd8fd0ae2257f40ee8e288a1826c28'
+          assert reg['source_code_commit']=='01a7f397faf899be5ef30ac2deaaf610a7505fc0'
           assert method['arms']==['C_fixed5','D_nonblocking_reuse']
           assert method['full_replay_budget']==2
           assert method['D']['similarity_threshold_role']=='logged_only_not_admission_gate'
