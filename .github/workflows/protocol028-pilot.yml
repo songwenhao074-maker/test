@@ -217,7 +217,3 @@ jobs:
           if os.environ['RUN_MODELS'].lower() == 'true' and not status.get('completed'):
               raise SystemExit('Protocol028 ended with a documented blocker')
           PY
-
-      - name: Post Run actions/setup-python@v5
-        if: always()
-        run: true
