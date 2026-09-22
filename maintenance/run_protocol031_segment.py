@@ -9,6 +9,13 @@ import argparse, contextlib, json, os, random, sys, time, traceback
 from pathlib import Path
 import dill
 import numpy as np
+import psutil
+
+# The inherited collector uses a Windows priority-class symbol. On POSIX,
+# Process.nice expects an integer niceness value; 10 is the historical
+# BELOW_NORMAL compatibility value already used by the Protocol-025 CI recovery.
+if not hasattr(psutil,"BELOW_NORMAL_PRIORITY_CLASS"):
+    psutil.BELOW_NORMAL_PRIORITY_CLASS=10
 
 ROOT=Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
