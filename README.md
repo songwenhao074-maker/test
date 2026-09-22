@@ -2,27 +2,17 @@
 
 当前目标：在合理的业务更替与复现场景中检验**动态残差专家D相对固定残差专家C的预测优势**。先研究D/C，再由用户决定A/B。
 
-**当前唯一任务：[Protocol-027：一次C_fixed5/D_dynamic开发试跑](docs/PROTOCOL027_SINGLE_TASK_DIRECTIVE_20260921.md)。每份指示只规划一个任务，交付后停止。**
+**当前唯一下一步：[Protocol-028：满容量时保护已验收记忆的一次D/C试跑](docs/PROTOCOL028_SINGLE_TASK_DIRECTIVE_20260922.md)。028尚未实现/运行；完成后停止。**
 
 ## 从这里继续
 
-1. 阅读 [当前交接说明](docs/GITHUB_EXPERIMENT_HANDOFF.md)。
-2. 查看 [最新执行状态](NEXT_EXPERIMENT_LATEST.md) 与 [结果/阻塞](docs/PROTOCOL027_RESULTS.md)。
-3. 从main手动运行 **Protocol-027 single D/C pilot**：`run_models=true`，首次`frozen_data_run_id`留空；工作流准备现存数据、审计、完整归档后只训练C/D。已有完整归档则填其run ID复用。
+阅读[当前交接](docs/GITHUB_EXPERIMENT_HANDOFF.md)、[027问题分析](docs/PROTOCOL027_ANALYSIS_20260922.md)和[028单任务](docs/PROTOCOL028_SINGLE_TASK_DIRECTIVE_20260922.md)。先实现独立028入口，再通过专用分支push启动；不要重跑已完成的旧027方法。
 
-```console
-git clone --depth 1 https://github.com/songwenhao074-maker/test.git FT-MoE
-cd FT-MoE
-```
+## 最新已完成事实
 
-连接器无手动触发工具时，在`protocol-027-pilot-gpt56-20260921`分支修改并推送`.github/workflows/protocol027-pilot.yml`即可启动一次D/C；main及其他文件推送不触发。维护提交用`[skip ci]`避免启动。不要从旧协议分支、上游 `main.py` 或025五方法入口启动当前任务。
+Protocol-027 run35682811782已完成。C/D全程AP为0.719730/0.711054；九窗口等权AP为0.769551/0.766751。D正差3/9，成功复用0，墙钟约10.10倍、CPU约6.67倍；当前未显示D的准确率或总成本优势。
 
-## 已知事实
-
-- 原027失败是特征错误和旧登记文件恢复问题，没有模型结果。特征已修复；2026-09-22用户授权独立数据revision002，直接复用已有数据并完整冻结。[修订说明](docs/PROTOCOL027_DATA_REVISION_002_20260922.md)。
-- 最新已完成性能结果仍为024 v2c：C AP=0.669545、D AP=0.667100，成功复用0；不能声称D已经胜出。
-- 027复用025六业务数据，5520步、replay seed700/model1，9个回归窗口。D允许额外后台计算和有限记忆；不声称严格同总成本。
-- 历史B代表全量微调；当前C/D均冻结主干、训练残差专家。旧协议数值不能跨场景直接排名。
+下一步只检验满容量时不为未验收候选预删旧记忆的策略。两组仍用同一冻结数据、seed700/model1；不自动追加A/B、消融、种子或调参。D额外驻留记忆和计算如实披露。
 
 ## 历史和依赖
 

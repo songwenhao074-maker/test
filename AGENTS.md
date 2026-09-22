@@ -1,12 +1,11 @@
-# Current experiment: Protocol-027 data revision 002
+# Current task: Protocol-028 planned, Protocol-027 completed
 
-Read NEXT_EXPERIMENT_LATEST.md and docs/GITHUB_EXPERIMENT_HANDOFF.md. Work from main.
-The user authorized an explicitly versioned dataset on 2026-09-22, replacing the requirement to reproduce unavailable original file hashes. Original registration and failures remain historical evidence. The active data identity is artifacts/ftmoe_online/protocol_027/data_revision_002.json; do not apply old 025/026/027 STOP or no-revision rules to this authorized revision.
+Read NEXT_EXPERIMENT_LATEST.md and docs/PROTOCOL028_SINGLE_TASK_DIRECTIVE_20260922.md. Main now contains the completed Protocol027 result commit 81756266234e7649de76b92a74a22b82c2bbbaee.
 
-One bounded task remains: one C_fixed5 versus D_dynamic development pilot, seed700/model1, unchanged six-service scenario, methods and metrics. No automatic A/B, other comparators, seeds, ablations or tuning. Stop after results or an actionable blocker.
+Implement and run only the single planned C_fixed5 versus D_memory_protected pilot. The only scientific change is to skip birth at full resident capacity instead of purging an accepted dormant specialist for an unvalidated shadow. Keep all other data, methods, thresholds, capacity, seeds and metrics fixed. Old D results are historical context, not an additional arm to rerun. Report failure or success honestly and stop.
 
-Prepare revision002 by copying the selected existing artifacts plus the pinned events sidecar. No simulator rerun and no checkpoint unpickling are needed. Audit all physical/causal/feature/coverage gates, freeze the full dataset and archive it successfully before either arm starts. Both arms must verify the same frozen files. Do not change the active data hashes after observing model results or claim equivalence to the missing original complete stream.
+Protocol028 is not implemented yet. Use separate registration, runner, workflow and outputs. Reuse the complete Protocol027 frozen data artifact from run35682811782, preserving its source registration snapshots. No simulation or alteration of frozen data. Do not restart the completed 027 method by merely adding a launch comment to its old workflow.
 
-The sole workflow is .github/workflows/protocol027-pilot.yml. If the connector lacks workflow_dispatch, change this workflow file (a launch comment suffices) on protocol-027-pilot-gpt56-20260921 and push without [skip ci]; that push runs the registered two arms after audit/archive. Other paths and main pushes do not trigger it. Result commits do not retrigger it. run_models=true prepares, audits, archives and runs the two arms once. run_models=false only prepares/archives. To reuse a complete archived bundle, pass its run ID as frozen_data_run_id; do not simulate again. Use [skip ci] when synchronizing workflow maintenance without intending to launch a run. Do not automatically launch further trials after a result.
+Retain connector-compatible push launch for the new 028 workflow on protocol-028-memory-protected-20260922, scoped to that workflow file; no result-file triggers. Use [skip ci] for maintenance-only synchronization. Do not automatically run extra methods, seeds, ablations or tuning.
 
-Keep imported historical code, data and checkpoints. Report model performance only after actual model runs. D's extra background compute and memory must remain disclosed.
+Physical, causal, data integrity, normal-guard and coverage checks stay in force. Business/phase IDs remain unavailable to the learner. Report individual reuse decision reasons and actual total measured costs. Increased reuse alone is not proof of higher performance or a causal advantage.

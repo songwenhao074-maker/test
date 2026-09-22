@@ -1,0 +1,20 @@
+{
+  "source_run": 35682811782,
+  "source_commit": "81756266234e7649de76b92a74a22b82c2bbbaee",
+  "C_full_AP": 0.7197300202761306,
+  "D_full_AP": 0.711053736756906,
+  "C_recurrence_AP": 0.7695510091640446,
+  "D_recurrence_AP": 0.7667510195153985,
+  "positive_windows": 3,
+  "valid_windows": 9,
+  "reactivations": 0,
+  "births": 4,
+  "retirements": 3,
+  "purges": 1,
+  "busy_reuse_fraction": 0.6558441558441559,
+  "C_wall": 47.37505757499997,
+  "D_wall": 478.421680174,
+  "C_cpu": 94.737892524,
+  "D_cpu": 632.059019785,
+  "new_experiment_executed": false
+}

@@ -1,0 +1,29 @@
+{
+  "protocol": "028",
+  "status": "planned_not_implemented_not_run",
+  "registered_on": "2026-09-22",
+  "source_commit": "81756266234e7649de76b92a74a22b82c2bbbaee",
+  "source_run": 35682811782,
+  "single_task": "One C_fixed5 vs D_memory_protected pilot testing full-capacity birth admission",
+  "scientific_change": {
+    "full_capacity_birth_policy": "skip_birth_preserve_accepted_memories",
+    "max_resident_experts": 8,
+    "other_thresholds_and_budgets_unchanged": true
+  },
+  "comparators": [
+    "C_fixed5",
+    "D_memory_protected"
+  ],
+  "seeds": {
+    "replay": 700,
+    "model": 1
+  },
+  "data": {
+    "source": "protocol027_data_revision_002",
+    "frozen_run": 35682811782,
+    "frozen_artifact": 10675401651
+  },
+  "metrics_unchanged": true,
+  "full_training_started": false,
+  "automatic_followups": []
+}

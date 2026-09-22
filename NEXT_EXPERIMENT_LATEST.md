@@ -1,9 +1,9 @@
-# 下一步实验入口（2026-09-21）
+# 当前下一步：Protocol-028单任务（尚未实现/运行）
 
-Protocol-027 单任务已执行并停止。结果见 [Protocol-027 Results](docs/PROTOCOL027_RESULTS.md)。
+Protocol-027已完成：run35682811782，两组均成功。D-C九窗口平均AP=-0.00279999，全程=-0.00867628，reactivation=0；当前没有D胜出的证据。
 
-本次仅运行 C_fixed5 与 D_dynamic，replay seed700/model1；未启动 A/B、其他固定拓扑、消融、确认种子、测试种子或参数搜索。
+阅读[最新分析](docs/PROTOCOL027_ANALYSIS_20260922.md)和[唯一下一步任务](docs/PROTOCOL028_SINGLE_TASK_DIRECTIVE_20260922.md)。
 
-九个业务回归前100步等权 AP 差 D-C = -0.00279998964864609；正差窗口 3/9；development_signal=false。全程 AP 差 D-C = -0.00867628351922467。D 实际 reactivation=0，purge=1。
+下一轮只验证满容量时保留已验收记忆、跳过新候选的策略，运行C_fixed5与D_memory_protected一次。方法与工作流尚待接手模型实现，不要触发旧027方法重跑。完整数据复用run35682811782的冻结artifact，不再模拟。
 
-完整大文件证据位于 GitHub Actions run 35682811782 的 artifact protocol027-single-pilot-35682811782。任务已到登记结束点，不自动安排下一实验。
+每份指示只规划一个任务；完成后停止。028尚未启动。

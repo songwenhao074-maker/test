@@ -1,7 +1,7 @@
-# 当前项目上下文（2026-09-21）
+# 当前上下文（2026-09-22）
 
-当前最新任务为 Protocol-027 / protocol027_data_revision_002 单次 D/C 开发试跑。GitHub Actions run 35682811782；completed=True。
+已完成Protocol-027：run35682811782，source81756266234e7649de76b92a74a22b82c2bbbaee。C全程AP0.719730，D0.711054；回归均值0.769551/0.766751，D仅3/9窗口为正、0次复用。D墙钟约10.10倍、CPU约6.67倍；不能声称更省总计算。
 
-结果与问题：docs/PROTOCOL027_RESULTS.md。紧凑证据：artifacts/ftmoe_online/protocol_027/runs/run_35682811782/。大文件预测与日志：artifact protocol027-single-pilot-35682811782。
+具体问题：容量满时为了尚未验收的shadow预先删除了已验收专家9，候选19后来又被拒，旧记忆无法恢复。忙碌跳过101/154复用机会也是限制。删除的性能影响尚未经反事实验证。
 
-本协议只允许 C_fixed5 与 D_dynamic、replay seed700/model1。没有自动追加实验；后续由用户基于本次结果决定。
+当前唯一下一步是[Protocol-028单任务](docs/PROTOCOL028_SINGLE_TASK_DIRECTIVE_20260922.md)，只改满容量birth准入，其他方法、场景和指标不变。028未实现/未运行。保留027原结果和冻结数据；接手使用新028入口及push工作流，不重跑旧协议。分析见[027分析](docs/PROTOCOL027_ANALYSIS_20260922.md)。
