@@ -1,0 +1,931 @@
+{
+  "protocol": "028",
+  "comparator": "C_fixed5",
+  "run_id": "35705211072",
+  "completed": true,
+  "development_only": true,
+  "confirmation_run": false,
+  "test_run": false,
+  "stream_sha256": "fdea84306ac752611e4d0b1b4cd2300d0e0dcbc62ace07ac94096d904b310761",
+  "data_revision": "protocol027_data_revision_002",
+  "manifest": {
+    "name": "C_fixed5",
+    "expert_count": 5,
+    "topk": null,
+    "active_experts": 5,
+    "residual_input_dim": 73
+  },
+  "full": {
+    "detection": {
+      "ap": 0.7197300202761306,
+      "reason": null,
+      "rows": 88320,
+      "positives": 11284,
+      "negatives": 77036,
+      "prevalence": 0.1277626811594203,
+      "threshold": 0.5,
+      "tp": 7443,
+      "fp": 3646,
+      "fn": 3841,
+      "tn": 73390,
+      "recall": 0.6596065225097483,
+      "fpr": 0.047328521730100215
+    },
+    "resource": {
+      "macro_f1": 0.8957868239835993,
+      "reason": null,
+      "rows": 11284,
+      "per_class": [
+        {
+          "class": 1,
+          "precision": 0.9855015673981191,
+          "recall": 0.9628637059724349,
+          "f1": 0.9740511231603407,
+          "support": 7836
+        },
+        {
+          "class": 2,
+          "precision": 0.6829268292682927,
+          "recall": 0.8600682593856656,
+          "f1": 0.7613293051359518,
+          "support": 293
+        },
+        {
+          "class": 3,
+          "precision": 0.9367904265111997,
+          "recall": 0.9676703645007924,
+          "f1": 0.9519800436545056,
+          "support": 3155
+        }
+      ]
+    }
+  },
+  "phases": [
+    {
+      "phase": "F0",
+      "service": null,
+      "intervals": [
+        0,
+        300
+      ],
+      "positive_rows": 1,
+      "negative_rows": 4799,
+      "detection": {
+        "ap": 0.07142857142857142,
+        "reason": null,
+        "rows": 4800,
+        "positives": 1,
+        "negatives": 4799,
+        "prevalence": 0.00020833333333333335,
+        "threshold": 0.5,
+        "tp": 1,
+        "fp": 42,
+        "fn": 0,
+        "tn": 4757,
+        "recall": 1.0,
+        "fpr": 0.008751823296520108
+      },
+      "resource": {
+        "macro_f1": 0.0,
+        "reason": null,
+        "rows": 1,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 1
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S1_first",
+      "service": "S1",
+      "intervals": [
+        300,
+        900
+      ],
+      "positive_rows": 2768,
+      "negative_rows": 6832,
+      "detection": {
+        "ap": 0.6687099256475771,
+        "reason": null,
+        "rows": 9600,
+        "positives": 2768,
+        "negatives": 6832,
+        "prevalence": 0.28833333333333333,
+        "threshold": 0.5,
+        "tp": 934,
+        "fp": 378,
+        "fn": 1834,
+        "tn": 6454,
+        "recall": 0.3374277456647399,
+        "fpr": 0.055327868852459015
+      },
+      "resource": {
+        "macro_f1": 0.32912627278824463,
+        "reason": null,
+        "rows": 2768,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 1.0,
+            "recall": 0.9750722543352601,
+            "f1": 0.9873788183647338,
+            "support": 2768
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S2_first",
+      "service": "S2",
+      "intervals": [
+        900,
+        1500
+      ],
+      "positive_rows": 493,
+      "negative_rows": 9107,
+      "detection": {
+        "ap": 0.47760798362404727,
+        "reason": null,
+        "rows": 9600,
+        "positives": 493,
+        "negatives": 9107,
+        "prevalence": 0.051354166666666666,
+        "threshold": 0.5,
+        "tp": 277,
+        "fp": 429,
+        "fn": 216,
+        "tn": 8678,
+        "recall": 0.5618661257606491,
+        "fpr": 0.047106621280333806
+      },
+      "resource": {
+        "macro_f1": 0.6153965923751056,
+        "reason": null,
+        "rows": 493,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.9680232558139535,
+            "recall": 0.9148351648351648,
+            "f1": 0.940677966101695,
+            "support": 364
+          },
+          {
+            "class": 2,
+            "precision": 0.92,
+            "recall": 0.8914728682170543,
+            "f1": 0.905511811023622,
+            "support": 129
+          },
+          {
+            "class": 3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S3_first",
+      "service": "S3",
+      "intervals": [
+        1500,
+        2100
+      ],
+      "positive_rows": 584,
+      "negative_rows": 9016,
+      "detection": {
+        "ap": 0.812423538239527,
+        "reason": null,
+        "rows": 9600,
+        "positives": 584,
+        "negatives": 9016,
+        "prevalence": 0.060833333333333336,
+        "threshold": 0.5,
+        "tp": 546,
+        "fp": 351,
+        "fn": 38,
+        "tn": 8665,
+        "recall": 0.934931506849315,
+        "fpr": 0.038930789707187226
+      },
+      "resource": {
+        "macro_f1": 0.41787624140565316,
+        "reason": null,
+        "rows": 584,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.16666666666666666,
+            "recall": 1.0,
+            "f1": 0.2857142857142857,
+            "support": 5
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 1.0,
+            "recall": 0.9378238341968912,
+            "f1": 0.9679144385026738,
+            "support": 579
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S1_rec1",
+      "service": "S1",
+      "intervals": [
+        2100,
+        2280
+      ],
+      "positive_rows": 781,
+      "negative_rows": 2099,
+      "detection": {
+        "ap": 0.7227775451234081,
+        "reason": null,
+        "rows": 2880,
+        "positives": 781,
+        "negatives": 2099,
+        "prevalence": 0.27118055555555554,
+        "threshold": 0.5,
+        "tp": 342,
+        "fp": 117,
+        "fn": 439,
+        "tn": 1982,
+        "recall": 0.4379001280409731,
+        "fpr": 0.05574082896617437
+      },
+      "resource": {
+        "macro_f1": 0.6497514830848163,
+        "reason": null,
+        "rows": 781,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 1.0,
+            "recall": 0.9894736842105263,
+            "f1": 0.9947089947089947,
+            "support": 760
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 0.9130434782608695,
+            "recall": 1.0,
+            "f1": 0.9545454545454545,
+            "support": 21
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S3_rec1",
+      "service": "S3",
+      "intervals": [
+        2280,
+        2460
+      ],
+      "positive_rows": 437,
+      "negative_rows": 2443,
+      "detection": {
+        "ap": 0.798271020806462,
+        "reason": null,
+        "rows": 2880,
+        "positives": 437,
+        "negatives": 2443,
+        "prevalence": 0.1517361111111111,
+        "threshold": 0.5,
+        "tp": 357,
+        "fp": 153,
+        "fn": 80,
+        "tn": 2290,
+        "recall": 0.816933638443936,
+        "fpr": 0.06262791649611134
+      },
+      "resource": {
+        "macro_f1": 0.653685470157244,
+        "reason": null,
+        "rows": 437,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.963963963963964,
+            "recall": 1.0,
+            "f1": 0.9816513761467891,
+            "support": 214
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 1.0,
+            "recall": 0.9596412556053812,
+            "f1": 0.9794050343249427,
+            "support": 223
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S2_rec1",
+      "service": "S2",
+      "intervals": [
+        2460,
+        2640
+      ],
+      "positive_rows": 24,
+      "negative_rows": 2856,
+      "detection": {
+        "ap": 0.4295496281097564,
+        "reason": null,
+        "rows": 2880,
+        "positives": 24,
+        "negatives": 2856,
+        "prevalence": 0.008333333333333333,
+        "threshold": 0.5,
+        "tp": 21,
+        "fp": 47,
+        "fn": 3,
+        "tn": 2809,
+        "recall": 0.875,
+        "fpr": 0.016456582633053222
+      },
+      "resource": {
+        "macro_f1": 0.9696342305037957,
+        "reason": null,
+        "rows": 24,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.9090909090909091,
+            "recall": 1.0,
+            "f1": 0.9523809523809523,
+            "support": 10
+          },
+          {
+            "class": 2,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 2
+          },
+          {
+            "class": 3,
+            "precision": 1.0,
+            "recall": 0.9166666666666666,
+            "f1": 0.9565217391304348,
+            "support": 12
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S4_first",
+      "service": "S4",
+      "intervals": [
+        2640,
+        3240
+      ],
+      "positive_rows": 1683,
+      "negative_rows": 7917,
+      "detection": {
+        "ap": 0.7876069541612386,
+        "reason": null,
+        "rows": 9600,
+        "positives": 1683,
+        "negatives": 7917,
+        "prevalence": 0.1753125,
+        "threshold": 0.5,
+        "tp": 1187,
+        "fp": 438,
+        "fn": 496,
+        "tn": 7479,
+        "recall": 0.7052881758764111,
+        "fpr": 0.055323986358469114
+      },
+      "resource": {
+        "macro_f1": 0.32912154031287605,
+        "reason": null,
+        "rows": 1683,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 1.0,
+            "recall": 0.9750445632798574,
+            "f1": 0.9873646209386282,
+            "support": 1683
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S5_first",
+      "service": "S5",
+      "intervals": [
+        3240,
+        3840
+      ],
+      "positive_rows": 266,
+      "negative_rows": 9334,
+      "detection": {
+        "ap": 0.5452207641650723,
+        "reason": null,
+        "rows": 9600,
+        "positives": 266,
+        "negatives": 9334,
+        "prevalence": 0.027708333333333335,
+        "threshold": 0.5,
+        "tp": 217,
+        "fp": 329,
+        "fn": 49,
+        "tn": 9005,
+        "recall": 0.8157894736842105,
+        "fpr": 0.03524748232269124
+      },
+      "resource": {
+        "macro_f1": 0.6556984990928583,
+        "reason": null,
+        "rows": 266,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.9941520467836257,
+            "recall": 0.9826589595375722,
+            "f1": 0.9883720930232557,
+            "support": 173
+          },
+          {
+            "class": 2,
+            "precision": 0.968421052631579,
+            "recall": 0.989247311827957,
+            "f1": 0.9787234042553192,
+            "support": 93
+          },
+          {
+            "class": 3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S6_first",
+      "service": "S6",
+      "intervals": [
+        3840,
+        4440
+      ],
+      "positive_rows": 1656,
+      "negative_rows": 7944,
+      "detection": {
+        "ap": 0.8623661284282216,
+        "reason": null,
+        "rows": 9600,
+        "positives": 1656,
+        "negatives": 7944,
+        "prevalence": 0.1725,
+        "threshold": 0.5,
+        "tp": 1580,
+        "fp": 589,
+        "fn": 76,
+        "tn": 7355,
+        "recall": 0.9541062801932367,
+        "fpr": 0.07414400805639476
+      },
+      "resource": {
+        "macro_f1": 0.4053233908135259,
+        "reason": null,
+        "rows": 1656,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.42857142857142855,
+            "recall": 0.1826086956521739,
+            "f1": 0.25609756097560976,
+            "support": 115
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 0.9424640400250156,
+            "recall": 0.9779364049318624,
+            "f1": 0.9598726114649682,
+            "support": 1541
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S4_rec1",
+      "service": "S4",
+      "intervals": [
+        4440,
+        4620
+      ],
+      "positive_rows": 595,
+      "negative_rows": 2285,
+      "detection": {
+        "ap": 0.7430382402304829,
+        "reason": null,
+        "rows": 2880,
+        "positives": 595,
+        "negatives": 2285,
+        "prevalence": 0.2065972222222222,
+        "threshold": 0.5,
+        "tp": 333,
+        "fp": 120,
+        "fn": 262,
+        "tn": 2165,
+        "recall": 0.5596638655462185,
+        "fpr": 0.0525164113785558
+      },
+      "resource": {
+        "macro_f1": 0.6473492488785862,
+        "reason": null,
+        "rows": 595,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 1.0,
+            "recall": 0.9858906525573192,
+            "f1": 0.9928952042628775,
+            "support": 567
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 0.9032258064516129,
+            "recall": 1.0,
+            "f1": 0.9491525423728813,
+            "support": 28
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S2_rec2",
+      "service": "S2",
+      "intervals": [
+        4620,
+        4800
+      ],
+      "positive_rows": 141,
+      "negative_rows": 2739,
+      "detection": {
+        "ap": 0.7025337733282189,
+        "reason": null,
+        "rows": 2880,
+        "positives": 141,
+        "negatives": 2739,
+        "prevalence": 0.04895833333333333,
+        "threshold": 0.5,
+        "tp": 105,
+        "fp": 99,
+        "fn": 36,
+        "tn": 2640,
+        "recall": 0.7446808510638298,
+        "fpr": 0.03614457831325301
+      },
+      "resource": {
+        "macro_f1": 0.6654545454545454,
+        "reason": null,
+        "rows": 141,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 1.0,
+            "recall": 0.9927536231884058,
+            "f1": 0.9963636363636363,
+            "support": 138
+          },
+          {
+            "class": 2,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 3
+          },
+          {
+            "class": 3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S6_rec1",
+      "service": "S6",
+      "intervals": [
+        4800,
+        4980
+      ],
+      "positive_rows": 575,
+      "negative_rows": 2305,
+      "detection": {
+        "ap": 0.8718947151427017,
+        "reason": null,
+        "rows": 2880,
+        "positives": 575,
+        "negatives": 2305,
+        "prevalence": 0.1996527777777778,
+        "threshold": 0.5,
+        "tp": 566,
+        "fp": 190,
+        "fn": 9,
+        "tn": 2115,
+        "recall": 0.9843478260869565,
+        "fpr": 0.0824295010845987
+      },
+      "resource": {
+        "macro_f1": 0.6736089678497471,
+        "reason": null,
+        "rows": 575,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.525,
+            "recall": 0.4666666666666667,
+            "f1": 0.49411764705882355,
+            "support": 45
+          },
+          {
+            "class": 2,
+            "precision": 1.0,
+            "recall": 0.4,
+            "f1": 0.5714285714285715,
+            "support": 10
+          },
+          {
+            "class": 3,
+            "precision": 0.9453860640301318,
+            "recall": 0.9653846153846154,
+            "f1": 0.9552806850618458,
+            "support": 520
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S1_rec2",
+      "service": "S1",
+      "intervals": [
+        4980,
+        5160
+      ],
+      "positive_rows": 826,
+      "negative_rows": 2054,
+      "detection": {
+        "ap": 0.8313926518111269,
+        "reason": null,
+        "rows": 2880,
+        "positives": 826,
+        "negatives": 2054,
+        "prevalence": 0.28680555555555554,
+        "threshold": 0.5,
+        "tp": 587,
+        "fp": 144,
+        "fn": 239,
+        "tn": 1910,
+        "recall": 0.7106537530266344,
+        "fpr": 0.07010710808179163
+      },
+      "resource": {
+        "macro_f1": 0.6563464846212194,
+        "reason": null,
+        "rows": 826,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 1.0,
+            "recall": 0.9869451697127938,
+            "f1": 0.9934296977660972,
+            "support": 766
+          },
+          {
+            "class": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 3,
+            "precision": 0.9523809523809523,
+            "recall": 1.0,
+            "f1": 0.975609756097561,
+            "support": 60
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S5_rec1",
+      "service": "S5",
+      "intervals": [
+        5160,
+        5340
+      ],
+      "positive_rows": 278,
+      "negative_rows": 2602,
+      "detection": {
+        "ap": 0.6881927275969107,
+        "reason": null,
+        "rows": 2880,
+        "positives": 278,
+        "negatives": 2602,
+        "prevalence": 0.09652777777777778,
+        "threshold": 0.5,
+        "tp": 219,
+        "fp": 115,
+        "fn": 59,
+        "tn": 2487,
+        "recall": 0.7877697841726619,
+        "fpr": 0.0441967717140661
+      },
+      "resource": {
+        "macro_f1": 0.5753943436870266,
+        "reason": null,
+        "rows": 278,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.941908713692946,
+            "recall": 1.0,
+            "f1": 0.9700854700854701,
+            "support": 227
+          },
+          {
+            "class": 2,
+            "precision": 1.0,
+            "recall": 0.6078431372549019,
+            "f1": 0.7560975609756097,
+            "support": 51
+          },
+          {
+            "class": 3,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        ]
+      }
+    },
+    {
+      "phase": "S3_rec2",
+      "service": "S3",
+      "intervals": [
+        5340,
+        5520
+      ],
+      "positive_rows": 176,
+      "negative_rows": 2704,
+      "detection": {
+        "ap": 0.8068727434084036,
+        "reason": null,
+        "rows": 2880,
+        "positives": 176,
+        "negatives": 2704,
+        "prevalence": 0.06111111111111111,
+        "threshold": 0.5,
+        "tp": 171,
+        "fp": 105,
+        "fn": 5,
+        "tn": 2599,
+        "recall": 0.9715909090909091,
+        "fpr": 0.03883136094674556
+      },
+      "resource": {
+        "macro_f1": 0.6627218934911242,
+        "reason": null,
+        "rows": 176,
+        "per_class": [
+          {
+            "class": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          {
+            "class": 2,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 5
+          },
+          {
+            "class": 3,
+            "precision": 1.0,
+            "recall": 0.9766081871345029,
+            "f1": 0.9881656804733728,
+            "support": 171
+          }
+        ]
+      }
+    }
+  ],
+  "cost": {
+    "wall_seconds": 72.685207429,
+    "cpu_seconds": 145.34502555699999,
+    "max_rss_bytes": 406822912,
+    "p95_inference_seconds": 0.004424152000022019,
+    "online_update_opportunities_completed": 1380,
+    "online_sample_draws": 44032,
+    "final_resident_parameter_bytes": 55060,
+    "peak_resident_parameter_bytes": 55060,
+    "final_optimizer_state_bytes": 110248,
+    "peak_optimizer_state_bytes": 110248,
+    "peak_live_expert_count": 5,
+    "peak_resident_expert_count": 5,
+    "timing_scope": {
+      "included": "step loop, online updates, lifecycle diagnostics/validation/guards executed in-loop, and finish()",
+      "excluded": "session.save(), parent comparison/finalization, artifact upload and git operations"
+    }
+  }
+}

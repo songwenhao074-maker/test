@@ -1,7 +1,6 @@
-# 当前上下文（2026-09-22）
+# 当前项目上下文：Protocol-028已完成
 
-已完成Protocol-027：run35682811782，source81756266234e7649de76b92a74a22b82c2bbbaee。C全程AP0.719730，D0.711054；回归均值0.769551/0.766751，D仅3/9窗口为正、0次复用。D墙钟约10.10倍、CPU约6.67倍；不能声称更省总计算。
-
-具体问题：容量满时为了尚未验收的shadow预先删除了已验收专家9，候选19后来又被拒，旧记忆无法恢复。忙碌跳过101/154复用机会也是限制。删除的性能影响尚未经反事实验证。
-
-当前唯一下一步是[Protocol-028单任务](docs/PROTOCOL028_SINGLE_TASK_DIRECTIVE_20260922.md)，只改满容量birth准入，其他方法、场景和指标不变。028未实现/未运行。保留027原结果和冻结数据；接手使用新028入口及push工作流，不重跑旧协议。分析见[027分析](docs/PROTOCOL027_ANALYSIS_20260922.md)。
+Protocol-027 已完成，随后按唯一指示执行了 Protocol-028：C_fixed5 vs D_memory_protected，seed700/model1。
+Protocol-028 只改变满驻留容量时的 birth 准入：保护已验收 memory，跳过未验证 shadow 的 birth，不 purge dormant specialist。
+结果与完整解释：docs/PROTOCOL028_RESULTS.md；run 35705211072。
+当前任务到达停止点，没有自动启动后续实验。

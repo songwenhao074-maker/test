@@ -1,0 +1,83 @@
+{
+  "protocol": "028",
+  "github_run_id": 35705211072,
+  "workflow_url": "https://github.com/songwenhao074-maker/test/actions/runs/35705211072",
+  "artifact_id": 10684617851,
+  "artifact_url": "https://github.com/songwenhao074-maker/test/actions/runs/35705211072/artifacts/10684617851",
+  "artifact_digest": "e3be1c97d0f629c9ed40f61cfd4561b6b04e37b68357a2c92a23ac8f14e2e27e",
+  "artifact_name": "protocol028-single-pilot-35705211072",
+  "retention_days": 90,
+  "source_frozen_artifact": {
+    "run_id": 35682811782,
+    "artifact_id": 10675401651,
+    "artifact_name": "protocol027-frozen-data-35682811782",
+    "artifact_digest": "sha256:111a4c5fc5c508a9e169fdbffe823ee36dc66c037c1775a6aa1abdbaba31c0a1"
+  },
+  "files_committed_to_git": {
+    "C_fixed5/summary.json": {
+      "sha256": "53d28571f269960484eaf750575248875f8a861916343dbb837b047e2b94b78e",
+      "bytes": 21789
+    },
+    "D_memory_protected/candidate_records.json": {
+      "sha256": "9396915d0b9c5e8a3bfa4ac1fa6825979d87d5110c1f1564d523c812904deb4b",
+      "bytes": 227105
+    },
+    "D_memory_protected/late_recurrence_reuse.json": {
+      "sha256": "290b68ec3dc4c6e60953160bad97e62f073946015b7c612914490739bcaf5038",
+      "bytes": 1514
+    },
+    "D_memory_protected/lifecycle_summary.json": {
+      "sha256": "11b2c28fe658fdf421a20706d9e5e9fdbd8799456255836a5c3f09d3fefcc550",
+      "bytes": 22467
+    },
+    "D_memory_protected/opportunity_accounting.json": {
+      "sha256": "9b34627ed2f89472d7fa7d6fa5fd73b4aa235e6aa64ab0e8dfbac254f3216ad5",
+      "bytes": 465
+    },
+    "D_memory_protected/reuse_decisions.json": {
+      "sha256": "771f2094e73a761c5bf055508d38d9088fb1ddd87cef8d4a77d7c7450a9ff4af",
+      "bytes": 11152
+    },
+    "D_memory_protected/summary.json": {
+      "sha256": "2795cf15ee7a61a3da6df3425ff156bf1a430864eda27b938f082ed075fb36bf",
+      "bytes": 46299
+    },
+    "comparison.json": {
+      "sha256": "ebc310e6c203ba36bf7ce611c84bf7587989c9c7107b5588dfc3e2fd09430f3b",
+      "bytes": 81752
+    },
+    "cost_profile.json": {
+      "sha256": "2d0a2c6fb58f5c69d29006d43fd18947b179fb9a59a5763218c27e74864598b2",
+      "bytes": 1850
+    },
+    "data_lock.json": {
+      "sha256": "bd3a831d925dcc9192b0fb820415b710acc5f323d344c5f7606ab4d46f1d62bb",
+      "bytes": 800
+    },
+    "eligibility.json": {
+      "sha256": "b4f3fbf4ae4f630abaf2452bdff408dc9085e4cfac0c7762f274481f367e18b6",
+      "bytes": 2807
+    },
+    "guard_manifest.json": {
+      "sha256": "5c0162d1940f69cb0dddd7b1e1b01a339ee24efe9efa667bf9822a5f69adabbe",
+      "bytes": 1026
+    },
+    "normal_guard_audit.json": {
+      "sha256": "428f4635aef267f3c6c16f313f5137cc84f51585c46ab27800ca1989b0ae42e8",
+      "bytes": 1182
+    },
+    "source_frozen_artifact.json": {
+      "sha256": "40dcb65af2b4423740736bd2068ebb75d3b3dbece5cfc64ce04dbc8b03597b15",
+      "bytes": 332
+    },
+    "status.json": {
+      "sha256": "d925218c85273b2d899d893f09804b581f13a21d3bc62588e80f44796acd1615",
+      "bytes": 1125
+    },
+    "workflow_execution.json": {
+      "sha256": "ffefa43f02ba6dda6953e0d13d5d4cb92b0e75f12c5a1f347b1c7a60e0d868f7",
+      "bytes": 330
+    }
+  },
+  "large_evidence_location": "GitHub Actions artifact; predictions and logs are intentionally not committed to git"
+}

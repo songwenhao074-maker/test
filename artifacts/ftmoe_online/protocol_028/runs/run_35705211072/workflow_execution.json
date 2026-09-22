@@ -1,0 +1,11 @@
+{
+  "protocol": "028",
+  "run_models": true,
+  "github_event": "push",
+  "github_run_id": 35705211072,
+  "head_sha": "4a650e43956d6ab6af68aa57a98774d7b5d90ea0",
+  "head_ref": "protocol-028-memory-protected-20260922",
+  "simulation_rerun": false,
+  "source_frozen_run_id": 35682811782,
+  "source_frozen_artifact_id": 10675401651
+}

@@ -1,0 +1,45 @@
+{
+  "C_fixed5": {
+    "wall_seconds": 72.685207429,
+    "cpu_seconds": 145.34502555699999,
+    "max_rss_bytes": 406822912,
+    "p95_inference_seconds": 0.004424152000022019,
+    "online_update_opportunities_completed": 1380,
+    "online_sample_draws": 44032,
+    "final_resident_parameter_bytes": 55060,
+    "peak_resident_parameter_bytes": 55060,
+    "final_optimizer_state_bytes": 110248,
+    "peak_optimizer_state_bytes": 110248,
+    "peak_live_expert_count": 5,
+    "peak_resident_expert_count": 5,
+    "timing_scope": {
+      "included": "step loop, online updates, lifecycle diagnostics/validation/guards executed in-loop, and finish()",
+      "excluded": "session.save(), parent comparison/finalization, artifact upload and git operations"
+    }
+  },
+  "D_memory_protected": {
+    "wall_seconds": 752.228295119,
+    "cpu_seconds": 940.5637292060001,
+    "max_rss_bytes": 393592832,
+    "p95_inference_seconds": 0.005926543900022807,
+    "online_update_opportunities_completed": 1380,
+    "online_sample_draws": 44032,
+    "final_resident_parameter_bytes": 88096,
+    "peak_resident_parameter_bytes": 88096,
+    "final_optimizer_state_bytes": 176448,
+    "peak_optimizer_state_bytes": 198504,
+    "peak_live_expert_count": 6,
+    "peak_resident_expert_count": 8,
+    "timing_scope": {
+      "included": "step loop, online updates, lifecycle diagnostics/validation/guards executed in-loop, and finish()",
+      "excluded": "session.save(), parent comparison/finalization, artifact upload and git operations"
+    },
+    "shadow_training_steps": 1500,
+    "reuse_validation_forwards": 176,
+    "guard_forwards": 30,
+    "reuse_guard_forwards": 18,
+    "candidate_measured_overhead_seconds": 37.44699803299915,
+    "reuse_measured_overhead_seconds": 0.4732111020003913,
+    "candidate_plus_reuse_measured_overhead_seconds": 37.92020913499954
+  }
+}

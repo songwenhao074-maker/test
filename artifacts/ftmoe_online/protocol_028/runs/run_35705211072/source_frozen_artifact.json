@@ -1,0 +1,10 @@
+{
+  "run_id": 35682811782,
+  "artifact_id": 10675401651,
+  "artifact_name": "protocol027-frozen-data-35682811782",
+  "artifact_digest": "sha256:111a4c5fc5c508a9e169fdbffe823ee36dc66c037c1775a6aa1abdbaba31c0a1",
+  "verified": true,
+  "expired": false,
+  "source_protocol": "027",
+  "data_revision": "protocol027_data_revision_002"
+}

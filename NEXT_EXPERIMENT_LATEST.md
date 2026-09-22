@@ -1,9 +1,8 @@
-# 当前下一步：Protocol-028单任务（尚未实现/运行）
+# 当前下一步：Protocol-028已完成，停止自动实验
 
-Protocol-027已完成：run35682811782，两组均成功。D-C九窗口平均AP=-0.00279999，全程=-0.00867628，reactivation=0；当前没有D胜出的证据。
+Protocol-028 单任务已经完成；结果见 [Protocol-028 Results](docs/PROTOCOL028_RESULTS.md)。
 
-阅读[最新分析](docs/PROTOCOL027_ANALYSIS_20260922.md)和[唯一下一步任务](docs/PROTOCOL028_SINGLE_TASK_DIRECTIVE_20260922.md)。
+九回归first100等权AP差 D_memory_protected-C_fixed5 = -0.0028698398694849197；正差窗口 3/9；development_signal=false。
+reactivation=0，purge=0，capacity-preserve birth skips=5。
 
-下一轮只验证满容量时保留已验收记忆、跳过新候选的策略，运行C_fixed5与D_memory_protected一次。方法与工作流尚待接手模型实现，不要触发旧027方法重跑。完整数据复用run35682811782的冻结artifact，不再模拟。
-
-每份指示只规划一个任务；完成后停止。028尚未启动。
+当前没有已登记的下一项科学实验。不要自动追加A/B、其他固定拓扑、消融、确认种子或参数搜索；等待新的明确指示。

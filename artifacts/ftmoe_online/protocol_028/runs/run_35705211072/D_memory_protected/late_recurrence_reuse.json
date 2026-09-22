@@ -1,0 +1,69 @@
+{
+  "S4_rec1": {
+    "matched": 0,
+    "reuse_decisions": 0,
+    "reuse_accepted": 0,
+    "reuse_rejected": 0,
+    "reuse_skipped_no_memory": 0,
+    "reuse_skipped_no_match": 6,
+    "capacity_preserve_birth_skips": 1,
+    "expert_ids": []
+  },
+  "S2_rec2": {
+    "matched": 0,
+    "reuse_decisions": 0,
+    "reuse_accepted": 0,
+    "reuse_rejected": 0,
+    "reuse_skipped_no_memory": 0,
+    "reuse_skipped_no_match": 5,
+    "capacity_preserve_birth_skips": 1,
+    "expert_ids": []
+  },
+  "S6_rec1": {
+    "matched": 3,
+    "reuse_decisions": 3,
+    "reuse_accepted": 0,
+    "reuse_rejected": 3,
+    "reuse_skipped_no_memory": 0,
+    "reuse_skipped_no_match": 3,
+    "capacity_preserve_birth_skips": 1,
+    "expert_ids": [
+      "17"
+    ]
+  },
+  "S1_rec2": {
+    "matched": 1,
+    "reuse_decisions": 1,
+    "reuse_accepted": 0,
+    "reuse_rejected": 1,
+    "reuse_skipped_no_memory": 0,
+    "reuse_skipped_no_match": 5,
+    "capacity_preserve_birth_skips": 0,
+    "expert_ids": [
+      "17"
+    ]
+  },
+  "S5_rec1": {
+    "matched": 0,
+    "reuse_decisions": 0,
+    "reuse_accepted": 0,
+    "reuse_rejected": 0,
+    "reuse_skipped_no_memory": 0,
+    "reuse_skipped_no_match": 5,
+    "capacity_preserve_birth_skips": 1,
+    "expert_ids": []
+  },
+  "S3_rec2": {
+    "matched": 4,
+    "reuse_decisions": 3,
+    "reuse_accepted": 0,
+    "reuse_rejected": 3,
+    "reuse_skipped_no_memory": 0,
+    "reuse_skipped_no_match": 2,
+    "capacity_preserve_birth_skips": 1,
+    "expert_ids": [
+      "9",
+      "17"
+    ]
+  }
+}
