@@ -1,17 +1,17 @@
 # PreGAN+ / FT-MoE 在线实验
 
-目标：在业务更替与复现场景中检验动态残差专家D，同时严格保留负结果和诊断有效性边界。
+目标：在合理业务更替与复现场景中检验动态残差专家D相对固定残差专家C的预测优势，保留负结果。
 
-**当前状态：Protocol-030同机成对旁路无干扰验证已完成并通过；暂无登记的下一实验。**
+**当前唯一下一步：[Protocol-031非阻塞复用D/C试跑](docs/PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md)，尚未实现/运行。**
 
-## 最新结果
+## 最新结论
 
-[Protocol-030 Results](docs/PROTOCOL030_RESULTS.md)：在同一个Actions job、固定单线程确定性CPU配置下，原Protocol-028 D的`audit_off`与`audit_on`两次回放检测/分类概率逐元素完全一致，九窗口AP、全程AP、生命周期及最终拓扑一致，`paired_audit_valid=true`。
+[030结果](docs/PROTOCOL030_RESULTS.md)确认同机旁路无干扰：开关旁路的检测/分类概率逐元素相同，生命周期一致。两次回放后的JSON序列化故障已从完整artifact恢复，不需重跑030。[分析](docs/PROTOCOL030_ANALYSIS_20260922.md)。
 
-有效旁路审计发现5条满足全部原复用验收门槛的候选记录，全部位于S6_first、专家9，并同时受busy和similarity门槛阻挡。它们仍是post_hoc oracle诊断，不是实际在线复用或D>C证据。
+五个潜在验收通过机会都在S6首次出现，且同时被busy和相似度硬准入阻挡；不是实际复用或D>C证据。[028](docs/PROTOCOL028_RESULTS.md)仍是已完成D/C参照：C/D全程AP=0.719730/0.711047，九窗均值=0.769551/0.766681，D正差3/9；D总成本并不更低。C是固定残差专家，不是全量微调。
 
-相对历史Protocol-028，class probability最大点误差为1.430511474609375e-6，因此`historical_028_match=false`；Protocol-029历史无效判定保持不变。030未重跑C/A/B，未改变数据、seed、阈值或线上策略。
+## 下一模型入口
 
-Actions父进程在两次回放结束后因numpy.int64 JSON序列化失败而显示failure；完整结果从已上传artifact离线恢复，没有启动第三次回放。
+阅读[当前交接](docs/GITHUB_EXPERIMENT_HANDOFF.md)与[031计划](artifacts/ftmoe_online/protocol_031/plan.json)。只实现一个联合复用策略包并跑C/D各一次：相似度只排序，因果验证与新生训练并行，原预测质量门槛保持。九回归窗口主指标不变，完成后停止。
 
-历史有效D/C性能结论仍见[Protocol-028 Results](docs/PROTOCOL028_RESULTS.md)。当前等待新的明确实验指示。
+保留冻结数据、checkpoint、recovery及代码依赖；输出按run_id隔离，大产物存Actions artifacts并记录哈希。[历史索引](docs/HISTORICAL_EXPERIMENTS.md) / [许可证](LICENSE)。

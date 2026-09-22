@@ -1,0 +1,71 @@
+{
+  "protocol": "031",
+  "status": "planned_not_implemented_not_run",
+  "date": "2026-09-22",
+  "task_count": 1,
+  "task": "One C_fixed5 vs D_nonblocking_reuse development pilot on the unchanged frozen stream",
+  "source_commit": "09560d348a94af356e1d6b7e5fe0f08fcbf5aba9",
+  "motivation_run_id": 35716480519,
+  "motivation_paired_audit_valid": true,
+  "full_replay_budget": 2,
+  "arms": [
+    "C_fixed5",
+    "D_nonblocking_reuse"
+  ],
+  "replay_seed": 700,
+  "model_seed": 1,
+  "data_revision": "protocol027_data_revision_002",
+  "frozen_data_run_id": 35682811782,
+  "frozen_data_artifact_id": 10675401651,
+  "policy_bundle": {
+    "not_single_factor_ablation": true,
+    "candidate_selection": "highest cosine among accepted dormant experts; smaller expert ID tie-break",
+    "similarity_threshold_role": "log only; not an admission gate",
+    "reuse_cadence_matured": 32,
+    "reuse_start_matured": 600,
+    "recent_z_intervals": 32,
+    "maximum_pending_reuse": 1,
+    "validation_future_intervals": 16,
+    "concurrent_birth_phases": [
+      "monitoring",
+      "candidate_training",
+      "candidate_validation",
+      "cooldown"
+    ],
+    "skip_during_crossfade": true,
+    "acceptance_gates_unchanged": true,
+    "existing_reuse_decision_before_birth_decision": true,
+    "new_reuse_slot_admission_after_birth_processing": true,
+    "on_reuse_accept": "cancel unaccepted shadow and its private optimizer/buffers, then inherited 8-step crossfade",
+    "on_birth_accept": "cancel pending reuse if active specialist/role changes",
+    "on_reuse_reject": "clear only reuse slot; preserve birth/cooldown state",
+    "additional_resident_experts": 0,
+    "max_resident_experts": 8,
+    "full_capacity_memory_protection": true
+  },
+  "runtime": {
+    "CPU": true,
+    "threads": 1,
+    "torch_deterministic_algorithms": true,
+    "warn_only": false,
+    "torch": "2.4.1+cpu",
+    "python": "3.8"
+  },
+  "primary_metric": "equal-weight mean D_nonblocking_reuse minus C_fixed5 AP across all nine recurrence first100 windows",
+  "development_reference": {
+    "valid_windows": 9,
+    "mean_delta_min": 0.03,
+    "positive_windows_min": 6,
+    "pooled_normal_FPR_delta_max": 0.01
+  },
+  "reactivation_is_not_performance_win": true,
+  "S6_first_secondary_only": true,
+  "hard_delete_benefit_claim_allowed": false,
+  "equal_total_cost_claim_allowed": false,
+  "required_engineering_check": "result JSON must serialize numpy numeric scalars/indices/arrays; recover reports without retraining",
+  "workflow_branch": "protocol-031-nonblocking-reuse-20260922",
+  "workflow_path": ".github/workflows/protocol031-nonblocking-reuse.yml",
+  "directive": "docs/PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md",
+  "analysis": "docs/PROTOCOL030_ANALYSIS_20260922.md",
+  "stop_after": "Exactly one C/D pair, complete evidence and report; no automatic extra seed, method, threshold search or scenario redesign"
+}

@@ -1,0 +1,319 @@
+{
+  "source_commit": "09560d348a94af356e1d6b7e5fe0f08fcbf5aba9",
+  "run_id": 35716480519,
+  "artifact_id": 10690558198,
+  "artifact_digest": "16c0731df2712ac5cfc5554da0d2cd3f5cf83ce74bb2ae1230c94f19fc2502af",
+  "paired_consistency": {
+    "protocol": "030",
+    "paired_audit_valid": true,
+    "registered_requirements": {
+      "max_detection_probability_error": 0.000001,
+      "max_class_probability_error": 0.000001,
+      "max_each_recurrence_AP_error": 0.000001,
+      "max_mean_recurrence_AP_error": 0.000001,
+      "max_full_stream_AP_error": 0.000001,
+      "labels_exact": true,
+      "raw_labels_exact": true,
+      "lifecycle_discrete_exact": true,
+      "final_topology_exact": true,
+      "passive_state_violations": 0
+    },
+    "detection_probability": {
+      "max_abs_error": 0,
+      "max_error_index": [
+        0,
+        0
+      ],
+      "exact_equal_fraction": 1
+    },
+    "class_probability": {
+      "max_abs_error": 0,
+      "max_error_index": [
+        0,
+        0,
+        0
+      ],
+      "exact_equal_fraction": 1
+    },
+    "labels_exact": true,
+    "raw_labels_exact": true,
+    "recurrence_first100": [
+      {
+        "phase": "S1_rec1",
+        "audit_off": {
+          "ap": 0.6940254854427718,
+          "fpr": 0.045304777594728174
+        },
+        "audit_on": {
+          "ap": 0.6940254854427718,
+          "fpr": 0.045304777594728174
+        },
+        "ap_abs_difference": 0
+      },
+      {
+        "phase": "S3_rec1",
+        "audit_off": {
+          "ap": 0.8017799652785204,
+          "fpr": 0.05255140898705255
+        },
+        "audit_on": {
+          "ap": 0.8017799652785204,
+          "fpr": 0.05255140898705255
+        },
+        "ap_abs_difference": 0
+      },
+      {
+        "phase": "S2_rec1",
+        "audit_off": {
+          "ap": 0.6810884851016429,
+          "fpr": 0.005037783375314861
+        },
+        "audit_on": {
+          "ap": 0.6810884851016429,
+          "fpr": 0.005037783375314861
+        },
+        "ap_abs_difference": 0
+      },
+      {
+        "phase": "S4_rec1",
+        "audit_off": {
+          "ap": 0.6813799412482683,
+          "fpr": 0.055857253685027156
+        },
+        "audit_on": {
+          "ap": 0.6813799412482683,
+          "fpr": 0.055857253685027156
+        },
+        "ap_abs_difference": 0
+      },
+      {
+        "phase": "S2_rec2",
+        "audit_off": {
+          "ap": 0.7357497229027912,
+          "fpr": 0.03890784982935153
+        },
+        "audit_on": {
+          "ap": 0.7357497229027912,
+          "fpr": 0.03890784982935153
+        },
+        "ap_abs_difference": 0
+      },
+      {
+        "phase": "S6_rec1",
+        "audit_off": {
+          "ap": 0.8704681792408924,
+          "fpr": 0.06768060836501902
+        },
+        "audit_on": {
+          "ap": 0.8704681792408924,
+          "fpr": 0.06768060836501902
+        },
+        "ap_abs_difference": 0
+      },
+      {
+        "phase": "S1_rec2",
+        "audit_off": {
+          "ap": 0.8253114360045473,
+          "fpr": 0.06055363321799308
+        },
+        "audit_on": {
+          "ap": 0.8253114360045473,
+          "fpr": 0.06055363321799308
+        },
+        "ap_abs_difference": 0
+      },
+      {
+        "phase": "S5_rec1",
+        "audit_off": {
+          "ap": 0.8004631992102473,
+          "fpr": 0.03455882352941177
+        },
+        "audit_on": {
+          "ap": 0.8004631992102473,
+          "fpr": 0.03455882352941177
+        },
+        "ap_abs_difference": 0
+      },
+      {
+        "phase": "S3_rec2",
+        "audit_off": {
+          "ap": 0.8098641092213553,
+          "fpr": 0.04505716207128446
+        },
+        "audit_on": {
+          "ap": 0.8098641092213553,
+          "fpr": 0.04505716207128446
+        },
+        "ap_abs_difference": 0
+      }
+    ],
+    "audit_off_mean_recurrence_ap": 0.7666811692945597,
+    "audit_on_mean_recurrence_ap": 0.7666811692945597,
+    "mean_recurrence_ap_abs_difference": 0,
+    "audit_off_full_ap": 0.7110469322039032,
+    "audit_on_full_ap": 0.7110469322039032,
+    "full_ap_abs_difference": 0,
+    "discrete_lifecycle_events_exact": true,
+    "audit_off_event_count": 981,
+    "audit_on_event_count": 981,
+    "accept_reject_reasons_exact": true,
+    "final_topology_exact": true,
+    "passive_state_violations": 0,
+    "stable_state_trace_core_exact": true,
+    "stable_state_trace_fields_compared": [
+      "model_state_sha256",
+      "optimizer_state_sha256",
+      "rng_state_sha256",
+      "topology",
+      "module_modes",
+      "requires_grad",
+      "last_z_sha256",
+      "cursor",
+      "updates"
+    ],
+    "raw_controller_state_digest_exact": false,
+    "raw_controller_state_digest_first_difference": {
+      "checkpoint_index": 3,
+      "prediction_index": 767
+    },
+    "raw_controller_state_digest_gate_excluded_reason": "The raw controller digest included extra_compute timing fields, which Protocol-030 explicitly excludes from cross-process algorithm-state comparison. All registered paired gates and all non-timing stable state-trace fields are exact.",
+    "first_registered_divergence": null
+  },
+  "opportunity_audit": {
+    "protocol": "030",
+    "reuse_due_opportunities": 154,
+    "no_memory_opportunities": 94,
+    "opportunities_with_memory": 60,
+    "opportunities_with_at_least_one_completed_candidate_validation": 59,
+    "stream_end_censored_opportunities": 1,
+    "opportunities_with_any_all_gates_candidate": 5,
+    "passing_candidate_opportunities_blocked_by_busy": 5,
+    "passing_candidate_opportunities_blocked_by_similarity_or_rank": 5,
+    "original_selected_candidate_passed": 0,
+    "passing_condition_intersections": {
+      "busy+similarity": 5
+    },
+    "per_expert": {
+      "9": {
+        "opportunities_present": 60,
+        "completed_validations": 59,
+        "all_gates_pass": 5,
+        "censored": 1,
+        "similarity_ok": 5,
+        "highest_similarity": 38
+      },
+      "15": {
+        "opportunities_present": 44,
+        "completed_validations": 43,
+        "all_gates_pass": 0,
+        "censored": 1,
+        "similarity_ok": 0,
+        "highest_similarity": 6
+      },
+      "17": {
+        "opportunities_present": 36,
+        "completed_validations": 35,
+        "all_gates_pass": 0,
+        "censored": 1,
+        "similarity_ok": 6,
+        "highest_similarity": 16
+      }
+    },
+    "passing_candidates": [
+      {
+        "phase": "S6_first",
+        "due_cursor": 3937,
+        "expert_id": "9",
+        "controller": {
+          "busy": true,
+          "outcome": "busy",
+          "selected_expert_id": null
+        },
+        "similarity": {
+          "similarity": 0.843674630795904,
+          "required_similarity": 0.9879425571268068,
+          "similarity_ok": false,
+          "is_highest_similarity": true
+        },
+        "post_hoc_oracle_diagnostic": true
+      },
+      {
+        "phase": "S6_first",
+        "due_cursor": 3969,
+        "expert_id": "9",
+        "controller": {
+          "busy": true,
+          "outcome": "busy",
+          "selected_expert_id": null
+        },
+        "similarity": {
+          "similarity": 0.8589842710789972,
+          "required_similarity": 0.9879425571268068,
+          "similarity_ok": false,
+          "is_highest_similarity": true
+        },
+        "post_hoc_oracle_diagnostic": true
+      },
+      {
+        "phase": "S6_first",
+        "due_cursor": 4001,
+        "expert_id": "9",
+        "controller": {
+          "busy": true,
+          "outcome": "busy",
+          "selected_expert_id": null
+        },
+        "similarity": {
+          "similarity": 0.7572929774749817,
+          "required_similarity": 0.9879425571268068,
+          "similarity_ok": false,
+          "is_highest_similarity": true
+        },
+        "post_hoc_oracle_diagnostic": true
+      },
+      {
+        "phase": "S6_first",
+        "due_cursor": 4033,
+        "expert_id": "9",
+        "controller": {
+          "busy": true,
+          "outcome": "busy",
+          "selected_expert_id": null
+        },
+        "similarity": {
+          "similarity": 0.9507464520819465,
+          "required_similarity": 0.9879425571268068,
+          "similarity_ok": false,
+          "is_highest_similarity": true
+        },
+        "post_hoc_oracle_diagnostic": true
+      },
+      {
+        "phase": "S6_first",
+        "due_cursor": 4065,
+        "expert_id": "9",
+        "controller": {
+          "busy": true,
+          "outcome": "busy",
+          "selected_expert_id": null
+        },
+        "similarity": {
+          "similarity": 0.813789128867905,
+          "required_similarity": 0.9879425571268068,
+          "similarity_ok": false,
+          "is_highest_similarity": true
+        },
+        "post_hoc_oracle_diagnostic": true
+      }
+    ],
+    "post_hoc_oracle_diagnostic": true
+  },
+  "historical_reference": {
+    "protocol": "028",
+    "C_recurrence_mean_AP": 0.7695510091640446,
+    "D_recurrence_mean_AP": 0.7666811692945597,
+    "primary_delta": -0.0028698398694849197,
+    "positive_windows": 3
+  },
+  "interpretation": "Same-job observer noninterference passed. Five acceptance-pass post-hoc opportunities all in S6_first were blocked by both busy and similarity admission; no online reactivation or D>C result yet."
+}

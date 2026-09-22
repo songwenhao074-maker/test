@@ -1,9 +1,9 @@
-# 当前状态：Protocol-030已完成，停止自动实验
+# 当前唯一任务：Protocol-031非阻塞复用D/C试跑
 
-Protocol-030同机`audit_off/audit_on`配对无干扰门禁通过：检测/分类概率逐元素完全一致，九窗口AP、全程AP、离散生命周期和最终拓扑一致，旁路状态违规为0。
+状态：planned_not_implemented_not_run。030已完成并通过同机旁路无干扰检查，不再重跑复现。
 
-有效旁路审计发现5条满足全部原复用验收门槛的候选记录，均为S6_first中的专家9，并同时受busy与similarity门槛阻挡；它们是post_hoc oracle诊断，不是在线复用结果，也不是D>C证据。
+[030分析](docs/PROTOCOL030_ANALYSIS_20260922.md) / [031执行指示](docs/PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md) / [计划](artifacts/ftmoe_online/protocol_031/plan.json)。
 
-相对历史028的class probability最大差仍为1.430511474609375e-6，因此historical_028_match=false；这不影响030同job无干扰结论，也不追溯修改029的无效判定。
+唯一任务：实现“相似度只排序、复用验证与新生训练并行”的策略包，运行C_fixed5与D_nonblocking_reuse各一次。旧专家仍须通过原1%损失改善及全部正常/FPR/guard验收才接管。数据、seed和九窗口主指标不变。
 
-结果见[Protocol-030 Results](docs/PROTOCOL030_RESULTS.md)。当前没有已登记的下一项科学实验；等待新的明确指示。
+不要把030五次S6_first事后机会当作在线成功，也不要为了复现五次而指定专家或阶段。实际复用、回归AP领先与开发参考分别报告。先验证JSON产物序列化，避免重复030报告故障。结果回写main并停止，不自动追加实验。

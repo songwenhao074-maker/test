@@ -1,3 +1,5 @@
+> 历史指令：run35716480519已完成，paired_audit_valid=true，后处理已从artifact恢复，无需重跑。以下为原登记正文。当前唯一任务为[031非阻塞复用试跑](PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md)，见[030分析](PROTOCOL030_ANALYSIS_20260922.md)。
+
 # Protocol-030：同机成对验证旁路无干扰
 日期：2026-09-22。状态：planned_not_implemented_not_run。基点：871d062519149e3a7b24265060da39963869ded5。
 
