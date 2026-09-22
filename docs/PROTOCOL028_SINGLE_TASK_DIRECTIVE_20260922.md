@@ -1,3 +1,5 @@
+> 历史指令，已完成：run35705211072；以下为当时登记原文，含当时planned状态，不代表当前任务。见[028结果](PROTOCOL028_RESULTS.md)；当前唯一任务为[029旁路诊断](PROTOCOL029_SINGLE_TASK_DIRECTIVE_20260922.md)。
+
 # Protocol-028：保护已验收记忆的一次D/C开发试跑
 日期：2026-09-22。状态：planned_not_implemented_not_run。基点：81756266234e7649de76b92a74a22b82c2bbbaee及其已完成Protocol-027结果。
 

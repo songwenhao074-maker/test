@@ -1,6 +1,9 @@
-# 当前项目上下文：Protocol-028已完成
+# 当前项目上下文：028完成，029待实现
 
-Protocol-027 已完成，随后按唯一指示执行了 Protocol-028：C_fixed5 vs D_memory_protected，seed700/model1。
-Protocol-028 只改变满驻留容量时的 birth 准入：保护已验收 memory，跳过未验证 shadow 的 birth，不 purge dormant specialist。
-结果与完整解释：docs/PROTOCOL028_RESULTS.md；run 35705211072。
-当前任务到达停止点，没有自动启动后续实验。
+研究目标：在合理业务更替/复现场景中检验动态残差专家D是否超过固定残差专家C。C不是全量微调；本轮暂不加入A/B。
+
+027完成；028的满容量记忆保护也已完成（run35705211072）。028保留了记忆，却没有成功复用：D主AP差-0.00286984，正差3/9；墙钟约为C的10.35倍，不能声称D总成本更低。
+
+用户最新要求授权下一单任务；[029指示](docs/PROTOCOL029_SINGLE_TASK_DIRECTIVE_20260922.md)只登记一次旁路记忆效用诊断，目前尚未实现/运行。沿用028原线上策略与冻结revision002，不改参数。观察不应影响任何实际决策；审计最优候选不是可部署D。
+
+数据源run35682811782/artifact10675401651；028证据run35705211072/artifact10684617851。保留历史负结果和冻结注册，不重新模拟。唯一当前交接：docs/GITHUB_EXPERIMENT_HANDOFF.md。

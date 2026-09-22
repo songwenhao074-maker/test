@@ -1,0 +1,40 @@
+{
+  "protocol": "029",
+  "status": "planned_not_implemented_not_run",
+  "date": "2026-09-22",
+  "task_count": 1,
+  "task": "Passive dormant-memory utility audit on one unchanged Protocol028 D_memory_protected replay",
+  "source_commit": "8dca4daa20f7d73fccff06c902204be51ebd9500",
+  "source_run_id": 35705211072,
+  "source_protocol": "028",
+  "data_revision": "protocol027_data_revision_002",
+  "data_source_run_id": 35682811782,
+  "data_artifact_id": 10675401651,
+  "replay_seed": 700,
+  "model_seed": 1,
+  "run_arms": [
+    "D_memory_protected_with_passive_audit"
+  ],
+  "new_training_arms": 0,
+  "rerun_C": false,
+  "method_changes": [],
+  "passive_views": [
+    "four_generalists_plus_each_accepted_dormant_specialist",
+    "four_generalists_only"
+  ],
+  "reuse_audit_every_matured": 32,
+  "future_validation_intervals": 16,
+  "all_original_acceptance_thresholds_unchanged": true,
+  "primary_question": "Do unselected resident memories offer paired causal predictive benefit and satisfy original gates under the unchanged live trajectory?",
+  "oracle_is_online_method": false,
+  "busy_counterfactual_is_deployable": false,
+  "scientific_confirmation": false,
+  "required_prediction_max_absolute_probability_error": 0.000001,
+  "required_primary_ap_difference_max": 0.000001,
+  "require_identical_discrete_lifecycle": true,
+  "workflow_branch": "protocol-029-memory-utility-20260922",
+  "workflow_path": ".github/workflows/protocol029-diagnostic.yml",
+  "directive": "docs/PROTOCOL029_SINGLE_TASK_DIRECTIVE_20260922.md",
+  "analysis": "docs/PROTOCOL028_ANALYSIS_20260922.md",
+  "stop_after": "One diagnostic replay, report all opportunities and nine windows, publish results; no automatic algorithm/scenario changes"
+}
