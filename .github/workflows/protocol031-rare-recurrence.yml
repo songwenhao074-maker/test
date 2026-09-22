@@ -1,5 +1,5 @@
 name: Protocol-031 revision002 rare-recurrence C/D pilot
-# Relaunch after Linux priority compatibility fix 2026-09-22; both prior runs generated zero simulator intervals.
+# Relaunch after preflight newline fix 2026-09-22; all prior attempts generated zero simulator intervals.
 
 on:
   push:
@@ -109,7 +109,11 @@ jobs:
           assert method['arms']==['C_fixed5','D_nonblocking_reuse']
           assert method['full_replay_budget']==2
           assert method['D']['similarity_threshold_role']=='logged_only_not_admission_gate'
-          import maintenance.run_protocol031_segment as seg\n          import psutil\n          assert hasattr(psutil,'BELOW_NORMAL_PRIORITY_CLASS')\n          assert psutil.BELOW_NORMAL_PRIORITY_CLASS==10 or isinstance(psutil.BELOW_NORMAL_PRIORITY_CLASS,int)\n          print({'protocol031_preflight':True,'source_code_commit':reg['source_code_commit'],'priority_compat':True})
+          import maintenance.run_protocol031_segment as seg
+          import psutil
+          assert hasattr(psutil,'BELOW_NORMAL_PRIORITY_CLASS')
+          assert psutil.BELOW_NORMAL_PRIORITY_CLASS==10 or isinstance(psutil.BELOW_NORMAL_PRIORITY_CLASS,int)
+          print({'protocol031_preflight':True,'source_code_commit':reg['source_code_commit'],'priority_compat':True})
           PY
 
       - name: Restore same registered generation state
