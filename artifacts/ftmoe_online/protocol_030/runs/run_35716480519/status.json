@@ -1,10 +1,18 @@
 {
   "protocol": "030",
   "run_id": "35716480519",
-  "completed": false,
-  "paired_audit_valid": null,
+  "completed": true,
+  "completed_executions": [
+    "audit_off",
+    "audit_on"
+  ],
+  "full_replays_started": 2,
+  "full_replays_completed": 2,
+  "full_replay_budget": 2,
+  "paired_audit_valid": true,
   "new_scientific_methods": 0,
   "C_rerun": false,
   "automatic_followups_started": [],
-  "blocker": "execution_stopped_before_protocol030_status"
+  "postprocessing_recovered": true,
+  "blocker": null
 }
