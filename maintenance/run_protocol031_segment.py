@@ -5,10 +5,14 @@ Immutable 200-step chunks plus simulator/workload/scheduler/RNG state are
 preserved. A transient partial block may bridge the latest immutable chunk.
 """
 from __future__ import annotations
-import argparse, contextlib, json, os, random, time, traceback
+import argparse, contextlib, json, os, random, sys, time, traceback
 from pathlib import Path
 import dill
 import numpy as np
+
+ROOT=Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0,str(ROOT))
 
 import prepare_ftmoe_protocol031_stream as P
 
