@@ -1,0 +1,535 @@
+name: Protocol-031 revision002 rare-recurrence C/D pilot
+# Launch authorized 2026-09-22: one seed700 stream, one C_fixed5 replay, one D_nonblocking_reuse replay.
+
+on:
+  push:
+    branches: [protocol-031-rare-recurrence-20260922]
+    paths:
+      - .github/workflows/protocol031-rare-recurrence.yml
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: 'Registered execution stage: generate, C, or D'
+        type: choice
+        required: true
+        default: generate
+        options: [generate, C, D]
+      resume_run_id:
+        description: 'Prior generation-state run ID; blank only for the first generation segment'
+        type: string
+        required: false
+        default: ''
+      frozen_run_id:
+        description: 'Run ID containing the frozen-data bundle'
+        type: string
+        required: false
+        default: ''
+      c_run_id:
+        description: 'Run ID containing the single C_fixed5 replay'
+        type: string
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: protocol031-revision002-rare-recurrence
+  cancel-in-progress: false
+
+jobs:
+  protocol031:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    env:
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      PYTHONHASHSEED: '1'
+      STAGE: ${{ github.event_name == 'push' && 'generate' || inputs.stage }}
+      RESUME_RUN_ID: ${{ inputs.resume_run_id || '' }}
+      FROZEN_RUN_ID: ${{ inputs.frozen_run_id || '' }}
+      C_RUN_ID: ${{ inputs.c_run_id || '' }}
+      DATA_ROOT: artifacts/ftmoe_online/protocol_031/data_revision_001
+      RUN_ROOT: artifacts/ftmoe_online/protocol_031/runtime/run_${{ github.run_id }}
+      SCENARIO_REG: artifacts/ftmoe_online/protocol_031/scenario_registration.json
+      METHOD_REG: artifacts/ftmoe_online/protocol_031/method_registration.json
+      FROZEN_BUNDLE: /tmp/protocol031_frozen_bundle
+      GENERATION_SEGMENT: '2000'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+
+      - name: Install frozen CPU dependencies
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil
+
+      - name: Compile Protocol-031 implementation
+        run: |
+          python -m py_compile \
+            prepare_ftmoe_protocol031_stream.py \
+            maintenance/run_protocol031_segment.py \
+            audit_ftmoe_protocol031.py \
+            ftmoe_protocol031_nonblocking_reuse.py \
+            run_ftmoe_protocol031_pilot.py \
+            finalize_ftmoe_protocol031.py \
+            test_ftmoe_protocol031.py
+
+      - name: Run registered preflight fixtures before first generation byte
+        if: env.STAGE == 'generate' && env.RESUME_RUN_ID == ''
+        run: |
+          python -m unittest -v \
+            test_ftmoe_protocol031.py \
+            test_ftmoe_protocol027_guard.py \
+            test_ftmoe_protocol028.py \
+            test_ftmoe_protocol025_model.py \
+            test_ftmoe_protocol025_session.py
+          python - <<'PY'
+          import json
+          import finalize_ftmoe_protocol031 as f
+          s={'run_id':'fixture','completed':False,'blocker':'fixture'}
+          lines=f.build_results(s,None,{'complete':False},None,None,'','')
+          assert any('Blocker' in x for x in lines)
+          reg=json.load(open('artifacts/ftmoe_online/protocol_031/scenario_registration.json'))
+          method=json.load(open('artifacts/ftmoe_online/protocol_031/method_registration.json'))
+          assert reg['protocol']=='031' and reg['plan_revision']==2
+          assert reg['scenario_id']=='protocol031_rare_recurrence_v1'
+          assert reg['registered_before_generation'] is True
+          assert reg['source_code_commit']=='286536c774bd8fd0ae2257f40ee8e288a1826c28'
+          assert method['arms']==['C_fixed5','D_nonblocking_reuse']
+          assert method['full_replay_budget']==2
+          assert method['D']['similarity_threshold_role']=='logged_only_not_admission_gate'
+          print({'protocol031_preflight':True,'source_code_commit':reg['source_code_commit']})
+          PY
+
+      - name: Restore same registered generation state
+        if: env.STAGE == 'generate' && env.RESUME_RUN_ID != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol031-generation-state-${{ inputs.resume_run_id }}
+          path: ${{ env.DATA_ROOT }}
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.resume_run_id }}
+
+      - name: Record or verify pre-generation code receipt
+        if: env.STAGE == 'generate'
+        run: |
+          mkdir -p "$DATA_ROOT" "$RUN_ROOT"
+          python - <<'PY'
+          import hashlib,json,os,pathlib
+          root=pathlib.Path(os.environ['DATA_ROOT'])
+          files=[
+            'artifacts/ftmoe_online/protocol_031/scenario_registration.json',
+            'artifacts/ftmoe_online/protocol_031/method_registration.json',
+            'prepare_ftmoe_protocol031_stream.py','maintenance/run_protocol031_segment.py',
+            'audit_ftmoe_protocol031.py','ftmoe_protocol031_nonblocking_reuse.py',
+            'run_ftmoe_protocol031_pilot.py','finalize_ftmoe_protocol031.py',
+            'simulator/workload/BitbrainWorkloadProtocol025.py',
+          ]
+          def sha(p):
+              h=hashlib.sha256(); h.update(pathlib.Path(p).read_bytes()); return h.hexdigest()
+          now={p:sha(p) for p in files}
+          p=root/'pre_generation_receipt.json'
+          if p.is_file():
+              old=json.load(open(p))
+              if old['file_sha256']!=now:
+                  raise SystemExit('Protocol031 scientific asset hash changed during same-stream resume')
+              print({'receipt_verified':True,'initial_workflow_sha':old['initial_workflow_sha']})
+          else:
+              rec={'protocol':'031','plan_revision':2,'scenario_id':'protocol031_rare_recurrence_v1',
+                   'data_revision':'protocol031_data_revision_001','registered_before_generation':True,
+                   'initial_workflow_sha':os.environ['GITHUB_SHA'],'branch':os.environ['GITHUB_REF_NAME'],
+                   'replay_seed':700,'model_seed':1,'file_sha256':now}
+              p.write_text(json.dumps(rec,indent=2)+'\n')
+              print({'receipt_created':True,'initial_workflow_sha':rec['initial_workflow_sha']})
+          PY
+
+      - name: Advance only the same registered simulator stream
+        id: collect
+        if: env.STAGE == 'generate'
+        continue-on-error: true
+        run: |
+          rm -f "$DATA_ROOT/failure.json"
+          python maintenance/run_protocol031_segment.py \
+            --output "$DATA_ROOT" --max-intervals "$GENERATION_SEGMENT"
+
+      - name: Inspect generation segment
+        id: gen
+        if: env.STAGE == 'generate'
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json,os,pathlib
+          root=pathlib.Path(os.environ['DATA_ROOT'])
+          failed=(os.environ.get('COLLECT_OUTCOME')!='success') or (root/'failure.json').is_file()
+          status=json.load(open(root/'generation_status.json')) if (root/'generation_status.json').is_file() else {}
+          complete=bool(status.get('complete')) and not failed
+          print('failed='+str(failed).lower())
+          print('complete='+str(complete).lower())
+          print('next_t='+str(status.get('next_t','unknown')))
+          PY
+        env:
+          COLLECT_OUTCOME: ${{ steps.collect.outcome }}
+
+      - name: Archive resumable state for this exact stream
+        if: env.STAGE == 'generate'
+        id: generation_state
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol031-generation-state-${{ github.run_id }}
+          path: ${{ env.DATA_ROOT }}/
+          if-no-files-found: error
+          compression-level: 1
+          retention-days: 7
+
+      - name: Dispatch next segment of the same stream
+        if: env.STAGE == 'generate' && steps.gen.outputs.failed == 'false' && steps.gen.outputs.complete == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api --method POST \
+            -H 'Accept: application/vnd.github+json' \
+            "/repos/$GITHUB_REPOSITORY/actions/workflows/protocol031-rare-recurrence.yml/dispatches" \
+            -f ref="$GITHUB_REF_NAME" \
+            -f 'inputs[stage]=generate' \
+            -f "inputs[resume_run_id]=$GITHUB_RUN_ID"
+          echo "Same-stream continuation dispatched from next_t=${{ steps.gen.outputs.next_t }}."
+
+      - name: Independent model-free audit and hash freeze
+        id: audit
+        if: env.STAGE == 'generate' && steps.gen.outputs.failed == 'false' && steps.gen.outputs.complete == 'true'
+        continue-on-error: true
+        run: |
+          cp "$SCENARIO_REG" "$RUN_ROOT/scenario_registration_frozen.json"
+          python audit_ftmoe_protocol031.py \
+            --data-root "$DATA_ROOT" --output-root "$RUN_ROOT" \
+            --freeze-registration "$RUN_ROOT/scenario_registration_frozen.json"
+          cp "$DATA_ROOT/generation_status.json" "$RUN_ROOT/generation_status.json"
+          cp "$DATA_ROOT/pre_generation_receipt.json" "$RUN_ROOT/pre_generation_receipt.json"
+
+      - name: Assemble immutable frozen-data bundle
+        if: env.STAGE == 'generate' && steps.gen.outputs.complete == 'true' && steps.audit.outcome == 'success'
+        run: |
+          rm -rf "$FROZEN_BUNDLE"
+          mkdir -p "$FROZEN_BUNDLE/data" "$FROZEN_BUNDLE/evidence"
+          cp -a "$DATA_ROOT/." "$FROZEN_BUNDLE/data/"
+          cp "$RUN_ROOT/eligibility.json" "$FROZEN_BUNDLE/evidence/eligibility.json"
+          cp "$RUN_ROOT/data_lock.json" "$FROZEN_BUNDLE/evidence/data_lock.json"
+          cp "$RUN_ROOT/scenario_registration_frozen.json" "$FROZEN_BUNDLE/evidence/scenario_registration_frozen.json"
+          cp "$RUN_ROOT/generation_status.json" "$FROZEN_BUNDLE/evidence/generation_status.json"
+          cp "$RUN_ROOT/pre_generation_receipt.json" "$FROZEN_BUNDLE/evidence/pre_generation_receipt.json"
+
+      - name: Upload frozen data before either comparator starts
+        if: env.STAGE == 'generate' && steps.gen.outputs.complete == 'true' && steps.audit.outcome == 'success'
+        id: frozen
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol031-frozen-data-${{ github.run_id }}
+          path: ${{ env.FROZEN_BUNDLE }}/
+          if-no-files-found: error
+          compression-level: 1
+          retention-days: 90
+
+      - name: Record frozen-data archive identity
+        if: env.STAGE == 'generate' && steps.gen.outputs.complete == 'true' && steps.audit.outcome == 'success'
+        env:
+          FROZEN_ARTIFACT_ID: ${{ steps.frozen.outputs.artifact-id }}
+          FROZEN_ARTIFACT_URL: ${{ steps.frozen.outputs.artifact-url }}
+          FROZEN_ARTIFACT_DIGEST: ${{ steps.frozen.outputs.artifact-digest }}
+        run: |
+          python - <<'PY'
+          import json,os,pathlib
+          p=pathlib.Path(os.environ['RUN_ROOT'])/'frozen_data_archive.json'
+          p.write_text(json.dumps({
+            'protocol':'031','run_id':os.environ['GITHUB_RUN_ID'],
+            'artifact_id':os.environ['FROZEN_ARTIFACT_ID'],
+            'artifact_url':os.environ['FROZEN_ARTIFACT_URL'],
+            'artifact_digest':os.environ['FROZEN_ARTIFACT_DIGEST'],
+            'artifact_name':'protocol031-frozen-data-'+os.environ['GITHUB_RUN_ID'],
+            'frozen_before_model_runs':True,'retention_days':90},indent=2)+'\n')
+          PY
+
+      - name: Dispatch the single registered C_fixed5 replay
+        if: env.STAGE == 'generate' && steps.gen.outputs.complete == 'true' && steps.audit.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api --method POST \
+            -H 'Accept: application/vnd.github+json' \
+            "/repos/$GITHUB_REPOSITORY/actions/workflows/protocol031-rare-recurrence.yml/dispatches" \
+            -f ref="$GITHUB_REF_NAME" \
+            -f 'inputs[stage]=C' \
+            -f "inputs[frozen_run_id]=$GITHUB_RUN_ID"
+
+      - name: Materialize terminal generation blocker
+        if: env.STAGE == 'generate' && (steps.gen.outputs.failed == 'true' || (steps.gen.outputs.complete == 'true' && steps.audit.outcome == 'failure'))
+        run: |
+          mkdir -p "$RUN_ROOT"
+          cp "$DATA_ROOT/generation_status.json" "$RUN_ROOT/generation_status.json" 2>/dev/null || true
+          cp "$DATA_ROOT/pre_generation_receipt.json" "$RUN_ROOT/pre_generation_receipt.json" 2>/dev/null || true
+          cp "$DATA_ROOT/failure.json" "$RUN_ROOT/generation_failure.json" 2>/dev/null || true
+          python - <<'PY'
+          import json,os,pathlib
+          root=pathlib.Path(os.environ['RUN_ROOT'])
+          blocker='generation_segment_failed' if '${{ steps.gen.outputs.failed }}'=='true' else 'model_free_data_audit_failed'
+          status={'protocol':'031','plan_revision':2,'scenario_id':'protocol031_rare_recurrence_v1',
+                  'data_revision':'protocol031_data_revision_001','run_id':os.environ['GITHUB_RUN_ID'],
+                  'completed':False,'full_model_replays_started':0,'full_model_replay_budget':2,
+                  'completed_comparators':[],'failed_comparators':[],'A_B_runs':0,
+                  'automatic_followups_started':[],'blocker':blocker,'no_reroll':True}
+          (root/'status.json').write_text(json.dumps(status,indent=2)+'\n')
+          PY
+
+      - name: Restore frozen data for C or D
+        if: env.STAGE == 'C' || env.STAGE == 'D'
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol031-frozen-data-${{ inputs.frozen_run_id }}
+          path: ${{ env.FROZEN_BUNDLE }}
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.frozen_run_id }}
+
+      - name: Verify frozen bundle before a model replay
+        if: env.STAGE == 'C' || env.STAGE == 'D'
+        run: |
+          mkdir -p "$RUN_ROOT"
+          python - <<'PY'
+          import json,os,pathlib,hashlib
+          b=pathlib.Path(os.environ['FROZEN_BUNDLE'])
+          lock=json.load(open(b/'evidence/data_lock.json'))
+          reg=json.load(open(b/'evidence/scenario_registration_frozen.json'))
+          h=hashlib.sha256((b/'data/stream.npz').read_bytes()).hexdigest()
+          assert lock['locked'] is True and lock['model_free_eligibility_passed'] is True
+          assert h==lock['stream_sha256']==reg['generation']['expected_stream_sha256']
+          assert reg['generation']['frozen_before_model_runs'] is True
+          print({'frozen_bundle_verified':True,'stream_sha256':h})
+          PY
+          cp "$FROZEN_BUNDLE/evidence/eligibility.json" "$RUN_ROOT/eligibility.json"
+          cp "$FROZEN_BUNDLE/evidence/data_lock.json" "$RUN_ROOT/data_lock.json"
+          cp "$FROZEN_BUNDLE/evidence/scenario_registration_frozen.json" "$RUN_ROOT/scenario_registration_frozen.json"
+          cp "$FROZEN_BUNDLE/evidence/generation_status.json" "$RUN_ROOT/generation_status.json"
+          cp "$FROZEN_BUNDLE/evidence/pre_generation_receipt.json" "$RUN_ROOT/pre_generation_receipt.json"
+
+      - name: Run the single registered C_fixed5 replay
+        id: run_c
+        if: env.STAGE == 'C'
+        continue-on-error: true
+        run: |
+          python run_ftmoe_protocol031_pilot.py \
+            --child-arm C_fixed5 \
+            --stream "$FROZEN_BUNDLE/data" \
+            --arm-dir "$RUN_ROOT/C_fixed5" \
+            --scenario-registration "$FROZEN_BUNDLE/evidence/scenario_registration_frozen.json" \
+            --method-registration "$METHOD_REG" \
+            --data-lock "$FROZEN_BUNDLE/evidence/data_lock.json" \
+            --run-id "$GITHUB_RUN_ID" \
+            > "$RUN_ROOT/C_fixed5.stdout.log" 2> "$RUN_ROOT/C_fixed5.stderr.log"
+
+      - name: Upload the one C replay evidence
+        if: env.STAGE == 'C'
+        id: c_artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol031-C-${{ github.run_id }}
+          path: |
+            ${{ env.RUN_ROOT }}/C_fixed5/
+            ${{ env.RUN_ROOT }}/C_fixed5.stdout.log
+            ${{ env.RUN_ROOT }}/C_fixed5.stderr.log
+          if-no-files-found: warn
+          compression-level: 3
+          retention-days: 90
+
+      - name: Dispatch the single registered D replay
+        if: env.STAGE == 'C' && steps.run_c.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          test -f "$RUN_ROOT/C_fixed5/summary.json"
+          test -f "$RUN_ROOT/C_fixed5/predictions.npz"
+          gh api --method POST \
+            -H 'Accept: application/vnd.github+json' \
+            "/repos/$GITHUB_REPOSITORY/actions/workflows/protocol031-rare-recurrence.yml/dispatches" \
+            -f ref="$GITHUB_REF_NAME" \
+            -f 'inputs[stage]=D' \
+            -f "inputs[frozen_run_id]=$FROZEN_RUN_ID" \
+            -f "inputs[c_run_id]=$GITHUB_RUN_ID"
+
+      - name: Materialize terminal C blocker
+        if: env.STAGE == 'C' && steps.run_c.outcome != 'success'
+        run: |
+          python - <<'PY'
+          import json,os,pathlib
+          root=pathlib.Path(os.environ['RUN_ROOT'])
+          status={'protocol':'031','plan_revision':2,'scenario_id':'protocol031_rare_recurrence_v1',
+                  'data_revision':'protocol031_data_revision_001','run_id':os.environ['GITHUB_RUN_ID'],
+                  'completed':False,'full_model_replays_started':1,'full_model_replay_budget':2,
+                  'completed_comparators':[],'failed_comparators':['C_fixed5'],'A_B_runs':0,
+                  'automatic_followups_started':[],'blocker':'C_fixed5_registered_replay_failed','no_extra_replay':True}
+          (root/'status.json').write_text(json.dumps(status,indent=2)+'\n')
+          PY
+
+      - name: Restore the already completed C replay for D comparison
+        if: env.STAGE == 'D'
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol031-C-${{ inputs.c_run_id }}
+          path: ${{ env.RUN_ROOT }}/C_fixed5_restore
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.c_run_id }}
+
+      - name: Normalize restored C artifact layout
+        if: env.STAGE == 'D'
+        run: |
+          mkdir -p "$RUN_ROOT/C_fixed5"
+          if test -f "$RUN_ROOT/C_fixed5_restore/summary.json"; then
+            cp -a "$RUN_ROOT/C_fixed5_restore/." "$RUN_ROOT/C_fixed5/"
+          elif test -f "$RUN_ROOT/C_fixed5_restore/C_fixed5/summary.json"; then
+            cp -a "$RUN_ROOT/C_fixed5_restore/C_fixed5/." "$RUN_ROOT/C_fixed5/"
+          else
+            find "$RUN_ROOT/C_fixed5_restore" -maxdepth 3 -type f -print
+            exit 2
+          fi
+          test -f "$RUN_ROOT/C_fixed5/summary.json"
+          test -f "$RUN_ROOT/C_fixed5/predictions.npz"
+
+      - name: Run the single registered D_nonblocking_reuse replay
+        id: run_d
+        if: env.STAGE == 'D'
+        continue-on-error: true
+        run: |
+          python run_ftmoe_protocol031_pilot.py \
+            --child-arm D_nonblocking_reuse \
+            --stream "$FROZEN_BUNDLE/data" \
+            --arm-dir "$RUN_ROOT/D_nonblocking_reuse" \
+            --scenario-registration "$FROZEN_BUNDLE/evidence/scenario_registration_frozen.json" \
+            --method-registration "$METHOD_REG" \
+            --data-lock "$FROZEN_BUNDLE/evidence/data_lock.json" \
+            --run-id "$GITHUB_RUN_ID" \
+            > "$RUN_ROOT/D_nonblocking_reuse.stdout.log" 2> "$RUN_ROOT/D_nonblocking_reuse.stderr.log"
+
+      - name: Compare the one C replay and one D replay
+        if: env.STAGE == 'D' && steps.run_d.outcome == 'success'
+        run: |
+          python - <<'PY'
+          import json,os,pathlib
+          from run_ftmoe_protocol031_pilot import compare,write_json
+          root=pathlib.Path(os.environ['RUN_ROOT'])
+          comp=compare(root,pathlib.Path(os.environ['FROZEN_BUNDLE'])/'data',os.environ['GITHUB_RUN_ID'])
+          write_json(root/'comparison.json',comp); write_json(root/'cost_profile.json',comp['cost_profile'])
+          status={'protocol':'031','plan_revision':2,'scenario_id':'protocol031_rare_recurrence_v1',
+                  'data_revision':'protocol031_data_revision_001','run_id':os.environ['GITHUB_RUN_ID'],
+                  'completed':True,'full_model_replays_started':2,'full_model_replay_budget':2,
+                  'completed_comparators':['C_fixed5','D_nonblocking_reuse'],'failed_comparators':[],
+                  'C_rerun_count':1,'D_rerun_count':1,'A_B_runs':0,'automatic_followups_started':[],
+                  'development_signal':bool(comp['primary']['development_signal']),'blocker':None}
+          write_json(root/'status.json',status)
+          PY
+
+      - name: Materialize terminal D blocker
+        if: env.STAGE == 'D' && steps.run_d.outcome != 'success'
+        run: |
+          python - <<'PY'
+          import json,os,pathlib
+          root=pathlib.Path(os.environ['RUN_ROOT'])
+          status={'protocol':'031','plan_revision':2,'scenario_id':'protocol031_rare_recurrence_v1',
+                  'data_revision':'protocol031_data_revision_001','run_id':os.environ['GITHUB_RUN_ID'],
+                  'completed':False,'full_model_replays_started':2,'full_model_replay_budget':2,
+                  'completed_comparators':['C_fixed5'],'failed_comparators':['D_nonblocking_reuse'],
+                  'C_rerun_count':1,'D_rerun_count':1,'A_B_runs':0,'automatic_followups_started':[],
+                  'blocker':'D_nonblocking_reuse_registered_replay_failed','no_extra_replay':True}
+          (root/'status.json').write_text(json.dumps(status,indent=2)+'\n')
+          PY
+
+      - name: Record deterministic execution environment for terminal model run
+        if: env.STAGE == 'D'
+        run: |
+          python -m pip freeze > "$RUN_ROOT/pip_freeze.txt"
+          python - <<'PY'
+          import json,os,pathlib,platform,torch
+          root=pathlib.Path(os.environ['RUN_ROOT'])
+          (root/'environment.json').write_text(json.dumps({
+            'python':platform.python_version(),'platform':platform.platform(),'torch':torch.__version__,
+            'OMP_NUM_THREADS':os.environ.get('OMP_NUM_THREADS'),'MKL_NUM_THREADS':os.environ.get('MKL_NUM_THREADS'),
+            'OPENBLAS_NUM_THREADS':os.environ.get('OPENBLAS_NUM_THREADS'),'PYTHONHASHSEED':os.environ.get('PYTHONHASHSEED')},indent=2)+'\n')
+          (root/'workflow_execution.json').write_text(json.dumps({
+            'protocol':'031','terminal_run_id':os.environ['GITHUB_RUN_ID'],'branch':os.environ['GITHUB_REF_NAME'],
+            'head_sha':os.environ['GITHUB_SHA'],'frozen_run_id':os.environ.get('FROZEN_RUN_ID'),
+            'C_run_id':os.environ.get('C_RUN_ID'),'full_generation_budget':1,'full_model_replay_budget':2,
+            'A_B_runs':0,'automatic_scientific_followups':0},indent=2)+'\n')
+          PY
+
+      - name: Upload terminal Protocol-031 evidence
+        if: (env.STAGE == 'D') || (env.STAGE == 'C' && steps.run_c.outcome != 'success') || (env.STAGE == 'generate' && (steps.gen.outputs.failed == 'true' || (steps.gen.outputs.complete == 'true' && steps.audit.outcome == 'failure')))
+        id: terminal
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol031-rare-recurrence-${{ github.run_id }}
+          path: ${{ env.RUN_ROOT }}/
+          if-no-files-found: warn
+          compression-level: 3
+          retention-days: 90
+
+      - name: Build final report and compact Git handoff
+        if: (env.STAGE == 'D') || (env.STAGE == 'C' && steps.run_c.outcome != 'success') || (env.STAGE == 'generate' && (steps.gen.outputs.failed == 'true' || (steps.gen.outputs.complete == 'true' && steps.audit.outcome == 'failure')))
+        env:
+          ARTIFACT_ID: ${{ steps.terminal.outputs.artifact-id }}
+          ARTIFACT_URL: ${{ steps.terminal.outputs.artifact-url }}
+          ARTIFACT_DIGEST: ${{ steps.terminal.outputs.artifact-digest }}
+        run: |
+          python finalize_ftmoe_protocol031.py \
+            --run-root "$RUN_ROOT" \
+            --git-dest "artifacts/ftmoe_online/protocol_031/runs/run_${GITHUB_RUN_ID}" \
+            --run-id "$GITHUB_RUN_ID" --repository "$GITHUB_REPOSITORY" \
+            --artifact-id "$ARTIFACT_ID" --artifact-url "$ARTIFACT_URL" \
+            --artifact-digest "$ARTIFACT_DIGEST"
+
+      - name: Commit compact terminal results and handoff
+        if: (env.STAGE == 'D') || (env.STAGE == 'C' && steps.run_c.outcome != 'success') || (env.STAGE == 'generate' && (steps.gen.outputs.failed == 'true' || (steps.gen.outputs.complete == 'true' && steps.audit.outcome == 'failure')))
+        run: |
+          git config user.name 'protocol031-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add \
+            docs/PROTOCOL031_RESULTS.md docs/GITHUB_EXPERIMENT_HANDOFF.md \
+            AGENTS.md README.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md \
+            artifacts/ftmoe_online/protocol_031/runs/
+          git commit -m "results: record Protocol031 revision002 run ${GITHUB_RUN_ID}" || true
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase FETCH_HEAD
+          git push origin "HEAD:$GITHUB_REF_NAME"
+
+      - name: Final documented blocker gate for generation or C
+        if: (env.STAGE == 'C' && steps.run_c.outcome != 'success') || (env.STAGE == 'generate' && (steps.gen.outputs.failed == 'true' || (steps.gen.outputs.complete == 'true' && steps.audit.outcome == 'failure')))
+        run: |
+          python - <<'PY'
+          import json,os,pathlib
+          s=json.load(open(pathlib.Path(os.environ['RUN_ROOT'])/'status.json'))
+          print(json.dumps(s,indent=2))
+          raise SystemExit('Protocol031 stopped with documented blocker; no reroll or extra replay permitted')
+          PY
+
+      - name: Final registered stop gate
+        if: env.STAGE == 'D'
+        run: |
+          python - <<'PY'
+          import json,os,pathlib
+          p=pathlib.Path(os.environ['RUN_ROOT'])/'status.json'
+          s=json.load(open(p)); print(json.dumps(s,indent=2))
+          assert int(s.get('full_model_replays_started',0)) <= 2
+          assert int(s.get('A_B_runs',0)) == 0
+          assert not s.get('automatic_followups_started')
+          if not s.get('completed'):
+              raise SystemExit('Protocol031 stopped with documented D blocker; no extra replay permitted')
+          print('Protocol031 reached registered stop point; development_signal=',s.get('development_signal'))
+          PY
