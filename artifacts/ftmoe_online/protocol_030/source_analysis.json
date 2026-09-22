@@ -1,0 +1,211 @@
+{
+  "source_commit": "871d062519149e3a7b24265060da39963869ded5",
+  "source_run_id": 35711135230,
+  "workflow_conclusion": "failure",
+  "failed_step": "Final Protocol-029 validity gate",
+  "completed": true,
+  "diagnostic_valid": false,
+  "consistency": {
+    "diagnostic_valid": false,
+    "required_probability_max_abs_error": 0.000001,
+    "probability_max_abs_error": 0.0000011920928955078125,
+    "class_probability_max_abs_error": 0.000002086162567138672,
+    "labels_exact": true,
+    "raw_labels_exact": true,
+    "source_full_ap": 0.7110470277226265,
+    "diagnostic_full_ap": 0.7110471185720972,
+    "full_ap_absolute_difference": 9.08494707241303e-8,
+    "required_full_ap_absolute_difference_max": 0.000001,
+    "discrete_lifecycle_events_exact": true,
+    "source_discrete_event_count": 981,
+    "diagnostic_discrete_event_count": 981,
+    "final_lifecycle_counts_exact": true,
+    "passive_state_checks": 5657,
+    "passive_state_check_failures": 0
+  },
+  "opportunities": {
+    "reuse_due_opportunities": 154,
+    "no_memory_opportunities": 94,
+    "opportunities_with_memory": 60,
+    "opportunities_with_at_least_one_completed_candidate_validation": 59,
+    "stream_end_censored_opportunities": 1,
+    "opportunities_with_any_all_gates_candidate": 5,
+    "passing_candidate_opportunities_blocked_by_busy": 5,
+    "passing_candidate_opportunities_blocked_by_similarity_or_rank": 5,
+    "original_selected_candidate_passed": 0,
+    "passing_condition_intersections": {
+      "busy+similarity": 5
+    },
+    "per_expert": {
+      "9": {
+        "opportunities_present": 60,
+        "completed_validations": 59,
+        "all_gates_pass": 5,
+        "censored": 1,
+        "similarity_ok": 5,
+        "highest_similarity": 38
+      },
+      "15": {
+        "opportunities_present": 44,
+        "completed_validations": 43,
+        "all_gates_pass": 0,
+        "censored": 1,
+        "similarity_ok": 0,
+        "highest_similarity": 6
+      },
+      "17": {
+        "opportunities_present": 36,
+        "completed_validations": 35,
+        "all_gates_pass": 0,
+        "censored": 1,
+        "similarity_ok": 6,
+        "highest_similarity": 16
+      }
+    },
+    "post_hoc_oracle_diagnostic": true,
+    "source_protocol028_reuse_due": 154,
+    "due_count_matches_source": true
+  },
+  "passing_records": [
+    {
+      "due_cursor": 3937,
+      "phase": "S6_first",
+      "expert_id": "9",
+      "controller_busy": true,
+      "similarity": {
+        "similarity": 0.8436746264216121,
+        "required_similarity": 0.9879425565879068,
+        "similarity_ok": false,
+        "is_highest_similarity": true
+      },
+      "relative_loss_improvement": 0.03114929984355737
+    },
+    {
+      "due_cursor": 3969,
+      "phase": "S6_first",
+      "expert_id": "9",
+      "controller_busy": true,
+      "similarity": {
+        "similarity": 0.8589842679940329,
+        "required_similarity": 0.9879425565879068,
+        "similarity_ok": false,
+        "is_highest_similarity": true
+      },
+      "relative_loss_improvement": 0.07893081959977456
+    },
+    {
+      "due_cursor": 4001,
+      "phase": "S6_first",
+      "expert_id": "9",
+      "controller_busy": true,
+      "similarity": {
+        "similarity": 0.7571507806180714,
+        "required_similarity": 0.9879425565879068,
+        "similarity_ok": false,
+        "is_highest_similarity": true
+      },
+      "relative_loss_improvement": 0.07149434267323578
+    },
+    {
+      "due_cursor": 4033,
+      "phase": "S6_first",
+      "expert_id": "9",
+      "controller_busy": true,
+      "similarity": {
+        "similarity": 0.9506373626115303,
+        "required_similarity": 0.9879425565879068,
+        "similarity_ok": false,
+        "is_highest_similarity": true
+      },
+      "relative_loss_improvement": 0.072841585086498
+    },
+    {
+      "due_cursor": 4065,
+      "phase": "S6_first",
+      "expert_id": "9",
+      "controller_busy": true,
+      "similarity": {
+        "similarity": 0.893724124312533,
+        "required_similarity": 0.9879425565879068,
+        "similarity_ok": false,
+        "is_highest_similarity": true
+      },
+      "relative_loss_improvement": 0.059379668494959376
+    }
+  ],
+  "descriptive_windows": {
+    "rows": [
+      {
+        "phase": "S1_rec1",
+        "live": 0.6940254854427718,
+        "bestDormant": null,
+        "delta": null,
+        "C": null
+      },
+      {
+        "phase": "S3_rec1",
+        "live": 0.8017799652785204,
+        "bestDormant": null,
+        "delta": null,
+        "C": null
+      },
+      {
+        "phase": "S2_rec1",
+        "live": 0.6810884851016429,
+        "bestDormant": null,
+        "delta": null,
+        "C": null
+      },
+      {
+        "phase": "S4_rec1",
+        "live": 0.6813799412482683,
+        "bestDormant": 0.6861096491255587,
+        "delta": 0.004729707877290434,
+        "C": 0.685697823725274
+      },
+      {
+        "phase": "S2_rec2",
+        "live": 0.7357497229027912,
+        "bestDormant": 0.7352016875335543,
+        "delta": -0.0005480353692368656,
+        "C": 0.7518029242588078
+      },
+      {
+        "phase": "S6_rec1",
+        "live": 0.8704681792408924,
+        "bestDormant": 0.8705660316899585,
+        "delta": 0.000097852449066127,
+        "C": 0.8724473449841877
+      },
+      {
+        "phase": "S1_rec2",
+        "live": 0.8253114360045473,
+        "bestDormant": 0.8212263707036451,
+        "delta": -0.004085065300902135,
+        "C": 0.83350656536893
+      },
+      {
+        "phase": "S5_rec1",
+        "live": 0.8004631992102473,
+        "bestDormant": 0.7896144201554943,
+        "delta": -0.01084877905475301,
+        "C": 0.7962744748543104
+      },
+      {
+        "phase": "S3_rec2",
+        "live": 0.8098641092213553,
+        "bestDormant": 0.808848490982143,
+        "delta": -0.001015618239212368,
+        "C": 0.8042692600395744
+      }
+    ],
+    "liveMean": 0.7666811692945597,
+    "chooserMean": 0.767217564886377,
+    "gain": 0.0005363955918173957
+  },
+  "historical_C_recurrence_AP": 0.7695510091640446,
+  "physical_no_memory": 94,
+  "controller_no_memory_events": 32,
+  "no_memory_busy_intersection": 62,
+  "interpretation": "Exploratory only: old diagnostic invalid, five acceptance-pass records all in S6_first and blocked by both busy and similarity threshold. No online D>C evidence."
+}

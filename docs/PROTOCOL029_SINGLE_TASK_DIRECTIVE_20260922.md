@@ -1,3 +1,5 @@
+> 历史指令：run35711135230已执行，最终diagnostic_valid=false。以下为原登记正文，不代表当前任务。见[029分析](PROTOCOL029_ANALYSIS_20260922.md)；当前唯一任务为[030同机配对诊断](PROTOCOL030_SINGLE_TASK_DIRECTIVE_20260922.md)。
+
 # Protocol-029：一次休眠记忆效用诊断
 日期：2026-09-22。状态：planned_not_implemented_not_run。基点：8dca4daa20f7d73fccff06c902204be51ebd9500；028已完成，本文件是当前唯一任务。
 
