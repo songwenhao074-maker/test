@@ -6,9 +6,16 @@ It resumes the exact seed700 simulator checkpoint when needed, stops once at lea
 explicit post-start amendment for a shorter C/D development comparison.
 """
 from __future__ import annotations
-import argparse, copy, hashlib, json, shutil
+import argparse, copy, hashlib, json, shutil, sys
 from pathlib import Path
 import numpy as np
+
+# When executed as `python maintenance/<script>.py`, Python places maintenance/
+# rather than the repository root on sys.path. Add only the repo root; this is
+# an import-path repair and does not alter simulator/data/model behavior.
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 import prepare_ftmoe_protocol031_stream as P
 import maintenance.run_protocol031_segment as SEG
