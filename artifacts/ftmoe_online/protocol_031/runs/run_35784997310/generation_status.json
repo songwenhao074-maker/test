@@ -1,0 +1,10 @@
+{
+  "protocol": "031",
+  "complete": false,
+  "next_t": 6000,
+  "scored_target": 15468,
+  "row_target": 15469,
+  "immutable_chunk_end": 6000,
+  "transient": null,
+  "segment_generated": 2000
+}

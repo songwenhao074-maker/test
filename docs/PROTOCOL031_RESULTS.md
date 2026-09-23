@@ -1,7 +1,7 @@
 # Protocol-031 Results
 
 Scenario: `protocol031_rare_recurrence_v1` (plan revision002).
-GitHub Actions terminal run: 35751852158.
+GitHub Actions terminal run: 35784997310.
 Completed registered C/D pair: False.
 Scope: one new seed700 simulator stream, model seed1, C_fixed5 versus D_nonblocking_reuse only.
 
@@ -21,5 +21,5 @@ No reroll, extra seed, extra scenario, A/B run, threshold search, ablation or tu
 
 ## Evidence
 
-- Artifact: https://github.com/songwenhao074-maker/test/actions/runs/35751852158/artifacts/10704648749
-- Artifact digest: 5ffb5eb84e95c1d6f77da98eedbe2c32d24a0c33840e05eb2277b30652f8ab1b
+- Artifact: https://github.com/songwenhao074-maker/test/actions/runs/35784997310/artifacts/10728542491
+- Artifact digest: a525221d4dc5b721bcbc2df6dc92ed4d672936d5d5e02627ae204724751793d6
