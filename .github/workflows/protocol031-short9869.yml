@@ -1,0 +1,308 @@
+name: Protocol-031 user-amended short horizon 9869
+
+on:
+  push:
+    branches: [protocol-031-rare-recurrence-20260922]
+    paths:
+      - .github/workflows/protocol031-short9869.yml
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: 'Completed/in-progress Protocol031 generation run to resume from'
+        required: false
+        type: string
+        default: '35784997310'
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  prepare_short9869:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    outputs:
+      frozen_name: ${{ steps.names.outputs.frozen_name }}
+    env:
+      SOURCE_RUN_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.source_run_id || '35784997310' }}
+      SOURCE_BRANCH: protocol-031-rare-recurrence-20260922
+      DATA_ROOT: artifacts/ftmoe_online/protocol_031/data_revision_001
+      FROZEN_BUNDLE: /tmp/protocol031_short9869_bundle
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      PYTHONHASHSEED: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: protocol-031-rare-recurrence-20260922
+
+      - name: Wait for the already-running source segment to finish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in $(seq 1 72); do
+            status=$(gh api "/repos/$GITHUB_REPOSITORY/actions/runs/$SOURCE_RUN_ID" --jq .status)
+            echo "source_run=$SOURCE_RUN_ID status=$status"
+            if [ "$status" = "completed" ]; then break; fi
+            sleep 300
+          done
+          test "$(gh api "/repos/$GITHUB_REPOSITORY/actions/runs/$SOURCE_RUN_ID" --jq .status)" = "completed"
+          gh api "/repos/$GITHUB_REPOSITORY/actions/runs/$SOURCE_RUN_ID/artifacts" \
+            --jq '.artifacts[].name' | grep -Fx "protocol031-generation-state-$SOURCE_RUN_ID"
+
+      - name: Cancel superseded original-horizon continuations
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for state in queued in_progress; do
+            gh api "/repos/$GITHUB_REPOSITORY/actions/workflows/protocol031-rare-recurrence.yml/runs?branch=$SOURCE_BRANCH&status=$state&per_page=50" \
+              --jq '.workflow_runs[].id' | while read -r rid; do
+                [ -z "$rid" ] && continue
+                [ "$rid" = "$SOURCE_RUN_ID" ] && continue
+                echo "Cancelling superseded original-horizon run $rid"
+                gh api --method POST "/repos/$GITHUB_REPOSITORY/actions/runs/$rid/cancel" || true
+              done
+          done
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+
+      - name: Install frozen CPU dependencies
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil
+
+      - name: Compile short-horizon amendment tooling
+        run: |
+          python -m py_compile \
+            maintenance/finalize_protocol031_short9869.py \
+            compare_protocol031_short9869.py \
+            finalize_protocol031_short9869_results.py \
+            maintenance/run_protocol031_segment.py \
+            run_ftmoe_protocol031_pilot.py
+
+      - name: Restore latest completed source generation state
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol031-generation-state-${{ env.SOURCE_RUN_ID }}
+          path: ${{ env.DATA_ROOT }}
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ env.SOURCE_RUN_ID }}
+
+      - name: Resume only as far as 9869 rows and freeze deterministic prefix
+        run: |
+          python maintenance/finalize_protocol031_short9869.py \
+            --data-root "$DATA_ROOT" \
+            --bundle-root "$FROZEN_BUNDLE"
+          python - <<'PY'
+          import json,os,pathlib
+          b=pathlib.Path(os.environ['FROZEN_BUNDLE'])
+          g=json.load(open(b/'evidence/generation_status.json'))
+          l=json.load(open(b/'evidence/data_lock.json'))
+          assert g['complete'] is True and g['row_target']==9869 and g['scored_target']==9868
+          assert l['locked'] is True and l['model_free_eligibility_passed'] is True
+          print({'short9869_frozen':True,'source_checkpoint_next_t':g['source_checkpoint_next_t'],'stream_sha256':l['stream_sha256']})
+          PY
+
+      - name: Set artifact name
+        id: names
+        run: echo "frozen_name=protocol031-short9869-frozen-${GITHUB_RUN_ID}" >> "$GITHUB_OUTPUT"
+
+      - name: Upload immutable short9869 frozen bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol031-short9869-frozen-${{ github.run_id }}
+          path: ${{ env.FROZEN_BUNDLE }}/
+          if-no-files-found: error
+          compression-level: 1
+          retention-days: 90
+
+  run_C:
+    needs: prepare_short9869
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    outputs:
+      c_ok: ${{ steps.check_c.outputs.c_ok }}
+    env:
+      FROZEN_BUNDLE: /tmp/protocol031_short9869_bundle
+      RUN_ROOT: /tmp/protocol031_short9869_C
+      METHOD_REG: artifacts/ftmoe_online/protocol_031/method_registration.json
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      PYTHONHASHSEED: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: protocol-031-rare-recurrence-20260922
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+      - name: Install frozen CPU dependencies
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil
+      - uses: actions/download-artifact@v4
+        with:
+          name: protocol031-short9869-frozen-${{ github.run_id }}
+          path: ${{ env.FROZEN_BUNDLE }}
+      - name: Verify frozen short9869 identity
+        run: |
+          python - <<'PY'
+          import hashlib,json,os,pathlib
+          b=pathlib.Path(os.environ['FROZEN_BUNDLE'])
+          h=hashlib.sha256((b/'data/stream.npz').read_bytes()).hexdigest()
+          lock=json.load(open(b/'evidence/data_lock.json'))
+          reg=json.load(open(b/'evidence/scenario_registration_frozen.json'))
+          assert h==lock['stream_sha256']==reg['generation']['expected_stream_sha256']
+          assert lock['steps']==9868 and lock['short_horizon_rows']==9869
+          PY
+      - name: Run exactly one C_fixed5 replay on short9869
+        id: c_run
+        continue-on-error: true
+        run: |
+          mkdir -p "$RUN_ROOT"
+          python run_ftmoe_protocol031_pilot.py \
+            --child-arm C_fixed5 \
+            --stream "$FROZEN_BUNDLE/data" \
+            --arm-dir "$RUN_ROOT/C_fixed5" \
+            --scenario-registration "$FROZEN_BUNDLE/evidence/scenario_registration_frozen.json" \
+            --method-registration "$METHOD_REG" \
+            --data-lock "$FROZEN_BUNDLE/evidence/data_lock.json" \
+            --run-id "$GITHUB_RUN_ID" \
+            > "$RUN_ROOT/C_fixed5.stdout.log" 2> "$RUN_ROOT/C_fixed5.stderr.log"
+      - name: Check C result
+        id: check_c
+        run: |
+          if [ "${{ steps.c_run.outcome }}" = "success" ] && test -f "$RUN_ROOT/C_fixed5/summary.json" && test -f "$RUN_ROOT/C_fixed5/predictions.npz"; then
+            echo "c_ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "c_ok=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Upload C evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol031-short9869-C-${{ github.run_id }}
+          path: ${{ env.RUN_ROOT }}/
+          if-no-files-found: warn
+          compression-level: 3
+          retention-days: 90
+
+  run_D_and_finalize:
+    needs: [prepare_short9869, run_C]
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    env:
+      FROZEN_BUNDLE: /tmp/protocol031_short9869_bundle
+      RUN_ROOT: /tmp/protocol031_short9869_terminal
+      METHOD_REG: artifacts/ftmoe_online/protocol_031/method_registration.json
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      PYTHONHASHSEED: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: protocol-031-rare-recurrence-20260922
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+      - name: Install frozen CPU dependencies
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil
+      - uses: actions/download-artifact@v4
+        with:
+          name: protocol031-short9869-frozen-${{ github.run_id }}
+          path: ${{ env.FROZEN_BUNDLE }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: protocol031-short9869-C-${{ github.run_id }}
+          path: /tmp/protocol031_short9869_C_restore
+      - name: Restore C evidence
+        run: |
+          mkdir -p "$RUN_ROOT/C_fixed5"
+          if test -f /tmp/protocol031_short9869_C_restore/C_fixed5/summary.json; then
+            cp -a /tmp/protocol031_short9869_C_restore/C_fixed5/. "$RUN_ROOT/C_fixed5/"
+          elif test -f /tmp/protocol031_short9869_C_restore/summary.json; then
+            cp -a /tmp/protocol031_short9869_C_restore/. "$RUN_ROOT/C_fixed5/"
+          fi
+      - name: Run exactly one D_nonblocking_reuse replay on short9869
+        id: d_run
+        if: needs.run_C.outputs.c_ok == 'true'
+        continue-on-error: true
+        run: |
+          python run_ftmoe_protocol031_pilot.py \
+            --child-arm D_nonblocking_reuse \
+            --stream "$FROZEN_BUNDLE/data" \
+            --arm-dir "$RUN_ROOT/D_nonblocking_reuse" \
+            --scenario-registration "$FROZEN_BUNDLE/evidence/scenario_registration_frozen.json" \
+            --method-registration "$METHOD_REG" \
+            --data-lock "$FROZEN_BUNDLE/evidence/data_lock.json" \
+            --run-id "$GITHUB_RUN_ID" \
+            > "$RUN_ROOT/D_nonblocking_reuse.stdout.log" 2> "$RUN_ROOT/D_nonblocking_reuse.stderr.log"
+      - name: Compare the short-horizon C/D pair
+        if: needs.run_C.outputs.c_ok == 'true' && steps.d_run.outcome == 'success'
+        run: |
+          python compare_protocol031_short9869.py \
+            --root "$RUN_ROOT" \
+            --stream "$FROZEN_BUNDLE/data" \
+            --scenario-registration "$FROZEN_BUNDLE/evidence/scenario_registration_frozen.json" \
+            --run-id "$GITHUB_RUN_ID" \
+            --output "$RUN_ROOT/comparison.json" \
+            --cost-output "$RUN_ROOT/cost_profile.json"
+      - name: Build compact short9869 handoff
+        if: always()
+        run: |
+          python finalize_protocol031_short9869_results.py \
+            --run-root "$RUN_ROOT" \
+            --evidence-root "$FROZEN_BUNDLE/evidence" \
+            --run-id "$GITHUB_RUN_ID" \
+            --repository "$GITHUB_REPOSITORY"
+      - name: Upload terminal short9869 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol031-short9869-terminal-${{ github.run_id }}
+          path: |
+            ${{ env.RUN_ROOT }}/
+            artifacts/ftmoe_online/protocol_031/short9869_latest/
+            docs/PROTOCOL031_SHORT9869_RESULTS.md
+          if-no-files-found: warn
+          compression-level: 3
+          retention-days: 90
+      - name: Commit short9869 result and handoff
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add AGENTS.md NEXT_EXPERIMENT_LATEST.md docs/GITHUB_EXPERIMENT_HANDOFF.md \
+            docs/PROTOCOL031_SHORT9869_RESULTS.md artifacts/ftmoe_online/protocol_031/short9869_latest
+          if git diff --cached --quiet; then
+            echo 'No compact result changes to commit.'
+          else
+            git commit -m 'exp: record Protocol031 short9869 amendment result [skip ci]'
+            git push origin HEAD:protocol-031-rare-recurrence-20260922
+          fi
+      - name: Final short9869 gate
+        if: always()
+        run: |
+          test -f "$RUN_ROOT/comparison.json"
+          test -f "$RUN_ROOT/C_fixed5/summary.json"
+          test -f "$RUN_ROOT/D_nonblocking_reuse/summary.json"
