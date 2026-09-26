@@ -1,13 +1,5 @@
-# 当前交接：031 revision003稀有回归场景构建与单次试跑
+# 当前交接：Protocol-031 revision003已到停止点
 
-从main开始，当前计划revision=3。用户已明确要求把新场景纳入下一目标，替换尚未运行的旧031；无需再询问是否允许新场景。
+Protocol-031 revision003已停止于显式blocker：generation_segment_failed。未追加reroll、seed、场景、A/B、阈值搜索或调参。
 
-读[唯一执行指示](PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md)、[场景](PROTOCOL031_RARE_RECURRENCE_SCENARIO.md)、[复用规范](PROTOCOL031_NONBLOCKING_REUSE_SPEC.md)与[plan.json](../artifacts/ftmoe_online/protocol_031/plan.json)。只做一个任务：生成/审计/冻结一个9868计分步＋1保护步（总9869步）的新流，然后C_fixed5/D_nonblocking_reuse各跑一次，交付并停止。
-
-主要新值：U/V/W=S1/S3/S4；六次128步回归；两组在线更新16、replay64、label t+2；D新生从600起每1600步一次；相似度只排序，16步未来标签验收可与birth并行，预测质量门槛不降低。
-
-独立031 collector/audit/verifier/data_lock，不能套用旧027固定SHA和九窗口入口。旧数据只作历史，不复用为新场景输入。先数据审计，冻结真实哈希，再模型；必要源资产缺失则报告阻塞，不替换来源。新生周期只是限频，不保证有效专家一定出现；失败也必须交付。
-
-使用protocol031-rare-recurrence专用push工作流（可断点恢复同一生成任务）。不要启动旧protocol031-nonblocking-reuse。做好JSON小型验收，报告故障从已存产物恢复，不追加模型重跑。结果回写main并同步README/AGENTS/NEXT/PROJECT_CONTEXT/当前handoff，结束后不自动做其他场景/A/B/种子。
-
-[修订记录](PROTOCOL031_PLAN_REVISION_003_20260926.md)保留旧计划位置。历史029无效与030恢复证据保持原样；旧限制不覆盖本次用户明确授权。
+结果：docs/PROTOCOL031_RESULTS.md。保留scenario registration、method registration、data_lock、原始predictions/lifecycle日志与Actions artifact。不要自动追加完整回放、算法修改、额外seed/场景、A/B、消融或调参。

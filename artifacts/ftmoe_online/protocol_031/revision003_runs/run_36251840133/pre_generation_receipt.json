@@ -1,0 +1,24 @@
+{
+  "protocol": "031",
+  "plan_revision": 3,
+  "scenario_id": "protocol031_rare_recurrence_v2",
+  "data_revision": "protocol031_data_revision_002",
+  "registered_before_generation": true,
+  "implementation_commit": "e3311debd2c7bfb382ea057588802adc72ef9b22",
+  "workflow_sha": "5fa1146dab4653e69c6da7bd4b21d6a2d4989d3c",
+  "branch": "protocol-031-rare-recurrence-20260922",
+  "replay_seed": 700,
+  "model_seed": 1,
+  "registration_sha256": "7c15b05b018df0dd75bcb147ccb6681743d63277cc91cbec412df5e820f721af",
+  "file_sha256": {
+    "artifacts/ftmoe_online/protocol_031/scenario_registration.json": "7c15b05b018df0dd75bcb147ccb6681743d63277cc91cbec412df5e820f721af",
+    "artifacts/ftmoe_online/protocol_031/method_registration.json": "8be78f8bdb13af534e5ca6b655036aaabc8dc80ca9c1b78799ee4fb00efa906e",
+    "prepare_ftmoe_protocol031_stream.py": "8dd44427d53a746cee18e4288193ecd466830075aba6f0357ee4d89a7b473ff3",
+    "maintenance/run_protocol031_segment.py": "2b613e9200899729b2c04a6554a11c4a40c3f45e3563dd83301605bffabf80a2",
+    "audit_ftmoe_protocol031.py": "0d4ef23952e3126c7ab103359160da49a4101dd8a4c3476a02159996d4276a4f",
+    "ftmoe_protocol031_nonblocking_reuse.py": "88251cfb0bd8bfa3a618f76aa2ca6a630b5de184a37c416c3485aa80b0b47d99",
+    "run_ftmoe_protocol031_pilot.py": "c34b93b602cceaa7fb09411aaa3a05f4d671b4ec95e1c4385004f00690d6bc72",
+    "finalize_ftmoe_protocol031.py": "8b6b684a171d3a85f3c5fa504d533f7a4765102aa93c45754d29465daa21e2b9",
+    "simulator/workload/BitbrainWorkloadProtocol025.py": "71ca206e80d9fd55e64a6526a3e538598ed19fe92e59fe28a691a0f1017ace7c"
+  }
+}
