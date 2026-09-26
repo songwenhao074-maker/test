@@ -1,0 +1,145 @@
+name: Stage Protocol-031 revision003 code
+
+on:
+  push:
+    branches: [protocol-031-rare-recurrence-20260922]
+    paths:
+      - .github/workflows/protocol031-revision003-codeprep.yml
+
+permissions:
+  contents: write
+
+jobs:
+  stage_revision003_code:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Import authoritative revision003 files
+        env:
+          REV3: 2511ff2c706fbcfea7bada332fe15d4094065f35
+        run: |
+          set -euo pipefail
+          git fetch origin main || true
+          git cat-file -e "$REV3^{commit}"
+          files=(
+            AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md README.md
+            artifacts/ftmoe_online/protocol_031/plan.json
+            artifacts/ftmoe_online/protocol_031/scenario_registration.json
+            artifacts/ftmoe_online/protocol_031/history/plan_revision_002.json
+            artifacts/ftmoe_online/protocol_031/history/scenario_registration_revision_002.json
+            docs/GITHUB_EXPERIMENT_HANDOFF.md docs/HISTORICAL_EXPERIMENTS.md
+            docs/PROTOCOL030_ANALYSIS_20260922.md docs/PROTOCOL031_NONBLOCKING_REUSE_SPEC.md
+            docs/PROTOCOL031_PLAN_REVISION_002_20260922.md docs/PROTOCOL031_PLAN_REVISION_003_20260926.md
+            docs/PROTOCOL031_RARE_RECURRENCE_SCENARIO.md docs/PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md
+          )
+          for f in "${files[@]}"; do
+            mkdir -p "$(dirname "$f")"
+            git show "$REV3:$f" > "$f"
+          done
+
+      - name: Upgrade implementation to revision003
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+
+          mp=Path('artifacts/ftmoe_online/protocol_031/method_registration.json')
+          m=json.loads(mp.read_text())
+          m['plan_revision']=3; m['scenario_id']='protocol031_rare_recurrence_v2'; m['data_revision']='protocol031_data_revision_002'
+          mp.write_text(json.dumps(m,indent=2,allow_nan=False)+'\n')
+
+          p=Path('prepare_ftmoe_protocol031_stream.py'); s=p.read_text(encoding='utf8')
+          s=s.replace('revision002','revision003')
+          s=s.replace('SCENARIO_ID="protocol031_rare_recurrence_v1"','SCENARIO_ID="protocol031_rare_recurrence_v2"')
+          s=s.replace('DATA_REVISION="protocol031_data_revision_001"','DATA_REVISION="protocol031_data_revision_002"\nPLAN_REVISION=3')
+          s=s.replace('int(reg.get("plan_revision",-1))!=2','int(reg.get("plan_revision",-1))!=PLAN_REVISION')
+          old='if int(reg.get("scored_intervals",-1))!=15468 or int(reg.get("guard_intervals",-1))!=1:\n        raise AssertionError("Protocol031 registered length mismatch")'
+          new='steps=int(reg.get("scored_intervals",-1)); guard=int(reg.get("guard_intervals",-1))\n    total=int(reg.get("total_intervals",steps+guard))\n    if steps<=0 or guard!=1 or total!=steps+guard:\n        raise AssertionError("Protocol031 registered length mismatch")'
+          if old not in s: raise SystemExit('prepare length guard not found')
+          s=s.replace(old,new)
+          s=s.replace('"protocol":"031","plan_revision":2,"scenario_id":SCENARIO_ID','"protocol":"031","plan_revision":PLAN_REVISION,"scenario_id":SCENARIO_ID')
+          s=s.replace('"timeline_15468":audit["timeline_scored_intervals"]==15468','"timeline_matches_registration":audit["timeline_scored_intervals"]==steps')
+          if '15468' in s or '15469' in s: raise SystemExit('old length hardcode remains in prepare')
+          p.write_text(s,encoding='utf8')
+
+          p=Path('maintenance/run_protocol031_segment.py'); s=p.read_text(encoding='utf8')
+          if '"plan_revision":2' not in s: raise SystemExit('collector revision marker missing')
+          p.write_text(s.replace('"plan_revision":2','"plan_revision":P.PLAN_REVISION'),encoding='utf8')
+
+          p=Path('audit_ftmoe_protocol031.py'); s=p.read_text(encoding='utf8')
+          s=s.replace('EXPECTED_STEPS=15468\nEXPECTED_ROWS=15469\nEXPECTED_HOSTS=16','EXPECTED_HOSTS=16')
+          needle='    reg=P.registration()\n'
+          if needle not in s: raise SystemExit('audit registration load missing')
+          s=s.replace(needle,'    reg=P.registration()\n    expected_steps=int(reg["scored_intervals"])\n    expected_rows=expected_steps+int(reg["guard_intervals"])\n',1)
+          s=s.replace('EXPECTED_STEPS','expected_steps').replace('EXPECTED_ROWS','expected_rows')
+          s=s.replace('"plan_revision":2','"plan_revision":P.PLAN_REVISION')
+          s=s.replace('manifest.get("plan_revision")==2','manifest.get("plan_revision")==P.PLAN_REVISION')
+          s=s.replace('"shape_15469x16"','"shape_registered_rows_x16"')
+          if '15468' in s or '15469' in s: raise SystemExit('old length hardcode remains in audit')
+          p.write_text(s,encoding='utf8')
+
+          p=Path('run_ftmoe_protocol031_pilot.py'); s=p.read_text(encoding='utf8')
+          s=s.replace('revision002','revision003')
+          old='SNAPSHOT_POINTS={\n    1900:"after_U_first",\n    3500:"after_V_first",\n    6700:"before_U_rec1",\n    8428:"before_V_rec1",\n    10156:"before_U_rec2",\n    11884:"before_V_rec2",\n    13612:"before_U_rec3",\n    15340:"before_V_rec3",\n}'
+          if old not in s: raise SystemExit('snapshot block missing')
+          s=s.replace(old,'SNAPSHOT_POINTS=None  # derived from frozen manifest timeline')
+          needle='    pdefs=phases(manifest)\n    guard=build_guard(bundle)'
+          repl='    pdefs=phases(manifest)\n    pmap={p["name"]:p for p in pdefs}\n    snapshot_points={\n        pmap["U_first"]["end"]:"after_U_first", pmap["V_first"]["end"]:"after_V_first",\n        pmap["U_rec1"]["start"]:"before_U_rec1", pmap["V_rec1"]["start"]:"before_V_rec1",\n        pmap["U_rec2"]["start"]:"before_U_rec2", pmap["V_rec2"]["start"]:"before_V_rec2",\n        pmap["U_rec3"]["start"]:"before_U_rec3", pmap["V_rec3"]["start"]:"before_V_rec3",\n    }\n    guard=build_guard(bundle)'
+          if needle not in s: raise SystemExit('runner pdefs block missing')
+          s=s.replace(needle,repl,1)
+          s=s.replace('i in SNAPSHOT_POINTS','i in snapshot_points').replace('SNAPSHOT_POINTS[i]','snapshot_points[i]')
+          s=s.replace('int(sreg.get("plan_revision",-1))!=2','int(sreg.get("plan_revision",-1))!=p31data.PLAN_REVISION')
+          s=s.replace('"plan_revision":2','"plan_revision":p31data.PLAN_REVISION')
+          p.write_text(s,encoding='utf8')
+
+          p=Path('finalize_ftmoe_protocol031.py'); s=p.read_text(encoding='utf8')
+          s=s.replace('revision002','revision003').replace('plan revision002','plan revision003')
+          s=s.replace('"plan_revision": 2','"plan_revision": 3')
+          s=s.replace('protocol031_rare_recurrence_v1','protocol031_rare_recurrence_v2')
+          s=s.replace('protocol031_data_revision_001','protocol031_data_revision_002')
+          p.write_text(s,encoding='utf8')
+
+          p=Path('test_ftmoe_protocol031.py'); s=p.read_text(encoding='utf8')
+          s=s.replace('test_revision002_registration_and_timeline','test_revision003_registration_and_timeline')
+          s=s.replace('self.assertEqual(reg["plan_revision"],2)','self.assertEqual(reg["plan_revision"],3)')
+          s=s.replace('self.assertEqual(reg["scored_intervals"],15468)','self.assertEqual(reg["scored_intervals"],9868)')
+          s=s.replace('self.assertEqual(phases[-1]["end"],15468)','self.assertEqual(phases[-1]["end"],9868)')
+          p.write_text(s,encoding='utf8')
+          PY
+
+      - name: Commit revision003 scientific implementation
+        id: impl
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md README.md \
+            artifacts/ftmoe_online/protocol_031/plan.json artifacts/ftmoe_online/protocol_031/scenario_registration.json \
+            artifacts/ftmoe_online/protocol_031/method_registration.json artifacts/ftmoe_online/protocol_031/history/ \
+            docs/GITHUB_EXPERIMENT_HANDOFF.md docs/HISTORICAL_EXPERIMENTS.md docs/PROTOCOL030_ANALYSIS_20260922.md \
+            docs/PROTOCOL031_NONBLOCKING_REUSE_SPEC.md docs/PROTOCOL031_PLAN_REVISION_002_20260922.md \
+            docs/PROTOCOL031_PLAN_REVISION_003_20260926.md docs/PROTOCOL031_RARE_RECURRENCE_SCENARIO.md \
+            docs/PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md prepare_ftmoe_protocol031_stream.py \
+            maintenance/run_protocol031_segment.py audit_ftmoe_protocol031.py run_ftmoe_protocol031_pilot.py \
+            finalize_ftmoe_protocol031.py test_ftmoe_protocol031.py
+          git commit -m "exp: implement Protocol031 revision003 registered 9869-step stream [skip ci]"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          git push origin HEAD:$GITHUB_REF_NAME
+
+      - name: Freeze implementation identity before generation
+        env:
+          IMPLEMENTATION_SHA: ${{ steps.impl.outputs.sha }}
+        run: |
+          python - <<'PY'
+          import json,os,pathlib
+          sha=os.environ['IMPLEMENTATION_SHA']
+          for name,key in [('artifacts/ftmoe_online/protocol_031/scenario_registration.json','source_code_commit'),('artifacts/ftmoe_online/protocol_031/plan.json','source_commit')]:
+              p=pathlib.Path(name); x=json.load(open(p)); x[key]=sha; p.write_text(json.dumps(x,indent=2,allow_nan=False)+'\n')
+          PY
+          git add artifacts/ftmoe_online/protocol_031/scenario_registration.json artifacts/ftmoe_online/protocol_031/plan.json
+          git commit -m "exp: freeze Protocol031 revision003 implementation identity [skip ci]"
+          git push origin HEAD:$GITHUB_REF_NAME
