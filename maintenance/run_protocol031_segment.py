@@ -35,7 +35,7 @@ def write_checkpoint(output,reg_sha,next_t,sim_state,chunks,arrays,
     state_path,manifest_path=P._checkpoint_paths(output)
     tmp=state_path.with_suffix(".tmp")
     payload={
-        "protocol":"031","plan_revision":2,"scenario_id":P.SCENARIO_ID,
+        "protocol":"031","plan_revision":P.PLAN_REVISION,"scenario_id":P.SCENARIO_ID,
         "data_revision":P.DATA_REVISION,
         "registration_sha256":reg_sha,"next_t":int(next_t),
         "sim_state":sim_state,"active_service":active_service,
@@ -65,7 +65,7 @@ def write_checkpoint(output,reg_sha,next_t,sim_state,chunks,arrays,
     elif transient_path.exists():
         transient_path.unlink()
     manifest={
-        "protocol":"031","plan_revision":2,"scenario_id":P.SCENARIO_ID,
+        "protocol":"031","plan_revision":P.PLAN_REVISION,"scenario_id":P.SCENARIO_ID,
         "data_revision":P.DATA_REVISION,
         "registration_sha256":reg_sha,"next_t":next_t,
         "state_file":state_path.name,"state_sha256":P.sha(state_path),

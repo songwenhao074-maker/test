@@ -1,5 +1,11 @@
-# 当前项目上下文：Protocol-031 revision002
+# 当前项目上下文：031 revision003新场景，待实现
 
-Protocol-031 revision002已停止于显式blocker：generation_segment_failed。未追加reroll、seed、场景、A/B、阈值搜索或调参。
+用户希望D在某种合理部署场景中最优即可，不要求全场景优势。当前任务已从旧流非阻塞复用试验，改为构建长驻W干扰、U/V稀有短回归场景并完成一次C/D试跑。
 
-本轮只允许一个新冻结数据流以及C_fixed5/D_nonblocking_reuse各一次完整回放。所有数据门禁、生命周期、成本与解释边界见docs/PROTOCOL031_RESULTS.md。
+权威文件：[031执行指示](docs/PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md)、[新场景](docs/PROTOCOL031_RARE_RECURRENCE_SCENARIO.md)、plan_revision=3的[plan.json](artifacts/ftmoe_online/protocol_031/plan.json)。新数据revision=protocol031_data_revision_002，9868计分步＋1保护步，总9869步；六次回归各128为主指标。两组在线更新每16步、64步重放、t+2成熟；D从600起每1600步提议新生，并使用非阻塞因果复用。
+
+D获准额外驻留参数及shadow预算，必须披露。C正常训练固定5专家，不人为重置/冻结/故意配坏优化器。此任务是联合场景/配置开发试验，不是单因素消融或统计确认；当前不加入A/B。
+
+030已完成并通过同机旁路无干扰检查，JSON后处理已恢复。028/029/030历史数据、注册和失败结论保留；旧场景D未胜C，不改写。031 revision001尚未执行，现已归档，不能再以其禁新场景条款阻止新计划。
+
+一条新流＋C/D各一次；生成中断可按同一注册断点恢复。无效数据或记忆失败如实交付，不调参追逐胜出。结果回写后停止。

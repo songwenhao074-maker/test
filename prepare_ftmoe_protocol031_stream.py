@@ -1,4 +1,4 @@
-"""Protocol-031 revision002 rare-recurrence data utilities.
+"""Protocol-031 revision003 rare-recurrence data utilities.
 
 This module reuses the pinned Protocol-025 simulator/workload physics but owns
 the Protocol-031 timeline, audit, manifest and freeze semantics. No historical
@@ -16,8 +16,9 @@ from simulator.workload.BitbrainWorkloadProtocol025 import (
 
 ROOT=Path(__file__).resolve().parent
 REGISTRATION_PATH=ROOT/"artifacts/ftmoe_online/protocol_031/scenario_registration.json"
-SCENARIO_ID="protocol031_rare_recurrence_v1"
-DATA_REVISION="protocol031_data_revision_001"
+SCENARIO_ID="protocol031_rare_recurrence_v2"
+DATA_REVISION="protocol031_data_revision_002"
+PLAN_REVISION=3
 REGISTERED_SEED=700
 SOURCE_SERVICE={"U":"S1","V":"S3","W":"S4"}
 LOGICAL_BY_SOURCE={v:k for k,v in SOURCE_SERVICE.items()}
@@ -51,13 +52,15 @@ def json_sha(path):
 
 def registration():
     reg=json.loads(REGISTRATION_PATH.read_text(encoding="utf8"))
-    if reg.get("protocol")!="031" or int(reg.get("plan_revision",-1))!=2:
+    if reg.get("protocol")!="031" or int(reg.get("plan_revision",-1))!=PLAN_REVISION:
         raise AssertionError("Protocol031 registration revision mismatch")
     if reg.get("scenario_id")!=SCENARIO_ID or reg.get("data_revision")!=DATA_REVISION:
         raise AssertionError("Protocol031 scenario/data revision mismatch")
     if int(reg.get("replay_seed",-1))!=700 or int(reg.get("model_seed",-1))!=1:
         raise AssertionError("Protocol031 seed mismatch")
-    if int(reg.get("scored_intervals",-1))!=15468 or int(reg.get("guard_intervals",-1))!=1:
+    steps=int(reg.get("scored_intervals",-1)); guard=int(reg.get("guard_intervals",-1))
+    total=int(reg.get("total_intervals",steps+guard))
+    if steps<=0 or guard!=1 or total!=steps+guard:
         raise AssertionError("Protocol031 registered length mismatch")
     if float(reg["generation"]["event_probability"])!=0.30:
         raise AssertionError("Protocol031 event probability changed")
@@ -183,7 +186,7 @@ def model_free_audit(reg,phases,arrays,workload,applied_switches):
         for x in applied_switches
     ]
     audit={
-        "protocol":"031","plan_revision":2,"scenario_id":SCENARIO_ID,
+        "protocol":"031","plan_revision":PLAN_REVISION,"scenario_id":SCENARIO_ID,
         "data_revision":DATA_REVISION,"kind":"pre_model_data_audit",
         "model_results_seen":False,
         "causal_collection_order":[
@@ -215,7 +218,7 @@ def model_free_audit(reg,phases,arrays,workload,applied_switches):
     }
     gates={
         "label_recompute_exact":label_equal,
-        "timeline_15468":audit["timeline_scored_intervals"]==15468,
+        "timeline_matches_registration":audit["timeline_scored_intervals"]==steps,
         "events_U_V_W":all(event_counts[x]>0 for x in ("U","V","W")),
         "physical_parameters_match":all(source_param_match.values()),
         "admission_age0_safe":age0_safe,
@@ -254,7 +257,7 @@ def finalize(output,reg,phases,arrays,workload,chunks,applied_switches,
         json.dumps(workload.response_events,indent=2,allow_nan=False)+"\n",encoding="utf8")
     source_law=ROOT/"simulator/workload/BitbrainWorkloadProtocol025.py"
     manifest={
-        "protocol":"031","plan_revision":2,"scenario_id":SCENARIO_ID,
+        "protocol":"031","plan_revision":PLAN_REVISION,"scenario_id":SCENARIO_ID,
         "data_revision":DATA_REVISION,"seed":700,
         "steps":int(reg["scored_intervals"]),"guard_rows":int(reg["guard_intervals"]),
         "stream_file":"stream.npz","stream_sha256":digest,

@@ -1,8 +1,8 @@
 {
   "protocol": "031",
-  "plan_revision": 2,
-  "scenario_id": "protocol031_rare_recurrence_v1",
-  "data_revision": "protocol031_data_revision_001",
+  "plan_revision": 3,
+  "scenario_id": "protocol031_rare_recurrence_v2",
+  "data_revision": "protocol031_data_revision_002",
   "status": "registered_before_model_runs",
   "arms": [
     "C_fixed5",

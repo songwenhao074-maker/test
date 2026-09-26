@@ -27,16 +27,16 @@ class DummySession:
         self.lifecycle_events=[]
 
 class Protocol031Tests(unittest.TestCase):
-    def test_revision002_registration_and_timeline(self):
+    def test_revision003_registration_and_timeline(self):
         reg=p31d.registration()
         self.assertEqual(reg["protocol"],"031")
-        self.assertEqual(reg["plan_revision"],2)
-        self.assertEqual(reg["scored_intervals"],15468)
+        self.assertEqual(reg["plan_revision"],3)
+        self.assertEqual(reg["scored_intervals"],9868)
         self.assertEqual(reg["guard_intervals"],1)
         phases=p31d.phase_table(reg)
         self.assertEqual(phases[0]["name"],"F0")
         self.assertEqual(phases[-1]["name"],"V_rec3")
-        self.assertEqual(phases[-1]["end"],15468)
+        self.assertEqual(phases[-1]["end"],9868)
         self.assertEqual([p["name"] for p in phases if "_rec" in p["name"]],
                          ["U_rec1","V_rec1","U_rec2","V_rec2","U_rec3","V_rec3"])
         self.assertEqual(p31d.SOURCE_SERVICE,{"U":"S1","V":"S3","W":"S4"})

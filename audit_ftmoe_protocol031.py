@@ -5,8 +5,6 @@ from pathlib import Path
 import numpy as np
 import prepare_ftmoe_protocol031_stream as P
 
-EXPECTED_STEPS=15468
-EXPECTED_ROWS=15469
 EXPECTED_HOSTS=16
 RECURRENCE=("U_rec1","V_rec1","U_rec2","V_rec2","U_rec3","V_rec3")
 
@@ -23,6 +21,8 @@ def write_json(path,value):
 def audit(data_root,output_root,freeze_registration=None):
     root=Path(data_root); out=Path(output_root); out.mkdir(parents=True,exist_ok=True)
     reg=P.registration()
+    expected_steps=int(reg["scored_intervals"])
+    expected_rows=expected_steps+int(reg["guard_intervals"])
     manifest=json.loads((root/"manifest.json").read_text(encoding="utf8"))
     source_audit=json.loads((root/"data_audit.json").read_text(encoding="utf8"))
     status=json.loads((root/"generation_status.json").read_text(encoding="utf8"))
@@ -36,12 +36,12 @@ def audit(data_root,output_root,freeze_registration=None):
         physical=np.where((ratio>1.0).any(-1),ratio.argmax(-1)+1,0)
         labels_equal=bool(np.array_equal(raw,physical))
         raw_shape=list(raw.shape)
-        schedules_ok=bool(np.isfinite(schedules[:EXPECTED_STEPS]).all() and
-                          np.allclose(schedules[:EXPECTED_STEPS].sum(-1),1.0,atol=1e-5))
-        caps_ok=bool(np.isfinite(caps[:EXPECTED_STEPS]).all() and
-                     (caps[:EXPECTED_STEPS]>0).all())
+        schedules_ok=bool(np.isfinite(schedules[:expected_steps]).all() and
+                          np.allclose(schedules[:expected_steps].sum(-1),1.0,atol=1e-5))
+        caps_ok=bool(np.isfinite(caps[:expected_steps]).all() and
+                     (caps[:expected_steps]>0).all())
     common=np.load(root/"common_observable_features.npz")["features"]
-    common_ok=bool(common.shape==(EXPECTED_ROWS,EXPECTED_HOSTS,9) and np.isfinite(common).all())
+    common_ok=bool(common.shape==(expected_rows,EXPECTED_HOSTS,9) and np.isfinite(common).all())
 
     chunks=list(manifest.get("chunk_manifest",[]))
     contiguous=True; last=0; chunk_hashes=[]
@@ -53,7 +53,7 @@ def audit(data_root,output_root,freeze_registration=None):
         chunk_hashes.append({"file":rec["file"],"start":int(rec["start"]),
                              "end":int(rec["end"]),"sha256":got,"verified":bool(ok)})
         last=int(rec["end"])
-    chunk_complete=bool(contiguous and last==EXPECTED_ROWS)
+    chunk_complete=bool(contiguous and last==expected_rows)
 
     rec=source_audit.get("recurrence_first128_class_coverage",{})
     rec_ok=(set(rec)==set(RECURRENCE) and all(
@@ -68,12 +68,12 @@ def audit(data_root,output_root,freeze_registration=None):
     current_law_sha=sha256(current_law)
     reg_sha=P.json_sha(P.REGISTRATION_PATH)
     gates={
-        "generation_complete":status.get("complete") is True and int(status.get("next_t",-1))==EXPECTED_ROWS,
-        "manifest_identity":manifest.get("protocol")=="031" and manifest.get("plan_revision")==2
+        "generation_complete":status.get("complete") is True and int(status.get("next_t",-1))==expected_rows,
+        "manifest_identity":manifest.get("protocol")=="031" and manifest.get("plan_revision")==P.PLAN_REVISION
                             and manifest.get("scenario_id")==P.SCENARIO_ID
                             and manifest.get("data_revision")==P.DATA_REVISION,
         "stream_hash_self_consistent":actual==manifest.get("stream_sha256"),
-        "shape_15469x16":raw_shape==[EXPECTED_ROWS,EXPECTED_HOSTS],
+        "shape_registered_rows_x16":raw_shape==[expected_rows,EXPECTED_HOSTS],
         "physical_label_recompute_exact":labels_equal,
         "source_model_free_audit_pass":source_audit.get("audit_pass") is True,
         "source_model_free_all_gates_pass":all(bool(v) for v in source_audit.get("gates",{}).values()),
@@ -88,7 +88,7 @@ def audit(data_root,output_root,freeze_registration=None):
     }
     eligible=bool(all(gates.values()))
     eligibility={
-        "protocol":"031","plan_revision":2,"scenario_id":P.SCENARIO_ID,
+        "protocol":"031","plan_revision":P.PLAN_REVISION,"scenario_id":P.SCENARIO_ID,
         "data_revision":P.DATA_REVISION,"kind":"independent_model_free_eligibility",
         "model_results_seen":False,"protocol031_data_eligible":eligible,
         "stream_sha256":actual,"shape":raw_shape,
@@ -103,7 +103,7 @@ def audit(data_root,output_root,freeze_registration=None):
     write_json(out/"eligibility.json",eligibility)
     if not eligible:
         lock={
-            "protocol":"031","plan_revision":2,"scenario_id":P.SCENARIO_ID,
+            "protocol":"031","plan_revision":P.PLAN_REVISION,"scenario_id":P.SCENARIO_ID,
             "data_revision":P.DATA_REVISION,"locked":False,
             "reason":"model_free_data_audit_failed","stream_sha256":actual,"gates":gates,
         }
@@ -112,7 +112,7 @@ def audit(data_root,output_root,freeze_registration=None):
         raise SystemExit(3)
 
     frozen_manifest={
-        "protocol":"031","plan_revision":2,"scenario_id":P.SCENARIO_ID,
+        "protocol":"031","plan_revision":P.PLAN_REVISION,"scenario_id":P.SCENARIO_ID,
         "data_revision":P.DATA_REVISION,"stream_sha256":actual,
         "stream_bytes":stream.stat().st_size,
         "manifest_sha256":sha256(root/"manifest.json"),
@@ -126,9 +126,9 @@ def audit(data_root,output_root,freeze_registration=None):
     }
     write_json(root/"frozen_data_manifest.json",frozen_manifest)
     lock={
-        "protocol":"031","plan_revision":2,"scenario_id":P.SCENARIO_ID,
+        "protocol":"031","plan_revision":P.PLAN_REVISION,"scenario_id":P.SCENARIO_ID,
         "data_revision":P.DATA_REVISION,"locked":True,
-        "stream_sha256":actual,"steps":EXPECTED_STEPS,"guard_rows":1,
+        "stream_sha256":actual,"steps":expected_steps,"guard_rows":1,
         "hosts":16,"replay_seed":700,"model_seed":1,
         "generation_budget_used":1,
         "common_features_sha256":frozen_manifest["common_features_sha256"],

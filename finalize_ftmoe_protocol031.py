@@ -1,4 +1,4 @@
-"""Finalize Protocol-031 revision002 rare-recurrence development pilot."""
+"""Finalize Protocol-031 revision003 rare-recurrence development pilot."""
 from __future__ import annotations
 import argparse, hashlib, json, shutil
 from pathlib import Path
@@ -31,9 +31,9 @@ def ensure_status(root, run_id):
     if status is not None:
         return status
     status = {
-        "protocol": "031", "plan_revision": 2,
-        "scenario_id": "protocol031_rare_recurrence_v1",
-        "data_revision": "protocol031_data_revision_001",
+        "protocol": "031", "plan_revision": 3,
+        "scenario_id": "protocol031_rare_recurrence_v2",
+        "data_revision": "protocol031_data_revision_002",
         "run_id": str(run_id), "completed": False,
         "full_model_replays_started": 0, "full_model_replay_budget": 2,
         "A_B_runs": 0, "automatic_followups_started": [],
@@ -46,7 +46,7 @@ def ensure_status(root, run_id):
 def build_results(status, comparison, generation, eligibility, lock, artifact_url, artifact_digest):
     lines = [
         "# Protocol-031 Results", "",
-        "Scenario: `protocol031_rare_recurrence_v1` (plan revision002).",
+        "Scenario: `protocol031_rare_recurrence_v2` (plan revision003).",
         f"GitHub Actions terminal run: {status.get('run_id')}.",
         f"Completed registered C/D pair: {bool(status.get('completed'))}.",
         "Scope: one new seed700 simulator stream, model seed1, C_fixed5 versus D_nonblocking_reuse only.", "",
@@ -108,24 +108,24 @@ def update_entrypoints(status, comparison):
     if status.get("completed") and comparison is not None:
         p = comparison["primary"]
         finding = (
-            "Protocol-031 revision002已完成登记的一次rare-recurrence C/D开发性对比。"
+            "Protocol-031 revision003已完成登记的一次rare-recurrence C/D开发性对比。"
             f"六个recurrence128窗口的等权AP差D-C={fmt(p.get('equal_weight_mean_D_minus_C_ap'),6)}，"
             f"正差窗口={p.get('positive_windows')}/6，开发参考门槛是否全部满足={bool(p.get('development_signal'))}。"
         )
     else:
-        finding = "Protocol-031 revision002已停止于显式blocker：" + str(status.get("blocker") or "unknown") + "。未追加reroll、seed、场景、A/B、阈值搜索或调参。"
+        finding = "Protocol-031 revision003已停止于显式blocker：" + str(status.get("blocker") or "unknown") + "。未追加reroll、seed、场景、A/B、阈值搜索或调参。"
     Path("AGENTS.md").write_text(
-        "# Current task: Protocol-031 revision002 reached stop point\n\nRead NEXT_EXPERIMENT_LATEST.md, docs/GITHUB_EXPERIMENT_HANDOFF.md and docs/PROTOCOL031_RESULTS.md.\n\n" + finding +
+        "# Current task: Protocol-031 revision003 reached stop point\n\nRead NEXT_EXPERIMENT_LATEST.md, docs/GITHUB_EXPERIMENT_HANDOFF.md and docs/PROTOCOL031_RESULTS.md.\n\n" + finding +
         "\n\nDo not automatically launch more simulator streams, model replays, seeds, A/B arms, threshold changes, scenario redesign, ablations or tuning. Wait for an explicit new directive.\n",
         encoding="utf8")
     Path("NEXT_EXPERIMENT_LATEST.md").write_text(
-        "# 当前状态：Protocol-031 revision002已到停止点\n\n" + finding +
+        "# 当前状态：Protocol-031 revision003已到停止点\n\n" + finding +
         "\n\n结果与证据见[Protocol-031 Results](docs/PROTOCOL031_RESULTS.md)。当前没有登记的后续实验；等待新的明确指示。\n", encoding="utf8")
     Path("PROJECT_CONTEXT_LATEST.md").write_text(
-        "# 当前项目上下文：Protocol-031 revision002\n\n" + finding +
+        "# 当前项目上下文：Protocol-031 revision003\n\n" + finding +
         "\n\n本轮只允许一个新冻结数据流以及C_fixed5/D_nonblocking_reuse各一次完整回放。所有数据门禁、生命周期、成本与解释边界见docs/PROTOCOL031_RESULTS.md。\n", encoding="utf8")
     Path("docs/GITHUB_EXPERIMENT_HANDOFF.md").write_text(
-        "# 当前交接：Protocol-031 revision002已到停止点\n\n" + finding +
+        "# 当前交接：Protocol-031 revision003已到停止点\n\n" + finding +
         "\n\n结果：docs/PROTOCOL031_RESULTS.md。保留scenario registration、method registration、data_lock、原始predictions/lifecycle日志与Actions artifact。不要自动追加完整回放、算法修改、额外seed/场景、A/B、消融或调参。\n", encoding="utf8")
     readme = Path("README.md").read_text(encoding="utf8") if Path("README.md").is_file() else "# FT-MoE experiments\n"
     if "\n## Protocol-031 latest\n" in readme:

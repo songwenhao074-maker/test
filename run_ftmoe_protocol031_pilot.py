@@ -1,4 +1,4 @@
-"""Protocol-031 revision002: exactly C_fixed5 vs D_nonblocking_reuse."""
+"""Protocol-031 revision003: exactly C_fixed5 vs D_nonblocking_reuse."""
 from __future__ import annotations
 import argparse, hashlib, json, math, os, random, subprocess, sys, time, traceback
 from collections import Counter, defaultdict
@@ -20,16 +20,7 @@ import prepare_ftmoe_protocol031_stream as p31data
 COMPARATORS=("C_fixed5","D_nonblocking_reuse")
 RECURRENCE=("U_rec1","V_rec1","U_rec2","V_rec2","U_rec3","V_rec3")
 W_BLOCKS=("W_long","W_gap1","W_gap2","W_gap3","W_gap4","W_gap5")
-SNAPSHOT_POINTS={
-    1900:"after_U_first",
-    3500:"after_V_first",
-    6700:"before_U_rec1",
-    8428:"before_V_rec1",
-    10156:"before_U_rec2",
-    11884:"before_V_rec2",
-    13612:"before_U_rec3",
-    15340:"before_V_rec3",
-}
+SNAPSHOT_POINTS=None  # derived from frozen manifest timeline
 
 def deterministic_runtime():
     for key in ("OMP_NUM_THREADS","MKL_NUM_THREADS","OPENBLAS_NUM_THREADS"):
@@ -122,7 +113,7 @@ def build_guard(bundle):
     if normal<=0: raise RuntimeError("Protocol031 F0 normal guard has no normal rows")
     out["observed_history_length"]=torch.as_tensor(np.minimum(idx+1,12),dtype=torch.long)
     out["meta"]={
-        "protocol":"031","plan_revision":2,
+        "protocol":"031","plan_revision":p31data.PLAN_REVISION,
         "role":"F0_known_normal_regression_guard","source_phase":"F0",
         "prediction_indices":idx.tolist(),"target":"same-host raw[t+1] inside F0",
         "normal_rows":normal,"positive_rows":positive,"positive_rows_required":False,
@@ -230,7 +221,7 @@ def run_arm(name,stream,arm_dir,scenario_registration,method_registration,
     out=Path(arm_dir); out.mkdir(parents=True,exist_ok=False)
     sreg=json.loads(Path(scenario_registration).read_text(encoding="utf8"))
     mreg=json.loads(Path(method_registration).read_text(encoding="utf8"))
-    if sreg.get("protocol")!="031" or int(sreg.get("plan_revision",-1))!=2:
+    if sreg.get("protocol")!="031" or int(sreg.get("plan_revision",-1))!=p31data.PLAN_REVISION:
         raise AssertionError("Protocol031 scenario registration mismatch")
     if mreg.get("protocol")!="031" or mreg.get("arms")!=list(COMPARATORS):
         raise AssertionError("Protocol031 method registration mismatch")
@@ -239,10 +230,17 @@ def run_arm(name,stream,arm_dir,scenario_registration,method_registration,
     if bundle["manifest"].get("stream_sha256")!=stream_sha:
         raise AssertionError("Protocol031 replay manifest hash mismatch")
     pdefs=phases(manifest)
+    pmap={p["name"]:p for p in pdefs}
+    snapshot_points={
+        pmap["U_first"]["end"]:"after_U_first", pmap["V_first"]["end"]:"after_V_first",
+        pmap["U_rec1"]["start"]:"before_U_rec1", pmap["V_rec1"]["start"]:"before_V_rec1",
+        pmap["U_rec2"]["start"]:"before_U_rec2", pmap["V_rec2"]["start"]:"before_V_rec2",
+        pmap["U_rec3"]["start"]:"before_U_rec3", pmap["V_rec3"]["start"]:"before_V_rec3",
+    }
     guard=build_guard(bundle)
     write_json(out/"guard_manifest.json",guard["meta"])
     runtime_registration={
-        "protocol":"031","plan_revision":2,"comparator":name,
+        "protocol":"031","plan_revision":p31data.PLAN_REVISION,"comparator":name,
         "scenario_id":p31data.SCENARIO_ID,"data_revision":p31data.DATA_REVISION,
         "scenario_registration_sha256":sha(scenario_registration),
         "method_registration_sha256":sha(method_registration),
@@ -270,8 +268,8 @@ def run_arm(name,stream,arm_dir,scenario_registration,method_registration,
     peak_live=5 if name=="C_fixed5" else 4
     peak_resident=peak_live
     for i in range(session.steps):
-        if name=="D_nonblocking_reuse" and i in SNAPSHOT_POINTS:
-            snapshots.append(capture_snapshot(session,i,SNAPSHOT_POINTS[i],pdefs))
+        if name=="D_nonblocking_reuse" and i in snapshot_points:
+            snapshots.append(capture_snapshot(session,i,snapshot_points[i],pdefs))
         session.step()
         if i%64==0 or i+1==session.steps:
             peak_p=max(peak_p,param_bytes(session)); peak_o=max(peak_o,opt_bytes(session))
@@ -311,7 +309,7 @@ def run_arm(name,stream,arm_dir,scenario_registration,method_registration,
         },
     }
     summary={
-        "protocol":"031","plan_revision":2,"scenario_id":p31data.SCENARIO_ID,
+        "protocol":"031","plan_revision":p31data.PLAN_REVISION,"scenario_id":p31data.SCENARIO_ID,
         "data_revision":p31data.DATA_REVISION,"comparator":name,
         "run_id":str(run_id),"completed":True,
         "development_only":True,"confirmation_run":False,"test_run":False,
@@ -474,7 +472,7 @@ def compare(root,stream,run_id):
     )
     cf=sums["C_fixed5"]["full"]["detection"]; df=sums["D_nonblocking_reuse"]["full"]["detection"]
     comparison={
-        "protocol":"031","plan_revision":2,"scenario_id":p31data.SCENARIO_ID,
+        "protocol":"031","plan_revision":p31data.PLAN_REVISION,"scenario_id":p31data.SCENARIO_ID,
         "data_revision":p31data.DATA_REVISION,"run_id":str(run_id),
         "development_only":True,"confirmation_run":False,"test_run":False,
         "stream_sha256":sums["C_fixed5"]["stream_sha256"],
@@ -551,7 +549,7 @@ def parent(args):
         write_json(root/"comparison.json",comp)
         write_json(root/"cost_profile.json",comp["cost_profile"])
     status={
-        "protocol":"031","plan_revision":2,"scenario_id":p31data.SCENARIO_ID,
+        "protocol":"031","plan_revision":p31data.PLAN_REVISION,"scenario_id":p31data.SCENARIO_ID,
         "data_revision":p31data.DATA_REVISION,"run_id":str(args.run_id),
         "completed":comp is not None,"full_model_replays_started":len(completed)+int(bool(failures)),
         "full_model_replay_budget":2,"completed_comparators":completed,
