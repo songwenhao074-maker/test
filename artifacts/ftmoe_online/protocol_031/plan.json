@@ -7,7 +7,7 @@
   "task_count": 1,
   "task": "Construct and freeze one rare-recurrence scenario, then run one C/D development pilot and report",
   "user_objective": "D need only be best in a clearly specified realistic deployment scenario; broad superiority is not required",
-  "source_commit": "f811b884e4e7014d04cc91ee79b851e867dc1f14",
+  "source_commit": "e3311debd2c7bfb382ea057588802adc72ef9b22",
   "scenario_id": "protocol031_rare_recurrence_v2",
   "data_revision": "protocol031_data_revision_002",
   "scenario_registration": "artifacts/ftmoe_online/protocol_031/scenario_registration.json",

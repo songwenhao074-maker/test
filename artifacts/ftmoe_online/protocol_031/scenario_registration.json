@@ -5,7 +5,7 @@
   "data_revision": "protocol031_data_revision_002",
   "status": "registered_before_generation",
   "registered_before_generation": true,
-  "source_code_commit": "f811b884e4e7014d04cc91ee79b851e867dc1f14",
+  "source_code_commit": "e3311debd2c7bfb382ea057588802adc72ef9b22",
   "purpose": "Rare short recurring services after long dominant-service interference, under short training replay and sparse online updates",
   "replay_seed": 700,
   "model_seed": 1,
