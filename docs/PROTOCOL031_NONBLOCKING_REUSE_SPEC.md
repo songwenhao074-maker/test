@@ -1,4 +1,4 @@
-# Protocol-031非阻塞复用规范（计划revision002）
+# Protocol-031非阻塞复用规范（计划revision003）
 本文件仅规定D复用机制，配合[新场景](PROTOCOL031_RARE_RECURRENCE_SCENARIO.md)使用。常规在线更新为每16步；birth从成熟数600开始，每1600步一次。其余未变的shadow训练/验收与正常guard取当前固定配置。不要重新启用旧阻塞reuse路径。
 
 ## 唯一新策略的精确定义

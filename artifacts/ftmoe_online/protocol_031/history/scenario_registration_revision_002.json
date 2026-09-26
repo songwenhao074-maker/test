@@ -1,15 +1,15 @@
 {
   "protocol": "031",
-  "plan_revision": 3,
-  "scenario_id": "protocol031_rare_recurrence_v2",
-  "data_revision": "protocol031_data_revision_002",
+  "plan_revision": 2,
+  "scenario_id": "protocol031_rare_recurrence_v1",
+  "data_revision": "protocol031_data_revision_001",
   "status": "registered_before_generation",
   "registered_before_generation": true,
   "source_code_commit": "f811b884e4e7014d04cc91ee79b851e867dc1f14",
   "purpose": "Rare short recurring services after long dominant-service interference, under short training replay and sparse online updates",
   "replay_seed": 700,
   "model_seed": 1,
-  "scored_intervals": 9868,
+  "scored_intervals": 15468,
   "guard_intervals": 1,
   "timeline": [
     {
@@ -36,86 +36,86 @@
     {
       "name": "W_long",
       "service": "W",
-      "length": 1600,
+      "length": 3200,
       "start": 3500,
-      "end": 5100
+      "end": 6700
     },
     {
       "name": "U_rec1",
       "service": "U",
       "length": 128,
-      "start": 5100,
-      "end": 5228
+      "start": 6700,
+      "end": 6828
     },
     {
       "name": "W_gap1",
       "service": "W",
-      "length": 800,
-      "start": 5228,
-      "end": 6028
+      "length": 1600,
+      "start": 6828,
+      "end": 8428
     },
     {
       "name": "V_rec1",
       "service": "V",
       "length": 128,
-      "start": 6028,
-      "end": 6156
+      "start": 8428,
+      "end": 8556
     },
     {
       "name": "W_gap2",
       "service": "W",
-      "length": 800,
-      "start": 6156,
-      "end": 6956
+      "length": 1600,
+      "start": 8556,
+      "end": 10156
     },
     {
       "name": "U_rec2",
       "service": "U",
       "length": 128,
-      "start": 6956,
-      "end": 7084
+      "start": 10156,
+      "end": 10284
     },
     {
       "name": "W_gap3",
       "service": "W",
-      "length": 800,
-      "start": 7084,
-      "end": 7884
+      "length": 1600,
+      "start": 10284,
+      "end": 11884
     },
     {
       "name": "V_rec2",
       "service": "V",
       "length": 128,
-      "start": 7884,
-      "end": 8012
+      "start": 11884,
+      "end": 12012
     },
     {
       "name": "W_gap4",
       "service": "W",
-      "length": 800,
-      "start": 8012,
-      "end": 8812
+      "length": 1600,
+      "start": 12012,
+      "end": 13612
     },
     {
       "name": "U_rec3",
       "service": "U",
       "length": 128,
-      "start": 8812,
-      "end": 8940
+      "start": 13612,
+      "end": 13740
     },
     {
       "name": "W_gap5",
       "service": "W",
-      "length": 800,
-      "start": 8940,
-      "end": 9740
+      "length": 1600,
+      "start": 13740,
+      "end": 15340
     },
     {
       "name": "V_rec3",
       "service": "V",
       "length": 128,
-      "start": 9740,
-      "end": 9868
+      "start": 15340,
+      "end": 15468
     }
   ],
   "services": {
@@ -174,9 +174,7 @@
     "existing_tasks_continue_at_service_switch": true,
     "phase_boundary_not_state_reset": true,
     "expected_stream_sha256": null,
-    "freeze_actual_hashes_before_model_runs": true,
-    "resume_requires_matching_registration_hash": true,
-    "superseded_revision_chunks_are_not_resume_inputs": true
+    "freeze_actual_hashes_before_model_runs": true
   },
   "causality": {
     "label_rule": "post-simulator argmax(CPU,RAM,Disk aggregate/capacity) if any ratio>1 else 0",
@@ -268,6 +266,5 @@
     "no_global_D_optimality_claim": true,
     "no_hard_delete_benefit_claim": true,
     "comparison_scope": "D versus C_fixed5 only on this registered deployment scenario; no A/B inference"
-  },
-  "total_intervals": 9869
+  }
 }

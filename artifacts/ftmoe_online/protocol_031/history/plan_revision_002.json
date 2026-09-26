@@ -1,15 +1,15 @@
 {
   "protocol": "031",
-  "plan_revision": 3,
+  "plan_revision": 2,
   "status": "planned_not_implemented_not_run",
-  "date": "2026-09-26",
-  "supersedes": "031 plan revision002 (15468 scored + 1 guard); revision003 uses 9868 scored + 1 guard. Previous plan/registration preserved under history.",
+  "date": "2026-09-22",
+  "supersedes": "031 plan revision001 on old protocol027_data_revision_002; no031 run has started",
   "task_count": 1,
   "task": "Construct and freeze one rare-recurrence scenario, then run one C/D development pilot and report",
   "user_objective": "D need only be best in a clearly specified realistic deployment scenario; broad superiority is not required",
   "source_commit": "f811b884e4e7014d04cc91ee79b851e867dc1f14",
-  "scenario_id": "protocol031_rare_recurrence_v2",
-  "data_revision": "protocol031_data_revision_002",
+  "scenario_id": "protocol031_rare_recurrence_v1",
+  "data_revision": "protocol031_data_revision_001",
   "scenario_registration": "artifacts/ftmoe_online/protocol_031/scenario_registration.json",
   "scenario_spec": "docs/PROTOCOL031_RARE_RECURRENCE_SCENARIO.md",
   "directive": "docs/PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md",
@@ -81,9 +81,5 @@
   "resource_scope": "C5 resident/active vs D up to8 resident incl shadow, normally5 active and6 during8-step crossfade; extra background compute reported",
   "workflow_branch": "protocol-031-rare-recurrence-20260922",
   "workflow_path": ".github/workflows/protocol031-rare-recurrence.yml",
-  "stop_after": "One new immutable scenario and one C/D pair, or explicit data/implementation blocker; no extra scenarios, seeds, methods or threshold search",
-  "scored_intervals": 9868,
-  "guard_intervals": 1,
-  "total_intervals": 9869,
-  "revision_note": "Only W_long (3200 to1600) and five W_gap blocks (1600 to800 each) are shortened. U/V learning, six recurrence128 windows, seeds, birth schedule and quality gates remain unchanged."
+  "stop_after": "One new immutable scenario and one C/D pair, or explicit data/implementation blocker; no extra scenarios, seeds, methods or threshold search"
 }

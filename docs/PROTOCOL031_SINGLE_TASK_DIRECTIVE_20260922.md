@@ -1,5 +1,5 @@
-# Protocol-031 revision002：构建稀有业务回归场景并完成一次D/C试跑
-状态：planned_not_implemented_not_run。用户已明确授权替换尚未执行的旧031目标；当前只执行revision002。
+# Protocol-031 revision003：构建稀有业务回归场景并完成一次D/C试跑
+状态：planned_not_implemented_not_run。用户已明确授权替换尚未执行的旧031目标；当前只执行revision003。
 
 ## 唯一任务
 **构建并冻结“长驻业务覆盖＋稀有旧业务短暂回归”场景，在其中运行C_fixed5与D_nonblocking_reuse各一次，检验D是否具有条件性优势，交付后停止。** 数据构建、必要实现和两组回放组成一个任务，不是自动开启一系列实验。
@@ -9,12 +9,14 @@
 ## 当前唯一配置
 读取[场景规范](PROTOCOL031_RARE_RECURRENCE_SCENARIO.md)、[复用规范](PROTOCOL031_NONBLOCKING_REUSE_SPEC.md)、[机器登记](../artifacts/ftmoe_online/protocol_031/scenario_registration.json)与[plan.json](../artifacts/ftmoe_online/protocol_031/plan.json)。
 
-F0=300，U/V首次各1600，W长驻3200；之后U/V交替回归六次，每次128，中间W各1600，总15468计分步。U/V/W固定映射现有S1/S3/S4；采用既有物理需求规律，事件概率0.30。两组seed700/model1、共同73维因果输入、label t+2、训练重放64步、常规更新每16步。D新生从成熟数600开始，每1600步一次；复用每32步探测、一位候选、16个未来区间验收，并行主birth，不用业务ID控制。
+F0=300，U/V首次各1600，W长驻1600；之后U/V交替回归六次，每次128，中间W各800，总9868计分步＋1保护步，共9869步。U/V/W固定映射现有S1/S3/S4；采用既有物理需求规律，事件概率0.30。两组seed700/model1、共同73维因果输入、label t+2、训练重放64步、常规更新每16步。D新生从成熟数600开始，每1600步一次；复用每32步探测、一位候选、16个未来区间验收，并行主birth，不用业务ID控制。
 
 相似度只用于排序；部署仍要求相对损失改善≥1%、normal概率增量≤0.01、验证FPR增量≤0.01、F0正常NLL≤live×1.02+1e-6及FPR增量≤0.01。容量仍最多8含shadow、满时保护已验收记忆。并发状态/取消规则按复用规范。
 
 ## 数据构建与执行顺序
-使用独立031注册、collector、audit、data verifier与输出目录。复用模拟器/工作负载基础设施，但不要将新timeline写回025/027注册，不覆盖旧流、旧结果或历史门禁。新场景ID=protocol031_rare_recurrence_v1，新数据revision=protocol031_data_revision_001；旧“不重新模拟/只用revision002/九窗first100”仅适用于已替代的计划。
+使用独立031注册、collector、audit、data verifier与输出目录。复用模拟器/工作负载基础设施，但不要将新timeline写回025/027注册，不覆盖旧流、旧结果或历史门禁。新场景ID=protocol031_rare_recurrence_v2，新数据revision=protocol031_data_revision_002；旧“不重新模拟/只用revision002/九窗first100”仅适用于已替代的计划。
+
+本版总长9869（9868计分＋1保护），不得裁剪旧长流充当新流。续跑必须匹配本版注册哈希，不能复用revision002计划的chunks/data_lock/模型检查点。collector、audit、verifier、窗口汇总和工作流均读取同一登记，不保留旧15468/15469硬编码。
 
 先实现配置与小型必要检查，登记最终代码commit和源资产哈希，再连续生成一个新流。采用200步不可变chunk与完整simulator/workload/scheduler/RNG断点；中断可按同注册同seed恢复，不能拼接旧实验片段。每次生成作业在时限前保存最新断点并上传，后续作业恢复同一流；源数据、模型checkpoint缺失则记录阻塞，不换合成来源。总预算一个完整数据流，断点恢复不是新场景或新seed。
 
@@ -34,4 +36,4 @@ F0=300，U/V首次各1600，W长驻3200；之后U/V交替回归六次，每次12
 
 另报告初学后与每次回归前的专家来源/驻留情况、真实复用与首次影响游标、完整验收数值及取消新生已消耗预算。没有形成或保留U/V有效记忆、未复用、D落后都如实交付；不得延长训练到通过、预装专家、按阶段ID切专家或事后挑获胜窗口。旧九窗口和029/030记录留作历史，不改写失败。
 
-交付docs/PROTOCOL031_RESULTS.md，独立方法registration、数据冻结manifest/data_lock/audit、run_id隔离的comparison/status/lifecycle/reuse/cost及完整artifact链接/SHA。结果必须标出scenario_id与plan_revision=2。回写main，同步README、AGENTS、NEXT、PROJECT_CONTEXT、当前handoff。完成一个新流和一对C/D（或明确阻塞）后停止；不自动加A/B、种子、阈值搜索、其他场景或后续协议。
+交付docs/PROTOCOL031_RESULTS.md，独立方法registration、数据冻结manifest/data_lock/audit、run_id隔离的comparison/status/lifecycle/reuse/cost及完整artifact链接/SHA。结果必须标出scenario_id与plan_revision=3。回写main，同步README、AGENTS、NEXT、PROJECT_CONTEXT、当前handoff。完成一个新流和一对C/D（或明确阻塞）后停止；不自动加A/B、种子、阈值搜索、其他场景或后续协议。
