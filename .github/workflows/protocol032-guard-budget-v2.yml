@@ -1,0 +1,290 @@
+name: Protocol-032 guard-budget C/D v2
+
+on:
+  push:
+    branches: [protocol-031-rare-recurrence-20260922]
+    paths:
+      - .github/workflows/protocol032-guard-budget-v2.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: protocol032-single-guard-budget-v2
+  cancel-in-progress: false
+
+jobs:
+  protocol032_v2:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    env:
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      PYTHONHASHSEED: '1'
+      AUDIT_SOURCE_RUN_ID: '36310071267'
+      AUDIT_INPUT_ARTIFACT_ID: '10929435134'
+      AUDIT_INPUT_ARTIFACT: protocol032-frozen-input-36310071267
+      AUDIT_INPUT_DIGEST: sha256:36232464ddd984abe2317d7dad18ab7e1c8beb7020123c454ac33413eaa7d42d
+      BASELINE_RUN_ID: '36295124291'
+      BASELINE_ARTIFACT_ID: '10923099870'
+      BASELINE_ARTIFACT: protocol031-interim6800-v2-36295124291
+      BASELINE_DIGEST: sha256:b427cae4776e4c0172b632698d6d6b8755f1ff972cf3a189223a9c8dfab88369
+      BUNDLE_ROOT: /tmp/protocol032_frozen_input_repaired
+      BASELINE_ROOT: /tmp/protocol032_baseline031
+      RUN_ROOT: artifacts/ftmoe_online/protocol_032/runtime/run_${{ github.run_id }}
+      PLAN_PATH: artifacts/ftmoe_online/protocol_032/plan.json
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+
+      - name: Install frozen CPU dependencies
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil
+
+      - name: Protocol032 implementation preflight
+        id: preflight
+        continue-on-error: true
+        run: |
+          python -m py_compile ftmoe_protocol032_guard_budget.py repair_ftmoe_protocol032_event_audit.py run_ftmoe_protocol032.py compare_ftmoe_protocol032.py
+          python -m unittest -v test_ftmoe_protocol032_guard_budget.py
+
+      - name: Verify preserved input and baseline artifact metadata
+        id: artifact_meta
+        if: steps.preflight.outcome == 'success'
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import json,os,urllib.request
+          repo=os.environ['GITHUB_REPOSITORY']; token=os.environ['GITHUB_TOKEN']
+          expected={
+            'AUDIT_INPUT':(os.environ['AUDIT_INPUT_ARTIFACT_ID'],os.environ['AUDIT_INPUT_DIGEST']),
+            'BASELINE':(os.environ['BASELINE_ARTIFACT_ID'],os.environ['BASELINE_DIGEST']),
+          }
+          for key,(aid,want) in expected.items():
+              req=urllib.request.Request(f'https://api.github.com/repos/{repo}/actions/artifacts/{aid}',headers={'Authorization':f'Bearer {token}','Accept':'application/vnd.github+json'})
+              with urllib.request.urlopen(req) as r: meta=json.load(r)
+              got=meta.get('digest')
+              print(json.dumps({'key':key,'artifact_id':aid,'expected':want,'observed':got,'expired':meta.get('expired')},indent=2))
+              if got!=want or meta.get('expired'): raise SystemExit(f'{key} artifact mismatch')
+          PY
+
+      - name: Download preserved Protocol032 frozen input
+        id: input_download
+        if: steps.artifact_meta.outcome == 'success'
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.AUDIT_INPUT_ARTIFACT }}
+          path: ${{ env.BUNDLE_ROOT }}
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ env.AUDIT_SOURCE_RUN_ID }}
+
+      - name: Download Protocol031 C baseline
+        id: baseline_download
+        if: steps.input_download.outcome == 'success'
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.BASELINE_ARTIFACT }}
+          path: ${{ env.BASELINE_ROOT }}
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ env.BASELINE_RUN_ID }}
+
+      - name: Repair only the overstrict UVW event audit criterion
+        id: audit_repair
+        if: steps.baseline_download.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python repair_ftmoe_protocol032_event_audit.py \
+            --bundle-root "$BUNDLE_ROOT" \
+            --source-run-id "$AUDIT_SOURCE_RUN_ID"
+          python - <<'PY'
+          import hashlib,json,os,pathlib
+          b=pathlib.Path(os.environ['BUNDLE_ROOT'])
+          audit=json.loads((b/'evidence/input_audit.json').read_text())
+          lock=json.loads((b/'evidence/input_lock.json').read_text())
+          h=hashlib.sha256((b/'data/stream.npz').read_bytes()).hexdigest()
+          assert audit['audit_pass'] is True
+          assert lock['locked'] is True and lock['input_audit_passed'] is True
+          assert h=='1e8b6bde1fa3f906586030547777428b28fca23c43e06868077dc0e1e46e4d1a'
+          assert (b/'evidence/input_audit_original_overstrict.json').is_file()
+          print(json.dumps({'audit_pass':True,'stream_sha256':h,'original_overstrict_audit_preserved':True},indent=2))
+          PY
+
+      - name: Upload repaired frozen Protocol032 input bundle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol032-frozen-input-repaired-${{ github.run_id }}
+          path: ${{ env.BUNDLE_ROOT }}/
+          if-no-files-found: warn
+          compression-level: 3
+          retention-days: 90
+
+      - name: Run exactly one C_fixed5
+        id: c_arm
+        if: steps.audit_repair.outcome == 'success'
+        continue-on-error: true
+        run: |
+          mkdir -p "$RUN_ROOT"
+          python run_ftmoe_protocol032.py \
+            --arm C_fixed5 \
+            --stream "$BUNDLE_ROOT/data" \
+            --arm-dir "$RUN_ROOT/C_fixed5" \
+            --registration "$BUNDLE_ROOT/evidence/registration.json" \
+            --input-lock "$BUNDLE_ROOT/evidence/input_lock.json" \
+            --run-id "$GITHUB_RUN_ID" \
+            > "$RUN_ROOT/C_fixed5.stdout.log" 2> "$RUN_ROOT/C_fixed5.stderr.log"
+
+      - name: Verify C against completed Protocol031 baseline
+        id: baseline_check
+        if: steps.c_arm.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python - <<'PY'
+          import json,os,pathlib,numpy as np
+          root=pathlib.Path(os.environ['RUN_ROOT']); base=pathlib.Path(os.environ['BASELINE_ROOT'])
+          def J(p): return json.loads(pathlib.Path(p).read_text())
+          def N(p):
+              with np.load(p,allow_pickle=True) as z:return {k:z[k].copy() for k in z.files}
+          new=N(root/'C_fixed5/predictions.npz'); old=N(base/'C_fixed5/predictions.npz')
+          newi=J(root/'C_fixed5/initialization.json'); oldi=J(base/'C_fixed5/initialization.json')
+          expected='7e8a7a901775b003d82d6f30d2ce448a2e7f1c100bd00019115271883c2de29b'
+          labels_equal=np.array_equal(new['labels'],old['labels']); raw_equal=np.array_equal(new['raw_labels'],old['raw_labels'])
+          prob_diff=float(np.max(np.abs(new['probability'].astype(np.float64)-old['probability'].astype(np.float64))))
+          init_new=newi['shared_first4_expert_and_router_rows_sha256']; init_old=oldi['shared_first4_expert_and_router_rows_sha256']
+          passed=bool(labels_equal and raw_equal and prob_diff<=1e-6 and init_new==init_old==expected)
+          report={'protocol':'032','baseline_run_id':36295124291,'baseline_artifact_id':10923099870,'labels_equal':labels_equal,
+                  'raw_labels_equal':raw_equal,'C_probability_max_abs_diff':prob_diff,'reference_max_abs_diff':1e-6,
+                  'new_shared_first4_initialization':init_new,'baseline_shared_first4_initialization':init_old,
+                  'expected_shared_first4_initialization':expected,'passed':passed,'on_failure':'stop_before_D; no automatic rerun'}
+          (root/'baseline_consistency.json').write_text(json.dumps(report,indent=2)+'\n')
+          print(json.dumps(report,indent=2))
+          if not passed: raise SystemExit('Protocol032 C differs from registered Protocol031 baseline')
+          PY
+
+      - name: Run exactly one D_guard_budget
+        id: d_arm
+        if: steps.baseline_check.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python run_ftmoe_protocol032.py \
+            --arm D_guard_budget \
+            --stream "$BUNDLE_ROOT/data" \
+            --arm-dir "$RUN_ROOT/D_guard_budget" \
+            --registration "$BUNDLE_ROOT/evidence/registration.json" \
+            --input-lock "$BUNDLE_ROOT/evidence/input_lock.json" \
+            --run-id "$GITHUB_RUN_ID" \
+            > "$RUN_ROOT/D_guard_budget.stdout.log" 2> "$RUN_ROOT/D_guard_budget.stderr.log"
+
+      - name: Fixed Protocol032 comparison and mechanism evidence
+        id: compare
+        if: steps.d_arm.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python compare_ftmoe_protocol032.py \
+            --run-root "$RUN_ROOT" \
+            --bundle-root "$BUNDLE_ROOT" \
+            --baseline-consistency "$RUN_ROOT/baseline_consistency.json" \
+            --run-id "$GITHUB_RUN_ID"
+
+      - name: Materialize terminal report and compact repository evidence
+        if: always()
+        env:
+          PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
+          ARTIFACT_META_OUTCOME: ${{ steps.artifact_meta.outcome }}
+          INPUT_DOWNLOAD_OUTCOME: ${{ steps.input_download.outcome }}
+          BASELINE_DOWNLOAD_OUTCOME: ${{ steps.baseline_download.outcome }}
+          AUDIT_REPAIR_OUTCOME: ${{ steps.audit_repair.outcome }}
+          C_OUTCOME: ${{ steps.c_arm.outcome }}
+          BASELINE_CHECK_OUTCOME: ${{ steps.baseline_check.outcome }}
+          D_OUTCOME: ${{ steps.d_arm.outcome }}
+          COMPARE_OUTCOME: ${{ steps.compare.outcome }}
+        run: |
+          python - <<'PY'
+          import json,os,pathlib,shutil
+          root=pathlib.Path(os.environ['RUN_ROOT']); root.mkdir(parents=True,exist_ok=True)
+          bundle=pathlib.Path(os.environ['BUNDLE_ROOT']); runid=os.environ['GITHUB_RUN_ID']
+          keys=['PREFLIGHT_OUTCOME','ARTIFACT_META_OUTCOME','INPUT_DOWNLOAD_OUTCOME','BASELINE_DOWNLOAD_OUTCOME','AUDIT_REPAIR_OUTCOME','C_OUTCOME','BASELINE_CHECK_OUTCOME','D_OUTCOME','COMPARE_OUTCOME']
+          outcomes={k:os.environ.get(k) for k in keys}; comparison=root/'comparison.json'
+          completed=comparison.is_file() and outcomes['COMPARE_OUTCOME']=='success'; blocker=None
+          if not completed:
+              order=[('implementation_preflight','PREFLIGHT_OUTCOME'),('artifact_metadata','ARTIFACT_META_OUTCOME'),('input_download','INPUT_DOWNLOAD_OUTCOME'),('baseline_download','BASELINE_DOWNLOAD_OUTCOME'),('audit_repair','AUDIT_REPAIR_OUTCOME'),('C_fixed5','C_OUTCOME'),('baseline_C_consistency','BASELINE_CHECK_OUTCOME'),('D_guard_budget','D_OUTCOME'),('comparison','COMPARE_OUTCOME')]
+              for label,key in order:
+                  if outcomes.get(key) not in ('success',None,'skipped'): blocker=label+'_failed'; break
+                  if outcomes.get(key)=='skipped': blocker=label+'_skipped_due_to_prior_blocker'; break
+              blocker=blocker or 'unknown_terminal_blocker'
+          terminal={'protocol':'032','plan_revision':1,'run_id':runid,'completed':completed,'blocker':blocker,'step_outcomes':outcomes,
+                    'no_new_simulation':True,'C_started':outcomes.get('C_OUTCOME') in ('success','failure'),
+                    'D_started':outcomes.get('D_OUTCOME') in ('success','failure'),'model_replay_budget':2,'no_automatic_followup':True,
+                    'source_overstrict_audit_run_id':36310071267}
+          (root/'terminal_status.json').write_text(json.dumps(terminal,indent=2)+'\n')
+          dest=pathlib.Path('artifacts/ftmoe_online/protocol_032/runs')/('run_'+runid); dest.mkdir(parents=True,exist_ok=True)
+          for src,name in [
+              (bundle/'evidence/registration.json','registration.json'),(bundle/'evidence/input_lock.json','input_lock.json'),
+              (bundle/'evidence/input_audit.json','input_audit.json'),(bundle/'evidence/input_audit_original_overstrict.json','input_audit_original_overstrict.json'),
+              (root/'baseline_consistency.json','baseline_consistency.json'),(root/'comparison.json','comparison.json'),
+              (root/'mechanism_evidence.json','mechanism_evidence.json'),(root/'cost_profile.json','cost_profile.json'),
+              (root/'status.json','status.json'),(root/'compact_evidence.json','compact_evidence.json'),(root/'terminal_status.json','terminal_status.json'),
+              (root/'D_guard_budget/candidate_records.json','candidate_records.json'),(root/'D_guard_budget/reuse_records.json','reuse_records.json'),
+              (root/'D_guard_budget/topology_snapshots.json','topology_snapshots.json'),(root/'D_guard_budget/opportunity_accounting.json','opportunity_accounting.json')]:
+              if src.is_file(): shutil.copy2(src,dest/name)
+          planp=pathlib.Path(os.environ['PLAN_PATH']); plan=json.loads(planp.read_text()); plan['status']='completed' if completed else 'blocked'
+          plan['terminal_run_id']=int(runid); plan['terminal_blocker']=blocker; plan['automatic_followup_started']=False
+          plan['superseded_engineering_blocker_run_id']=36310071267; planp.write_text(json.dumps(plan,indent=2)+'\n')
+          doc=pathlib.Path('docs/PROTOCOL032_RESULTS.md')
+          if completed:
+              comp=json.loads(comparison.read_text()); primary=comp['primary']; crit=primary['development_reference']; mech=comp['mechanism']; cost=comp['cost_profile']; rec={x['phase']:x for x in comp['recurrence128']}
+              text=f'''# Protocol-032 Results\n\nRun: `{runid}`. Status: completed. Development-only guard-budget experiment selected after observing Protocol-031; not an independent confirmation.\n\nInput: registered existing 6800-row prefix only (6799 scored + 1 guard), no new simulation. The first audit run 36310071267 was blocked by an overstrict implementation requiring a new active event in every recurrence phase; no model replay started there. The corrected audit preserved that original evidence and changed only this criterion to exact phase/service annotations plus global U/V/W event presence, with recurrence class coverage independent. C baseline consistency passed before D started.\n\n## Fixed recurrence result\n\n- U_rec1 AP delta D-C: {rec['U_rec1']['D_minus_C_ap']:.6f}\n- V_rec1 AP delta D-C: {rec['V_rec1']['D_minus_C_ap']:.6f}\n- Equal-weight mean AP delta D-C: {primary['equal_weight_mean_D_minus_C_ap']:.6f}\n- Pooled recurrence normal-FPR delta D-C: {primary['pooled_recurrence_normal_fpr_delta_D_minus_C']:.6f}\n- Complete W_long/W_gap1 mean AP delta D-C: {comp['complete_W_equal_weight_mean_D_minus_C_ap']:.6f}\n- All registered development references pass: {crit['all_development_reference_pass']}\n\n## Mechanism\n\n- Real dormant expert existed before a registered recurrence: {mech['any_real_dormant_before_recurrence']}\n- Accepted reuse with first influence inside a registered recurrence: {mech['accepted_reuse_with_first_influence_in_recurrence']}\n- Reuse mechanism established for registered recurrence: {mech['reuse_mechanism_established_for_registered_recurrence']}\n- Retirements: {mech['retirements']}; reactivations: {mech['reactivations']}\n\n## Cost\n\n- D/C measured replay wall-time ratio: {cost['D_over_C_wall_time_ratio']:.3f}\n- Equal-total-cost or D-cost-advantage claim is not allowed.\n\nRaw outputs and repaired frozen input bundle are stored as GitHub Actions artifacts; the original overstrict audit remains preserved. Stop after this one C/D pair; no automatic follow-up.\n'''
+          else:
+              text=f'''# Protocol-032 Results\n\nRun: `{runid}`. Status: blocked before a complete registered C/D pair.\n\nBlocker: `{blocker}`. Step outcomes: `{json.dumps(outcomes,sort_keys=True)}`.\n\nNo new simulation, seed reroll, A/B, threshold grid, or automatic follow-up was started. Evidence is preserved under `artifacts/ftmoe_online/protocol_032/runs/run_{runid}/`.\n'''
+          doc.write_text(text)
+          print(json.dumps(terminal,indent=2))
+          with open(os.environ['GITHUB_ENV'],'a') as f:f.write('PROTOCOL032_COMPLETED='+('true' if completed else 'false')+'\n')
+          PY
+
+      - name: Upload raw Protocol032 v2 results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol032-results-v2-${{ github.run_id }}
+          path: ${{ env.RUN_ROOT }}/
+          if-no-files-found: warn
+          compression-level: 3
+          retention-days: 90
+
+      - name: Commit compact Protocol032 evidence
+        if: always()
+        continue-on-error: true
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/PROTOCOL032_RESULTS.md artifacts/ftmoe_online/protocol_032/
+          if ! git diff --cached --quiet; then
+            git commit -m "results: Protocol032 guard-budget v2 [skip ci]"
+            git push origin HEAD:$GITHUB_REF_NAME
+          fi
+
+      - name: Enforce terminal conclusion
+        if: always()
+        run: |
+          if [ "$PROTOCOL032_COMPLETED" != "true" ]; then
+            echo "Protocol032 stopped at explicit blocker; evidence preserved."
+            exit 1
+          fi
