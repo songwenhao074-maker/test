@@ -1,11 +1,10 @@
-# 当前唯一任务：031 revision003——构建稀有回归场景并做一次D/C试跑
+# 当前唯一任务：Protocol-032正常NLL容忍额试验
+状态：planned_not_run。
 
-状态：planned_not_implemented_not_run。用户目标是在明确特定场景下体现D优势，不要求旧场景或所有场景获胜。
+[执行指示](docs/PROTOCOL032_SINGLE_TASK_DIRECTIVE_20260927.md) / [分析](docs/PROTOCOL031_INTERIM6800_ANALYSIS_20260927.md) / [计划JSON](artifacts/ftmoe_online/protocol_032/plan.json)。
 
-[唯一执行指示](docs/PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md) / [场景](docs/PROTOCOL031_RARE_RECURRENCE_SCENARIO.md) / [计划JSON](artifacts/ftmoe_online/protocol_031/plan.json) / [变更说明](docs/PROTOCOL031_PLAN_REVISION_003_20260926.md)。
+031的6800行前缀已跑完C/D；两回归平均AP差D-C=-0.002791，复用0次，D回放耗时约为C的18倍。9869完整计划未完成，不继续生成。
 
-新场景：F0 300；U/V初学各1600；W长驻1600；六次U/V交替回归各128，中间W各800，共9868计分步＋1保护步，总9869步。U/V/W采用S1/S3/S4物理规律。C/D常规更新均每16步、训练重放64、标签t+2；D新生周期1600，非阻塞复用验收保留。
+032只检验一个因素：F0正常NLL容忍额增加固定0.01 nats绝对下限，保留FPR和其他验收门槛。在现有6799计分＋1保护行上完成一次C_fixed5/D_guard_budget试验。先补齐输入资格核验，不调数据，不降低其他门槛，不优化其他代码路径。交付或明确阻塞后停止。
 
-只构建一个新冻结数据流并跑C_fixed5与D_nonblocking_reuse各一次。主指标为六回归first128等权AP差，报告误报、W退化和总成本。尚未证明D最优；不从未测A/B作推断。
-
-旧031未执行方案已归档。旧“只用027 revision002/不重新模拟/九窗first100”不再是当前任务限制。数据审计失败或未形成有用记忆必须如实报告，不换seed/场景重试。完成或明确阻塞后写回main并停止。
+实现取实验分支4e7df7e5f7abca2e2470633864b35440858bd4bf，同步本指示后可直接复用该分支；main此时保存最新计划与紧凑证据。

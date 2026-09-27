@@ -1,13 +1,9 @@
-# 当前交接：031 revision003稀有回归场景构建与单次试跑
+# 当前交接：Protocol-032单任务
+先读[执行指示](PROTOCOL032_SINGLE_TASK_DIRECTIVE_20260927.md)、[031前缀分析](PROTOCOL031_INTERIM6800_ANALYSIS_20260927.md)和[plan.json](../artifacts/ftmoe_online/protocol_032/plan.json)。
 
-从main开始，当前计划revision=3。用户已明确要求把新场景纳入下一目标，替换尚未运行的旧031；无需再询问是否允许新场景。
+031 interim运行36295124291成功完成两组回放，ZIP10923099870已核验；此前main“待实现”与实验分支“生成失败”交接均已过时。真实结论是前缀已完成但D未领先、未复用，9869全流未完成。
 
-读[唯一执行指示](PROTOCOL031_SINGLE_TASK_DIRECTIVE_20260922.md)、[场景](PROTOCOL031_RARE_RECURRENCE_SCENARIO.md)、[复用规范](PROTOCOL031_NONBLOCKING_REUSE_SPEC.md)与[plan.json](../artifacts/ftmoe_online/protocol_031/plan.json)。只做一个任务：生成/审计/冻结一个9868计分步＋1保护步（总9869步）的新流，然后C_fixed5/D_nonblocking_reuse各跑一次，交付并停止。
+032唯一任务：补审并冻结同一6800行输入，实施F0正常NLL绝对容忍额下限0.01这一项变化，C_fixed5/D_guard_budget各一次。误报、局部改善、标签时序和其他训练设置保持；完成或明确阻塞后交付停止。不自动继续生成或发起更多试验。
 
-主要新值：U/V/W=S1/S3/S4；六次128步回归；两组在线更新16、replay64、label t+2；D新生从600起每1600步一次；相似度只排序，16步未来标签验收可与birth并行，预测质量门槛不降低。
-
-独立031 collector/audit/verifier/data_lock，不能套用旧027固定SHA和九窗口入口。旧数据只作历史，不复用为新场景输入。先数据审计，冻结真实哈希，再模型；必要源资产缺失则报告阻塞，不替换来源。新生周期只是限频，不保证有效专家一定出现；失败也必须交付。
-
-使用protocol031-rare-recurrence专用push工作流（可断点恢复同一生成任务）。不要启动旧protocol031-nonblocking-reuse。做好JSON小型验收，报告故障从已存产物恢复，不追加模型重跑。结果回写main并同步README/AGENTS/NEXT/PROJECT_CONTEXT/当前handoff，结束后不自动做其他场景/A/B/种子。
-
-[修订记录](PROTOCOL031_PLAN_REVISION_003_20260926.md)保留旧计划位置。历史029无效与030恢复证据保持原样；旧限制不覆盖本次用户明确授权。
+代码来源：protocol-031-rare-recurrence-20260922的4e7df7e5f7abca2e2470633864b35440858bd4bf，可复用该分支并先同步本指示。新workflow只对自己的文件push触发，可保留dispatch；本次文档提交不启动。不要启动旧031生成/试跑工作流。
+上传完整冻结bundle/结果artifact，并把紧凑证据和结果回写main入口；仅上传artifact不算交接完成。旧代码、数据、失败证据不改写。

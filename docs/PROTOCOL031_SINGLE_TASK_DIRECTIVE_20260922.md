@@ -1,3 +1,5 @@
+> 历史执行指示：031已完成6800行前缀回放，完整9869行未完成。当前唯一下一任务是[Protocol-032](PROTOCOL032_SINGLE_TASK_DIRECTIVE_20260927.md)。不要按以下旧指示继续生成；正文保留供追溯。
+
 # Protocol-031 revision003：构建稀有业务回归场景并完成一次D/C试跑
 状态：planned_not_implemented_not_run。用户已明确授权替换尚未执行的旧031目标；当前只执行revision003。
 

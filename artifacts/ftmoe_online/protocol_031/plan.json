@@ -1,7 +1,7 @@
 {
   "protocol": "031",
   "plan_revision": 3,
-  "status": "planned_not_implemented_not_run",
+  "status": "interim6800_completed_full9869_incomplete",
   "date": "2026-09-26",
   "supersedes": "031 plan revision002 (15468 scored + 1 guard); revision003 uses 9868 scored + 1 guard. Previous plan/registration preserved under history.",
   "task_count": 1,
@@ -85,5 +85,9 @@
   "scored_intervals": 9868,
   "guard_intervals": 1,
   "total_intervals": 9869,
-  "revision_note": "Only W_long (3200 to1600) and five W_gap blocks (1600 to800 each) are shortened. U/V learning, six recurrence128 windows, seeds, birth schedule and quality gates remain unchanged."
+  "revision_note": "Only W_long (3200 to1600) and five W_gap blocks (1600 to800 each) are shortened. U/V learning, six recurrence128 windows, seeds, birth schedule and quality gates remain unchanged.",
+  "next_task_protocol": "032",
+  "next_task_directive": "docs/PROTOCOL032_SINGLE_TASK_DIRECTIVE_20260927.md",
+  "interim_result_evidence": "artifacts/ftmoe_online/protocol_031/interim6800_verified_evidence.json",
+  "continue_original_generation_authorized_by_current_task": false
 }
