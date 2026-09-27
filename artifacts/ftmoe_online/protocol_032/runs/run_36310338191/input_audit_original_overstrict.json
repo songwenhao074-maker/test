@@ -1,0 +1,715 @@
+{
+  "protocol": "032",
+  "plan_revision": 1,
+  "kind": "retrospective_input_eligibility_audit_after_031_results_seen",
+  "model_results_seen_before_audit": true,
+  "not_claimed_as_pre_031_audit": true,
+  "run_id": "36310071267",
+  "source_generation_run_id": 36251840133,
+  "source_artifact_id": 10911078872,
+  "scored_intervals": 6799,
+  "guard_rows": 1,
+  "gates": {
+    "source_artifact_digest": {
+      "status": "pass",
+      "evidence": {
+        "observed": "sha256:c8c2e467a1615c3a8be0e7ee6628a55098491fd97c10d489cf28449a6daeeafc",
+        "expected": "sha256:c8c2e467a1615c3a8be0e7ee6628a55098491fd97c10d489cf28449a6daeeafc"
+      },
+      "reason": null
+    },
+    "registered_source_identity": {
+      "status": "pass",
+      "evidence": {
+        "resume_next_t": 6800,
+        "scenario_id": "protocol031_rare_recurrence_v2",
+        "data_revision": "protocol031_data_revision_002",
+        "receipt_implementation_commit": "e3311debd2c7bfb382ea057588802adc72ef9b22",
+        "receipt_workflow_sha": "5fa1146dab4653e69c6da7bd4b21d6a2d4989d3c",
+        "registration_sha256": "7c15b05b018df0dd75bcb147ccb6681743d63277cc91cbec412df5e820f721af"
+      },
+      "reason": null
+    },
+    "registration_origin": {
+      "status": "pass",
+      "evidence": {
+        "current_registration_sha256": "7c15b05b018df0dd75bcb147ccb6681743d63277cc91cbec412df5e820f721af",
+        "receipt_files": {
+          "artifacts/ftmoe_online/protocol_031/method_registration.json": {
+            "expected": "8be78f8bdb13af534e5ca6b655036aaabc8dc80ca9c1b78799ee4fb00efa906e",
+            "actual": "8be78f8bdb13af534e5ca6b655036aaabc8dc80ca9c1b78799ee4fb00efa906e",
+            "match": true
+          },
+          "artifacts/ftmoe_online/protocol_031/scenario_registration.json": {
+            "expected": "7c15b05b018df0dd75bcb147ccb6681743d63277cc91cbec412df5e820f721af",
+            "actual": "7c15b05b018df0dd75bcb147ccb6681743d63277cc91cbec412df5e820f721af",
+            "match": true
+          },
+          "audit_ftmoe_protocol031.py": {
+            "expected": "0d4ef23952e3126c7ab103359160da49a4101dd8a4c3476a02159996d4276a4f",
+            "actual": "0d4ef23952e3126c7ab103359160da49a4101dd8a4c3476a02159996d4276a4f",
+            "match": true
+          },
+          "finalize_ftmoe_protocol031.py": {
+            "expected": "8b6b684a171d3a85f3c5fa504d533f7a4765102aa93c45754d29465daa21e2b9",
+            "actual": "8b6b684a171d3a85f3c5fa504d533f7a4765102aa93c45754d29465daa21e2b9",
+            "match": true
+          },
+          "ftmoe_protocol031_nonblocking_reuse.py": {
+            "expected": "88251cfb0bd8bfa3a618f76aa2ca6a630b5de184a37c416c3485aa80b0b47d99",
+            "actual": "88251cfb0bd8bfa3a618f76aa2ca6a630b5de184a37c416c3485aa80b0b47d99",
+            "match": true
+          },
+          "maintenance/run_protocol031_segment.py": {
+            "expected": "2b613e9200899729b2c04a6554a11c4a40c3f45e3563dd83301605bffabf80a2",
+            "actual": "2b613e9200899729b2c04a6554a11c4a40c3f45e3563dd83301605bffabf80a2",
+            "match": true
+          },
+          "prepare_ftmoe_protocol031_stream.py": {
+            "expected": "8dd44427d53a746cee18e4288193ecd466830075aba6f0357ee4d89a7b473ff3",
+            "actual": "8dd44427d53a746cee18e4288193ecd466830075aba6f0357ee4d89a7b473ff3",
+            "match": true
+          },
+          "run_ftmoe_protocol031_pilot.py": {
+            "expected": "c34b93b602cceaa7fb09411aaa3a05f4d671b4ec95e1c4385004f00690d6bc72",
+            "actual": "c34b93b602cceaa7fb09411aaa3a05f4d671b4ec95e1c4385004f00690d6bc72",
+            "match": true
+          },
+          "simulator/workload/BitbrainWorkloadProtocol025.py": {
+            "expected": "71ca206e80d9fd55e64a6526a3e538598ed19fe92e59fe28a691a0f1017ace7c",
+            "actual": "71ca206e80d9fd55e64a6526a3e538598ed19fe92e59fe28a691a0f1017ace7c",
+            "match": true
+          }
+        }
+      },
+      "reason": null
+    },
+    "chunk_coverage_and_hashes": {
+      "status": "pass",
+      "evidence": {
+        "chunk_count": 34,
+        "chunks": [
+          {
+            "file": "chunk_000000_000200.npz",
+            "start": 0,
+            "end": 200,
+            "expected_sha256": "bfe732b202ffa439e1cca432163b9f09ab152ccf8cdf57988745e1deae8f7519",
+            "actual_sha256": "bfe732b202ffa439e1cca432163b9f09ab152ccf8cdf57988745e1deae8f7519",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_000200_000400.npz",
+            "start": 200,
+            "end": 400,
+            "expected_sha256": "5794848d0716e30c0a741a396a8a56d5ea9a8f74e416adfa3925ee2df4b89de5",
+            "actual_sha256": "5794848d0716e30c0a741a396a8a56d5ea9a8f74e416adfa3925ee2df4b89de5",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_000400_000600.npz",
+            "start": 400,
+            "end": 600,
+            "expected_sha256": "a93dd25cd1b4ee39c86e38b18504768803322bb533eb14b524aa5f21f020cfde",
+            "actual_sha256": "a93dd25cd1b4ee39c86e38b18504768803322bb533eb14b524aa5f21f020cfde",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_000600_000800.npz",
+            "start": 600,
+            "end": 800,
+            "expected_sha256": "c4c0468e21dff76142d272aaf4917642bf7823cd549b3f8ab6add0903c359cd5",
+            "actual_sha256": "c4c0468e21dff76142d272aaf4917642bf7823cd549b3f8ab6add0903c359cd5",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_000800_001000.npz",
+            "start": 800,
+            "end": 1000,
+            "expected_sha256": "b5ae93d40de485016ccd79a54faf453bf4ac06bec2ec518bcc6a7abc26b74c34",
+            "actual_sha256": "b5ae93d40de485016ccd79a54faf453bf4ac06bec2ec518bcc6a7abc26b74c34",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_001000_001200.npz",
+            "start": 1000,
+            "end": 1200,
+            "expected_sha256": "ec8a043b2225057c2e4651c8d05504e302cb9b4b130066427ef81ce9601883b3",
+            "actual_sha256": "ec8a043b2225057c2e4651c8d05504e302cb9b4b130066427ef81ce9601883b3",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_001200_001400.npz",
+            "start": 1200,
+            "end": 1400,
+            "expected_sha256": "ae1f34e9980443d3ee2647e5f760f9a0f76b462edda6bd02f39ba09211a7fdac",
+            "actual_sha256": "ae1f34e9980443d3ee2647e5f760f9a0f76b462edda6bd02f39ba09211a7fdac",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_001400_001600.npz",
+            "start": 1400,
+            "end": 1600,
+            "expected_sha256": "6025dda645e6b8c4b40229d0c046f29697e09c1930a54bac9f073a753eb626ba",
+            "actual_sha256": "6025dda645e6b8c4b40229d0c046f29697e09c1930a54bac9f073a753eb626ba",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_001600_001800.npz",
+            "start": 1600,
+            "end": 1800,
+            "expected_sha256": "5e84d91bb7f30e48bee6f0cf2e9a1b8cfd051c8cb819976cfbc9a134baf3ac84",
+            "actual_sha256": "5e84d91bb7f30e48bee6f0cf2e9a1b8cfd051c8cb819976cfbc9a134baf3ac84",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_001800_002000.npz",
+            "start": 1800,
+            "end": 2000,
+            "expected_sha256": "89fd3c725cf49f9c68dd844f7abd8b7adf0cbd575f4fabbfa57c05a75f921158",
+            "actual_sha256": "89fd3c725cf49f9c68dd844f7abd8b7adf0cbd575f4fabbfa57c05a75f921158",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_002000_002200.npz",
+            "start": 2000,
+            "end": 2200,
+            "expected_sha256": "fa626c5d9496a316ac3374d8ba3bb0ffa49db3b9232915c99b288176a0feb115",
+            "actual_sha256": "fa626c5d9496a316ac3374d8ba3bb0ffa49db3b9232915c99b288176a0feb115",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_002200_002400.npz",
+            "start": 2200,
+            "end": 2400,
+            "expected_sha256": "bb0dcd9e21f3a8b2d00825c614e7ebfe550580e8c16d7b82785d3585cb0ae23e",
+            "actual_sha256": "bb0dcd9e21f3a8b2d00825c614e7ebfe550580e8c16d7b82785d3585cb0ae23e",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_002400_002600.npz",
+            "start": 2400,
+            "end": 2600,
+            "expected_sha256": "bd82b6e19dceb4cb59f442a6abd9c8d29eabe2318098e9b34ee6f64fee707892",
+            "actual_sha256": "bd82b6e19dceb4cb59f442a6abd9c8d29eabe2318098e9b34ee6f64fee707892",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_002600_002800.npz",
+            "start": 2600,
+            "end": 2800,
+            "expected_sha256": "5ccb4fb5a29ca100e2fef3b6047c2a8c7b2e84dceb9502358101bb8459853853",
+            "actual_sha256": "5ccb4fb5a29ca100e2fef3b6047c2a8c7b2e84dceb9502358101bb8459853853",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_002800_003000.npz",
+            "start": 2800,
+            "end": 3000,
+            "expected_sha256": "4daa8148c3b54233c65e2774779dc82ea4f270815fd66ba504fa3fa56f5ab0dc",
+            "actual_sha256": "4daa8148c3b54233c65e2774779dc82ea4f270815fd66ba504fa3fa56f5ab0dc",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_003000_003200.npz",
+            "start": 3000,
+            "end": 3200,
+            "expected_sha256": "f0d257d6e5b89db554598fc69f4956d6196112e14c59f4335176db00cf944aaa",
+            "actual_sha256": "f0d257d6e5b89db554598fc69f4956d6196112e14c59f4335176db00cf944aaa",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_003200_003400.npz",
+            "start": 3200,
+            "end": 3400,
+            "expected_sha256": "4a997c2565c1c1ba4235592d0a40d3540e97be111cff5fdc4f52190c9363f2ff",
+            "actual_sha256": "4a997c2565c1c1ba4235592d0a40d3540e97be111cff5fdc4f52190c9363f2ff",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_003400_003600.npz",
+            "start": 3400,
+            "end": 3600,
+            "expected_sha256": "c655d9b01f4009f79768c5081a0fe7acb9a507b9f3b2366508f30ab58e7044d4",
+            "actual_sha256": "c655d9b01f4009f79768c5081a0fe7acb9a507b9f3b2366508f30ab58e7044d4",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_003600_003800.npz",
+            "start": 3600,
+            "end": 3800,
+            "expected_sha256": "5fd1e8393c24ab2b2736633aca743c4e75823f1516ee7d1caab092774efbd6a0",
+            "actual_sha256": "5fd1e8393c24ab2b2736633aca743c4e75823f1516ee7d1caab092774efbd6a0",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_003800_004000.npz",
+            "start": 3800,
+            "end": 4000,
+            "expected_sha256": "b9894f04ac525013308d457662d3e05650edaf057aac58abc599f29d36c506e0",
+            "actual_sha256": "b9894f04ac525013308d457662d3e05650edaf057aac58abc599f29d36c506e0",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_004000_004200.npz",
+            "start": 4000,
+            "end": 4200,
+            "expected_sha256": "8e9d1a34c9345d239cfcb982c2c1201bd798421a8d4baf0c9a42e371fae3411b",
+            "actual_sha256": "8e9d1a34c9345d239cfcb982c2c1201bd798421a8d4baf0c9a42e371fae3411b",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_004200_004400.npz",
+            "start": 4200,
+            "end": 4400,
+            "expected_sha256": "4a79995c7e93411f2ff25ae05c067afa78cd54301dc83f42442a3c42b8e94278",
+            "actual_sha256": "4a79995c7e93411f2ff25ae05c067afa78cd54301dc83f42442a3c42b8e94278",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_004400_004600.npz",
+            "start": 4400,
+            "end": 4600,
+            "expected_sha256": "92267993b5901dc5749b11f30ed649f1fbdf85c59839f444a9f0695092cd01e0",
+            "actual_sha256": "92267993b5901dc5749b11f30ed649f1fbdf85c59839f444a9f0695092cd01e0",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_004600_004800.npz",
+            "start": 4600,
+            "end": 4800,
+            "expected_sha256": "6d5366a45eaae71b0cf281252e491fc5432ddff490700ec07dc070701b4b7573",
+            "actual_sha256": "6d5366a45eaae71b0cf281252e491fc5432ddff490700ec07dc070701b4b7573",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_004800_005000.npz",
+            "start": 4800,
+            "end": 5000,
+            "expected_sha256": "34315cbd8b74187d188081d8d68266f1d9a08a24ef0d06effdd67a85e0d68b12",
+            "actual_sha256": "34315cbd8b74187d188081d8d68266f1d9a08a24ef0d06effdd67a85e0d68b12",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_005000_005200.npz",
+            "start": 5000,
+            "end": 5200,
+            "expected_sha256": "431b85ec852a0e48ff0e5a256a7ee34f48debc1fba2a3d950711d47908632850",
+            "actual_sha256": "431b85ec852a0e48ff0e5a256a7ee34f48debc1fba2a3d950711d47908632850",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_005200_005400.npz",
+            "start": 5200,
+            "end": 5400,
+            "expected_sha256": "1eeac5327a19d1036c3c5c0acaa9e3eee5149500c4cd6c9e999a6b34f155689e",
+            "actual_sha256": "1eeac5327a19d1036c3c5c0acaa9e3eee5149500c4cd6c9e999a6b34f155689e",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_005400_005600.npz",
+            "start": 5400,
+            "end": 5600,
+            "expected_sha256": "f2f7fa7076d39aa1b35e55fdb4284d67de74720609b8aeb8b50ad01d4ffe2613",
+            "actual_sha256": "f2f7fa7076d39aa1b35e55fdb4284d67de74720609b8aeb8b50ad01d4ffe2613",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_005600_005800.npz",
+            "start": 5600,
+            "end": 5800,
+            "expected_sha256": "0b38d09d617c1822b4c7462b4de14b7dcf5ab16e170cd72c3467578a35ce3290",
+            "actual_sha256": "0b38d09d617c1822b4c7462b4de14b7dcf5ab16e170cd72c3467578a35ce3290",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_005800_006000.npz",
+            "start": 5800,
+            "end": 6000,
+            "expected_sha256": "b95e6f406fe5a2e1cc3022ab6e06d6798ea6d0fcbf9da8c38418a2119dcc2252",
+            "actual_sha256": "b95e6f406fe5a2e1cc3022ab6e06d6798ea6d0fcbf9da8c38418a2119dcc2252",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_006000_006200.npz",
+            "start": 6000,
+            "end": 6200,
+            "expected_sha256": "851cd83f53fad9644d6cd89cbc030c021ec21138725cfc72643c885e14e984f2",
+            "actual_sha256": "851cd83f53fad9644d6cd89cbc030c021ec21138725cfc72643c885e14e984f2",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_006200_006400.npz",
+            "start": 6200,
+            "end": 6400,
+            "expected_sha256": "829335bab32b4ccabdb43d911f03939799353698eee14b21a7c6d39e5d1d1ab5",
+            "actual_sha256": "829335bab32b4ccabdb43d911f03939799353698eee14b21a7c6d39e5d1d1ab5",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_006400_006600.npz",
+            "start": 6400,
+            "end": 6600,
+            "expected_sha256": "f7369a8f60451c5e2f01bf58dc987a23332fa9ba9ba9637c4f46d5e78f661ce0",
+            "actual_sha256": "f7369a8f60451c5e2f01bf58dc987a23332fa9ba9ba9637c4f46d5e78f661ce0",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          },
+          {
+            "file": "chunk_006600_006800.npz",
+            "start": 6600,
+            "end": 6800,
+            "expected_sha256": "aefe17cfe084c54881fb933f7f68192f45805822971234cbf9dea488eed8ee8f",
+            "actual_sha256": "aefe17cfe084c54881fb933f7f68192f45805822971234cbf9dea488eed8ee8f",
+            "hash_ok": true,
+            "contiguous": true,
+            "rows": 200
+          }
+        ]
+      },
+      "reason": null
+    },
+    "capacity_finite_positive": {
+      "status": "pass",
+      "evidence": {
+        "min_capacity": 4029.0,
+        "max_capacity": 28990.8,
+        "all_floating_arrays_finite": {
+          "host_features": true,
+          "demands": true,
+          "schedules": true,
+          "post_totals": true,
+          "capacities": true,
+          "overload_ratio": true
+        }
+      },
+      "reason": null
+    },
+    "physical_recompute": {
+      "status": "pass",
+      "evidence": {
+        "max_abs_ratio_error": 0.0,
+        "raw_labels_exact": true
+      },
+      "reason": null
+    },
+    "scheduler_and_placement": {
+      "status": "pass",
+      "evidence": {
+        "schedule_sum_max_abs_error": 0.0,
+        "placement_min": -1,
+        "placement_max": 15,
+        "intervals_strictly_consecutive": true
+      },
+      "reason": null
+    },
+    "UVW_event_annotations": {
+      "status": "blocked",
+      "evidence": {
+        "phase_checks": {
+          "F0": {
+            "intervals": [
+              0,
+              300
+            ],
+            "source_phase_index": 0,
+            "expected_service_mechanism_id": -1,
+            "phase_id_exact": true,
+            "service_id_exact": true,
+            "expected_service_active_event_hoststeps": 0,
+            "expected_service_event_seen": true
+          },
+          "U_first": {
+            "intervals": [
+              300,
+              1900
+            ],
+            "source_phase_index": 1,
+            "expected_service_mechanism_id": 0,
+            "phase_id_exact": true,
+            "service_id_exact": true,
+            "expected_service_active_event_hoststeps": 11929,
+            "expected_service_event_seen": true
+          },
+          "V_first": {
+            "intervals": [
+              1900,
+              3500
+            ],
+            "source_phase_index": 2,
+            "expected_service_mechanism_id": 2,
+            "phase_id_exact": true,
+            "service_id_exact": true,
+            "expected_service_active_event_hoststeps": 5263,
+            "expected_service_event_seen": true
+          },
+          "W_long": {
+            "intervals": [
+              3500,
+              5100
+            ],
+            "source_phase_index": 3,
+            "expected_service_mechanism_id": 3,
+            "phase_id_exact": true,
+            "service_id_exact": true,
+            "expected_service_active_event_hoststeps": 13190,
+            "expected_service_event_seen": true
+          },
+          "U_rec1": {
+            "intervals": [
+              5100,
+              5228
+            ],
+            "source_phase_index": 4,
+            "expected_service_mechanism_id": 0,
+            "phase_id_exact": true,
+            "service_id_exact": true,
+            "expected_service_active_event_hoststeps": 0,
+            "expected_service_event_seen": false
+          },
+          "W_gap1": {
+            "intervals": [
+              5228,
+              6028
+            ],
+            "source_phase_index": 5,
+            "expected_service_mechanism_id": 3,
+            "phase_id_exact": true,
+            "service_id_exact": true,
+            "expected_service_active_event_hoststeps": 5609,
+            "expected_service_event_seen": true
+          },
+          "V_rec1": {
+            "intervals": [
+              6028,
+              6156
+            ],
+            "source_phase_index": 6,
+            "expected_service_mechanism_id": 2,
+            "phase_id_exact": true,
+            "service_id_exact": true,
+            "expected_service_active_event_hoststeps": 0,
+            "expected_service_event_seen": false
+          },
+          "W_gap2_partial": {
+            "intervals": [
+              6156,
+              6799
+            ],
+            "source_phase_index": 7,
+            "expected_service_mechanism_id": 3,
+            "phase_id_exact": true,
+            "service_id_exact": true,
+            "expected_service_active_event_hoststeps": 4715,
+            "expected_service_event_seen": true
+          }
+        },
+        "logical_services_seen": {
+          "U": true,
+          "V": true,
+          "W": true
+        }
+      },
+      "reason": "phase/service audit IDs or U/V/W active event annotations inconsistent"
+    },
+    "common_feature_causality": {
+      "status": "pass",
+      "evidence": {
+        "function": "prepare_ftmoe_protocol025_stream._common_features",
+        "inputs": [
+          "host_features",
+          "capacities"
+        ],
+        "forbidden_tokens_found": [],
+        "output_shape": [
+          6800,
+          16,
+          9
+        ],
+        "finite": true
+      },
+      "reason": null
+    },
+    "raw_next_tplus1_tplus2_maturity": {
+      "status": "pass",
+      "evidence": {
+        "target_mode": "raw_next_fault",
+        "raw_next_target_index_plus_1": true,
+        "publication_gate_index_plus_2": true,
+        "session_settlement_t_minus_2": true,
+        "prediction_before_label_guard": true
+      },
+      "reason": null
+    },
+    "F0_normal_guard_source": {
+      "status": "pass",
+      "evidence": {
+        "prediction_indices_count": 60,
+        "prediction_index_min": 0,
+        "prediction_index_max": 295,
+        "target": "same-host raw[t+1] inside F0",
+        "normal_hoststeps": 960,
+        "positive_hoststeps": 0
+      },
+      "reason": null
+    },
+    "nonF0_and_recurrence_class_coverage": {
+      "status": "pass",
+      "evidence": {
+        "U_first": {
+          "intervals": [
+            300,
+            1900
+          ],
+          "positive_hoststeps": 7263,
+          "negative_hoststeps": 18337,
+          "min32_each": true
+        },
+        "V_first": {
+          "intervals": [
+            1900,
+            3500
+          ],
+          "positive_hoststeps": 2663,
+          "negative_hoststeps": 22937,
+          "min32_each": true
+        },
+        "W_long": {
+          "intervals": [
+            3500,
+            5100
+          ],
+          "positive_hoststeps": 4834,
+          "negative_hoststeps": 20766,
+          "min32_each": true
+        },
+        "U_rec1": {
+          "intervals": [
+            5100,
+            5228
+          ],
+          "positive_hoststeps": 446,
+          "negative_hoststeps": 1602,
+          "min32_each": true
+        },
+        "W_gap1": {
+          "intervals": [
+            5228,
+            6028
+          ],
+          "positive_hoststeps": 2620,
+          "negative_hoststeps": 10180,
+          "min32_each": true
+        },
+        "V_rec1": {
+          "intervals": [
+            6028,
+            6156
+          ],
+          "positive_hoststeps": 372,
+          "negative_hoststeps": 1676,
+          "min32_each": true
+        },
+        "W_gap2_partial": {
+          "intervals": [
+            6156,
+            6799
+          ],
+          "positive_hoststeps": 1902,
+          "negative_hoststeps": 8386,
+          "min32_each": true
+        }
+      },
+      "reason": null
+    },
+    "frozen_stream_identity": {
+      "status": "pass",
+      "evidence": {
+        "actual_stream_sha256": "1e8b6bde1fa3f906586030547777428b28fca23c43e06868077dc0e1e46e4d1a",
+        "expected_stream_sha256": "1e8b6bde1fa3f906586030547777428b28fca23c43e06868077dc0e1e46e4d1a"
+      },
+      "reason": null
+    }
+  },
+  "required_gate_names": [
+    "source_artifact_digest",
+    "registered_source_identity",
+    "registration_origin",
+    "chunk_coverage_and_hashes",
+    "capacity_finite_positive",
+    "physical_recompute",
+    "scheduler_and_placement",
+    "UVW_event_annotations",
+    "common_feature_causality",
+    "raw_next_tplus1_tplus2_maturity",
+    "F0_normal_guard_source",
+    "nonF0_and_recurrence_class_coverage",
+    "frozen_stream_identity"
+  ],
+  "audit_pass": false,
+  "reroll_or_parameter_change_allowed_after_failure": false
+}

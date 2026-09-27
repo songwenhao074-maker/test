@@ -1,19 +1,12 @@
 {
   "protocol": "032",
   "plan_revision": 1,
-  "status": "blocked",
-  "task_count": 1,
-  "task": "Test whether an absolute floor on F0 normal-NLL tolerance enables useful memory and recurrence advantage on the existing6800 prefix",
+  "status": "registered_for_single_development_pair",
   "source_code_commit": "4e7df7e5f7abca2e2470633864b35440858bd4bf",
   "implementation_branch": "protocol-031-rare-recurrence-20260922",
-  "directive": "docs/PROTOCOL032_SINGLE_TASK_DIRECTIVE_20260927.md",
-  "source_analysis": "docs/PROTOCOL031_INTERIM6800_ANALYSIS_20260927.md",
   "source_generation_run_id": 36251840133,
   "source_generation_artifact_id": 10911078872,
   "source_generation_zip_sha256": "c8c2e467a1615c3a8be0e7ee6628a55098491fd97c10d489cf28449a6daeeafc",
-  "baseline_run_id": 36295124291,
-  "baseline_artifact_id": 10923099870,
-  "baseline_zip_sha256": "b427cae4776e4c0172b632698d6d6b8755f1ff972cf3a189223a9c8dfab88369",
   "input_stream_sha256": "1e8b6bde1fa3f906586030547777428b28fca23c43e06868077dc0e1e46e4d1a",
   "scored_intervals": 6799,
   "guard_rows": 1,
@@ -24,8 +17,6 @@
     "C_fixed5",
     "D_guard_budget"
   ],
-  "full_generation_budget": 0,
-  "full_model_replay_budget": 2,
   "method_change": {
     "scope": "F0 normal NLL acceptance for birth and reuse only",
     "old_limit": "1.02 * L_live + 1e-6",
@@ -54,23 +45,8 @@
       "end": 6156
     }
   ],
-  "primary": "equal-weight mean AP(D_guard_budget)-AP(C_fixed5) over both complete recurrence128 windows",
-  "development_reference": {
-    "mean_ap_delta_greater_than": 0,
-    "positive_windows": 2,
-    "pooled_normal_fpr_delta_max": 0.01,
-    "complete_W_long_W_gap1_mean_ap_delta_min": -0.02
-  },
-  "input_audit_required": true,
-  "baseline_C_probability_max_abs_diff": 1e-06,
-  "no_automatic_parameter_search": true,
-  "no_new_simulation": true,
-  "no_A_B": true,
-  "no_joint_cost_optimization": true,
+  "full_model_replay_budget": 2,
+  "full_generation_budget": 0,
   "statistical_confirmation": false,
-  "stop_after": "One C/D pair or an explicit input/implementation/baseline-consistency blocker; report all outcomes",
-  "terminal_run_id": 36310338191,
-  "terminal_blocker": "baseline_C_consistency_failed",
-  "automatic_followup_started": false,
-  "superseded_engineering_blocker_run_id": 36310071267
+  "input_audit_required": true
 }

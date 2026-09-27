@@ -1,9 +1,7 @@
 # Protocol-032 Results
 
-Run: `36310071267`. Status: blocked before a complete registered C/D pair.
+Run: `36310338191`. Status: blocked before a complete registered C/D pair.
 
-Blocker: `retrospective_input_audit_failed`.
+Blocker: `baseline_C_consistency_failed`. Step outcomes: `{"ARTIFACT_META_OUTCOME": "success", "AUDIT_REPAIR_OUTCOME": "success", "BASELINE_CHECK_OUTCOME": "failure", "BASELINE_DOWNLOAD_OUTCOME": "success", "COMPARE_OUTCOME": "skipped", "C_OUTCOME": "success", "D_OUTCOME": "skipped", "INPUT_DOWNLOAD_OUTCOME": "success", "PREFLIGHT_OUTCOME": "success"}`.
 
-Step outcomes: `{"ARTIFACT_META_OUTCOME": "success", "AUDIT_OUTCOME": "failure", "BASELINE_CHECK_OUTCOME": "skipped", "BASELINE_DOWNLOAD_OUTCOME": "success", "COMPARE_OUTCOME": "skipped", "C_OUTCOME": "skipped", "D_OUTCOME": "skipped", "PREFLIGHT_OUTCOME": "success", "SOURCE_DOWNLOAD_OUTCOME": "success"}`.
-
-No simulator generation, seed reroll, A/B arm, threshold grid, or automatic follow-up was started. Available evidence is preserved under `artifacts/ftmoe_online/protocol_032/runs/run_36310071267/` and the workflow artifacts.
+No new simulation, seed reroll, A/B, threshold grid, or automatic follow-up was started. Evidence is preserved under `artifacts/ftmoe_online/protocol_032/runs/run_36310338191/`.

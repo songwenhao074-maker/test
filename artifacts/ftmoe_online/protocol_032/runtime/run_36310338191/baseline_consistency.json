@@ -1,0 +1,14 @@
+{
+  "protocol": "032",
+  "baseline_run_id": 36295124291,
+  "baseline_artifact_id": 10923099870,
+  "labels_equal": true,
+  "raw_labels_equal": true,
+  "C_probability_max_abs_diff": 1.0132789611816406e-06,
+  "reference_max_abs_diff": 1e-06,
+  "new_shared_first4_initialization": "7e8a7a901775b003d82d6f30d2ce448a2e7f1c100bd00019115271883c2de29b",
+  "baseline_shared_first4_initialization": "7e8a7a901775b003d82d6f30d2ce448a2e7f1c100bd00019115271883c2de29b",
+  "expected_shared_first4_initialization": "7e8a7a901775b003d82d6f30d2ce448a2e7f1c100bd00019115271883c2de29b",
+  "passed": false,
+  "on_failure": "stop_before_D; no automatic rerun"
+}

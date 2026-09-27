@@ -1,0 +1,24 @@
+{
+  "protocol": "032",
+  "plan_revision": 1,
+  "run_id": "36310338191",
+  "completed": false,
+  "blocker": "baseline_C_consistency_failed",
+  "step_outcomes": {
+    "PREFLIGHT_OUTCOME": "success",
+    "ARTIFACT_META_OUTCOME": "success",
+    "INPUT_DOWNLOAD_OUTCOME": "success",
+    "BASELINE_DOWNLOAD_OUTCOME": "success",
+    "AUDIT_REPAIR_OUTCOME": "success",
+    "C_OUTCOME": "success",
+    "BASELINE_CHECK_OUTCOME": "failure",
+    "D_OUTCOME": "skipped",
+    "COMPARE_OUTCOME": "skipped"
+  },
+  "no_new_simulation": true,
+  "C_started": true,
+  "D_started": false,
+  "model_replay_budget": 2,
+  "no_automatic_followup": true,
+  "source_overstrict_audit_run_id": 36310071267
+}
