@@ -1,0 +1,23 @@
+{
+  "protocol": "032",
+  "plan_revision": 1,
+  "run_id": "36310071267",
+  "completed": false,
+  "blocker": "retrospective_input_audit_failed",
+  "step_outcomes": {
+    "PREFLIGHT_OUTCOME": "success",
+    "ARTIFACT_META_OUTCOME": "success",
+    "SOURCE_DOWNLOAD_OUTCOME": "success",
+    "BASELINE_DOWNLOAD_OUTCOME": "success",
+    "AUDIT_OUTCOME": "failure",
+    "C_OUTCOME": "skipped",
+    "BASELINE_CHECK_OUTCOME": "skipped",
+    "D_OUTCOME": "skipped",
+    "COMPARE_OUTCOME": "skipped"
+  },
+  "no_new_simulation": true,
+  "model_replay_budget": 2,
+  "C_started": false,
+  "D_started": false,
+  "no_automatic_followup": true
+}

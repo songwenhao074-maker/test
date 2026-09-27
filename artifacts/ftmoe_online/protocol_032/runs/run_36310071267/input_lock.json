@@ -1,0 +1,14 @@
+{
+  "protocol": "032",
+  "plan_revision": 1,
+  "locked": false,
+  "input_audit_passed": false,
+  "stream_sha256": "1e8b6bde1fa3f906586030547777428b28fca23c43e06868077dc0e1e46e4d1a",
+  "source_generation_run_id": 36251840133,
+  "source_artifact_id": 10911078872,
+  "source_checkpoint_next_t": 6800,
+  "scored_intervals": 6799,
+  "guard_rows": 1,
+  "retrospective_audit": true,
+  "no_new_simulation": true
+}
