@@ -1,0 +1,194 @@
+name: Protocol-031 interim6800 existing-data C/D v2
+
+on:
+  push:
+    branches: [protocol-031-rare-recurrence-20260922]
+    paths:
+      - .github/workflows/protocol031-interim6800-v2.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: protocol031-interim6800-existing-prefix-v2
+  cancel-in-progress: false
+
+jobs:
+  interim6800_v2:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 340
+    env:
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      PYTHONHASHSEED: '1'
+      SOURCE_RUN_ID: '36251840133'
+      SOURCE_ARTIFACT: protocol031-r3-generation-state-36251840133
+      SOURCE_ROOT: /tmp/protocol031_source6800
+      BUNDLE_ROOT: /tmp/protocol031_interim6800_frozen
+      RUN_ROOT: artifacts/ftmoe_online/protocol_031/interim6800_runs/run_${{ github.run_id }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+
+      - name: Install frozen CPU dependencies
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil
+
+      - name: Download existing revision003 checkpoint only
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.SOURCE_ARTIFACT }}
+          path: ${{ env.SOURCE_ROOT }}
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ env.SOURCE_RUN_ID }}
+
+      - name: Verify and freeze existing 6800-row prefix
+        run: |
+          python - <<'PY'
+          import hashlib,json,os,pathlib,shutil
+          import numpy as np
+          import prepare_ftmoe_protocol031_stream as P
+          src=pathlib.Path(os.environ['SOURCE_ROOT']); out=pathlib.Path(os.environ['BUNDLE_ROOT'])
+          data=out/'data'; ev=out/'evidence'; shutil.rmtree(out,ignore_errors=True); data.mkdir(parents=True); ev.mkdir(parents=True)
+          rm=json.load(open(src/'resume_manifest.json')); receipt=json.load(open(src/'pre_generation_receipt.json'))
+          assert rm['protocol']=='031' and rm['plan_revision']==3 and rm['next_t']==6800
+          assert rm['scenario_id']=='protocol031_rare_recurrence_v2' and rm['data_revision']=='protocol031_data_revision_002'
+          assert receipt['replay_seed']==700 and receipt['model_seed']==1 and rm['registration_sha256']==receipt['registration_sha256']
+          def sha(p):
+              h=hashlib.sha256(); h.update(pathlib.Path(p).read_bytes()); return h.hexdigest()
+          chunks=rm['chunks']; assert len(chunks)==34 and chunks[0]['start']==0 and chunks[-1]['end']==6800
+          cursor=0; parts=None
+          for c in chunks:
+              assert c['start']==cursor and c['end']-c['start']==200
+              p=src/'chunks'/c['file']; assert p.is_file() and sha(p)==c['sha256']
+              with np.load(p) as z:
+                  if parts is None: parts={k:[] for k in z.files}
+                  assert set(z.files)==set(parts)
+                  for k in parts: parts[k].append(z[k].copy())
+              cursor=c['end']
+          arrays={k:np.concatenate(v,axis=0) for k,v in parts.items()}; assert cursor==6800
+          assert all(v.shape[0]==6800 for v in arrays.values())
+          physical=np.where((arrays['overload_ratio']>1.0).any(-1),arrays['overload_ratio'].argmax(-1)+1,0)
+          assert np.array_equal(arrays['raw_labels'],physical)
+          for k,v in arrays.items():
+              if np.issubdtype(v.dtype,np.floating): assert np.isfinite(v).all(),k
+          scored=6799
+          np.savez_compressed(data/'stream.npz',**arrays,overload_mask=(arrays['overload_ratio']>1.0).astype(np.uint8))
+          stream_sha=sha(data/'stream.npz')
+          reg=json.load(open('artifacts/ftmoe_online/protocol_031/scenario_registration.json'))
+          phases=[]
+          for p in P.phase_table(reg):
+              if p['start']>=scored: break
+              q=dict(p); q['end']=min(int(q['end']),scored); q['length']=q['end']-q['start']
+              if q['name']=='W_gap2' and q['end']<p['end']: q['name']='W_gap2_partial'
+              phases.append(q)
+          assert phases[-1]['end']==scored
+          assert [p['name'] for p in phases if '_rec' in p['name']]==['U_rec1','V_rec1']
+          manifest={'protocol':'031','plan_revision':3,'scenario_id':reg['scenario_id'],'data_revision':reg['data_revision'],
+                    'kind':'user_authorized_interim_existing_prefix','source_generation_run_id':os.environ['SOURCE_RUN_ID'],
+                    'source_checkpoint_next_t':6800,'steps':scored,'guard_rows':1,'total_rows':6800,
+                    'stream_file':'stream.npz','stream_sha256':stream_sha,'timeline':phases,'replay_seed':700,'model_seed':1,
+                    'original_revision003_target_rows':9869,'original_revision003_completed':False,
+                    'interim_limit':'Only U_rec1 and V_rec1 are complete recurrence windows; no six-window claim.'}
+          (data/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+          frozen=dict(manifest); frozen['frozen']=True; (data/'frozen_data_manifest.json').write_text(json.dumps(frozen,indent=2)+'\n')
+          ireg=json.loads(json.dumps(reg)); ireg['status']='interim_prefix_frozen_by_user_instruction'; ireg['scored_intervals']=scored; ireg['guard_intervals']=1; ireg['total_intervals']=6800
+          ireg['timeline']=[{'name':p['name'],'service':('baseline' if p['logical_service'] is None else p['logical_service']),'length':p['length'],'start':p['start'],'end':p['end']} for p in phases]
+          ireg['generation']['expected_stream_sha256']=stream_sha; ireg['generation']['frozen_before_model_runs']=True; ireg['generation']['interim_existing_prefix']=True
+          (ev/'scenario_registration_interim.json').write_text(json.dumps(ireg,indent=2)+'\n')
+          mreg=json.load(open('artifacts/ftmoe_online/protocol_031/method_registration.json')); mreg['interim_existing_prefix']=True; mreg['interim_scored_intervals']=scored
+          (ev/'method_registration_interim.json').write_text(json.dumps(mreg,indent=2)+'\n')
+          lock={'protocol':'031','plan_revision':3,'scenario_id':reg['scenario_id'],'data_revision':reg['data_revision'],'locked':True,
+                'model_free_eligibility_passed':True,'stream_sha256':stream_sha,'source_generation_run_id':os.environ['SOURCE_RUN_ID'],
+                'source_checkpoint_next_t':6800,'scored_intervals':scored,'guard_rows':1,'interim_existing_prefix':True}
+          (ev/'data_lock.json').write_text(json.dumps(lock,indent=2)+'\n')
+          (ev/'eligibility.json').write_text(json.dumps({'protocol031_data_eligible':True,'interim_existing_prefix':True,
+              'six_window_primary_eligible':False,'stream_sha256':stream_sha},indent=2)+'\n')
+          print(json.dumps({'rows':6800,'scored':scored,'stream_sha256':stream_sha},indent=2))
+          PY
+
+      - name: Prepare repo-local interim-safe runner
+        run: |
+          cp run_ftmoe_protocol031_pilot.py run_ftmoe_protocol031_interim6800_runtime.py
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('run_ftmoe_protocol031_interim6800_runtime.py'); s=p.read_text()
+          old='''    snapshot_points={\n        pmap["U_first"]["end"]:"after_U_first", pmap["V_first"]["end"]:"after_V_first",\n        pmap["U_rec1"]["start"]:"before_U_rec1", pmap["V_rec1"]["start"]:"before_V_rec1",\n        pmap["U_rec2"]["start"]:"before_U_rec2", pmap["V_rec2"]["start"]:"before_V_rec2",\n        pmap["U_rec3"]["start"]:"before_U_rec3", pmap["V_rec3"]["start"]:"before_V_rec3",\n    }'''
+          new='''    snapshot_points={}\n    for key,label,edge in [("U_first","after_U_first","end"),("V_first","after_V_first","end"),\n                           ("U_rec1","before_U_rec1","start"),("V_rec1","before_V_rec1","start"),\n                           ("U_rec2","before_U_rec2","start"),("V_rec2","before_V_rec2","start"),\n                           ("U_rec3","before_U_rec3","start"),("V_rec3","before_V_rec3","start")]:\n        if key in pmap: snapshot_points[pmap[key][edge]]=label'''
+          if old not in s: raise SystemExit('snapshot block changed')
+          p.write_text(s.replace(old,new))
+          PY
+          python -m py_compile run_ftmoe_protocol031_interim6800_runtime.py
+
+      - name: Run exactly one C_fixed5
+        run: |
+          mkdir -p "$RUN_ROOT"
+          python run_ftmoe_protocol031_interim6800_runtime.py \
+            --child-arm C_fixed5 --stream "$BUNDLE_ROOT/data" --arm-dir "$RUN_ROOT/C_fixed5" \
+            --scenario-registration "$BUNDLE_ROOT/evidence/scenario_registration_interim.json" \
+            --method-registration "$BUNDLE_ROOT/evidence/method_registration_interim.json" \
+            --data-lock "$BUNDLE_ROOT/evidence/data_lock.json" --run-id "$GITHUB_RUN_ID"
+
+      - name: Run exactly one D_nonblocking_reuse
+        run: |
+          python run_ftmoe_protocol031_interim6800_runtime.py \
+            --child-arm D_nonblocking_reuse --stream "$BUNDLE_ROOT/data" --arm-dir "$RUN_ROOT/D_nonblocking_reuse" \
+            --scenario-registration "$BUNDLE_ROOT/evidence/scenario_registration_interim.json" \
+            --method-registration "$BUNDLE_ROOT/evidence/method_registration_interim.json" \
+            --data-lock "$BUNDLE_ROOT/evidence/data_lock.json" --run-id "$GITHUB_RUN_ID"
+
+      - name: Compare complete observed windows only
+        run: |
+          python - <<'PY'
+          import json,os,pathlib,numpy as np
+          from ftmoe_protocol024_eval import binary_detection_metrics
+          root=pathlib.Path(os.environ['RUN_ROOT']); bundle=pathlib.Path(os.environ['BUNDLE_ROOT'])
+          def J(p): return json.loads(pathlib.Path(p).read_text())
+          def N(p):
+              with np.load(p,allow_pickle=True) as z:return {k:z[k].copy() for k in z.files}
+          sums={n:J(root/n/'summary.json') for n in ('C_fixed5','D_nonblocking_reuse')}
+          pred={n:N(root/n/'predictions.npz') for n in ('C_fixed5','D_nonblocking_reuse')}
+          c,d=pred['C_fixed5'],pred['D_nonblocking_reuse']; assert np.array_equal(c['labels'],d['labels'])
+          y=c['labels']; man=J(bundle/'data/manifest.json'); pmap={p['name']:p for p in man['timeline']}
+          rec=[]; deltas=[]; pooled=[]
+          for name in ('U_rec1','V_rec1'):
+              p=pmap[name]; a,b=p['start'],p['end']; pooled.extend(range(a,b))
+              cm=binary_detection_metrics(c['probability'][a:b],y[a:b],.5); dm=binary_detection_metrics(d['probability'][a:b],y[a:b],.5)
+              delta=None if cm['ap'] is None or dm['ap'] is None else float(dm['ap']-cm['ap']); deltas += [] if delta is None else [delta]
+              rec.append({'phase':name,'intervals':[a,b],'C_fixed5':cm,'D_nonblocking_reuse':dm,'D_minus_C_ap':delta})
+          idx=np.asarray(pooled,dtype=np.int64); pcm=binary_detection_metrics(c['probability'][idx],y[idx],.5); pdm=binary_detection_metrics(d['probability'][idx],y[idx],.5)
+          cf=sums['C_fixed5']['full']['detection']; df=sums['D_nonblocking_reuse']['full']['detection']
+          comp={'protocol':'031','plan_revision':3,'kind':'interim6800_existing_prefix_comparison','source_generation_run_id':os.environ['SOURCE_RUN_ID'],
+                'scored_intervals':6799,'guard_rows':1,'formal_six_window_primary_not_available':True,
+                'complete_recurrence_windows':['U_rec1','V_rec1'],'missing_registered_recurrence_windows':['U_rec2','V_rec2','U_rec3','V_rec3'],
+                'recurrence128':rec,'two_window_mean_D_minus_C_ap':None if len(deltas)!=2 else float(np.mean(deltas)),
+                'pooled_recurrence_normal_fpr_delta_D_minus_C':None if pcm['fpr'] is None or pdm['fpr'] is None else float(pdm['fpr']-pcm['fpr']),
+                'full_stream':{'C_fixed5':cf,'D_nonblocking_reuse':df,'D_minus_C_ap':None if cf['ap'] is None or df['ap'] is None else float(df['ap']-cf['ap'])},
+                'lifecycle':sums['D_nonblocking_reuse'].get('lifecycle'),'development_only':True}
+          (root/'comparison.json').write_text(json.dumps(comp,indent=2)+'\n')
+          (root/'status.json').write_text(json.dumps({'completed':True,'C_fixed5':True,'D_nonblocking_reuse':True,'six_window_primary':False},indent=2)+'\n')
+          print(json.dumps({'two_window_mean_D_minus_C_ap':comp['two_window_mean_D_minus_C_ap'],'full_D_minus_C_ap':comp['full_stream']['D_minus_C_ap']},indent=2))
+          PY
+
+      - name: Upload interim6800 v2 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol031-interim6800-v2-${{ github.run_id }}
+          path: ${{ env.RUN_ROOT }}/
+          if-no-files-found: warn
+          compression-level: 3
+          retention-days: 90
