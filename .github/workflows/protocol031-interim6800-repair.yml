@@ -1,0 +1,31 @@
+name: Protocol-031 interim6800 engineering repair
+on:
+  push:
+    branches: [protocol-031-rare-recurrence-20260922]
+    paths: [.github/workflows/protocol031-interim6800-repair.yml]
+permissions:
+  contents: write
+jobs:
+  repair:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Repair only Python import path and retrigger interim workflow
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('.github/workflows/protocol031-interim6800.yml')
+          s=p.read_text()
+          needle="      PYTHONHASHSEED: '1'\n"
+          replacement=needle+"      PYTHONPATH: ${{ github.workspace }}\n"
+          if 'PYTHONPATH: ${{ github.workspace }}' in s:
+              raise SystemExit('repair already applied')
+          if s.count(needle)!=1:
+              raise SystemExit('unexpected workflow shape; refusing broad repair')
+          p.write_text(s.replace(needle,replacement))
+          PY
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add .github/workflows/protocol031-interim6800.yml
+          git commit -m 'ci: preserve repo imports for interim6800 runner'
+          git push origin HEAD:$GITHUB_REF_NAME
