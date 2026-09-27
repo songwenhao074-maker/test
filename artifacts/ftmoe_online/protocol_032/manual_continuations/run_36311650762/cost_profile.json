@@ -1,0 +1,60 @@
+{
+  "C_fixed5_preserved_from_run_36310338191": {
+    "wall_seconds": 33.20479303799999,
+    "cpu_seconds": 33.202460779999996,
+    "max_rss_bytes": 406233088,
+    "p95_inference_seconds": 0.0031826120000175706,
+    "online_update_opportunities_completed": 424,
+    "online_sample_draws": 13548,
+    "final_resident_parameter_bytes": 55060,
+    "peak_resident_parameter_bytes": 55060,
+    "final_optimizer_state_bytes": 110248,
+    "peak_optimizer_state_bytes": 110248,
+    "peak_live_expert_count": 5,
+    "peak_resident_expert_count": 5,
+    "runtime_profile": {
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONHASHSEED": "1",
+      "torch_num_threads": 1,
+      "torch_num_interop_threads": 1,
+      "deterministic_algorithms": true
+    }
+  },
+  "D_guard_budget_manual_continuation": {
+    "wall_seconds": 1762.92181521,
+    "cpu_seconds": 1762.7700759460001,
+    "max_rss_bytes": 455954432,
+    "p95_inference_seconds": 0.007825528900161772,
+    "online_update_opportunities_completed": 424,
+    "online_sample_draws": 13548,
+    "final_resident_parameter_bytes": 88096,
+    "peak_resident_parameter_bytes": 88096,
+    "final_optimizer_state_bytes": 176448,
+    "peak_optimizer_state_bytes": 198504,
+    "peak_live_expert_count": 6,
+    "peak_resident_expert_count": 8,
+    "runtime_profile": {
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONHASHSEED": "1",
+      "torch_num_threads": 1,
+      "torch_num_interop_threads": 1,
+      "deterministic_algorithms": true
+    },
+    "shadow_train_steps": 400,
+    "shadow_train_examples": 12800,
+    "reuse_validation_forwards": 2443,
+    "reuse_guard_forwards": 270,
+    "shadow_train_seconds": 17.60455151499957,
+    "shadow_validation_seconds": 0.22045430400146415,
+    "birth_guard_seconds": 0.3050482620000139,
+    "reuse_validation_seconds": 3.018821364985911,
+    "reuse_guard_seconds": 10.100189942001407
+  },
+  "cross_run_D_over_C_wall_time_ratio": 53.092389800246295,
+  "same_job_cost_comparison": false,
+  "equal_total_cost_claim_allowed": false
+}

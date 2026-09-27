@@ -1,0 +1,17 @@
+{
+  "kind": "manual_post_blocker_diagnostic_continuation",
+  "user_authorized_after_registered_blocker": true,
+  "registered_protocol032_completed": false,
+  "registered_terminal_run_id": 36310338191,
+  "registered_blocker": "baseline_C_consistency_failed",
+  "registered_C_probability_max_abs_diff": 1.0132789611816406e-06,
+  "registered_C_probability_reference_max_abs_diff": 1e-06,
+  "labels_equal_to_031_baseline": true,
+  "raw_labels_equal_to_031_baseline": true,
+  "shared_first4_initialization_exact": true,
+  "C_replayed_in_continuation": false,
+  "D_replays_authorized_in_continuation": 1,
+  "stream_sha256": "1e8b6bde1fa3f906586030547777428b28fca23c43e06868077dc0e1e46e4d1a",
+  "no_scientific_gate_changed": true,
+  "formal_blocker_not_waived_or_rewritten": true
+}

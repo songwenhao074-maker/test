@@ -1,0 +1,24 @@
+{
+  "protocol": "032",
+  "kind": "manual_post_blocker_diagnostic_continuation",
+  "run_id": "36311650762",
+  "diagnostic_continuation_completed": true,
+  "registered_protocol032_completed": false,
+  "registered_terminal_run_id": 36310338191,
+  "registered_blocker": "baseline_C_consistency_failed",
+  "continuation_blocker": null,
+  "step_outcomes": {
+    "PREFLIGHT_OUTCOME": "success",
+    "ARTIFACT_META_OUTCOME": "success",
+    "INPUT_DOWNLOAD_OUTCOME": "success",
+    "C_DOWNLOAD_OUTCOME": "success",
+    "PROVENANCE_OUTCOME": "success",
+    "D_OUTCOME": "success",
+    "COMPARE_OUTCOME": "success"
+  },
+  "C_replayed_in_continuation": false,
+  "D_started": true,
+  "D_replay_budget": 1,
+  "no_new_simulation": true,
+  "no_automatic_followup": true
+}

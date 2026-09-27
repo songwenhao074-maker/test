@@ -1,0 +1,14 @@
+{
+  "protocol": "032",
+  "run_id": "36311650762",
+  "kind": "manual_post_blocker_diagnostic_continuation",
+  "diagnostic_continuation_completed": true,
+  "registered_protocol032_completed": false,
+  "formal_blocker_preserved": true,
+  "C_replays_started_in_continuation": 0,
+  "D_replays_started_in_continuation": 1,
+  "automatic_followups_started": [],
+  "development_reference_all_pass": false,
+  "reuse_mechanism_established_for_registered_recurrence": false,
+  "stop_after_this_D": true
+}
