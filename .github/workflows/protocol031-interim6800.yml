@@ -1,0 +1,286 @@
+name: Protocol-031 interim6800 existing-data C/D
+
+on:
+  push:
+    branches: [protocol-031-rare-recurrence-20260922]
+    paths:
+      - .github/workflows/protocol031-interim6800.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: protocol031-interim6800-existing-prefix
+  cancel-in-progress: false
+
+jobs:
+  interim6800:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 340
+    env:
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      PYTHONHASHSEED: '1'
+      SOURCE_RUN_ID: '36251840133'
+      SOURCE_ARTIFACT: protocol031-r3-generation-state-36251840133
+      SOURCE_ROOT: /tmp/protocol031_source6800
+      BUNDLE_ROOT: /tmp/protocol031_interim6800_frozen
+      RUN_ROOT: artifacts/ftmoe_online/protocol_031/interim6800_runs/run_${{ github.run_id }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+
+      - name: Install frozen CPU dependencies
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil
+
+      - name: Download existing revision003 checkpoint only
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.SOURCE_ARTIFACT }}
+          path: ${{ env.SOURCE_ROOT }}
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ env.SOURCE_RUN_ID }}
+
+      - name: Verify and freeze the existing 6800-row prefix
+        run: |
+          python - <<'PY'
+          import hashlib,json,os,pathlib,shutil
+          import numpy as np
+          import prepare_ftmoe_protocol031_stream as P
+
+          src=pathlib.Path(os.environ['SOURCE_ROOT'])
+          out=pathlib.Path(os.environ['BUNDLE_ROOT'])
+          data=out/'data'; evidence=out/'evidence'
+          shutil.rmtree(out,ignore_errors=True); data.mkdir(parents=True); evidence.mkdir(parents=True)
+          rm=json.load(open(src/'resume_manifest.json'))
+          receipt=json.load(open(src/'pre_generation_receipt.json'))
+          assert rm['protocol']=='031' and rm['plan_revision']==3
+          assert rm['scenario_id']=='protocol031_rare_recurrence_v2'
+          assert rm['data_revision']=='protocol031_data_revision_002'
+          assert rm['next_t']==6800 and receipt['replay_seed']==700 and receipt['model_seed']==1
+          assert rm['registration_sha256']==receipt['registration_sha256']
+
+          def sha(p):
+              h=hashlib.sha256(); h.update(pathlib.Path(p).read_bytes()); return h.hexdigest()
+          chunks=rm['chunks']
+          assert len(chunks)==34 and chunks[0]['start']==0 and chunks[-1]['end']==6800
+          cursor=0; parts=None
+          for c in chunks:
+              assert c['start']==cursor and c['end']-c['start']==200
+              p=src/'chunks'/c['file']; assert p.is_file() and sha(p)==c['sha256']
+              with np.load(p) as z:
+                  if parts is None: parts={k:[] for k in z.files}
+                  assert set(z.files)==set(parts)
+                  for k in parts: parts[k].append(z[k].copy())
+              cursor=c['end']
+          assert cursor==6800
+          arrays={k:np.concatenate(v,axis=0) for k,v in parts.items()}
+          assert all(v.shape[0]==6800 for v in arrays.values())
+          physical=np.where((arrays['overload_ratio']>1.0).any(-1),arrays['overload_ratio'].argmax(-1)+1,0)
+          assert np.array_equal(arrays['raw_labels'],physical)
+          for k,v in arrays.items():
+              if np.issubdtype(v.dtype,np.floating): assert np.isfinite(v).all(), k
+
+          # 6800 existing rows -> 6799 scored rows + existing row 6799 as guard.
+          scored=6799; guard=1
+          np.savez_compressed(data/'stream.npz',**arrays,
+                              overload_mask=(arrays['overload_ratio']>1.0).astype(np.uint8))
+          stream_sha=sha(data/'stream.npz')
+          reg=json.load(open('artifacts/ftmoe_online/protocol_031/scenario_registration.json'))
+          phases=[]
+          for p in P.phase_table(reg):
+              if p['start']>=scored: break
+              q=dict(p); q['end']=min(int(q['end']),scored); q['length']=q['end']-q['start']
+              if q['name']=='W_gap2' and q['end']<p['end']: q['name']='W_gap2_partial'
+              phases.append(q)
+          assert phases[-1]['end']==scored
+          assert [p['name'] for p in phases if '_rec' in p['name']]==['U_rec1','V_rec1']
+
+          manifest={
+            'protocol':'031','plan_revision':3,'scenario_id':reg['scenario_id'],'data_revision':reg['data_revision'],
+            'kind':'user_authorized_interim_existing_prefix','source_generation_run_id':os.environ['SOURCE_RUN_ID'],
+            'source_checkpoint_next_t':6800,'steps':scored,'guard_rows':guard,'total_rows':6800,
+            'stream_file':'stream.npz','stream_sha256':stream_sha,'timeline':phases,
+            'replay_seed':700,'model_seed':1,
+            'label_rule':'argmax(CPU,RAM,Disk aggregate/capacity) when any ratio>1 else 0',
+            'original_revision003_target_rows':9869,'original_revision003_completed':False,
+            'interim_limit':'Only complete observed windows are eligible for comparison; no six-window claim.'
+          }
+          (data/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+          frozen=dict(manifest); frozen['frozen']=True
+          (data/'frozen_data_manifest.json').write_text(json.dumps(frozen,indent=2)+'\n')
+
+          ireg=json.loads(json.dumps(reg)); ireg['status']='interim_prefix_frozen_by_user_instruction'
+          ireg['scored_intervals']=scored; ireg['guard_intervals']=1; ireg['total_intervals']=6800
+          ireg['timeline']=[{'name':p['name'],'service':('baseline' if p['logical_service'] is None else p['logical_service']),
+                            'length':p['length'],'start':p['start'],'end':p['end']} for p in phases]
+          ireg['generation']['expected_stream_sha256']=stream_sha
+          ireg['generation']['frozen_before_model_runs']=True
+          ireg['generation']['interim_existing_prefix']=True
+          ireg['generation']['source_generation_run_id']=os.environ['SOURCE_RUN_ID']
+          (evidence/'scenario_registration_interim.json').write_text(json.dumps(ireg,indent=2)+'\n')
+          mreg=json.load(open('artifacts/ftmoe_online/protocol_031/method_registration.json'))
+          mreg['interim_existing_prefix']=True; mreg['interim_scored_intervals']=scored
+          (evidence/'method_registration_interim.json').write_text(json.dumps(mreg,indent=2)+'\n')
+          lock={'protocol':'031','plan_revision':3,'scenario_id':reg['scenario_id'],'data_revision':reg['data_revision'],
+                'locked':True,'model_free_eligibility_passed':True,'stream_sha256':stream_sha,
+                'source_generation_run_id':os.environ['SOURCE_RUN_ID'],'source_checkpoint_next_t':6800,
+                'scored_intervals':scored,'guard_rows':1,'interim_existing_prefix':True,
+                'note':'User explicitly requested proceeding with existing data before full 9869 generation.'}
+          (evidence/'data_lock.json').write_text(json.dumps(lock,indent=2)+'\n')
+          phase_counts={}
+          raw=arrays['raw_labels']
+          for p in phases:
+              y=raw[p['start']:p['end']].reshape(-1)
+              phase_counts[p['name']]={'intervals':[p['start'],p['end']],
+                  'positive_rows':int((y>0).sum()),'negative_rows':int((y==0).sum())}
+          audit={'protocol':'031','plan_revision':3,'kind':'interim6800_model_free_audit',
+                 'source_generation_run_id':os.environ['SOURCE_RUN_ID'],'rows_verified':6800,
+                 'scored_intervals':scored,'guard_rows':1,'chunk_count':34,'chunk_hashes_verified':True,
+                 'label_recompute_exact':True,'finite_floating_arrays':True,'phase_counts':phase_counts,
+                 'complete_recurrence_windows':['U_rec1','V_rec1'],
+                 'six_window_primary_available':False,'audit_pass':True}
+          (evidence/'data_audit_interim.json').write_text(json.dumps(audit,indent=2)+'\n')
+          (evidence/'eligibility.json').write_text(json.dumps({'protocol031_data_eligible':True,
+              'interim_existing_prefix':True,'six_window_primary_eligible':False,'stream_sha256':stream_sha},indent=2)+'\n')
+          shutil.copy2(src/'resume_manifest.json',evidence/'source_resume_manifest.json')
+          shutil.copy2(src/'pre_generation_receipt.json',evidence/'source_pre_generation_receipt.json')
+          print(json.dumps({'interim_frozen':True,'rows':6800,'scored':scored,'stream_sha256':stream_sha},indent=2))
+          PY
+
+      - name: Prepare interim-safe child runner
+        run: |
+          cp run_ftmoe_protocol031_pilot.py /tmp/run_ftmoe_protocol031_interim6800.py
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('/tmp/run_ftmoe_protocol031_interim6800.py'); s=p.read_text()
+          old='''    snapshot_points={\n        pmap["U_first"]["end"]:"after_U_first", pmap["V_first"]["end"]:"after_V_first",\n        pmap["U_rec1"]["start"]:"before_U_rec1", pmap["V_rec1"]["start"]:"before_V_rec1",\n        pmap["U_rec2"]["start"]:"before_U_rec2", pmap["V_rec2"]["start"]:"before_V_rec2",\n        pmap["U_rec3"]["start"]:"before_U_rec3", pmap["V_rec3"]["start"]:"before_V_rec3",\n    }'''
+          new='''    snapshot_points={}\n    for key,label,edge in [("U_first","after_U_first","end"),("V_first","after_V_first","end"),\n                           ("U_rec1","before_U_rec1","start"),("V_rec1","before_V_rec1","start"),\n                           ("U_rec2","before_U_rec2","start"),("V_rec2","before_V_rec2","start"),\n                           ("U_rec3","before_U_rec3","start"),("V_rec3","before_V_rec3","start")]:\n        if key in pmap: snapshot_points[pmap[key][edge]]=label'''
+          if old not in s: raise SystemExit('snapshot block changed; refusing unsafe interim patch')
+          p.write_text(s.replace(old,new))
+          PY
+          python -m py_compile /tmp/run_ftmoe_protocol031_interim6800.py
+
+      - name: Run one C_fixed5 on existing prefix
+        run: |
+          mkdir -p "$RUN_ROOT"
+          python /tmp/run_ftmoe_protocol031_interim6800.py \
+            --child-arm C_fixed5 \
+            --stream "$BUNDLE_ROOT/data" \
+            --arm-dir "$RUN_ROOT/C_fixed5" \
+            --scenario-registration "$BUNDLE_ROOT/evidence/scenario_registration_interim.json" \
+            --method-registration "$BUNDLE_ROOT/evidence/method_registration_interim.json" \
+            --data-lock "$BUNDLE_ROOT/evidence/data_lock.json" \
+            --run-id "$GITHUB_RUN_ID" \
+            > "$RUN_ROOT/C_fixed5.stdout.log" 2> "$RUN_ROOT/C_fixed5.stderr.log"
+
+      - name: Run one D_nonblocking_reuse on same existing prefix
+        run: |
+          python /tmp/run_ftmoe_protocol031_interim6800.py \
+            --child-arm D_nonblocking_reuse \
+            --stream "$BUNDLE_ROOT/data" \
+            --arm-dir "$RUN_ROOT/D_nonblocking_reuse" \
+            --scenario-registration "$BUNDLE_ROOT/evidence/scenario_registration_interim.json" \
+            --method-registration "$BUNDLE_ROOT/evidence/method_registration_interim.json" \
+            --data-lock "$BUNDLE_ROOT/evidence/data_lock.json" \
+            --run-id "$GITHUB_RUN_ID" \
+            > "$RUN_ROOT/D_nonblocking_reuse.stdout.log" 2> "$RUN_ROOT/D_nonblocking_reuse.stderr.log"
+
+      - name: Compare only windows actually present in existing data
+        run: |
+          python - <<'PY'
+          import json,os,pathlib
+          import numpy as np
+          from ftmoe_protocol024_eval import binary_detection_metrics
+          root=pathlib.Path(os.environ['RUN_ROOT']); bundle=pathlib.Path(os.environ['BUNDLE_ROOT'])
+          def loadj(p): return json.loads(pathlib.Path(p).read_text())
+          def loadnp(p):
+              with np.load(p,allow_pickle=True) as z: return {k:z[k].copy() for k in z.files}
+          sums={n:loadj(root/n/'summary.json') for n in ('C_fixed5','D_nonblocking_reuse')}
+          pred={n:loadnp(root/n/'predictions.npz') for n in ('C_fixed5','D_nonblocking_reuse')}
+          c,d=pred['C_fixed5'],pred['D_nonblocking_reuse']; assert np.array_equal(c['labels'],d['labels'])
+          y=c['labels']; man=loadj(bundle/'data/manifest.json'); pmap={p['name']:p for p in man['timeline']}
+          rec=[]; deltas=[]; pooled=[]
+          for name in ('U_rec1','V_rec1'):
+              p=pmap[name]; a,b=p['start'],p['end']; pooled.extend(range(a,b))
+              cm=binary_detection_metrics(c['probability'][a:b],y[a:b],.5)
+              dm=binary_detection_metrics(d['probability'][a:b],y[a:b],.5)
+              delta=None if cm['ap'] is None or dm['ap'] is None else float(dm['ap']-cm['ap'])
+              if delta is not None: deltas.append(delta)
+              rec.append({'phase':name,'intervals':[a,b],'C_fixed5':cm,'D_nonblocking_reuse':dm,'D_minus_C_ap':delta})
+          idx=np.asarray(pooled,dtype=np.int64)
+          pcm=binary_detection_metrics(c['probability'][idx],y[idx],.5); pdm=binary_detection_metrics(d['probability'][idx],y[idx],.5)
+          wrows=[]
+          for name in ('W_long','W_gap1','W_gap2_partial'):
+              p=pmap[name]; a,b=p['start'],p['end']
+              cm=binary_detection_metrics(c['probability'][a:b],y[a:b],.5); dm=binary_detection_metrics(d['probability'][a:b],y[a:b],.5)
+              wrows.append({'phase':name,'intervals':[a,b],'C_fixed5':cm,'D_nonblocking_reuse':dm,
+                            'D_minus_C_ap':None if cm['ap'] is None or dm['ap'] is None else float(dm['ap']-cm['ap'])})
+          cf=sums['C_fixed5']['full']['detection']; df=sums['D_nonblocking_reuse']['full']['detection']
+          comp={'protocol':'031','plan_revision':3,'kind':'interim6800_existing_prefix_comparison',
+                'source_generation_run_id':os.environ['SOURCE_RUN_ID'],'scored_intervals':6799,'guard_rows':1,
+                'original_9869_experiment_completed':False,'same_existing_prefix':True,
+                'complete_recurrence_windows':['U_rec1','V_rec1'],'missing_registered_recurrence_windows':['U_rec2','V_rec2','U_rec3','V_rec3'],
+                'formal_six_window_primary_not_available':True,
+                'interim_recurrence128':rec,
+                'interim_two_window_equal_weight_mean_D_minus_C_ap':None if len(deltas)!=2 else float(np.mean(deltas)),
+                'pooled_two_window_fpr_C_fixed5':pcm['fpr'],'pooled_two_window_fpr_D_nonblocking_reuse':pdm['fpr'],
+                'pooled_two_window_fpr_delta_D_minus_C':None if pcm['fpr'] is None or pdm['fpr'] is None else float(pdm['fpr']-pcm['fpr']),
+                'W_observed_blocks':wrows,
+                'full_observed_prefix':{'C_fixed5':sums['C_fixed5']['full'],'D_nonblocking_reuse':sums['D_nonblocking_reuse']['full'],
+                    'D_minus_C_ap':None if cf['ap'] is None or df['ap'] is None else float(df['ap']-cf['ap']),
+                    'D_minus_C_fpr':None if cf['fpr'] is None or df['fpr'] is None else float(df['fpr']-cf['fpr'])},
+                'lifecycle':sums['D_nonblocking_reuse'].get('lifecycle'),
+                'cost_profile':{n:sums[n]['cost'] for n in sums},
+                'interpretation_limit':'Interim prefix only. Do not compare its two-window mean to the registered six-window development gate.'}
+          (root/'comparison.json').write_text(json.dumps(comp,indent=2,allow_nan=False)+'\n')
+          status={'protocol':'031','plan_revision':3,'kind':'interim6800','completed':True,
+                  'source_generation_run_id':os.environ['SOURCE_RUN_ID'],'scored_intervals_used':6799,'guard_rows':1,
+                  'completed_comparators':['C_fixed5','D_nonblocking_reuse'],'full_model_replays_started':2,
+                  'formal_revision003_9869_completed':False,'formal_six_window_primary_available':False,'blocker':None}
+          (root/'status.json').write_text(json.dumps(status,indent=2)+'\n')
+          for n in ['data_lock.json','data_audit_interim.json','eligibility.json','source_resume_manifest.json']:
+              import shutil; shutil.copy2(bundle/'evidence'/n,root/n)
+          md=['# Protocol-031 interim6800 results','',
+              '- Uses only the existing revision003 checkpoint prefix: 6800 rows.','- Scored intervals: 6799; existing final row used as guard.','- C_fixed5 and D_nonblocking_reuse each run once on the same frozen prefix.','- Complete recurrence windows available: U_rec1 and V_rec1 only.','- This is not the registered six-window Protocol-031 primary result.','',
+              '## Interim comparison',f"Two-window mean AP(D-C): {comp['interim_two_window_equal_weight_mean_D_minus_C_ap']}",
+              f"Pooled recurrence FPR delta(D-C): {comp['pooled_two_window_fpr_delta_D_minus_C']}",
+              f"Full observed prefix AP delta(D-C): {comp['full_observed_prefix']['D_minus_C_ap']}",
+              f"Full observed prefix FPR delta(D-C): {comp['full_observed_prefix']['D_minus_C_fpr']}"]
+          (root/'REPORT.md').write_text('\n'.join(md)+'\n')
+          print(json.dumps({'completed':True,'comparison':comp},indent=2,allow_nan=False))
+          PY
+
+      - name: Upload interim evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol031-interim6800-${{ github.run_id }}
+          path: ${{ env.RUN_ROOT }}/
+          if-no-files-found: warn
+          compression-level: 3
+          retention-days: 90
+
+      - name: Commit compact interim report
+        if: success()
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add "$RUN_ROOT/comparison.json" "$RUN_ROOT/status.json" "$RUN_ROOT/data_lock.json" \
+                  "$RUN_ROOT/data_audit_interim.json" "$RUN_ROOT/eligibility.json" "$RUN_ROOT/source_resume_manifest.json" "$RUN_ROOT/REPORT.md"
+          git commit -m "results: Protocol031 interim6800 existing-prefix C/D [skip ci]"
+          git push origin HEAD:$GITHUB_REF_NAME
