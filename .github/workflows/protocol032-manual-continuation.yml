@@ -1,0 +1,286 @@
+name: Protocol-032 manual post-blocker D continuation
+
+on:
+  push:
+    branches: [protocol-031-rare-recurrence-20260922]
+    paths:
+      - .github/workflows/protocol032-manual-continuation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: protocol032-manual-post-blocker-continuation
+  cancel-in-progress: false
+
+jobs:
+  manual_continuation:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    env:
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      PYTHONHASHSEED: '1'
+      SOURCE_RUN_ID: '36310338191'
+      INPUT_ARTIFACT_ID: '10929136337'
+      INPUT_ARTIFACT: protocol032-frozen-input-repaired-36310338191
+      INPUT_ARTIFACT_DIGEST: sha256:7f0d1926803fa5a9310876888e1c140c73c94811d8a48879fb26a05b0c7127ad
+      C_RESULT_ARTIFACT_ID: '10929121398'
+      C_RESULT_ARTIFACT: protocol032-results-v2-36310338191
+      C_RESULT_ARTIFACT_DIGEST: sha256:c6ff10da7bdc83a72fceace1939b2b6e49eda24c969ffb0c66d66ae87c77e5b2
+      BUNDLE_ROOT: /tmp/protocol032_manual_input
+      PRIOR_ROOT: /tmp/protocol032_prior_result
+      RUN_ROOT: artifacts/ftmoe_online/protocol_032/runtime/manual_continuation_${{ github.run_id }}
+      COMPACT_ROOT: artifacts/ftmoe_online/protocol_032/manual_continuations/run_${{ github.run_id }}
+      EXPECTED_STREAM_SHA: 1e8b6bde1fa3f906586030547777428b28fca23c43e06868077dc0e1e46e4d1a
+      EXPECTED_INIT_SHA: 7e8a7a901775b003d82d6f30d2ce448a2e7f1c100bd00019115271883c2de29b
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+
+      - name: Install frozen CPU dependencies
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil
+
+      - name: Continuation implementation preflight
+        id: preflight
+        continue-on-error: true
+        run: |
+          python -m py_compile run_ftmoe_protocol032.py ftmoe_protocol032_guard_budget.py compare_ftmoe_protocol032_manual_continuation.py
+          python -m unittest -v test_ftmoe_protocol032_guard_budget.py
+
+      - name: Verify preserved artifact metadata
+        id: artifact_meta
+        if: steps.preflight.outcome == 'success'
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import json,os,urllib.request
+          repo=os.environ['GITHUB_REPOSITORY']; token=os.environ['GITHUB_TOKEN']
+          expected={
+            'INPUT':(os.environ['INPUT_ARTIFACT_ID'],os.environ['INPUT_ARTIFACT_DIGEST']),
+            'C_RESULT':(os.environ['C_RESULT_ARTIFACT_ID'],os.environ['C_RESULT_ARTIFACT_DIGEST']),
+          }
+          for key,(aid,want) in expected.items():
+              req=urllib.request.Request(
+                  f'https://api.github.com/repos/{repo}/actions/artifacts/{aid}',
+                  headers={'Authorization':f'Bearer {token}','Accept':'application/vnd.github+json'})
+              with urllib.request.urlopen(req) as r: meta=json.load(r)
+              got=meta.get('digest')
+              print(json.dumps({'key':key,'artifact_id':aid,'expected':want,'observed':got,'expired':meta.get('expired')},indent=2))
+              if got!=want or meta.get('expired'):
+                  raise SystemExit(f'{key} artifact mismatch/expired')
+          PY
+
+      - name: Download preserved repaired frozen input
+        id: input_download
+        if: steps.artifact_meta.outcome == 'success'
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.INPUT_ARTIFACT }}
+          path: ${{ env.BUNDLE_ROOT }}
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ env.SOURCE_RUN_ID }}
+
+      - name: Download preserved completed C result
+        id: c_download
+        if: steps.input_download.outcome == 'success'
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.C_RESULT_ARTIFACT }}
+          path: ${{ env.PRIOR_ROOT }}
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ env.SOURCE_RUN_ID }}
+
+      - name: Verify manual-continuation provenance and frozen C
+        id: provenance
+        if: steps.c_download.outcome == 'success'
+        continue-on-error: true
+        run: |
+          mkdir -p "$RUN_ROOT"
+          python - <<'PY'
+          import hashlib,json,os,pathlib
+          import numpy as np
+          b=pathlib.Path(os.environ['BUNDLE_ROOT']); p=pathlib.Path(os.environ['PRIOR_ROOT']); r=pathlib.Path(os.environ['RUN_ROOT'])
+          def J(x): return json.loads(pathlib.Path(x).read_text())
+          stream_hash=hashlib.sha256((b/'data/stream.npz').read_bytes()).hexdigest()
+          audit=J(b/'evidence/input_audit.json'); lock=J(b/'evidence/input_lock.json'); formal=J(p/'baseline_consistency.json'); terminal=J(p/'terminal_status.json')
+          csum=J(p/'C_fixed5/summary.json'); cinit=J(p/'C_fixed5/initialization.json')
+          assert stream_hash==os.environ['EXPECTED_STREAM_SHA']
+          assert audit['audit_pass'] is True and lock['locked'] is True and lock['input_audit_passed'] is True
+          assert terminal['completed'] is False and terminal['blocker']=='baseline_C_consistency_failed'
+          assert terminal['C_started'] is True and terminal['D_started'] is False
+          assert formal['passed'] is False and formal['labels_equal'] is True and formal['raw_labels_equal'] is True
+          assert float(formal['C_probability_max_abs_diff'])==1.0132789611816406e-06
+          assert float(formal['reference_max_abs_diff'])==1e-06
+          assert formal['new_shared_first4_initialization']==os.environ['EXPECTED_INIT_SHA']
+          assert formal['baseline_shared_first4_initialization']==os.environ['EXPECTED_INIT_SHA']
+          assert csum['stream_sha256']==os.environ['EXPECTED_STREAM_SHA']
+          assert csum['initialization_shared_prefix_sha256']==os.environ['EXPECTED_INIT_SHA']
+          assert cinit['shared_first4_expert_and_router_rows_sha256']==os.environ['EXPECTED_INIT_SHA']
+          assert not (p/'D_guard_budget').exists()
+          with np.load(p/'C_fixed5/predictions.npz',allow_pickle=True) as z:
+              assert z['probability'].shape==(6799,16)
+              assert z['labels'].shape==(6799,16)
+              assert (z['labels']>=0).all() and (z['raw_labels']>=0).all()
+          context={
+            'kind':'manual_post_blocker_diagnostic_continuation',
+            'user_authorized_after_registered_blocker':True,
+            'registered_protocol032_completed':False,
+            'registered_terminal_run_id':36310338191,
+            'registered_blocker':'baseline_C_consistency_failed',
+            'registered_C_probability_max_abs_diff':formal['C_probability_max_abs_diff'],
+            'registered_C_probability_reference_max_abs_diff':formal['reference_max_abs_diff'],
+            'labels_equal_to_031_baseline':True,
+            'raw_labels_equal_to_031_baseline':True,
+            'shared_first4_initialization_exact':True,
+            'C_replayed_in_continuation':False,
+            'D_replays_authorized_in_continuation':1,
+            'stream_sha256':stream_hash,
+            'no_scientific_gate_changed':True,
+            'formal_blocker_not_waived_or_rewritten':True,
+          }
+          (r/'manual_continuation_authorization.json').write_text(json.dumps(context,indent=2)+'\n')
+          print(json.dumps(context,indent=2))
+          PY
+
+      - name: Run exactly one D_guard_budget after explicit user authorization
+        id: d_arm
+        if: steps.provenance.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python run_ftmoe_protocol032.py \
+            --arm D_guard_budget \
+            --stream "$BUNDLE_ROOT/data" \
+            --arm-dir "$RUN_ROOT/D_guard_budget" \
+            --registration "$BUNDLE_ROOT/evidence/registration.json" \
+            --input-lock "$BUNDLE_ROOT/evidence/input_lock.json" \
+            --run-id "manual_${GITHUB_RUN_ID}" \
+            > "$RUN_ROOT/D_guard_budget.stdout.log" 2> "$RUN_ROOT/D_guard_budget.stderr.log"
+
+      - name: Compare preserved C with one continued D
+        id: compare
+        if: steps.d_arm.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python compare_ftmoe_protocol032_manual_continuation.py \
+            --c-root "$PRIOR_ROOT/C_fixed5" \
+            --d-root "$RUN_ROOT/D_guard_budget" \
+            --bundle-root "$BUNDLE_ROOT" \
+            --formal-baseline-consistency "$PRIOR_ROOT/baseline_consistency.json" \
+            --out-root "$RUN_ROOT" \
+            --run-id "$GITHUB_RUN_ID"
+
+      - name: Materialize diagnostic report and compact evidence
+        if: always()
+        env:
+          PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
+          ARTIFACT_META_OUTCOME: ${{ steps.artifact_meta.outcome }}
+          INPUT_DOWNLOAD_OUTCOME: ${{ steps.input_download.outcome }}
+          C_DOWNLOAD_OUTCOME: ${{ steps.c_download.outcome }}
+          PROVENANCE_OUTCOME: ${{ steps.provenance.outcome }}
+          D_OUTCOME: ${{ steps.d_arm.outcome }}
+          COMPARE_OUTCOME: ${{ steps.compare.outcome }}
+        run: |
+          python - <<'PY'
+          import json,os,pathlib,shutil
+          root=pathlib.Path(os.environ['RUN_ROOT']); compact=pathlib.Path(os.environ['COMPACT_ROOT']); compact.mkdir(parents=True,exist_ok=True)
+          prior=pathlib.Path(os.environ['PRIOR_ROOT']); bundle=pathlib.Path(os.environ['BUNDLE_ROOT']); runid=os.environ['GITHUB_RUN_ID']
+          outcomes={k:os.environ.get(k) for k in ['PREFLIGHT_OUTCOME','ARTIFACT_META_OUTCOME','INPUT_DOWNLOAD_OUTCOME','C_DOWNLOAD_OUTCOME','PROVENANCE_OUTCOME','D_OUTCOME','COMPARE_OUTCOME']}
+          completed=(root/'comparison.json').is_file() and outcomes['COMPARE_OUTCOME']=='success'
+          blocker=None
+          if not completed:
+              for label,key in [('preflight','PREFLIGHT_OUTCOME'),('artifact_metadata','ARTIFACT_META_OUTCOME'),('input_download','INPUT_DOWNLOAD_OUTCOME'),('C_download','C_DOWNLOAD_OUTCOME'),('provenance','PROVENANCE_OUTCOME'),('D_guard_budget','D_OUTCOME'),('comparison','COMPARE_OUTCOME')]:
+                  if outcomes.get(key) not in ('success',None): blocker=label+'_failed'; break
+              blocker=blocker or 'unknown_continuation_blocker'
+          terminal={
+            'protocol':'032',
+            'kind':'manual_post_blocker_diagnostic_continuation',
+            'run_id':runid,
+            'diagnostic_continuation_completed':completed,
+            'registered_protocol032_completed':False,
+            'registered_terminal_run_id':36310338191,
+            'registered_blocker':'baseline_C_consistency_failed',
+            'continuation_blocker':blocker,
+            'step_outcomes':outcomes,
+            'C_replayed_in_continuation':False,
+            'D_started':outcomes.get('D_OUTCOME') in ('success','failure'),
+            'D_replay_budget':1,
+            'no_new_simulation':True,
+            'no_automatic_followup':True,
+          }
+          (root/'terminal_status.json').write_text(json.dumps(terminal,indent=2)+'\n')
+          for src,name in [
+              (root/'manual_continuation_authorization.json','manual_continuation_authorization.json'),
+              (prior/'baseline_consistency.json','registered_baseline_consistency.json'),
+              (root/'comparison.json','comparison.json'),
+              (root/'mechanism_evidence.json','mechanism_evidence.json'),
+              (root/'cost_profile.json','cost_profile.json'),
+              (root/'status.json','status.json'),
+              (root/'terminal_status.json','terminal_status.json'),
+              (root/'D_guard_budget/summary.json','D_summary.json'),
+              (root/'D_guard_budget/candidate_records.json','candidate_records.json'),
+              (root/'D_guard_budget/reuse_records.json','reuse_records.json'),
+              (root/'D_guard_budget/topology_snapshots.json','topology_snapshots.json'),
+              (root/'D_guard_budget/opportunity_accounting.json','opportunity_accounting.json'),
+              (bundle/'evidence/input_lock.json','input_lock.json')]:
+              if src.is_file(): shutil.copy2(src,compact/name)
+          doc=pathlib.Path('docs/PROTOCOL032_MANUAL_CONTINUATION_RESULTS.md')
+          if completed:
+              comp=json.loads((root/'comparison.json').read_text()); rec={x['phase']:x for x in comp['recurrence128']}; pri=comp['primary']; mech=comp['mechanism']; cost=comp['cost_profile']
+              text=f'''# Protocol-032 Manual Post-Blocker Diagnostic Continuation Results\n\nContinuation run: `{runid}`. Diagnostic continuation completed: **yes**. Registered Protocol-032 completed: **no**. The registered run `36310338191` remains blocked because C-vs-031 probability max abs diff was `1.0132789611816406e-6` against the `1e-6` reference limit. This continuation was started only after explicit user authorization.\n\nNo new simulation was generated. C was not rerun; the completed C from run `36310338191` was preserved. D_guard_budget was replayed exactly once on the same frozen 6800-row input. No model gate, threshold, seed, window, lifecycle budget, or target timing was changed.\n\n## Diagnostic recurrence result\n\n- U_rec1 AP delta D-C: {rec['U_rec1']['D_minus_C_ap']:.9f}\n- V_rec1 AP delta D-C: {rec['V_rec1']['D_minus_C_ap']:.9f}\n- Equal-weight mean AP delta D-C: {pri['equal_weight_mean_D_minus_C_ap']:.9f}\n- Pooled recurrence normal-FPR delta D-C: {pri['pooled_recurrence_normal_fpr_delta_D_minus_C']:.9f}\n- Complete W_long/W_gap1 mean AP delta D-C: {comp['complete_W_equal_weight_mean_D_minus_C_ap']:.9f}\n- All fixed development references pass: {pri['development_reference']['all_development_reference_pass']}\n\n## Mechanism\n\n- Real dormant expert before a recurrence: {mech['any_real_dormant_before_recurrence']}\n- Accepted reuse with first influence inside U_rec1/V_rec1: {mech['accepted_reuse_with_first_influence_in_recurrence']}\n- Reuse mechanism established for a registered recurrence: {mech['reuse_mechanism_established_for_registered_recurrence']}\n- Retirements: {mech['retirements']}; reactivations: {mech['reactivations']}\n\n## Cost/provenance\n\n- Cross-run D/C wall-time ratio: {cost['cross_run_D_over_C_wall_time_ratio']:.3f}\n- C and D were not measured in the same job for this continuation, so same-job cost equivalence/advantage claims are not allowed.\n- This output is development-only diagnostic evidence after a formal blocker, not a completed registered Protocol-032 pair and not independent confirmation.\n\nNo automatic follow-up experiment is authorized by this continuation.\n'''
+          else:
+              text=f'''# Protocol-032 Manual Post-Blocker Diagnostic Continuation Results\n\nContinuation run: `{runid}`. Diagnostic continuation completed: **no**. Registered Protocol-032 remains blocked at run `36310338191`. Continuation blocker: `{blocker}`.\n\nStep outcomes: `{json.dumps(outcomes,sort_keys=True)}`. No new simulation or automatic follow-up was started.\n'''
+          doc.write_text(text)
+          print(json.dumps(terminal,indent=2))
+          with open(os.environ['GITHUB_ENV'],'a') as f:
+              f.write('CONTINUATION_COMPLETED='+('true' if completed else 'false')+'\n')
+          PY
+
+      - name: Upload raw continuation result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol032-manual-continuation-${{ github.run_id }}
+          path: ${{ env.RUN_ROOT }}/
+          if-no-files-found: warn
+          compression-level: 3
+          retention-days: 90
+
+      - name: Commit compact continuation evidence
+        if: always()
+        continue-on-error: true
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/PROTOCOL032_MANUAL_CONTINUATION_RESULTS.md "$COMPACT_ROOT"
+          if ! git diff --cached --quiet; then
+            git commit -m "results: Protocol032 manual continuation [skip ci]"
+            git push origin HEAD:$GITHUB_REF_NAME
+          fi
+
+      - name: Enforce continuation terminal conclusion
+        if: always()
+        run: |
+          if [ "$CONTINUATION_COMPLETED" != "true" ]; then
+            echo "Protocol032 manual continuation stopped at an explicit blocker; evidence preserved."
+            exit 1
+          fi
