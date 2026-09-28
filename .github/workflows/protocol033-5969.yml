@@ -1,0 +1,376 @@
+name: Protocol-033 5969-row complete rare-recurrence pilot
+
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: 'Registered stage: generate or assemble_model'
+        type: choice
+        required: true
+        default: generate
+        options: [generate, assemble_model]
+      execution_ref:
+        description: 'Frozen Protocol033 execution branch containing the implementation'
+        type: string
+        required: true
+        default: protocol-033-5969-gpt56-20260928
+      resume_run_id:
+        description: 'Previous Protocol033 generation-state run ID; blank for first segment'
+        type: string
+        required: false
+        default: ''
+      frozen_generation_run_id:
+        description: 'Completed generation-state run ID for assemble_model'
+        type: string
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: protocol033-5969-complete-pilot
+  cancel-in-progress: false
+
+jobs:
+  protocol033:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    env:
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      PYTHONHASHSEED: '1'
+      STAGE: ${{ inputs.stage }}
+      EXECUTION_REF: ${{ inputs.execution_ref }}
+      RESUME_RUN_ID: ${{ inputs.resume_run_id }}
+      FROZEN_GENERATION_RUN_ID: ${{ inputs.frozen_generation_run_id }}
+      DATA_ROOT: /tmp/protocol033_generation
+      BUNDLE_ROOT: /tmp/protocol033_bundle
+      RUN_ROOT: artifacts/ftmoe_online/protocol_033/runtime/run_${{ github.run_id }}
+
+    steps:
+      - name: Checkout frozen execution branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXECUTION_REF }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+
+      - name: Install frozen CPU dependencies
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil
+
+      - name: Protocol033 implementation preflight
+        run: |
+          python -m py_compile \
+            prepare_ftmoe_protocol033_stream.py \
+            maintenance/run_protocol033_segment.py \
+            maintenance/validate_protocol033_plan.py \
+            assemble_ftmoe_protocol033.py \
+            audit_ftmoe_protocol033.py \
+            ftmoe_protocol033_guard_budget.py \
+            run_ftmoe_protocol033.py \
+            compare_ftmoe_protocol033.py \
+            test_ftmoe_protocol033.py
+          python -m unittest -v test_ftmoe_protocol033.py
+          git diff --exit-code a215c1161adba4ff29514eb88806762c2f068023 -- \
+            prepare_ftmoe_protocol031_stream.py \
+            maintenance/run_protocol031_segment.py \
+            ftmoe_protocol031_nonblocking_reuse.py \
+            ftmoe_protocol032_guard_budget.py \
+            run_ftmoe_protocol032.py \
+            compare_ftmoe_protocol032.py \
+            simulator/workload/BitbrainWorkloadProtocol025.py
+
+      - name: Validate registered Protocol033 plan before first generation byte
+        if: env.STAGE == 'generate' && env.RESUME_RUN_ID == ''
+        run: |
+          python maintenance/validate_protocol033_plan.py
+          python - <<'PY'
+          import json
+          reg=json.load(open('artifacts/ftmoe_online/protocol_033/scenario_registration.json'))
+          plan=json.load(open('artifacts/ftmoe_online/protocol_033/plan.json'))
+          assert reg['protocol']=='033' and reg['total_intervals']==5969
+          assert reg['generation']['expected_chunk_count']==30 and reg['generation']['final_chunk_intervals']==169
+          assert reg['D_capacity_and_birth']['birth_every_matured']==1000
+          assert plan['full_generation_budget']==1 and plan['full_replay_budget']==2
+          assert plan['workflow_trigger']=='workflow_dispatch_only'
+          print({'protocol033_registered_pre_generation':True,'rows':5969,'chunks':30})
+          PY
+
+      - name: Restore same registered Protocol033 generation state
+        if: env.STAGE == 'generate' && env.RESUME_RUN_ID != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol033-generation-state-${{ inputs.resume_run_id }}
+          path: ${{ env.DATA_ROOT }}
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.resume_run_id }}
+
+      - name: Advance at most three fresh 200-row Protocol033 segments
+        id: generate
+        if: env.STAGE == 'generate'
+        continue-on-error: true
+        run: |
+          set -e
+          mkdir -p "$DATA_ROOT/memory_profiles"
+          for segment in 1 2 3; do
+            set +e
+            python maintenance/run_protocol033_segment.py --output "$DATA_ROOT" --max-intervals 200
+            rc=$?
+            set -e
+            if [ -f "$DATA_ROOT/memory_profile_generation.json" ]; then
+              next_t=$(python -c "import json,pathlib; p=pathlib.Path('$DATA_ROOT/generation_status.json'); print(json.load(open(p)).get('next_t','unknown') if p.exists() else 'failed')")
+              cp "$DATA_ROOT/memory_profile_generation.json" "$DATA_ROOT/memory_profiles/segment_${next_t}.json"
+            fi
+            if [ "$rc" -ne 0 ]; then exit "$rc"; fi
+            complete=$(python -c "import json; print(str(bool(json.load(open('$DATA_ROOT/generation_status.json')).get('complete'))).lower())")
+            soft=$(python -c "import json; print(str(bool(json.load(open('$DATA_ROOT/memory_profile_generation.json')).get('soft_limit_crossed'))).lower())")
+            if [ "$soft" = 'true' ]; then
+              echo 'Protocol033 registered memory soft limit crossed; safe checkpoint preserved. Stop without reroll.'
+              exit 42
+            fi
+            if [ "$complete" = 'true' ]; then break; fi
+          done
+
+      - name: Archive resumable Protocol033 generation state
+        if: env.STAGE == 'generate' && always()
+        id: generation_artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol033-generation-state-${{ github.run_id }}
+          path: ${{ env.DATA_ROOT }}/
+          if-no-files-found: error
+          compression-level: 1
+          retention-days: 90
+
+      - name: Inspect Protocol033 generation state
+        id: gen_state
+        if: env.STAGE == 'generate' && always()
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json,os,pathlib
+          root=pathlib.Path(os.environ['DATA_ROOT'])
+          status=json.load(open(root/'generation_status.json')) if (root/'generation_status.json').is_file() else {}
+          failed=(root/'failure.json').is_file() or '${{ steps.generate.outcome }}'!='success'
+          print('failed='+str(bool(failed)).lower())
+          print('complete='+str(bool(status.get('complete')) and not failed).lower())
+          print('next_t='+str(status.get('next_t','unknown')))
+          PY
+
+      - name: Dispatch next Protocol033 generation run
+        if: env.STAGE == 'generate' && steps.gen_state.outputs.failed == 'false' && steps.gen_state.outputs.complete == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api --method POST -H 'Accept: application/vnd.github+json' \
+            "/repos/$GITHUB_REPOSITORY/actions/workflows/protocol033-5969.yml/dispatches" \
+            -f ref=main \
+            -f 'inputs[stage]=generate' \
+            -f "inputs[execution_ref]=$EXECUTION_REF" \
+            -f "inputs[resume_run_id]=$GITHUB_RUN_ID" \
+            -f 'inputs[frozen_generation_run_id]='
+
+      - name: Dispatch Protocol033 assembly, audit and one C/D pair
+        if: env.STAGE == 'generate' && steps.gen_state.outputs.complete == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api --method POST -H 'Accept: application/vnd.github+json' \
+            "/repos/$GITHUB_REPOSITORY/actions/workflows/protocol033-5969.yml/dispatches" \
+            -f ref=main \
+            -f 'inputs[stage]=assemble_model' \
+            -f "inputs[execution_ref]=$EXECUTION_REF" \
+            -f 'inputs[resume_run_id]=' \
+            -f "inputs[frozen_generation_run_id]=$GITHUB_RUN_ID"
+
+      - name: Materialize generation blocker for handoff
+        if: env.STAGE == 'generate' && steps.gen_state.outputs.failed == 'true'
+        run: |
+          mkdir -p "artifacts/ftmoe_online/protocol_033/runs/run_$GITHUB_RUN_ID"
+          cp "$DATA_ROOT/generation_status.json" "artifacts/ftmoe_online/protocol_033/runs/run_$GITHUB_RUN_ID/" 2>/dev/null || true
+          cp "$DATA_ROOT/failure.json" "artifacts/ftmoe_online/protocol_033/runs/run_$GITHUB_RUN_ID/" 2>/dev/null || true
+          cp "$DATA_ROOT/memory_profile_generation.json" "artifacts/ftmoe_online/protocol_033/runs/run_$GITHUB_RUN_ID/" 2>/dev/null || true
+          python - <<'PY'
+          import json,os,pathlib
+          dest=pathlib.Path('artifacts/ftmoe_online/protocol_033/runs')/('run_'+os.environ['GITHUB_RUN_ID'])
+          status={'protocol':'033','run_id':os.environ['GITHUB_RUN_ID'],'completed':False,
+                  'stage':'generation','blocker':'generation_segment_failed_or_memory_soft_limit',
+                  'model_replays_started':0,'no_reroll':True,'automatic_scientific_followup':False}
+          (dest/'terminal_status.json').write_text(json.dumps(status,indent=2)+'\n')
+          PY
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add artifacts/ftmoe_online/protocol_033/runs/
+          git commit -m "results: Protocol033 generation blocker [skip ci]" || exit 0
+          git push origin HEAD:"$EXECUTION_REF"
+
+      - name: Restore completed Protocol033 generation state
+        if: env.STAGE == 'assemble_model'
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol033-generation-state-${{ inputs.frozen_generation_run_id }}
+          path: ${{ env.DATA_ROOT }}
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.frozen_generation_run_id }}
+
+      - name: Verify generation is complete before assembly
+        if: env.STAGE == 'assemble_model'
+        run: |
+          python - <<'PY'
+          import json,os,pathlib
+          root=pathlib.Path(os.environ['DATA_ROOT'])
+          s=json.load(open(root/'generation_status.json'))
+          m=json.load(open(root/'generation_manifest.json'))
+          assert s['protocol']=='033' and s['complete'] is True and s['next_t']==5969
+          assert m['protocol']=='033' and m['complete'] is True and m['chunk_count']==30 and m['last_chunk_rows']==169
+          assert not (root/'failure.json').is_file()
+          print({'complete_generation_verified':True,'next_t':5969})
+          PY
+
+      - name: Assemble Protocol033 stream in independent process
+        id: assemble
+        if: env.STAGE == 'assemble_model'
+        continue-on-error: true
+        run: |
+          rm -rf "$BUNDLE_ROOT"
+          mkdir -p "$BUNDLE_ROOT/data" "$BUNDLE_ROOT/evidence"
+          python assemble_ftmoe_protocol033.py --generation-root "$DATA_ROOT" --output "$BUNDLE_ROOT/data"
+
+      - name: Independent pre-model Protocol033 input audit and freeze
+        id: audit
+        if: steps.assemble.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python audit_ftmoe_protocol033.py \
+            --generation-root "$DATA_ROOT" \
+            --data-root "$BUNDLE_ROOT/data" \
+            --evidence-root "$BUNDLE_ROOT/evidence"
+
+      - name: Run exactly one C_fixed5 in an independent process
+        id: c_arm
+        if: steps.audit.outcome == 'success'
+        continue-on-error: true
+        run: |
+          mkdir -p "$RUN_ROOT"
+          python run_ftmoe_protocol033.py \
+            --arm C_fixed5 \
+            --stream "$BUNDLE_ROOT/data" \
+            --arm-dir "$RUN_ROOT/C_fixed5" \
+            --registration "$BUNDLE_ROOT/evidence/registration_frozen.json" \
+            --input-lock "$BUNDLE_ROOT/evidence/input_lock.json" \
+            --run-id "$GITHUB_RUN_ID" \
+            > "$RUN_ROOT/C_fixed5.stdout.log" 2> "$RUN_ROOT/C_fixed5.stderr.log"
+
+      - name: Run exactly one D_guard_budget in an independent process
+        id: d_arm
+        if: steps.c_arm.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python run_ftmoe_protocol033.py \
+            --arm D_guard_budget \
+            --stream "$BUNDLE_ROOT/data" \
+            --arm-dir "$RUN_ROOT/D_guard_budget" \
+            --registration "$BUNDLE_ROOT/evidence/registration_frozen.json" \
+            --input-lock "$BUNDLE_ROOT/evidence/input_lock.json" \
+            --run-id "$GITHUB_RUN_ID" \
+            > "$RUN_ROOT/D_guard_budget.stdout.log" 2> "$RUN_ROOT/D_guard_budget.stderr.log"
+
+      - name: Compare all six registered recurrence windows
+        id: compare
+        if: steps.d_arm.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python compare_ftmoe_protocol033.py --run-root "$RUN_ROOT" --data-root "$BUNDLE_ROOT/data" --run-id "$GITHUB_RUN_ID"
+
+      - name: Materialize terminal Protocol033 report and compact Git evidence
+        if: env.STAGE == 'assemble_model' && always()
+        env:
+          ASSEMBLE_OUTCOME: ${{ steps.assemble.outcome }}
+          AUDIT_OUTCOME: ${{ steps.audit.outcome }}
+          C_OUTCOME: ${{ steps.c_arm.outcome }}
+          D_OUTCOME: ${{ steps.d_arm.outcome }}
+          COMPARE_OUTCOME: ${{ steps.compare.outcome }}
+        run: |
+          python - <<'PY'
+          import json,os,pathlib,shutil
+          root=pathlib.Path(os.environ['RUN_ROOT']); root.mkdir(parents=True,exist_ok=True)
+          bundle=pathlib.Path(os.environ['BUNDLE_ROOT']); runid=os.environ['GITHUB_RUN_ID']
+          outcomes={k:os.environ.get(k) for k in ('ASSEMBLE_OUTCOME','AUDIT_OUTCOME','C_OUTCOME','D_OUTCOME','COMPARE_OUTCOME')}
+          completed=(root/'comparison.json').is_file() and outcomes['COMPARE_OUTCOME']=='success'
+          blocker=None
+          if not completed:
+              order=[('assembly','ASSEMBLE_OUTCOME'),('input_audit','AUDIT_OUTCOME'),('C_fixed5','C_OUTCOME'),('D_guard_budget','D_OUTCOME'),('comparison','COMPARE_OUTCOME')]
+              for label,key in order:
+                  v=outcomes.get(key)
+                  if v=='failure': blocker=label+'_failed'; break
+                  if v=='skipped': blocker=label+'_skipped_due_to_prior_blocker'; break
+              blocker=blocker or 'unknown_terminal_blocker'
+          started=int(outcomes.get('C_OUTCOME') in ('success','failure'))+int(outcomes.get('D_OUTCOME') in ('success','failure'))
+          terminal={'protocol':'033','plan_revision':1,'run_id':runid,'completed':completed,'blocker':blocker,
+                    'step_outcomes':outcomes,'full_generation_budget':1,'full_model_replay_budget':2,
+                    'full_model_replays_started':started,'no_reroll':True,'no_extra_replays':True,
+                    'automatic_scientific_followup':False,'frozen_generation_run_id':os.environ['FROZEN_GENERATION_RUN_ID']}
+          (root/'terminal_status.json').write_text(json.dumps(terminal,indent=2)+'\n')
+          dest=pathlib.Path('artifacts/ftmoe_online/protocol_033/runs')/('run_'+runid); dest.mkdir(parents=True,exist_ok=True)
+          pairs=[
+            (bundle/'evidence/input_audit.json','input_audit.json'),(bundle/'evidence/input_lock.json','input_lock.json'),
+            (bundle/'evidence/registration_frozen.json','registration_frozen.json'),(bundle/'evidence/memory_profile_audit.json','memory_profile_audit.json'),
+            (bundle/'data/memory_profile_assembly.json','memory_profile_assembly.json'),(root/'C_fixed5/memory_profile.json','memory_profile_C_fixed5.json'),
+            (root/'D_guard_budget/memory_profile.json','memory_profile_D_guard_budget.json'),(root/'comparison.json','comparison.json'),
+            (root/'mechanism_evidence.json','mechanism_evidence.json'),(root/'cost_profile.json','cost_profile.json'),
+            (root/'status.json','status.json'),(root/'terminal_status.json','terminal_status.json'),
+            (root/'D_guard_budget/reuse_event_records.json','reuse_event_records.json'),(root/'D_guard_budget/opportunity_accounting.json','opportunity_accounting.json')]
+          for src,name in pairs:
+              if src.is_file(): shutil.copy2(src,dest/name)
+          planp=pathlib.Path('artifacts/ftmoe_online/protocol_033/plan.json'); plan=json.loads(planp.read_text())
+          plan['status']='completed' if completed else 'blocked'; plan['terminal_run_id']=int(runid)
+          plan['terminal_generation_run_id']=int(os.environ['FROZEN_GENERATION_RUN_ID']); plan['terminal_blocker']=blocker
+          plan['automatic_followups']=False; planp.write_text(json.dumps(plan,indent=2)+'\n')
+          result=pathlib.Path('docs/PROTOCOL033_RESULTS.md')
+          if completed:
+              comp=json.loads((root/'comparison.json').read_text()); primary=comp['primary']; crit=primary['development_reference']
+              text=f'''# Protocol-033 Results\n\nRun: `{runid}`. Status: completed. Development-only scenario selected after Protocol-031/032; not independent confirmation.\n\n- Frozen generation run: `{os.environ['FROZEN_GENERATION_RUN_ID']}`\n- Rows: 5969 total / 5968 scored; six registered recurrence windows all reported.\n- Mean six-window AP delta D-C: {primary['equal_weight_mean_D_minus_C_ap']}\n- Positive AP-delta windows: {primary['positive_window_count']}/6\n- Pooled recurrence normal-FPR delta D-C: {primary['pooled_recurrence_normal_fpr_delta_D_minus_C']}\n- Development reference all pass: {crit['all_development_reference_pass']}\n- Mechanism evidence established in a registered recurrence: {comp['mechanism']['reuse_mechanism_established_for_registered_recurrence']}\n\nSee `artifacts/ftmoe_online/protocol_033/runs/run_{runid}/` for compact evidence. No extra seeds, thresholds or automatic scientific follow-ups are authorized.\n'''
+          else:
+              text=f'''# Protocol-033 Results\n\nRun: `{runid}`. Status: blocked.\n\nBlocker: `{blocker}`. Preserve the generated stream/evidence; do not reroll seed, alter intensity, delete a failed window, or start extra model replays. Inspect `artifacts/ftmoe_online/protocol_033/runs/run_{runid}/`.\n'''
+          result.write_text(text)
+          nextp=pathlib.Path('NEXT_EXPERIMENT_LATEST.md')
+          nextp.write_text(f'''# Protocol-033 execution {'complete' if completed else 'blocked'}\n\nTerminal run: `{runid}`; generation run: `{os.environ['FROZEN_GENERATION_RUN_ID']}`.\n\nRead `docs/PROTOCOL033_RESULTS.md` and `artifacts/ftmoe_online/protocol_033/runs/run_{runid}/`. No extra scientific experiment is authorized by Protocol-033. {'Analyze the frozen result before proposing any new protocol.' if completed else 'Repair only an identified deterministic engineering blocker while preserving the same registered stream; do not reroll or retune.'}\n''')
+          agent=pathlib.Path('AGENTS.md')
+          agent.write_text(f'''# Current task: analyze Protocol-033 terminal evidence\n\nProtocol-033 terminal run `{runid}` is {'completed' if completed else 'blocked'}. Read `NEXT_EXPERIMENT_LATEST.md`, `docs/PROTOCOL033_RESULTS.md`, and the compact evidence under `artifacts/ftmoe_online/protocol_033/runs/run_{runid}/`.\n\nPreserve Protocol-031/032/033 history. Do not start extra seeds, threshold grids, A/B runs, rerolls or model replays without a new explicit directive.\n''')
+          PY
+
+      - name: Upload complete Protocol033 terminal bundle
+        if: env.STAGE == 'assemble_model' && always()
+        id: terminal_artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol033-terminal-${{ github.run_id }}
+          path: |
+            ${{ env.BUNDLE_ROOT }}/
+            ${{ env.RUN_ROOT }}/
+          if-no-files-found: warn
+          compression-level: 3
+          retention-days: 90
+
+      - name: Commit compact Protocol033 terminal results and pointers
+        if: env.STAGE == 'assemble_model' && always()
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add AGENTS.md NEXT_EXPERIMENT_LATEST.md docs/PROTOCOL033_RESULTS.md \
+            artifacts/ftmoe_online/protocol_033/plan.json artifacts/ftmoe_online/protocol_033/runs/
+          git commit -m "results: Protocol033 terminal evidence [skip ci]" || exit 0
+          git push origin HEAD:"$EXECUTION_REF"
