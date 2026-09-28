@@ -1,0 +1,154 @@
+{
+  "protocol": "034",
+  "revision": 1,
+  "date": "2026-09-28",
+  "status": "planned_not_implemented_not_run",
+  "task": "Test active-specialist learning, complete prediction memory, and causal routing on the frozen Protocol033 stream",
+  "source": {
+    "commit": "0463cd365b4cda5a50423b4fccc941fe8d074bbf",
+    "run_id": 36417604442,
+    "artifact_id": 10968752245,
+    "artifact_zip_sha256": "d92a3f9c8f1ebd292b86fbbe6e2300291135376f3564f2773975fd9203b55944",
+    "stream_sha256": "70c9283f133a5f8033e12fbc03a38af6d9ce39f1d7e6a9e825964ee9a28edbd9"
+  },
+  "input": {
+    "total_rows": 5969,
+    "scored_rows": 5968,
+    "guard_rows": 1,
+    "new_generation": false,
+    "replay_seed": 700,
+    "model_seed": 1,
+    "target": "raw_next_fault",
+    "label_available": "t_plus_2"
+  },
+  "budget": {
+    "full_training_replays": 3,
+    "training_arms": ["C_ref", "D_frozen_ref", "D_live"],
+    "prediction_cache_routing_passes": 2,
+    "routing_arms": ["D_route_fragment", "D_route_full"],
+    "new_simulator_streams": 0,
+    "extra_seeds": 0,
+    "threshold_sweeps": 0,
+    "additional_training_after_results": false
+  },
+  "training": {
+    "base_protocol": "033",
+    "update_every": 16,
+    "gradient_steps_per_update": 1,
+    "batch_intervals": 32,
+    "replay_matured_intervals": 64,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "distill_weight": 0.1,
+    "gradient_clip": 1,
+    "birth_start_matured": 600,
+    "birth_every_matured": 1000,
+    "reuse_every_matured": 32,
+    "reuse_validation_intervals": 16,
+    "crossfade_intervals": 8,
+    "max_resident_original_experts": 8,
+    "loss_changes": false,
+    "feature_changes": false,
+    "quality_gate_changes": false
+  },
+  "D_live": {
+    "active_specialist_trainable": true,
+    "active_specialist_router_trainable": true,
+    "dormant_specialist_trainable": false,
+    "generalists_trainable": true,
+    "keep_optimizer_moments": true,
+    "transition_rule": "freeze both specialist participants during8-step crossfade; continue generalist updates; new specialist resumes training after transition",
+    "snapshot_observer_changes_predictions": false
+  },
+  "snapshot_bank": {
+    "role": "read_only_sidecar_no_feedback_to_D_live",
+    "triggers": ["first_full_ramp_after_birth_or_reactivation", "every128_matured_intervals_when_stable_active_specialist_exists", "immediately_before_stable_active_specialist_is_replaced"],
+    "skip_periodic_during_transition": true,
+    "no_makeup": true,
+    "deduplicate_same_state_and_lineage": true,
+    "ready_rule": "first usable prediction strictly after snapshot creation event",
+    "all_versions_retained": true,
+    "source_phase_ids": "audit_only_never_select",
+    "full": "frozen complete four-generalist plus one-specialist predictor including internal router/ramp/head/normalization; base referenced by immutable hash",
+    "fragment": "same archived specialist and router row combined with current D_live generalists/router rows, canonical unit ramps; no gradients"
+  },
+  "reference_checks": {
+    "probability_atol": 0.000002,
+    "probability_rtol": 0.000002,
+    "recurrence_AP_atol": 0.0001,
+    "exact_labels": true,
+    "exact_shared_initialization": true,
+    "exact_D_discrete_lifecycle": true,
+    "on_failure": "preserve outputs and report blocker; no automatic full replay repeat"
+  },
+  "routing": {
+    "trained_parameters": false,
+    "current_labels_allowed": false,
+    "score": "binary detection CE",
+    "score_window_matured_intervals": 32,
+    "min_support_distinct_intervals": 32,
+    "probability_clip": 0.000001,
+    "granularity": "per_host",
+    "candidate_pool": "every snapshot ready before current prediction with32 matured paired prediction intervals; same IDs for full and fragment arms",
+    "fallback": "D_live current prediction",
+    "minimum_relative_loss_improvement": 0.01,
+    "tie_break": "fallback first; then smaller lineage ID then earlier snapshot ID",
+    "selection": "one minimum-past-loss snapshot per host, only if >=1pct better than fallback; otherwise fallback",
+    "output": "selected candidate original detection/class probabilities, no recalibration or mixing",
+    "cadence": "every prediction using labels available strictly before it",
+    "learning_feedback": false,
+    "score_time_rule": "i + 2 < t"
+  },
+  "evaluation": {
+    "windows": [["U_rec1",3300,3428],["V_rec1",3808,3936],["U_rec2",4316,4444],["V_rec2",4824,4952],["U_rec3",5332,5460],["V_rec3",5840,5968]],
+    "primary": "six-window equal-weight detection AP difference",
+    "late_windows": ["U_rec2", "V_rec2", "U_rec3", "V_rec3"],
+    "w_blocks": ["W_long", "W_gap1", "W_gap2", "W_gap3", "W_gap4", "W_gap5"],
+    "fpr_threshold": 0.5,
+    "development_signal": {
+      "mean_AP_delta_min": 0.005,
+      "positive_window_count_min": 4,
+      "pooled_normal_FPR_delta_max": 0.01,
+      "W_mean_AP_delta_min": -0.02
+    },
+    "prior_033_strong_AP_reference_also_report": 0.03,
+    "statistical_confirmation": false
+  },
+  "H1": {
+    "contrast": "D_live minus D_frozen_ref",
+    "also_compare_C_ref": true,
+    "late_mean_delta_report": true
+  },
+  "H2": {
+    "unit": "same snapshot ID, same future prediction rows, full versus fragment",
+    "eligible": "snapshot has32 matured evaluation intervals before recurrence start; no within-window births admitted to hindsight pool",
+    "hindsight": "best fixed snapshot by full128-window AP; diagnostic only, not deployed result or universal routing upper bound",
+    "report": ["all paired snapshot metrics", "mean paired full-minus-fragment delta per window", "best full versus C_ref", "best fragment versus C_ref", "best full versus best fragment"],
+    "selection_uses_future_labels": true,
+    "online_claim_allowed": false
+  },
+  "H3": {
+    "contrasts": ["D_route_full minus C_ref", "D_route_full minus D_live", "D_route_full minus D_route_fragment"],
+    "scores_use_future_labels": false,
+    "run_both_cache_passes_even_if_H2_negative": true,
+    "offline_cache_execution_is_causal_only_if_logged_cutoffs_verified": true,
+    "report_snapshot_age_and_pre_window_memory_usage": true
+  },
+  "workflow": {
+    "trigger": "workflow_dispatch_only",
+    "launch_in_this_turn": false,
+    "implementation_branch_prefix": "codex/",
+    "same_job_training_processes": "sequential",
+    "archive_predictions_before_reporting": true,
+    "write_results_to_github": true,
+    "sync_main_and_execution_branch": true
+  },
+  "stop": "After3 training replays plus2 fixed causal cache passes and analysis, or explicit blocker; no automatic followup",
+  "claims": {
+    "selected_after_033_results": true,
+    "resource_equivalence_claim": false,
+    "snapshot_is_complete_small_MoE_not_single_original_MLP": true,
+    "hard_delete_benefit_claim": false,
+    "fixed_capacity_superiority_claim": false
+  }
+}
