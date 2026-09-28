@@ -50,6 +50,13 @@ def collect_segment(output, max_intervals):
     max_intervals = int(max_intervals)
     if max_intervals <= 0 or max_intervals > 200:
         raise ValueError("Protocol033 generation segment must be in [1,200]")
+    output.mkdir(parents=True, exist_ok=True)
+    snapshot = output / "registration_snapshot.json"
+    if snapshot.is_file():
+        if snapshot.read_bytes() != P.REGISTRATION_PATH.read_bytes():
+            raise AssertionError("Protocol033 registration snapshot changed during same-stream resume")
+    else:
+        snapshot.write_bytes(P.REGISTRATION_PATH.read_bytes())
     P.init_memory_monitor(output)
     try:
         result = BASE.collect_segment(output, max_intervals)
