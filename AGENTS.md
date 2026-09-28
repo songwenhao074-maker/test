@@ -1,5 +1,8 @@
-# Current task: analyze Protocol-033 terminal evidence
+# Active Experiment Directive
 
-Protocol-033 terminal run `36417604442` is completed. Read `NEXT_EXPERIMENT_LATEST.md`, `docs/PROTOCOL033_RESULTS.md`, and the compact evidence under `artifacts/ftmoe_online/protocol_033/runs/run_36417604442/`.
+Protocol-034 is complete. Terminal resumed run: 36436945806; preserved first two training replays source run: 36429633413.
 
-Preserve Protocol-031/032/033 history. Do not start extra seeds, threshold grids, A/B runs, rerolls or model replays without a new explicit directive.
+Primary handoff: `docs/PROTOCOL034_RESULTS.md`.
+Compact evidence: `artifacts/ftmoe_online/protocol_034/runs/run_36436945806/`.
+
+Preserve Protocol-031/032/033 history. Protocol-034 scientific budget is exhausted; no extra scientific replay is authorized automatically.

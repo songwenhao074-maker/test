@@ -2,7 +2,7 @@
   "protocol": "034",
   "revision": 1,
   "date": "2026-09-28",
-  "status": "planned_not_implemented_not_run",
+  "status": "completed",
   "task": "Test active-specialist learning, complete prediction memory, and causal routing on the frozen Protocol033 stream",
   "source": {
     "commit": "0463cd365b4cda5a50423b4fccc941fe8d074bbf",
@@ -23,9 +23,16 @@
   },
   "budget": {
     "full_training_replays": 3,
-    "training_arms": ["C_ref", "D_frozen_ref", "D_live"],
+    "training_arms": [
+      "C_ref",
+      "D_frozen_ref",
+      "D_live"
+    ],
     "prediction_cache_routing_passes": 2,
-    "routing_arms": ["D_route_fragment", "D_route_full"],
+    "routing_arms": [
+      "D_route_fragment",
+      "D_route_full"
+    ],
     "new_simulator_streams": 0,
     "extra_seeds": 0,
     "threshold_sweeps": 0,
@@ -62,7 +69,11 @@
   },
   "snapshot_bank": {
     "role": "read_only_sidecar_no_feedback_to_D_live",
-    "triggers": ["first_full_ramp_after_birth_or_reactivation", "every128_matured_intervals_when_stable_active_specialist_exists", "immediately_before_stable_active_specialist_is_replaced"],
+    "triggers": [
+      "first_full_ramp_after_birth_or_reactivation",
+      "every128_matured_intervals_when_stable_active_specialist_exists",
+      "immediately_before_stable_active_specialist_is_replaced"
+    ],
     "skip_periodic_during_transition": true,
     "no_makeup": true,
     "deduplicate_same_state_and_lineage": true,
@@ -73,8 +84,8 @@
     "fragment": "same archived specialist and router row combined with current D_live generalists/router rows, canonical unit ramps; no gradients"
   },
   "reference_checks": {
-    "probability_atol": 0.000002,
-    "probability_rtol": 0.000002,
+    "probability_atol": 2e-06,
+    "probability_rtol": 2e-06,
     "recurrence_AP_atol": 0.0001,
     "exact_labels": true,
     "exact_shared_initialization": true,
@@ -87,7 +98,7 @@
     "score": "binary detection CE",
     "score_window_matured_intervals": 32,
     "min_support_distinct_intervals": 32,
-    "probability_clip": 0.000001,
+    "probability_clip": 1e-06,
     "granularity": "per_host",
     "candidate_pool": "every snapshot ready before current prediction with32 matured paired prediction intervals; same IDs for full and fragment arms",
     "fallback": "D_live current prediction",
@@ -100,10 +111,53 @@
     "score_time_rule": "i + 2 < t"
   },
   "evaluation": {
-    "windows": [["U_rec1",3300,3428],["V_rec1",3808,3936],["U_rec2",4316,4444],["V_rec2",4824,4952],["U_rec3",5332,5460],["V_rec3",5840,5968]],
+    "windows": [
+      [
+        "U_rec1",
+        3300,
+        3428
+      ],
+      [
+        "V_rec1",
+        3808,
+        3936
+      ],
+      [
+        "U_rec2",
+        4316,
+        4444
+      ],
+      [
+        "V_rec2",
+        4824,
+        4952
+      ],
+      [
+        "U_rec3",
+        5332,
+        5460
+      ],
+      [
+        "V_rec3",
+        5840,
+        5968
+      ]
+    ],
     "primary": "six-window equal-weight detection AP difference",
-    "late_windows": ["U_rec2", "V_rec2", "U_rec3", "V_rec3"],
-    "w_blocks": ["W_long", "W_gap1", "W_gap2", "W_gap3", "W_gap4", "W_gap5"],
+    "late_windows": [
+      "U_rec2",
+      "V_rec2",
+      "U_rec3",
+      "V_rec3"
+    ],
+    "w_blocks": [
+      "W_long",
+      "W_gap1",
+      "W_gap2",
+      "W_gap3",
+      "W_gap4",
+      "W_gap5"
+    ],
     "fpr_threshold": 0.5,
     "development_signal": {
       "mean_AP_delta_min": 0.005,
@@ -123,12 +177,22 @@
     "unit": "same snapshot ID, same future prediction rows, full versus fragment",
     "eligible": "snapshot has32 matured evaluation intervals before recurrence start; no within-window births admitted to hindsight pool",
     "hindsight": "best fixed snapshot by full128-window AP; diagnostic only, not deployed result or universal routing upper bound",
-    "report": ["all paired snapshot metrics", "mean paired full-minus-fragment delta per window", "best full versus C_ref", "best fragment versus C_ref", "best full versus best fragment"],
+    "report": [
+      "all paired snapshot metrics",
+      "mean paired full-minus-fragment delta per window",
+      "best full versus C_ref",
+      "best fragment versus C_ref",
+      "best full versus best fragment"
+    ],
     "selection_uses_future_labels": true,
     "online_claim_allowed": false
   },
   "H3": {
-    "contrasts": ["D_route_full minus C_ref", "D_route_full minus D_live", "D_route_full minus D_route_fragment"],
+    "contrasts": [
+      "D_route_full minus C_ref",
+      "D_route_full minus D_live",
+      "D_route_full minus D_route_fragment"
+    ],
     "scores_use_future_labels": false,
     "run_both_cache_passes_even_if_H2_negative": true,
     "offline_cache_execution_is_causal_only_if_logged_cutoffs_verified": true,
@@ -150,5 +214,8 @@
     "snapshot_is_complete_small_MoE_not_single_original_MLP": true,
     "hard_delete_benefit_claim": false,
     "fixed_capacity_superiority_claim": false
-  }
+  },
+  "terminal_run_id": 36436945806,
+  "resumed_from_run_id": 36429633413,
+  "results_path": "docs/PROTOCOL034_RESULTS.md"
 }

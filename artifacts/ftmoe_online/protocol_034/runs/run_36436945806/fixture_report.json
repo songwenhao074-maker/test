@@ -1,0 +1,16 @@
+{
+  "protocol": "034",
+  "fixture_passed": true,
+  "natural_first_specialist_id": "4",
+  "active_specialist_changed_on_common_update": true,
+  "dormant_hash_unchanged_on_common_update": true,
+  "crossfade_specialists_excluded_from_live_optimizer": true,
+  "crossfade_intervals": 8,
+  "shadow_optimizer_state_transferred": true,
+  "shadow_transfer_state_count": 8,
+  "observer_isolation_check_passed": true,
+  "checkpoint_roundtrip_passed": true,
+  "next_prediction_after_restore_within_reference_tolerance": true,
+  "scientific_full_replay_consumed": false,
+  "restore_template": "registered_protocol034_73d_expert_architecture"
+}
