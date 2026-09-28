@@ -5,6 +5,11 @@ shared initialization, exact D discrete lifecycle, and recurrence AP tolerance.
 Raw logits are retained as diagnostics only because the plan does not register a
 logit-space tolerance gate and tiny CPU/BLAS replay differences may be amplified
 before softmax while leaving registered probabilities within tolerance.
+
+"Exact D discrete lifecycle" is evaluated on discrete event identity/timing/
+state-transition fields only. Continuous diagnostic losses, probabilities,
+similarities and other floating telemetry are intentionally excluded from the
+exact discrete projection.
 """
 from __future__ import annotations
 import argparse, json
@@ -28,10 +33,19 @@ def ap(y,score):
 def phase_map(summary): return {x['phase']:x for x in summary['phases']}
 
 
+DISCRETE_LIFECYCLE_KEYS=(
+    'kind','cursor','matured_count','phase',
+    'candidate_id','expert_id','parent_id','old_id','new_id',
+    'step','transition_kind','replacement_id','accepted','reason','reuse_event_id',
+    'prediction_index','accepted_cursor','started_cursor','started_matured',
+    'resident_count','max_experts','purge_performed','shadow_created',
+    'validation_intervals','active_specialist_id','cancelled_by_reuse',
+)
+
+
 def canonical(events):
-    keys=('kind','cursor','matured_count','phase','candidate_id','expert_id','parent_id','old_id','new_id',
-          'step','total','transition_kind','replacement_id','accepted','reason','reuse_event_id')
-    return [tuple(e.get(k) for k in keys) for e in events]
+    """Project lifecycle telemetry onto preregistered discrete decisions only."""
+    return [tuple(e.get(k) for k in DISCRETE_LIFECYCLE_KEYS) for e in events]
 
 
 def _delta(a,b):
@@ -74,9 +88,12 @@ def compare_arm(newdir,refdir,name,atol,rtol):
     report['recurrence_ap_abs_deltas']=diffs
 
     if name=='D_frozen_ref':
-        nc=canonical(jsonl(Path(newdir)/'lifecycle.jsonl')); rc=canonical(jsonl(Path(refdir)/'lifecycle.jsonl'))
+        ne=jsonl(Path(newdir)/'lifecycle.jsonl'); re=jsonl(Path(refdir)/'lifecycle.jsonl')
+        nc=canonical(ne); rc=canonical(re)
         report['exact_discrete_lifecycle']=nc==rc
+        report['discrete_lifecycle_projection_keys']=list(DISCRETE_LIFECYCLE_KEYS)
         report['discrete_lifecycle_events_new']=len(nc); report['discrete_lifecycle_events_ref']=len(rc)
+        report['full_lifecycle_event_kind_sequence_exact']=[e.get('kind') for e in ne]==[e.get('kind') for e in re]
         if nc!=rc:
             mismatch=next((i for i,(x,y) in enumerate(zip(nc,rc)) if x!=y),min(len(nc),len(rc)))
             report['first_discrete_lifecycle_mismatch_index']=mismatch
@@ -90,7 +107,8 @@ def main():
     out={'protocol':'034','reference_source_run_id':36417604442,
          'registered_probability_atol':2e-6,'registered_probability_rtol':2e-6,
          'registered_recurrence_AP_atol':1e-4,
-         'logit_comparison_role':'diagnostic_only_not_a_registered_gate'}
+         'logit_comparison_role':'diagnostic_only_not_a_registered_gate',
+         'discrete_lifecycle_role':'exact_projection_excluding_continuous_float_telemetry'}
     out['C_ref']=compare_arm(run/'C_ref',ref/'C_fixed5','C_ref',2e-6,2e-6)
     out['D_frozen_ref']=compare_arm(run/'D_frozen_ref',ref/'D_guard_budget','D_frozen_ref',2e-6,2e-6)
     out['all_reference_checks_passed']=True
