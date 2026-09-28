@@ -1,9 +1,15 @@
-# Current task: Protocol-032 single guard-budget pilot
-Read NEXT_EXPERIMENT_LATEST.md, docs/PROTOCOL032_SINGLE_TASK_DIRECTIVE_20260927.md, docs/PROTOCOL031_INTERIM6800_ANALYSIS_20260927.md, and artifacts/ftmoe_online/protocol_032/plan.json.
+# Current task: Protocol-033 complete5969-row rare-recurrence pilot
 
-One task only: verify the existing6800-row prefix, then run C_fixed5 and D_guard_budget once each on the same data. No simulator generation, continuation to9869, seed sweep, A/B, or automatic followup.
-Only change the F0 normal-NLL acceptance bound for D birth/reuse to L_candidate <= L_live + max(0.02*L_live,0.01) + 1e-6. This is an explicitly relaxed development hypothesis after observing031 outcomes, not a bug fix or independent confirmation. Preserve every other predictive gate, training budget and causal rule. Stop after one pair or an explicit blocker.
+Read NEXT_EXPERIMENT_LATEST.md, docs/PROTOCOL033_6000_STEP_DIRECTIVE_20260928.md, artifacts/ftmoe_online/protocol_033/scenario_registration.json, and artifacts/ftmoe_online/protocol_033/plan.json.
 
-The source implementation is commit4e7df7e5f7abca2e2470633864b35440858bd4bf on protocol-031-rare-recurrence-20260922; main does not yet contain that implementation. Reusing that branch is permitted: apply this latest directive before execution. Historical031 stop/no-threshold-change restrictions apply to031, not the newly specified032; never overwrite historical modules/registrations/results.
-The completed031 interim run36295124291 had no dormant experts or reuse and D was slightly worse and18x slower in measured replay wall time. A snapshot memory registry ID is not evidence of a dormant expert. Read original artifacts and the verified evidence JSON.
-Input eligibility must be computed, never hard-coded true. Upload the frozen input bundle and compact evidence/report to GitHub. Keep results even on failure and synchronize main entry points. Documentation-only commits use [skip ci]; do not launch training in this planning turn.
+The user explicitly replaces the9869-row generation plan with an approximately6000-row complete experiment for another model to execute. This authorizes a new033 stream; historical031/032 no-generation/stop restrictions remain historical and must not override this task. Preserve all historical results and source modules.
+
+This handoff contains the plan and validator only;033 generator/replay adaptation is not yet implemented or run. Source implementation: a215c1161adba4ff29514eb88806762c2f068023 on protocol-031-rare-recurrence-20260922. Main does not contain every newer implementation. Apply these033 instructions before continuing that source.
+
+Generate5968 scored rows plus1 terminal raw-label support row. Keep all six128-step recurrence windows. F0=300; U/V/W initial stages=1000 each; five W gaps=380 each. Birth schedule600+1000k matured intervals; preserve all other032 algorithm and guard settings. Do not truncate/splice old streams or resume mismatched checkpoints.
+
+Use200-row chunks (29 full +169 final), sequential generation segments and separate finalization process. Measure effective memory limit and RSS; avoid duplicate full-stream allocations. Preserve simulator/scheduler/workload/RNG state exactly across segments. Run the plan validator and actual input audit; never hard-code eligibility=true.
+
+After complete input qualification, run C_fixed5 and D_guard_budget once each, same job/environment, separate processes. Report every registered window and all measured costs, even on failure. This is development after seeing historical results, not independent confirmation or a hard-delete demonstration.
+
+No extra seeds, threshold grids, A/B or automatic followups. New workflow must be workflow_dispatch only. This planning/upload turn runs no simulation or training; documentation commits use [skip ci]. After later execution, synchronize compact results and current pointers on main and the execution branch.
