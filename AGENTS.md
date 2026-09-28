@@ -1,13 +1,15 @@
-# Current task: execute Protocol-033 complete5969-row rare-recurrence pilot
+# Current task: Protocol-034 three-hypothesis experiment
 
-Read `NEXT_EXPERIMENT_LATEST.md`, `docs/PROTOCOL033_6000_STEP_DIRECTIVE_20260928.md`, `docs/PROTOCOL033_IMPLEMENTATION_HANDOFF.md`, `artifacts/ftmoe_online/protocol_033/scenario_registration.json`, and `artifacts/ftmoe_online/protocol_033/plan.json`.
+Read NEXT_EXPERIMENT_LATEST.md, docs/PROTOCOL034_THREE_HYPOTHESES_20260928.md and artifacts/ftmoe_online/protocol_034/plan.json. The user explicitly authorizes this next experiment for a subsequent executor. Historical033 stop restrictions do not prohibit034. Preserve all031/032/033 source and results.
 
-Protocol-033 implementation is now staged on branch `protocol-033-5969-gpt56-20260928`; no Protocol-033 simulator/model run has started yet. The implementation source remains commit `a215c1161adba4ff29514eb88806762c2f068023` from `protocol-031-rare-recurrence-20260922`. Historical Protocol-031/032 modules, registrations, data and conclusions are unchanged.
+This handoff is planned_not_implemented_not_run. No034 training or workflow is launched by the planning/upload turn. Use source0463cd365b4cda5a50423b4fccc941fe8d074bbf and frozen033 artifact10968752245/run36417604442. Verify the registered ZIP/stream SHA256. No new simulation, truncation, reroll or alternate data.
 
-Generate exactly5968 scored rows plus1 terminal raw-label support row from one new continuous seed700 simulator trajectory. Use 200-row immutable chunks (29 full +169 final), exact simulator/workload/scheduler/RNG continuation, separate generation/assembly/audit/model processes, and registered RAM telemetry/80% soft limit. Never truncate/splice an old stream or reroll/retune after a failed audit.
+Budget: exactly three full training replays, C_ref, D_frozen_ref and D_live, sequential isolated processes in one environment. D_live changes stable active specialist/router trainability only; retain dormant freezing, moments, original loss/features/budgets/gates. Full/Fragment memory observations must not affect D_live training or lifecycle.
 
-Before any generation byte, the workflow must compile the Protocol-033 implementation, run `test_ftmoe_protocol033.py`, run `maintenance/validate_protocol033_plan.py`, and verify frozen Protocol-031/032 source files are unchanged from `a215c116...`. Full input qualification is independent and must recompute ratio/labels from `post_totals/capacities`; model runs are forbidden unless every required gate passes.
+The second hypothesis uses paired complete/fragment snapshots with identical creation times and candidate support. Hindsight best-window selection is diagnostic only and must never be described as an online score.
 
-After qualification, run exactly one `C_fixed5` process and one `D_guard_budget` process sequentially on the same frozen input. D changes only the registered birth cadence to600+1000k matured intervals on top of Protocol-032 guard-budget policy and adds per-reactivation event logging. Evaluate all six registered128-step recurrence windows and all registered W blocks; do not select best windows or add seeds/threshold searches/A/B runs.
+The third hypothesis performs two no-training cache passes, D_route_full and D_route_fragment. Use per-host last32 matured prediction losses; only labels published strictly before current prediction are allowed. Snapshot IDs/support identical across both arms. Keep the registered1pct fallback rule; never tune after viewing results or use phase/service IDs. Routing does not feed back into D_live gradients.
 
-The launch workflow is `.github/workflows/protocol033-5969.yml` and is `workflow_dispatch` only. The first dispatch is a user-authorized execution start; later same-stream generation segments and the terminal assemble/audit/C/D stage self-dispatch through the same workflow. Preserve compact terminal evidence even on blockers and synchronize current pointers after execution.
+Run the plan validator and required causal/freeze/optimizer/observer fixtures before full replays. Preserve all failed outputs. Result serialization recovery uses saved predictions, not extra training. Stop after registered budget or explicit blocker; no automatic seeds/grids/followups.
+
+Write compact results to docs/PROTOCOL034_RESULTS.md and run-scoped evidence in Git; store raw arrays/checkpoints/cache as indexed artifacts with hashes. Synchronize main and execution-branch current pointers. New workflow is workflow_dispatch only. Documentation commits use [skip ci].
