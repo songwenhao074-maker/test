@@ -1,0 +1,204 @@
+name: Protocol-034 resume after registered reference-validator fix
+
+on:
+  workflow_dispatch:
+    inputs:
+      execution_ref:
+        description: Protocol034 execution branch with registered-gate validator fix
+        required: true
+        default: codex/protocol-034-three-hypotheses-20260928
+      source_run_id:
+        description: Failed Protocol034 run whose completed C_ref and D_frozen_ref are preserved
+        required: true
+        default: '36429633413'
+      source_artifact_id:
+        description: Preserved partial Protocol034 artifact containing the first two completed training replays
+        required: true
+        default: '10975657183'
+
+env:
+  OMP_NUM_THREADS: '1'
+  MKL_NUM_THREADS: '1'
+  OPENBLAS_NUM_THREADS: '1'
+  PYTHONHASHSEED: '1'
+  EXECUTION_REF: ${{ inputs.execution_ref }}
+  RUN_ROOT: artifacts/ftmoe_online/protocol_034/runtime/run_${{ github.run_id }}
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  resume_protocol034:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    steps:
+      - name: Checkout Protocol034 execution branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.execution_ref }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+
+      - name: Install frozen CPU dependencies
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil
+
+      - name: Validate resume implementation and frozen scientific scope
+        run: |
+          python -m py_compile validate_protocol034_references.py run_ftmoe_protocol034_live.py route_ftmoe_protocol034.py analyze_ftmoe_protocol034.py maintenance/validate_protocol034_plan.py
+          python maintenance/validate_protocol034_plan.py
+          git diff --exit-code 0463cd365b4cda5a50423b4fccc941fe8d074bbf -- run_ftmoe_protocol033.py ftmoe_protocol033_guard_budget.py ftmoe_protocol032_guard_budget.py ftmoe_protocol031_nonblocking_reuse.py ftmoe_protocol024_v2c.py ftmoe_protocol024_session.py ftmoe_protocol024_dynamic_residual.py simulator/workload/BitbrainWorkloadProtocol025.py
+          python - <<'PY'
+          import json
+          p=json.load(open('artifacts/ftmoe_online/protocol_034/plan.json'))
+          r=p['reference_checks']
+          assert r['probability_atol']==2e-6 and r['probability_rtol']==2e-6
+          assert r['recurrence_AP_atol']==1e-4 and r['exact_labels'] and r['exact_shared_initialization'] and r['exact_D_discrete_lifecycle']
+          assert p['budget']['full_training_replays']==3 and p['budget']['prediction_cache_routing_passes']==2
+          assert p['budget']['additional_training_after_results'] is False
+          PY
+
+      - name: Download exact frozen Protocol033 terminal artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/p033; mkdir -p /tmp/p033
+          curl --fail --silent --show-error --location -H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" -o /tmp/protocol033-terminal.zip "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/10968752245/zip"
+          echo "d92a3f9c8f1ebd292b86fbbe6e2300291135376f3564f2773975fd9203b55944  /tmp/protocol033-terminal.zip" | sha256sum -c -
+          unzip -q /tmp/protocol033-terminal.zip -d /tmp/p033
+          DATA=/tmp/p033/tmp/protocol033_bundle/data; LOCK=/tmp/p033/tmp/protocol033_bundle/evidence/input_lock.json; REG=/tmp/p033/tmp/protocol033_bundle/evidence/registration_frozen.json; REF=/tmp/p033/home/runner/work/test/test/artifacts/ftmoe_online/protocol_033/runtime/run_36417604442
+          test -f "$DATA/stream.npz" -a -f "$LOCK" -a -f "$REG" -a -f "$REF/D_guard_budget/predictions.npz"
+          echo "70c9283f133a5f8033e12fbc03a38af6d9ce39f1d7e6a9e825964ee9a28edbd9  $DATA/stream.npz" | sha256sum -c -
+
+      - name: Restore preserved C_ref and D_frozen_ref without re-running them
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN_ID: ${{ inputs.source_run_id }}
+          SOURCE_ARTIFACT_ID: ${{ inputs.source_artifact_id }}
+        run: |
+          set -euo pipefail
+          test "$SOURCE_RUN_ID" = "36429633413"
+          test "$SOURCE_ARTIFACT_ID" = "10975657183"
+          rm -rf /tmp/p034-preserved; mkdir -p /tmp/p034-preserved
+          curl --fail --silent --show-error --location -H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" -o /tmp/protocol034-preserved.zip "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/${SOURCE_ARTIFACT_ID}/zip"
+          echo "a16c152c06912afd3530ceb009c26eeb9087b653b93900b15495821d6b5cd1cb  /tmp/protocol034-preserved.zip" | sha256sum -c -
+          unzip -q /tmp/protocol034-preserved.zip -d /tmp/p034-preserved
+          PRED=$(find /tmp/p034-preserved -type f -path '*/C_ref/predictions.npz' -print -quit)
+          test -n "$PRED"
+          SRC=$(dirname "$(dirname "$PRED")")
+          test -f "$SRC/C_ref/predictions.npz" -a -f "$SRC/D_frozen_ref/predictions.npz" -a -f "$SRC/fixture_report.json" -a -f "$SRC/registered_plan.json"
+          cmp artifacts/ftmoe_online/protocol_034/plan.json "$SRC/registered_plan.json"
+          rm -rf "$RUN_ROOT"; mkdir -p "$RUN_ROOT"
+          cp -a "$SRC/." "$RUN_ROOT/"
+          python - <<'PY'
+          import hashlib,json,os,pathlib
+          root=pathlib.Path(os.environ['RUN_ROOT'])
+          rows={}
+          for arm in ('C_ref','D_frozen_ref'):
+              p=root/arm/'predictions.npz'; h=hashlib.sha256(p.read_bytes()).hexdigest(); rows[arm]={'predictions_sha256':h,'bytes':p.stat().st_size}
+          payload={'protocol':'034','resume_only':True,'source_run_id':36429633413,'source_artifact_id':10975657183,
+                   'source_artifact_zip_sha256':'a16c152c06912afd3530ceb009c26eeb9087b653b93900b15495821d6b5cd1cb',
+                   'completed_training_replays_restored_not_rerun':['C_ref','D_frozen_ref'],
+                   'full_training_replays_consumed_before_resume':2,'preserved':rows}
+          (root/'resume_provenance.json').write_text(json.dumps(payload,indent=2)+'\n')
+          PY
+
+      - name: Enforce registered Protocol033 reference reproduction on preserved replays
+        run: |
+          REF=/tmp/p033/home/runner/work/test/test/artifacts/ftmoe_online/protocol_033/runtime/run_36417604442
+          python validate_protocol034_references.py --run-root "$RUN_ROOT" --reference-root "$REF" --output "$RUN_ROOT/reference_checks.json"
+
+      - name: Full training replay 3 of 3 - D_live with read-only memory sidecar
+        run: |
+          DATA=/tmp/p033/tmp/protocol033_bundle/data; LOCK=/tmp/p033/tmp/protocol033_bundle/evidence/input_lock.json; REG=/tmp/p033/tmp/protocol033_bundle/evidence/registration_frozen.json
+          python run_ftmoe_protocol034_live.py --stream "$DATA" --out-dir "$RUN_ROOT/D_live" --registration "$REG" --input-lock "$LOCK" --run-id "$GITHUB_RUN_ID"
+
+      - name: Fixed no-training cache pass 1 of 2 - D_route_fragment
+        run: python route_ftmoe_protocol034.py --mode fragment --live-dir "$RUN_ROOT/D_live" --cache-root "$RUN_ROOT/D_live" --out-dir "$RUN_ROOT/D_route_fragment"
+
+      - name: Fixed no-training cache pass 2 of 2 - D_route_full
+        run: python route_ftmoe_protocol034.py --mode full --live-dir "$RUN_ROOT/D_live" --cache-root "$RUN_ROOT/D_live" --out-dir "$RUN_ROOT/D_route_full"
+
+      - name: Freeze raw prediction and cache hashes before reporting
+        run: |
+          python - <<'PY'
+          import hashlib,json,os,pathlib
+          root=pathlib.Path(os.environ['RUN_ROOT']); paths=[root/'C_ref/predictions.npz',root/'D_frozen_ref/predictions.npz',root/'D_live/predictions.npz',root/'D_route_fragment/predictions.npz',root/'D_route_full/predictions.npz',root/'D_live/snapshot_metadata.json']; paths+=sorted((root/'D_live/snapshot_cache').glob('*.npz')); rows=[]
+          for p in paths:
+              h=hashlib.sha256()
+              with p.open('rb') as f:
+                  for b in iter(lambda:f.read(4*1024*1024),b''): h.update(b)
+              rows.append({'path':str(p.relative_to(root)),'sha256':h.hexdigest(),'bytes':p.stat().st_size})
+          (root/'raw_artifact_manifest.json').write_text(json.dumps({'protocol':'034','archived_before_reporting':True,'resumed_from_run_id':36429633413,'files':rows},indent=2)+'\n')
+          PY
+
+      - name: Analyze H1 H2 H3 and generate compact report
+        run: |
+          mkdir -p "$RUN_ROOT/analysis"
+          python analyze_ftmoe_protocol034.py --run-root "$RUN_ROOT" --stream-manifest /tmp/p033/tmp/protocol033_bundle/data/manifest.json --output-dir "$RUN_ROOT/analysis" --docs-output docs/PROTOCOL034_RESULTS.md --run-id "$GITHUB_RUN_ID"
+
+      - name: Materialize compact Git evidence and completion pointers
+        run: |
+          COMPACT="artifacts/ftmoe_online/protocol_034/runs/run_${GITHUB_RUN_ID}"; mkdir -p "$COMPACT"
+          cp "$RUN_ROOT/analysis/"*.json "$COMPACT/"
+          cp "$RUN_ROOT/reference_checks.json" "$COMPACT/reference_checks.json"
+          cp "$RUN_ROOT/fixture_report.json" "$COMPACT/fixture_report.json"
+          cp "$RUN_ROOT/resume_provenance.json" "$COMPACT/resume_provenance.json"
+          cp "$RUN_ROOT/raw_artifact_manifest.json" "$COMPACT/raw_artifact_manifest.json"
+          cp "$RUN_ROOT/D_live/snapshot_metadata.json" "$COMPACT/snapshot_metadata.json"
+          cp "$RUN_ROOT/D_live/snapshot_cache_manifest.json" "$COMPACT/snapshot_cache_manifest.json"
+          cp "$RUN_ROOT/D_live/lifecycle_summary.json" "$COMPACT/D_live_lifecycle_summary.json"
+          cp "$RUN_ROOT/D_live/memory_profile.json" "$COMPACT/D_live_memory_profile.json"
+          cp "$RUN_ROOT/D_route_fragment/routing_report.json" "$COMPACT/D_route_fragment_routing_report.json"
+          cp "$RUN_ROOT/D_route_full/routing_report.json" "$COMPACT/D_route_full_routing_report.json"
+          python - <<'PY'
+          import json,os,pathlib
+          p=pathlib.Path('artifacts/ftmoe_online/protocol_034/plan.json'); d=json.loads(p.read_text()); d['status']='completed'; d['terminal_run_id']=int(os.environ['GITHUB_RUN_ID']); d['resumed_from_run_id']=36429633413; d['results_path']='docs/PROTOCOL034_RESULTS.md'; p.write_text(json.dumps(d,indent=2)+'\n')
+          PY
+          printf '# Current Task\n\nProtocol-034 three-hypothesis experiment is complete in resumed terminal run %s (preserving C_ref/D_frozen_ref from run 36429633413).\n\nRead `docs/PROTOCOL034_RESULTS.md` and `artifacts/ftmoe_online/protocol_034/runs/run_%s/` before proposing any new scientific run.\n\nThe registered budget is exhausted: exactly 3 full training replays + 2 fixed no-training cache routing passes. Do not launch extra seeds, threshold sweeps, rerolls, or automatic follow-ups.\n' "$GITHUB_RUN_ID" "$GITHUB_RUN_ID" > NEXT_EXPERIMENT_LATEST.md
+          printf '# Active Experiment Directive\n\nProtocol-034 is complete. Terminal resumed run: %s; preserved first two training replays source run: 36429633413.\n\nPrimary handoff: `docs/PROTOCOL034_RESULTS.md`.\nCompact evidence: `artifacts/ftmoe_online/protocol_034/runs/run_%s/`.\n\nPreserve Protocol-031/032/033 history. Protocol-034 scientific budget is exhausted; no extra scientific replay is authorized automatically.\n' "$GITHUB_RUN_ID" "$GITHUB_RUN_ID" > AGENTS.md
+
+      - name: Upload complete resumed Protocol034 terminal artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol034-terminal-${{ github.run_id }}
+          path: |
+            ${{ env.RUN_ROOT }}/
+            docs/PROTOCOL034_RESULTS.md
+          if-no-files-found: warn
+          compression-level: 1
+          retention-days: 90
+
+      - name: Commit compact results to execution branch
+        if: success()
+        run: |
+          COMPACT="artifacts/ftmoe_online/protocol_034/runs/run_${GITHUB_RUN_ID}"
+          git config user.name github-actions[bot]; git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/PROTOCOL034_RESULTS.md artifacts/ftmoe_online/protocol_034/plan.json "$COMPACT" NEXT_EXPERIMENT_LATEST.md AGENTS.md
+          git commit -m "results: Protocol034 resumed registered checks run ${GITHUB_RUN_ID} [skip ci]"
+          git push origin "HEAD:${EXECUTION_REF}"
+
+      - name: Sync Protocol034 compact results to main without merging scientific code
+        if: success()
+        run: |
+          set -euo pipefail; git fetch origin main; rm -rf /tmp/protocol034-main-sync
+          git worktree add -b "protocol034-main-sync-${GITHUB_RUN_ID}" /tmp/protocol034-main-sync origin/main
+          COMPACT="artifacts/ftmoe_online/protocol_034/runs/run_${GITHUB_RUN_ID}"; mkdir -p "/tmp/protocol034-main-sync/${COMPACT}"; cp -a "${COMPACT}/." "/tmp/protocol034-main-sync/${COMPACT}/"
+          cp docs/PROTOCOL034_RESULTS.md /tmp/protocol034-main-sync/docs/PROTOCOL034_RESULTS.md
+          cp artifacts/ftmoe_online/protocol_034/plan.json /tmp/protocol034-main-sync/artifacts/ftmoe_online/protocol_034/plan.json
+          cp NEXT_EXPERIMENT_LATEST.md /tmp/protocol034-main-sync/NEXT_EXPERIMENT_LATEST.md
+          cp AGENTS.md /tmp/protocol034-main-sync/AGENTS.md
+          cd /tmp/protocol034-main-sync; git config user.name github-actions[bot]; git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/PROTOCOL034_RESULTS.md artifacts/ftmoe_online/protocol_034/plan.json "artifacts/ftmoe_online/protocol_034/runs/run_${GITHUB_RUN_ID}" NEXT_EXPERIMENT_LATEST.md AGENTS.md
+          git commit -m "results: sync Protocol034 resumed run ${GITHUB_RUN_ID} [skip ci]"; git push origin HEAD:main
