@@ -1,0 +1,745 @@
+{
+  "protocol": "033",
+  "plan_revision": 1,
+  "kind": "pre_model_input_eligibility_audit",
+  "model_results_seen": false,
+  "audit_pass": true,
+  "reroll_after_failure_allowed": false,
+  "no_intensity_retuning": true,
+  "target_semantics": "prediction indices [start,end); labels raw_labels[start+1:end+1] on same host; maturity t+2",
+  "gates": {
+    "registration_identity": true,
+    "all_rows_and_chunks_complete": true,
+    "exact_5969_row_geometry": true,
+    "overload_ratio_recomputed_exact_from_post_totals_and_capacity": true,
+    "label_recompute_exact": true,
+    "finite_causal_features": true,
+    "capacity_audit": true,
+    "scheduler_audit": true,
+    "placement_audit": true,
+    "common_features_finite": true,
+    "all_nonbaseline_phases_min32_positive_and_negative_target_hoststeps": true,
+    "six_recurrence_windows_present": true,
+    "six_recurrence_windows_min32_positive_and_negative": true,
+    "phase_annotation_matches_registered_prediction_timeline": true,
+    "service_annotation_matches_registered_creation_timeline": true,
+    "last_prediction_has_raw_t_plus_1_support": true,
+    "normal_guard_available": true,
+    "events_U_V_W_present": true,
+    "actual_phase_switches_match_registration": true,
+    "registered_physical_parameters_match_implementation": true
+  },
+  "per_phase_target_coverage": {
+    "F0": {
+      "prediction_intervals": [
+        0,
+        300
+      ],
+      "target_raw_rows": [
+        1,
+        301
+      ],
+      "host_steps": 4800,
+      "positive_host_steps": 1,
+      "negative_host_steps": 4799,
+      "class_counts": {
+        "0": 4799,
+        "1": 1,
+        "2": 0,
+        "3": 0
+      },
+      "logical_service": null,
+      "source_service": null
+    },
+    "U_first": {
+      "prediction_intervals": [
+        300,
+        1300
+      ],
+      "target_raw_rows": [
+        301,
+        1301
+      ],
+      "host_steps": 16000,
+      "positive_host_steps": 4490,
+      "negative_host_steps": 11510,
+      "class_counts": {
+        "0": 11510,
+        "1": 4490,
+        "2": 0,
+        "3": 0
+      },
+      "logical_service": "U",
+      "source_service": "S1"
+    },
+    "V_first": {
+      "prediction_intervals": [
+        1300,
+        2300
+      ],
+      "target_raw_rows": [
+        1301,
+        2301
+      ],
+      "host_steps": 16000,
+      "positive_host_steps": 1872,
+      "negative_host_steps": 14128,
+      "class_counts": {
+        "0": 14128,
+        "1": 785,
+        "2": 0,
+        "3": 1087
+      },
+      "logical_service": "V",
+      "source_service": "S3"
+    },
+    "W_long": {
+      "prediction_intervals": [
+        2300,
+        3300
+      ],
+      "target_raw_rows": [
+        2301,
+        3301
+      ],
+      "host_steps": 16000,
+      "positive_host_steps": 3140,
+      "negative_host_steps": 12860,
+      "class_counts": {
+        "0": 12860,
+        "1": 3121,
+        "2": 0,
+        "3": 19
+      },
+      "logical_service": "W",
+      "source_service": "S4"
+    },
+    "U_rec1": {
+      "prediction_intervals": [
+        3300,
+        3428
+      ],
+      "target_raw_rows": [
+        3301,
+        3429
+      ],
+      "host_steps": 2048,
+      "positive_host_steps": 361,
+      "negative_host_steps": 1687,
+      "class_counts": {
+        "0": 1687,
+        "1": 361,
+        "2": 0,
+        "3": 0
+      },
+      "logical_service": "U",
+      "source_service": "S1"
+    },
+    "W_gap1": {
+      "prediction_intervals": [
+        3428,
+        3808
+      ],
+      "target_raw_rows": [
+        3429,
+        3809
+      ],
+      "host_steps": 6080,
+      "positive_host_steps": 1319,
+      "negative_host_steps": 4761,
+      "class_counts": {
+        "0": 4761,
+        "1": 1319,
+        "2": 0,
+        "3": 0
+      },
+      "logical_service": "W",
+      "source_service": "S4"
+    },
+    "V_rec1": {
+      "prediction_intervals": [
+        3808,
+        3936
+      ],
+      "target_raw_rows": [
+        3809,
+        3937
+      ],
+      "host_steps": 2048,
+      "positive_host_steps": 440,
+      "negative_host_steps": 1608,
+      "class_counts": {
+        "0": 1608,
+        "1": 440,
+        "2": 0,
+        "3": 0
+      },
+      "logical_service": "V",
+      "source_service": "S3"
+    },
+    "W_gap2": {
+      "prediction_intervals": [
+        3936,
+        4316
+      ],
+      "target_raw_rows": [
+        3937,
+        4317
+      ],
+      "host_steps": 6080,
+      "positive_host_steps": 1089,
+      "negative_host_steps": 4991,
+      "class_counts": {
+        "0": 4991,
+        "1": 967,
+        "2": 0,
+        "3": 122
+      },
+      "logical_service": "W",
+      "source_service": "S4"
+    },
+    "U_rec2": {
+      "prediction_intervals": [
+        4316,
+        4444
+      ],
+      "target_raw_rows": [
+        4317,
+        4445
+      ],
+      "host_steps": 2048,
+      "positive_host_steps": 397,
+      "negative_host_steps": 1651,
+      "class_counts": {
+        "0": 1651,
+        "1": 397,
+        "2": 0,
+        "3": 0
+      },
+      "logical_service": "U",
+      "source_service": "S1"
+    },
+    "W_gap3": {
+      "prediction_intervals": [
+        4444,
+        4824
+      ],
+      "target_raw_rows": [
+        4445,
+        4825
+      ],
+      "host_steps": 6080,
+      "positive_host_steps": 1282,
+      "negative_host_steps": 4798,
+      "class_counts": {
+        "0": 4798,
+        "1": 1282,
+        "2": 0,
+        "3": 0
+      },
+      "logical_service": "W",
+      "source_service": "S4"
+    },
+    "V_rec2": {
+      "prediction_intervals": [
+        4824,
+        4952
+      ],
+      "target_raw_rows": [
+        4825,
+        4953
+      ],
+      "host_steps": 2048,
+      "positive_host_steps": 406,
+      "negative_host_steps": 1642,
+      "class_counts": {
+        "0": 1642,
+        "1": 406,
+        "2": 0,
+        "3": 0
+      },
+      "logical_service": "V",
+      "source_service": "S3"
+    },
+    "W_gap4": {
+      "prediction_intervals": [
+        4952,
+        5332
+      ],
+      "target_raw_rows": [
+        4953,
+        5333
+      ],
+      "host_steps": 6080,
+      "positive_host_steps": 1152,
+      "negative_host_steps": 4928,
+      "class_counts": {
+        "0": 4928,
+        "1": 949,
+        "2": 0,
+        "3": 203
+      },
+      "logical_service": "W",
+      "source_service": "S4"
+    },
+    "U_rec3": {
+      "prediction_intervals": [
+        5332,
+        5460
+      ],
+      "target_raw_rows": [
+        5333,
+        5461
+      ],
+      "host_steps": 2048,
+      "positive_host_steps": 393,
+      "negative_host_steps": 1655,
+      "class_counts": {
+        "0": 1655,
+        "1": 393,
+        "2": 0,
+        "3": 0
+      },
+      "logical_service": "U",
+      "source_service": "S1"
+    },
+    "W_gap5": {
+      "prediction_intervals": [
+        5460,
+        5840
+      ],
+      "target_raw_rows": [
+        5461,
+        5841
+      ],
+      "host_steps": 6080,
+      "positive_host_steps": 1485,
+      "negative_host_steps": 4595,
+      "class_counts": {
+        "0": 4595,
+        "1": 1485,
+        "2": 0,
+        "3": 0
+      },
+      "logical_service": "W",
+      "source_service": "S4"
+    },
+    "V_rec3": {
+      "prediction_intervals": [
+        5840,
+        5968
+      ],
+      "target_raw_rows": [
+        5841,
+        5969
+      ],
+      "host_steps": 2048,
+      "positive_host_steps": 381,
+      "negative_host_steps": 1667,
+      "class_counts": {
+        "0": 1667,
+        "1": 381,
+        "2": 0,
+        "3": 0
+      },
+      "logical_service": "V",
+      "source_service": "S3"
+    }
+  },
+  "recurrence128_target_coverage": {
+    "U_rec1": {
+      "prediction_intervals": [
+        3300,
+        3428
+      ],
+      "target_raw_rows": [
+        3301,
+        3429
+      ],
+      "host_steps": 2048,
+      "positive_host_steps": 361,
+      "negative_host_steps": 1687,
+      "class_counts": {
+        "0": 1687,
+        "1": 361,
+        "2": 0,
+        "3": 0
+      },
+      "logical_service": "U",
+      "source_service": "S1",
+      "positive_min_32": true,
+      "negative_min_32": true,
+      "ap_defined": true
+    },
+    "V_rec1": {
+      "prediction_intervals": [
+        3808,
+        3936
+      ],
+      "target_raw_rows": [
+        3809,
+        3937
+      ],
+      "host_steps": 2048,
+      "positive_host_steps": 440,
+      "negative_host_steps": 1608,
+      "class_counts": {
+        "0": 1608,
+        "1": 440,
+        "2": 0,
+        "3": 0
+      },
+      "logical_service": "V",
+      "source_service": "S3",
+      "positive_min_32": true,
+      "negative_min_32": true,
+      "ap_defined": true
+    },
+    "U_rec2": {
+      "prediction_intervals": [
+        4316,
+        4444
+      ],
+      "target_raw_rows": [
+        4317,
+        4445
+      ],
+      "host_steps": 2048,
+      "positive_host_steps": 397,
+      "negative_host_steps": 1651,
+      "class_counts": {
+        "0": 1651,
+        "1": 397,
+        "2": 0,
+        "3": 0
+      },
+      "logical_service": "U",
+      "source_service": "S1",
+      "positive_min_32": true,
+      "negative_min_32": true,
+      "ap_defined": true
+    },
+    "V_rec2": {
+      "prediction_intervals": [
+        4824,
+        4952
+      ],
+      "target_raw_rows": [
+        4825,
+        4953
+      ],
+      "host_steps": 2048,
+      "positive_host_steps": 406,
+      "negative_host_steps": 1642,
+      "class_counts": {
+        "0": 1642,
+        "1": 406,
+        "2": 0,
+        "3": 0
+      },
+      "logical_service": "V",
+      "source_service": "S3",
+      "positive_min_32": true,
+      "negative_min_32": true,
+      "ap_defined": true
+    },
+    "U_rec3": {
+      "prediction_intervals": [
+        5332,
+        5460
+      ],
+      "target_raw_rows": [
+        5333,
+        5461
+      ],
+      "host_steps": 2048,
+      "positive_host_steps": 393,
+      "negative_host_steps": 1655,
+      "class_counts": {
+        "0": 1655,
+        "1": 393,
+        "2": 0,
+        "3": 0
+      },
+      "logical_service": "U",
+      "source_service": "S1",
+      "positive_min_32": true,
+      "negative_min_32": true,
+      "ap_defined": true
+    },
+    "V_rec3": {
+      "prediction_intervals": [
+        5840,
+        5968
+      ],
+      "target_raw_rows": [
+        5841,
+        5969
+      ],
+      "host_steps": 2048,
+      "positive_host_steps": 381,
+      "negative_host_steps": 1667,
+      "class_counts": {
+        "0": 1667,
+        "1": 381,
+        "2": 0,
+        "3": 0
+      },
+      "logical_service": "V",
+      "source_service": "S3",
+      "positive_min_32": true,
+      "negative_min_32": true,
+      "ap_defined": true
+    }
+  },
+  "normal_guard": {
+    "prediction_indices": [
+      0,
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35,
+      40,
+      45,
+      50,
+      55,
+      60,
+      65,
+      70,
+      75,
+      80,
+      85,
+      90,
+      95,
+      100,
+      105,
+      110,
+      115,
+      120,
+      125,
+      130,
+      135,
+      140,
+      145,
+      150,
+      155,
+      160,
+      165,
+      170,
+      175,
+      180,
+      185,
+      190,
+      195,
+      200,
+      205,
+      210,
+      215,
+      220,
+      225,
+      230,
+      235,
+      240,
+      245,
+      250,
+      255,
+      260,
+      265,
+      270,
+      275,
+      280,
+      285,
+      290,
+      295
+    ],
+    "normal_host_steps": 960,
+    "positive_host_steps": 0,
+    "positive_required": false
+  },
+  "service_event_counts": {
+    "U": 593,
+    "V": 582,
+    "W": 1223
+  },
+  "source_parameter_match": {
+    "U": true,
+    "V": true,
+    "W": true
+  },
+  "expected_switches": [
+    [
+      300,
+      "U_first",
+      "S1",
+      "U"
+    ],
+    [
+      1300,
+      "V_first",
+      "S3",
+      "V"
+    ],
+    [
+      2300,
+      "W_long",
+      "S4",
+      "W"
+    ],
+    [
+      3300,
+      "U_rec1",
+      "S1",
+      "U"
+    ],
+    [
+      3428,
+      "W_gap1",
+      "S4",
+      "W"
+    ],
+    [
+      3808,
+      "V_rec1",
+      "S3",
+      "V"
+    ],
+    [
+      3936,
+      "W_gap2",
+      "S4",
+      "W"
+    ],
+    [
+      4316,
+      "U_rec2",
+      "S1",
+      "U"
+    ],
+    [
+      4444,
+      "W_gap3",
+      "S4",
+      "W"
+    ],
+    [
+      4824,
+      "V_rec2",
+      "S3",
+      "V"
+    ],
+    [
+      4952,
+      "W_gap4",
+      "S4",
+      "W"
+    ],
+    [
+      5332,
+      "U_rec3",
+      "S1",
+      "U"
+    ],
+    [
+      5460,
+      "W_gap5",
+      "S4",
+      "W"
+    ],
+    [
+      5840,
+      "V_rec3",
+      "S3",
+      "V"
+    ]
+  ],
+  "actual_switches": [
+    [
+      300,
+      "U_first",
+      "S1",
+      "U"
+    ],
+    [
+      1300,
+      "V_first",
+      "S3",
+      "V"
+    ],
+    [
+      2300,
+      "W_long",
+      "S4",
+      "W"
+    ],
+    [
+      3300,
+      "U_rec1",
+      "S1",
+      "U"
+    ],
+    [
+      3428,
+      "W_gap1",
+      "S4",
+      "W"
+    ],
+    [
+      3808,
+      "V_rec1",
+      "S3",
+      "V"
+    ],
+    [
+      3936,
+      "W_gap2",
+      "S4",
+      "W"
+    ],
+    [
+      4316,
+      "U_rec2",
+      "S1",
+      "U"
+    ],
+    [
+      4444,
+      "W_gap3",
+      "S4",
+      "W"
+    ],
+    [
+      4824,
+      "V_rec2",
+      "S3",
+      "V"
+    ],
+    [
+      4952,
+      "W_gap4",
+      "S4",
+      "W"
+    ],
+    [
+      5332,
+      "U_rec3",
+      "S1",
+      "U"
+    ],
+    [
+      5460,
+      "W_gap5",
+      "S4",
+      "W"
+    ],
+    [
+      5840,
+      "V_rec3",
+      "S3",
+      "V"
+    ]
+  ],
+  "details": {}
+}

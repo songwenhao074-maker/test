@@ -1,0 +1,241 @@
+{
+  "protocol": "033",
+  "stage": "assembly",
+  "effective_memory_limit_bytes": 16764379136,
+  "soft_limit_bytes": 13411503308,
+  "samples": [
+    {
+      "label": "assembly_start",
+      "chunk": null,
+      "time_unix": 1790596026.865304,
+      "process_tree_rss_bytes": 64008192,
+      "system_available_bytes": 15631683584
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 0,
+      "time_unix": 1790596027.8101063,
+      "process_tree_rss_bytes": 66088960,
+      "system_available_bytes": 15654313984
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 1,
+      "time_unix": 1790596028.653118,
+      "process_tree_rss_bytes": 66871296,
+      "system_available_bytes": 15654338560
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 2,
+      "time_unix": 1790596029.4991977,
+      "process_tree_rss_bytes": 67678208,
+      "system_available_bytes": 15654830080
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 3,
+      "time_unix": 1790596029.5278387,
+      "process_tree_rss_bytes": 68476928,
+      "system_available_bytes": 15654973440
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 4,
+      "time_unix": 1790596029.5566096,
+      "process_tree_rss_bytes": 69234688,
+      "system_available_bytes": 15655051264
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 5,
+      "time_unix": 1790596029.584952,
+      "process_tree_rss_bytes": 70041600,
+      "system_available_bytes": 15655256064
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 6,
+      "time_unix": 1790596029.61235,
+      "process_tree_rss_bytes": 70819840,
+      "system_available_bytes": 15655399424
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 7,
+      "time_unix": 1790596029.6412895,
+      "process_tree_rss_bytes": 71647232,
+      "system_available_bytes": 15655567360
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 8,
+      "time_unix": 1790596029.6683705,
+      "process_tree_rss_bytes": 72417280,
+      "system_available_bytes": 15655714816
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 9,
+      "time_unix": 1790596029.6954997,
+      "process_tree_rss_bytes": 73187328,
+      "system_available_bytes": 15655604224
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 10,
+      "time_unix": 1790596029.7242446,
+      "process_tree_rss_bytes": 73994240,
+      "system_available_bytes": 15655751680
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 11,
+      "time_unix": 1790596029.7508655,
+      "process_tree_rss_bytes": 74797056,
+      "system_available_bytes": 15655960576
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 12,
+      "time_unix": 1790596029.779746,
+      "process_tree_rss_bytes": 75591680,
+      "system_available_bytes": 15656108032
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 13,
+      "time_unix": 1790596029.8073547,
+      "process_tree_rss_bytes": 76365824,
+      "system_available_bytes": 15655993344
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 14,
+      "time_unix": 1790596029.833897,
+      "process_tree_rss_bytes": 77139968,
+      "system_available_bytes": 15656140800
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 15,
+      "time_unix": 1790596029.8628125,
+      "process_tree_rss_bytes": 77979648,
+      "system_available_bytes": 15655772160
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 16,
+      "time_unix": 1790596029.9070935,
+      "process_tree_rss_bytes": 78737408,
+      "system_available_bytes": 15655919616
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 17,
+      "time_unix": 1790596029.9351993,
+      "process_tree_rss_bytes": 79540224,
+      "system_available_bytes": 15656128512
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 18,
+      "time_unix": 1790596029.9622247,
+      "process_tree_rss_bytes": 80310272,
+      "system_available_bytes": 15656284160
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 19,
+      "time_unix": 1790596029.9894075,
+      "process_tree_rss_bytes": 81117184,
+      "system_available_bytes": 15655399424
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 20,
+      "time_unix": 1790596030.0184722,
+      "process_tree_rss_bytes": 81907712,
+      "system_available_bytes": 15655546880
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 21,
+      "time_unix": 1790596030.0446296,
+      "process_tree_rss_bytes": 82685952,
+      "system_available_bytes": 15655694336
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 22,
+      "time_unix": 1790596030.071823,
+      "process_tree_rss_bytes": 83484672,
+      "system_available_bytes": 15655903232
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 23,
+      "time_unix": 1790596030.0994186,
+      "process_tree_rss_bytes": 84287488,
+      "system_available_bytes": 15655985152
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 24,
+      "time_unix": 1790596030.126863,
+      "process_tree_rss_bytes": 85045248,
+      "system_available_bytes": 15656194048
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 25,
+      "time_unix": 1790596030.1540298,
+      "process_tree_rss_bytes": 85856256,
+      "system_available_bytes": 15656341504
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 26,
+      "time_unix": 1790596030.180487,
+      "process_tree_rss_bytes": 86630400,
+      "system_available_bytes": 15656488960
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 27,
+      "time_unix": 1790596030.2293503,
+      "process_tree_rss_bytes": 87429120,
+      "system_available_bytes": 15654572032
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 28,
+      "time_unix": 1790596030.2566633,
+      "process_tree_rss_bytes": 88223744,
+      "system_available_bytes": 15654711296
+    },
+    {
+      "label": "chunk_materialized",
+      "chunk": 29,
+      "time_unix": 1790596030.2810843,
+      "process_tree_rss_bytes": 88875008,
+      "system_available_bytes": 15654793216
+    },
+    {
+      "label": "common_features_written",
+      "chunk": null,
+      "time_unix": 1790596030.29526,
+      "process_tree_rss_bytes": 88657920,
+      "system_available_bytes": 15637008384
+    },
+    {
+      "label": "stream_npz_written",
+      "chunk": null,
+      "time_unix": 1790596030.6462054,
+      "process_tree_rss_bytes": 95285248,
+      "system_available_bytes": 15640018944
+    }
+  ],
+  "peak_process_tree_rss_bytes": 95285248,
+  "minimum_system_available_bytes": 15631683584
+}

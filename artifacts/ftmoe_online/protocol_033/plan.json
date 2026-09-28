@@ -2,7 +2,7 @@
   "protocol": "033",
   "plan_revision": 1,
   "date": "2026-09-28",
-  "status": "planned_not_implemented_not_run",
+  "status": "completed",
   "task": "Generate one complete5969-row continuous rare-recurrence stream, audit, then run one C_fixed5/D_guard_budget pair",
   "implementation_source_commit": "a215c1161adba4ff29514eb88806762c2f068023",
   "implementation_source_branch": "protocol-031-rare-recurrence-20260922",
@@ -76,5 +76,8 @@
       "W_gap5"
     ],
     "detection_threshold": 0.5
-  }
+  },
+  "terminal_run_id": 36417604442,
+  "terminal_generation_run_id": 36406176443,
+  "terminal_blocker": null
 }

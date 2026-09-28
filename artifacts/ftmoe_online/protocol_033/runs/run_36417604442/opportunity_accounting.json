@@ -1,0 +1,43 @@
+{
+  "birth": {
+    "due": 6,
+    "accounted": 6,
+    "conserved": true,
+    "not_yet_eligible": 0,
+    "started": 5,
+    "skipped_busy": 0,
+    "skipped_no_memory": 0,
+    "skipped_no_match": 0,
+    "skipped_capacity": 1
+  },
+  "reuse": {
+    "due": 0,
+    "accounted": 0,
+    "conserved": true,
+    "not_yet_eligible": 0,
+    "started": 0,
+    "skipped_busy": 0,
+    "skipped_no_memory": 0,
+    "skipped_no_match": 0,
+    "skipped_capacity": 0
+  },
+  "reuse_nonblocking": {
+    "due": 168,
+    "started": 130,
+    "skip_pending": 0,
+    "skip_transition": 2,
+    "skip_no_memory": 36,
+    "skip_insufficient_z": 0,
+    "due_accounted": 168,
+    "due_conserved": true,
+    "outcomes": {
+      "accepted": 7,
+      "rejected": 121,
+      "cancelled": 1,
+      "censored": 1,
+      "pending": 0
+    },
+    "started_outcome_accounted": 130,
+    "started_conserved": true
+  }
+}

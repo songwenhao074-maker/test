@@ -1,0 +1,504 @@
+{
+  "per_reactivation_event_logging": [
+    {
+      "reuse_event_id": "reuse_001",
+      "expert_id": "4",
+      "replaced_active_specialist_id": "5",
+      "accepted_cursor": 2323,
+      "accepted_matured": 2322,
+      "first_influence_prediction_index": 2324,
+      "first_influence_recurrence_window": null
+    },
+    {
+      "reuse_event_id": "reuse_002",
+      "expert_id": "5",
+      "replaced_active_specialist_id": "6",
+      "accepted_cursor": 4051,
+      "accepted_matured": 4050,
+      "first_influence_prediction_index": 4052,
+      "first_influence_recurrence_window": null
+    },
+    {
+      "reuse_event_id": "reuse_003",
+      "expert_id": "6",
+      "replaced_active_specialist_id": "5",
+      "accepted_cursor": 4275,
+      "accepted_matured": 4274,
+      "first_influence_prediction_index": 4276,
+      "first_influence_recurrence_window": null
+    },
+    {
+      "reuse_event_id": "reuse_004",
+      "expert_id": "6",
+      "replaced_active_specialist_id": "8",
+      "accepted_cursor": 5107,
+      "accepted_matured": 5106,
+      "first_influence_prediction_index": 5108,
+      "first_influence_recurrence_window": null
+    },
+    {
+      "reuse_event_id": "reuse_005",
+      "expert_id": "5",
+      "replaced_active_specialist_id": "6",
+      "accepted_cursor": 5139,
+      "accepted_matured": 5138,
+      "first_influence_prediction_index": 5140,
+      "first_influence_recurrence_window": null
+    },
+    {
+      "reuse_event_id": "reuse_006",
+      "expert_id": "6",
+      "replaced_active_specialist_id": "5",
+      "accepted_cursor": 5235,
+      "accepted_matured": 5234,
+      "first_influence_prediction_index": 5236,
+      "first_influence_recurrence_window": null
+    },
+    {
+      "reuse_event_id": "reuse_007",
+      "expert_id": "8",
+      "replaced_active_specialist_id": "6",
+      "accepted_cursor": 5267,
+      "accepted_matured": 5266,
+      "first_influence_prediction_index": 5268,
+      "first_influence_recurrence_window": null
+    }
+  ],
+  "accepted_reuse_with_first_influence_in_recurrence": false,
+  "topology_before_each_registered_recurrence": {
+    "before_U_rec1": {
+      "active_specialist_id": "6",
+      "real_dormant_expert_ids": [
+        "4",
+        "5"
+      ],
+      "memory_registry_ids": [
+        "4",
+        "5",
+        "6"
+      ],
+      "shadow_id": null
+    },
+    "before_V_rec1": {
+      "active_specialist_id": "6",
+      "real_dormant_expert_ids": [
+        "4",
+        "5"
+      ],
+      "memory_registry_ids": [
+        "4",
+        "5",
+        "6"
+      ],
+      "shadow_id": null
+    },
+    "before_U_rec2": {
+      "active_specialist_id": "6",
+      "real_dormant_expert_ids": [
+        "4",
+        "5"
+      ],
+      "memory_registry_ids": [
+        "4",
+        "5",
+        "6"
+      ],
+      "shadow_id": null
+    },
+    "before_V_rec2": {
+      "active_specialist_id": "8",
+      "real_dormant_expert_ids": [
+        "4",
+        "5",
+        "6"
+      ],
+      "memory_registry_ids": [
+        "4",
+        "5",
+        "6",
+        "8"
+      ],
+      "shadow_id": null
+    },
+    "before_U_rec3": {
+      "active_specialist_id": "8",
+      "real_dormant_expert_ids": [
+        "4",
+        "5",
+        "6"
+      ],
+      "memory_registry_ids": [
+        "4",
+        "5",
+        "6",
+        "8"
+      ],
+      "shadow_id": null
+    },
+    "before_V_rec3": {
+      "active_specialist_id": "8",
+      "real_dormant_expert_ids": [
+        "4",
+        "5",
+        "6"
+      ],
+      "memory_registry_ids": [
+        "4",
+        "5",
+        "6",
+        "8"
+      ],
+      "shadow_id": null
+    }
+  },
+  "retirements": 10,
+  "reactivations": 7,
+  "reuse_outcomes": {
+    "accepted": 7,
+    "rejected": 121,
+    "cancelled": 1,
+    "censored": 1,
+    "pending": 0
+  },
+  "candidate_sources": [
+    {
+      "candidate_id": "4",
+      "created_cursor": 601,
+      "accepted": true,
+      "cancelled_by_reuse": false,
+      "training_indices_count": 128,
+      "training_source_phases": [
+        "U_first"
+      ],
+      "accepted_cursor": 763,
+      "decision": {
+        "candidate_id": "4",
+        "live_mean_loss": 0.8144864309579134,
+        "candidate_mean_loss": 0.78939856775105,
+        "relative_improvement": 0.030802064040965905,
+        "required_relative_improvement": 0.01,
+        "live_normal_probability": 0.04581873967018846,
+        "candidate_normal_probability": 0.04803800564386869,
+        "normal_safety_ok": true,
+        "validation_live_fpr_0p5": 0.0273972602739726,
+        "validation_candidate_fpr_0p5": 0.0273972602739726,
+        "validation_fpr_delta_0p5": 0.0,
+        "validation_fpr_ok": true,
+        "guard": {
+          "protocol": "032",
+          "guard_policy": "F0_normal_nll_relative_2pct_with_absolute_floor_0p01_nats",
+          "rows": 960,
+          "normal_rows": 960,
+          "positive_rows": 0,
+          "finite_logits": true,
+          "loss_definition": "binary_detection_cross_entropy_on_known_normal_rows",
+          "normal_nll_relative_tolerance": 0.02,
+          "normal_nll_absolute_floor_nats": 0.01,
+          "normal_nll_numerical_tolerance": 1e-06,
+          "fpr_threshold": 0.5,
+          "fpr_delta_max": 0.01,
+          "available": true,
+          "unavailable_reason": null,
+          "live_loss": 0.023475416004657745,
+          "candidate_loss": 0.024897290393710136,
+          "relative_loss_increase": -0.34545148376690865,
+          "relative_loss_increase_raw": 0.060568655685176255,
+          "historical_relative_loss_increase": 0.060568655685176255,
+          "old_candidate_normal_nll_limit": 0.0239459243247509,
+          "candidate_normal_nll_limit": 0.03347641600465775,
+          "absolute_allowance_nats": 0.01,
+          "extra_absolute_floor_over_2pct_nats": 0.009530491679906845,
+          "old_normal_nll_ok_direct": false,
+          "normal_nll_ok_direct": true,
+          "inherited_birth_relative_check_ok": true,
+          "live_fpr_0p5": 0.0072916666977107525,
+          "candidate_fpr_0p5": 0.0072916666977107525,
+          "fpr_delta_0p5": 0.0,
+          "preview_topology": "four_generalists_plus_new_specialist",
+          "guard_role": "F0_known_normal_regression_guard",
+          "decision_path": "birth_inherited_relative_loss_check_reparameterized_exactly"
+        },
+        "guard_loss_ok": true,
+        "guard_fpr_ok": true,
+        "candidate_route_probability_mean": 0.3402655413374305,
+        "parent_parameter_l2_change": 0.5441013257898091,
+        "validation_intervals": 32,
+        "accepted": true,
+        "reject_reasons": [],
+        "shadow_budget_version": "buffer128_4x4"
+      }
+    },
+    {
+      "candidate_id": "5",
+      "created_cursor": 1601,
+      "accepted": true,
+      "cancelled_by_reuse": false,
+      "training_indices_count": 128,
+      "training_source_phases": [
+        "V_first"
+      ],
+      "accepted_cursor": 1763,
+      "decision": {
+        "candidate_id": "5",
+        "live_mean_loss": 0.36306275421520695,
+        "candidate_mean_loss": 0.34201108117122203,
+        "relative_improvement": 0.05798356564966301,
+        "required_relative_improvement": 0.01,
+        "live_normal_probability": 0.08783255988290302,
+        "candidate_normal_probability": 0.08138738908603099,
+        "normal_safety_ok": true,
+        "validation_live_fpr_0p5": 0.07510729613733906,
+        "validation_candidate_fpr_0p5": 0.07081545064377683,
+        "validation_fpr_delta_0p5": -0.004291845493562235,
+        "validation_fpr_ok": true,
+        "guard": {
+          "protocol": "032",
+          "guard_policy": "F0_normal_nll_relative_2pct_with_absolute_floor_0p01_nats",
+          "rows": 960,
+          "normal_rows": 960,
+          "positive_rows": 0,
+          "finite_logits": true,
+          "loss_definition": "binary_detection_cross_entropy_on_known_normal_rows",
+          "normal_nll_relative_tolerance": 0.02,
+          "normal_nll_absolute_floor_nats": 0.01,
+          "normal_nll_numerical_tolerance": 1e-06,
+          "fpr_threshold": 0.5,
+          "fpr_delta_max": 0.01,
+          "available": true,
+          "unavailable_reason": null,
+          "live_loss": 0.025369880720973015,
+          "candidate_loss": 0.021036304533481598,
+          "relative_loss_increase": -0.5450233970410894,
+          "relative_loss_increase_raw": -0.17081578881484039,
+          "historical_relative_loss_increase": -0.17081578881484039,
+          "old_candidate_normal_nll_limit": 0.025878278335392475,
+          "candidate_normal_nll_limit": 0.03537088072097302,
+          "absolute_allowance_nats": 0.01,
+          "extra_absolute_floor_over_2pct_nats": 0.009492602385580539,
+          "old_normal_nll_ok_direct": true,
+          "normal_nll_ok_direct": true,
+          "inherited_birth_relative_check_ok": true,
+          "live_fpr_0p5": 0.0072916666977107525,
+          "candidate_fpr_0p5": 0.0062500000931322575,
+          "fpr_delta_0p5": -0.001041666604578495,
+          "preview_topology": "four_generalists_plus_new_specialist",
+          "guard_role": "F0_known_normal_regression_guard",
+          "decision_path": "birth_inherited_relative_loss_check_reparameterized_exactly"
+        },
+        "guard_loss_ok": true,
+        "guard_fpr_ok": true,
+        "candidate_route_probability_mean": 0.36390519328415394,
+        "parent_parameter_l2_change": 0.44947103649232306,
+        "validation_intervals": 32,
+        "accepted": true,
+        "reject_reasons": [],
+        "shadow_budget_version": "buffer128_4x4"
+      }
+    },
+    {
+      "candidate_id": "6",
+      "created_cursor": 2601,
+      "accepted": true,
+      "cancelled_by_reuse": false,
+      "training_indices_count": 128,
+      "training_source_phases": [
+        "W_long"
+      ],
+      "accepted_cursor": 2763,
+      "decision": {
+        "candidate_id": "6",
+        "live_mean_loss": 0.4911817954853177,
+        "candidate_mean_loss": 0.48430024459958076,
+        "relative_improvement": 0.01401019123466811,
+        "required_relative_improvement": 0.01,
+        "live_normal_probability": 0.07804775714627182,
+        "candidate_normal_probability": 0.07816551811993122,
+        "normal_safety_ok": true,
+        "validation_live_fpr_0p5": 0.06887755102040816,
+        "validation_candidate_fpr_0p5": 0.06887755102040816,
+        "validation_fpr_delta_0p5": 0.0,
+        "validation_fpr_ok": true,
+        "guard": {
+          "protocol": "032",
+          "guard_policy": "F0_normal_nll_relative_2pct_with_absolute_floor_0p01_nats",
+          "rows": 960,
+          "normal_rows": 960,
+          "positive_rows": 0,
+          "finite_logits": true,
+          "loss_definition": "binary_detection_cross_entropy_on_known_normal_rows",
+          "normal_nll_relative_tolerance": 0.02,
+          "normal_nll_absolute_floor_nats": 0.01,
+          "normal_nll_numerical_tolerance": 1e-06,
+          "fpr_threshold": 0.5,
+          "fpr_delta_max": 0.01,
+          "available": true,
+          "unavailable_reason": null,
+          "live_loss": 0.025078320875763893,
+          "candidate_loss": 0.025163643062114716,
+          "relative_loss_increase": -0.37538842583483545,
+          "relative_loss_increase_raw": 0.0034022288323648986,
+          "historical_relative_loss_increase": 0.0034022288323648986,
+          "old_candidate_normal_nll_limit": 0.025580887293279172,
+          "candidate_normal_nll_limit": 0.035079320875763896,
+          "absolute_allowance_nats": 0.01,
+          "extra_absolute_floor_over_2pct_nats": 0.009498433582484722,
+          "old_normal_nll_ok_direct": true,
+          "normal_nll_ok_direct": true,
+          "inherited_birth_relative_check_ok": true,
+          "live_fpr_0p5": 0.0072916666977107525,
+          "candidate_fpr_0p5": 0.0072916666977107525,
+          "fpr_delta_0p5": 0.0,
+          "preview_topology": "four_generalists_plus_new_specialist",
+          "guard_role": "F0_known_normal_regression_guard",
+          "decision_path": "birth_inherited_relative_loss_check_reparameterized_exactly"
+        },
+        "guard_loss_ok": true,
+        "guard_fpr_ok": true,
+        "candidate_route_probability_mean": 0.36132970824837685,
+        "parent_parameter_l2_change": 0.4573477858256726,
+        "validation_intervals": 32,
+        "accepted": true,
+        "reject_reasons": [],
+        "shadow_budget_version": "buffer128_4x4"
+      }
+    },
+    {
+      "candidate_id": "7",
+      "created_cursor": 3601,
+      "accepted": false,
+      "cancelled_by_reuse": false,
+      "training_indices_count": 128,
+      "training_source_phases": [
+        "W_gap1"
+      ],
+      "accepted_cursor": null,
+      "decision": {
+        "candidate_id": "7",
+        "live_mean_loss": 0.411414104513824,
+        "candidate_mean_loss": 0.4076158436946571,
+        "relative_improvement": 0.009232208564301356,
+        "required_relative_improvement": 0.01,
+        "live_normal_probability": 0.05713572212776472,
+        "candidate_normal_probability": 0.059491569267147285,
+        "normal_safety_ok": true,
+        "validation_live_fpr_0p5": 0.044186046511627906,
+        "validation_candidate_fpr_0p5": 0.046511627906976744,
+        "validation_fpr_delta_0p5": 0.002325581395348837,
+        "validation_fpr_ok": true,
+        "guard": {
+          "protocol": "032",
+          "guard_policy": "F0_normal_nll_relative_2pct_with_absolute_floor_0p01_nats",
+          "rows": 960,
+          "normal_rows": 960,
+          "positive_rows": 0,
+          "finite_logits": true,
+          "loss_definition": "binary_detection_cross_entropy_on_known_normal_rows",
+          "normal_nll_relative_tolerance": 0.02,
+          "normal_nll_absolute_floor_nats": 0.01,
+          "normal_nll_numerical_tolerance": 1e-06,
+          "fpr_threshold": 0.5,
+          "fpr_delta_max": 0.01,
+          "available": true,
+          "unavailable_reason": null,
+          "live_loss": 0.026877043768763542,
+          "candidate_loss": 0.029320279136300087,
+          "relative_loss_increase": -0.2611977648095018,
+          "relative_loss_increase_raw": 0.09090417043469896,
+          "historical_relative_loss_increase": 0.09090417043469896,
+          "old_candidate_normal_nll_limit": 0.027415584644138815,
+          "candidate_normal_nll_limit": 0.036878043768763545,
+          "absolute_allowance_nats": 0.01,
+          "extra_absolute_floor_over_2pct_nats": 0.00946245912462473,
+          "old_normal_nll_ok_direct": false,
+          "normal_nll_ok_direct": true,
+          "inherited_birth_relative_check_ok": true,
+          "live_fpr_0p5": 0.00937500037252903,
+          "candidate_fpr_0p5": 0.00937500037252903,
+          "fpr_delta_0p5": 0.0,
+          "preview_topology": "four_generalists_plus_new_specialist",
+          "guard_role": "F0_known_normal_regression_guard",
+          "decision_path": "birth_inherited_relative_loss_check_reparameterized_exactly"
+        },
+        "guard_loss_ok": true,
+        "guard_fpr_ok": true,
+        "candidate_route_probability_mean": 0.357555253431201,
+        "parent_parameter_l2_change": 0.4303838370188354,
+        "validation_intervals": 32,
+        "accepted": false,
+        "reject_reasons": [
+          "relative_loss_improvement_below_1pct"
+        ],
+        "shadow_budget_version": "buffer128_4x4"
+      }
+    },
+    {
+      "candidate_id": "8",
+      "created_cursor": 4601,
+      "accepted": true,
+      "cancelled_by_reuse": false,
+      "training_indices_count": 128,
+      "training_source_phases": [
+        "W_gap3"
+      ],
+      "accepted_cursor": 4763,
+      "decision": {
+        "candidate_id": "8",
+        "live_mean_loss": 0.49034185986965895,
+        "candidate_mean_loss": 0.47516049863770604,
+        "relative_improvement": 0.030960769361988317,
+        "required_relative_improvement": 0.01,
+        "live_normal_probability": 0.05734901716372682,
+        "candidate_normal_probability": 0.06008581630119323,
+        "normal_safety_ok": true,
+        "validation_live_fpr_0p5": 0.053164556962025315,
+        "validation_candidate_fpr_0p5": 0.05822784810126582,
+        "validation_fpr_delta_0p5": 0.0050632911392405056,
+        "validation_fpr_ok": true,
+        "guard": {
+          "protocol": "032",
+          "guard_policy": "F0_normal_nll_relative_2pct_with_absolute_floor_0p01_nats",
+          "rows": 960,
+          "normal_rows": 960,
+          "positive_rows": 0,
+          "finite_logits": true,
+          "loss_definition": "binary_detection_cross_entropy_on_known_normal_rows",
+          "normal_nll_relative_tolerance": 0.02,
+          "normal_nll_absolute_floor_nats": 0.01,
+          "normal_nll_numerical_tolerance": 1e-06,
+          "fpr_threshold": 0.5,
+          "fpr_delta_max": 0.01,
+          "available": true,
+          "unavailable_reason": null,
+          "live_loss": 0.028531746938824654,
+          "candidate_loss": 0.03125150874257088,
+          "relative_loss_increase": -0.23519777011430773,
+          "relative_loss_increase_raw": 0.09532405462510604,
+          "historical_relative_loss_increase": 0.09532405462510604,
+          "old_candidate_normal_nll_limit": 0.02910338187760115,
+          "candidate_normal_nll_limit": 0.03853274693882466,
+          "absolute_allowance_nats": 0.01,
+          "extra_absolute_floor_over_2pct_nats": 0.009429365061223507,
+          "old_normal_nll_ok_direct": false,
+          "normal_nll_ok_direct": true,
+          "inherited_birth_relative_check_ok": true,
+          "live_fpr_0p5": 0.00937500037252903,
+          "candidate_fpr_0p5": 0.010416666977107525,
+          "fpr_delta_0p5": 0.001041666604578495,
+          "preview_topology": "four_generalists_plus_new_specialist",
+          "guard_role": "F0_known_normal_regression_guard",
+          "decision_path": "birth_inherited_relative_loss_check_reparameterized_exactly"
+        },
+        "guard_loss_ok": true,
+        "guard_fpr_ok": true,
+        "candidate_route_probability_mean": 0.3529640967026353,
+        "parent_parameter_l2_change": 0.33757406700752474,
+        "validation_intervals": 32,
+        "accepted": true,
+        "reject_reasons": [],
+        "shadow_budget_version": "buffer128_4x4"
+      }
+    }
+  ],
+  "mechanism_has_event_specific_evidence": true,
+  "reuse_mechanism_established_for_registered_recurrence": false
+}

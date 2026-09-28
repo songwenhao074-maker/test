@@ -1,0 +1,17 @@
+{
+  "protocol": "033",
+  "plan_revision": 1,
+  "run_id": "36417604442",
+  "completed": true,
+  "full_model_replays_started": 2,
+  "full_model_replay_budget": 2,
+  "completed_comparators": [
+    "C_fixed5",
+    "D_guard_budget"
+  ],
+  "automatic_followups_started": [],
+  "development_reference_all_pass": false,
+  "reuse_mechanism_established_for_registered_recurrence": false,
+  "blocker": null,
+  "stop_after_this_pair": true
+}

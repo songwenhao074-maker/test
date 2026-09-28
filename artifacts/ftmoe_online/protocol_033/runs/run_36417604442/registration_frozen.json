@@ -1,0 +1,335 @@
+{
+  "protocol": "033",
+  "plan_revision": 1,
+  "scenario_id": "protocol033_rare_recurrence_5969_v1",
+  "data_revision": "protocol033_data_revision_001",
+  "status": "frozen_pre_model",
+  "registered_before_generation": true,
+  "source_code_commit": "a215c1161adba4ff29514eb88806762c2f068023",
+  "purpose": "Rare short recurring services after long dominant-service interference, under short training replay and sparse online updates",
+  "replay_seed": 700,
+  "model_seed": 1,
+  "scored_intervals": 5968,
+  "guard_intervals": 1,
+  "timeline": [
+    {
+      "name": "F0",
+      "service": "baseline",
+      "length": 300,
+      "start": 0,
+      "end": 300
+    },
+    {
+      "name": "U_first",
+      "service": "U",
+      "length": 1000,
+      "start": 300,
+      "end": 1300
+    },
+    {
+      "name": "V_first",
+      "service": "V",
+      "length": 1000,
+      "start": 1300,
+      "end": 2300
+    },
+    {
+      "name": "W_long",
+      "service": "W",
+      "length": 1000,
+      "start": 2300,
+      "end": 3300
+    },
+    {
+      "name": "U_rec1",
+      "service": "U",
+      "length": 128,
+      "start": 3300,
+      "end": 3428
+    },
+    {
+      "name": "W_gap1",
+      "service": "W",
+      "length": 380,
+      "start": 3428,
+      "end": 3808
+    },
+    {
+      "name": "V_rec1",
+      "service": "V",
+      "length": 128,
+      "start": 3808,
+      "end": 3936
+    },
+    {
+      "name": "W_gap2",
+      "service": "W",
+      "length": 380,
+      "start": 3936,
+      "end": 4316
+    },
+    {
+      "name": "U_rec2",
+      "service": "U",
+      "length": 128,
+      "start": 4316,
+      "end": 4444
+    },
+    {
+      "name": "W_gap3",
+      "service": "W",
+      "length": 380,
+      "start": 4444,
+      "end": 4824
+    },
+    {
+      "name": "V_rec2",
+      "service": "V",
+      "length": 128,
+      "start": 4824,
+      "end": 4952
+    },
+    {
+      "name": "W_gap4",
+      "service": "W",
+      "length": 380,
+      "start": 4952,
+      "end": 5332
+    },
+    {
+      "name": "U_rec3",
+      "service": "U",
+      "length": 128,
+      "start": 5332,
+      "end": 5460
+    },
+    {
+      "name": "W_gap5",
+      "service": "W",
+      "length": 380,
+      "start": 5460,
+      "end": 5840
+    },
+    {
+      "name": "V_rec3",
+      "service": "V",
+      "length": 128,
+      "start": 5840,
+      "end": 5968
+    }
+  ],
+  "services": {
+    "U": {
+      "source_service_id": "S1",
+      "role": "rare_cpu_rise",
+      "parameters": {
+        "name": "cpu_short_pulse",
+        "driver": "cpu_demand",
+        "rise_intervals": 6,
+        "hold_intervals": 10,
+        "decay_intervals": 8,
+        "peak_capacity_fraction": 1.18,
+        "history_signal": "positive cpu slope"
+      }
+    },
+    "V": {
+      "source_service_id": "S3",
+      "role": "rare_io_writeback",
+      "parameters": {
+        "name": "io_writeback",
+        "driver": "disk_write_backlog",
+        "accumulate_intervals": 14,
+        "flush_intervals": 12,
+        "peak_capacity_fraction": 1.2,
+        "cpu_coupling": 0.15,
+        "history_signal": "write backlog and write slope"
+      }
+    },
+    "W": {
+      "source_service_id": "S4",
+      "role": "dominant_cache_warmup_decay",
+      "parameters": {
+        "name": "cache_warmup_decay",
+        "driver": "cache_miss_pressure",
+        "warmup_intervals": 16,
+        "decay_half_life_intervals": 12,
+        "initial_capacity_fraction": 1.16,
+        "floor_capacity_fraction": 0.55,
+        "history_signal": "high pressure with negative slope"
+      }
+    }
+  },
+  "service_implementation_source": "simulator/workload/BitbrainWorkloadProtocol025.py",
+  "source_law_revision": "Use pinned current implementation including registered S4 decay-floor fix; no amplitude/event-probability tuning",
+  "generation": {
+    "new_full_simulator_stream_required": true,
+    "source_path": "Bitbrain/GOBI/RPiEdge/simulationStep",
+    "event_probability": 0.3,
+    "chunk_intervals": 200,
+    "full_stream_budget": 1,
+    "resumable": true,
+    "checkpoint_must_include_simulator_scheduler_workload_and_RNG": true,
+    "no_posthoc_npz_splicing": true,
+    "same_law_new_creation_ids_and_events_on_recurrence": true,
+    "existing_tasks_continue_at_service_switch": true,
+    "phase_boundary_not_state_reset": true,
+    "expected_stream_sha256": "70c9283f133a5f8033e12fbc03a38af6d9ce39f1d7e6a9e825964ee9a28edbd9",
+    "freeze_actual_hashes_before_model_runs": true,
+    "resume_requires_matching_registration_hash": true,
+    "superseded_revision_chunks_are_not_resume_inputs": true,
+    "segment_max_intervals": 200,
+    "expected_chunk_count": 30,
+    "final_chunk_intervals": 169,
+    "memory_profile_required": true,
+    "resume_requires_matching_implementation_and_source_hashes": true,
+    "finalization_separate_process": true,
+    "actual_chunk_sha256": [
+      "bfe732b202ffa439e1cca432163b9f09ab152ccf8cdf57988745e1deae8f7519",
+      "5794848d0716e30c0a741a396a8a56d5ea9a8f74e416adfa3925ee2df4b89de5",
+      "a93dd25cd1b4ee39c86e38b18504768803322bb533eb14b524aa5f21f020cfde",
+      "c4c0468e21dff76142d272aaf4917642bf7823cd549b3f8ab6add0903c359cd5",
+      "b5ae93d40de485016ccd79a54faf453bf4ac06bec2ec518bcc6a7abc26b74c34",
+      "ec8a043b2225057c2e4651c8d05504e302cb9b4b130066427ef81ce9601883b3",
+      "7e711a9e7b9ac19f52b20a06e33dab222e55c616bb7e94089c2ef940559f90ab",
+      "7ccb7d6ad2eb672fce027bef1aa541031ec9befe25d76b77459a76862b318e9d",
+      "ce1f582b366cb6a29577bd9b892bc59f3cd7e7f36b3e7076ce1d63cd4aa1c99d",
+      "a6237396442aaa33a94e30bd6b7e4e0dc8a3c10a1cb3456787d61d3ef870faac",
+      "1a033630859e300a7ec467d85224d52c2d06d91cf77022324a38aff46a499bc2",
+      "17a19a7ca36eb08ff629e889678b4e0d97725aebeb0f5a683d420de57f3b631c",
+      "827bad2befefeb4982440231c857f231df0973ce82ded47f5ef0cc5cd2f84235",
+      "1247fef95a82992c0bf15a7125e8338f59a713f7a96eaed2dd281c4e2c690640",
+      "490372de966efc8f34fb629680d488c4902de934ca3d7a56f7bb8f453333f4c7",
+      "8580b85dbb1978de8db60ed4d7a3bf05a9402a2b6e5951f6da5a974429568de7",
+      "1489eefa8b659f09928c2fe8400761a49952cd219613b5bf619b84e9b4e92ac0",
+      "c0823d57205df05e6d6e1d17a5ee8cb545ef36aad9a74eb46633d88f31830f43",
+      "3d0210c9d8296ea79e4cef27ce636aadfd0c90d8816c56e1f8e44c04493f556e",
+      "05b61f410ba21f2e2a72eaf26d2c6020cfbba974ac1b8fbf86593d37f5eac0d8",
+      "1ac05dcbbc2380f06600eba4dd941b911c3a212483d28296ca28c664826000a2",
+      "7d9a8f2c49e3d88a1b7461c9b1ce4c8988a9f690c251ee0a5edb3e6dfd7f3363",
+      "cdbac32dbccfe956860dd2ede6a690ef3fe35000235b4ccc1932c8e06f5dee2b",
+      "ee9457be7e471a7a37a9a54672a47d1ce56131eb580a6b4186cc9913f862b110",
+      "4b0c0dd22f488d6135cc968943185d91eb97247a5d1c8971aecd85c185b14076",
+      "205a9bc197ac0cee5c7093561a29056c150a217ca4e5ad8819c4686f989a63ea",
+      "25d08614e4f0c20823baba11e9d99059e09c87d00f57133ce1fbf24f4d45b27d",
+      "2f120d6c12e75eece6ebdffeef26958fbf4348a3aaeebcb6b341426ebe658477",
+      "ff3052dc4f0f5011a7ab22599d17e3f2dd586c9cc6111aaf85a8772be008789f",
+      "c7e08383ac7e503a846e87f04cc269035286a92329ff3a2fa98a40d8727ac877"
+    ]
+  },
+  "causality": {
+    "label_rule": "post-simulator argmax(CPU,RAM,Disk aggregate/capacity) if any ratio>1 else 0",
+    "target": "raw_next_fault",
+    "target_maturity": "t_plus_2",
+    "shared_features": "unchanged frozen base z64 plus causal pressure/delta/slope9",
+    "service_and_phase_ids_audit_only": true,
+    "future_switch_times_forbidden": true
+  },
+  "model_free_gates": {
+    "all_rows_and_chunks_complete": true,
+    "label_recompute_exact": true,
+    "finite_causal_features": true,
+    "scheduler_and_capacity_audit": true,
+    "required_event_services": [
+      "U",
+      "V",
+      "W"
+    ],
+    "positive_min_per_nonbaseline_phase": 32,
+    "negative_min_per_nonbaseline_phase": 32,
+    "normal_guard_available": true,
+    "failed_audit_allows_model_runs": false,
+    "reroll_after_audit_failure": false
+  },
+  "training": {
+    "online_update_every_scored_intervals": 16,
+    "online_gradient_steps_per_opportunity": 1,
+    "minibatch_intervals": 32,
+    "replay_matured_intervals": 64,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "distill_weight": 0.1,
+    "gradient_clip_norm": 1,
+    "both_arms_same_online_budget": true,
+    "historical_data_policy": "Only the latest64 matured intervals may enter parameter updates; immutable F0 guard and audit logs are exceptions for evaluation only"
+  },
+  "D_capacity_and_birth": {
+    "generalists": 4,
+    "max_live_specialists": 1,
+    "max_resident_experts_including_shadow": 8,
+    "crossfade_max_active_experts": 6,
+    "crossfade_prediction_intervals": 8,
+    "birth_start_matured": 600,
+    "birth_every_matured": 1000,
+    "birth_timing_uses_no_phase_ID": true,
+    "candidate_train_horizon_intervals": 128,
+    "candidate_replay_intervals": 64,
+    "candidate_minibatch_intervals": 32,
+    "candidate_update_every_matured": 4,
+    "candidate_updates_per_opportunity": 4,
+    "candidate_validation_intervals": 32,
+    "full_capacity_policy": "skip birth; preserve accepted memory",
+    "shadow_extra_compute_allowed_and_reported": true,
+    "acceptance_policy": "Protocol032 guard budget; other acceptance and highest-cosine single-candidate reuse rules unchanged",
+    "F0_normal_nll_bound": "L_candidate <= L_live + max(0.02 * L_live, 0.01) + 1e-6",
+    "hard_delete_enabled": false
+  },
+  "evaluation": {
+    "primary_windows": [
+      "U_rec1",
+      "V_rec1",
+      "U_rec2",
+      "V_rec2",
+      "U_rec3",
+      "V_rec3"
+    ],
+    "primary_window_length": 128,
+    "primary_metric": "equal-weight mean AP(D_guard_budget)-AP(C_fixed5) across all six U/V recurrence128 windows",
+    "development_reference": {
+      "required_valid_windows": 6,
+      "mean_AP_delta_min": 0.03,
+      "positive_windows_min": 4,
+      "pooled_recurrence_normal_FPR_delta_max": 0.01,
+      "mean_W_block_AP_delta_min": -0.02
+    },
+    "secondary": [
+      "each recurrence first32/first64 AP and FPR",
+      "W equal-weight block mean AP",
+      "full-stream AP and FPR",
+      "reactivation latency",
+      "memory coverage",
+      "total compute and storage"
+    ],
+    "no_best_window_selection": true,
+    "window_index_semantics": "prediction indices [start,end); targets raw_labels[start+1:end+1] on the same host",
+    "W_block_names": [
+      "W_long",
+      "W_gap1",
+      "W_gap2",
+      "W_gap3",
+      "W_gap4",
+      "W_gap5"
+    ],
+    "detection_threshold": 0.5
+  },
+  "interpretation": {
+    "deliberately_targets_memory_reuse": true,
+    "not_equal_total_resident_memory": true,
+    "not_equal_total_training_compute": true,
+    "no_global_D_optimality_claim": true,
+    "no_hard_delete_benefit_claim": true,
+    "comparison_scope": "D versus C_fixed5 only on this registered deployment scenario; no A/B inference",
+    "development_after_observing_031_032": true,
+    "independent_confirmation": false
+  },
+  "total_intervals": 5969,
+  "registration_date": "2026-09-28",
+  "change_scope": {
+    "timeline": "F0=300; U_first=V_first=W_long=1000; six recurrence windows=128 each; five W gaps=380 each",
+    "birth_cadence": "1600 -> 1000 matured intervals; start remains600; timer not phase-triggered",
+    "physical_laws": "unchanged",
+    "other_algorithm_changes": false,
+    "reason": "Complete all six recurrence windows within user's approximately6000-row RAM budget",
+    "historical_results_preserved": true
+  }
+}

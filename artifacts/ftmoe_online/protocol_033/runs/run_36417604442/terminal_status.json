@@ -1,0 +1,21 @@
+{
+  "protocol": "033",
+  "plan_revision": 1,
+  "run_id": "36417604442",
+  "completed": true,
+  "blocker": null,
+  "step_outcomes": {
+    "ASSEMBLE_OUTCOME": "success",
+    "AUDIT_OUTCOME": "success",
+    "C_OUTCOME": "success",
+    "D_OUTCOME": "success",
+    "COMPARE_OUTCOME": "success"
+  },
+  "full_generation_budget": 1,
+  "full_model_replay_budget": 2,
+  "full_model_replays_started": 2,
+  "no_reroll": true,
+  "no_extra_replays": true,
+  "automatic_scientific_followup": false,
+  "frozen_generation_run_id": "36406176443"
+}
