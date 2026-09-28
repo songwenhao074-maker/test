@@ -13,6 +13,7 @@ from ftmoe_protocol034_live_memory import GENERALISTS, active_specialist_hash, d
 
 
 def build(stream,registration,input_lock,out,run_id,observer=True):
+    Path(out).mkdir(parents=True,exist_ok=True)
     stream_sha,manifest,lock,reg=validate_input(stream,registration,input_lock)
     bundle=s4.build_replay(Path(stream)); pdefs=p31.phases(manifest); guard=p31.build_guard(bundle)
     guard['meta'].update({'protocol':'034','normal_nll_rule':'candidate <= live + max(0.02*live,0.01) + 1e-6'})
