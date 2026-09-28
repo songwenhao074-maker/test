@@ -1,0 +1,80 @@
+{
+  "protocol": "033",
+  "plan_revision": 1,
+  "date": "2026-09-28",
+  "status": "planned_not_implemented_not_run",
+  "task": "Generate one complete5969-row continuous rare-recurrence stream, audit, then run one C_fixed5/D_guard_budget pair",
+  "implementation_source_commit": "a215c1161adba4ff29514eb88806762c2f068023",
+  "implementation_source_branch": "protocol-031-rare-recurrence-20260922",
+  "directive": "docs/PROTOCOL033_6000_STEP_DIRECTIVE_20260928.md",
+  "scenario_registration": "artifacts/ftmoe_online/protocol_033/scenario_registration.json",
+  "plan_validator": "maintenance/validate_protocol033_plan.py",
+  "scored_intervals": 5968,
+  "guard_intervals": 1,
+  "total_intervals": 5969,
+  "complete_recurrence_windows": 6,
+  "full_generation_budget": 1,
+  "full_replay_budget": 2,
+  "arms": [
+    "C_fixed5",
+    "D_guard_budget"
+  ],
+  "replay_seed": 700,
+  "model_seed": 1,
+  "birth_start_matured": 600,
+  "birth_every_matured": 1000,
+  "chunk_intervals": 200,
+  "expected_chunks": 30,
+  "last_chunk_intervals": 169,
+  "generation_segment_max_intervals": 200,
+  "new_process_per_generation_segment": true,
+  "finalization_separate_process": true,
+  "memory_soft_limit_fraction": 0.8,
+  "memory_sampling_intervals": 20,
+  "timeline_change_selected_after_historical_results": true,
+  "old_prefix_reuse": false,
+  "statistical_confirmation": false,
+  "confirmation_seeds_allowed": false,
+  "automatic_followups": false,
+  "workflow_trigger": "workflow_dispatch_only",
+  "run_in_this_planning_turn": false,
+  "stop_after": "one complete audited stream plus one C/D pair, or explicit blocker; no missing-window partial success",
+  "evaluation": {
+    "primary_windows": [
+      "U_rec1",
+      "V_rec1",
+      "U_rec2",
+      "V_rec2",
+      "U_rec3",
+      "V_rec3"
+    ],
+    "primary_window_length": 128,
+    "primary_metric": "equal-weight mean AP(D_guard_budget)-AP(C_fixed5) across all six U/V recurrence128 windows",
+    "development_reference": {
+      "required_valid_windows": 6,
+      "mean_AP_delta_min": 0.03,
+      "positive_windows_min": 4,
+      "pooled_recurrence_normal_FPR_delta_max": 0.01,
+      "mean_W_block_AP_delta_min": -0.02
+    },
+    "secondary": [
+      "each recurrence first32/first64 AP and FPR",
+      "W equal-weight block mean AP",
+      "full-stream AP and FPR",
+      "reactivation latency",
+      "memory coverage",
+      "total compute and storage"
+    ],
+    "no_best_window_selection": true,
+    "window_index_semantics": "prediction indices [start,end); targets raw_labels[start+1:end+1] on the same host",
+    "W_block_names": [
+      "W_long",
+      "W_gap1",
+      "W_gap2",
+      "W_gap3",
+      "W_gap4",
+      "W_gap5"
+    ],
+    "detection_threshold": 0.5
+  }
+}
