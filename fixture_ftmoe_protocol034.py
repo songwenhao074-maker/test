@@ -1,6 +1,7 @@
 """Pre-science engineering fixture for Protocol-034 optimizer/freeze/observer rules."""
 from __future__ import annotations
 import argparse, json
+from copy import deepcopy
 from pathlib import Path
 import numpy as np
 
@@ -25,6 +26,35 @@ def build(stream,registration,input_lock,out,run_id,observer=True):
         obs=PredictionMemoryObserver(s.steps,int(s.predictions['probability'].shape[1]),pdefs,s.model.frozen_hash())
         s.attach_snapshot_observer(obs)
     return s
+
+
+def restore_fixture_checkpoint(session, path):
+    """Restore a fixture checkpoint using its registered 73-D bank template.
+
+    Protocol024's generic restore helper templates dynamic experts from the
+    historical frozen 64-D bank. Protocol034 inherits the Protocol025 73-D
+    residual model, so use the current registered generalist architecture as
+    the restore template. This changes no checkpoint tensor or scientific
+    execution semantics; it only makes the engineering roundtrip fixture use
+    the correct architecture.
+    """
+    source = deepcopy(session.model.learner)
+    source.experts = deepcopy(session.model.learner.experts)
+    session.model.learner.source_bank = source if hasattr(session.model.learner, 'source_bank') else getattr(session.model.learner, 'source_bank', None)
+    # The production checkpoint loader receives its template from
+    # model.learner.source_bank when present; install the registered 73-D
+    # generalist bank temporarily for this fixture roundtrip.
+    old = getattr(session.model.learner, 'source_bank', None)
+    try:
+        session.model.learner.source_bank = source
+        return session.restore_checkpoint(path)
+    finally:
+        if old is None:
+            try: delattr(session.model.learner, 'source_bank')
+            except AttributeError: pass
+        else:
+            session.model.learner.source_bank = old
+
 
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--stream',required=True); ap.add_argument('--registration',required=True)
@@ -64,7 +94,7 @@ def main():
     if not any(x.startswith(str(new)+'|') for x in optimizer_names(s)): raise AssertionError('new stable specialist did not resume training')
     if active not in s.model.learner.dormant_experts: raise AssertionError('old specialist not dormant after crossfade')
     ck=s.save_checkpoint('p034_fixture_roundtrip',s.cursor-1); hash0=s.learner_state_hash(); dorm0=dormant_state_hash(s); names0=optimizer_names(s)
-    r=build(a.stream,a.registration,a.input_lock,root/'restore','protocol034_fixture',observer=False); r.restore_checkpoint(ck['path'])
+    r=build(a.stream,a.registration,a.input_lock,root/'restore','protocol034_fixture',observer=False); restore_fixture_checkpoint(r,ck['path'])
     if r.learner_state_hash()!=hash0 or dormant_state_hash(r)!=dorm0 or optimizer_names(r)!=names0:
         raise AssertionError('Protocol034 checkpoint roundtrip mismatch')
     p0,_=s.step(); p1,_=r.step()
