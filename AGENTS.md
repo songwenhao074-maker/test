@@ -1,9 +1,13 @@
-# Current task: Protocol-032 single guard-budget pilot
-Read NEXT_EXPERIMENT_LATEST.md, docs/PROTOCOL032_SINGLE_TASK_DIRECTIVE_20260927.md, docs/PROTOCOL031_INTERIM6800_ANALYSIS_20260927.md, and artifacts/ftmoe_online/protocol_032/plan.json.
+# Current task: execute Protocol-033 complete5969-row rare-recurrence pilot
 
-One task only: verify the existing6800-row prefix, then run C_fixed5 and D_guard_budget once each on the same data. No simulator generation, continuation to9869, seed sweep, A/B, or automatic followup.
-Only change the F0 normal-NLL acceptance bound for D birth/reuse to L_candidate <= L_live + max(0.02*L_live,0.01) + 1e-6. This is an explicitly relaxed development hypothesis after observing031 outcomes, not a bug fix or independent confirmation. Preserve every other predictive gate, training budget and causal rule. Stop after one pair or an explicit blocker.
+Read `NEXT_EXPERIMENT_LATEST.md`, `docs/PROTOCOL033_6000_STEP_DIRECTIVE_20260928.md`, `docs/PROTOCOL033_IMPLEMENTATION_HANDOFF.md`, `artifacts/ftmoe_online/protocol_033/scenario_registration.json`, and `artifacts/ftmoe_online/protocol_033/plan.json`.
 
-The source implementation is commit4e7df7e5f7abca2e2470633864b35440858bd4bf on protocol-031-rare-recurrence-20260922; main does not yet contain that implementation. Reusing that branch is permitted: apply this latest directive before execution. Historical031 stop/no-threshold-change restrictions apply to031, not the newly specified032; never overwrite historical modules/registrations/results.
-The completed031 interim run36295124291 had no dormant experts or reuse and D was slightly worse and18x slower in measured replay wall time. A snapshot memory registry ID is not evidence of a dormant expert. Read original artifacts and the verified evidence JSON.
-Input eligibility must be computed, never hard-coded true. Upload the frozen input bundle and compact evidence/report to GitHub. Keep results even on failure and synchronize main entry points. Documentation-only commits use [skip ci]; do not launch training in this planning turn.
+Protocol-033 implementation is now staged on branch `protocol-033-5969-gpt56-20260928`; no Protocol-033 simulator/model run has started yet. The implementation source remains commit `a215c1161adba4ff29514eb88806762c2f068023` from `protocol-031-rare-recurrence-20260922`. Historical Protocol-031/032 modules, registrations, data and conclusions are unchanged.
+
+Generate exactly5968 scored rows plus1 terminal raw-label support row from one new continuous seed700 simulator trajectory. Use 200-row immutable chunks (29 full +169 final), exact simulator/workload/scheduler/RNG continuation, separate generation/assembly/audit/model processes, and registered RAM telemetry/80% soft limit. Never truncate/splice an old stream or reroll/retune after a failed audit.
+
+Before any generation byte, the workflow must compile the Protocol-033 implementation, run `test_ftmoe_protocol033.py`, run `maintenance/validate_protocol033_plan.py`, and verify frozen Protocol-031/032 source files are unchanged from `a215c116...`. Full input qualification is independent and must recompute ratio/labels from `post_totals/capacities`; model runs are forbidden unless every required gate passes.
+
+After qualification, run exactly one `C_fixed5` process and one `D_guard_budget` process sequentially on the same frozen input. D changes only the registered birth cadence to600+1000k matured intervals on top of Protocol-032 guard-budget policy and adds per-reactivation event logging. Evaluate all six registered128-step recurrence windows and all registered W blocks; do not select best windows or add seeds/threshold searches/A/B runs.
+
+The launch workflow is `.github/workflows/protocol033-5969.yml` and is `workflow_dispatch` only. The first dispatch is a user-authorized execution start; later same-stream generation segments and the terminal assemble/audit/C/D stage self-dispatch through the same workflow. Preserve compact terminal evidence even on blockers and synchronize current pointers after execution.
