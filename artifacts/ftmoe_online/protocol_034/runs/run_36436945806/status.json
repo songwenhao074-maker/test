@@ -1,0 +1,29 @@
+{
+  "protocol": "034",
+  "run_id": "36436945806",
+  "completed": true,
+  "full_training_replays_started": 3,
+  "full_training_replay_budget": 3,
+  "completed_training_arms": [
+    "C_ref",
+    "D_frozen_ref",
+    "D_live"
+  ],
+  "prediction_cache_routing_passes": 2,
+  "completed_routing_arms": [
+    "D_route_fragment",
+    "D_route_full"
+  ],
+  "new_simulator_streams": 0,
+  "extra_seeds": 0,
+  "threshold_sweeps": 0,
+  "reference_checks_passed": true,
+  "snapshot_count": 45,
+  "H1_development_signal": false,
+  "H2_complete_memory_paired_delta": -0.0027985096246950225,
+  "H3_full_vs_C_development_signal": false,
+  "automatic_scientific_followups_started": [],
+  "development_only": true,
+  "statistical_confirmation": false,
+  "stop_after_registered_budget": true
+}

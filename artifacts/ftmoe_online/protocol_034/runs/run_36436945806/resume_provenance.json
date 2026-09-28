@@ -1,0 +1,22 @@
+{
+  "protocol": "034",
+  "resume_only": true,
+  "source_run_id": 36429633413,
+  "source_artifact_id": 10975657183,
+  "source_artifact_zip_sha256": "a16c152c06912afd3530ceb009c26eeb9087b653b93900b15495821d6b5cd1cb",
+  "completed_training_replays_restored_not_rerun": [
+    "C_ref",
+    "D_frozen_ref"
+  ],
+  "full_training_replays_consumed_before_resume": 2,
+  "preserved": {
+    "C_ref": {
+      "predictions_sha256": "528a0edcf6c7df7c05bbe3004176c863b3fdc76c9dbe2ef50f3771386cf416ce",
+      "bytes": 3070102
+    },
+    "D_frozen_ref": {
+      "predictions_sha256": "2d80f1f509defb74266fe5e6dfa40f0796de9c7cbe28b9ec5c12bdb3bf503f4e",
+      "bytes": 3070459
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "protocol": "034",
   "revision": 1,
   "date": "2026-09-28",
-  "status": "planned_not_implemented_not_run",
+  "status": "completed",
   "task": "Test active-specialist learning, complete prediction memory, and causal routing on the frozen Protocol033 stream",
   "source": {
     "commit": "0463cd365b4cda5a50423b4fccc941fe8d074bbf",
@@ -84,8 +84,8 @@
     "fragment": "same archived specialist and router row combined with current D_live generalists/router rows, canonical unit ramps; no gradients"
   },
   "reference_checks": {
-    "probability_atol": 0.000002,
-    "probability_rtol": 0.000002,
+    "probability_atol": 2e-06,
+    "probability_rtol": 2e-06,
     "recurrence_AP_atol": 0.0001,
     "exact_labels": true,
     "exact_shared_initialization": true,
@@ -98,7 +98,7 @@
     "score": "binary detection CE",
     "score_window_matured_intervals": 32,
     "min_support_distinct_intervals": 32,
-    "probability_clip": 0.000001,
+    "probability_clip": 1e-06,
     "granularity": "per_host",
     "candidate_pool": "every snapshot ready before current prediction with32 matured paired prediction intervals; same IDs for full and fragment arms",
     "fallback": "D_live current prediction",
@@ -214,5 +214,8 @@
     "snapshot_is_complete_small_MoE_not_single_original_MLP": true,
     "hard_delete_benefit_claim": false,
     "fixed_capacity_superiority_claim": false
-  }
+  },
+  "terminal_run_id": 36436945806,
+  "resumed_from_run_id": 36429633413,
+  "results_path": "docs/PROTOCOL034_RESULTS.md"
 }

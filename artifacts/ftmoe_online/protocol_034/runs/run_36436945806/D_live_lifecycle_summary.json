@@ -1,0 +1,132 @@
+{
+  "birth_candidates_created": 6,
+  "retirements": 5,
+  "reactivations": 4,
+  "purges": 0,
+  "accepted_birth_ids": [
+    "4",
+    "5"
+  ],
+  "memory_registry_ids": [
+    "4",
+    "5"
+  ],
+  "real_dormant_expert_ids": [
+    "4"
+  ],
+  "active_specialist_id": "5",
+  "reuse_outcomes": {
+    "accepted": 4,
+    "rejected": 126,
+    "cancelled": 0,
+    "censored": 1,
+    "pending": 0
+  },
+  "due_accounting": {
+    "birth": {
+      "due": 6,
+      "accounted": 6,
+      "conserved": true,
+      "not_yet_eligible": 0,
+      "started": 6,
+      "skipped_busy": 0,
+      "skipped_no_memory": 0,
+      "skipped_no_match": 0,
+      "skipped_capacity": 0
+    },
+    "reuse": {
+      "due": 0,
+      "accounted": 0,
+      "conserved": true,
+      "not_yet_eligible": 0,
+      "started": 0,
+      "skipped_busy": 0,
+      "skipped_no_memory": 0,
+      "skipped_no_match": 0,
+      "skipped_capacity": 0
+    },
+    "reuse_nonblocking": {
+      "due": 168,
+      "started": 131,
+      "skip_pending": 0,
+      "skip_transition": 1,
+      "skip_no_memory": 36,
+      "skip_insufficient_z": 0,
+      "due_accounted": 168,
+      "due_conserved": true,
+      "outcomes": {
+        "accepted": 4,
+        "rejected": 126,
+        "cancelled": 0,
+        "censored": 1,
+        "pending": 0
+      },
+      "started_outcome_accounted": 131,
+      "started_conserved": true
+    }
+  },
+  "final_topology": {
+    "active_ids": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "5"
+    ],
+    "dormant_ids": [
+      "4"
+    ],
+    "shadow_id": null,
+    "next_id": 10,
+    "ramp": {
+      "0": 1.0,
+      "1": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "5": 1.0
+    },
+    "max_experts": 8,
+    "ramp_updates": 8,
+    "topology_version": 21,
+    "behavior_version": 109
+  },
+  "optimizer_transfer_events": [
+    {
+      "expert_id": "4",
+      "cursor": 763,
+      "transferred_state_names": [
+        "4|expert.0.weight",
+        "4|expert.0.bias",
+        "4|expert.1.weight",
+        "4|expert.1.bias",
+        "4|expert.3.weight",
+        "4|expert.3.bias",
+        "4|router_weight",
+        "4|router_bias"
+      ],
+      "missing_state_names": [],
+      "transferred_state_count": 8,
+      "unrelated_optimizer_archive_preserved": true
+    },
+    {
+      "expert_id": "5",
+      "cursor": 1763,
+      "transferred_state_names": [
+        "5|expert.0.weight",
+        "5|expert.0.bias",
+        "5|expert.1.weight",
+        "5|expert.1.bias",
+        "5|expert.3.weight",
+        "5|expert.3.bias",
+        "5|router_weight",
+        "5|router_bias"
+      ],
+      "missing_state_names": [],
+      "transferred_state_count": 8,
+      "unrelated_optimizer_archive_preserved": true
+    }
+  ],
+  "stable_active_update_count": 325,
+  "stable_active_parameter_change_update_count": 325,
+  "dormant_hash_final": "092ea636fb99cddbf4433e92328420d4f2c6bd6532e0a0cd182e1be243722414"
+}
