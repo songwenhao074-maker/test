@@ -1,4 +1,4 @@
-name: Bootstrap Protocol-034 dispatch
+name: Bootstrap Protocol034
 
 on:
   push:
@@ -7,22 +7,23 @@ on:
     paths:
       - .github/workflows/bootstrap-protocol034.yml
 
-permissions:
-  contents: read
-  actions: write
-
 jobs:
   dispatch:
     runs-on: ubuntu-22.04
-    if: ${{ github.event.head_commit.message == 'chore: bootstrap Protocol034 action' }}
+    permissions:
+      actions: write
+      contents: read
     steps:
-      - name: Dispatch registered Protocol034 workflow
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: >-
-          gh api --method POST
-          -H 'Accept: application/vnd.github+json'
-          "/repos/$GITHUB_REPOSITORY/actions/workflows/protocol034-three-hypotheses.yml/dispatches"
-          -f ref=main
-          -f 'inputs[execution_ref]=codex/protocol-034-three-hypotheses-20260928'
+      - name: Dispatch Protocol034
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'protocol034-three-hypotheses.yml',
+              ref: 'main',
+              inputs: {
+                execution_ref: 'codex/protocol-034-three-hypotheses-20260928'
+              }
+            })
