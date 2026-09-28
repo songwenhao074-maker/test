@@ -1,0 +1,23 @@
+name: Repair Protocol034 execution branch
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/repair-p034-execution.yml']
+permissions:
+  contents: write
+jobs:
+  repair:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/protocol-034-three-hypotheses-20260928
+          fetch-depth: 0
+      - name: Restore inherited session file
+        run: |
+          git checkout 5dfdda21e32c4d51335917d8cf476b412fa81159 -- ftmoe_protocol024_session.py
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add ftmoe_protocol024_session.py
+          git commit -m 'fix: restore inherited Protocol024 session file'
+          git push origin HEAD:codex/protocol-034-three-hypotheses-20260928
