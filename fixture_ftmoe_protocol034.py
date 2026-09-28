@@ -4,9 +4,12 @@ import argparse, json
 from copy import deepcopy
 from pathlib import Path
 import numpy as np
+import torch
+from torch import nn
 
 import run_ftmoe_protocol023_s4 as s4
 import run_ftmoe_protocol031_pilot as p31
+import ftmoe_protocol024_session as p24session
 from run_ftmoe_protocol033 import validate_input
 from ftmoe_protocol033_guard_budget import P033_CONFIG
 from run_ftmoe_protocol034_live import InstrumentedProtocol034Session, PredictionMemoryObserver
@@ -28,32 +31,66 @@ def build(stream,registration,input_lock,out,run_id,observer=True):
     return s
 
 
-def restore_fixture_checkpoint(session, path):
-    """Restore a fixture checkpoint using its registered 73-D bank template.
+def _restore_dynamic_bank_from_registered_template(session, snapshot):
+    """Restore dynamic topology using the actual Protocol034 73-D expert class.
 
-    Protocol024's generic restore helper templates dynamic experts from the
-    historical frozen 64-D bank. Protocol034 inherits the Protocol025 73-D
-    residual model, so use the current registered generalist architecture as
-    the restore template. This changes no checkpoint tensor or scientific
-    execution semantics; it only makes the engineering roundtrip fixture use
-    the correct architecture.
+    The frozen Protocol024 helper historically instantiates a 64-D
+    FixedResidualBank solely as an architecture template. Protocol034 is based
+    on the later 73-D residual input, so that generic template cannot load a
+    valid Protocol034 checkpoint. The checkpoint tensors, IDs, ramps and
+    behavior hash remain authoritative; only the constructor template comes
+    from the freshly initialized registered Protocol034 session.
     """
-    source = deepcopy(session.model.learner)
-    source.experts = deepcopy(session.model.learner.experts)
-    session.model.learner.source_bank = source if hasattr(session.model.learner, 'source_bank') else getattr(session.model.learner, 'source_bank', None)
-    # The production checkpoint loader receives its template from
-    # model.learner.source_bank when present; install the registered 73-D
-    # generalist bank temporarily for this fixture roundtrip.
-    old = getattr(session.model.learner, 'source_bank', None)
+    topology=deepcopy(snapshot['topology'])
+    current=session.model.learner
+    if not current.experts:
+        raise AssertionError('Protocol034 restore template has no generalist')
+    template=deepcopy(current.experts[GENERALISTS[0]])
+    target=deepcopy(current)
+    target.experts=nn.ModuleDict(); target.router_weights=nn.ParameterDict(); target.router_biases=nn.ParameterDict()
+    target.dormant_experts=nn.ModuleDict(); target.dormant_router_weights=nn.ParameterDict(); target.dormant_router_biases=nn.ParameterDict()
+    target.shadow_experts=nn.ModuleDict(); target.shadow_router_weights=nn.ParameterDict(); target.shadow_router_biases=nn.ParameterDict()
+    destinations={
+        'active':(target.experts,target.router_weights,target.router_biases),
+        'dormant':(target.dormant_experts,target.dormant_router_weights,target.dormant_router_biases),
+        'shadow':(target.shadow_experts,target.shadow_router_weights,target.shadow_router_biases),
+    }
+    for group_name,payloads in snapshot['groups'].items():
+        experts,weights,biases=destinations[group_name]
+        for key,payload in payloads.items():
+            expert=deepcopy(template)
+            expert.load_state_dict(payload['expert'],strict=True)
+            experts[str(key)]=expert
+            weights[str(key)]=nn.Parameter(payload['router_weight'].clone())
+            biases[str(key)]=nn.Parameter(payload['router_bias'].clone())
+    target.ids=[str(x) for x in topology['active_ids']]
+    target.ramp={str(k):float(v) for k,v in topology['ramp'].items()}
+    target.shadow_id=None if topology.get('shadow_id') is None else str(topology['shadow_id'])
+    target.next_id=int(topology['next_id']); target.max_experts=int(topology['max_experts'])
+    target.ramp_updates=int(topology['ramp_updates'])
+    target.topology_version=int(topology.get('topology_version',0)); target.behavior_version=int(topology.get('behavior_version',0))
+    target.set_role_trainability()
+    if set(target.ids)!=set(target.experts.keys()): raise AssertionError('Protocol034 active ID restore mismatch')
+    if set(map(str,topology.get('dormant_ids',[])))!=set(target.dormant_experts.keys()): raise AssertionError('Protocol034 dormant ID restore mismatch')
+    expected_shadow=set([] if target.shadow_id is None else [target.shadow_id])
+    if expected_shadow!=set(target.shadow_experts.keys()): raise AssertionError('Protocol034 shadow ID restore mismatch')
+    if target.resident_count()>target.max_experts: raise AssertionError('Protocol034 restored capacity exceeded')
+    expected=snapshot.get('behavior_hash')
+    if expected is not None and target.behavior_state_hash()!=expected:
+        raise AssertionError('Protocol034 behavior hash changed during architecture-compatible restore')
+    return target
+
+
+def restore_fixture_checkpoint(session,path):
+    """Run the inherited full checkpoint restore with a 034-local template shim."""
+    original=p24session.restore_dynamic_bank
+    def compatible_restore(_historical_source,snapshot):
+        return _restore_dynamic_bank_from_registered_template(session,snapshot)
+    p24session.restore_dynamic_bank=compatible_restore
     try:
-        session.model.learner.source_bank = source
         return session.restore_checkpoint(path)
     finally:
-        if old is None:
-            try: delattr(session.model.learner, 'source_bank')
-            except AttributeError: pass
-        else:
-            session.model.learner.source_bank = old
+        p24session.restore_dynamic_bank=original
 
 
 def main():
@@ -88,7 +125,7 @@ def main():
     trans_names=optimizer_names(s)
     if any(x.startswith(active+'|') or x.startswith(str(new)+'|') for x in trans_names):
         raise AssertionError('crossfade specialist entered common optimizer')
-    for _ in range(int(P033_CONFIG["crossfade_prediction_intervals"])): s.step()
+    for _ in range(int(P033_CONFIG['crossfade_prediction_intervals'])): s.step()
     if s.lifecycle_controller.transition is not None: raise AssertionError('fixture crossfade did not finish')
     if str(s.lifecycle_controller.active_specialist_id)!=str(new): raise AssertionError('new specialist not active after crossfade')
     if not any(x.startswith(str(new)+'|') for x in optimizer_names(s)): raise AssertionError('new stable specialist did not resume training')
@@ -102,9 +139,10 @@ def main():
     report={'protocol':'034','fixture_passed':True,'natural_first_specialist_id':active,
             'active_specialist_changed_on_common_update':True,'dormant_hash_unchanged_on_common_update':True,
             'crossfade_specialists_excluded_from_live_optimizer':True,
-            'crossfade_intervals':int(P033_CONFIG["crossfade_prediction_intervals"]),
+            'crossfade_intervals':int(P033_CONFIG['crossfade_prediction_intervals']),
             'shadow_optimizer_state_transferred':True,'shadow_transfer_state_count':transfer['transferred_state_count'],
             'observer_isolation_check_passed':True,'checkpoint_roundtrip_passed':True,
-            'next_prediction_after_restore_within_reference_tolerance':True,'scientific_full_replay_consumed':False}
+            'next_prediction_after_restore_within_reference_tolerance':True,'scientific_full_replay_consumed':False,
+            'restore_template':'registered_protocol034_73d_expert_architecture'}
     (root/'fixture_report.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf8'); print(json.dumps(report,indent=2))
 if __name__=='__main__': main()
