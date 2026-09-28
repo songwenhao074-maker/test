@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 from pathlib import Path
 import time
 
@@ -107,10 +106,12 @@ def main():
     del common
     sample(samples, "common_features_written")
 
-    # np.savez_compressed consumes the memmap objects field-by-field through the
-    # zip writer; it does not require a second simulator-sized in-memory bundle.
+    # Preserve the historical stream schema; overload_mask is small (~0.3 MB)
+    # and can be created in this fresh process without duplicating simulator state.
+    overload_mask = (memmaps["overload_ratio"] > 1.0).astype(np.uint8)
     stream = out / "stream.npz"
-    np.savez_compressed(stream, **memmaps)
+    np.savez_compressed(stream, **memmaps, overload_mask=overload_mask)
+    del overload_mask
     stream_sha = P.sha(stream)
     sample(samples, "stream_npz_written")
 
@@ -126,7 +127,7 @@ def main():
         "logical_to_source_service": P.SOURCE_SERVICE,
         "event_probability": float(reg["generation"]["event_probability"]),
         "forbidden_model_inputs": list(P.FORBIDDEN_MODEL_INPUTS),
-        "audit_only_npz_keys": [k for k in keys if k.startswith("audit_")],
+        "audit_only_npz_keys": [k for k in keys if k.startswith("audit_")] + ["overload_mask"],
         "model_input_keys": ["host_features", "demands", "schedules", "capacities", "creation_ids", "before_placement"],
         "common_observable_features_file": "common_observable_features.npy",
         "common_observable_feature_order": P.COMMON_FEATURE_ORDER,
@@ -140,7 +141,7 @@ def main():
         "audit_pass": None,
     }
     (out / "manifest.json").write_text(json.dumps(manifest, indent=2, allow_nan=False) + "\n", encoding="utf8")
-    for name in ("events_final.json", "applied_switches.json", "memory_profile_generation.json", "generation_manifest.json", "resume_manifest.json"):
+    for name in ("events_final.json", "applied_switches.json", "memory_profile_generation.json", "generation_manifest.json", "resume_manifest.json", "registration_snapshot.json"):
         source = src / name
         if source.is_file():
             (out / name).write_bytes(source.read_bytes())
