@@ -1,0 +1,58 @@
+{
+  "protocol": "035",
+  "amendment_id": "launch_20260929_v1",
+  "scope": "engineering_launch_only",
+  "user_authorized": true,
+  "publish_amendment_only_no_dispatch_now": true,
+  "scientific_plan_file_sha256": "43a6b2e50fea2f73e1ee893b2cb20efdbbf84fe76e9b4cdd4dcaebccfdf86df9",
+  "scientific_plan_canonical_sha256": "410f2d07992f7cb71e04701fd2036bbf753f11aecb302257a817c73a72ae4767",
+  "scientific_plan_unchanged": true,
+  "formal_workflow": ".github/workflows/protocol035-c-preserving-correction.yml",
+  "formal_workflow_id_at_review": 370221116,
+  "formal_event": "workflow_dispatch",
+  "dispatch_ref": "main",
+  "execution_ref": "codex/protocol-035-c-preserving-correction-20260929",
+  "allowed_launch_methods": [
+    "available_dispatch_tool",
+    "GitHub_REST_POST",
+    "gh_workflow_run",
+    "one_shot_push_bootstrap_dispatch_only"
+  ],
+  "bootstrap": {
+    "path": ".github/workflows/protocol035-dispatch-once.yml",
+    "template": "docs/templates/protocol035-dispatch-once.yml.example",
+    "push_branch": "main",
+    "push_paths": [
+      ".github/workflows/protocol035-dispatch-once.yml"
+    ],
+    "required_commit_marker": "[p035-dispatch-once]",
+    "skip_ci_on_activation_commit": false,
+    "token": "github.token",
+    "permissions": {
+      "contents": "read",
+      "actions": "write"
+    },
+    "scientific_code_executed_in_bootstrap": false,
+    "max_dispatch_calls_per_helper_run": 1,
+    "http_dispatch_auto_retries": 0,
+    "existing_formal_run_policy": "Do not dispatch again; inspect existing run and consumed budget",
+    "require_expected_execution_sha": true,
+    "concurrency_group": "protocol035-dispatch-once",
+    "cancel_in_progress": false,
+    "cleanup_after_formal_run_identified": true
+  },
+  "supersedes": [
+    "Original blanket ban on push-based launch helpers and chained dispatch",
+    "skip-ci requirement only for the explicitly armed bootstrap activation commit"
+  ],
+  "unchanged": [
+    "data",
+    "model",
+    "loss",
+    "metrics",
+    "two_scientific_sequences",
+    "no_restart_after_scientific_start",
+    "no_automatic_followup"
+  ],
+  "unavailable_permissions": "Report concrete 401/403 or repository policy; do not claim this amendment grants missing platform permission"
+}

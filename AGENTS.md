@@ -1,6 +1,6 @@
 # Active Experiment Directive
 
-Protocol-035 is **planned_not_implemented_not_run**. The user requested a written plan published for another model to execute. Publishing this plan must not dispatch Actions or start simulations/training.
+Protocol-035 implementation has been committed to its execution branch; the formal workflow exists on main. No Protocol035 scientific run existed at this launch-amendment review. The immutable scientific registration retains its original publication status. Publishing this amendment does not launch it.
 
 Authoritative directive: `docs/PROTOCOL035_C_PRESERVING_CORRECTION_20260929.md`.
 Machine-readable registration: `artifacts/ftmoe_online/protocol_035/plan.json`.
@@ -11,3 +11,7 @@ Execution branch: `codex/protocol-035-c-preserving-correction-20260929`, based o
 D_corr is a minimal proposed D component: preserve the entire continuously learning C path and add one input-conditioned correction branch. It does not yet implement dynamic memory. Report full-stream and recurrence results separately and enforce recall/FPR guardrails.
 
 Protocol-034 is complete (run 36436945806). Its exhausted budget remains closed; Protocol-035 has a separate future execution budget. Preserve Protocol-031/032/033/034 source/results. Use `[skip ci]` for plan/report commits. Synchronize all three entry documents and results on main and the actual execution branch at handoff/completion. Do not claim success from a plan validator or workflow exit status alone.
+
+## Launch amendment (binding)
+
+Read `docs/PROTOCOL035_LAUNCH_AMENDMENT_20260929.md` and `artifacts/ftmoe_online/protocol_035/launch_amendment.json`. User authorization covers fixing the missing-first-dispatch blockage. A connector without dispatch is not by itself a blocker: use REST/gh if available, or the explicitly authorized one-shot push helper template under `docs/templates/`. The helper only dispatches the formal workflow, which stays workflow_dispatch-only. The blanket no-push-helper rule is superseded for this one bridge. Its deliberately armed activation commit is the sole skip-ci exception. Do not change plan.json, its validator, scientific budgets or existing experiment code for this amendment. Check for existing formal runs before any dispatch, record the run id, then remove the helper. Do not treat rerun tools as authority to restart consumed scientific sequences.

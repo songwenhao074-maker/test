@@ -1,6 +1,6 @@
 # Protocol-035：能力覆盖诊断与保留 C 学习路径的最小纠错结构
 
-日期：2026-09-29。状态：**planned_not_implemented_not_run**。
+日期：2026-09-29。科学登记保留首次发布状态；当前实现已提交执行分支，尚无已启动的035科学run。启动方式以[2026-09-29修订](PROTOCOL035_LAUNCH_AMENDMENT_20260929.md)为准。
 
 用户目标是在持续学习中使 D 优于 C。本次授权是设计并推送实验指示，交由其他模型执行；发布本方案的模型不得启动模拟、训练或 Actions。后续执行模型收到用户交接后，按本方案完成实现、有限实验和结果回传。034 已耗尽的是旧协议预算，不妨碍执行用户明确交接的 035；不得重开 034 预算。
 
@@ -179,7 +179,7 @@ D_off 必须等于 C；它是隔离/实现检查而非另一个训练基线。�
 
 fixture至少覆盖：零分支等价、两步合成更新改变分支但不改变C、真实预测时特征hook、随机数隔离、批次/成熟时刻一致、未来扰动不影响前缀、恢复等价、AP并列分组、在线组合与缓存组合一致、末尾结算不训练。fixture输出明确哪些是合成、哪些使用真实前缀和消费次数。
 
-新增 workflow **只允许 workflow_dispatch**，不要新增 push/PR/workflow_run 定时或连锁触发，也不要修改旧bootstrap触发器。用户把本指示交给执行模型后，可执行本轮已登记预算，不需要为每个既定步骤重复询问；超出预算、改变科学设计或 artifact缺失需交付具体问题。当前发布方案的这次会话不触发workflow。
+正式科学 workflow **只允许 workflow_dispatch**。按[启动修订](PROTOCOL035_LAUNCH_AMENDMENT_20260929.md)，缺少直接dispatch能力时允许一个受约束的一次性push启动助手，仅调用正式workflow_dispatch，不执行科学代码；原来对这类助手的全面禁止被该修订替代。其他push/PR/workflow_run、定时和连锁实验仍不允许，也不修改旧协议bootstrap。用户把本指示交给执行模型后，可执行本轮已登记预算，不需要为每个既定步骤重复询问；超出预算、改变科学设计或 artifact缺失需交付具体问题。当前发布方案的这次会话不触发workflow。
 
 产物先保存再生成报告。完整artifact应含精确输入bundle与source provenance、C/D逐步预测、特征tape、采样与因果日志、所需恢复权重/优化器、诊断全表、fixture、implementation_manifest与冻结登记。缓存与checkpoint较大文件只存artifact；Git提交紧凑证据、文件SHA256、run_id/artifact_id、ZIP SHA256与过期时间。上传后的artifact索引如需补第二个文档提交，仍不触发新科学运行。
 
@@ -190,7 +190,7 @@ fixture至少覆盖：零分支等价、两步合成更新改变分支但不改�
 - 若失败，证据指向缺少额外能力、分布迁移、纠错损害还是工程无效，哪些仍未确定；
 - 动态记忆、同容量优势、跨种子泛化哪些仍未验证。
 
-同步 main 与本轮执行分支的 AGENTS.md、NEXT_EXPERIMENT_LATEST.md、PROJECT_CONTEXT_LATEST.md、035结果文档及紧凑证据。只同步035文件与当前入口，保留历史失败，不强制合并全部旧执行代码。所有方案/报告提交用 `[skip ci]`，推送前检查工作流不会被误启动。
+同步 main 与本轮执行分支的 AGENTS.md、NEXT_EXPERIMENT_LATEST.md、PROJECT_CONTEXT_LATEST.md、035结果文档及紧凑证据。只同步035文件与当前入口，保留历史失败，不强制合并全部旧执行代码。所有普通方案/报告提交用 `[skip ci]`；仅明确激活一次性启动助手的提交按启动修订不加skip-ci。推送前检查目标触发器，禁止附带启动其他科学实验。
 
 ## 9. 停止条件
 
