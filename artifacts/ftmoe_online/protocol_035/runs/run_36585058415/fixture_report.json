@@ -1,0 +1,34 @@
+{
+  "protocol": "035",
+  "synthetic_tests": {
+    "tie_ap_half": true,
+    "tie_ap_permutation": true,
+    "all_equal_equals_prevalence": true,
+    "rng_isolation": true,
+    "zero_delta_exact": true,
+    "checkpoint_resume_exact": true,
+    "two_updates_change_branch": true,
+    "future_labels_and_tape_perturbation_prefix_invariant": true,
+    "online_cache_composition_exact": true,
+    "deterministic_all5_constructor": true
+  },
+  "real_stream_prefix_executions": 1,
+  "max_real_prefix_steps": 64,
+  "passed": true,
+  "real_prefix": {
+    "stream_sha256": "70c9283f133a5f8033e12fbc03a38af6d9ce39f1d7e6a9e825964ee9a28edbd9",
+    "issued_feature_hook_shape": [
+      64,
+      16,
+      73
+    ],
+    "issued_feature_hook_finite": true,
+    "C_updates_in_engineering_prefix": 4,
+    "actual_batch_maturity_ok": true,
+    "deployment_feature_captured_before_update": true,
+    "future_label_cutoff_recorded": true,
+    "zero_correction_probability_exact": true,
+    "classification_copy_exact": true,
+    "terminal_drain_has_no_training_by_runner_design": true
+  }
+}

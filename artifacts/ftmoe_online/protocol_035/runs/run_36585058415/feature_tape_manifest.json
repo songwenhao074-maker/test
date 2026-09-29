@@ -1,0 +1,43 @@
+{
+  "protocol": "035",
+  "sha256": "60f3f898a70dc886cd9e5284c1c1e62f3e086aac52e4e829e9fb9232c69dc988",
+  "shapes": {
+    "z": [
+      5968,
+      16,
+      73
+    ],
+    "c_detection_logits": [
+      5968,
+      16,
+      2
+    ],
+    "c_probability": [
+      5968,
+      16
+    ],
+    "c_class_probability": [
+      5968,
+      16,
+      3
+    ],
+    "labels": [
+      5968,
+      16
+    ],
+    "raw_labels": [
+      5968,
+      16
+    ],
+    "model_version": [
+      5968
+    ],
+    "visible_input_max": [
+      5968
+    ],
+    "label_available_max": [
+      5968
+    ]
+  },
+  "archived_before_D_read": true
+}

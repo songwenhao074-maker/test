@@ -1,0 +1,31 @@
+{
+  "protocol": "035",
+  "full_training_sequence_budget": 2,
+  "sequences": {
+    "C_ref_035": {
+      "started": true,
+      "completed": true,
+      "restart_from_zero": false,
+      "started_at_run_id": "36585058415",
+      "feature_tape_sha256": "60f3f898a70dc886cd9e5284c1c1e62f3e086aac52e4e829e9fb9232c69dc988",
+      "predictions_sha256": "518e7ece0da5b0735b3eb0de8e7d8f269c46ef03fa09aa8fe88e3ff273642522",
+      "updates": 373
+    },
+    "D_corr_branch": {
+      "started": true,
+      "completed": true,
+      "restart_from_zero": false,
+      "started_at_run_id": "36585058415",
+      "predictions_sha256": "30e41c445a53a3651c8572a1f56f91d372946851a487041c7f622823556d5d23",
+      "updates": 373
+    }
+  },
+  "engineering_real_prefix_executions": 1,
+  "engineering_real_prefix_max_steps": 64,
+  "cache_diagnostic_suites": 1,
+  "new_simulator_streams": 0,
+  "extra_seeds": 0,
+  "hyperparameter_sweeps": 0,
+  "old_D_training_replays": 0,
+  "additional_cache_router_trials": 0
+}

@@ -1,0 +1,19 @@
+{
+  "C_path": {
+    "wall_seconds": 58.118977298999994,
+    "cpu_seconds": 58.116131396,
+    "peak_rss_bytes": 415993856,
+    "effective_memory_limit_bytes": 16765411328,
+    "memory_soft_limit_bytes": 13412329062
+  },
+  "correction_branch": {
+    "branch_wall_seconds": 2.4001886330000275,
+    "branch_cpu_seconds": 2.4000865360000003,
+    "peak_rss_bytes": 371249152,
+    "effective_memory_limit_bytes": 16765411328,
+    "memory_soft_limit_bytes": 13412329062
+  },
+  "deployment_cost_accounting": "D_corr total deployment includes the full continuously learning C path plus the correction branch; branch wall time alone is not total D cost",
+  "extra_trainable_parameters": 2401,
+  "classification_extra_parameters": 0
+}

@@ -1,0 +1,62 @@
+{
+  "protocol": "035",
+  "reference": "Protocol034 C_ref",
+  "exact_labels": true,
+  "exact_raw_labels": true,
+  "probability_allclose_atol_2e-6_rtol_2e-6": true,
+  "class_probability_allclose_atol_2e-6_rtol_2e-6": true,
+  "probability_max_abs": 0.0,
+  "class_probability_max_abs": 0.0,
+  "detection_logit_max_abs_diagnostic_only": 0.0,
+  "recurrence_AP_checks": [
+    {
+      "window": "U_rec1",
+      "C_ref_035_AP": 0.7898085355592848,
+      "Protocol034_C_ref_AP": 0.7898085355592848,
+      "abs_delta": 0.0,
+      "pass": true
+    },
+    {
+      "window": "V_rec1",
+      "C_ref_035_AP": 0.7618159625456963,
+      "Protocol034_C_ref_AP": 0.7618159625456963,
+      "abs_delta": 0.0,
+      "pass": true
+    },
+    {
+      "window": "U_rec2",
+      "C_ref_035_AP": 0.7966040461589281,
+      "Protocol034_C_ref_AP": 0.7966040461589281,
+      "abs_delta": 0.0,
+      "pass": true
+    },
+    {
+      "window": "V_rec2",
+      "C_ref_035_AP": 0.7660362949405608,
+      "Protocol034_C_ref_AP": 0.7660362949405608,
+      "abs_delta": 0.0,
+      "pass": true
+    },
+    {
+      "window": "U_rec3",
+      "C_ref_035_AP": 0.7421792853817553,
+      "Protocol034_C_ref_AP": 0.7421792853817553,
+      "abs_delta": 0.0,
+      "pass": true
+    },
+    {
+      "window": "V_rec3",
+      "C_ref_035_AP": 0.7533377125401285,
+      "Protocol034_C_ref_AP": 0.7533377125401285,
+      "abs_delta": 0.0,
+      "pass": true
+    }
+  ],
+  "all_recurrence_AP_within_1e-4": true,
+  "first4_initialization_exact": true,
+  "new_all5_initialization_sha256": "a63d9af61e4e6a66d3df87eb03b4bdd822e96e6de8ea694937d8c87d4667a2fa",
+  "historical_all5_hash_present": false,
+  "historical_direct_initialization_comparison_scope": "first4 exact; all5 newly recorded and constructor fixture checked",
+  "all_reference_checks_passed": true,
+  "logits_are_diagnostic_not_gate": true
+}

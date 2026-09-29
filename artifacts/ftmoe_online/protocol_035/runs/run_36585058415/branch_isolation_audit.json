@@ -1,0 +1,8 @@
+{
+  "feature_tape_read_only_sha256_before": "60f3f898a70dc886cd9e5284c1c1e62f3e086aac52e4e829e9fb9232c69dc988",
+  "feature_tape_read_only_sha256_after": "60f3f898a70dc886cd9e5284c1c1e62f3e086aac52e4e829e9fb9232c69dc988",
+  "unchanged": true,
+  "C_gradient_path_present": false,
+  "C_optimizer_shared": false,
+  "classification_exact_copy": true
+}
