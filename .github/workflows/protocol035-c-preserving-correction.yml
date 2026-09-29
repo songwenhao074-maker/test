@@ -1,0 +1,229 @@
+name: Protocol-035 C-preserving correction pilot
+
+on:
+  workflow_dispatch:
+    inputs:
+      execution_ref:
+        description: Frozen Protocol035 implementation branch
+        required: true
+        default: codex/protocol-035-c-preserving-correction-20260929
+
+env:
+  OMP_NUM_THREADS: '1'
+  MKL_NUM_THREADS: '1'
+  OPENBLAS_NUM_THREADS: '1'
+  PYTHONHASHSEED: '1'
+  EXECUTION_REF: ${{ inputs.execution_ref }}
+  RUN_ROOT: artifacts/ftmoe_online/protocol_035/runtime/run_${{ github.run_id }}
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: protocol035-c-preserving-correction
+  cancel-in-progress: false
+
+jobs:
+  protocol035:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    steps:
+      - name: Checkout frozen Protocol035 execution branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXECUTION_REF }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+
+      - name: Install registered CPU dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil
+
+      - name: Validate immutable registration and implementation boundary
+        run: |
+          set -euo pipefail
+          python -m py_compile protocol035_common.py run_ftmoe_protocol035.py diagnose_ftmoe_protocol035.py validate_protocol035_reference.py analyze_ftmoe_protocol035.py maintenance/validate_protocol035_plan.py
+          python maintenance/validate_protocol035_plan.py
+          git diff --exit-code cdf4b1ce3885ef5f5ac67b4265074faa8f7310eb -- run_ftmoe_protocol033.py ftmoe_protocol033_guard_budget.py ftmoe_protocol032_guard_budget.py ftmoe_protocol031_nonblocking_reuse.py ftmoe_protocol024_v2c.py ftmoe_protocol024_session.py ftmoe_protocol024_dynamic_residual.py ftmoe_protocol025_session.py ftmoe_protocol025_model.py simulator/workload/BitbrainWorkloadProtocol025.py
+          python - <<'PY'
+          import json
+          p=json.load(open('artifacts/ftmoe_online/protocol_035/plan.json'))
+          assert p['budget']['full_training_sequences']==2
+          assert p['budget']['training_sequence_names']==['C_ref_035','D_corr_branch']
+          assert p['correction']['trainable_parameters']==2401
+          assert p['runtime']['workflow_trigger']=='workflow_dispatch_only'
+          assert p['budget']['restart_from_zero_after_scientific_start_allowed'] is False
+          PY
+
+      - name: Download exact frozen Protocol033 input
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/p033; mkdir -p /tmp/p033
+          curl --fail --silent --show-error --location -H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" -o /tmp/p033.zip "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/10968752245/zip"
+          echo "d92a3f9c8f1ebd292b86fbbe6e2300291135376f3564f2773975fd9203b55944  /tmp/p033.zip" | sha256sum -c -
+          unzip -q /tmp/p033.zip -d /tmp/p033
+          DATA=/tmp/p033/tmp/protocol033_bundle/data; LOCK=/tmp/p033/tmp/protocol033_bundle/evidence/input_lock.json; REG=/tmp/p033/tmp/protocol033_bundle/evidence/registration_frozen.json
+          test -f "$DATA/stream.npz" -a -f "$LOCK" -a -f "$REG"
+          echo "70c9283f133a5f8033e12fbc03a38af6d9ce39f1d7e6a9e825964ee9a28edbd9  $DATA/stream.npz" | sha256sum -c -
+          echo "P035_DATA=$DATA" >> "$GITHUB_ENV"; echo "P035_LOCK=$LOCK" >> "$GITHUB_ENV"; echo "P035_REG=$REG" >> "$GITHUB_ENV"
+
+      - name: Download exact frozen Protocol034 evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/p034; mkdir -p /tmp/p034
+          curl --fail --silent --show-error --location -H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" -o /tmp/p034.zip "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/10976639928/zip"
+          echo "f9334e4b7864569e959be7d7c0c44a8a23459947f89e51b977fd4117136fd88a  /tmp/p034.zip" | sha256sum -c -
+          unzip -q /tmp/p034.zip -d /tmp/p034
+          PRED=$(find /tmp/p034 -type f -path '*/C_ref/predictions.npz' -print -quit); test -n "$PRED"; ROOT=$(dirname "$(dirname "$PRED")")
+          for f in C_ref/predictions.npz C_ref/initialization.json D_frozen_ref/predictions.npz D_live/predictions.npz D_live/snapshot_metadata.json D_route_fragment/predictions.npz D_route_full/predictions.npz; do test -f "$ROOT/$f"; done
+          test -n "$(find "$ROOT/D_live/snapshot_cache" -type f -name '*.npz' -print -quit)"
+          echo "P034_ROOT=$ROOT" >> "$GITHUB_ENV"
+
+      - name: Prepare isolated run and immutable budget ledger
+        run: |
+          set -euo pipefail
+          rm -rf "$RUN_ROOT"; mkdir -p "$RUN_ROOT"
+          cp artifacts/ftmoe_online/protocol_035/plan.json "$RUN_ROOT/registration_frozen.json"; cp "$P035_LOCK" "$RUN_ROOT/input_lock.json"; python -m pip freeze > "$RUN_ROOT/pip_freeze.txt"
+          python - <<'PY'
+          import json,os,pathlib
+          r=pathlib.Path(os.environ['RUN_ROOT'])
+          ledger={'protocol':'035','full_training_sequence_budget':2,'sequences':{'C_ref_035':{'started':False,'completed':False,'restart_from_zero':False},'D_corr_branch':{'started':False,'completed':False,'restart_from_zero':False}},'engineering_real_prefix_executions':0,'engineering_real_prefix_max_steps':0,'cache_diagnostic_suites':0,'new_simulator_streams':0,'extra_seeds':0,'hyperparameter_sweeps':0,'old_D_training_replays':0,'additional_cache_router_trials':0}
+          (r/'budget_ledger.json').write_text(json.dumps(ledger,indent=2)+'\n')
+          prov={'protocol':'035','run_id':os.environ['GITHUB_RUN_ID'],'execution_ref':os.environ['EXECUTION_REF'],'protocol033':{'run_id':36417604442,'artifact_id':10968752245,'zip_sha256':'d92a3f9c8f1ebd292b86fbbe6e2300291135376f3564f2773975fd9203b55944'},'protocol034':{'run_id':36436945806,'artifact_id':10976639928,'zip_sha256':'f9334e4b7864569e959be7d7c0c44a8a23459947f89e51b977fd4117136fd88a'},'stream_sha256':'70c9283f133a5f8033e12fbc03a38af6d9ce39f1d7e6a9e825964ee9a28edbd9'}
+          (r/'source_provenance.json').write_text(json.dumps(prov,indent=2)+'\n')
+          PY
+
+      - name: Registered engineering fixture before science
+        run: |
+          set -euo pipefail
+          python run_ftmoe_protocol035.py fixture --stream "$P035_DATA" --registration "$P035_REG" --input-lock "$P035_LOCK" --out-dir "$RUN_ROOT/fixture" --output "$RUN_ROOT/fixture_report.json"
+          python - <<'PY'
+          import json,os,pathlib
+          r=pathlib.Path(os.environ['RUN_ROOT']); p=r/'budget_ledger.json'; d=json.load(open(p)); f=json.load(open(r/'fixture_report.json')); assert f['passed'] and f['real_stream_prefix_executions']<=2 and f['max_real_prefix_steps']<=256; d['engineering_real_prefix_executions']=f['real_stream_prefix_executions']; d['engineering_real_prefix_max_steps']=f['max_real_prefix_steps']; p.write_text(json.dumps(d,indent=2)+'\n')
+          PY
+
+      - name: One fixed no-training historical capability diagnosis
+        run: |
+          set -euo pipefail
+          python diagnose_ftmoe_protocol035.py --protocol034-root "$P034_ROOT" --stream-manifest "$P035_DATA/manifest.json" --output "$RUN_ROOT/memory_capability_diagnostic.json"
+          python - <<'PY'
+          import json,os,pathlib
+          p=pathlib.Path(os.environ['RUN_ROOT'])/'budget_ledger.json'; d=json.load(open(p)); d['cache_diagnostic_suites']=1; p.write_text(json.dumps(d,indent=2)+'\n')
+          PY
+
+      - name: Freeze implementation manifest before scientific replay 1
+        run: |
+          set -euo pipefail
+          python run_ftmoe_protocol035.py manifest --stream "$P035_DATA" --registration "$P035_REG" --input-lock "$P035_LOCK" --out-dir "$RUN_ROOT/manifest_probe" --run-id "$GITHUB_RUN_ID" --output "$RUN_ROOT/implementation_manifest.json"
+          python - <<'PY'
+          import hashlib,json,os,pathlib,platform,torch
+          r=pathlib.Path(os.environ['RUN_ROOT']); p=r/'implementation_manifest.json'; d=json.load(open(p)); d['pip_freeze_sha256']=hashlib.sha256((r/'pip_freeze.txt').read_bytes()).hexdigest(); d['python_actual']=platform.python_version(); d['torch_actual']=torch.__version__
+          try:
+            import dgl; d['dgl_actual']=dgl.__version__
+          except Exception as e: d['dgl_actual']='unavailable:'+type(e).__name__
+          p.write_text(json.dumps(d,indent=2)+'\n')
+          PY
+
+      - name: Scientific training sequence 1 of 2 - C_ref_035
+        run: |
+          set -euo pipefail
+          python run_ftmoe_protocol035.py reference --stream "$P035_DATA" --registration "$P035_REG" --input-lock "$P035_LOCK" --out-dir "$RUN_ROOT/C_ref_035" --run-id "$GITHUB_RUN_ID" --budget-ledger "$RUN_ROOT/budget_ledger.json"
+          python - <<'PY'
+          import hashlib,json,os,pathlib,numpy as np
+          r=pathlib.Path(os.environ['RUN_ROOT']); p=r/'C_ref_035/feature_tape.npz'
+          with np.load(p,allow_pickle=False) as d: shapes={k:list(d[k].shape) for k in d.files}
+          (r/'feature_tape_manifest.json').write_text(json.dumps({'protocol':'035','sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'shapes':shapes,'archived_before_D_read':True},indent=2)+'\n')
+          PY
+
+      - name: Enforce C reference reproduction before D
+        run: |
+          set -euo pipefail
+          python validate_protocol035_reference.py --c-ref-dir "$RUN_ROOT/C_ref_035" --reference-c-dir "$P034_ROOT/C_ref" --output "$RUN_ROOT/reference_consistency.json"
+
+      - name: Scientific training sequence 2 of 2 - D_corr_branch
+        run: |
+          set -euo pipefail
+          python run_ftmoe_protocol035.py correction --feature-tape "$RUN_ROOT/C_ref_035/feature_tape.npz" --update-batches "$RUN_ROOT/C_ref_035/update_batches.json" --c-ref-dir "$RUN_ROOT/C_ref_035" --out-dir "$RUN_ROOT/D_corr_branch" --run-id "$GITHUB_RUN_ID" --budget-ledger "$RUN_ROOT/budget_ledger.json"
+
+      - name: Exact no-training D_off copy
+        run: |
+          mkdir -p "$RUN_ROOT/D_off_exact_C_copy"; cp "$RUN_ROOT/C_ref_035/predictions.npz" "$RUN_ROOT/D_off_exact_C_copy/predictions.npz"
+
+      - name: Freeze raw hashes before analysis
+        run: |
+          python - <<'PY'
+          import hashlib,json,os,pathlib
+          r=pathlib.Path(os.environ['RUN_ROOT']); rel=['registration_frozen.json','source_provenance.json','implementation_manifest.json','input_lock.json','budget_ledger.json','fixture_report.json','memory_capability_diagnostic.json','reference_consistency.json','feature_tape_manifest.json','C_ref_035/predictions.npz','C_ref_035/feature_tape.npz','C_ref_035/update_batches.json','C_ref_035/final_resume_state.pt','D_corr_branch/predictions.npz','D_corr_branch/update_log.json','D_corr_branch/branch_isolation_audit.json','D_corr_branch/causality_audit.json','D_corr_branch/checkpoint_final.pt','D_off_exact_C_copy/predictions.npz']; rows=[]
+          for x in rel:
+            p=r/x; h=hashlib.sha256()
+            with p.open('rb') as f:
+              for b in iter(lambda:f.read(4*1024*1024),b''): h.update(b)
+            rows.append({'path':x,'sha256':h.hexdigest(),'bytes':p.stat().st_size})
+          (r/'raw_artifact_manifest.json').write_text(json.dumps({'protocol':'035','archived_before_analysis':True,'files':rows},indent=2)+'\n')
+          PY
+
+      - name: Analyze fixed registered signals
+        run: |
+          mkdir -p "$RUN_ROOT/analysis"
+          python analyze_ftmoe_protocol035.py --run-root "$RUN_ROOT" --stream-manifest "$P035_DATA/manifest.json" --diagnostic "$RUN_ROOT/memory_capability_diagnostic.json" --reference "$RUN_ROOT/reference_consistency.json" --fixture "$RUN_ROOT/fixture_report.json" --output-dir "$RUN_ROOT/analysis" --docs-output docs/PROTOCOL035_RESULTS.md --run-id "$GITHUB_RUN_ID"
+
+      - name: Materialize compact evidence
+        run: |
+          set -euo pipefail
+          C="artifacts/ftmoe_online/protocol_035/runs/run_${GITHUB_RUN_ID}"; mkdir -p "$C"
+          for f in registration_frozen.json source_provenance.json implementation_manifest.json input_lock.json budget_ledger.json fixture_report.json memory_capability_diagnostic.json reference_consistency.json feature_tape_manifest.json raw_artifact_manifest.json; do cp "$RUN_ROOT/$f" "$C/$f"; done
+          cp "$RUN_ROOT/D_corr_branch/branch_isolation_audit.json" "$C/branch_isolation_audit.json"; cp "$RUN_ROOT/D_corr_branch/causality_audit.json" "$C/causality_audit.json"; cp "$RUN_ROOT/analysis/comparison.json" "$C/comparison.json"; cp "$RUN_ROOT/analysis/cost_profile.json" "$C/cost_profile.json"; cp "$RUN_ROOT/analysis/status.json" "$C/status.json"
+
+      - name: Upload complete terminal artifact
+        id: upload_terminal
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol035-terminal-${{ github.run_id }}
+          path: |
+            ${{ env.RUN_ROOT }}/
+            docs/PROTOCOL035_RESULTS.md
+          if-no-files-found: warn
+          compression-level: 1
+          retention-days: 90
+
+      - name: Write completion pointers
+        if: success()
+        run: |
+          set -euo pipefail
+          C="artifacts/ftmoe_online/protocol_035/runs/run_${GITHUB_RUN_ID}"; LABEL=$(python -c "import json;print(json.load(open('$C/status.json'))['result_label'])")
+          printf '# Active Experiment Directive\n\nProtocol-035 is complete in terminal run %s. Result label: %s.\n\nPrimary handoff: `docs/PROTOCOL035_RESULTS.md`. Compact evidence: `%s/`.\n\nExactly two scientific sequences were consumed: C_ref_035 and D_corr_branch. No new stream, extra seed, sweep, old-D retraining, cache-router trial, or automatic follow-up is authorized.\n' "$GITHUB_RUN_ID" "$LABEL" "$C" > AGENTS.md
+          printf '# Current Task\n\nProtocol-035 completed in run %s; registered result label: **%s**.\n\nRead `docs/PROTOCOL035_RESULTS.md` and `%s/` before any next scientific proposal.\n' "$GITHUB_RUN_ID" "$LABEL" "$C" > NEXT_EXPERIMENT_LATEST.md
+          python - <<'PY'
+          import os,pathlib,re
+          p=pathlib.Path('PROJECT_CONTEXT_LATEST.md'); t=p.read_text(encoding='utf8') if p.exists() else '# Project Context\n'; b='\n## Protocol-035 latest\n\nProtocol-035 completed in run %s. Read `docs/PROTOCOL035_RESULTS.md` and `artifacts/ftmoe_online/protocol_035/runs/run_%s/`. No automatic follow-up is authorized.\n'%(os.environ['GITHUB_RUN_ID'],os.environ['GITHUB_RUN_ID']); t=re.sub(r'\n## Protocol-035 latest\n.*?(?=\n## |\Z)','',t,flags=re.S).rstrip()+b; p.write_text(t+'\n',encoding='utf8')
+          PY
+
+      - name: Commit compact results to execution branch
+        if: success()
+        run: |
+          git config user.name github-actions[bot]; git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/PROTOCOL035_RESULTS.md "artifacts/ftmoe_online/protocol_035/runs/run_${GITHUB_RUN_ID}" AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md
+          git commit -m "results: Protocol035 registered run ${GITHUB_RUN_ID} [skip ci]"; git push origin "HEAD:${EXECUTION_REF}"
+
+      - name: Sync compact Protocol035 results to main
+        if: success()
+        run: |
+          set -euo pipefail
+          git fetch origin main; rm -rf /tmp/p035-main; git worktree add -b "p035-main-${GITHUB_RUN_ID}" /tmp/p035-main origin/main
+          C="artifacts/ftmoe_online/protocol_035/runs/run_${GITHUB_RUN_ID}"; mkdir -p "/tmp/p035-main/$C" /tmp/p035-main/docs; cp -a "$C/." "/tmp/p035-main/$C/"; cp docs/PROTOCOL035_RESULTS.md /tmp/p035-main/docs/; cp AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md /tmp/p035-main/
+          cd /tmp/p035-main; git config user.name github-actions[bot]; git config user.email 41898282+github-actions[bot]@users.noreply.github.com; git add docs/PROTOCOL035_RESULTS.md "$C" AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md; git commit -m "results: sync Protocol035 run ${GITHUB_RUN_ID} [skip ci]"; git push origin HEAD:main
