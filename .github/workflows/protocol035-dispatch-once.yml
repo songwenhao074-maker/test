@@ -1,0 +1,60 @@
+# One-shot Protocol035 launch bridge authorized by docs/PROTOCOL035_LAUNCH_AMENDMENT_20260929.md
+name: Protocol035 one-shot dispatch helper
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/protocol035-dispatch-once.yml']
+permissions:
+  contents: read
+  actions: write
+concurrency:
+  group: protocol035-dispatch-once
+  cancel-in-progress: false
+jobs:
+  dispatch_once:
+    if: >-
+      github.repository == 'songwenhao074-maker/test' &&
+      contains(github.event.head_commit.message, '[p035-dispatch-once]')
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    env:
+      EXPECTED_EXECUTION_SHA: a6bbca4a8cf27aa8d16a1c573d3fe17d37ee56f6
+    steps:
+      - name: Verify target and dispatch exactly once
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ github.token }}
+          retries: 0
+          script: |
+            const owner = 'songwenhao074-maker';
+            const repo = 'test';
+            const workflow_id = 'protocol035-c-preserving-correction.yml';
+            const execution_ref = 'codex/protocol-035-c-preserving-correction-20260929';
+            const expected = process.env.EXPECTED_EXECUTION_SHA;
+            if (!/^[0-9a-f]{40}$/.test(expected)) {
+              throw new Error('Replace the expected SHA with the verified execution branch head before arming.');
+            }
+            const branch = await github.rest.git.getRef({owner, repo, ref: 'heads/' + execution_ref});
+            if (branch.data.object.sha !== expected) throw new Error('Execution branch moved. Do not dispatch.');
+            const plan = await github.rest.repos.getContent({owner, repo,
+              path: 'artifacts/ftmoe_online/protocol_035/plan.json', ref: expected});
+            const bytes = Buffer.from(plan.data.content, 'base64');
+            const digest = require('crypto').createHash('sha256').update(bytes).digest('hex');
+            if (digest !== '43a6b2e50fea2f73e1ee893b2cb20efdbbf84fe76e9b4cdd4dcaebccfdf86df9') throw new Error('Frozen scientific registration changed.');
+            const existing = await github.rest.actions.listWorkflowRuns({owner, repo, workflow_id, per_page: 1});
+            if (existing.data.total_count !== 0) {
+              core.info(JSON.stringify({dispatch_sent: false, reason: 'existing_formal_run',
+                run_id: existing.data.workflow_runs[0]?.id}));
+              throw new Error('A Protocol035 run already exists. Inspect it and its budget; do not restart.');
+            }
+            core.info(JSON.stringify({amendment: 'launch_20260929_v1', expected_execution_sha: expected,
+              workflow_id, ref: 'main', execution_ref, helper_run_id: context.runId}));
+            const response = await github.request('POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches', {
+              owner, repo, workflow_id, ref: 'main', inputs: {execution_ref},
+              headers: {'X-GitHub-Api-Version': '2026-03-10'}
+            });
+            core.info(JSON.stringify({dispatch_sent: true, status: response.status, response: response.data ?? null}));
+            await core.summary.addHeading('Protocol035 dispatch receipt')
+              .addRaw(JSON.stringify({status: response.status, response: response.data ?? null,
+                expected_execution_sha: expected, helper_run_id: context.runId}))
+              .write();
