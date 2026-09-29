@@ -1,0 +1,367 @@
+{
+  "protocol": "035",
+  "revision": 1,
+  "date": "2026-09-29",
+  "status": "planned_not_implemented_not_run",
+  "task": "Bounded existing-memory diagnosis and a minimal C-preserving input-conditioned correction pilot",
+  "publication_scope": "Design, validate and publish instructions only; another model implements and executes after the user hands off this directive",
+  "source": {
+    "repository": "songwenhao074-maker/test",
+    "main_before_plan": "65cdee158dce3aeb05594b8aece5ceaf2d0fbb0d",
+    "implementation_base_commit": "cdf4b1ce3885ef5f5ac67b4265074faa8f7310eb",
+    "reference_033_code_commit": "0463cd365b4cda5a50423b4fccc941fe8d074bbf",
+    "execution_branch": "codex/protocol-035-c-preserving-correction-20260929",
+    "input_033": {
+      "run_id": 36417604442,
+      "artifact_id": 10968752245,
+      "zip_sha256": "d92a3f9c8f1ebd292b86fbbe6e2300291135376f3564f2773975fd9203b55944",
+      "stream_sha256": "70c9283f133a5f8033e12fbc03a38af6d9ce39f1d7e6a9e825964ee9a28edbd9"
+    },
+    "evidence_034": {
+      "run_id": 36436945806,
+      "artifact_id": 10976639928,
+      "zip_sha256": "f9334e4b7864569e959be7d7c0c44a8a23459947f89e51b977fd4117136fd88a",
+      "reference_arm": "C_ref"
+    },
+    "missing_artifact_policy": "Stop with blocked_input; obtain the exact original artifact or hash-identical files; never regenerate or substitute a stream"
+  },
+  "input": {
+    "total_rows": 5969,
+    "scored_rows": 5968,
+    "hosts": 16,
+    "replay_seed": 700,
+    "model_seed": 1,
+    "feature_dimensions": 73,
+    "target": "same_host_raw_next_fault",
+    "label_available": "i_plus_2_after_prediction_at_that_cursor",
+    "phase_ids": "audit_only",
+    "new_streams": 0
+  },
+  "budget": {
+    "full_training_sequences": 2,
+    "training_sequence_names": [
+      "C_ref_035",
+      "D_corr_branch"
+    ],
+    "C_reference_replays": 1,
+    "correction_training_replays": 1,
+    "new_simulator_streams": 0,
+    "extra_seeds": 0,
+    "hyperparameter_sweeps": 0,
+    "old_D_training_replays": 0,
+    "cache_diagnostic_suites": 1,
+    "cache_diagnostic_parameter_fitting": false,
+    "additional_cache_router_trials": 0,
+    "engineering_fixture_max_real_stream_prefix": 256,
+    "engineering_fixture_max_real_stream_executions": 2,
+    "exact_checkpoint_resume_allowed": true,
+    "restart_from_zero_after_scientific_start_allowed": false,
+    "statistical_reporting_recovery_without_training_allowed": true,
+    "automatic_followup_training": false
+  },
+  "diagnosis": {
+    "data": "Protocol034 existing issued predictions and 45 paired snapshot caches; no historical predictions regenerated from final weights",
+    "all_windows_required": true,
+    "initial_snapshot_groups": [
+      "U_first",
+      "V_first"
+    ],
+    "initial_support": "creation+1 through min(creation+129, initial_phase_end), report actual length; never pool unequal lengths as equal-support evidence",
+    "cells": [
+      "each_of_16_hosts_cross_each_recurrence",
+      "each_recurrence_four_nonoverlapping_32_step_blocks",
+      "C_probability_risk_bins_cross_each_recurrence"
+    ],
+    "risk_bins": [
+      [
+        0.0,
+        0.1
+      ],
+      [
+        0.1,
+        0.5
+      ],
+      [
+        0.5,
+        1.0
+      ]
+    ],
+    "risk_bin_rule": "[lo,hi), final bin includes1; masks determined from issued C_ref probabilities, identical across methods",
+    "minimum_cell_positives": 8,
+    "minimum_cell_negatives": 8,
+    "snapshot_eligibility": "exists before recurrence start and has32 distinct matured prediction intervals before that prediction; i+2<start",
+    "metrics": [
+      "tie_grouped_AP",
+      "detection_BCE",
+      "recall_0p5",
+      "FPR_0p5",
+      "positive_negative_support",
+      "source_phase",
+      "lineage",
+      "creation_time"
+    ],
+    "full_fragment_paired_required": true,
+    "hindsight_diagnostic": true,
+    "online_result": false,
+    "best_fixed_snapshot_not_dynamic_routing_upper_bound": true,
+    "fit_or_select_new_algorithm_from_diagnostic_cells": false,
+    "diagnostic_sign_does_not_cancel_fixed_correction_pilot": true
+  },
+  "reference": {
+    "class": "Protocol025FixedSession",
+    "comparator": "C_fixed5",
+    "frozen_runner": "run_ftmoe_protocol033.py",
+    "loss_unchanged": true,
+    "distill_weight": 0.1,
+    "update_every": 16,
+    "gradient_steps_per_opportunity": 1,
+    "replay_intervals": 64,
+    "batch_intervals": 32,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "gradient_clip_norm": 1.0,
+    "record_issued_z_before_label_and_update": true,
+    "record_all_actual_minibatch_interval_indices": true,
+    "check_against_034_C_ref": {
+      "probability_atol": 2e-06,
+      "probability_rtol": 2e-06,
+      "recurrence_AP_atol": 0.0001,
+      "exact_labels": true,
+      "exact_initialization": true,
+      "full_five_expert_initial_hash_required": true,
+      "initialization_comparison_scope": "compare recorded first4 prefix exactly; record all5 new hash and deterministic constructor fixture, never invent a missing historical all5 hash"
+    },
+    "on_reference_failure": "retain outputs and stop before correction training; do not widen tolerance or restart"
+  },
+  "correction": {
+    "name": "D_corr",
+    "role": "minimal proposed D architecture component, not a completed dynamic-memory system",
+    "shared_path": "entire continuously trained C_fixed5; may be executed once and consumed as a causal issued-feature/logit tape",
+    "branch_input": "the exact issued normalized73d z from C at prediction time; no host ID, phase, time, future data, label or full-stream normalization",
+    "architecture": [
+      {
+        "type": "Linear",
+        "in_features": 73,
+        "out_features": 32,
+        "bias": true
+      },
+      {
+        "type": "ReLU"
+      },
+      {
+        "type": "Linear",
+        "in_features": 32,
+        "out_features": 1,
+        "bias": true
+      }
+    ],
+    "trainable_parameters": 2401,
+    "initialization_seed": 3501,
+    "hidden_initialization": "torch_Linear_default_Kaiming_uniform_and_default_bias_under_isolated_CPU_generator",
+    "output_initialization": "weight_and_bias_zero",
+    "delta": "2*tanh(raw_branch_output/2)",
+    "detection_logits": "[C_logit0-delta/2, C_logit1+delta/2]",
+    "classification_probabilities": "exactly_copy_C; no classification correction and no classification-gain claim",
+    "loss": "mean_over_sampled_intervals_and_all16hosts(BCEWithLogits(issued_C_margin + current_branch_delta(issued_z), raw_next_fault>0) + 0.001*delta**2)",
+    "delta_penalty": 0.001,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "gradient_clip_norm": 1.0,
+    "update_every": 16,
+    "gradient_steps_per_opportunity": 1,
+    "replay_intervals": 64,
+    "batch_intervals": 32,
+    "minibatch_sampling": "reuse exactly the interval index list from the corresponding C_ref_035 update; all16 hosts, same duplicates; no additional draw",
+    "loss_gradient_to_C_or_z": false,
+    "C_optimizer_shared_with_branch": false,
+    "future_C_weights_for_replay": false,
+    "current_branch_on_historical_issued_z_allowed": true,
+    "historical_C_margin": "issued_at_prediction_i_not_recomputed_with_future_C",
+    "normalization_updates": false,
+    "dropout": false,
+    "AMP": false,
+    "dynamic_birth": false,
+    "memory_expert_bank": false,
+    "hard_deletion": false,
+    "extra_router": false,
+    "outputs": [
+      "C_ref_035",
+      "D_corr",
+      "D_off_exact_C_copy"
+    ],
+    "D_off_requires_extra_training": false,
+    "read_only_checkpoint_snapshots": "every512 prediction steps and final; audit/resume only, not selectable experts"
+  },
+  "timeline": {
+    "predict": "At t expose only issued C logits,z at t; compute D before releasing any labels for cursor t",
+    "settle": "After predicting t release y[i] only for i=t-2 if i>=0",
+    "update": "After settlement, when (t+1)%16==0, use that C update batch; each i must satisfy i+2<=t",
+    "terminal_drain": "Release remaining labels at cursors5968,5969 for scoring only; no new predictions and no gradient updates",
+    "future_buffer_access": "A cursor-guarded view exposes current observation and already published labels; future tape rows cannot enter code paths",
+    "score_window_32_vs_64": "report prefix32 and prefix64 separately; never use them to choose checkpoint or hyperparameters"
+  },
+  "evaluation": {
+    "windows": [
+      [
+        "U_rec1",
+        3300,
+        3428
+      ],
+      [
+        "V_rec1",
+        3808,
+        3936
+      ],
+      [
+        "U_rec2",
+        4316,
+        4444
+      ],
+      [
+        "V_rec2",
+        4824,
+        4952
+      ],
+      [
+        "U_rec3",
+        5332,
+        5460
+      ],
+      [
+        "V_rec3",
+        5840,
+        5968
+      ]
+    ],
+    "W_blocks": [
+      "W_long",
+      "W_gap1",
+      "W_gap2",
+      "W_gap3",
+      "W_gap4",
+      "W_gap5"
+    ],
+    "two_primary_axes": [
+      "full_stream_detection_AP_delta",
+      "equal_weight_six_recurrence_AP_delta"
+    ],
+    "probability_ties": "group identical scores and compute noninterpolated average precision at group boundaries",
+    "threshold": 0.5,
+    "invalid_cell": "AP null if no positives or no negatives; label invalid and report support; never replace with0 or silently drop a primary window",
+    "online_development_signal": {
+      "full_AP_delta_min": 0.005,
+      "recurrence_mean_AP_delta_min": 0.0,
+      "late4_mean_AP_delta_min": -0.005
+    },
+    "recurrence_development_signal": {
+      "recurrence_mean_AP_delta_min": 0.005,
+      "positive_windows_min": 4,
+      "late4_mean_AP_delta_min": 0.0,
+      "first32_mean_AP_delta_min": -0.005,
+      "full_AP_delta_min": 0.0
+    },
+    "common_guardrails": {
+      "full_and_recurrence_pooled_FPR_delta_max": 0.01,
+      "full_and_recurrence_pooled_recall_delta_min": -0.01,
+      "W_equal_weight_mean_AP_delta_min": -0.02
+    },
+    "joint_goal_signal": "online_development_signal AND recurrence_development_signal AND all_common_guardrails AND validity_audits",
+    "partial_success_labels": [
+      "global_online_only",
+      "recurrence_only",
+      "local_capability_only",
+      "no_registered_gain"
+    ],
+    "fixed_secondary": [
+      "all_phase_metrics",
+      "last4_mean",
+      "prefix32",
+      "prefix64",
+      "per_host",
+      "four_nonoverlap32_blocks",
+      "detection_BCE",
+      "delta_quantiles_and_saturation",
+      "normal_and_positive_logit_shift",
+      "TP_FP_FN_TN",
+      "parameter_and_compute_cost"
+    ],
+    "secondary_cells_cannot_determine_success": true,
+    "independent_confirmation": false,
+    "033_strong_AP_reference": 0.03
+  },
+  "fixtures": [
+    "zero_correction_exactly_copies_C_probability_and_classification",
+    "two_steps_update_synthetic_fixture_changes_branch_and_never_C",
+    "issued_feature_hook_before_any_update_and_labels",
+    "branch_initialization_does_not_change_C_RNG_or_sampler",
+    "recorded_and_reused_batch_indices_match_with_maturity_checks",
+    "future_labels_or_future_tape_perturbation_does_not_change_prefix_outputs",
+    "checkpoint_resume_matches_uninterrupted_short_fixture",
+    "AP_tied_score_test_y_1_0_p_half_half_equals_half_and_permutation_invariant",
+    "AP_all_equal_mixed_labels_equals_prevalence",
+    "offline_cache_composition_matches_live_composition_on_short_fixture",
+    "terminal_labels_score_only_no_final_training"
+  ],
+  "runtime": {
+    "python": "3.8.20",
+    "torch": "2.4.1_cpu",
+    "dgl": "1.1.3",
+    "dill": "0.3.8",
+    "other_dependencies": "requirements-online.txt from pinned implementation commit, record actual pip freeze and deviations before training",
+    "single_thread": true,
+    "processes": "sequential_in_one_job",
+    "memory_soft_limit_fraction": 0.8,
+    "memory_limit": "minimum physical/cgroup memory",
+    "workflow_trigger": "workflow_dispatch_only",
+    "dispatch_in_plan_publication": false
+  },
+  "delivery": {
+    "directive": "docs/PROTOCOL035_C_PRESERVING_CORRECTION_20260929.md",
+    "results": "docs/PROTOCOL035_RESULTS.md",
+    "run_dir": "artifacts/ftmoe_online/protocol_035/runs/run_<id>",
+    "required_evidence": [
+      "registration_frozen",
+      "implementation_manifest",
+      "input_lock",
+      "artifact_index",
+      "budget_ledger",
+      "fixture_report",
+      "memory_capability_diagnostic",
+      "reference_consistency",
+      "feature_tape_manifest",
+      "branch_isolation_audit",
+      "causality_audit",
+      "comparison",
+      "cost_profile",
+      "status"
+    ],
+    "archive_raw_inputs_and_outputs": true,
+    "archive_before_analysis": true,
+    "archive_model_states_and_optimizer_for_resume": true,
+    "compact_results_in_git": true,
+    "sync_main_and_execution_branch": [
+      "AGENTS.md",
+      "NEXT_EXPERIMENT_LATEST.md",
+      "PROJECT_CONTEXT_LATEST.md",
+      "docs/PROTOCOL035_RESULTS.md",
+      "artifacts/ftmoe_online/protocol_035/runs/run_<id>"
+    ],
+    "commit_message_skip_ci": true,
+    "output_isolation": "All outputs/checkpoints only under protocol_035 runtime/run_<id>; inherited helpers may not write into023/024/033/034 paths"
+  },
+  "claims": {
+    "after_observing_033_034": true,
+    "no_guaranteed_D_superiority": true,
+    "no_equal_capacity_claim": true,
+    "no_dynamic_memory_or_forgetting_mechanism_claim_from_correction_alone": true,
+    "no_deletion_claim": true,
+    "no_independent_repeat_claim": true
+  },
+  "stop": "After the one registered diagnostic suite, one C replay and one correction replay with report; or explicit engineering/input/reference blocker. Negative metrics are completed negative results, not blocked. No automatic protocol036, seed, grid, memory module or wider-C training."
+}

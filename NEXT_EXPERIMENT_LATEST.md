@@ -1,7 +1,12 @@
-# Current Task
+# 下一轮实验：Protocol-035
 
-Protocol-034 three-hypothesis experiment is complete in resumed terminal run 36436945806 (preserving C_ref/D_frozen_ref from run 36429633413).
+当前状态：**方案已设计，算法未实现，实验未运行**。本次仅发布指示，用户将交由其他模型执行。
 
-Read `docs/PROTOCOL034_RESULTS.md` and `artifacts/ftmoe_online/protocol_034/runs/run_36436945806/` before proposing any new scientific run.
+权威入口：[能力覆盖诊断与保留C学习路径的最小纠错结构](docs/PROTOCOL035_C_PRESERVING_CORRECTION_20260929.md)。
+机器登记：[plan.json](artifacts/ftmoe_online/protocol_035/plan.json)。先运行 `python maintenance/validate_protocol035_plan.py`。
 
-The registered budget is exhausted: exactly 3 full training replays + 2 fixed no-training cache routing passes. Do not launch extra seeds, threshold sweeps, rerolls, or automatic follow-ups.
+执行分支：`codex/protocol-035-c-preserving-correction-20260929`；基于034完整执行代码，勿从仅同步报告的main或本地024旧checkout推断实现齐全。
+
+执行顺序：核验033/034原始artifact → 固定历史能力诊断 → 一次C参考回放及因果tape → 一次2401参数纠错分支训练 → 原始产物归档、完整指标与结果回传。总计2条新完整训练序列，不新生成数据、不重跑旧D、不扫描参数。
+
+本轮验证额外能力的来源。新生/休眠/受保护记忆/复杂路由留待后续另行授权。全程与回归能力分别判定，禁止用误报下降掩盖召回损失；负结果如实交付。
