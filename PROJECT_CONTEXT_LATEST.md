@@ -11,3 +11,7 @@
 执行分支 `codex/protocol-035-c-preserving-correction-20260929` 基于 `cdf4b1ce3885ef5f5ac67b4265074faa8f7310eb`。main不含完整033/034实现。机器登记在 `artifacts/ftmoe_online/protocol_035/plan.json`，先执行方案验证器。全程和回归两个开发信号及共同召回/FPR保护条件预先固定；单轨迹、额外容量，不作独立确认或动态机制优越性声明。
 
 工程启动限制已根据用户请求修订：[启动方式修订](docs/PROTOCOL035_LAUNCH_AMENDMENT_20260929.md)。科学登记不变；仅缺少直接dispatch接口时，执行模型可用一次性push助手调用正式workflow_dispatch。此次发布不激活助手、不启动科学运行。
+## Protocol-035 latest
+
+Protocol-035 completed in run 36585058415. Read `docs/PROTOCOL035_RESULTS.md` and `artifacts/ftmoe_online/protocol_035/runs/run_36585058415/`. No automatic follow-up is authorized.
+

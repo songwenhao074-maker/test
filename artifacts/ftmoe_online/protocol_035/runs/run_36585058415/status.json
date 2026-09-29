@@ -1,0 +1,26 @@
+{
+  "protocol": "035",
+  "run_id": "36585058415",
+  "completed": true,
+  "scientific_training_sequences_started": 2,
+  "scientific_training_sequences_completed": 2,
+  "sequence_names": [
+    "C_ref_035",
+    "D_corr_branch"
+  ],
+  "new_simulator_streams": 0,
+  "extra_seeds": 0,
+  "hyperparameter_sweeps": 0,
+  "old_D_replays": 0,
+  "cache_diagnostic_suites": 1,
+  "additional_cache_router_trials": 0,
+  "automatic_followup_training": false,
+  "result_label": "recurrence_only",
+  "online_development_signal": false,
+  "recurrence_development_signal": true,
+  "joint_goal_signal": false,
+  "validity_all_pass": true,
+  "stop_after_registered_budget": true,
+  "development_only": true,
+  "statistical_confirmation": false
+}

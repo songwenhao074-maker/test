@@ -1,0 +1,8 @@
+{
+  "prediction_reads_current_tape_row_only": true,
+  "prediction_preupdate_label_max_rule": "i+2<t",
+  "update_label_rule": "i+2<=t",
+  "all_update_batches_mature": true,
+  "future_C_weights_recomputed": false,
+  "terminal_drain_training_steps": 0
+}

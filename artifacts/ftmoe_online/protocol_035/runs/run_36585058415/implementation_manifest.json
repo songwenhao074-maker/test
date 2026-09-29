@@ -1,0 +1,80 @@
+{
+  "protocol": "035",
+  "run_id": "36585058415",
+  "execution_commit": "2163838481c3f4f5d80bbe9a173fe587b4a37074",
+  "plan_sha256": "43a6b2e50fea2f73e1ee893b2cb20efdbbf84fe76e9b4cdd4dcaebccfdf86df9",
+  "stream_sha256": "70c9283f133a5f8033e12fbc03a38af6d9ce39f1d7e6a9e825964ee9a28edbd9",
+  "source_artifacts": {
+    "repository": "songwenhao074-maker/test",
+    "main_before_plan": "65cdee158dce3aeb05594b8aece5ceaf2d0fbb0d",
+    "implementation_base_commit": "cdf4b1ce3885ef5f5ac67b4265074faa8f7310eb",
+    "reference_033_code_commit": "0463cd365b4cda5a50423b4fccc941fe8d074bbf",
+    "execution_branch": "codex/protocol-035-c-preserving-correction-20260929",
+    "input_033": {
+      "run_id": 36417604442,
+      "artifact_id": 10968752245,
+      "zip_sha256": "d92a3f9c8f1ebd292b86fbbe6e2300291135376f3564f2773975fd9203b55944",
+      "stream_sha256": "70c9283f133a5f8033e12fbc03a38af6d9ce39f1d7e6a9e825964ee9a28edbd9"
+    },
+    "evidence_034": {
+      "run_id": 36436945806,
+      "artifact_id": 10976639928,
+      "zip_sha256": "f9334e4b7864569e959be7d7c0c44a8a23459947f89e51b977fd4117136fd88a",
+      "reference_arm": "C_ref"
+    },
+    "missing_artifact_policy": "Stop with blocked_input; obtain the exact original artifact or hash-identical files; never regenerate or substitute a stream"
+  },
+  "runtime": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONHASHSEED": "1",
+    "torch_num_threads": 1,
+    "torch_num_interop_threads": 1,
+    "deterministic_algorithms": true
+  },
+  "initialization": {
+    "shared_first4_expert_and_router_rows_sha256": "7e8a7a901775b003d82d6f30d2ce448a2e7f1c100bd00019115271883c2de29b",
+    "all5_learner_state_sha256": "a63d9af61e4e6a66d3df87eb03b4bdd822e96e6de8ea694937d8c87d4667a2fa",
+    "frozen_base_sha256": "ddf996d3060e9c0c8bc8c1983764c4e9392570fd92979e246a0548acdc9e2e58",
+    "normalization_buffers_sha256": "28b40256ac35b649fd9865677685ef860d0262c100ce7183fad563e7bed0ab0c",
+    "model_seed": 1
+  },
+  "features": {
+    "dimension": 73,
+    "definition": "Protocol025 z64 plus 9 causal pressure/change features"
+  },
+  "correction": {
+    "parameter_count": 2401,
+    "initial_state_sha256": "41afe36dfb5edaebb3e686eecd6e9d1285c6d6fca0ba9c9da2e3ee4fa5dcc144",
+    "seed": 3501,
+    "architecture": "73-32-ReLU-1",
+    "delta": "2*tanh(raw/2)"
+  },
+  "budget": {
+    "full_training_sequences": 2,
+    "training_sequence_names": [
+      "C_ref_035",
+      "D_corr_branch"
+    ],
+    "C_reference_replays": 1,
+    "correction_training_replays": 1,
+    "new_simulator_streams": 0,
+    "extra_seeds": 0,
+    "hyperparameter_sweeps": 0,
+    "old_D_training_replays": 0,
+    "cache_diagnostic_suites": 1,
+    "cache_diagnostic_parameter_fitting": false,
+    "additional_cache_router_trials": 0,
+    "engineering_fixture_max_real_stream_prefix": 256,
+    "engineering_fixture_max_real_stream_executions": 2,
+    "exact_checkpoint_resume_allowed": true,
+    "restart_from_zero_after_scientific_start_allowed": false,
+    "statistical_reporting_recovery_without_training_allowed": true,
+    "automatic_followup_training": false
+  },
+  "pip_freeze_sha256": "7904bdcc96767fb62f875958d620ab41cd3cfa54f9a05755704c182cef75883c",
+  "python_actual": "3.8.18",
+  "torch_actual": "2.4.1+cpu",
+  "dgl_actual": "unavailable:ModuleNotFoundError"
+}
