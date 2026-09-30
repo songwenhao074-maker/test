@@ -1,4 +1,4 @@
-name: Protocol036 deterministic repair runner
+name: Protocol036 workflow condition repair
 
 on:
   push:
@@ -12,9 +12,9 @@ env:
 
 jobs:
   repair:
-    if: contains(github.event.head_commit.message, '[p036-repair2]')
+    if: contains(github.event.head_commit.message, '[p036-workflowfix]')
     runs-on: ubuntu-22.04
-    timeout-minutes: 15
+    timeout-minutes: 10
     steps:
       - name: Checkout execution branch
         uses: actions/checkout@v4
@@ -22,18 +22,23 @@ jobs:
           ref: ${{ env.EXECUTION_REF }}
           fetch-depth: 0
 
-      - name: Apply registered engineering repair
-        run: python maintenance/repair_protocol036_preflight.py
-
-      - name: Compile all Protocol036 sources
+      - name: Make seed700 manifest available in preflight and science only
         run: |
-          python -m py_compile protocol036_stream.py run_ftmoe_protocol036.py analyze_ftmoe_protocol036.py maintenance/repair_protocol036_preflight.py
-          python -c "import hashlib,pathlib; p=pathlib.Path('artifacts/ftmoe_online/protocol_036/plan.json'); e=pathlib.Path('artifacts/ftmoe_online/protocol_036/plan.sha256').read_text().split()[0]; assert hashlib.sha256(p.read_bytes()).hexdigest()==e"
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('.github/workflows/protocol036-correction-controls.yml')
+          t=p.read_text(encoding='utf8')
+          old="      - name: Download exact Protocol033 source for preflight fixture\n        if: env.STAGE == 'preflight'"
+          new="      - name: Download exact Protocol033 source for preflight fixture and Stage-A manifest\n        if: env.STAGE == 'preflight' || env.STAGE == 'science'"
+          assert old in t
+          p.write_text(t.replace(old,new,1),encoding='utf8')
+          PY
+          python maintenance/validate_protocol036_plan.py
 
-      - name: Commit repaired frozen implementation
+      - name: Commit final workflow correction
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add run_ftmoe_protocol036.py analyze_ftmoe_protocol036.py maintenance/repair_protocol036_preflight.py
-          git commit -m 'fix: Protocol036 deterministic preflight audit repair [skip ci]'
+          git add .github/workflows/protocol036-correction-controls.yml
+          git commit -m 'fix: make Protocol033 manifest available to Protocol036 science [skip ci]'
           git push origin HEAD:"$EXECUTION_REF"
