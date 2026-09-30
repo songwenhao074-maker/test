@@ -1,17 +1,11 @@
-# 当前项目上下文：034完成，035实现已提交、启动方式已修订
+# 当前项目上下文：035完成，036指示已登记
 
-用户目标是在持续学习中使D优于C。最新已完成实验是Protocol-034，终端run36436945806；[原结果](docs/PROTOCOL034_RESULTS.md)与紧凑证据保留。
+用户目标：使D在持续学习中优于C。
 
-034诊断：持续更新活动专家相对原D六窗AP仅+0.001090，后四窗-0.002271。按正确并列分数组计分，C六窗AP0.768296973；完整快照路由0.764832197，片段路由0.765458625。完整路由全程AP高于C，但六窗召回71.53%→66.61%，FPR6.30%→5.33%。初学U/V完整快照在后续对应回归均落后当前C，不能把瓶颈仅归于路由。
+仓库原FT-MoE地址重定向至songwenhao074-maker/test。035正式run36585058415科学步骤完成；main发布竞态失败后已补同步。原始artifact11041705829。独立复核见docs/PROTOCOL035_INDEPENDENT_REVIEW_20260930.md。
 
-新方案：[Protocol-035](docs/PROTOCOL035_C_PRESERVING_CORRECTION_20260929.md)。本次授权只设计并推送，后续用户交接后由其他模型实现执行；035实现现已提交执行分支，正式workflow已在main；尚无035结果。
+035保留完整C并添加2401参数输入条件化检测校正。六窗AP全部正向、平均+0.005737，前32平均+0.005953；全程+0.004534未达到+0.005门槛，标签recurrence_only。V_rec3召回下降2.10个百分点；只有seed700一条已观察流。无动态记忆、同容量或跨种子优势结论。034旧完整快照路由仍未胜C，事后局部专家胜点不能作为可部署路由证明。
 
-035固定033原始输入，先做一次034缓存能力覆盖诊断，再测试保留完整C在线学习路径的单个输入条件化纠错分支。新增2401参数，检测目标单独训练，梯度不影响C；它是D结构组件试验，尚不是动态记忆系统。未来执行预算2条完整训练序列：一次C参考＋一次分支；禁止新数据、额外种子、超参扫描或自动后续。
+下一步036固定该分支，增加两参数分数校准和74参数线性校正对照；三条新流3601/3602/3603检验稳健性。预算14条新科学序列、3条新流，模型种子保持1、分支3501。开发700不纳入新流均值。当前仅登记指示；未实现、未生成、未运行。后续用户交接才执行。
 
-执行分支 `codex/protocol-035-c-preserving-correction-20260929` 基于 `cdf4b1ce3885ef5f5ac67b4265074faa8f7310eb`。main不含完整033/034实现。机器登记在 `artifacts/ftmoe_online/protocol_035/plan.json`，先执行方案验证器。全程和回归两个开发信号及共同召回/FPR保护条件预先固定；单轨迹、额外容量，不作独立确认或动态机制优越性声明。
-
-工程启动限制已根据用户请求修订：[启动方式修订](docs/PROTOCOL035_LAUNCH_AMENDMENT_20260929.md)。科学登记不变；仅缺少直接dispatch接口时，执行模型可用一次性push助手调用正式workflow_dispatch。此次发布不激活助手、不启动科学运行。
-## Protocol-035 latest
-
-Protocol-035 completed in run 36585058415. Read `docs/PROTOCOL035_RESULTS.md` and `artifacts/ftmoe_online/protocol_035/runs/run_36585058415/`. No automatic follow-up is authorized.
-
+最新交接NEXT_EXPERIMENT_LATEST.md，机器登记artifacts/ftmoe_online/protocol_036/plan.json，执行分支codex/protocol-036-correction-controls-20260930。旧协议冻结，预算不重新开放。036正式workflow_dispatch，缺少直接工具时允许受约束的一次性push启动助手；本次不部署或激活助手。
