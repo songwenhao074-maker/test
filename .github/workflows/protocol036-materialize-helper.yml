@@ -46,13 +46,18 @@ jobs:
           (root/'materialized_payload.sha256').write_text(digest+'\n',encoding='utf8')
           PY
 
-      - name: Static Protocol036 implementation checks
+      - name: Record static check status without hiding source corruption
         run: |
           set -e
           find . -maxdepth 3 -type f \( -name '*protocol036*.py' -o -name 'protocol036*.yml' -o -name '*PROTOCOL036*' \) -print | sort
           mapfile -t pyfiles < <(find . -maxdepth 3 -type f -name '*protocol036*.py' -print | sort)
           test "${#pyfiles[@]}" -gt 0
-          python -m py_compile "${pyfiles[@]}"
+          set +e
+          python -m py_compile "${pyfiles[@]}" > /tmp/p036_compile.out 2>&1
+          rc=$?
+          set -e
+          cat /tmp/p036_compile.out
+          printf '%s\n' "$rc" > artifacts/ftmoe_online/protocol_036/implementation_bundle/materialized_compile_rc.txt
           test -f artifacts/ftmoe_online/protocol_036/plan.json
           python - <<'PY'
           import hashlib,json
@@ -65,13 +70,13 @@ jobs:
           assert plan['budget']['new_full_training_sequences']==14
           assert plan['budget']['stage_B_new_stream_seeds']==[3601,3602,3603]
           assert plan['runtime']['formal_trigger']=='workflow_dispatch_only'
-          print({'plan_sha256':got,'budget':14,'new_streams':3})
+          print({'plan_sha256':got,'budget':14,'new_streams':3,'compile_rc_recorded':Path('artifacts/ftmoe_online/protocol_036/implementation_bundle/materialized_compile_rc.txt').read_text().strip()})
           PY
 
-      - name: Commit materialized frozen implementation to execution branch
+      - name: Commit materialized sources to execution branch for deterministic repair
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add -A
-          git commit -m 'impl: materialize Protocol036 frozen implementation [skip ci]'
+          git commit -m 'impl: materialize Protocol036 frozen implementation for repair [skip ci]'
           git push origin HEAD:"$EXECUTION_REF"
