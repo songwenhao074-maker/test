@@ -1,0 +1,478 @@
+name: Protocol-036 correction controls and new streams
+
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: Registered stage
+        type: choice
+        required: true
+        default: preflight
+        options: [preflight, generate, science]
+      execution_ref:
+        description: Frozen Protocol036 execution branch
+        type: string
+        required: true
+        default: codex/protocol-036-correction-controls-20260930
+      expected_execution_sha:
+        description: Exact frozen checkout SHA
+        type: string
+        required: true
+      seed:
+        description: Registered generation seed
+        type: choice
+        required: true
+        default: '3601'
+        options: ['3601','3602','3603']
+      resume_generation_run_id:
+        description: Previous generation-state run for the same seed
+        type: string
+        required: false
+        default: ''
+      preflight_run_id:
+        description: Successful Protocol036 preflight run
+        type: string
+        required: false
+        default: ''
+      sealed_3601_run_id:
+        type: string
+        required: false
+        default: ''
+      sealed_3602_run_id:
+        type: string
+        required: false
+        default: ''
+      sealed_3603_run_id:
+        type: string
+        required: false
+        default: ''
+      science_resume_run_id:
+        description: Prior interrupted science run; exact checkpoint resume only
+        type: string
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: protocol036-correction-controls
+  cancel-in-progress: false
+
+env:
+  OMP_NUM_THREADS: '1'
+  MKL_NUM_THREADS: '1'
+  OPENBLAS_NUM_THREADS: '1'
+  PYTHONHASHSEED: '1'
+  STAGE: ${{ inputs.stage }}
+  EXECUTION_REF: ${{ inputs.execution_ref }}
+  EXPECTED_EXECUTION_SHA: ${{ inputs.expected_execution_sha }}
+  SEED: ${{ inputs.seed }}
+  PREFLIGHT_RUN_ID: ${{ inputs.preflight_run_id }}
+  RESUME_GENERATION_RUN_ID: ${{ inputs.resume_generation_run_id }}
+  SEALED_3601_RUN_ID: ${{ inputs.sealed_3601_run_id }}
+  SEALED_3602_RUN_ID: ${{ inputs.sealed_3602_run_id }}
+  SEALED_3603_RUN_ID: ${{ inputs.sealed_3603_run_id }}
+  SCIENCE_RESUME_RUN_ID: ${{ inputs.science_resume_run_id }}
+  SCI_ROOT: artifacts/ftmoe_online/protocol_036/runtime/run_${{ github.run_id }}
+
+jobs:
+  protocol036:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    steps:
+      - name: Checkout exact Protocol036 execution branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXECUTION_REF }}
+          fetch-depth: 0
+
+      - name: Materialize actual formal workflow from main
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          git show origin/main:.github/workflows/protocol036-correction-controls.yml > /tmp/protocol036-correction-controls.yml
+          cp /tmp/protocol036-correction-controls.yml .github/workflows/protocol036-correction-controls.yml
+
+      - name: Enforce frozen checkout, plan and historical boundary
+        run: |
+          set -euo pipefail
+          ACTUAL=$(git rev-parse HEAD)
+          test "$ACTUAL" = "$EXPECTED_EXECUTION_SHA"
+          echo "CHECKOUT_SHA=$ACTUAL" >> "$GITHUB_ENV"
+          python -m py_compile protocol036_stream.py run_ftmoe_protocol036.py analyze_ftmoe_protocol036.py maintenance/validate_protocol036_plan.py maintenance/protocol036_finalize.py
+          python maintenance/validate_protocol036_plan.py
+          git diff --exit-code 84282143b849dd3b5684e7f879964a2ab485fab0 -- run_ftmoe_protocol035.py protocol035_common.py run_ftmoe_protocol033.py prepare_ftmoe_protocol033_stream.py maintenance/run_protocol033_segment.py ftmoe_protocol025_session.py ftmoe_protocol025_model.py ftmoe_protocol024_session.py simulator/workload/BitbrainWorkloadProtocol025.py
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          cache: pip
+
+      - name: Install registered CPU dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil
+
+      - name: Download exact Protocol033 source for fixture and Stage-A manifest
+        if: env.STAGE == 'preflight' || env.STAGE == 'science'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/p033 /tmp/p033.zip; mkdir -p /tmp/p033
+          curl --fail --silent --show-error --location -H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" -o /tmp/p033.zip "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/10968752245/zip"
+          echo "d92a3f9c8f1ebd292b86fbbe6e2300291135376f3564f2773975fd9203b55944  /tmp/p033.zip" | sha256sum -c -
+          unzip -q /tmp/p033.zip -d /tmp/p033
+          DATA=/tmp/p033/tmp/protocol033_bundle/data
+          LOCK=/tmp/p033/tmp/protocol033_bundle/evidence/input_lock.json
+          REG=/tmp/p033/tmp/protocol033_bundle/evidence/registration_frozen.json
+          test -f "$DATA/stream.npz" -a -f "$LOCK" -a -f "$REG"
+          echo "70c9283f133a5f8033e12fbc03a38af6d9ce39f1d7e6a9e825964ee9a28edbd9  $DATA/stream.npz" | sha256sum -c -
+          echo "P033_DATA=$DATA" >> "$GITHUB_ENV"
+          echo "P033_LOCK=$LOCK" >> "$GITHUB_ENV"
+          echo "P033_REG=$REG" >> "$GITHUB_ENV"
+
+      - name: Download and verify exact Protocol035 source artifact
+        if: env.STAGE == 'preflight' || env.STAGE == 'science'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/p035 /tmp/p035.zip; mkdir -p /tmp/p035
+          curl --fail --silent --show-error --location -H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" -o /tmp/p035.zip "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/11041705829/zip"
+          echo "849a8367727e00833a3ae92fda873a3989121d2f7ee207e66f9789357d538421  /tmp/p035.zip" | sha256sum -c -
+          unzip -q /tmp/p035.zip -d /tmp/p035
+          mapfile -t TAPES < <(find /tmp/p035 -type f -path '*/C_ref_035/feature_tape.npz')
+          test "${#TAPES[@]}" -eq 1
+          TAPE=${TAPES[0]}; C_DIR=$(dirname "$TAPE"); ROOT035=$(dirname "$C_DIR")
+          BATCH="$C_DIR/update_batches.json"; CPRED="$C_DIR/predictions.npz"; DPRED="$ROOT035/D_corr_branch/predictions.npz"
+          test -f "$BATCH" -a -f "$CPRED" -a -f "$DPRED"
+          echo "60f3f898a70dc886cd9e5284c1c1e62f3e086aac52e4e829e9fb9232c69dc988  $TAPE" | sha256sum -c -
+          echo "030114f1ff48bff0124d50b1bd4c9d23987ce62431502ae8c603bc6f4f39afc5  $BATCH" | sha256sum -c -
+          echo "P035_TAPE=$TAPE" >> "$GITHUB_ENV"
+          echo "P035_BATCH=$BATCH" >> "$GITHUB_ENV"
+          echo "P035_CPRED=$CPRED" >> "$GITHUB_ENV"
+          echo "P035_DPRED=$DPRED" >> "$GITHUB_ENV"
+
+      - name: Run bounded real checkpoint-resume fixture before science
+        if: env.STAGE == 'preflight'
+        run: |
+          set -euo pipefail
+          PRE=artifacts/ftmoe_online/protocol_036/runtime/preflight_${GITHUB_RUN_ID}
+          rm -rf "$PRE"; mkdir -p "$PRE"
+          python -m pip freeze > "$PRE/pip_freeze.txt"
+          python run_ftmoe_protocol036.py fixture --stream "$P033_DATA" --registration "$P033_REG" --input-lock "$P033_LOCK" --out-dir "$PRE/fixture" --output "$PRE/fixture_report.json"
+          python run_ftmoe_protocol036.py manifest --run-id "$GITHUB_RUN_ID" --output "$PRE/implementation_manifest.json"
+          python -c "import json,os,pathlib; p=pathlib.Path('$PRE'); f=json.load(open(p/'fixture_report.json')); assert f['passed'] and f['real_stream_prefix_executions']<=2 and f['max_real_prefix_steps']<=256; d={'protocol':'036','preflight_run_id':os.environ['GITHUB_RUN_ID'],'execution_ref':os.environ['EXECUTION_REF'],'expected_execution_sha':os.environ['EXPECTED_EXECUTION_SHA'],'checkout_sha':os.environ['CHECKOUT_SHA'],'protocol033':{'run_id':36417604442,'artifact_id':10968752245,'zip_sha256':'d92a3f9c8f1ebd292b86fbbe6e2300291135376f3564f2773975fd9203b55944'},'protocol035':{'run_id':36585058415,'artifact_id':11041705829,'zip_sha256':'849a8367727e00833a3ae92fda873a3989121d2f7ee207e66f9789357d538421','feature_tape_sha256':'60f3f898a70dc886cd9e5284c1c1e62f3e086aac52e4e829e9fb9232c69dc988','update_batches_sha256':'030114f1ff48bff0124d50b1bd4c9d23987ce62431502ae8c603bc6f4f39afc5'}}; (p/'source_provenance.json').write_text(json.dumps(d,indent=2)+'\n')"
+          echo "PRE_ROOT=$PRE" >> "$GITHUB_ENV"
+
+      - name: Upload frozen Protocol036 preflight evidence
+        if: env.STAGE == 'preflight'
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol036-preflight-${{ github.run_id }}
+          path: ${{ env.PRE_ROOT }}/
+          if-no-files-found: error
+          compression-level: 1
+          retention-days: 90
+
+      - name: Dispatch first registered new stream after successful preflight
+        if: env.STAGE == 'preflight'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api --method POST -H 'Accept: application/vnd.github+json' \
+            "/repos/$GITHUB_REPOSITORY/actions/workflows/protocol036-correction-controls.yml/dispatches" \
+            -f ref=main -f 'inputs[stage]=generate' -f "inputs[execution_ref]=$EXECUTION_REF" -f "inputs[expected_execution_sha]=$EXPECTED_EXECUTION_SHA" \
+            -f 'inputs[seed]=3601' -f 'inputs[resume_generation_run_id]=' -f "inputs[preflight_run_id]=$GITHUB_RUN_ID" \
+            -f 'inputs[sealed_3601_run_id]=' -f 'inputs[sealed_3602_run_id]=' -f 'inputs[sealed_3603_run_id]=' -f 'inputs[science_resume_run_id]='
+
+      - name: Restore same registered generation state
+        if: env.STAGE == 'generate' && env.RESUME_GENERATION_RUN_ID != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol036-generation-seed${{ inputs.seed }}-${{ inputs.resume_generation_run_id }}
+          path: /tmp/p036_generation
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.resume_generation_run_id }}
+
+      - name: Advance at most three 200-row segments of this exact seed
+        id: advance
+        if: env.STAGE == 'generate'
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/p036_generation
+          rm -f /tmp/p036_generation/failure.json
+          for N in 1 2 3; do
+            python protocol036_stream.py segment --output /tmp/p036_generation --seed "$SEED" --max-intervals 200
+            COMPLETE=$(python -c "import json; print(str(bool(json.load(open('/tmp/p036_generation/generation_status.json')).get('complete'))).lower())")
+            SOFT=$(python -c "import json; print(str(bool(json.load(open('/tmp/p036_generation/memory_profile_generation.json')).get('soft_limit_crossed'))).lower())")
+            test "$SOFT" = false || exit 42
+            test "$COMPLETE" = false || break
+          done
+
+      - name: Archive exact resumable generation state
+        id: upload_generation
+        if: env.STAGE == 'generate' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol036-generation-seed${{ inputs.seed }}-${{ github.run_id }}
+          path: /tmp/p036_generation/
+          if-no-files-found: error
+          compression-level: 1
+          retention-days: 90
+
+      - name: Inspect generation state
+        id: gen
+        if: env.STAGE == 'generate' && always()
+        run: |
+          FAILED=false
+          test '${{ steps.advance.outcome }}' = success || FAILED=true
+          test ! -f /tmp/p036_generation/failure.json || FAILED=true
+          COMPLETE=false
+          test ! -f /tmp/p036_generation/generation_status.json || COMPLETE=$(python -c "import json; print(str(bool(json.load(open('/tmp/p036_generation/generation_status.json')).get('complete'))).lower())")
+          echo "failed=$FAILED" >> "$GITHUB_OUTPUT"
+          echo "complete=$COMPLETE" >> "$GITHUB_OUTPUT"
+
+      - name: Continue this exact registered stream from checkpoint
+        if: env.STAGE == 'generate' && steps.gen.outputs.failed == 'false' && steps.gen.outputs.complete == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api --method POST -H 'Accept: application/vnd.github+json' \
+            "/repos/$GITHUB_REPOSITORY/actions/workflows/protocol036-correction-controls.yml/dispatches" \
+            -f ref=main -f 'inputs[stage]=generate' -f "inputs[execution_ref]=$EXECUTION_REF" -f "inputs[expected_execution_sha]=$EXPECTED_EXECUTION_SHA" \
+            -f "inputs[seed]=$SEED" -f "inputs[resume_generation_run_id]=$GITHUB_RUN_ID" -f "inputs[preflight_run_id]=$PREFLIGHT_RUN_ID" \
+            -f "inputs[sealed_3601_run_id]=$SEALED_3601_RUN_ID" -f "inputs[sealed_3602_run_id]=$SEALED_3602_RUN_ID" -f "inputs[sealed_3603_run_id]=$SEALED_3603_RUN_ID" -f 'inputs[science_resume_run_id]='
+
+      - name: Assemble and audit completed new stream in fresh processes
+        if: env.STAGE == 'generate' && steps.gen.outputs.failed == 'false' && steps.gen.outputs.complete == 'true'
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/p036_sealed; mkdir -p /tmp/p036_sealed/data /tmp/p036_sealed/evidence
+          python protocol036_stream.py assemble --generation-root /tmp/p036_generation --output /tmp/p036_sealed/data
+          python protocol036_stream.py audit --generation-root /tmp/p036_generation --data-root /tmp/p036_sealed/data --evidence-root /tmp/p036_sealed/evidence
+          cp /tmp/p036_generation/generation_ledger.jsonl /tmp/p036_sealed/generation_ledger.jsonl
+          cp /tmp/p036_generation/memory_profile_generation.json /tmp/p036_sealed/memory_profile_generation.json
+
+      - name: Upload sealed audited new stream
+        id: upload_sealed
+        if: env.STAGE == 'generate' && steps.gen.outputs.failed == 'false' && steps.gen.outputs.complete == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol036-sealed-seed${{ inputs.seed }}-${{ github.run_id }}
+          path: /tmp/p036_sealed/
+          if-no-files-found: error
+          compression-level: 1
+          retention-days: 90
+
+      - name: Dispatch next registered seed or fixed science stage
+        if: env.STAGE == 'generate' && steps.gen.outputs.failed == 'false' && steps.gen.outputs.complete == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if [ "$SEED" = 3601 ]; then
+            NEXT=3602; S1=$GITHUB_RUN_ID; S2=''; S3=''
+          elif [ "$SEED" = 3602 ]; then
+            NEXT=3603; S1=$SEALED_3601_RUN_ID; S2=$GITHUB_RUN_ID; S3=''
+          else
+            S1=$SEALED_3601_RUN_ID; S2=$SEALED_3602_RUN_ID; S3=$GITHUB_RUN_ID
+            gh api --method POST -H 'Accept: application/vnd.github+json' \
+              "/repos/$GITHUB_REPOSITORY/actions/workflows/protocol036-correction-controls.yml/dispatches" \
+              -f ref=main -f 'inputs[stage]=science' -f "inputs[execution_ref]=$EXECUTION_REF" -f "inputs[expected_execution_sha]=$EXPECTED_EXECUTION_SHA" \
+              -f 'inputs[seed]=3603' -f 'inputs[resume_generation_run_id]=' -f "inputs[preflight_run_id]=$PREFLIGHT_RUN_ID" \
+              -f "inputs[sealed_3601_run_id]=$S1" -f "inputs[sealed_3602_run_id]=$S2" -f "inputs[sealed_3603_run_id]=$S3" -f 'inputs[science_resume_run_id]='
+            exit 0
+          fi
+          gh api --method POST -H 'Accept: application/vnd.github+json' \
+            "/repos/$GITHUB_REPOSITORY/actions/workflows/protocol036-correction-controls.yml/dispatches" \
+            -f ref=main -f 'inputs[stage]=generate' -f "inputs[execution_ref]=$EXECUTION_REF" -f "inputs[expected_execution_sha]=$EXPECTED_EXECUTION_SHA" \
+            -f "inputs[seed]=$NEXT" -f 'inputs[resume_generation_run_id]=' -f "inputs[preflight_run_id]=$PREFLIGHT_RUN_ID" \
+            -f "inputs[sealed_3601_run_id]=$S1" -f "inputs[sealed_3602_run_id]=$S2" -f "inputs[sealed_3603_run_id]=$S3" -f 'inputs[science_resume_run_id]='
+
+      - name: Restore successful preflight evidence for science
+        if: env.STAGE == 'science'
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol036-preflight-${{ inputs.preflight_run_id }}
+          path: /tmp/p036_preflight
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.preflight_run_id }}
+
+      - name: Restore sealed stream 3601
+        if: env.STAGE == 'science'
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol036-sealed-seed3601-${{ inputs.sealed_3601_run_id }}
+          path: /tmp/p036_seed3601
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.sealed_3601_run_id }}
+
+      - name: Restore sealed stream 3602
+        if: env.STAGE == 'science'
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol036-sealed-seed3602-${{ inputs.sealed_3602_run_id }}
+          path: /tmp/p036_seed3602
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.sealed_3602_run_id }}
+
+      - name: Restore sealed stream 3603
+        if: env.STAGE == 'science'
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol036-sealed-seed3603-${{ inputs.sealed_3603_run_id }}
+          path: /tmp/p036_seed3603
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.sealed_3603_run_id }}
+
+      - name: Restore interrupted science state only when explicitly requested
+        if: env.STAGE == 'science' && env.SCIENCE_RESUME_RUN_ID != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: protocol036-terminal-${{ inputs.science_resume_run_id }}
+          path: /tmp/p036_science_resume
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.science_resume_run_id }}
+
+      - name: Resolve and verify all science inputs
+        if: env.STAGE == 'science'
+        run: |
+          set -euo pipefail
+          rm -rf "$SCI_ROOT"; mkdir -p "$SCI_ROOT/inputs"
+          if [ -n "$SCIENCE_RESUME_RUN_ID" ]; then
+            OLD_LEDGER=$(find /tmp/p036_science_resume -type f -name budget_ledger.json -print -quit)
+            test -n "$OLD_LEDGER"; OLD_ROOT=$(dirname "$OLD_LEDGER"); cp -a "$OLD_ROOT/." "$SCI_ROOT/"
+          fi
+          cp /tmp/p036_preflight/fixture_report.json "$SCI_ROOT/fixture_report.json"
+          cp /tmp/p036_preflight/implementation_manifest.json "$SCI_ROOT/implementation_manifest.json"
+          cp /tmp/p036_preflight/source_provenance.json "$SCI_ROOT/source_provenance.json"
+          cp /tmp/p036_preflight/pip_freeze.txt "$SCI_ROOT/pip_freeze.txt"
+          for S in 3601 3602 3603; do
+            BASE=/tmp/p036_seed${S}
+            mapfile -t STREAMS < <(find "$BASE" -type f -name stream.npz)
+            mapfile -t LOCKS < <(find "$BASE" -type f -name input_lock.json)
+            mapfile -t REGS < <(find "$BASE" -type f -name registration_frozen.json)
+            mapfile -t AUDITS < <(find "$BASE" -type f -name input_audit.json)
+            test "${#STREAMS[@]}" -eq 1 -a "${#LOCKS[@]}" -eq 1 -a "${#REGS[@]}" -eq 1 -a "${#AUDITS[@]}" -eq 1
+            DATA=$(dirname "${STREAMS[0]}")
+            mkdir -p "$SCI_ROOT/inputs/seed${S}"
+            cp "$DATA/manifest.json" "$SCI_ROOT/inputs/seed${S}/manifest.json"
+            cp "${LOCKS[0]}" "$SCI_ROOT/inputs/seed${S}/input_lock.json"
+            cp "${AUDITS[0]}" "$SCI_ROOT/inputs/seed${S}/input_audit.json"
+            echo "P036_DATA_${S}=$DATA" >> "$GITHUB_ENV"
+            echo "P036_REG_${S}=${REGS[0]}" >> "$GITHUB_ENV"
+            echo "P036_LOCK_${S}=${LOCKS[0]}" >> "$GITHUB_ENV"
+          done
+          python -c "import json,os,pathlib; p=pathlib.Path(os.environ['SCI_ROOT'])/'source_provenance.json'; d=json.load(open(p)); d['sealed_stream_run_ids']={'3601':os.environ['SEALED_3601_RUN_ID'],'3602':os.environ['SEALED_3602_RUN_ID'],'3603':os.environ['SEALED_3603_RUN_ID']}; d['science_run_id']=os.environ['GITHUB_RUN_ID']; d['science_resume_run_id']=os.environ['SCIENCE_RESUME_RUN_ID'] or None; p.write_text(json.dumps(d,indent=2)+'\n')"
+
+      - name: Execute exactly fourteen registered scientific training sequences
+        id: science
+        if: env.STAGE == 'science'
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python run_ftmoe_protocol036.py execute --run-root "$SCI_ROOT" --run-id "$GITHUB_RUN_ID" --budget-ledger "$SCI_ROOT/budget_ledger.json" \
+            --stage-a-tape "$P035_TAPE" --stage-a-batches "$P035_BATCH" --stage-a-c-predictions "$P035_CPRED" --stage-a-corr-predictions "$P035_DPRED" \
+            --seed3601-stream "$P036_DATA_3601" --seed3601-registration "$P036_REG_3601" --seed3601-input-lock "$P036_LOCK_3601" \
+            --seed3602-stream "$P036_DATA_3602" --seed3602-registration "$P036_REG_3602" --seed3602-input-lock "$P036_LOCK_3602" \
+            --seed3603-stream "$P036_DATA_3603" --seed3603-registration "$P036_REG_3603" --seed3603-input-lock "$P036_LOCK_3603"
+
+      - name: Freeze all raw scientific hashes before analysis
+        if: env.STAGE == 'science' && steps.science.outcome == 'success'
+        run: python maintenance/protocol036_finalize.py manifest --run-root "$SCI_ROOT" --output "$SCI_ROOT/raw_artifact_manifest.json"
+
+      - name: Analyze only the frozen registered comparisons
+        if: env.STAGE == 'science' && steps.science.outcome == 'success'
+        run: |
+          set -euo pipefail
+          mkdir -p "$SCI_ROOT/analysis"
+          python analyze_ftmoe_protocol036.py --run-root "$SCI_ROOT" --stage-a-manifest "$P033_DATA/manifest.json" --fixture "$SCI_ROOT/fixture_report.json" --implementation-manifest "$SCI_ROOT/implementation_manifest.json" --budget-ledger "$SCI_ROOT/budget_ledger.json" --output-dir "$SCI_ROOT/analysis" --docs-output docs/PROTOCOL036_RESULTS.md --run-id "$GITHUB_RUN_ID" \
+            --seed3601-manifest "$SCI_ROOT/inputs/seed3601/manifest.json" --seed3601-input-audit "$SCI_ROOT/inputs/seed3601/input_audit.json" \
+            --seed3602-manifest "$SCI_ROOT/inputs/seed3602/manifest.json" --seed3602-input-audit "$SCI_ROOT/inputs/seed3602/input_audit.json" \
+            --seed3603-manifest "$SCI_ROOT/inputs/seed3603/manifest.json" --seed3603-input-audit "$SCI_ROOT/inputs/seed3603/input_audit.json"
+
+      - name: Materialize compact Protocol036 evidence and handoff pointers
+        if: env.STAGE == 'science' && steps.science.outcome == 'success'
+        run: |
+          set -euo pipefail
+          C=artifacts/ftmoe_online/protocol_036/runs/run_${GITHUB_RUN_ID}
+          python maintenance/protocol036_finalize.py compact --run-root "$SCI_ROOT" --dest "$C" --run-id "$GITHUB_RUN_ID"
+          python maintenance/protocol036_finalize.py pointers --status "$SCI_ROOT/analysis/status.json" --run-id "$GITHUB_RUN_ID" --compact "$C"
+
+      - name: Upload complete science artifact even on interruption
+        id: upload_terminal
+        if: env.STAGE == 'science' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol036-terminal-${{ github.run_id }}
+          path: |
+            ${{ env.SCI_ROOT }}/
+            docs/PROTOCOL036_RESULTS.md
+          if-no-files-found: warn
+          compression-level: 1
+          retention-days: 90
+
+      - name: Record terminal artifact receipt
+        if: env.STAGE == 'science' && steps.science.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TERMINAL_ARTIFACT_ID: ${{ steps.upload_terminal.outputs.artifact-id }}
+          TERMINAL_ARTIFACT_URL: ${{ steps.upload_terminal.outputs.artifact-url }}
+        run: |
+          set -euo pipefail
+          C=artifacts/ftmoe_online/protocol_036/runs/run_${GITHUB_RUN_ID}; mkdir -p "$C"
+          curl --fail --silent --show-error --location -H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" -o /tmp/p036_terminal.zip "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/${TERMINAL_ARTIFACT_ID}/zip"
+          Z=$(sha256sum /tmp/p036_terminal.zip | awk '{print $1}')
+          python -c "import json,os,pathlib; p=pathlib.Path('$C')/'artifact_index.json'; p.write_text(json.dumps({'protocol':'036','run_id':os.environ['GITHUB_RUN_ID'],'terminal_artifact_id':int(os.environ['TERMINAL_ARTIFACT_ID']),'terminal_artifact_url':os.environ['TERMINAL_ARTIFACT_URL'],'terminal_artifact_zip_sha256':'$Z'},indent=2)+'\n')"
+
+      - name: Commit compact results to execution branch
+        id: result_commit
+        if: env.STAGE == 'science' && steps.science.outcome == 'success'
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/PROTOCOL036_RESULTS.md artifacts/ftmoe_online/protocol_036/runs/run_${GITHUB_RUN_ID} AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md
+          git commit -m "results: Protocol036 registered controls and new streams [skip ci]"
+          echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          git push origin HEAD:"$EXECUTION_REF"
+
+      - name: Publish only compact results to latest main with bounded non-force retries
+        if: env.STAGE == 'science' && steps.science.outcome == 'success'
+        run: |
+          set -euo pipefail
+          RESULT=${{ steps.result_commit.outputs.commit }}
+          OK=false
+          for TRY in 1 2 3; do
+            git fetch origin main
+            git checkout -B protocol036-publish origin/main
+            git checkout "$RESULT" -- docs/PROTOCOL036_RESULTS.md artifacts/ftmoe_online/protocol_036/runs/run_${GITHUB_RUN_ID} AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md
+            python -c "import json,pathlib; p=pathlib.Path('artifacts/ftmoe_online/protocol_036/runs/run_${GITHUB_RUN_ID}/status.json'); d=json.load(open(p)); d['publication_status']='published_main'; p.write_text(json.dumps(d,indent=2)+'\n')"
+            git add docs/PROTOCOL036_RESULTS.md artifacts/ftmoe_online/protocol_036/runs/run_${GITHUB_RUN_ID} AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md
+            git commit -m "results: publish Protocol036 run ${GITHUB_RUN_ID} [skip ci]"
+            if git push origin HEAD:main; then OK=true; break; fi
+          done
+          test "$OK" = true || { echo 'publication_pending_after_three_nonforce_retries'; exit 0; }
+
+      - name: Fail terminal science job only for scientific execution failure
+        if: env.STAGE == 'science' && steps.science.outcome != 'success'
+        run: |
+          echo 'Protocol036 scientific execution interrupted or failed. Do not restart from zero; resume only from the uploaded terminal artifact and verified checkpoints.'
+          exit 1
