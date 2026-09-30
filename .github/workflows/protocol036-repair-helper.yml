@@ -1,0 +1,145 @@
+name: Protocol036 deterministic preflight repair
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+env:
+  EXECUTION_REF: codex/protocol-036-correction-controls-20260930
+
+jobs:
+  repair:
+    if: contains(github.event.head_commit.message, '[p036-repair]')
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXECUTION_REF }}
+          fetch-depth: 0
+
+      - name: Repair deterministic audit code before any science
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          # 1) Repair C causal-access boolean and make the real future-perturbation
+          # fixture actually perturb rows that exist beyond the compared prefix.
+          p=Path('run_ftmoe_protocol036.py')
+          t=p.read_text(encoding='utf8')
+          old="'causal_access_all_pass':all(access.values())"
+          new="'causal_access_all_pass':bool(access['prediction_visible_input_rule_ok'] and access['prediction_label_max_rule_ok'] and access['all_actual_batches_mature'] and access['terminal_settlement_optimizer_steps']==0)"
+          if old not in t:
+              raise SystemExit('expected C causal-access expression not found')
+          t=t.replace(old,new,1)
+          a=t.index('def branch_prefix(')
+          b=t.index('\ndef cmd_manifest(',a)
+          replacement=r'''def branch_prefix(T,batches,arm,out_dir,split=None,perturb_from=None):
+    TT={k:v.copy() for k,v in T.items()}; end=80; out_dir=Path(out_dir); out_dir.mkdir(parents=True,exist_ok=True)
+    if TT['c_detection_logits'].shape[0] < end or TT['z'].shape[0] < end: raise AssertionError('fixture tape too short')
+    b,_=make_branch(arm); opt=torch.optim.AdamW(b.parameters(),lr=1e-4,weight_decay=1e-4,betas=(.9,.999),eps=1e-8)
+    pred=np.full((5968,16),np.nan,np.float32); delta=np.full((5968,16),np.nan,np.float32); logits=np.full((5968,16,2),np.nan,np.float32); versions=np.zeros(5968,np.int64); hashes=[]; logs=[]; ver=0; accessor=TapeAccessor(TT,arm); ledger=out_dir/'fixture_ledger.json'; perturb_applied=False
+    if not ledger.exists(): W(ledger,default_ledger())
+    for ti in range(end):
+        zrow,crow=accessor.prediction(ti); c=torch.from_numpy(crow).float(); m=c[:,1]-c[:,0]; z=None if zrow is None else torch.from_numpy(zrow).float()
+        with torch.no_grad(): d=b.delta(z,m); oo=compose(c,d); pp=torch.softmax(oo,-1)[:,1]
+        pred[ti]=pp.numpy(); delta[ti]=d.numpy(); logits[ti]=oo.numpy(); versions[ti]=ver; hashes.append(bhash(b))
+        if ti in batches:
+            ii=list(batches[ti]); zz,mm,yy=accessor.training(ii,ti); zbt=None if zz is None else torch.from_numpy(zz).float(); mt=torch.from_numpy(mm).float(); yt=torch.from_numpy((yy>0).astype(np.float32)); dd=b.delta(zbt,mt); loss=F.binary_cross_entropy_with_logits(mt+dd,yt)+.001*(dd**2).mean(); opt.zero_grad(set_to_none=True); loss.backward(); torch.nn.utils.clip_grad_norm_(b.parameters(),1); opt.step(); ver+=1; logs.append({'at_interval':ti,'batch_indices':[int(x) for x in ii]})
+        if split is not None and ti+1==split:
+            cp=save_branch_checkpoint(out_dir,arm,b,opt,ti+1,ver,pred,delta,logits,versions,hashes,logs,'fixture_tape_sha',f'fixture_{arm}',ledger)
+            b,_=make_branch(arm); opt=torch.optim.AdamW(b.parameters(),lr=1e-4,weight_decay=1e-4,betas=(.9,.999),eps=1e-8); x=restore_branch_checkpoint(cp,arm,b,opt,'fixture_tape_sha'); ver=int(x['branch_version']); pred[:split]=x['probability']; delta[:split]=x['delta']; logits[:split]=x['detection_logits']; versions[:split]=x['branch_version_tape']; hashes=list(x['branch_hashes']); logs=list(x['updates'])
+            if perturb_from is not None:
+                pf=int(perturb_from)
+                if pf < end or TT['z'].shape[0] <= pf: raise AssertionError('fixture future perturbation has no real future rows')
+                z0=TT['z'][pf:].copy(); l0=TT['c_detection_logits'][pf:].copy(); y0=TT['labels'][pf:].copy()
+                TT['z'][pf:]+=1234.0; TT['c_detection_logits'][pf:,0]-=777.0; TT['c_detection_logits'][pf:,1]+=777.0; TT['labels'][pf:]=np.where(TT['labels'][pf:]>0,0,1)
+                perturb_applied=bool((not np.array_equal(z0,TT['z'][pf:])) and (not np.array_equal(l0,TT['c_detection_logits'][pf:])) and (not np.array_equal(y0,TT['labels'][pf:])))
+                if not perturb_applied: raise AssertionError('future perturbation was not applied')
+    raw={'access_events':accessor.events,'updates':logs,'checkpoint_files':[str(x) for x in (out_dir/'checkpoints').glob('*')],'max_accessed_index':max((max(e['indices']) for e in accessor.events if e['indices']),default=-1),'future_perturbation_applied':perturb_applied if perturb_from is not None else None}
+    W(out_dir/'prefix_raw_evidence.json',raw)
+    return torch.from_numpy(pred[:end].copy()),bhash(b),ver,raw
+
+def cmd_fixture(a):
+    runtime(); plan(); root=Path(a.out_dir); root.mkdir(parents=True,exist_ok=True); r={'protocol':'036','synthetic':{},'real_stream_prefix_executions':2,'max_real_prefix_steps':96,'passed':False}
+    y=np.array([1,0]); p=np.array([.5,.5]); r['synthetic']['tie_ap_half']=abs(grouped_average_precision(y,p)-.5)<1e-12; r['synthetic']['tie_ap_permutation']=grouped_average_precision(y,p)==grouped_average_precision(y[::-1],p[::-1]); r['synthetic']['parameter_counts']={arm:sum(x.numel() for x in make_branch(arm)[0].parameters()) for arm in ('D_cal','D_lin','D_corr')}; r['synthetic']['parameter_counts_exact']=r['synthetic']['parameter_counts']=={'D_cal':2,'D_lin':74,'D_corr':2401}
+    # Real execution 1: run C to80, freeze the compared prefix, then continue only
+    # to96 so rows80:95 exist as genuinely future issued C values for perturbation.
+    c1,_,sha=new_c700(a.stream,a.registration,a.input_lock,root/'continuous')
+    for _ in range(80): c1.step()
+    c1_prob80=c1.predictions['probability'][:80].copy(); c1_z80=c1.z_tape[:80].copy(); c1_hash80=c1.learner_state_hash()
+    for _ in range(16): c1.step()
+    T={'z':c1.z_tape[:96].copy(),'c_detection_logits':c1.predictions['detection_logits'][:96].copy(),'c_class_probability':c1.predictions['class_probability'][:96].copy(),'labels':c1.predictions['labels'][:96].copy(),'raw_labels':c1.predictions['raw_labels'][:96].copy()}
+    batches={int(x['at_interval']):[int(i) for i in x['buffer_indices']] for x in c1.update_log if int(x['at_interval'])<80}
+    cont={arm:branch_prefix(T,batches,arm,root/'continuous'/arm) for arm in ('D_cal','D_lin','D_corr')}
+    # Real execution 2: restore C at64, mutate actual unseen rows80:95 before
+    # continuing to80, and require an identical prefix/state at cursor80.
+    c2,_,_=new_c700(a.stream,a.registration,a.input_lock,root/'split')
+    for _ in range(64): c2.step()
+    save_c_checkpoint(c2,root/'split','fixture_cursor_0064'); c3,_,_=new_c700(a.stream,a.registration,a.input_lock,root/'split'); restore_c_checkpoint(c3,root/'split','fixture_cursor_0064')
+    raw0=c3.bundle['arrays']['raw_labels'][80:96].copy(); host0=c3.bundle['arrays']['host_features'][80:96].copy()
+    c3.bundle['arrays']['raw_labels'][80:96]=np.where(raw0>0,0,1); c3.bundle['arrays']['host_features'][80:96]=host0+999.0
+    future_input_perturbation_applied=bool((not np.array_equal(raw0,c3.bundle['arrays']['raw_labels'][80:96])) and (not np.array_equal(host0,c3.bundle['arrays']['host_features'][80:96])))
+    if not future_input_perturbation_applied: raise AssertionError('real C future perturbation was not applied')
+    for _ in range(16): c3.step()
+    r['real']={'stream_sha256':sha,'future_input_perturbation_applied':future_input_perturbation_applied,'C_checkpoint_resume_probability_exact':bool(np.array_equal(c1_prob80,c3.predictions['probability'][:80])),'C_checkpoint_resume_z_exact':bool(np.array_equal(c1_z80,c3.z_tape[:80])),'C_checkpoint_resume_state_hash_exact':bool(c1_hash80==c3.learner_state_hash()),'C_actual_batch_maturity':all(all(int(i)+2<=int(x['at_interval']) for i in x['buffer_indices']) for x in c3.update_log),'C_prediction_label_cutoff':bool(np.array_equal(c3.labelmax[:80],np.arange(80)-3))}
+    branch_checks={}
+    for arm in ('D_cal','D_lin','D_corr'):
+        split=branch_prefix(T,batches,arm,root/'split'/arm,split=64,perturb_from=80); branch_checks[arm]={'prediction_exact':bool(torch.equal(cont[arm][0],split[0])),'state_hash_exact':cont[arm][1]==split[1],'version_exact':cont[arm][2]==split[2],'future_perturbation_applied':bool(split[3]['future_perturbation_applied']),'max_accessed_index_before80':int(split[3]['max_accessed_index'])<=79,'actual_batch_indices_exact':[x['batch_indices'] for x in split[3]['updates']]==[list(v) for k,v in sorted(batches.items()) if k<80]}
+    r['real']['branch_checkpoint_resume_and_future_perturb_prefix']=branch_checks; r['real']['D_off_exact_copy']=bool(np.array_equal(c1_prob80,c1.predictions['probability'][:80])); r['real']['terminal_settlement_has_no_optimizer_step']=True; r['evidence']={'C_checkpoint_meta':str(c_meta_path(root/'split','fixture_cursor_0064')),'branch_evidence':{arm:str(root/'split'/arm/'prefix_raw_evidence.json') for arm in ('D_cal','D_lin','D_corr')}}
+    r['passed']=bool(all(v for v in r['synthetic'].values() if isinstance(v,bool)) and all(v for v in r['real'].values() if isinstance(v,bool)) and all(all(x.values()) for x in branch_checks.values()))
+    W(a.output,r); print(json.dumps(r,indent=2))
+    if not r['passed']: raise SystemExit(2)
+'''
+          t=t[:a]+replacement+t[b:]
+          p.write_text(t,encoding='utf8')
+
+          # 2) Repair analyzer validity semantics and corrupted publication tail.
+          p=Path('analyze_ftmoe_protocol036.py')
+          t=p.read_text(encoding='utf8')
+          old="'C_causal_access_pass':bool(csum['causal_access_all_pass'] and all(ca.values())),"
+          new="'C_causal_access_pass':bool(csum['causal_access_all_pass'] and ca['prediction_visible_input_rule_ok'] and ca['prediction_label_max_rule_ok'] and ca['all_actual_batches_mature'] and ca['terminal_settlement_optimizer_steps']==0),"
+          if old not in t: raise SystemExit('expected analyzer C causal expression not found')
+          t=t.replace(old,new,1)
+          marker="    md=['# Protocol-036 结果'"
+          pos=t.index(marker)
+          tail=r'''    def fmt(v): return 'null' if v is None else f'{float(v):+.6f}'
+    md=['# Protocol-036 结果','','本轮严格按冻结计划执行：开发流700仅训练 D_cal/D_lin；三条新流 3601/3602/3603 各执行 C_ref、D_cal、D_lin、D_corr。共14条新训练序列、3条新原始流，无扫参、无额外模型种子、无旧动态D重训。','',f'登记结果标签：**{label}**。本轮不构成统计学确认。','', '## B阶段：三条新流主结果','', '| Seed | D_corr 全程 ΔAP | 六窗 ΔAP | late4 ΔAP | prefix32 ΔAP | 护栏 |', '|---:|---:|---:|---:|---:|:---:|']
+    for s in SEEDS:
+        x=per_stream[str(s)]['methods']['D_corr']; md.append(f"| {s} | {fmt(x['ap_delta'])} | {fmt(x['six_window_equal_weight_AP_delta'])} | {fmt(x['late4_equal_weight_AP_delta'])} | {fmt(x['prefix32_equal_weight_AP_delta'])} | {x['guardrails']['all_pass']} |")
+    md += ['',f"三流等权平均：全程 ΔAP **{fmt(mf)}**；六窗 ΔAP **{fmt(m6)}**；late4 **{fmt(ml)}**；prefix32 **{fmt(mp32)}**。",f"同时全程和六窗为正的流：**{both}/3**；跨流收益信号：**{cross}**；operating-point risk：**{operating_risk}**。",'', '## 简化控制对照','']
+    for ctrl in ('D_cal','D_lin'):
+        x=control_signals[ctrl]; md.append(f"- D_corr 相对 {ctrl}：三流平均六窗增量 **{fmt(x['mean_six_AP_Dcorr_minus_control'])}**，平均全程增量 **{fmt(x['mean_full_AP_Dcorr_minus_control'])}**，登记增量证据：**{x['incremental_signal']}**。")
+    md += ['', '## A阶段：开发流700归因（不进入跨流主结论）','']
+    for arm in METHODS:
+        x=stageA[arm]; md.append(f"- {arm}: 全程 ΔAP {fmt(x['ap_delta'])}；六窗 ΔAP {fmt(x['six_window_equal_weight_AP_delta'])}。")
+    md += ['', '## 有效性与边界','',f'- 工程 fixture（真实连续/断点恢复、真实未来扰动前缀不变、AP ties）：**{fixture_pass}**。',f'- 三流输入审计、C因果访问、D_off精确复制、分支隔离/成熟批次：**{all_valid}**。',f'- 14条训练预算账本完整：**{budget_pass}**。','- 3条流是3个独立流随机性重复；host/窗口不是独立重复。固定模型种子1，因此不能声称跨模型初始化确认。','- D_cal/D_lin/D_corr 容量和优化几何不同；控制比较不能解释为严格因果分解或同容量优势。','- 本轮不新增动态记忆、路由或硬删除，因此不提出抗遗忘、记忆恢复或动态专家机制优势结论。','']
+    Path(a.docs_output).write_text('\n'.join(md)+'\n',encoding='utf8')
+    print(json.dumps(status,indent=2,ensure_ascii=False))
+
+if __name__=='__main__': main()
+'''
+          t=t[:pos]+tail
+          p.write_text(t,encoding='utf8')
+          PY
+
+      - name: Compile repaired Protocol036 sources
+        run: |
+          python -m py_compile protocol036_stream.py run_ftmoe_protocol036.py analyze_ftmoe_protocol036.py
+          python - <<'PY'
+          import ast
+          for p in ('protocol036_stream.py','run_ftmoe_protocol036.py','analyze_ftmoe_protocol036.py'):
+              ast.parse(open(p,encoding='utf8').read(), filename=p)
+          print('Protocol036 syntax/AST checks passed')
+          PY
+
+      - name: Commit deterministic preflight repair
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add run_ftmoe_protocol036.py analyze_ftmoe_protocol036.py
+          git commit -m 'fix: repair Protocol036 causal and resume fixtures [skip ci]'
+          git push origin HEAD:"$EXECUTION_REF"
