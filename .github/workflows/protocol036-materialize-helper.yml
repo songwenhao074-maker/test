@@ -1,4 +1,4 @@
-name: Protocol036 materialize frozen implementation bundle
+name: Protocol036 deterministic repair runner
 
 on:
   push:
@@ -11,72 +11,29 @@ env:
   EXECUTION_REF: codex/protocol-036-correction-controls-20260930
 
 jobs:
-  materialize:
-    if: contains(github.event.head_commit.message, '[p036-materialize]')
+  repair:
+    if: contains(github.event.head_commit.message, '[p036-repair2]')
     runs-on: ubuntu-22.04
     timeout-minutes: 15
     steps:
-      - name: Checkout Protocol036 execution branch
+      - name: Checkout execution branch
         uses: actions/checkout@v4
         with:
           ref: ${{ env.EXECUTION_REF }}
           fetch-depth: 0
 
-      - name: Reconstruct and safely extract frozen implementation bundle
-        run: |
-          python - <<'PY'
-          import base64, io, tarfile, hashlib
-          from pathlib import Path
-          root=Path('artifacts/ftmoe_online/protocol_036/implementation_bundle')
-          parts=sorted(root.glob('part*.txt'))
-          assert len(parts)==7, [p.name for p in parts]
-          encoded=''.join(p.read_text(encoding='utf8').strip() for p in parts)
-          payload=base64.b64decode(encoded, validate=True)
-          digest=hashlib.sha256(payload).hexdigest()
-          print({'parts':len(parts),'payload_bytes':len(payload),'payload_sha256':digest})
-          with tarfile.open(fileobj=io.BytesIO(payload), mode='r:gz') as tf:
-              names=tf.getnames()
-              assert names, 'empty bundle'
-              for name in names:
-                  p=Path(name)
-                  assert not p.is_absolute() and '..' not in p.parts, name
-              print('bundle files:')
-              for name in names: print(name)
-              tf.extractall('.')
-          (root/'materialized_payload.sha256').write_text(digest+'\n',encoding='utf8')
-          PY
+      - name: Apply registered engineering repair
+        run: python maintenance/repair_protocol036_preflight.py
 
-      - name: Record static check status without hiding source corruption
+      - name: Compile all Protocol036 sources
         run: |
-          set -e
-          find . -maxdepth 3 -type f \( -name '*protocol036*.py' -o -name 'protocol036*.yml' -o -name '*PROTOCOL036*' \) -print | sort
-          mapfile -t pyfiles < <(find . -maxdepth 3 -type f -name '*protocol036*.py' -print | sort)
-          test "${#pyfiles[@]}" -gt 0
-          set +e
-          python -m py_compile "${pyfiles[@]}" > /tmp/p036_compile.out 2>&1
-          rc=$?
-          set -e
-          cat /tmp/p036_compile.out
-          printf '%s\n' "$rc" > artifacts/ftmoe_online/protocol_036/implementation_bundle/materialized_compile_rc.txt
-          test -f artifacts/ftmoe_online/protocol_036/plan.json
-          python - <<'PY'
-          import hashlib,json
-          from pathlib import Path
-          p=Path('artifacts/ftmoe_online/protocol_036/plan.json')
-          got=hashlib.sha256(p.read_bytes()).hexdigest()
-          expected=Path('artifacts/ftmoe_online/protocol_036/plan.sha256').read_text().split()[0]
-          assert got==expected,(got,expected)
-          plan=json.loads(p.read_text())
-          assert plan['budget']['new_full_training_sequences']==14
-          assert plan['budget']['stage_B_new_stream_seeds']==[3601,3602,3603]
-          assert plan['runtime']['formal_trigger']=='workflow_dispatch_only'
-          print({'plan_sha256':got,'budget':14,'new_streams':3,'compile_rc_recorded':Path('artifacts/ftmoe_online/protocol_036/implementation_bundle/materialized_compile_rc.txt').read_text().strip()})
-          PY
+          python -m py_compile protocol036_stream.py run_ftmoe_protocol036.py analyze_ftmoe_protocol036.py maintenance/repair_protocol036_preflight.py
+          python -c "import hashlib,pathlib; p=pathlib.Path('artifacts/ftmoe_online/protocol_036/plan.json'); e=pathlib.Path('artifacts/ftmoe_online/protocol_036/plan.sha256').read_text().split()[0]; assert hashlib.sha256(p.read_bytes()).hexdigest()==e"
 
-      - name: Commit materialized sources to execution branch for deterministic repair
+      - name: Commit repaired frozen implementation
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add -A
-          git commit -m 'impl: materialize Protocol036 frozen implementation for repair [skip ci]'
+          git add run_ftmoe_protocol036.py analyze_ftmoe_protocol036.py maintenance/repair_protocol036_preflight.py
+          git commit -m 'fix: Protocol036 deterministic preflight audit repair [skip ci]'
           git push origin HEAD:"$EXECUTION_REF"
