@@ -241,7 +241,7 @@ def cmd_reference(a):
         if J(out/'update_batches.json')!=batch_payload: raise AssertionError('existing update batches differ from exact resumed state')
     else: W(out/'update_batches.json',batch_payload)
     th=sha256_file(out/'feature_tape.npz'); ph=sha256_file(out/'predictions.npz'); access={'prediction_visible_input_rule_ok':bool(np.array_equal(s.visible,np.arange(5968))), 'prediction_label_max_rule_ok':bool(np.array_equal(s.labelmax,np.arange(5968)-3)), 'all_actual_batches_mature':all(all(int(i)+2<=int(r['at_interval']) for i in r['batch_indices']) for r in updates),'terminal_settlement_optimizer_steps':0}; W(out/'causal_access_audit.json',access)
-    sm={'protocol':'036','seed':seed,'arm':'C_ref','sequence':seq,'completed':True,'stream_sha256':stream_sha,'feature_tape_sha256':th,'predictions_sha256':ph,'updates':int(s.updates),'initialization':ini,'causal_access_all_pass':all(access.values()),'cost':{'wall_seconds_this_invocation':time.perf_counter()-t0,'cpu_seconds_this_invocation':time.process_time()-c0,'peak_rss_bytes':peak,'effective_memory_limit_bytes':lim,'memory_soft_limit_bytes':soft}}
+    sm={'protocol':'036','seed':seed,'arm':'C_ref','sequence':seq,'completed':True,'stream_sha256':stream_sha,'feature_tape_sha256':th,'predictions_sha256':ph,'updates':int(s.updates),'initialization':ini,'causal_access_all_pass':bool(access['prediction_visible_input_rule_ok'] and access['prediction_label_max_rule_ok'] and access['all_actual_batches_mature'] and access['terminal_settlement_optimizer_steps']==0),'cost':{'wall_seconds_this_invocation':time.perf_counter()-t0,'cpu_seconds_this_invocation':time.process_time()-c0,'peak_rss_bytes':peak,'effective_memory_limit_bytes':lim,'memory_soft_limit_bytes':soft}}
     W(out/'summary.json',sm); complete_sequence(a.budget_ledger,seq,{'stream_sha256':stream_sha,'feature_tape_sha256':th,'predictions_sha256':ph,'updates':int(s.updates)}); print(json.dumps(sm,indent=2))
 
 
@@ -296,18 +296,22 @@ def branch_prefix(T,batches,arm,out_dir,split=None,perturb_from=None):
             cp=save_branch_checkpoint(out_dir,arm,b,opt,t+1,ver,pred,delta,logits,versions,hashes,logs,'fixture_tape_sha',f'fixture_{arm}',ledger)
             b,_=make_branch(arm); opt=torch.optim.AdamW(b.parameters(),lr=1e-4,weight_decay=1e-4,betas=(.9,.999),eps=1e-8); x=restore_branch_checkpoint(cp,arm,b,opt,'fixture_tape_sha'); ver=int(x['branch_version']); pred[:split]=x['probability']; delta[:split]=x['delta']; logits[:split]=x['detection_logits']; versions[:split]=x['branch_version_tape']; hashes=list(x['branch_hashes']); logs=list(x['updates'])
             if perturb_from is not None:
-                pf=int(perturb_from); TT['z'][pf:]+=1234.0; TT['c_detection_logits'][pf:,0]-=777.0; TT['c_detection_logits'][pf:,1]+=777.0; TT['labels'][pf:]=np.where(TT['labels'][pf:]>0,0,1)
-    raw={'access_events':accessor.events,'updates':logs,'checkpoint_files':[str(x) for x in (out_dir/'checkpoints').glob('*')],'max_accessed_index':max((max(e['indices']) for e in accessor.events if e['indices']),default=-1)}
+                pf=int(perturb_from)
+                if pf>=TT['z'].shape[0]: raise AssertionError('future perturbation has no actual future rows')
+                TT['z'][pf:]+=1234.0; TT['c_detection_logits'][pf:,0]-=777.0; TT['c_detection_logits'][pf:,1]+=777.0; TT['labels'][pf:]=np.where(TT['labels'][pf:]>0,0,1)
+    raw={'access_events':accessor.events,'updates':logs,'checkpoint_files':[str(x) for x in (out_dir/'checkpoints').glob('*')],'max_accessed_index':max((max(e['indices']) for e in accessor.events if e['indices']),default=-1),'future_perturbation_start':None if perturb_from is None else int(perturb_from),'future_perturbation_rows':0 if perturb_from is None else int(TT['z'].shape[0]-int(perturb_from))}
     W(out_dir/'prefix_raw_evidence.json',raw)
     return torch.from_numpy(pred[:end].copy()),bhash(b),ver,raw
 
 def cmd_fixture(a):
-    runtime(); plan(); root=Path(a.out_dir); root.mkdir(parents=True,exist_ok=True); r={'protocol':'036','synthetic':{},'real_stream_prefix_executions':2,'max_real_prefix_steps':80,'passed':False}
+    runtime(); plan(); root=Path(a.out_dir); root.mkdir(parents=True,exist_ok=True); r={'protocol':'036','synthetic':{},'real_stream_prefix_executions':2,'max_real_prefix_steps':96,'passed':False}
     y=np.array([1,0]); p=np.array([.5,.5]); r['synthetic']['tie_ap_half']=abs(grouped_average_precision(y,p)-.5)<1e-12; r['synthetic']['tie_ap_permutation']=grouped_average_precision(y,p)==grouped_average_precision(y[::-1],p[::-1]); r['synthetic']['parameter_counts']={arm:sum(x.numel() for x in make_branch(arm)[0].parameters()) for arm in ('D_cal','D_lin','D_corr')}; r['synthetic']['parameter_counts_exact']=r['synthetic']['parameter_counts']=={'D_cal':2,'D_lin':74,'D_corr':2401}
     # Real execution 1: continuous C and all three branches through cursor80.
     c1,_,sha=new_c700(a.stream,a.registration,a.input_lock,root/'continuous');
     for _ in range(80): c1.step()
-    c1_hash=c1.learner_state_hash(); T={'z':c1.z_tape[:80].copy(),'c_detection_logits':c1.predictions['detection_logits'][:80].copy(),'c_class_probability':c1.predictions['class_probability'][:80].copy(),'labels':c1.predictions['labels'][:80].copy(),'raw_labels':c1.predictions['raw_labels'][:80].copy()}; batches={int(x['at_interval']):[int(i) for i in x['buffer_indices']] for x in c1.update_log if int(x['at_interval'])<80}; cont={arm:branch_prefix(T,batches,arm,root/'continuous'/arm) for arm in ('D_cal','D_lin','D_corr')}
+    c1_prob80=c1.predictions['probability'][:80].copy(); c1_z80=c1.z_tape[:80].copy(); c1_hash80=c1.learner_state_hash()
+    for _ in range(16): c1.step()
+    T={'z':c1.z_tape[:96].copy(),'c_detection_logits':c1.predictions['detection_logits'][:96].copy(),'c_class_probability':c1.predictions['class_probability'][:96].copy(),'labels':c1.predictions['labels'][:96].copy(),'raw_labels':c1.predictions['raw_labels'][:96].copy()}; batches={int(x['at_interval']):[int(i) for i in x['buffer_indices']] for x in c1.update_log if int(x['at_interval'])<80}; cont={arm:branch_prefix(T,batches,arm,root/'continuous'/arm) for arm in ('D_cal','D_lin','D_corr')}
     # Real execution 2: C checkpoint at64, serialize/restore, continue to80. Future rows >=80 are deliberately perturbed before the continuation; they must be inaccessible.
     c2,_,_=new_c700(a.stream,a.registration,a.input_lock,root/'split');
     for _ in range(64): c2.step()
@@ -320,10 +324,10 @@ def cmd_fixture(a):
     except Exception:
         pass
     for _ in range(16): c3.step()
-    r['real']={'stream_sha256':sha,'C_checkpoint_resume_probability_exact':bool(np.array_equal(c1.predictions['probability'][:80],c3.predictions['probability'][:80])),'C_checkpoint_resume_z_exact':bool(np.array_equal(c1.z_tape[:80],c3.z_tape[:80])),'C_checkpoint_resume_state_hash_exact':bool(c1_hash==c3.learner_state_hash()),'C_actual_batch_maturity':all(all(int(i)+2<=int(x['at_interval']) for i in x['buffer_indices']) for x in c3.update_log),'C_prediction_label_cutoff':bool(np.array_equal(c3.labelmax[:80],np.arange(80)-3))}
+    r['real']={'stream_sha256':sha,'C_checkpoint_resume_probability_exact':bool(np.array_equal(c1_prob80,c3.predictions['probability'][:80])),'C_checkpoint_resume_z_exact':bool(np.array_equal(c1_z80,c3.z_tape[:80])),'C_checkpoint_resume_state_hash_exact':bool(c1_hash80==c3.learner_state_hash()),'C_actual_batch_maturity':all(all(int(i)+2<=int(x['at_interval']) for i in x['buffer_indices']) for x in c3.update_log),'C_prediction_label_cutoff':bool(np.array_equal(c3.labelmax[:80],np.arange(80)-3))}
     branch_checks={}
     for arm in ('D_cal','D_lin','D_corr'):
-        split=branch_prefix(T,batches,arm,root/'split'/arm,split=64,perturb_from=80); branch_checks[arm]={'prediction_exact':bool(torch.equal(cont[arm][0],split[0])),'state_hash_exact':cont[arm][1]==split[1],'version_exact':cont[arm][2]==split[2],'max_accessed_index_before80':int(split[3]['max_accessed_index'])<=79,'actual_batch_indices_exact':[x['batch_indices'] for x in split[3]['updates']]==[list(v) for k,v in sorted(batches.items()) if k<80]}
+        split=branch_prefix(T,batches,arm,root/'split'/arm,split=64,perturb_from=80); branch_checks[arm]={'prediction_exact':bool(torch.equal(cont[arm][0],split[0])),'state_hash_exact':cont[arm][1]==split[1],'version_exact':cont[arm][2]==split[2],'future_perturbation_rows_positive':int(split[3]['future_perturbation_rows'])>0,'max_accessed_index_before80':int(split[3]['max_accessed_index'])<=79,'actual_batch_indices_exact':[x['batch_indices'] for x in split[3]['updates']]==[list(v) for k,v in sorted(batches.items()) if k<80]}
     r['real']['branch_checkpoint_resume_and_future_perturb_prefix']=branch_checks; ccopy=c1.predictions['probability'][:80].copy(); r['real']['D_off_exact_copy']=bool(np.array_equal(ccopy,c1.predictions['probability'][:80])); r['real']['terminal_settlement_has_no_optimizer_step']=True; r['evidence']={'C_checkpoint_meta':str(c_meta_path(root/'split','fixture_cursor_0064')),'branch_evidence':{arm:str(root/'split'/arm/'prefix_raw_evidence.json') for arm in ('D_cal','D_lin','D_corr')}}
     r['passed']=bool(all(v for v in r['synthetic'].values() if isinstance(v,bool)) and all(v for v in r['real'].values() if isinstance(v,bool)) and all(all(x.values()) for x in branch_checks.values()))
     W(a.output,r); print(json.dumps(r,indent=2));

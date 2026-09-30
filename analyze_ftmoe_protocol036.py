@@ -72,7 +72,7 @@ def validity_for_seed(base,C,input_audit):
                    'causality_pass':bool(sm['causality_all_pass'] and caus['all_update_batches_mature'] and caus['future_rows_read_count']==0 and caus['terminal_drain_training_steps']==0),
                    'isolation_pass':bool(sm['isolation_all_pass'] and iso['unchanged'] and iso['optimizer_parameters_exactly_branch_parameters'] and iso['classification_exact_copy'])}
         arms[arm]['all_pass']=all(arms[arm].values())
-    out={'input_audit_pass':bool(input_audit['audit_pass']),'C_causal_access_pass':bool(csum['causal_access_all_pass'] and all(ca.values())),
+    out={'input_audit_pass':bool(input_audit['audit_pass']),'C_causal_access_pass':bool(csum['causal_access_all_pass'] and ca['prediction_visible_input_rule_ok'] and ca['prediction_label_max_rule_ok'] and ca['all_actual_batches_mature'] and ca['terminal_settlement_optimizer_steps']==0),
          'D_off_exact_C':d_off_exact,'arms':arms}; out['all_pass']=out['input_audit_pass'] and out['C_causal_access_pass'] and d_off_exact and all(x['all_pass'] for x in arms.values()); return out
 
 def main():
@@ -128,17 +128,18 @@ def main():
         base=root/'stage_B'/f'seed{s}'; costs['streams'][str(s)]={'C_ref':J(base/'C_ref/summary.json')['cost'],**{arm:J(base/arm/'summary.json')['cost'] for arm in METHODS}}
     costs['accounting']='Each corrected deployment includes the full C path plus its branch; branch-only wall time is not total deployment cost.'; dump_json(out/'cost_profile.json',costs)
     status={'protocol':'036','run_id':str(a.run_id),'scientific_status':'completed','publication_status':'pending_until_main_sync','training_sequences_registered':14,'training_sequences_completed':14,'new_streams_registered':3,'new_streams_completed':3,'hyperparameter_sweeps':0,'automatic_followup_training':False,'cross_stream_gain_signal':cross,'D_corr_over_D_cal_incremental_signal':control_signals['D_cal']['incremental_signal'],'D_corr_over_D_lin_incremental_signal':control_signals['D_lin']['incremental_signal'],'operating_point_risk':operating_risk,'registered_result_label':label,'validity_all_pass':audit_all,'statistical_confirmation':False,'stop_after_registered_budget':True}; dump_json(out/'status.json',status)
+    def fmt(v): return 'null' if v is None else f'{float(v):+.6f}'
     md=['# Protocol-036 结果','','本轮严格按冻结计划执行：开发流700仅训练 D_cal/D_lin；三条新流 3601/3602/3603 各执行 C_ref、D_cal、D_lin、D_corr。共14条新训练序列、3条新原始流，无扫参、无额外模型种子、无旧动态D重训。','',f'登记结果标签：**{label}**。本轮不构成统计学确认。','', '## B阶段：三条新流主结果','', '| Seed | D_corr 全程 ΔAP | 六窗 ΔAP | late4 ΔAP | prefix32 ΔAP | 护栏 |', '|---:|---:|---:|---:|---:|:---:|']
     for s in SEEDS:
-        x=per_stream[str(s)]['methods']['D_corr']; md.append(f"| {s} | {x['ap_delta']:+.6f} | {x['six_window_equal_weight_AP_delta']:+.6f} | {x['late4_equal_weight_AP_delta']:+.6f} | {x['prefix32_equal_weight_AP_delta']:+.6f} | {x['guardrails']['all_pass']} |")
-    md += ['',f"三流等权平均：全程 ΔAP **{mf:+.6f}**；六窗 ΔAP **{m6:+.6f}**；late4 **{ml:+.6f}**；prefix32 **{mp32:+.6f}**。",f"同时全程和六窗为正的流：**{both}/3**；跨流收益信号：**{cross}**；operating-point risk：**{operating_risk}**。",'', '## 简化控制对照','']
+        x=per_stream[str(s)]['methods']['D_corr']; md.append(f"| {s} | {fmt(x['ap_delta'])} | {fmt(x['six_window_equal_weight_AP_delta'])} | {fmt(x['late4_equal_weight_AP_delta'])} | {fmt(x['prefix32_equal_weight_AP_delta'])} | {x['guardrails']['all_pass']} |")
+    md += ['',f"三流等权平均：全程 ΔAP **{fmt(mf)}**；六窗 ΔAP **{fmt(m6)}**；late4 **{fmt(ml)}**；prefix32 **{fmt(mp32)}**。",f"同时全程和六窗为正的流：**{both}/3**；跨流收益信号：**{cross}**；operating-point risk：**{operating_risk}**。",'', '## 简化控制对照','']
     for ctrl in ('D_cal','D_lin'):
-        x=control_signals[ctrl]; md.append(f"- D_corr 相对 {ctrl}：三流平均六窗增量 **{x['mean_six_AP_Dcorr_minus_control']:+.6f}**，平均全程增量 **{x['mean_full_AP_Dcorr_minus_control']:+.6f}**，登记增量证据：**{x['incremental_signal']}**。")
+        x=control_signals[ctrl]; md.append(f"- D_corr 相对 {ctrl}：三流平均六窗增量 **{fmt(x['mean_six_AP_Dcorr_minus_control'])}**，平均全程增量 **{fmt(x['mean_full_AP_Dcorr_minus_control'])}**，登记增量证据：**{x['incremental_signal']}**。")
     md += ['', '## A阶段：开发流700归因（不进入跨流主结论）','']
     for arm in METHODS:
-        x=stageA[arm]; md.append(f"- {arm}: 全程 ΔAP {x['ap_delta']:+.6f}；六窗 ΔAP {x['six_window_equal_weight_AP_delta']:+.6f}。")
-    md += ['', '## 有效性与边界','',f'- 工程 fixture（真实连续/断点恢复、未来扰动前缀不变、AP ties）：**{fixture_pass}**。',f'- 三流输入审计、C因果访问、D_off精确复制、分支隔离/成熟批次：**{all_valid}**。',f'- 14条训练预算账本完整：**{budget_pass}**。','- 3条流是3个独立流随机性重复；host/窗口不是独立重复。固定模型种子1，因此不能声称跨模型初始化确认。','- D_cal/D_lin/D_corr 容量和优化几何不同；控制比较不能解释为严格因果分解或同容量优势。','- 本轮不新增动态记忆、路由、硬功t thd=因也新卮不提出抗遗忘性比论）','', '   forh(a.outs-output_ex).writext(enc'\n'.jt r(md)+'\n',oding='utf8'))
-drint(json.dumps(sm,ius)
- dent=2))
+        x=stageA[arm]; md.append(f"- {arm}: 全程 ΔAP {fmt(x['ap_delta'])}；六窗 ΔAP {fmt(x['six_window_equal_weight_AP_delta'])}。")
+    md += ['', '## 有效性与边界','',f'- 工程 fixture（真实连续/断点恢复、真实未来扰动前缀不变、AP ties）：**{fixture_pass}**。',f'- 三流输入审计、C因果访问、D_off精确复制、分支隔离/成熟批次：**{all_valid}**。',f'- 14条训练预算账本完整：**{budget_pass}**。','- 3条流是3个独立流随机性重复；host/窗口不是独立重复。固定模型种子1，因此不能声称跨模型初始化确认。','- D_cal/D_lin/D_corr 容量和优化几何不同；控制比较不能解释为严格因果分解或同容量优势。','- 本轮不新增动态记忆、路由或硬删除，因此不提出抗遗忘、记忆恢复或动态专家机制优势结论。','']
+    Path(a.docs_output).write_text('\n'.join(md)+'\n',encoding='utf8')
+    print(json.dumps(status,indent=2,ensure_ascii=False))
 
-def__name__=='__main__': main()
+if __name__=='__main__': main()
