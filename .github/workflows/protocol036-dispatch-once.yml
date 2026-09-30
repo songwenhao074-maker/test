@@ -1,0 +1,33 @@
+name: Protocol036 one-shot dispatch helper
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  dispatch:
+    if: contains(github.event.head_commit.message, '[p036-dispatch-once]')
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Dispatch registered Protocol036 preflight
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api --method POST -H 'Accept: application/vnd.github+json' \
+            "/repos/$GITHUB_REPOSITORY/actions/workflows/protocol036-correction-controls.yml/dispatches" \
+            -f ref=main \
+            -f 'inputs[stage]=preflight' \
+            -f 'inputs[execution_ref]=codex/protocol-036-correction-controls-20260930' \
+            -f 'inputs[expected_execution_sha]=b620467aab4283e52d129924769c374124bbb4bf' \
+            -f 'inputs[seed]=3601' \
+            -f 'inputs[resume_generation_run_id]=' \
+            -f 'inputs[preflight_run_id]=' \
+            -f 'inputs[sealed_3601_run_id]=' \
+            -f 'inputs[sealed_3602_run_id]=' \
+            -f 'inputs[sealed_3603_run_id]=' \
+            -f 'inputs[science_resume_run_id]='
