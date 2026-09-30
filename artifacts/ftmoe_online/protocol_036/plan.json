@@ -1,0 +1,195 @@
+{
+  "protocol": "036",
+  "revision": 1,
+  "status": "registered_instructions_not_implemented_or_started",
+  "date": "2026-09-30",
+  "purpose": "Correction controls and robustness across new stochastic streams; no dynamic memory claim",
+  "code_base_commit": "84282143b849dd3b5684e7f879964a2ab485fab0",
+  "execution_branch": "codex/protocol-036-correction-controls-20260930",
+  "instructions": "docs/PROTOCOL036_CORRECTION_CONTROLS_AND_NEW_STREAMS_20260930.md",
+  "sources": {
+    "protocol035": {
+      "run_id": 36585058415,
+      "artifact_id": 11041705829,
+      "zip_sha256": "849a8367727e00833a3ae92fda873a3989121d2f7ee207e66f9789357d538421",
+      "feature_tape_sha256": "60f3f898a70dc886cd9e5284c1c1e62f3e086aac52e4e829e9fb9232c69dc988",
+      "update_batches_sha256": "030114f1ff48bff0124d50b1bd4c9d23987ce62431502ae8c603bc6f4f39afc5"
+    },
+    "protocol033": {
+      "run_id": 36417604442,
+      "artifact_id": 10968752245,
+      "zip_sha256": "d92a3f9c8f1ebd292b86fbbe6e2300291135376f3564f2773975fd9203b55944"
+    }
+  },
+  "budget": {
+    "new_full_training_sequences": 14,
+    "stage_A_cached_700_sequences": [
+      "D_cal",
+      "D_lin"
+    ],
+    "stage_B_new_stream_seeds": [
+      3601,
+      3602,
+      3603
+    ],
+    "stage_B_sequences_per_stream": [
+      "C_ref",
+      "D_cal",
+      "D_lin",
+      "D_corr"
+    ],
+    "new_raw_streams": 3,
+    "engineering_real_prefix_executions_max": 2,
+    "engineering_prefix_steps_max": 256,
+    "hyperparameter_sweeps": 0,
+    "extra_model_seeds": 0,
+    "old_D_retraining": 0,
+    "cache_router_trials": 0,
+    "automatic_followup": false,
+    "restart_from_zero_after_scientific_start": false
+  },
+  "data": {
+    "scored_intervals": 5968,
+    "raw_intervals": 5969,
+    "hosts": 16,
+    "feature_dimension": 73,
+    "event_probability": 0.3,
+    "chunk_intervals": 200,
+    "chunks_per_stream": 30,
+    "final_chunk_intervals": 169,
+    "model_seed": 1,
+    "branch_seed": 3501,
+    "scenario_template_protocol": "033",
+    "recurrences": [
+      [
+        "U_rec1",
+        3300,
+        3428
+      ],
+      [
+        "V_rec1",
+        3808,
+        3936
+      ],
+      [
+        "U_rec2",
+        4316,
+        4444
+      ],
+      [
+        "V_rec2",
+        4824,
+        4952
+      ],
+      [
+        "U_rec3",
+        5332,
+        5460
+      ],
+      [
+        "V_rec3",
+        5840,
+        5968
+      ]
+    ],
+    "prediction_label_rule": "i+2<t",
+    "update_label_rule": "i+2<=t",
+    "terminal_settlement_training_steps": 0,
+    "future_statistic_preprocessing_prohibited": true
+  },
+  "arms": {
+    "C_ref": {
+      "definition": "unchanged continuously learning Protocol035 C_fixed5, once per stream"
+    },
+    "D_cal": {
+      "parameters": 2,
+      "formula": "a=0.9*tanh(theta); delta=2*tanh((a*issued_C_margin+b)/2)",
+      "initialization": "theta=b=0",
+      "input": "issued C margin only"
+    },
+    "D_lin": {
+      "parameters": 74,
+      "formula": "delta=2*tanh((w dot issued_z+b)/2)",
+      "initialization": "w=b=0"
+    },
+    "D_corr": {
+      "parameters": 2401,
+      "formula": "unchanged Protocol035 73->32 ReLU ->1; delta=2*tanh(raw/2)",
+      "initialization": "Protocol035 seed3501, zero final layer"
+    },
+    "D_off": {
+      "training_sequences": 0,
+      "definition": "exact copy of C"
+    }
+  },
+  "branch_training": {
+    "loss": "mean BCEWithLogits(issued_C_margin+delta,y>0)+0.001*mean(delta^2)",
+    "optimizer": "AdamW",
+    "lr": 0.0001,
+    "weight_decay": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "gradient_clip_norm": 1.0,
+    "update_every": 16,
+    "replay_recent_matured_intervals": 64,
+    "max_batch_intervals": 32,
+    "reuse_actual_C_batches_including_duplicates": true,
+    "classification": "exact C copy",
+    "C_gradient_path": false,
+    "checkpoint_every_predictions": 512,
+    "real_resume_required": true
+  },
+  "analysis": {
+    "AP": "tie-grouped noninterpolated",
+    "threshold": 0.5,
+    "primary_unit": "each new stream paired contrast, then equal-weight mean of 3 streams",
+    "stage_A_in_primary": false,
+    "cross_stream_gain_signal": {
+      "mean_full_AP_delta_min": 0.005,
+      "mean_six_window_AP_delta_min": 0.005,
+      "mean_late4_AP_delta_min": 0.0,
+      "mean_prefix32_AP_delta_min": -0.005,
+      "streams_both_full_and_six_positive_min": 2,
+      "any_stream_full_and_six_AP_delta_min": -0.002,
+      "all_streams_and_audits_must_pass": true
+    },
+    "per_stream_guards": {
+      "full_and_recurrence_pooled_fpr_delta_max": 0.01,
+      "full_and_recurrence_pooled_recall_delta_min": -0.01,
+      "W_mean_AP_delta_min": -0.02,
+      "each_recurrence_recall_delta_min": -0.02,
+      "each_recurrence_prefix32_recall_delta_min": -0.03
+    },
+    "each_control_incremental_signal": {
+      "D_corr_minus_control_mean_six_AP_min": 0.002,
+      "D_corr_minus_control_mean_full_AP_min": 0.0
+    },
+    "single_class_AP": null,
+    "undefined_primary_metric": "gate_not_established; report support; do not delete seed",
+    "statistical_confirmation_claim": false,
+    "equal_capacity_claim": false
+  },
+  "runtime": {
+    "formal_workflow": "protocol036-correction-controls.yml",
+    "formal_trigger": "workflow_dispatch_only",
+    "connector_only_one_shot_push_dispatch_helper_allowed": true,
+    "helper_training_allowed": false,
+    "helper_automatic_dispatch_retry": false,
+    "job_timeout_minutes": 350,
+    "memory_soft_limit_fraction": 0.8,
+    "exact_resume_only": true,
+    "publication_non_fast_forward_retries_max": 3,
+    "workflow_and_checkout_SHA_separate": true,
+    "scientific_and_publication_status_separate": true
+  },
+  "freeze": {
+    "both_stages_and_analysis_frozen_before_any_036_results": true,
+    "new_data_hashes_sealed_before_training": true,
+    "stage_A_driven_changes_to_stage_B": false,
+    "previous_protocols_immutable": true
+  },
+  "instructions_sha256": "b68ca17324c37d52718c9b894594cec01aa7b225c39d86ec8293e51de02bbc3f"
+}
