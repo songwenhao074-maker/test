@@ -127,9 +127,13 @@ jobs:
           unzip -q /tmp/p038resume.zip -d /tmp/p038resume
           RESTORE="$(find /tmp/p038resume -type f -name budget_ledger.json -printf '%h\n' | head -n1)"
           test -n "$RESTORE"
+          cp "$SCI_ROOT/pip_freeze.txt" /tmp/p038_pip_freeze.txt
+          cp "$SCI_ROOT/fixture_report.json" /tmp/p038_fixture_report.json
           rm -rf "$SCI_ROOT"
           mkdir -p "$SCI_ROOT"
           cp -a "$RESTORE"/. "$SCI_ROOT"/
+          cp /tmp/p038_pip_freeze.txt "$SCI_ROOT/pip_freeze.txt"
+          cp /tmp/p038_fixture_report.json "$SCI_ROOT/fixture_report.json"
 
       - name: Record frozen science provenance
         shell: bash
