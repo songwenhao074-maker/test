@@ -8,8 +8,12 @@ on:
         default: codex/protocol-037-single-dynamic-birth-20261001
       expected_execution_sha:
         required: true
-        default: 1da03cb4260d3c46095999d28b01d6e84e87d63c
+        default: b127656c5b88c4ac4b559b6188fa69b42662078c
       resume_run_id:
+        required: false
+        default: ''
+      fixture_run_id:
+        description: Prior pre-science run with the already-consumed successful Protocol037 fixture
         required: false
         default: ''
 
@@ -29,6 +33,7 @@ jobs:
       EXECUTION_REF: ${{ inputs.execution_ref }}
       EXPECTED_EXECUTION_SHA: ${{ inputs.expected_execution_sha }}
       RESUME_RUN_ID: ${{ inputs.resume_run_id }}
+      FIXTURE_RUN_ID: ${{ inputs.fixture_run_id }}
       PLAN_SHA: 01240a944bb654d529577b397602cf67c24c2245c6fbe909564b47da2726012a
       SOURCE_ARTIFACT_ID: '11147931152'
       SOURCE_ZIP_SHA: 040bacac8f23659f56599b71d6d6706b62a544e44161c7c42fb5af73650f56c0
@@ -52,6 +57,10 @@ jobs:
         run: |
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$EXPECTED_EXECUTION_SHA"
+          if [ -n "$RESUME_RUN_ID" ] && [ -n "$FIXTURE_RUN_ID" ]; then
+            echo "resume_run_id and fixture_run_id are mutually exclusive"
+            exit 1
+          fi
           test "$(sha256sum artifacts/ftmoe_online/protocol_037/plan.json | awk '{print $1}')" = "$PLAN_SHA"
           python maintenance/validate_protocol037_plan.py
           python -m py_compile run_ftmoe_protocol037.py analyze_ftmoe_protocol037.py maintenance/protocol037_finalize.py
@@ -92,6 +101,29 @@ jobs:
           test -n "$P036_ROOT"
           echo "P036_ROOT=$P036_ROOT" >> "$GITHUB_ENV"
 
+      - name: Restore successful already-consumed fixture from prior pre-science run
+        if: ${{ inputs.fixture_run_id != '' && inputs.resume_run_id == '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          ART_ID="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$FIXTURE_RUN_ID/artifacts" --jq '.artifacts[] | select(.name == "protocol037-terminal-'"$FIXTURE_RUN_ID"'") | .id' | head -n1)"
+          test -n "$ART_ID"
+          rm -rf /tmp/p037_fixture_restore /tmp/p037_fixture_restore.zip
+          mkdir -p /tmp/p037_fixture_restore
+          curl -fsSL -L             -H "Authorization: Bearer $GH_TOKEN"             -H "Accept: application/vnd.github+json"             -H "X-GitHub-Api-Version: 2022-11-28"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$ART_ID/zip"             -o /tmp/p037_fixture_restore.zip
+          unzip -q /tmp/p037_fixture_restore.zip -d /tmp/p037_fixture_restore
+          FIXTURE_FILE="$(find /tmp/p037_fixture_restore -type f -name fixture_report.json | head -n1)"
+          test -n "$FIXTURE_FILE"
+          cp "$FIXTURE_FILE" "$SCI_ROOT/fixture_report.json"
+          python - "$SCI_ROOT/fixture_report.json" <<'PY'
+          import json,sys
+          d=json.load(open(sys.argv[1]))
+          assert d['passed'] is True
+          assert d['real_joint_prefix_executions']==2
+          assert d['max_real_prefix_steps']==256
+          assert d['real_prefix_births']==0
+          PY
+
       - name: Restore interrupted Protocol037 state only for exact resume
         if: ${{ inputs.resume_run_id != '' }}
         shell: bash
@@ -121,7 +153,7 @@ jobs:
           echo "RESUME_CHECKPOINT=$SCI_ROOT/checkpoints/$CP_FILE" >> "$GITHUB_ENV"
 
       - name: Run bounded real-prefix and synthetic exact-resume fixtures
-        if: ${{ inputs.resume_run_id == '' }}
+        if: ${{ inputs.resume_run_id == '' && inputs.fixture_run_id == '' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -132,8 +164,8 @@ jobs:
             --out-dir /tmp/p037_fixture \
             --report "$SCI_ROOT/fixture_report.json"
 
-      - name: Reuse original successful fixture on resume
-        if: ${{ inputs.resume_run_id != '' }}
+      - name: Reuse previously successful fixture without consuming more real prefixes
+        if: ${{ inputs.resume_run_id != '' || inputs.fixture_run_id != '' }}
         shell: bash
         run: |
           set -euo pipefail
