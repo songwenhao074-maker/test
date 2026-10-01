@@ -225,7 +225,23 @@ def donor_reconstruct(src, h37, root):
     opt = k.make_optimizer(model)
     expected_rows = {int(r["at_interval"]): r for r in h37["Flog"]["updates"]}
     audits = []
+    already = int(ledger["donor"].get("optimizer_steps", 0))
+    if already:
+        matches = sorted((donor_dir / "checkpoints").glob(f"step_{already:02d}_t*.pt"))
+        if len(matches) != 1:
+            raise RuntimeError("donor_exact_resume_checkpoint_missing")
+        cp = torch.load(matches[0], map_location="cpu")
+        if int(cp.get("ledger_total_steps", -1)) != int(ledger["total_optimizer_steps"]):
+            raise RuntimeError("donor_ledger_checkpoint_mismatch_stop")
+        model.load_state_dict(cp["model"])
+        opt.load_state_dict(cp["optimizer"])
+        audits = J(donor_dir / "partial_audit.json").get("updates", []) if (donor_dir / "partial_audit.json").exists() else []
+        if len(audits) != already:
+            raise RuntimeError("donor_partial_audit_mismatch_stop")
+
     for idx, t in enumerate(p["donor"]["updates_at"], start=1):
+        if idx <= already:
+            continue
         row = src["by_t"].get(int(t))
         if row is None:
             raise AssertionError(f"missing_source_update:{t}")
@@ -256,6 +272,8 @@ def donor_reconstruct(src, h37, root):
         })
         audit["checkpoint"] = cpinfo
         audits.append(audit)
+        W(donor_dir / "partial_audit.json", {"protocol":"038","updates":audits})
+
     final_hash = sha256_state_dict(model.state_dict())
     if final_hash != p["donor"]["expected_state_dict_sha256"]:
         raise AssertionError(f"donor_final_hash_mismatch:{final_hash}")
@@ -275,7 +293,6 @@ def donor_reconstruct(src, h37, root):
     ledger["donor"]["completed"] = True
     W(Path(root) / "budget_ledger.json", ledger)
     return model, audit
-
 
 def trigger_check(loss_buffer, labels, t, streak):
     if (int(t) + 1) % 16 != 0:
@@ -381,7 +398,16 @@ def param_snapshot(model, zrow, cursor, checkpoint_info):
     }
 
 
-def save_arm_checkpoint(root, name, label, cursor, model, opt, state, ledger_total, keep=True):
+def arm_state_payload(out, loss_buffer, checks, updates, life, settlements, snapshots, birth_t, streak, version, infer_seconds, update_seconds, cursor):
+    return {
+        "cursor": int(cursor), "out": out, "loss_buffer": loss_buffer,
+        "checks": checks, "updates": updates, "life": life, "settlements": settlements,
+        "snapshots": snapshots, "birth_t": birth_t, "streak": int(streak), "version": int(version),
+        "infer_seconds": float(infer_seconds), "update_seconds": float(update_seconds),
+    }
+
+
+def save_arm_checkpoint(root, name, label, cursor, model, opt, state, ledger_total, mark_latest=True):
     payload = {
         "protocol": "038", "slot": name, "label": label, "cursor": int(cursor),
         "model": None if model is None else model.state_dict(),
@@ -391,10 +417,10 @@ def save_arm_checkpoint(root, name, label, cursor, model, opt, state, ledger_tot
     }
     path = Path(root) / name / "checkpoints" / f"{label}.pt"
     info = save_torch(path, payload)
-    latest = Path(root) / name / "latest_checkpoint.json"
-    W(latest, {"label": label, "cursor": int(cursor), **info})
+    if mark_latest:
+        latest = Path(root) / name / "latest_checkpoint.json"
+        W(latest, {"label": label, "cursor": int(cursor), **info})
     return info
-
 
 def run_arm(name, src, donor, root):
     arm_dir = Path(root) / name
@@ -413,10 +439,34 @@ def run_arm(name, src, donor, root):
     streak = 0
     version = 0
     infer_seconds = update_seconds = 0.0
+    cursor = 0
     t_start = time.perf_counter()
     init_audit = None
 
-    for t in range(N):
+    already = int(ledger[name].get("optimizer_steps", 0))
+    latest_meta = arm_dir / "latest_checkpoint.json"
+    if already:
+        if not latest_meta.exists():
+            raise RuntimeError(f"{name}_exact_resume_checkpoint_missing")
+        meta = J(latest_meta)
+        cp = torch.load(meta["file"], map_location="cpu")
+        if int(cp.get("ledger_total_steps", -1)) != int(ledger["total_optimizer_steps"]):
+            raise RuntimeError(f"{name}_ledger_checkpoint_mismatch_stop")
+        st = cp["state"]
+        cursor = int(st["cursor"])
+        out = st["out"]; loss_buffer = st["loss_buffer"]
+        checks = st["checks"]; updates = st["updates"]; life = st["life"]; settlements = st["settlements"]
+        snapshots = st.get("snapshots", [])
+        birth_t = st["birth_t"]; streak = int(st["streak"]); version = int(st["version"])
+        infer_seconds = float(st.get("infer_seconds",0.0)); update_seconds = float(st.get("update_seconds",0.0))
+        if version != already:
+            raise RuntimeError(f"{name}_resume_version_ledger_mismatch")
+        model = k.make_expert(); model.load_state_dict(cp["model"])
+        opt = k.make_optimizer(model); opt.load_state_dict(cp["optimizer"])
+        if birth_t is not None and (arm_dir / "initialization_audit.json").exists():
+            init_audit = J(arm_dir / "initialization_audit.json")
+
+    for t in range(cursor, N):
         brow = B["detection_logits"][t]
         if model is None:
             out["probability"][t] = B["probability"][t]
@@ -468,10 +518,10 @@ def run_arm(name, src, donor, root):
                 }
                 if not init_audit["delta_finite"] or init_audit["delta_abs_max"] > 2.000001:
                     raise AssertionError("birth_delta_invalid")
-                info = save_arm_checkpoint(root, name, "birth_before_update_t351", t + 1, model, opt, {
-                    "birth_t": birth_t, "streak": streak, "version": version, "checks": checks, "updates": updates,
-                }, load_ledger(root)["total_optimizer_steps"])
-                snapshots.append(param_snapshot(model, src["T"]["z"][t], t + 1, info))
+                W(arm_dir / "initialization_audit.json", init_audit)
+                state = arm_state_payload(out, loss_buffer, checks, updates, life, settlements, snapshots, birth_t, streak, version, infer_seconds, update_seconds, t)
+                info = save_arm_checkpoint(root, name, "birth_before_update_t351", t, model, opt, state, load_ledger(root)["total_optimizer_steps"], mark_latest=False)
+                snapshots.append(param_snapshot(model, src["T"]["z"][t], t, info))
                 life.append({"event": "birth", **init_audit})
 
         if model is not None and t in src["by_t"]:
@@ -488,25 +538,11 @@ def run_arm(name, src, donor, root):
                 "at_interval": int(t), "batch_indices": batch, "loss": float(loss), "grad_norm": float(gn),
                 "hash_before": before, "hash_after": after, "version_after": int(version),
             })
-            label = f"after_update_{version:03d}_t{t}"
-            keep = (version == 1 or (t + 1) in KEY_CURSORS or (t + 1) % 512 == 0 or version == 352)
-            if keep:
-                info = save_arm_checkpoint(root, name, label, t + 1, model, opt, {
-                    "birth_t": birth_t, "streak": streak, "version": version, "checks": checks, "updates": updates,
-                }, load_ledger(root)["total_optimizer_steps"])
-                if version == 1 or (t + 1) in KEY_CURSORS:
-                    snapshots.append(param_snapshot(model, src["T"]["z"][t], t + 1, info))
-            else:
-                # A minimal overwrite-only exact-resume checkpoint after every optimizer step.
-                save_arm_checkpoint(root, name, "latest_exact_resume", t + 1, model, opt, {
-                    "birth_t": birth_t, "streak": streak, "version": version,
-                }, load_ledger(root)["total_optimizer_steps"])
-
-        if model is not None and (t + 1) in KEY_CURSORS and not any(x["cursor"] == t + 1 for x in snapshots):
-            info = save_arm_checkpoint(root, name, f"cursor_{t+1}", t + 1, model, opt, {
-                "birth_t": birth_t, "streak": streak, "version": version,
-            }, load_ledger(root)["total_optimizer_steps"])
-            snapshots.append(param_snapshot(model, src["T"]["z"][t], t + 1, info))
+            state = arm_state_payload(out, loss_buffer, checks, updates, life, settlements, snapshots, birth_t, streak, version, infer_seconds, update_seconds, t + 1)
+            label = f"after_update_{version:03d}_t{t}" if (version == 1 or (t + 1) in KEY_CURSORS or (t + 1) % 512 == 0 or version == 352) else "latest_exact_resume"
+            info = save_arm_checkpoint(root, name, label, t + 1, model, opt, state, load_ledger(root)["total_optimizer_steps"], mark_latest=True)
+            if version == 1 or (t + 1) in KEY_CURSORS:
+                snapshots.append(param_snapshot(model, src["T"]["z"][t], t + 1, info))
 
     before_terminal = len(updates)
     for i in range(N - 2, N):
@@ -545,7 +581,6 @@ def run_arm(name, src, donor, root):
     ledger[name]["completed"] = True
     W(Path(root) / "budget_ledger.json", ledger)
     return summary
-
 
 def synthetic_fixture(report):
     setup_runtime()
