@@ -247,7 +247,7 @@ def main():
     else:
         label = "extra_capability_not_established"
 
-    diag = diagnostic(B["probability"], Fp["probability"], Dp["probability"], B["labels"], Fp["delta"], Dp["delta"], bounds, Dsum.get("birth_t"))
+    diag = diagnostic(B["probability"], Fp["probability"], Dp["probability"], Fp["delta"], Dp["delta"], B["labels"], bounds, Dsum.get("birth_t"))
     cost = J(root / "science_cost_raw.json")
     comp = {
         "protocol": "037", "run_id": str(a.run_id), "development_only": True, "statistical_confirmation": False,
