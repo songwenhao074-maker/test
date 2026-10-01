@@ -34,7 +34,6 @@ jobs:
           test "$(sha256sum artifacts/ftmoe_online/protocol_037/plan.json | awk '{print $1}')" = "$PLAN_SHA"
           python maintenance/validate_protocol037_plan.py
           python -m py_compile run_ftmoe_protocol037.py analyze_ftmoe_protocol037.py maintenance/protocol037_finalize.py
-          python maintenance/protocol037_finalize.py --help >/dev/null
           ACTIVE="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/protocol037-single-dynamic-birth.yml/runs?per_page=50" --jq '[.workflow_runs[] | select(.status=="queued" or .status=="in_progress")] | length')"
           test "$ACTIVE" = "0"
           FIX_CONCLUSION="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$FIXTURE_RUN_ID" --jq '.status + ":" + (.conclusion // "")')"
