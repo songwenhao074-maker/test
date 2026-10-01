@@ -612,8 +612,8 @@ def synthetic_fixture(report):
     batch = [0,1,2,3]
     k.do_update(warm, wo, src, batch)
     cp = {"m": copy.deepcopy(warm.state_dict()), "o": copy.deepcopy(wo.state_dict())}
-    a = k.make_expert(); a.load_state_dict(cp["m"]); ao = k.make_optimizer(a); ao.load_state_dict(cp["o"])
-    b = k.make_expert(); b.load_state_dict(cp["m"]); bo2 = k.make_optimizer(b); bo2.load_state_dict(cp["o"])
+    a = k.make_expert(); a.load_state_dict(copy.deepcopy(cp["m"])); ao = k.make_optimizer(a); ao.load_state_dict(copy.deepcopy(cp["o"]))
+    b = k.make_expert(); b.load_state_dict(copy.deepcopy(cp["m"])); bo2 = k.make_optimizer(b); bo2.load_state_dict(copy.deepcopy(cp["o"]))
     k.do_update(a, ao, src, [2,3,4,5])
     k.do_update(b, bo2, src, [2,3,4,5])
     resume_equal = sha256_state_dict(a.state_dict()) == sha256_state_dict(b.state_dict())
