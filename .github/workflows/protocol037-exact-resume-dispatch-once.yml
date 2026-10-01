@@ -1,0 +1,30 @@
+name: Protocol037 exact resume dispatch once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol037-exact-resume-dispatch-once.yml'
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  dispatch:
+    if: contains(github.event.head_commit.message, '[p037-exact-resume-dispatch]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Dispatch exact resume once
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXECUTION_REF: codex/protocol-037-single-dynamic-birth-20261001
+          EXPECTED_EXECUTION_SHA: d3bf89ec91bb5aede9da883c4223d7e35105ff54
+          RESUME_RUN_ID: '36868223701'
+        shell: bash
+        run: |
+          set -euo pipefail
+          ACTIVE="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/protocol037-single-dynamic-birth.yml/runs?per_page=20" --jq '[.workflow_runs[] | select(.status=="queued" or .status=="in_progress")] | length')"
+          test "$ACTIVE" = "0"
+          gh api --method POST "repos/$GITHUB_REPOSITORY/actions/workflows/protocol037-single-dynamic-birth.yml/dispatches"             -f ref=main             -f "inputs[execution_ref]=$EXECUTION_REF"             -f "inputs[expected_execution_sha]=$EXPECTED_EXECUTION_SHA"             -f "inputs[resume_run_id]=$RESUME_RUN_ID"             -f "inputs[fixture_run_id]="
