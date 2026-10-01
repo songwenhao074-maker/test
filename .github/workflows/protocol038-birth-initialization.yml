@@ -1,0 +1,300 @@
+name: Protocol-038 birth initialization
+
+on:
+  workflow_dispatch:
+    inputs:
+      execution_ref:
+        required: true
+        default: codex/protocol-038-birth-initialization-20261001
+      expected_execution_sha:
+        required: true
+      resume_run_id:
+        description: Prior interrupted Protocol038 run to resume exactly
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: protocol038-birth-initialization
+  cancel-in-progress: false
+
+jobs:
+  protocol038:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      EXECUTION_REF: ${{ inputs.execution_ref }}
+      EXPECTED_EXECUTION_SHA: ${{ inputs.expected_execution_sha }}
+      RESUME_RUN_ID: ${{ inputs.resume_run_id }}
+      SOURCE036_ARTIFACT_ID: '11147931152'
+      SOURCE036_ZIP_SHA: 040bacac8f23659f56599b71d6d6706b62a544e44161c7c42fb5af73650f56c0
+      SOURCE037_ARTIFACT_ID: '11167124178'
+      SOURCE037_ZIP_SHA: 498ead6571ef34e56702fd23f8cc57ac30afe92e99a8ffbfbd85a0b92e413c77
+      SCI_ROOT: artifacts/ftmoe_online/protocol_038/runtime/run_${{ github.run_id }}
+      COMPACT_ROOT: artifacts/ftmoe_online/protocol_038/runs/run_${{ github.run_id }}
+      GH_TOKEN: ${{ github.token }}
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      PYTHONHASHSEED: '1'
+
+    steps:
+      - name: Checkout exact Protocol038 execution branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.execution_ref }}
+          fetch-depth: 0
+
+      - name: Enforce frozen execution and registration
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$SCI_ROOT"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_EXECUTION_SHA"
+          python maintenance/validate_protocol038_plan.py
+          python -m py_compile run_ftmoe_protocol038.py analyze_ftmoe_protocol038.py maintenance/protocol038_finalize.py protocol037_kernel_frozen.py protocol037_analysis_frozen.py
+          cmp protocol037_kernel_frozen.py <(git show 7440a3973f97599ea2ad4de45d5bacaaf8b517c8:run_ftmoe_protocol037.py)
+          cmp protocol037_analysis_frozen.py <(git show 7440a3973f97599ea2ad4de45d5bacaaf8b517c8:analyze_ftmoe_protocol037.py)
+          git fetch origin main --depth=1
+          git show origin/main:.github/workflows/protocol038-birth-initialization.yml > /tmp/protocol038-workflow.yml
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+
+      - name: Install frozen CPU dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.4.1
+          python -m pip install numpy==1.24.4 psutil==5.9.8
+          python -m pip freeze > "$SCI_ROOT/pip_freeze.txt"
+
+      - name: Run synthetic-only pre-science fixture
+        shell: bash
+        run: |
+          set -euo pipefail
+          python run_ftmoe_protocol038.py fixture --report "$SCI_ROOT/fixture_report.json"
+          python - "$SCI_ROOT/fixture_report.json" <<'PY'
+          import json,sys
+          d=json.load(open(sys.argv[1]))
+          assert d["passed"] is True
+          assert d["synthetic_only"] is True
+          assert d["real_engineering_gradient_steps"] == 0
+          PY
+
+      - name: Download and verify locked Protocol036 source artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/p036 /tmp/p036.zip
+          mkdir -p /tmp/p036
+          curl -fsSL -L -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$SOURCE036_ARTIFACT_ID/zip" -o /tmp/p036.zip
+          test "$(sha256sum /tmp/p036.zip | awk '{print $1}')" = "$SOURCE036_ZIP_SHA"
+          unzip -q /tmp/p036.zip -d /tmp/p036
+          P036_ROOT="$(find /tmp/p036 -type d -path '*/runtime/run_36831958978' | head -n1)"
+          test -n "$P036_ROOT"
+          echo "P036_ROOT=$P036_ROOT" >> "$GITHUB_ENV"
+
+      - name: Download and verify locked Protocol037 source artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/p037 /tmp/p037.zip
+          mkdir -p /tmp/p037
+          curl -fsSL -L -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$SOURCE037_ARTIFACT_ID/zip" -o /tmp/p037.zip
+          test "$(sha256sum /tmp/p037.zip | awk '{print $1}')" = "$SOURCE037_ZIP_SHA"
+          unzip -q /tmp/p037.zip -d /tmp/p037
+          P037_ROOT="$(find /tmp/p037 -type d -path '*/runtime/run_36871854703' | head -n1)"
+          test -n "$P037_ROOT"
+          echo "P037_ROOT=$P037_ROOT" >> "$GITHUB_ENV"
+
+      - name: Restore interrupted Protocol038 state only for exact resume
+        if: ${{ inputs.resume_run_id != '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          ART_ID="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$RESUME_RUN_ID/artifacts" --jq '.artifacts[] | select(.name == "protocol038-terminal-'"$RESUME_RUN_ID"'") | .id' | head -n1)"
+          test -n "$ART_ID"
+          rm -rf /tmp/p038resume /tmp/p038resume.zip
+          mkdir -p /tmp/p038resume
+          curl -fsSL -L -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$ART_ID/zip" -o /tmp/p038resume.zip
+          unzip -q /tmp/p038resume.zip -d /tmp/p038resume
+          RESTORE="$(find /tmp/p038resume -type f -name budget_ledger.json -printf '%h\n' | head -n1)"
+          test -n "$RESTORE"
+          rm -rf "$SCI_ROOT"
+          mkdir -p "$SCI_ROOT"
+          cp -a "$RESTORE"/. "$SCI_ROOT"/
+
+      - name: Record frozen science provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          python maintenance/protocol038_finalize.py provenance             --out "$SCI_ROOT/implementation_manifest.json"             --run-id "$GITHUB_RUN_ID"             --checkout-sha "$(git rev-parse HEAD)"             --workflow /tmp/protocol038-workflow.yml             --run-script run_ftmoe_protocol038.py             --analysis-script analyze_ftmoe_protocol038.py             --frozen-runner protocol037_kernel_frozen.py             --frozen-analysis protocol037_analysis_frozen.py             --plan artifacts/ftmoe_online/protocol_038/plan.json             --validator maintenance/validate_protocol038_plan.py             --pip-freeze "$SCI_ROOT/pip_freeze.txt"
+
+      - name: Execute registered Stage A B C science only
+        id: science
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          python run_ftmoe_protocol038.py science             --source036-root "$P036_ROOT"             --source037-root "$P037_ROOT"             --out-dir "$SCI_ROOT"
+
+      - name: Freeze and verify raw scientific manifest
+        id: freeze
+        if: ${{ steps.science.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          python maintenance/protocol038_finalize.py manifest             --root "$SCI_ROOT" --out "$SCI_ROOT/raw_scientific_manifest.json"             --exclude analysis --exclude publication_status.json --exclude artifact_index.json
+          python maintenance/protocol038_finalize.py verify             --root "$SCI_ROOT" --manifest "$SCI_ROOT/raw_scientific_manifest.json"
+
+      - name: Analyze frozen preregistered comparisons
+        id: analysis
+        if: ${{ steps.science.outcome == 'success' && steps.freeze.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$SCI_ROOT/analysis"
+          python analyze_ftmoe_protocol038.py             --run-root "$SCI_ROOT"             --source-manifest "$P036_ROOT/inputs/seed3601/manifest.json"             --output-dir "$SCI_ROOT/analysis"             --docs-output docs/PROTOCOL038_RESULTS.md             --run-id "$GITHUB_RUN_ID"
+
+      - name: Materialize and verify terminal file manifest
+        id: terminal
+        if: ${{ steps.analysis.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          python maintenance/protocol038_finalize.py verify             --root "$SCI_ROOT" --manifest "$SCI_ROOT/raw_scientific_manifest.json"
+          python maintenance/protocol038_finalize.py manifest             --root "$SCI_ROOT" --out "$SCI_ROOT/terminal_file_manifest.json"             --exclude publication_status.json --exclude artifact_index.json
+          python maintenance/protocol038_finalize.py verify             --root "$SCI_ROOT" --manifest "$SCI_ROOT/terminal_file_manifest.json"
+
+      - name: Upload complete raw Protocol038 terminal artifact
+        id: upload
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol038-terminal-${{ github.run_id }}
+          path: ${{ env.SCI_ROOT }}
+          if-no-files-found: error
+          retention-days: 90
+          compression-level: 6
+
+      - name: Build artifact index and compact evidence
+        id: compact
+        if: ${{ steps.science.outcome == 'success' && steps.freeze.outcome == 'success' && steps.analysis.outcome == 'success' && steps.terminal.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        env:
+          ARTIFACT_ID: ${{ steps.upload.outputs.artifact-id }}
+        run: |
+          set -euo pipefail
+          test -n "$ARTIFACT_ID"
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$ARTIFACT_ID" > /tmp/p038_artifact_api.json
+          curl -fsSL -L -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$ARTIFACT_ID/zip" -o /tmp/p038_uploaded.zip
+          ZIP_SHA="$(sha256sum /tmp/p038_uploaded.zip | awk '{print $1}')"
+          python maintenance/protocol038_finalize.py artifact-index             --artifact-info /tmp/p038_artifact_api.json             --scientific-manifest "$SCI_ROOT/raw_scientific_manifest.json"             --terminal-manifest "$SCI_ROOT/terminal_file_manifest.json"             --zip-sha256 "$ZIP_SHA"             --out /tmp/p038_artifact_index.json             --run-id "$GITHUB_RUN_ID"
+          python maintenance/protocol038_finalize.py compact --src "$SCI_ROOT" --dst "$COMPACT_ROOT"
+          cp /tmp/p038_artifact_index.json "$COMPACT_ROOT/artifact_index.json"
+          python maintenance/protocol038_finalize.py publication --out "$COMPACT_ROOT/publication_status.json" --run-id "$GITHUB_RUN_ID" --status pending
+          python maintenance/protocol038_finalize.py manifest --root "$COMPACT_ROOT" --out "$COMPACT_ROOT/compact_manifest.json"
+
+      - name: Upload compact indexed evidence
+        if: ${{ steps.compact.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol038-compact-${{ github.run_id }}
+          path: ${{ env.COMPACT_ROOT }}
+          if-no-files-found: error
+          retention-days: 90
+          compression-level: 6
+
+      - name: Update stop-state handoff pointers
+        if: ${{ steps.compact.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - "$SCI_ROOT/analysis/status.json" "$GITHUB_RUN_ID" <<'PY'
+          import json,sys,pathlib
+          s=json.load(open(sys.argv[1])); rid=sys.argv[2]; label=s["result_label"]
+          sig=s["signals"]
+          pathlib.Path("AGENTS.md").write_text(
+            f"# Active Experiment Directive\n\nProtocol-038 completed in run {rid}. Result label: {label}. Historical protocols033-038 scientific budgets are closed and immutable.\n\nPrimary handoff: docs/PROTOCOL038_RESULTS.md. Compact evidence: artifacts/ftmoe_online/protocol_038/runs/run_{rid}/.\n\nStop after Protocol-038. No automatic new seeds, architecture changes, sleep/wake/delete, trigger retuning, or next protocol is authorized.\n",encoding="utf8")
+          pathlib.Path("NEXT_EXPERIMENT_LATEST.md").write_text(
+            f"# 下一实验交接\n\nProtocol-038 已完成，run {rid}，结果标签 **{label}**。\n\n先读取 docs/PROTOCOL038_RESULTS.md 与 artifacts/ftmoe_online/protocol_038/runs/run_{rid}/。warm_init_signal={sig['warm_init_signal']}，bias_init_signal={sig['bias_init_signal']}，feature_weight_increment={sig['feature_weight_increment']}。038 的 725 步科学预算已关闭，不得自动重跑或扩展。\n",encoding="utf8")
+          pathlib.Path("PROJECT_CONTEXT_LATEST.md").write_text(
+            f"# Project Context Latest\n\nCurrent terminal experiment: Protocol-038, run {rid}. Result label: **{label}**. warm_init_signal={sig['warm_init_signal']}; bias_init_signal={sig['bias_init_signal']}; feature_weight_increment={sig['feature_weight_increment']}.\n\nRead docs/PROTOCOL038_RESULTS.md and artifacts/ftmoe_online/protocol_038/runs/run_{rid}/. No automatic follow-up experiment is authorized.\n",encoding="utf8")
+          PY
+
+      - name: Commit compact results to execution branch
+        id: result_commit
+        if: ${{ steps.compact.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PROTOCOL038_RESULTS.md "$COMPACT_ROOT" AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md
+          git commit -m "results: Protocol038 birth initialization run $GITHUB_RUN_ID [skip ci]"
+          git push origin HEAD:"$EXECUTION_REF"
+
+      - name: Publish compact Protocol038 result to latest main
+        id: publish
+        if: ${{ steps.compact.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          PUBLISHED=false
+          for TRY in 1 2 3; do
+            rm -rf /tmp/p038_publish
+            gh repo clone "$GITHUB_REPOSITORY" /tmp/p038_publish -- --depth=1 --branch main
+            PUB=/tmp/p038_publish
+            mkdir -p "$PUB/docs" "$PUB/artifacts/ftmoe_online/protocol_038/runs"
+            cp docs/PROTOCOL038_RESULTS.md "$PUB/docs/PROTOCOL038_RESULTS.md"
+            rm -rf "$PUB/$COMPACT_ROOT"
+            mkdir -p "$(dirname "$PUB/$COMPACT_ROOT")"
+            cp -a "$COMPACT_ROOT" "$PUB/$COMPACT_ROOT"
+            cp AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md "$PUB/"
+            python maintenance/protocol038_finalize.py publication --out "$PUB/$COMPACT_ROOT/publication_status.json" --run-id "$GITHUB_RUN_ID" --status published_main
+            python maintenance/protocol038_finalize.py manifest --root "$PUB/$COMPACT_ROOT" --out "$PUB/$COMPACT_ROOT/compact_manifest.json"
+            (
+              cd "$PUB"
+              git config user.name "github-actions[bot]"
+              git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+              git add docs/PROTOCOL038_RESULTS.md "$COMPACT_ROOT" AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md
+              git commit -m "results: publish Protocol038 run $GITHUB_RUN_ID [skip ci]"
+              git push origin HEAD:main
+            ) && { PUBLISHED=true; break; }
+          done
+          echo "published=$PUBLISHED" >> "$GITHUB_OUTPUT"
+          if [ "$PUBLISHED" != true ]; then echo "publication_pending_after_three_nonforce_retries"; fi
+
+      - name: Record published state on execution branch
+        if: ${{ steps.publish.outputs.published == 'true' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python maintenance/protocol038_finalize.py publication --out "$COMPACT_ROOT/publication_status.json" --run-id "$GITHUB_RUN_ID" --status published_main
+          python maintenance/protocol038_finalize.py manifest --root "$COMPACT_ROOT" --out "$COMPACT_ROOT/compact_manifest.json"
+          git add "$COMPACT_ROOT/publication_status.json" "$COMPACT_ROOT/compact_manifest.json"
+          git commit -m "results: mark Protocol038 main publication complete [skip ci]"
+          git push origin HEAD:"$EXECUTION_REF"
+
+      - name: Fail only on scientific, freeze, analysis, terminal, or compact failure
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${{ steps.science.outcome }}" = "success" || { echo "Protocol038 science interrupted; exact artifact resume only."; exit 1; }
+          test "${{ steps.freeze.outcome }}" = "success" || { echo "Protocol038 science completed but freeze failed; do not rerun science."; exit 1; }
+          test "${{ steps.analysis.outcome }}" = "success" || { echo "Protocol038 frozen analysis failed; do not rerun science."; exit 1; }
+          test "${{ steps.terminal.outcome }}" = "success" || { echo "Protocol038 terminal manifest failed; do not rerun science."; exit 1; }
+          test "${{ steps.compact.outcome }}" = "success" || { echo "Protocol038 compact evidence failed; do not rerun science."; exit 1; }
+          echo "Protocol038 completed and stopped."
