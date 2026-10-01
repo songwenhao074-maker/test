@@ -2,7 +2,7 @@
   "protocol": "037",
   "run_id": "36871854703",
   "scientific_status": "completed",
-  "publication_status": "pending_until_main_sync",
+  "publication_status": "published_main",
   "training_sequences_registered": 2,
   "training_sequences_completed": 2,
   "new_streams_registered": 0,

@@ -134,8 +134,8 @@
     },
     {
       "path": "status.json",
-      "sha256": "c16bf8834b0c6d265238dfd00f7bee2aeb7bcc41d98afd45618c0f47e35734be",
-      "size": 653
+      "sha256": "4e607fa8e3bad039ce8d725a60a23e6c3061901b36cc4986391fa10e95f9d69f",
+      "size": 644
     }
   ],
   "file_count": 27
