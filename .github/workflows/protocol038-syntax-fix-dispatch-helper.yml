@@ -1,0 +1,46 @@
+name: Protocol-038 pre-science syntax-fix dispatcher
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol038-syntax-fix-dispatch-helper.yml'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: protocol038-syntax-fix-dispatch-once
+  cancel-in-progress: false
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate syntax-fixed execution and dispatch once
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXEC_REF: codex/protocol-038-birth-initialization-20261001
+          EXPECTED_SHA: 7894407c6eeb98d9617992752c07b0050c2094cf
+        shell: bash
+        run: |
+          set -euo pipefail
+          ACTUAL="$(gh api "repos/$GITHUB_REPOSITORY/branches/$EXEC_REF" --jq '.commit.sha')"
+          test "$ACTUAL" = "$EXPECTED_SHA"
+          python maintenance/validate_protocol038_plan.py
+          gh api --method POST "repos/$GITHUB_REPOSITORY/actions/workflows/protocol038-birth-initialization.yml/dispatches"             -f ref=main             -f "inputs[execution_ref]=$EXEC_REF"             -f "inputs[expected_execution_sha]=$EXPECTED_SHA"             -f "inputs[resume_run_id]="
+
+      - name: Remove one-shot syntax-fix dispatcher
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/protocol038-syntax-fix-dispatch-helper.yml
+          git commit -m "ops: remove Protocol038 syntax-fix dispatcher [skip ci]"
+          git push origin HEAD:main
