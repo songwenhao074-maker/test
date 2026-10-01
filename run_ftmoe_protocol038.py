@@ -449,7 +449,7 @@ def run_arm(name, src, donor, root):
         if not latest_meta.exists():
             raise RuntimeError(f"{name}_exact_resume_checkpoint_missing")
         meta = J(latest_meta)
-        cp = torch.load(meta["file"], map_location="cpu")
+        cp_path = Path(meta["file"])\n        if not cp_path.exists():\n            cp_path = arm_dir / "checkpoints" / cp_path.name\n        cp = torch.load(cp_path, map_location="cpu")
         if int(cp.get("ledger_total_steps", -1)) != int(ledger["total_optimizer_steps"]):
             raise RuntimeError(f"{name}_ledger_checkpoint_mismatch_stop")
         st = cp["state"]
