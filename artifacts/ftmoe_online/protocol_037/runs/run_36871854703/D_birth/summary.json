@@ -1,0 +1,19 @@
+{
+  "protocol": "037",
+  "arm": "D_birth",
+  "completed": true,
+  "parameter_count": 74,
+  "birth_occurred": true,
+  "birth_t": 351,
+  "first_affected_prediction": 352,
+  "trigger_status": "activated",
+  "optimizer_steps": 352,
+  "inference_calls": 5616,
+  "resident_parameter_interval_integral": 415584,
+  "final_expert_hash": "900202d4731a87f387b246c22dd6f73e73c0b6eeaedf2eb2bd146396d8d47d42",
+  "prediction_sha256": "badf9005b2be9fc6436d1ff2b9377b27715e846d7d16f8e4bdfcbfa76f732e8c",
+  "cost": {
+    "inference_seconds": 0.7416451849995838,
+    "update_seconds": 0.2690288490005628
+  }
+}

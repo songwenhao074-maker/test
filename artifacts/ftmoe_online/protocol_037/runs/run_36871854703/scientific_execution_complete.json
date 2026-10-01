@@ -1,0 +1,9 @@
+{
+  "protocol": "037",
+  "run_id": "36871854703",
+  "completed": true,
+  "training_sequences_completed": 2,
+  "new_streams_generated": 0,
+  "births_observed": 1,
+  "audit_all_pass": true
+}

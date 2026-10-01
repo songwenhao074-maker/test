@@ -1,0 +1,23 @@
+{
+  "source_hashes_unchanged": true,
+  "D_before_birth_exact_B_copy": true,
+  "classification_exact_B_copy": true,
+  "all_science_update_batches_mature": true,
+  "birth_checks_use_only_matured_B_losses": true,
+  "birth_count_within_registered_limit": true,
+  "actual_update_counts_match_registered_opportunities": true,
+  "F_optimizer_steps": 373,
+  "D_optimizer_steps": 352,
+  "expected_F_optimizer_steps": 373,
+  "expected_D_optimizer_steps": 352,
+  "terminal_settlement_optimizer_steps_actual": 0,
+  "fixture_pass": true,
+  "budget_zero_fields_and_prefix_accounting_pass": true,
+  "event_order": [
+    "predict",
+    "settle_label",
+    "check_birth_if_due",
+    "scheduled_update"
+  ],
+  "all_pass": true
+}

@@ -1,0 +1,7 @@
+{
+  "protocol": "037",
+  "arm": "B_ref",
+  "training": false,
+  "exact_source_copy": true,
+  "source_sha256": "1ea811ed175817294f275505db85d0bf283c3d0aca6b883b036243ad7843bef6"
+}

@@ -1,0 +1,36 @@
+{
+  "protocol": "037",
+  "passed": true,
+  "real_joint_prefix_executions": 2,
+  "max_real_prefix_steps": 256,
+  "real_prefix_births": 0,
+  "real_resume_checkpoint_cursor": 128,
+  "future_perturbation_start": 200,
+  "future_perturbation_rows_positive": 5768,
+  "future_feature_values_changed": 6737024,
+  "future_label_values_changed": 92288,
+  "unperturbed_prefix_compared_through": 192,
+  "real_resume_and_future_isolation_pass": true,
+  "synthetic_forced_event_only": true,
+  "synthetic_force_birth_t": 79,
+  "synthetic_resume_tests": [
+    {
+      "boundary": 64,
+      "pass": true,
+      "birth_exists_at_checkpoint": false
+    },
+    {
+      "boundary": 80,
+      "pass": true,
+      "birth_exists_at_checkpoint": true
+    },
+    {
+      "boundary": 160,
+      "pass": true,
+      "birth_exists_at_checkpoint": true
+    }
+  ],
+  "terminal_settlement_optimizer_steps_actual": 0,
+  "terminal_settlement_has_no_optimizer_step": true,
+  "production_entrypoint_shared": true
+}

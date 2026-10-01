@@ -1,0 +1,59 @@
+{
+  "protocol": "037",
+  "training_sequence_budget": 2,
+  "sequences": {
+    "F_extra": {
+      "started": true,
+      "completed": true,
+      "restart_from_zero": false,
+      "resume_events": [
+        {
+          "run_id": "36871854703",
+          "checkpoint": "artifacts/ftmoe_online/protocol_037/runtime/run_36871854703/checkpoints/interrupted_cursor_5968.pt",
+          "time_unix": 1790862904.1724348
+        }
+      ],
+      "optimizer_steps": 373,
+      "started_run_id": "36868223701",
+      "started_time_unix": 1790861021.6297348,
+      "last_interruption": "'class_logits'",
+      "completed_time_unix": 1790862905.0911644,
+      "prediction_sha256": "348002d32c34818dad3e59a298107da9a7b3a4d59ca1dc7db8bb6a87831e490c",
+      "parameter_count": 74
+    },
+    "D_birth": {
+      "started": true,
+      "completed": true,
+      "restart_from_zero": false,
+      "resume_events": [
+        {
+          "run_id": "36871854703",
+          "checkpoint": "artifacts/ftmoe_online/protocol_037/runtime/run_36871854703/checkpoints/interrupted_cursor_5968.pt",
+          "time_unix": 1790862904.1725335
+        }
+      ],
+      "optimizer_steps": 352,
+      "started_run_id": "36868223701",
+      "started_time_unix": 1790861021.6298552,
+      "last_interruption": "'class_logits'",
+      "completed_time_unix": 1790862905.0912578,
+      "prediction_sha256": "badf9005b2be9fc6436d1ff2b9377b27715e846d7d16f8e4bdfcbfa76f732e8c",
+      "parameter_count": 74,
+      "birth_occurred": true,
+      "birth_t": 351
+    }
+  },
+  "new_raw_streams": 0,
+  "source_stream_reused": 3601,
+  "source_stream_sha256": "09fadb02f2017f8d528ee8284129c29adcb6be137b1a9e93f4a249eebcd1b659",
+  "baseline_retraining": 0,
+  "other_real_stream_evaluations": 0,
+  "hyperparameter_or_trigger_sweeps": 0,
+  "max_births": 1,
+  "births_observed": 1,
+  "extra_initialization_seed_trials": 0,
+  "sleep_wake_delete_trials": 0,
+  "engineering_real_prefix_executions": 2,
+  "engineering_real_prefix_max_steps": 256,
+  "automatic_next_protocol": false
+}

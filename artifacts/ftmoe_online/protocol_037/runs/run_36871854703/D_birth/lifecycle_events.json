@@ -1,0 +1,13 @@
+{
+  "protocol": "037",
+  "events": [
+    {
+      "event": "birth",
+      "at_interval": 351,
+      "first_affected_prediction": 352,
+      "zero_delta_exact_before_update": true,
+      "expert_parameter_count": 74,
+      "expert_hash_before_update": "15878c9012c5667ff7c51f7098b333043e6d42f5df6d1bcac379b9d86a26017c"
+    }
+  ]
+}

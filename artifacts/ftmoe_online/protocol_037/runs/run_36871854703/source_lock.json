@@ -1,0 +1,15 @@
+{
+  "protocol": "037",
+  "source_run_id": 36831958978,
+  "source_artifact_id": 11147931152,
+  "source_stream_seed": 3601,
+  "source_stream_sha256": "09fadb02f2017f8d528ee8284129c29adcb6be137b1a9e93f4a249eebcd1b659",
+  "files": {
+    "stage_B/seed3601/C_ref/feature_tape.npz": "c71a2ea6d59045fe4cc8a953a776d37f48dbe1feec4aba859cd00f11c984529c",
+    "stage_B/seed3601/C_ref/update_batches.json": "4d32d2ece194cb41b8bc16de1c89ddfedcd42da668b96446937fb430d6246b6f",
+    "stage_B/seed3601/D_lin/predictions.npz": "1ea811ed175817294f275505db85d0bf283c3d0aca6b883b036243ad7843bef6",
+    "inputs/seed3601/manifest.json": "73a1c6fd8d8d12c8e84958df55b2379ab2f2542ac34923bc3934d363329cb02b"
+  },
+  "baseline": "B_ref=C+D_lin issued predictions",
+  "verified": true
+}
