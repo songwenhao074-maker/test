@@ -111,8 +111,14 @@ jobs:
           curl -fsSL -L -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$SOURCE037_ARTIFACT_ID/zip" -o /tmp/p037.zip
           test "$(sha256sum /tmp/p037.zip | awk '{print $1}')" = "$SOURCE037_ZIP_SHA"
           unzip -q /tmp/p037.zip -d /tmp/p037
-          P037_ROOT="$(find /tmp/p037 -type d -path '*/runtime/run_36871854703' | head -n1)"
+          if [ -f /tmp/p037/B_ref/predictions.npz ] && [ -f /tmp/p037/D_birth/predictions.npz ]; then
+            P037_ROOT=/tmp/p037
+          else
+            P037_ROOT="$(find /tmp/p037 -type d -path '*/runtime/run_36871854703' | head -n1)"
+          fi
           test -n "$P037_ROOT"
+          test -f "$P037_ROOT/B_ref/predictions.npz"
+          test -f "$P037_ROOT/D_birth/predictions.npz"
           echo "P037_ROOT=$P037_ROOT" >> "$GITHUB_ENV"
 
       - name: Restore interrupted Protocol038 state only for exact resume
