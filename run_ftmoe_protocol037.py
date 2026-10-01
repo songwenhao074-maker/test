@@ -825,7 +825,6 @@ def save_arm_predictions(path, src, st, arm):
         "probability": prob,
         "detection_logits": logits,
         "class_probability": B["class_probability"],
-        "class_logits": B["class_logits"],
         "labels": B["labels"],
         "raw_labels": B["raw_labels"],
         "model_version": B.get("model_version", np.zeros(src["n"], np.int64)),
@@ -834,6 +833,11 @@ def save_arm_predictions(path, src, st, arm):
         "expert_count": count,
         "expert_hash": hashes,
     }
+    # Protocol036 D_lin stores class_probability but not necessarily class_logits.
+    # Classification is outside the new 037 expert and must be copied exactly from B;
+    # preserve class_logits only when the frozen source actually contains it.
+    if "class_logits" in B:
+        payload["class_logits"] = B["class_logits"]
     np.savez_compressed(path, **payload)
 
 
