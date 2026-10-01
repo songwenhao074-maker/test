@@ -1,0 +1,28 @@
+{"protocol": "036", "time_unix": 1790840670.844115, "event": "start", "sequence": "A_seed700_D_cal", "run_id": "36831958978", "checkpoint": null}
+{"protocol": "036", "time_unix": 1790840672.728447, "event": "complete", "sequence": "A_seed700_D_cal"}
+{"protocol": "036", "time_unix": 1790840672.9136906, "event": "start", "sequence": "A_seed700_D_lin", "run_id": "36831958978", "checkpoint": null}
+{"protocol": "036", "time_unix": 1790840674.8613703, "event": "complete", "sequence": "A_seed700_D_lin"}
+{"protocol": "036", "time_unix": 1790840675.0219123, "event": "start", "sequence": "B_seed3601_C_ref", "run_id": "36831958978", "checkpoint": null}
+{"protocol": "036", "time_unix": 1790840747.7560997, "event": "complete", "sequence": "B_seed3601_C_ref"}
+{"protocol": "036", "time_unix": 1790840747.9339786, "event": "start", "sequence": "B_seed3601_D_cal", "run_id": "36831958978", "checkpoint": null}
+{"protocol": "036", "time_unix": 1790840749.7190585, "event": "complete", "sequence": "B_seed3601_D_cal"}
+{"protocol": "036", "time_unix": 1790840749.8952317, "event": "start", "sequence": "B_seed3601_D_lin", "run_id": "36831958978", "checkpoint": null}
+{"protocol": "036", "time_unix": 1790840751.8362734, "event": "complete", "sequence": "B_seed3601_D_lin"}
+{"protocol": "036", "time_unix": 1790840752.0132935, "event": "start", "sequence": "B_seed3601_D_corr", "run_id": "36831958978", "checkpoint": null}
+{"protocol": "036", "time_unix": 1790840754.6715672, "event": "complete", "sequence": "B_seed3601_D_corr"}
+{"protocol": "036", "time_unix": 1790840754.8894966, "event": "start", "sequence": "B_seed3602_C_ref", "run_id": "36831958978", "checkpoint": null}
+{"protocol": "036", "time_unix": 1790840828.5268323, "event": "complete", "sequence": "B_seed3602_C_ref"}
+{"protocol": "036", "time_unix": 1790840828.7072866, "event": "start", "sequence": "B_seed3602_D_cal", "run_id": "36831958978", "checkpoint": null}
+{"protocol": "036", "time_unix": 1790840830.5415175, "event": "complete", "sequence": "B_seed3602_D_cal"}
+{"protocol": "036", "time_unix": 1790840830.7189322, "event": "start", "sequence": "B_seed3602_D_lin", "run_id": "36831958978", "checkpoint": null}
+{"protocol": "036", "time_unix": 1790840832.6870043, "event": "complete", "sequence": "B_seed3602_D_lin"}
+{"protocol": "036", "time_unix": 1790840832.8681395, "event": "start", "sequence": "B_seed3602_D_corr", "run_id": "36831958978", "checkpoint": null}
+{"protocol": "036", "time_unix": 1790840835.5773947, "event": "complete", "sequence": "B_seed3602_D_corr"}
+{"protocol": "036", "time_unix": 1790840835.7224743, "event": "start", "sequence": "B_seed3603_C_ref", "run_id": "36831958978", "checkpoint": null}
+{"protocol": "036", "time_unix": 1790840911.1168232, "event": "complete", "sequence": "B_seed3603_C_ref"}
+{"protocol": "036", "time_unix": 1790840911.2951138, "event": "start", "sequence": "B_seed3603_D_cal", "run_id": "36831958978", "checkpoint": null}
+{"protocol": "036", "time_unix": 1790840913.135714, "event": "complete", "sequence": "B_seed3603_D_cal"}
+{"protocol": "036", "time_unix": 1790840913.3125827, "event": "start", "sequence": "B_seed3603_D_lin", "run_id": "36831958978", "checkpoint": null}
+{"protocol": "036", "time_unix": 1790840915.314893, "event": "complete", "sequence": "B_seed3603_D_lin"}
+{"protocol": "036", "time_unix": 1790840915.4923341, "event": "start", "sequence": "B_seed3603_D_corr", "run_id": "36831958978", "checkpoint": null}
+{"protocol": "036", "time_unix": 1790840918.2242565, "event": "complete", "sequence": "B_seed3603_D_corr"}

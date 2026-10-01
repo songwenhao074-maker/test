@@ -1,0 +1,70 @@
+{
+  "protocol": "036",
+  "run_id": "36673404235",
+  "workflow_ref_sha": "2485a432574a9fba8f7a58fdfa3b5679a3a76d68",
+  "checkout_sha": "b620467aab4283e52d129924769c374124bbb4bf",
+  "execution_ref": "codex/protocol-036-correction-controls-20260930",
+  "plan_sha256": "339980818a4d0d7518b6a33e696bcfa02ea3ec27d69467d4242264277c051a47",
+  "implementation_file_sha256": {
+    "protocol036_stream.py": "6ee73bbd16ba193164308db0a566843b4432f059f080d89e468ea6d7d7a6e4e7",
+    "run_ftmoe_protocol036.py": "1cfadb1a888af94e7d0ea060c72b0c12fee7f2fc3c32a133f1d675b05cd9e1b4",
+    "analyze_ftmoe_protocol036.py": "4799cf9bcd19bc83fd5b6907024c8ae415fa8d5474a1c78fd88b51176572ca6b",
+    "maintenance/validate_protocol036_plan.py": "81d9d15281d6fb07e8b3ec0c515d3de34fe8471651437489aabcc429259fdd1e",
+    ".github/workflows/protocol036-correction-controls.yml": "d0656ea8b16a2bf9b9fb2d87b6d451109423412943647d4d20ada1e4b4f892b6"
+  },
+  "runtime": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONHASHSEED": "1",
+    "torch_num_threads": 1,
+    "torch_num_interop_threads": 1,
+    "deterministic_algorithms": true
+  },
+  "python_actual": "3.8.18",
+  "torch_actual": "2.4.1+cpu",
+  "branches": {
+    "D_cal": {
+      "parameter_count": 2,
+      "initial_hash": "eb387a117ac2bfa3b5f40749fd149a6584626a2ac39325fd952ddbcce33c858a"
+    },
+    "D_lin": {
+      "parameter_count": 74,
+      "initial_hash": "15878c9012c5667ff7c51f7098b333043e6d42f5df6d1bcac379b9d86a26017c"
+    },
+    "D_corr": {
+      "parameter_count": 2401,
+      "initial_hash": "1154011c1cff77622ab93106e501a57b973688c43d816f531ff179957102ceb7"
+    }
+  },
+  "budget": {
+    "new_full_training_sequences": 14,
+    "stage_A_cached_700_sequences": [
+      "D_cal",
+      "D_lin"
+    ],
+    "stage_B_new_stream_seeds": [
+      3601,
+      3602,
+      3603
+    ],
+    "stage_B_sequences_per_stream": [
+      "C_ref",
+      "D_cal",
+      "D_lin",
+      "D_corr"
+    ],
+    "new_raw_streams": 3,
+    "engineering_real_prefix_executions_max": 2,
+    "engineering_prefix_steps_max": 256,
+    "hyperparameter_sweeps": 0,
+    "extra_model_seeds": 0,
+    "old_D_retraining": 0,
+    "cache_router_trials": 0,
+    "automatic_followup": false,
+    "restart_from_zero_after_scientific_start": false
+  },
+  "normalization_provenance": "time_scale and graph_scale come from frozen v4 checkpoint normalization; not current-stream statistics",
+  "common_feature_provenance": "pressure current row, delta past1, slope past4 only",
+  "dgl_actual": "unavailable:ModuleNotFoundError"
+}

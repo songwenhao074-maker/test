@@ -1,0 +1,26 @@
+{
+  "protocol": "036",
+  "preflight_run_id": "36673404235",
+  "execution_ref": "codex/protocol-036-correction-controls-20260930",
+  "expected_execution_sha": "b620467aab4283e52d129924769c374124bbb4bf",
+  "checkout_sha": "b620467aab4283e52d129924769c374124bbb4bf",
+  "protocol033": {
+    "run_id": 36417604442,
+    "artifact_id": 10968752245,
+    "zip_sha256": "d92a3f9c8f1ebd292b86fbbe6e2300291135376f3564f2773975fd9203b55944"
+  },
+  "protocol035": {
+    "run_id": 36585058415,
+    "artifact_id": 11041705829,
+    "zip_sha256": "849a8367727e00833a3ae92fda873a3989121d2f7ee207e66f9789357d538421",
+    "feature_tape_sha256": "60f3f898a70dc886cd9e5284c1c1e62f3e086aac52e4e829e9fb9232c69dc988",
+    "update_batches_sha256": "030114f1ff48bff0124d50b1bd4c9d23987ce62431502ae8c603bc6f4f39afc5"
+  },
+  "sealed_stream_run_ids": {
+    "3601": "36713640604",
+    "3602": "36778544888",
+    "3603": "36821463632"
+  },
+  "science_run_id": "36831958978",
+  "science_resume_run_id": null
+}

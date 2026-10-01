@@ -1,0 +1,9 @@
+{
+  "feature_tape_sha256_before": "dd8fac54cd0319b98bfbd9e617ed387709f219a9b23daa8df3fb6f67370809f2",
+  "feature_tape_sha256_after": "dd8fac54cd0319b98bfbd9e617ed387709f219a9b23daa8df3fb6f67370809f2",
+  "unchanged": true,
+  "C_model_object_instantiated_in_branch": false,
+  "optimizer_parameters_exactly_branch_parameters": true,
+  "classification_exact_copy": true,
+  "branch_only_trainable_parameter_count": 74
+}

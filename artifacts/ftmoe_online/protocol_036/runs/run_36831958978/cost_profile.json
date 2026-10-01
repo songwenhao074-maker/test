@@ -1,0 +1,112 @@
+{
+  "protocol": "036",
+  "streams": {
+    "3601": {
+      "C_ref": {
+        "wall_seconds_this_invocation": 72.733269221,
+        "cpu_seconds_this_invocation": 72.727811581,
+        "peak_rss_bytes": 469479424,
+        "effective_memory_limit_bytes": 16764375040,
+        "memory_soft_limit_bytes": 13411500032
+      },
+      "D_cal": {
+        "branch_wall_seconds_this_invocation": 1.7628515460000358,
+        "branch_cpu_seconds_this_invocation": 1.7627008190000026,
+        "peak_rss_bytes": 472432640,
+        "effective_memory_limit_bytes": 16764375040,
+        "memory_soft_limit_bytes": 13411500032
+      },
+      "D_lin": {
+        "branch_wall_seconds_this_invocation": 1.9188545989999852,
+        "branch_cpu_seconds_this_invocation": 1.918707585000007,
+        "peak_rss_bytes": 472432640,
+        "effective_memory_limit_bytes": 16764375040,
+        "memory_soft_limit_bytes": 13411500032
+      },
+      "D_corr": {
+        "branch_wall_seconds_this_invocation": 2.6354655279999974,
+        "branch_cpu_seconds_this_invocation": 2.6352362400000118,
+        "peak_rss_bytes": 472698880,
+        "effective_memory_limit_bytes": 16764375040,
+        "memory_soft_limit_bytes": 13411500032
+      }
+    },
+    "3602": {
+      "C_ref": {
+        "wall_seconds_this_invocation": 73.63642117800003,
+        "cpu_seconds_this_invocation": 73.63127974199999,
+        "peak_rss_bytes": 473247744,
+        "effective_memory_limit_bytes": 16764375040,
+        "memory_soft_limit_bytes": 13411500032
+      },
+      "D_cal": {
+        "branch_wall_seconds_this_invocation": 1.8116722990000085,
+        "branch_cpu_seconds_this_invocation": 1.8116562410000085,
+        "peak_rss_bytes": 473952256,
+        "effective_memory_limit_bytes": 16764375040,
+        "memory_soft_limit_bytes": 13411500032
+      },
+      "D_lin": {
+        "branch_wall_seconds_this_invocation": 1.9453608859999463,
+        "branch_cpu_seconds_this_invocation": 1.945291214000008,
+        "peak_rss_bytes": 474034176,
+        "effective_memory_limit_bytes": 16764375040,
+        "memory_soft_limit_bytes": 13411500032
+      },
+      "D_corr": {
+        "branch_wall_seconds_this_invocation": 2.6862141990000055,
+        "branch_cpu_seconds_this_invocation": 2.6861302679999994,
+        "peak_rss_bytes": 474034176,
+        "effective_memory_limit_bytes": 16764375040,
+        "memory_soft_limit_bytes": 13411500032
+      }
+    },
+    "3603": {
+      "C_ref": {
+        "wall_seconds_this_invocation": 75.39340037699998,
+        "cpu_seconds_this_invocation": 75.39027215300001,
+        "peak_rss_bytes": 474943488,
+        "effective_memory_limit_bytes": 16764375040,
+        "memory_soft_limit_bytes": 13411500032
+      },
+      "D_cal": {
+        "branch_wall_seconds_this_invocation": 1.8181745759999899,
+        "branch_cpu_seconds_this_invocation": 1.8181450699999857,
+        "peak_rss_bytes": 474943488,
+        "effective_memory_limit_bytes": 16764375040,
+        "memory_soft_limit_bytes": 13411500032
+      },
+      "D_lin": {
+        "branch_wall_seconds_this_invocation": 1.9797588520000318,
+        "branch_cpu_seconds_this_invocation": 1.979692431000018,
+        "peak_rss_bytes": 474943488,
+        "effective_memory_limit_bytes": 16764375040,
+        "memory_soft_limit_bytes": 13411500032
+      },
+      "D_corr": {
+        "branch_wall_seconds_this_invocation": 2.708815051999977,
+        "branch_cpu_seconds_this_invocation": 2.708683949999994,
+        "peak_rss_bytes": 474943488,
+        "effective_memory_limit_bytes": 16764375040,
+        "memory_soft_limit_bytes": 13411500032
+      }
+    }
+  },
+  "stage_A": {
+    "D_cal": {
+      "branch_wall_seconds_this_invocation": 1.8586492299999975,
+      "branch_cpu_seconds_this_invocation": 1.8584987140000004,
+      "peak_rss_bytes": 382214144,
+      "effective_memory_limit_bytes": 16764375040,
+      "memory_soft_limit_bytes": 13411500032
+    },
+    "D_lin": {
+      "branch_wall_seconds_this_invocation": 1.9245209160000059,
+      "branch_cpu_seconds_this_invocation": 1.924420349,
+      "peak_rss_bytes": 396980224,
+      "effective_memory_limit_bytes": 16764375040,
+      "memory_soft_limit_bytes": 13411500032
+    }
+  },
+  "accounting": "Each corrected deployment includes the full C path plus its branch; branch-only wall time is not total deployment cost."
+}

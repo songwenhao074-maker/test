@@ -1,0 +1,20 @@
+{
+  "protocol": "036",
+  "run_id": "36831958978",
+  "scientific_status": "completed",
+  "publication_status": "published_main",
+  "training_sequences_registered": 14,
+  "training_sequences_completed": 14,
+  "new_streams_registered": 3,
+  "new_streams_completed": 3,
+  "hyperparameter_sweeps": 0,
+  "automatic_followup_training": false,
+  "cross_stream_gain_signal": false,
+  "D_corr_over_D_cal_incremental_signal": true,
+  "D_corr_over_D_lin_incremental_signal": false,
+  "operating_point_risk": true,
+  "registered_result_label": "operating_point_risk",
+  "validity_all_pass": true,
+  "statistical_confirmation": false,
+  "stop_after_registered_budget": true
+}

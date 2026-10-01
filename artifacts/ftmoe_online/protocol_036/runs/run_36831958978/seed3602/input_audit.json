@@ -1,0 +1,73 @@
+{
+  "protocol": "036",
+  "seed": 3602,
+  "kind": "pre_model_input_eligibility_audit",
+  "model_results_seen": false,
+  "audit_pass": true,
+  "reroll_after_failure_allowed": false,
+  "future_statistic_preprocessing_used": false,
+  "common_feature_causality": "pressure current row; delta past1; slope past4 only",
+  "gates": {
+    "registration_identity": true,
+    "all_rows_and_chunks_complete": true,
+    "exact_5969_row_geometry": true,
+    "overload_ratio_recomputed_exact": true,
+    "label_recompute_exact": true,
+    "finite_causal_features": true,
+    "capacity_audit": true,
+    "scheduler_audit": true,
+    "placement_audit": true,
+    "common_features_causal_formula_exact": true,
+    "all_nonbaseline_phases_min32_positive_and_negative_target_hoststeps": true,
+    "six_recurrence_windows_present_and_defined": true,
+    "phase_annotation_matches_timeline": true,
+    "service_annotation_matches_timeline": true,
+    "last_prediction_has_raw_t_plus_1_support": true,
+    "events_U_V_W_present": true,
+    "actual_phase_switches_match_registration": true,
+    "registered_physical_parameters_match_implementation": true
+  },
+  "recurrence_target_coverage": {
+    "U_rec1": {
+      "positive_host_steps": 422,
+      "negative_host_steps": 1626,
+      "ap_defined": true
+    },
+    "V_rec1": {
+      "positive_host_steps": 356,
+      "negative_host_steps": 1692,
+      "ap_defined": true
+    },
+    "U_rec2": {
+      "positive_host_steps": 396,
+      "negative_host_steps": 1652,
+      "ap_defined": true
+    },
+    "V_rec2": {
+      "positive_host_steps": 401,
+      "negative_host_steps": 1647,
+      "ap_defined": true
+    },
+    "U_rec3": {
+      "positive_host_steps": 397,
+      "negative_host_steps": 1651,
+      "ap_defined": true
+    },
+    "V_rec3": {
+      "positive_host_steps": 413,
+      "negative_host_steps": 1635,
+      "ap_defined": true
+    }
+  },
+  "service_event_counts": {
+    "U": 586,
+    "V": 556,
+    "W": 1189
+  },
+  "source_parameter_match": {
+    "U": true,
+    "V": true,
+    "W": true
+  },
+  "details": {}
+}
