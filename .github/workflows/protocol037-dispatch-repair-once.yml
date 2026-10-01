@@ -1,0 +1,44 @@
+name: Protocol037 repaired pre-science dispatch once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol037-dispatch-repair-once.yml'
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  dispatch:
+    if: contains(github.event.head_commit.message, '[p037-repair-dispatch]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      EXECUTION_REF: codex/protocol-037-single-dynamic-birth-20261001
+      EXPECTED_SHA: 1da03cb4260d3c46095999d28b01d6e84e87d63c
+      PLAN_SHA: 01240a944bb654d529577b397602cf67c24c2245c6fbe909564b47da2726012a
+      PREVIOUS_RUN: '36866945162'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Verify repaired frozen target and dispatch one engineering retry
+        shell: bash
+        run: |
+          set -euo pipefail
+          PREV_STATUS="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$PREVIOUS_RUN" --jq '.status + ":" + (.conclusion // "")')"
+          test "$PREV_STATUS" = "completed:failure"
+          ACTIVE="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/protocol037-single-dynamic-birth.yml/runs?per_page=50" --jq '[.workflow_runs[] | select(.status=="queued" or .status=="in_progress")] | length')"
+          test "$ACTIVE" = "0"
+          git fetch origin "$EXECUTION_REF" --depth=1
+          test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_SHA"
+          git show FETCH_HEAD:artifacts/ftmoe_online/protocol_037/plan.json > /tmp/p037-plan.json
+          test "$(sha256sum /tmp/p037-plan.json | awk '{print $1}')" = "$PLAN_SHA"
+          gh api -X POST "repos/$GITHUB_REPOSITORY/actions/workflows/protocol037-single-dynamic-birth.yml/dispatches" \
+            -f ref=main \
+            -f "inputs[execution_ref]=$EXECUTION_REF" \
+            -f "inputs[expected_execution_sha]=$EXPECTED_SHA" \
+            -f "inputs[resume_run_id]="
