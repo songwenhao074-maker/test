@@ -1,0 +1,12 @@
+{
+  "birth_t": 351,
+  "first_affected_prediction": 352,
+  "state_dict_sha256_before_update": "c23798f249b6855ddd817e57ef1323ca7f7632ff9dda35fb6212989c98144533",
+  "optimizer_state_empty": true,
+  "delta_finite": true,
+  "delta_abs_max": 0.001834695227444172,
+  "counterfactual_probability_jump_mean": -6.751203909516335e-05,
+  "counterfactual_probability_jump_abs_mean": 6.751203909516335e-05,
+  "prediction_t_remained_exact_B": true,
+  "donor_alias_free": true
+}

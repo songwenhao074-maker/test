@@ -1,0 +1,146 @@
+{
+  "protocol": "038",
+  "arm": "D_warm",
+  "snapshots": [
+    {
+      "cursor": 351,
+      "checkpoint": {
+        "file": "artifacts/ftmoe_online/protocol_038/runtime/run_36884471028/D_warm/checkpoints/birth_before_update_t351.pt",
+        "sha256": "7b148f7c8741909471acc4190e1d37cefd14c45dae098514e8f63efb98ff126f",
+        "bytes": 2162187
+      },
+      "state_dict_sha256": "95e290ede276a29c8d56097e5ddbfd584e37256a5e49b864fb8c9a6d06b324b6",
+      "bias": -0.0018346956931054592,
+      "w_dot_z": {
+        "mean": -0.06730542914010584,
+        "mean_abs": 0.06730542914010584,
+        "min": -0.10815252363681793,
+        "max": -0.03492270037531853
+      },
+      "linear_w_dot_z_plus_b": {
+        "mean": -0.06914012529887259,
+        "mean_abs": 0.06914012529887259,
+        "min": -0.10998722165822983,
+        "max": -0.036757394671440125
+      },
+      "delta_after_tanh": {
+        "mean": -0.06910158228129148,
+        "mean_abs": 0.06910158228129148,
+        "min": -0.10987647622823715,
+        "max": -0.03675325587391853
+      }
+    },
+    {
+      "cursor": 352,
+      "checkpoint": {
+        "file": "artifacts/ftmoe_online/protocol_038/runtime/run_36884471028/D_warm/checkpoints/after_update_001_t351.pt",
+        "sha256": "0b36671001a73a2c3a40d15c9889feb275c64ce0dc4a67a7d9feda13d10787a0",
+        "bytes": 2167986
+      },
+      "state_dict_sha256": "e83459cdb66260a004d81dd2829ad30c22ccf94b773a314cc671e4efa3cf4f64",
+      "bias": -0.001734695746563375,
+      "w_dot_z": {
+        "mean": -0.0638742835726589,
+        "mean_abs": 0.0638742835726589,
+        "min": -0.10433907061815262,
+        "max": -0.033310167491436005
+      },
+      "linear_w_dot_z_plus_b": {
+        "mean": -0.06560897990129888,
+        "mean_abs": 0.06560897990129888,
+        "min": -0.1060737669467926,
+        "max": -0.03504486382007599
+      },
+      "delta_after_tanh": {
+        "mean": -0.06557540223002434,
+        "mean_abs": 0.06557540223002434,
+        "min": -0.10597442090511322,
+        "max": -0.03504127636551857
+      }
+    },
+    {
+      "cursor": 416,
+      "checkpoint": {
+        "file": "artifacts/ftmoe_online/protocol_038/runtime/run_36884471028/D_warm/checkpoints/after_update_005_t415.pt",
+        "sha256": "7262dc67edcec12244cda9e507eff7a994a4e059997ea427f5e9c89fbe8a77fe",
+        "bytes": 2176050
+      },
+      "state_dict_sha256": "ca358c3c781f51b3e4c244c8c62f88440381ab83c7b75b44e527887f61b355f9",
+      "bias": -0.0013338957214727998,
+      "w_dot_z": {
+        "mean": -0.05014146014582366,
+        "mean_abs": 0.05014146014582366,
+        "min": -0.09179870784282684,
+        "max": -0.027566680684685707
+      },
+      "linear_w_dot_z_plus_b": {
+        "mean": -0.05147535528521985,
+        "mean_abs": 0.05147535528521985,
+        "min": -0.09313260018825531,
+        "max": -0.028900576755404472
+      },
+      "delta_after_tanh": {
+        "mean": -0.05145850672852248,
+        "mean_abs": 0.05145850672852248,
+        "min": -0.09306534379720688,
+        "max": -0.028898565098643303
+      }
+    },
+    {
+      "cursor": 480,
+      "checkpoint": {
+        "file": "artifacts/ftmoe_online/protocol_038/runtime/run_36884471028/D_warm/checkpoints/after_update_009_t479.pt",
+        "sha256": "3a4b63a14f5dc0b6ea2b8b60d50ccb94ae9ed9e0d521ee99e63fade365db862e",
+        "bytes": 2184562
+      },
+      "state_dict_sha256": "9eedd9c53d48c706e5eb8012e2de775e2071967728bad38d9e33bbf4e5dad42b",
+      "bias": -0.0009340937249362469,
+      "w_dot_z": {
+        "mean": -0.047963700868422166,
+        "mean_abs": 0.047963700868422166,
+        "min": -0.08789291232824326,
+        "max": -0.003851971123367548
+      },
+      "linear_w_dot_z_plus_b": {
+        "mean": -0.04889779502991587,
+        "mean_abs": 0.04889779502991587,
+        "min": -0.08882700651884079,
+        "max": -0.004786064848303795
+      },
+      "delta_after_tanh": {
+        "mean": -0.048878953442908823,
+        "mean_abs": 0.048878953442908823,
+        "min": -0.08876864612102509,
+        "max": -0.004786055535078049
+      }
+    },
+    {
+      "cursor": 608,
+      "checkpoint": {
+        "file": "artifacts/ftmoe_online/protocol_038/runtime/run_36884471028/D_warm/checkpoints/after_update_017_t607.pt",
+        "sha256": "af333c4c3669e46bb04a1d62426ce2eb0b8c20c237821995a5268edf2f597c23",
+        "bytes": 2200242
+      },
+      "state_dict_sha256": "edfe467e198c038cac69d21062beb00c7fd7cd9f34222d55da37c301670168ad",
+      "bias": -0.0001749852963257581,
+      "w_dot_z": {
+        "mean": -0.008281247850391082,
+        "mean_abs": 0.024090003964374773,
+        "min": -0.06905338168144226,
+        "max": 0.032292865216732025
+      },
+      "linear_w_dot_z_plus_b": {
+        "mean": -0.008456233175820671,
+        "mean_abs": 0.024133750106557272,
+        "min": -0.06922836601734161,
+        "max": 0.03211788088083267
+      },
+      "delta_after_tanh": {
+        "mean": -0.008452950594801223,
+        "mean_abs": 0.024129632711265003,
+        "min": -0.06920073181390762,
+        "max": 0.03211512044072151
+      }
+    }
+  ]
+}

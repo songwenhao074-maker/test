@@ -1,0 +1,12 @@
+{
+  "protocol": "038",
+  "run_id": "36884471028",
+  "artifact_id": 11174205562,
+  "name": "protocol038-terminal-36884471028",
+  "size_in_bytes": 56264192,
+  "created_at": "2026-10-01T15:31:08Z",
+  "expires_at": "2026-12-30T15:28:00Z",
+  "zip_sha256": "87a727f5167691326512de86c651568564bc7b7cdea044d600675e92aa1d418d",
+  "scientific_manifest_sha256": "02a332327da341801096e77f8db77d65aea4b0082a514de85b1940d729f50830",
+  "terminal_manifest_sha256": "ac5b1b17286e0f7b14ae7aab254d828c8f9939185c7b51c721e69bdcdf4139b1"
+}

@@ -1,0 +1,15 @@
+{
+  "protocol": "038",
+  "arm": "D_bias",
+  "birth_occurred": true,
+  "birth_t": 351,
+  "first_affected_prediction": 352,
+  "optimizer_steps": 352,
+  "terminal_optimizer_steps": 0,
+  "prediction_sha256": "e03068015a88746a3b19cb0f92400fd9d801ba92bcbbdc4c757343cc11ea6a14",
+  "state_dict_sha256_final": "3fb9128e1d48a221ea05b44e630439c28720beef2b7a64da4f5240b2c1e96a78",
+  "inference_seconds": 0.8501934910002831,
+  "update_seconds": 0.35470689599972616,
+  "wall_seconds": 13.097653199000007,
+  "parameter_count": 74
+}

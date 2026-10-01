@@ -1,0 +1,102 @@
+{
+  "root": "artifacts/ftmoe_online/protocol_038/runs/run_36884471028",
+  "files": [
+    {
+      "path": "D_bias/initialization_audit.json",
+      "sha256": "3dc4bd9e707ba07ccc1239f54fb713f34a0cfb2bfbfd33f4f406b58bfd452c02",
+      "bytes": 464
+    },
+    {
+      "path": "D_bias/parameter_snapshots.json",
+      "sha256": "d91c69825e0a45d306e9f2607c7ebb6ba0f3ec28f02ce612fe6df918ccc5f985",
+      "bytes": 4989
+    },
+    {
+      "path": "D_bias/summary.json",
+      "sha256": "169f8fda153f92c46a9898d9d9b9e06852bc7a2611788501fcdcd2b99074ec85",
+      "bytes": 517
+    },
+    {
+      "path": "D_warm/initialization_audit.json",
+      "sha256": "5181b2833fb5712cd4167d65da71f0a78ef542651f1667d3063f098de4ca69c6",
+      "bytes": 461
+    },
+    {
+      "path": "D_warm/parameter_snapshots.json",
+      "sha256": "fa0bb60ef4fcf1ca8df1ce9bc1945622c1522ff256f16737cfd0a1138c1777b8",
+      "bytes": 5049
+    },
+    {
+      "path": "D_warm/summary.json",
+      "sha256": "5e1b0c43f7edcfdc733050faa8fae7853cf540f69fde426db2df80d499e4faa2",
+      "bytes": 516
+    },
+    {
+      "path": "analysis/comparison.json",
+      "sha256": "c7e2be1ac21f2d300d740656572200922c037ede611d5a6bc5fe94ea257affd6",
+      "bytes": 423062
+    },
+    {
+      "path": "analysis/cost_profile.json",
+      "sha256": "3dda302ae77c891bc47ae7ffc1980b96473ef3eeb441f3dbf34ccee220ac38a5",
+      "bytes": 1545
+    },
+    {
+      "path": "analysis/status.json",
+      "sha256": "b96355161dbd0ac88903ce7f84fbf6b4f28833223bb5a4f367ac198796eef5be",
+      "bytes": 510
+    },
+    {
+      "path": "artifact_index.json",
+      "sha256": "cfbab0a5cb8ca493fb5d89c294b3673523636cf0500a2b342c0f7ab735511383",
+      "bytes": 518
+    },
+    {
+      "path": "budget_ledger.json",
+      "sha256": "d1bf2327b5fa471b57b79cbdf93328934532a7d6e6c71271cad54f2fa8c4167f",
+      "bytes": 484036
+    },
+    {
+      "path": "donor/audit.json",
+      "sha256": "540ff2464475e493d065bcebf96d5b8e27628072be7b2e927403d3b97d5e7aeb",
+      "bytes": 26843
+    },
+    {
+      "path": "implementation_manifest.json",
+      "sha256": "61f72cd397b79eda45cf6b0f846d921a75e79dbbbc4681a22429f5000e9a05a0",
+      "bytes": 1307
+    },
+    {
+      "path": "publication_status.json",
+      "sha256": "34fb5801c418a759be02fe35b277fcb0eb503adef5eaf49c29469999cb48f391",
+      "bytes": 119
+    },
+    {
+      "path": "raw_scientific_manifest.json",
+      "sha256": "02a332327da341801096e77f8db77d65aea4b0082a514de85b1940d729f50830",
+      "bytes": 15801
+    },
+    {
+      "path": "run_audit.json",
+      "sha256": "d7d52c44990f3abc8357795716b70169e626ce2110509d1834b9b7d7345e335a",
+      "bytes": 433
+    },
+    {
+      "path": "scientific_status.json",
+      "sha256": "04687fcc57066e59d6f174a4b1809d7ec3328b6e89a1246117d204d8a0f9609d",
+      "bytes": 159
+    },
+    {
+      "path": "stage_A_diagnostics.json",
+      "sha256": "2c56e368eae6d24c7154c02e8c7ec1abc99226e16901be2ea79f0924af8fd645",
+      "bytes": 82848
+    },
+    {
+      "path": "terminal_file_manifest.json",
+      "sha256": "ac5b1b17286e0f7b14ae7aab254d828c8f9939185c7b51c721e69bdcdf4139b1",
+      "bytes": 16441
+    }
+  ],
+  "file_count": 19,
+  "total_bytes": 1065618
+}

@@ -1,0 +1,19 @@
+{
+  "protocol": "038",
+  "run_id": "36884471028",
+  "science_status": "completed",
+  "publication_status": "pending",
+  "result_label": "early_only",
+  "validity": true,
+  "signals": {
+    "warm_init_signal": false,
+    "bias_init_signal": false,
+    "feature_weight_increment": false,
+    "D_bias_extra_capability": true,
+    "D_warm_extra_capability": true,
+    "D_bias_dynamic_increment_vs_F": false,
+    "D_warm_dynamic_increment_vs_F": false
+  },
+  "optimizer_steps": 725,
+  "stop_after_protocol": true
+}

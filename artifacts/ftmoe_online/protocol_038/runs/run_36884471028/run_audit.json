@@ -1,0 +1,16 @@
+{
+  "protocol": "038",
+  "all_pass": true,
+  "stage_A_valid": true,
+  "donor_hash_match": true,
+  "birth_t_both_351": true,
+  "prebirth_exact_B": true,
+  "classification_exact_B": true,
+  "optimizer_steps_exact": true,
+  "new_streams": 0,
+  "baseline_retraining": 0,
+  "terminal_training_steps": 0,
+  "source037_zip_locked_by_workflow": true,
+  "source036_zip_locked_by_workflow": true,
+  "science_wall_seconds": 35.37297012799999
+}
