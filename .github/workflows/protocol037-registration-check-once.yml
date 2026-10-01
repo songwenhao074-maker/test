@@ -1,0 +1,26 @@
+name: Protocol037 registration validation only
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol037-registration-check-once.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-registration:
+    if: contains(github.event.head_commit.message, '[p037-registration-check]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout frozen Protocol037 execution branch
+        uses: actions/checkout@v4
+        with:
+          ref: codex/protocol-037-single-dynamic-birth-20261001
+          fetch-depth: 1
+      - name: Show checkout
+        run: git rev-parse HEAD
+      - name: Validate registered Protocol037 plan
+        run: python maintenance/validate_protocol037_plan.py
