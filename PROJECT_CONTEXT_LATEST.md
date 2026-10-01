@@ -1,11 +1,5 @@
-# 当前项目上下文：035完成，036指示已登记
+# Project Context Latest
 
-用户目标：使D在持续学习中优于C。
+Current terminal experiment: Protocol-036, run `36831958978`. Registered result label: **operating_point_risk**. Scientific status: `completed`. Cross-stream gain signal: `False`. D_corr over D_cal incremental signal: `True`. D_corr over D_lin incremental signal: `False`. Operating-point risk: `True`.
 
-仓库原FT-MoE地址重定向至songwenhao074-maker/test。035正式run36585058415科学步骤完成；main发布竞态失败后已补同步。原始artifact11041705829。独立复核见docs/PROTOCOL035_INDEPENDENT_REVIEW_20260930.md。
-
-035保留完整C并添加2401参数输入条件化检测校正。六窗AP全部正向、平均+0.005737，前32平均+0.005953；全程+0.004534未达到+0.005门槛，标签recurrence_only。V_rec3召回下降2.10个百分点；只有seed700一条已观察流。无动态记忆、同容量或跨种子优势结论。034旧完整快照路由仍未胜C，事后局部专家胜点不能作为可部署路由证明。
-
-下一步036固定该分支，增加两参数分数校准和74参数线性校正对照；三条新流3601/3602/3603检验稳健性。预算14条新科学序列、3条新流，模型种子保持1、分支3501。开发700不纳入新流均值。当前仅登记指示；未实现、未生成、未运行。后续用户交接才执行。
-
-最新交接NEXT_EXPERIMENT_LATEST.md，机器登记artifacts/ftmoe_online/protocol_036/plan.json，执行分支codex/protocol-036-correction-controls-20260930。旧协议冻结，预算不重新开放。036正式workflow_dispatch，缺少直接工具时允许受约束的一次性push启动助手；本次不部署或激活助手。
+Read `docs/PROTOCOL036_RESULTS.md` and `artifacts/ftmoe_online/protocol_036/runs/run_36831958978/` for current evidence. Historical Protocol-033/034/035 registrations and evidence remain immutable.

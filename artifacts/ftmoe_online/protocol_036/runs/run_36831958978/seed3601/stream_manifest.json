@@ -1,0 +1,525 @@
+{
+  "protocol": "036",
+  "plan_revision": 1,
+  "scenario_id": "protocol036_rare_recurrence_5969_seed3601_v1",
+  "data_revision": "protocol036_data_seed3601_revision_001",
+  "seed": 3601,
+  "steps": 5968,
+  "guard_rows": 1,
+  "total_rows": 5969,
+  "stream_file": "stream.npz",
+  "stream_sha256": "09fadb02f2017f8d528ee8284129c29adcb6be137b1a9e93f4a249eebcd1b659",
+  "registration_sha256": "0fcfaec266309867573e88fcdf870d37effa1dd9c713a52c3e97ff4b2aea2fbf",
+  "timeline": [
+    {
+      "name": "F0",
+      "start": 0,
+      "end": 300,
+      "length": 300,
+      "logical_service": null,
+      "service": null,
+      "event_probability": 0.0,
+      "kind": "baseline"
+    },
+    {
+      "name": "U_first",
+      "start": 300,
+      "end": 1300,
+      "length": 1000,
+      "logical_service": "U",
+      "service": "S1",
+      "event_probability": 0.3,
+      "kind": "service_response"
+    },
+    {
+      "name": "V_first",
+      "start": 1300,
+      "end": 2300,
+      "length": 1000,
+      "logical_service": "V",
+      "service": "S3",
+      "event_probability": 0.3,
+      "kind": "service_response"
+    },
+    {
+      "name": "W_long",
+      "start": 2300,
+      "end": 3300,
+      "length": 1000,
+      "logical_service": "W",
+      "service": "S4",
+      "event_probability": 0.3,
+      "kind": "service_response"
+    },
+    {
+      "name": "U_rec1",
+      "start": 3300,
+      "end": 3428,
+      "length": 128,
+      "logical_service": "U",
+      "service": "S1",
+      "event_probability": 0.3,
+      "kind": "service_response"
+    },
+    {
+      "name": "W_gap1",
+      "start": 3428,
+      "end": 3808,
+      "length": 380,
+      "logical_service": "W",
+      "service": "S4",
+      "event_probability": 0.3,
+      "kind": "service_response"
+    },
+    {
+      "name": "V_rec1",
+      "start": 3808,
+      "end": 3936,
+      "length": 128,
+      "logical_service": "V",
+      "service": "S3",
+      "event_probability": 0.3,
+      "kind": "service_response"
+    },
+    {
+      "name": "W_gap2",
+      "start": 3936,
+      "end": 4316,
+      "length": 380,
+      "logical_service": "W",
+      "service": "S4",
+      "event_probability": 0.3,
+      "kind": "service_response"
+    },
+    {
+      "name": "U_rec2",
+      "start": 4316,
+      "end": 4444,
+      "length": 128,
+      "logical_service": "U",
+      "service": "S1",
+      "event_probability": 0.3,
+      "kind": "service_response"
+    },
+    {
+      "name": "W_gap3",
+      "start": 4444,
+      "end": 4824,
+      "length": 380,
+      "logical_service": "W",
+      "service": "S4",
+      "event_probability": 0.3,
+      "kind": "service_response"
+    },
+    {
+      "name": "V_rec2",
+      "start": 4824,
+      "end": 4952,
+      "length": 128,
+      "logical_service": "V",
+      "service": "S3",
+      "event_probability": 0.3,
+      "kind": "service_response"
+    },
+    {
+      "name": "W_gap4",
+      "start": 4952,
+      "end": 5332,
+      "length": 380,
+      "logical_service": "W",
+      "service": "S4",
+      "event_probability": 0.3,
+      "kind": "service_response"
+    },
+    {
+      "name": "U_rec3",
+      "start": 5332,
+      "end": 5460,
+      "length": 128,
+      "logical_service": "U",
+      "service": "S1",
+      "event_probability": 0.3,
+      "kind": "service_response"
+    },
+    {
+      "name": "W_gap5",
+      "start": 5460,
+      "end": 5840,
+      "length": 380,
+      "logical_service": "W",
+      "service": "S4",
+      "event_probability": 0.3,
+      "kind": "service_response"
+    },
+    {
+      "name": "V_rec3",
+      "start": 5840,
+      "end": 5968,
+      "length": 128,
+      "logical_service": "V",
+      "service": "S3",
+      "event_probability": 0.3,
+      "kind": "service_response"
+    }
+  ],
+  "logical_to_source_service": {
+    "U": "S1",
+    "V": "S3",
+    "W": "S4"
+  },
+  "event_probability": 0.3,
+  "forbidden_model_inputs": [
+    "service_id",
+    "service_law_id",
+    "mode_id",
+    "phase_id",
+    "event_id",
+    "known_future_switch_time",
+    "future_label",
+    "future_demand",
+    "future_capacity"
+  ],
+  "audit_only_npz_keys": [
+    "audit_phase_ids",
+    "audit_service_ids",
+    "audit_event_ids",
+    "audit_event_service_ids",
+    "audit_event_active",
+    "audit_host_event_any",
+    "audit_deploy_attempts",
+    "audit_deploy_rejected",
+    "audit_migrate_attempts",
+    "audit_migrate_rejected",
+    "overload_mask"
+  ],
+  "model_input_keys": [
+    "host_features",
+    "demands",
+    "schedules",
+    "capacities",
+    "creation_ids",
+    "before_placement"
+  ],
+  "common_observable_features_file": "common_observable_features.npy",
+  "common_observable_feature_order": [
+    "cpu_pressure",
+    "ram_pressure",
+    "disk_pressure",
+    "cpu_delta",
+    "ram_delta",
+    "disk_delta",
+    "cpu_slope",
+    "ram_slope",
+    "disk_slope"
+  ],
+  "common_feature_builder": "pressure[t], delta[t]=pressure[t]-pressure[t-1], slope[t]=(pressure[t]-pressure[t-4])/4; no future/full-stream statistics",
+  "label_key": "raw_labels",
+  "label_rule": "post-simulator argmax(CPU,RAM,Disk aggregate/capacity) if any ratio>1 else 0",
+  "target": "raw_next_fault",
+  "target_maturity": "t_plus_2",
+  "chunk_manifest": [
+    {
+      "start": 0,
+      "end": 200,
+      "file": "chunk_000000_000200.npz",
+      "sha256": "aa0a4307d29b4dd11bccee4c62c4a5b1296b0cb1d2b1b5cbcc87ef8bddc98717"
+    },
+    {
+      "start": 200,
+      "end": 400,
+      "file": "chunk_000200_000400.npz",
+      "sha256": "16d3280614a8a106eb8439fdf658e04565cca95c728cff70d11a72cf96518159"
+    },
+    {
+      "start": 400,
+      "end": 600,
+      "file": "chunk_000400_000600.npz",
+      "sha256": "d696affcbb431059dcd9b48dfa7c4b07b3e2f302f39e83a2894d023e9ae52e01"
+    },
+    {
+      "start": 600,
+      "end": 800,
+      "file": "chunk_000600_000800.npz",
+      "sha256": "23839de97f7d2bb43d8147c49e62c330709a313c02840bed044842da9275bcc3"
+    },
+    {
+      "start": 800,
+      "end": 1000,
+      "file": "chunk_000800_001000.npz",
+      "sha256": "2fddd278f865b3161475640a822baef0c86fb1ae268bcf984d6b8b3d5b09c3ac"
+    },
+    {
+      "start": 1000,
+      "end": 1200,
+      "file": "chunk_001000_001200.npz",
+      "sha256": "e5fef869e681e8a50fa7466e25a2e243aef8f91c7e4db4bda50cda05bbe1a600"
+    },
+    {
+      "start": 1200,
+      "end": 1400,
+      "file": "chunk_001200_001400.npz",
+      "sha256": "65ea6fd6b8d8cb13fe776fbdc9008ef732254a6ac751ab3881e16ec9b6315044"
+    },
+    {
+      "start": 1400,
+      "end": 1600,
+      "file": "chunk_001400_001600.npz",
+      "sha256": "5743d6a94264e61b3ea203ad1a0848c7d249aafea039a361b424d5b76de0f95c"
+    },
+    {
+      "start": 1600,
+      "end": 1800,
+      "file": "chunk_001600_001800.npz",
+      "sha256": "14e9251be311c559388f24c79b408a0793072efe241dd252bc85b3e2d58ad34d"
+    },
+    {
+      "start": 1800,
+      "end": 2000,
+      "file": "chunk_001800_002000.npz",
+      "sha256": "6fdf2984c96efb1569bc86027cf474391c93abce3326d9f27ad4ccf075fd6a20"
+    },
+    {
+      "start": 2000,
+      "end": 2200,
+      "file": "chunk_002000_002200.npz",
+      "sha256": "c8e2cb6aa36427324da7cb88a2939ef94a5faf95ffb3817804b9834f38341f8f"
+    },
+    {
+      "start": 2200,
+      "end": 2400,
+      "file": "chunk_002200_002400.npz",
+      "sha256": "00b3d88e9129d947a1ff2bcdbecdb019ea961dc25f56095acbc4b0a4a1f8ba50"
+    },
+    {
+      "start": 2400,
+      "end": 2600,
+      "file": "chunk_002400_002600.npz",
+      "sha256": "b54d9ef89d83ac4de8fdb8335ea672d49c279e23e2c71166adeb406c2faeed52"
+    },
+    {
+      "start": 2600,
+      "end": 2800,
+      "file": "chunk_002600_002800.npz",
+      "sha256": "cbcdbe5e9793b6ec014cb52e679759e394c90ccf8a7e4bf1de85e2eb267d0156"
+    },
+    {
+      "start": 2800,
+      "end": 3000,
+      "file": "chunk_002800_003000.npz",
+      "sha256": "08ccb2bda2fdc2618e09db920cc5476053d82ab2b4b589ceb2a93da512c5dd14"
+    },
+    {
+      "start": 3000,
+      "end": 3200,
+      "file": "chunk_003000_003200.npz",
+      "sha256": "1b9dc1b130cd6b6e15b572fd8766507ff7dabf0829606bd44035345ce6d1c235"
+    },
+    {
+      "start": 3200,
+      "end": 3400,
+      "file": "chunk_003200_003400.npz",
+      "sha256": "902a1005eb0524e322f062d9b903ee421b817d4d0fb79b484ab8748887f8a9bf"
+    },
+    {
+      "start": 3400,
+      "end": 3600,
+      "file": "chunk_003400_003600.npz",
+      "sha256": "e00d5df07c42aaf294977bb1c672931e2bf8537123addb743a4603152447072d"
+    },
+    {
+      "start": 3600,
+      "end": 3800,
+      "file": "chunk_003600_003800.npz",
+      "sha256": "d076c2ace3669b1bc0892a386617fcd0be4393f176c78824a52680c3bfe4dfc4"
+    },
+    {
+      "start": 3800,
+      "end": 4000,
+      "file": "chunk_003800_004000.npz",
+      "sha256": "88ac7340fccd766fe1ec1fe5d45f1d5c944f13c5ab00064ef0f32b5761843807"
+    },
+    {
+      "start": 4000,
+      "end": 4200,
+      "file": "chunk_004000_004200.npz",
+      "sha256": "3ae438d422529488972c49c76beb965ef8e6a21b2f683d01063ab5e499d5e2ca"
+    },
+    {
+      "start": 4200,
+      "end": 4400,
+      "file": "chunk_004200_004400.npz",
+      "sha256": "4e6079e7ee2d0095744d161d0df1968802ce441625f8390f81055a33481d78cf"
+    },
+    {
+      "start": 4400,
+      "end": 4600,
+      "file": "chunk_004400_004600.npz",
+      "sha256": "3d71c78dcdf4f92cd7633e2e29408ec44992f4bbfad21cfae5caf4fd1f251c05"
+    },
+    {
+      "start": 4600,
+      "end": 4800,
+      "file": "chunk_004600_004800.npz",
+      "sha256": "42ed36c167744b0d0ac73ed137316182ebe060e41670a6096d68d0e442cf249d"
+    },
+    {
+      "start": 4800,
+      "end": 5000,
+      "file": "chunk_004800_005000.npz",
+      "sha256": "493c36118b6c60e87aef676a6684f2add8fe6ced547fd82ff761a6b2c4ae44f1"
+    },
+    {
+      "start": 5000,
+      "end": 5200,
+      "file": "chunk_005000_005200.npz",
+      "sha256": "b25817428f20d868508154d1700104e0968725b7d2070663379f94c2199255c9"
+    },
+    {
+      "start": 5200,
+      "end": 5400,
+      "file": "chunk_005200_005400.npz",
+      "sha256": "5d617c2b575be2fe25ebd2414efdd2d26a02214630883630117a855e15540689"
+    },
+    {
+      "start": 5400,
+      "end": 5600,
+      "file": "chunk_005400_005600.npz",
+      "sha256": "ab57fb6e471c8377d69b2767169d57530fe78700f626fdb235129a65a09757b6"
+    },
+    {
+      "start": 5600,
+      "end": 5800,
+      "file": "chunk_005600_005800.npz",
+      "sha256": "e4ac633223ebf1eb5a96a264b2514b2e7efbe5b19e009a333e6e615edea47c6e"
+    },
+    {
+      "start": 5800,
+      "end": 5969,
+      "file": "chunk_005800_005969.npz",
+      "sha256": "8169c59ea0adc15dd5f0545a8bc7fb28e1d11104385287f7a4cca492d86735be"
+    }
+  ],
+  "field_schema": {
+    "host_features": {
+      "dtype": "float32",
+      "tail_shape": [
+        16,
+        7
+      ]
+    },
+    "demands": {
+      "dtype": "float32",
+      "tail_shape": [
+        16,
+        7
+      ]
+    },
+    "schedules": {
+      "dtype": "float32",
+      "tail_shape": [
+        16,
+        16
+      ]
+    },
+    "post_totals": {
+      "dtype": "float64",
+      "tail_shape": [
+        16,
+        3
+      ]
+    },
+    "capacities": {
+      "dtype": "float64",
+      "tail_shape": [
+        16,
+        3
+      ]
+    },
+    "overload_ratio": {
+      "dtype": "float64",
+      "tail_shape": [
+        16,
+        3
+      ]
+    },
+    "raw_labels": {
+      "dtype": "int64",
+      "tail_shape": [
+        16
+      ]
+    },
+    "before_placement": {
+      "dtype": "int64",
+      "tail_shape": [
+        16
+      ]
+    },
+    "after_placement": {
+      "dtype": "int64",
+      "tail_shape": [
+        16
+      ]
+    },
+    "creation_ids": {
+      "dtype": "int64",
+      "tail_shape": [
+        16
+      ]
+    },
+    "intervals": {
+      "dtype": "int64",
+      "tail_shape": []
+    },
+    "audit_phase_ids": {
+      "dtype": "int64",
+      "tail_shape": []
+    },
+    "audit_service_ids": {
+      "dtype": "int64",
+      "tail_shape": []
+    },
+    "audit_event_ids": {
+      "dtype": "int64",
+      "tail_shape": [
+        16
+      ]
+    },
+    "audit_event_service_ids": {
+      "dtype": "int64",
+      "tail_shape": [
+        16
+      ]
+    },
+    "audit_event_active": {
+      "dtype": "uint8",
+      "tail_shape": [
+        16
+      ]
+    },
+    "audit_host_event_any": {
+      "dtype": "uint8",
+      "tail_shape": [
+        16
+      ]
+    },
+    "audit_deploy_attempts": {
+      "dtype": "int64",
+      "tail_shape": []
+    },
+    "audit_deploy_rejected": {
+      "dtype": "int64",
+      "tail_shape": []
+    },
+    "audit_migrate_attempts": {
+      "dtype": "int64",
+      "tail_shape": []
+    },
+    "audit_migrate_rejected": {
+      "dtype": "int64",
+      "tail_shape": []
+    }
+  },
+  "assembled_in_fresh_process": true,
+  "audit_pass": true,
+  "frozen_data_manifest": "frozen_data_manifest.json"
+}

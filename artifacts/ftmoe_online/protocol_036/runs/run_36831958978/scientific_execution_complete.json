@@ -1,0 +1,26 @@
+{
+  "protocol": "036",
+  "run_id": "36831958978",
+  "completed": true,
+  "training_sequences_completed": 14,
+  "sequence_names": [
+    "A_seed700_D_cal",
+    "A_seed700_D_lin",
+    "B_seed3601_C_ref",
+    "B_seed3601_D_cal",
+    "B_seed3601_D_lin",
+    "B_seed3601_D_corr",
+    "B_seed3602_C_ref",
+    "B_seed3602_D_cal",
+    "B_seed3602_D_lin",
+    "B_seed3602_D_corr",
+    "B_seed3603_C_ref",
+    "B_seed3603_D_cal",
+    "B_seed3603_D_lin",
+    "B_seed3603_D_corr"
+  ],
+  "new_streams": 3,
+  "no_extra_sequences": true,
+  "no_sweep": true,
+  "automatic_followup": false
+}

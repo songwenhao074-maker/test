@@ -1,0 +1,26 @@
+{
+  "protocol": "036",
+  "seed": 3602,
+  "arm": "C_ref",
+  "sequence": "B_seed3602_C_ref",
+  "completed": true,
+  "stream_sha256": "63ce3f05cd6fcf3cb161498c49821baf0d7d567641af130844bc587c294c6f33",
+  "feature_tape_sha256": "62e6e8aa79f987b230cc2c0baab0c99001d4b26d096c15b910752fbb581efa11",
+  "predictions_sha256": "7f9bb91170e07ba640cef9cd4f970dffbb1ee98727a25809e4f131e7dc077bd3",
+  "updates": 373,
+  "initialization": {
+    "shared_first4_expert_and_router_rows_sha256": "7e8a7a901775b003d82d6f30d2ce448a2e7f1c100bd00019115271883c2de29b",
+    "all5_learner_state_sha256": "a63d9af61e4e6a66d3df87eb03b4bdd822e96e6de8ea694937d8c87d4667a2fa",
+    "frozen_base_sha256": "ddf996d3060e9c0c8bc8c1983764c4e9392570fd92979e246a0548acdc9e2e58",
+    "normalization_buffers_sha256": "28b40256ac35b649fd9865677685ef860d0262c100ce7183fad563e7bed0ab0c",
+    "model_seed": 1
+  },
+  "causal_access_all_pass": true,
+  "cost": {
+    "wall_seconds_this_invocation": 73.63642117800003,
+    "cpu_seconds_this_invocation": 73.63127974199999,
+    "peak_rss_bytes": 473247744,
+    "effective_memory_limit_bytes": 16764375040,
+    "memory_soft_limit_bytes": 13411500032
+  }
+}

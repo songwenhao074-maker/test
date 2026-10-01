@@ -1,0 +1,23 @@
+{
+  "protocol": "036",
+  "arm": "D_cal",
+  "sequence": "B_seed3603_D_cal",
+  "completed": true,
+  "feature_tape_sha256": "dd8fac54cd0319b98bfbd9e617ed387709f219a9b23daa8df3fb6f67370809f2",
+  "parameter_count": 2,
+  "updates": 373,
+  "initial_zero_output_exact": true,
+  "initial_branch_hash": "eb387a117ac2bfa3b5f40749fd149a6584626a2ac39325fd952ddbcce33c858a",
+  "final_branch_hash": "1c26b383a8763a7c150c58141c3d952d5cd0d6f5b0cdd9920230715ae1827a63",
+  "parameter_updated": true,
+  "prediction_sha256": "7c913597678e92a32876c477c087e70fd301ef1aa0fd5869382201b35b3c4b64",
+  "causality_all_pass": true,
+  "isolation_all_pass": true,
+  "cost": {
+    "branch_wall_seconds_this_invocation": 1.8181745759999899,
+    "branch_cpu_seconds_this_invocation": 1.8181450699999857,
+    "peak_rss_bytes": 474943488,
+    "effective_memory_limit_bytes": 16764375040,
+    "memory_soft_limit_bytes": 13411500032
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "prediction_visible_input_rule_ok": true,
+  "prediction_label_max_rule_ok": true,
+  "all_actual_batches_mature": true,
+  "terminal_settlement_optimizer_steps": 0
+}

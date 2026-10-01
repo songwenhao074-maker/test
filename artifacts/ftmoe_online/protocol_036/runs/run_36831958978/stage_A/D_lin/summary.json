@@ -1,0 +1,23 @@
+{
+  "protocol": "036",
+  "arm": "D_lin",
+  "sequence": "A_seed700_D_lin",
+  "completed": true,
+  "feature_tape_sha256": "60f3f898a70dc886cd9e5284c1c1e62f3e086aac52e4e829e9fb9232c69dc988",
+  "parameter_count": 74,
+  "updates": 373,
+  "initial_zero_output_exact": true,
+  "initial_branch_hash": "15878c9012c5667ff7c51f7098b333043e6d42f5df6d1bcac379b9d86a26017c",
+  "final_branch_hash": "98e13d325a129bf1bc002b5aab2e8179a1ccbc8c372553783571ae94693cbf16",
+  "parameter_updated": true,
+  "prediction_sha256": "7554568614bcd688af0a9d87e5a55fc5c99e7d985270c4326da3fc938cf19c6c",
+  "causality_all_pass": true,
+  "isolation_all_pass": true,
+  "cost": {
+    "branch_wall_seconds_this_invocation": 1.9245209160000059,
+    "branch_cpu_seconds_this_invocation": 1.924420349,
+    "peak_rss_bytes": 396980224,
+    "effective_memory_limit_bytes": 16764375040,
+    "memory_soft_limit_bytes": 13411500032
+  }
+}

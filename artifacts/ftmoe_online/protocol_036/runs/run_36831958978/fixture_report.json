@@ -1,0 +1,60 @@
+{
+  "protocol": "036",
+  "synthetic": {
+    "tie_ap_half": true,
+    "tie_ap_permutation": true,
+    "parameter_counts": {
+      "D_cal": 2,
+      "D_lin": 74,
+      "D_corr": 2401
+    },
+    "parameter_counts_exact": true
+  },
+  "real_stream_prefix_executions": 2,
+  "max_real_prefix_steps": 96,
+  "passed": true,
+  "real": {
+    "stream_sha256": "70c9283f133a5f8033e12fbc03a38af6d9ce39f1d7e6a9e825964ee9a28edbd9",
+    "C_checkpoint_resume_probability_exact": true,
+    "C_checkpoint_resume_z_exact": true,
+    "C_checkpoint_resume_state_hash_exact": true,
+    "C_actual_batch_maturity": true,
+    "C_prediction_label_cutoff": true,
+    "branch_checkpoint_resume_and_future_perturb_prefix": {
+      "D_cal": {
+        "prediction_exact": true,
+        "state_hash_exact": true,
+        "version_exact": true,
+        "future_perturbation_rows_positive": true,
+        "max_accessed_index_before80": true,
+        "actual_batch_indices_exact": true
+      },
+      "D_lin": {
+        "prediction_exact": true,
+        "state_hash_exact": true,
+        "version_exact": true,
+        "future_perturbation_rows_positive": true,
+        "max_accessed_index_before80": true,
+        "actual_batch_indices_exact": true
+      },
+      "D_corr": {
+        "prediction_exact": true,
+        "state_hash_exact": true,
+        "version_exact": true,
+        "future_perturbation_rows_positive": true,
+        "max_accessed_index_before80": true,
+        "actual_batch_indices_exact": true
+      }
+    },
+    "D_off_exact_copy": true,
+    "terminal_settlement_has_no_optimizer_step": true
+  },
+  "evidence": {
+    "C_checkpoint_meta": "artifacts/ftmoe_online/protocol_036/runtime/preflight_36673404235/fixture/split/checkpoints/fixture_cursor_0064.meta.json",
+    "branch_evidence": {
+      "D_cal": "artifacts/ftmoe_online/protocol_036/runtime/preflight_36673404235/fixture/split/D_cal/prefix_raw_evidence.json",
+      "D_lin": "artifacts/ftmoe_online/protocol_036/runtime/preflight_36673404235/fixture/split/D_lin/prefix_raw_evidence.json",
+      "D_corr": "artifacts/ftmoe_online/protocol_036/runtime/preflight_36673404235/fixture/split/D_corr/prefix_raw_evidence.json"
+    }
+  }
+}

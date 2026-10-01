@@ -1,7 +1,7 @@
 # Active Experiment Directive
 
-Protocol-035 completed in run36585058415. Registered label: recurrence_only; scientific outputs exist despite repaired main-publication failure. Read docs/PROTOCOL035_INDEPENDENT_REVIEW_20260930.md.
+Protocol-036 scientific execution is complete in run 36831958978. Registered result label: operating_point_risk.
 
-Next: Protocol-036 instructions are registered, not implemented or started. Read NEXT_EXPERIMENT_LATEST.md and docs/PROTOCOL036_CORRECTION_CONTROLS_AND_NEW_STREAMS_20260930.md. This publication authorizes no automatic launch. When the user hands off execution, implement the exact frozen plan and bounded 14-sequence/3-new-stream budget, with no sweeps or dynamic-memory changes.
+Primary handoff: `docs/PROTOCOL036_RESULTS.md`. Compact evidence: `artifacts/ftmoe_online/protocol_036/runs/run_36831958978/`.
 
-Do not rerun035. Preserve033/034/035 registrations and evidence. Never report Actions synchronization failure as a reason to repeat scientific training. Record actual checkout SHA separately from workflow SHA. Historical completed budgets stay closed.
+Exactly 14 registered training sequences and 3 registered new streams were consumed. Do not rerun Protocol-035 or Protocol-036 budgets. No automatic follow-up experiment is authorized.
