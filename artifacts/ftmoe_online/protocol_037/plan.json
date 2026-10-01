@@ -1,0 +1,186 @@
+{
+  "protocol": "037",
+  "revision": 1,
+  "date": "2026-10-01",
+  "status": "instructions_registered_not_implemented_not_started",
+  "code_base_commit": "876172e1a16ebcaa321f3ca713bb06ee6ba31b87",
+  "execution_branch": "codex/protocol-037-single-dynamic-birth-20261001",
+  "instructions": "docs/PROTOCOL037_SINGLE_DYNAMIC_BIRTH_20261001.md",
+  "instructions_sha256": "01bb7cad5abb517afe52d01843735cd719c67ad6cc4e80aa633aca20b1f3caf3",
+  "objective": "Test one causally triggered residual expert birth on B=C+D_lin; compare against B and a fixed extra expert; stop before sleep/wake/delete.",
+  "source": {
+    "protocol036_run_id": 36831958978,
+    "artifact_id": 11147931152,
+    "zip_sha256": "040bacac8f23659f56599b71d6d6706b62a544e44161c7c42fb5af73650f56c0",
+    "replay_seed": 3601,
+    "already_observed_development_data": true,
+    "independent_confirmation": false,
+    "stream_sha256": "09fadb02f2017f8d528ee8284129c29adcb6be137b1a9e93f4a249eebcd1b659",
+    "files": {
+      "stage_B/seed3601/C_ref/feature_tape.npz": "c71a2ea6d59045fe4cc8a953a776d37f48dbe1feec4aba859cd00f11c984529c",
+      "stage_B/seed3601/C_ref/update_batches.json": "4d32d2ece194cb41b8bc16de1c89ddfedcd42da668b96446937fb430d6246b6f",
+      "stage_B/seed3601/D_lin/predictions.npz": "1ea811ed175817294f275505db85d0bf283c3d0aca6b883b036243ad7843bef6",
+      "inputs/seed3601/manifest.json": "73a1c6fd8d8d12c8e84958df55b2379ab2f2542ac34923bc3934d363329cb02b"
+    }
+  },
+  "budget": {
+    "new_training_sequence_slots": 2,
+    "sequence_names": [
+      "F_extra",
+      "D_birth"
+    ],
+    "new_raw_streams": 0,
+    "baseline_retraining": 0,
+    "other_real_stream_evaluations": 0,
+    "hyperparameter_or_trigger_sweeps": 0,
+    "max_births": 1,
+    "max_extra_experts": 1,
+    "real_joint_prefix_executions_max": 2,
+    "real_prefix_steps_max": 256,
+    "extra_initialization_seed_trials": 0,
+    "sleep_wake_delete_trials": 0,
+    "restart_from_zero_after_start": false,
+    "automatic_next_protocol": false
+  },
+  "baseline": {
+    "name": "B_ref",
+    "definition": "Protocol036 seed3601 C+D_lin issued predictions, continuously learning in source run",
+    "logits_source": "stage_B/seed3601/D_lin/predictions.npz",
+    "features_source": "stage_B/seed3601/C_ref/feature_tape.npz",
+    "exact_copy_no_training": true,
+    "classification": "exact B class_probability copy",
+    "gradient_to_B": false
+  },
+  "expert": {
+    "architecture": "Linear(73,1)",
+    "trainable_parameters": 74,
+    "initialization": "all zero; constructor inside isolated RNG context seed3701",
+    "constructor_seed": 3701,
+    "delta": "2*tanh((w dot issued_z+b)/2)",
+    "detection_logits": "[B0-delta/2,B1+delta/2]",
+    "F_exists_from_cursor": 0,
+    "D_exists_initially": false,
+    "D_before_birth": "exact B copy",
+    "birth_instant_zero_delta": true,
+    "post_birth_inference": "always include expert; no selection gate",
+    "loss": "mean BCEWithLogits(issued_B_margin+delta,y>0)+0.001*mean(delta^2)",
+    "optimizer": "AdamW",
+    "lr": 0.0001,
+    "weight_decay": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "clip_grad_norm": 1.0,
+    "update_every": 16,
+    "recent_matured_buffer_intervals": 64,
+    "batch_max_intervals": 32,
+    "reuse_C_actual_batches_including_duplicates": true,
+    "no_catchup_updates": true
+  },
+  "birth": {
+    "signal": "issued B mean-host BCE for each newly matured interval, stable float64 softplus",
+    "check": "after prediction and label settlement, before scheduled update; (t+1)%16==0",
+    "min_matured_intervals": 320,
+    "m": "t-2",
+    "recent_interval_count": 64,
+    "previous_interval_count": 256,
+    "recent_bounds_inclusive": [
+      "m-63",
+      "m"
+    ],
+    "previous_bounds_inclusive": [
+      "m-319",
+      "m-64"
+    ],
+    "recent_min_positive_host_rows": 16,
+    "recent_min_negative_host_rows": 16,
+    "loss_ratio_min": 1.25,
+    "previous_loss_denominator_floor": 1e-06,
+    "absolute_loss_increase_min": 0.02,
+    "consecutive_eligible_checks": 2,
+    "reset_streak_on_failed_check": true,
+    "max_events": 1,
+    "first_affected_prediction": "t_birth_check+1",
+    "birth_update": "one normal scheduled update at birth check t, using already matured historical batch",
+    "trigger_never_activated": "record trigger_not_activated; D exactly B; no tuning or rerun"
+  },
+  "causality": {
+    "predictions": 5968,
+    "hosts": 16,
+    "feature_dimension": 73,
+    "prediction_label_rule": "i+2<t",
+    "update_label_rule": "i+2<=t",
+    "terminal_training_steps": 0,
+    "phase_and_service_ids_for_training_or_trigger": false,
+    "future_B_reencoding": false,
+    "event_order": [
+      "predict",
+      "settle_label",
+      "check_birth_if_due",
+      "scheduled_update"
+    ]
+  },
+  "analysis": {
+    "AP": "tie-grouped noninterpolated",
+    "threshold": 0.5,
+    "primary_baseline": "B_ref",
+    "C_comparison": "historical reference only",
+    "extra_capability_signal_each_arm": {
+      "full_AP_delta_min": 0.002,
+      "six_window_AP_delta_min": 0.002,
+      "positive_recurrence_windows_min": 4,
+      "late4_AP_delta_min": 0.0,
+      "prefix32_mean_AP_delta_min": -0.005,
+      "all_guards_and_validity_must_pass": true
+    },
+    "dynamic_birth_incremental_signal": {
+      "birth_occurred": true,
+      "D_extra_capability_signal": true,
+      "D_minus_F_six_AP_min": 0.001,
+      "D_minus_F_full_AP_min": 0.0,
+      "D_vs_F_same_guardrails_must_pass": true
+    },
+    "guards": {
+      "full_and_recurrence_pooled_fpr_delta_max": 0.01,
+      "full_and_recurrence_pooled_recall_delta_min": -0.01,
+      "W_mean_AP_delta_min": -0.02,
+      "each_recurrence_recall_delta_min": -0.02,
+      "each_recurrence_prefix32_recall_delta_min": -0.03
+    },
+    "post_birth_diagnostic_lengths": [
+      64,
+      128,
+      256
+    ],
+    "equal_actual_training_compute_claim": false,
+    "single_class_AP": null,
+    "undefined_primary_metric": "gate_not_established",
+    "statistical_confirmation": false,
+    "dynamic_deletion_claim": false
+  },
+  "runtime": {
+    "formal_workflow": "protocol037-single-dynamic-birth.yml",
+    "formal_trigger": "workflow_dispatch_only",
+    "one_shot_push_dispatch_helper_if_connector_lacks_dispatch": true,
+    "helper_training_allowed": false,
+    "checkpoint_every_predictions": 512,
+    "exact_resume_only": true,
+    "synthetic_real_entrypoint_resume_tests_required": true,
+    "publication_non_fast_forward_retry_max": 3,
+    "job_timeout_minutes": 350,
+    "memory_soft_limit_fraction": 0.8,
+    "source_artifact_required_no_silent_regeneration": true,
+    "fresh_science_provenance_required": true,
+    "clean_publication_checkout_required": true,
+    "compact_manifest_after_status_update": true
+  },
+  "freeze": {
+    "no_real_trigger_scan_before_code_and_plan_frozen": true,
+    "all_arms_and_analysis_frozen_before_results": true,
+    "old_protocols_immutable": true,
+    "this_turn_launch_authorized": false,
+    "future_roadmap_is_not_execution_authorization": true
+  }
+}

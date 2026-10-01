@@ -1,5 +1,7 @@
-# Project Context Latest
+# 当前上下文：036完成，037分阶段动态接入指示已登记
 
-Current terminal experiment: Protocol-036, run `36831958978`. Registered result label: **operating_point_risk**. Scientific status: `completed`. Cross-stream gain signal: `False`. D_corr over D_cal incremental signal: `True`. D_corr over D_lin incremental signal: `False`. Operating-point risk: `True`.
+目标是检验动态专家D在持续学习中的额外价值。036显示固定C加74参数线性校正D_lin优于未校正C：三流平均全程AP+0.010428、六窗+0.007417、护栏通过。MLP D_corr虽有收益，但seed3602 V_rec3召回下降2.42个百分点，标签operating_point_risk。它们都不是动态专家系统成功的证据。
 
-Read `docs/PROTOCOL036_RESULTS.md` and `artifacts/ftmoe_online/protocol_036/runs/run_36831958978/` for current evidence. Historical Protocol-033/034/035 registrations and evidence remain immutable.
+用户现要求逐步加入动态增删。037以B=C+D_lin为完整共同底座，在已观察036 seed3601上，只比较固定额外专家F_extra与一次因果出生D_birth，专家各74参数。复用历史issued tape，不重训B。两条新科学序列、零新流、最多一次出生；先判新增能力，再判动态时机价值。固定与动态实际更新数不同，必须如实报资源，不能宣称严格同计算。
+
+后续依结果再登记休眠/唤醒，最后才永久删除；每一步交付后停止，不自动续跑。当前037只有指示和校验器，未实现或运行。执行分支codex/protocol-037-single-dynamic-birth-20261001。详细交接见NEXT_EXPERIMENT_LATEST.md及docs/PROTOCOL037_SINGLE_DYNAMIC_BIRTH_20261001.md。033—036登记与预算保持关闭。
