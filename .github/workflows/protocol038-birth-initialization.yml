@@ -40,6 +40,7 @@ jobs:
       MKL_NUM_THREADS: '1'
       OPENBLAS_NUM_THREADS: '1'
       PYTHONHASHSEED: '1'
+      PYTHONPATH: .
 
     steps:
       - name: Checkout exact Protocol038 execution branch
