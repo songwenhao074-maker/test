@@ -1,0 +1,277 @@
+{
+  "protocol": "038",
+  "revision": 1,
+  "date": "2026-10-01",
+  "status": "instructions_registered_not_implemented_not_started",
+  "code_base_commit": "02fa8cfd4b3efe93ae9f318952c54a9faba78450",
+  "kernel_reference_commit": "7440a3973f97599ea2ad4de45d5bacaaf8b517c8",
+  "execution_branch": "codex/protocol-038-birth-initialization-20261001",
+  "instructions": "docs/PROTOCOL038_BIRTH_INITIALIZATION_20261001.md",
+  "instructions_sha256": "6ef7b5cde53e49a52c43763ee9e429a6aad9c1da0b8e23efba5b7955d1c60e0b",
+  "source036": {
+    "protocol036_run_id": 36831958978,
+    "artifact_id": 11147931152,
+    "zip_sha256": "040bacac8f23659f56599b71d6d6706b62a544e44161c7c42fb5af73650f56c0",
+    "replay_seed": 3601,
+    "already_observed_development_data": true,
+    "independent_confirmation": false,
+    "stream_sha256": "09fadb02f2017f8d528ee8284129c29adcb6be137b1a9e93f4a249eebcd1b659",
+    "files": {
+      "stage_B/seed3601/C_ref/feature_tape.npz": "c71a2ea6d59045fe4cc8a953a776d37f48dbe1feec4aba859cd00f11c984529c",
+      "stage_B/seed3601/C_ref/update_batches.json": "4d32d2ece194cb41b8bc16de1c89ddfedcd42da668b96446937fb430d6246b6f",
+      "stage_B/seed3601/D_lin/predictions.npz": "1ea811ed175817294f275505db85d0bf283c3d0aca6b883b036243ad7843bef6",
+      "inputs/seed3601/manifest.json": "73a1c6fd8d8d12c8e84958df55b2379ab2f2542ac34923bc3934d363329cb02b"
+    }
+  },
+  "source037": {
+    "run_id": 36871854703,
+    "artifact_id": 11167124178,
+    "zip_sha256": "498ead6571ef34e56702fd23f8cc57ac30afe92e99a8ffbfbd85a0b92e413c77",
+    "files": {
+      "B_ref/predictions.npz": "1ea811ed175817294f275505db85d0bf283c3d0aca6b883b036243ad7843bef6",
+      "F_extra/predictions.npz": "348002d32c34818dad3e59a298107da9a7b3a4d59ca1dc7db8bb6a87831e490c",
+      "D_birth/predictions.npz": "badf9005b2be9fc6436d1ff2b9377b27715e846d7d16f8e4bdfcbfa76f732e8c",
+      "F_extra/update_log.json": "e184380544958bee31ddbc0b1fb516be1f516286d9e118e639d7e6add922957c",
+      "D_birth/birth_checks.json": "4b8afb4f98abdc5405a69310206d0f145e981b28069883138fad9b7468a70d98",
+      "D_birth/lifecycle_events.json": "b2eb7dc30f4855e151d39e1ef8c633eef8505547c944f21bc5d3ed33b59a2711"
+    },
+    "historical_manifest_exception_only": [
+      "status.json"
+    ]
+  },
+  "budget": {
+    "new_full_training_sequences": [
+      "D_bias",
+      "D_warm"
+    ],
+    "new_full_training_sequence_slots": 2,
+    "donor_prefix_slots": 1,
+    "total_training_slots": 3,
+    "donor_steps": 21,
+    "steps_per_new_arm": 352,
+    "max_new_scientific_optimizer_steps": 725,
+    "new_streams": 0,
+    "baseline_retraining": 0,
+    "other_real_streams": 0,
+    "hyperparameter_sweeps": 0,
+    "real_engineering_prefix_max": 1,
+    "real_engineering_prefix_length_max": 256,
+    "real_engineering_gradient_steps": 0,
+    "restart_from_zero_after_start": false,
+    "automatic_next_protocol": false
+  },
+  "donor": {
+    "initialization": "zero",
+    "updates_at": [
+      15,
+      31,
+      47,
+      63,
+      79,
+      95,
+      111,
+      127,
+      143,
+      159,
+      175,
+      191,
+      207,
+      223,
+      239,
+      255,
+      271,
+      287,
+      303,
+      319,
+      335
+    ],
+    "last_update": 335,
+    "forbidden_updates_at_or_after": 351,
+    "expected_state_dict_sha256": "95e290ede276a29c8d56097e5ddbfd584e37256a5e49b864fb8c9a6d06b324b6",
+    "match_each_step_to_037": true,
+    "shared_once": true,
+    "per_deployed_method_charge_steps": 21
+  },
+  "arms": {
+    "D_zero": {
+      "source": "cached037_D_birth",
+      "new_training": false
+    },
+    "D_bias": {
+      "weight_init": "zeros",
+      "bias_init": "donor_bias",
+      "optimizer_state": "fresh_empty",
+      "trainable_after_birth": "all_74"
+    },
+    "D_warm": {
+      "weight_init": "donor_weight",
+      "bias_init": "donor_bias",
+      "optimizer_state": "fresh_empty",
+      "trainable_after_birth": "all_74"
+    },
+    "F_extra": {
+      "source": "cached037_F_extra",
+      "new_training": false
+    }
+  },
+  "baseline": {
+    "name": "B_ref",
+    "definition": "Protocol036 seed3601 C+D_lin issued predictions, continuously learning in source run",
+    "logits_source": "stage_B/seed3601/D_lin/predictions.npz",
+    "features_source": "stage_B/seed3601/C_ref/feature_tape.npz",
+    "exact_copy_no_training": true,
+    "classification": "exact B class_probability copy",
+    "gradient_to_B": false
+  },
+  "expert": {
+    "architecture": "Linear(73,1)",
+    "trainable_parameters": 74,
+    "constructor_seed": 3701,
+    "delta": "2*tanh((w dot issued_z+b)/2)",
+    "detection_logits": "[B0-delta/2,B1+delta/2]",
+    "D_exists_initially": false,
+    "D_before_birth": "exact B copy",
+    "post_birth_inference": "always include expert; no selection gate",
+    "loss": "mean BCEWithLogits(issued_B_margin+delta,y>0)+0.001*mean(delta^2)",
+    "optimizer": "AdamW",
+    "lr": 0.0001,
+    "weight_decay": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "clip_grad_norm": 1.0,
+    "update_every": 16,
+    "recent_matured_buffer_intervals": 64,
+    "batch_max_intervals": 32,
+    "reuse_C_actual_batches_including_duplicates": true,
+    "no_catchup_updates": true
+  },
+  "birth": {
+    "signal": "issued B mean-host BCE for each newly matured interval, stable float64 softplus",
+    "check": "after prediction and label settlement, before scheduled update; (t+1)%16==0",
+    "min_matured_intervals": 320,
+    "m": "t-2",
+    "recent_interval_count": 64,
+    "previous_interval_count": 256,
+    "recent_bounds_inclusive": [
+      "m-63",
+      "m"
+    ],
+    "previous_bounds_inclusive": [
+      "m-319",
+      "m-64"
+    ],
+    "recent_min_positive_host_rows": 16,
+    "recent_min_negative_host_rows": 16,
+    "loss_ratio_min": 1.25,
+    "previous_loss_denominator_floor": 1e-06,
+    "absolute_loss_increase_min": 0.02,
+    "consecutive_eligible_checks": 2,
+    "reset_streak_on_failed_check": true,
+    "max_events": 1,
+    "first_affected_prediction": "t_birth_check+1",
+    "birth_update": "one normal scheduled update at birth check t, using already matured historical batch",
+    "trigger_never_activated": "record trigger_not_activated; D exactly B; no tuning or rerun",
+    "expected_t_on_locked_source": 351,
+    "expected_first_affected_prediction": 352,
+    "hardcoded_birth_forbidden": true,
+    "mismatch_action": "stop_invalid"
+  },
+  "causality": {
+    "predictions": 5968,
+    "hosts": 16,
+    "feature_dimension": 73,
+    "prediction_label_rule": "i+2<t",
+    "update_label_rule": "i+2<=t",
+    "terminal_training_steps": 0,
+    "phase_and_service_ids_for_training_or_trigger": false,
+    "future_B_reencoding": false,
+    "event_order": [
+      "predict",
+      "settle_label",
+      "check_birth_if_due",
+      "scheduled_update"
+    ]
+  },
+  "analysis": {
+    "primary_contrast": [
+      "D_warm",
+      "D_zero"
+    ],
+    "mechanism_contrasts": [
+      [
+        "D_bias",
+        "D_zero"
+      ],
+      [
+        "D_warm",
+        "D_bias"
+      ]
+    ],
+    "init_signal": {
+      "six_AP_delta_min": 0.0005,
+      "full_AP_delta_min": 0.0,
+      "positive_windows_min": 4,
+      "late4_AP_delta_min": 0.0,
+      "guards_vs_comparator_and_B": true,
+      "validity_required": true
+    },
+    "guards": {
+      "full_and_recurrence_pooled_fpr_delta_max": 0.01,
+      "full_and_recurrence_pooled_recall_delta_min": -0.01,
+      "W_mean_AP_delta_min": -0.02,
+      "each_recurrence_recall_delta_min": -0.02,
+      "each_recurrence_prefix32_recall_delta_min": -0.03
+    },
+    "extra_capability_signal": {
+      "full_AP_delta_min": 0.002,
+      "six_window_AP_delta_min": 0.002,
+      "positive_recurrence_windows_min": 4,
+      "late4_AP_delta_min": 0.0,
+      "prefix32_mean_AP_delta_min": -0.005,
+      "all_guards_and_validity_must_pass": true
+    },
+    "dynamic_increment_vs_F": {
+      "birth_occurred": true,
+      "D_extra_capability_signal": true,
+      "D_minus_F_six_AP_min": 0.001,
+      "D_minus_F_full_AP_min": 0.0,
+      "D_vs_F_same_guardrails_must_pass": true
+    },
+    "post_birth_lengths": [
+      64,
+      128,
+      256
+    ],
+    "post_birth_full_interval": [
+      352,
+      5968
+    ],
+    "threshold": 0.5,
+    "AP": "tie-grouped noninterpolated",
+    "single_class_AP": null,
+    "statistical_confirmation": false,
+    "equivalence_claim_from_no_signal": false
+  },
+  "runtime": {
+    "formal_workflow": "protocol038-birth-initialization.yml",
+    "formal_trigger": "workflow_dispatch_only",
+    "one_shot_push_dispatch_helper_if_connector_lacks_dispatch": true,
+    "helper_training_allowed": false,
+    "exact_resume_only": true,
+    "checkpoint_donor_each_step": true,
+    "checkpoint_birth_before_and_after_update": true,
+    "checkpoint_every_predictions": 512,
+    "separate_science_publication_status": true,
+    "publication_non_fast_forward_retry_max": 3,
+    "authentication_error_is_not_non_fast_forward": true
+  },
+  "freeze": {
+    "all_new_arms_and_analysis_before_donor": true,
+    "this_turn_launch_authorized": false,
+    "historical_protocols_immutable": true,
+    "future_roadmap_is_not_execution_authorization": true
+  }
+}
