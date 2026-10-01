@@ -8,7 +8,7 @@ on:
         default: codex/protocol-037-single-dynamic-birth-20261001
       expected_execution_sha:
         required: true
-        default: b127656c5b88c4ac4b559b6188fa69b42662078c
+        default: d3bf89ec91bb5aede9da883c4223d7e35105ff54
       resume_run_id:
         required: false
         default: ''
