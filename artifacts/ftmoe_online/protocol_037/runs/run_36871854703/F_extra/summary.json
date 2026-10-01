@@ -1,0 +1,15 @@
+{
+  "protocol": "037",
+  "arm": "F_extra",
+  "completed": true,
+  "parameter_count": 74,
+  "optimizer_steps": 373,
+  "inference_calls": 5968,
+  "resident_parameter_interval_integral": 441632,
+  "final_expert_hash": "438c0e5068eacca4f96e3ce95f9bab8e017fadfcb0ca3d9ecd306c1f990db3cd",
+  "prediction_sha256": "348002d32c34818dad3e59a298107da9a7b3a4d59ca1dc7db8bb6a87831e490c",
+  "cost": {
+    "inference_seconds": 0.8510927780006625,
+    "update_seconds": 0.3285700100001634
+  }
+}

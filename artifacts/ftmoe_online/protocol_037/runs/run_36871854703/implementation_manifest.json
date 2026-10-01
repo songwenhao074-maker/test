@@ -1,0 +1,49 @@
+{
+  "protocol": "037",
+  "run_id": "36871854703",
+  "checkout_sha": "d3bf89ec91bb5aede9da883c4223d7e35105ff54",
+  "workflow_path": "/tmp/protocol037-workflow.yml",
+  "workflow_sha256": "7085c72613ac078a71f159750b1f83ba76ac2555c67063a2bf796950e12a406e",
+  "run_script_sha256": "541395fd5ec9f69007ef74b49a5270c472cb6785416022d759b66660b09fe747",
+  "analysis_script_sha256": "4b484ccd1403d8b408b4c421848740efcd8acd25fbb5561027a95ed3ba3e7c81",
+  "finalize_script_sha256": "c18af4e8b04445a899190fb3b997b3e28b29bb0ee294dc3d79e23d8441528383",
+  "plan_sha256": "01240a944bb654d529577b397602cf67c24c2245c6fbe909564b47da2726012a",
+  "validator_sha256": "6265d278a5003fe2e438d952d2865118faae5f2d9d943b27400cb18f528897bd",
+  "python": "3.8.18 (default, Dec 12 2024, 19:15:30) \n[GCC 13.2.0]",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.34",
+  "files": {
+    "run_ftmoe_protocol037.py": {
+      "path": "run_ftmoe_protocol037.py",
+      "sha256": "541395fd5ec9f69007ef74b49a5270c472cb6785416022d759b66660b09fe747",
+      "size": 49440
+    },
+    "analyze_ftmoe_protocol037.py": {
+      "path": "analyze_ftmoe_protocol037.py",
+      "sha256": "4b484ccd1403d8b408b4c421848740efcd8acd25fbb5561027a95ed3ba3e7c81",
+      "size": 17024
+    },
+    "protocol037_finalize.py": {
+      "path": "maintenance/protocol037_finalize.py",
+      "sha256": "c18af4e8b04445a899190fb3b997b3e28b29bb0ee294dc3d79e23d8441528383",
+      "size": 5367
+    },
+    "plan.json": {
+      "path": "artifacts/ftmoe_online/protocol_037/plan.json",
+      "sha256": "01240a944bb654d529577b397602cf67c24c2245c6fbe909564b47da2726012a",
+      "size": 6993
+    },
+    "validate_protocol037_plan.py": {
+      "path": "maintenance/validate_protocol037_plan.py",
+      "sha256": "6265d278a5003fe2e438d952d2865118faae5f2d9d943b27400cb18f528897bd",
+      "size": 2318
+    },
+    "protocol037-workflow.yml": {
+      "path": "/tmp/protocol037-workflow.yml",
+      "sha256": "7085c72613ac078a71f159750b1f83ba76ac2555c67063a2bf796950e12a406e",
+      "size": 18002
+    }
+  },
+  "pip_freeze_sha256": "8adb485eb88b140caee0aa4bae9718f6b8f910899d8f4c747940826fa9e8e50e",
+  "pip_freeze_path": "artifacts/ftmoe_online/protocol_037/runtime/run_36871854703/pip_freeze.txt",
+  "preflight_identity_is_not_science_identity": true
+}

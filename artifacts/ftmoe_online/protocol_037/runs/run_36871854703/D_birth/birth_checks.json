@@ -1,0 +1,55 @@
+{
+  "protocol": "037",
+  "checks": [
+    {
+      "at_interval": 335,
+      "m": 333,
+      "forced_fixture": false,
+      "recent": [
+        270,
+        333
+      ],
+      "previous": [
+        14,
+        269
+      ],
+      "R": 0.28469476221074064,
+      "P": 0.036574763472872335,
+      "positive_support": 106,
+      "negative_support": 918,
+      "ratio_condition": true,
+      "difference_condition": true,
+      "support_condition": true,
+      "candidate": true,
+      "streak_before": 0,
+      "streak_after": 1,
+      "eligible": true,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 351,
+      "m": 349,
+      "forced_fixture": false,
+      "recent": [
+        286,
+        349
+      ],
+      "previous": [
+        30,
+        285
+      ],
+      "R": 0.4356407491900923,
+      "P": 0.039020716762194936,
+      "positive_support": 168,
+      "negative_support": 856,
+      "ratio_condition": true,
+      "difference_condition": true,
+      "support_condition": true,
+      "candidate": true,
+      "streak_before": 1,
+      "streak_after": 2,
+      "eligible": true,
+      "state_change": "birth"
+    }
+  ]
+}

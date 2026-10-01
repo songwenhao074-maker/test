@@ -1,0 +1,19 @@
+{
+  "protocol": "037",
+  "run_id": "36871854703",
+  "scientific_status": "completed",
+  "publication_status": "pending_until_main_sync",
+  "training_sequences_registered": 2,
+  "training_sequences_completed": 2,
+  "new_streams_registered": 0,
+  "new_streams_completed": 0,
+  "birth_occurred": true,
+  "F_extra_capability_signal": true,
+  "D_birth_extra_capability_signal": true,
+  "dynamic_birth_incremental_signal": false,
+  "validity_all_pass": true,
+  "result_label": "dynamic_birth_extra_capability_without_incremental_advantage",
+  "statistical_confirmation": false,
+  "automatic_followup_training": false,
+  "stop_after_registered_budget": true
+}

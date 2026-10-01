@@ -1,0 +1,38 @@
+{
+  "protocol": "037",
+  "wall_seconds": 0.9425142510000342,
+  "cpu_seconds": 0.9419029389999998,
+  "peak_rss_bytes": 356372480,
+  "effective_memory_limit_bytes": 16766414848,
+  "F_extra_incremental": {
+    "inference_seconds": 0.8510927780006625,
+    "update_seconds": 0.3285700100001634,
+    "optimizer_steps": 373,
+    "inference_calls": 5968,
+    "resident_parameter_interval_integral": 441632
+  },
+  "D_birth_incremental": {
+    "inference_seconds": 0.7416451849995838,
+    "update_seconds": 0.2690288490005628,
+    "optimizer_steps": 352,
+    "inference_calls": 5616,
+    "resident_parameter_interval_integral": 415584
+  },
+  "historical_B_components_if_available": {
+    "C_ref": {
+      "wall_seconds_this_invocation": 72.733269221,
+      "cpu_seconds_this_invocation": 72.727811581,
+      "peak_rss_bytes": 469479424,
+      "effective_memory_limit_bytes": 16764375040,
+      "memory_soft_limit_bytes": 13411500032
+    },
+    "D_lin": {
+      "branch_wall_seconds_this_invocation": 1.9188545989999852,
+      "branch_cpu_seconds_this_invocation": 1.918707585000007,
+      "peak_rss_bytes": 472432640,
+      "effective_memory_limit_bytes": 16764375040,
+      "memory_soft_limit_bytes": 13411500032
+    }
+  },
+  "accounting_note": "Deployment uses the full historical B path plus the incremental expert; incremental expert timing is not total deployment cost."
+}

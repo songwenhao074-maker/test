@@ -1,0 +1,142 @@
+{
+  "protocol": "037",
+  "root": "artifacts/ftmoe_online/protocol_037/runs/run_36871854703",
+  "files": [
+    {
+      "path": "B_ref/summary.json",
+      "sha256": "85a25fb12f3bec6634732d89a6d4e170166c9484308e852b039df12087416db3",
+      "size": 179
+    },
+    {
+      "path": "D_birth/birth_checks.json",
+      "sha256": "4b8afb4f98abdc5405a69310206d0f145e981b28069883138fad9b7468a70d98",
+      "size": 1136
+    },
+    {
+      "path": "D_birth/causality_audit.json",
+      "sha256": "d32d688f617993b354125a2ff0c400a1d7af5009fe32f47fb0ff2d48ac3d776b",
+      "size": 146
+    },
+    {
+      "path": "D_birth/isolation_audit.json",
+      "sha256": "bd7abed316c5cf9cf95576f73dbdb0cf845e3d9086d7c7f0cc99482f40a72ddf",
+      "size": 180
+    },
+    {
+      "path": "D_birth/lifecycle_events.json",
+      "sha256": "b2eb7dc30f4855e151d39e1ef8c633eef8505547c944f21bc5d3ed33b59a2711",
+      "size": 329
+    },
+    {
+      "path": "D_birth/summary.json",
+      "sha256": "d388fcab237e9339d9d5351e5a82f008058b14de8be27284ba95adee50259a9e",
+      "size": 591
+    },
+    {
+      "path": "D_birth/update_log.json",
+      "sha256": "b1b64946dc8029938e6ead7ca8e2ddb0a2decb5b0928efdcebe390a4e82f6838",
+      "size": 279664
+    },
+    {
+      "path": "F_extra/causality_audit.json",
+      "sha256": "c0dff715685db7571fa1159f2004fb9808cdd689fadbde4aea77c9fe39bc3a16",
+      "size": 115
+    },
+    {
+      "path": "F_extra/isolation_audit.json",
+      "sha256": "1e4020cf3d74400c3b0816e0f235fb0e7f4a920674cea176a9be2dd1ec2d58b1",
+      "size": 141
+    },
+    {
+      "path": "F_extra/summary.json",
+      "sha256": "a479b10beef688a725fb9c88028388bcaa3bb453badf6e2f6cafafa00a2ef4b9",
+      "size": 478
+    },
+    {
+      "path": "F_extra/update_log.json",
+      "sha256": "e184380544958bee31ddbc0b1fb516be1f516286d9e118e639d7e6add922957c",
+      "size": 295247
+    },
+    {
+      "path": "analysis/comparison.json",
+      "sha256": "03b08c5c532def04c65319c1a951a50f678ea058fc3c8667e9cd84d076a9343c",
+      "size": 186825
+    },
+    {
+      "path": "analysis/cost_profile.json",
+      "sha256": "387fe2b6c9d905260a130fc6265c769079ab715262f43b426e1030da7d54a4f1",
+      "size": 1368
+    },
+    {
+      "path": "analysis/status.json",
+      "sha256": "c16bf8834b0c6d265238dfd00f7bee2aeb7bcc41d98afd45618c0f47e35734be",
+      "size": 653
+    },
+    {
+      "path": "artifact_index.json",
+      "sha256": "33630541d36911dc678bce72b501837ec5a1e72f0c8be398ccce69547390dcf2",
+      "size": 9913
+    },
+    {
+      "path": "budget_ledger.json",
+      "sha256": "00f9f131fb0aae4101a6823affe95f857209aeb20eb73667f48448012eaead71",
+      "size": 2019
+    },
+    {
+      "path": "budget_ledger_events.jsonl",
+      "sha256": "7e387efdac2f53dc2527090902adb0ca970200072034c065b51ca91a5600ebe8",
+      "size": 284684
+    },
+    {
+      "path": "comparison.json",
+      "sha256": "03b08c5c532def04c65319c1a951a50f678ea058fc3c8667e9cd84d076a9343c",
+      "size": 186825
+    },
+    {
+      "path": "cost_profile.json",
+      "sha256": "387fe2b6c9d905260a130fc6265c769079ab715262f43b426e1030da7d54a4f1",
+      "size": 1368
+    },
+    {
+      "path": "fixture_report.json",
+      "sha256": "e316b18fdd8d65c9ecf20c34921a75fc7211fd044d8c833ebf44031ca4a3d2b5",
+      "size": 978
+    },
+    {
+      "path": "implementation_manifest.json",
+      "sha256": "c1e3cbad1a33f1ab443e99dae823dca11323fc9bb97660fd9b6255638b04cdca",
+      "size": 2274
+    },
+    {
+      "path": "raw_scientific_manifest.json",
+      "sha256": "caa68b66639195af6bd141e68a1c93dd73b4eaabcfd3aa1410ef998026efd40d",
+      "size": 8649
+    },
+    {
+      "path": "run_audit.json",
+      "sha256": "c276b4a698c795703dc5e200407500572e373936d8da1f4802e3f3c384e68f08",
+      "size": 711
+    },
+    {
+      "path": "science_cost_raw.json",
+      "sha256": "387fe2b6c9d905260a130fc6265c769079ab715262f43b426e1030da7d54a4f1",
+      "size": 1368
+    },
+    {
+      "path": "scientific_execution_complete.json",
+      "sha256": "05f106e19916821199cc8127ae6a41858fa6e9772f7512cacf7074818e871a8c",
+      "size": 189
+    },
+    {
+      "path": "source_lock.json",
+      "sha256": "20dcb229453742e363d242771aea6a3046d8cae6e646371a177f4998bef7865c",
+      "size": 756
+    },
+    {
+      "path": "status.json",
+      "sha256": "4e607fa8e3bad039ce8d725a60a23e6c3061901b36cc4986391fa10e95f9d69f",
+      "size": 644
+    }
+  ],
+  "file_count": 27
+}
