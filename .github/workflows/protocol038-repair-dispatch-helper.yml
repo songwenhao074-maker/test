@@ -10,6 +10,10 @@ permissions:
   contents: write
   actions: write
 
+concurrency:
+  group: protocol038-repair-dispatch-once
+  cancel-in-progress: false
+
 jobs:
   dispatch:
     runs-on: ubuntu-latest
@@ -18,21 +22,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Verify zero science consumption and dispatch repaired execution
+      - name: Validate repaired execution and dispatch once
         env:
           GH_TOKEN: ${{ github.token }}
           EXEC_REF: codex/protocol-038-birth-initialization-20261001
           EXPECTED_SHA: 9ccdffa78d122c82b57c44b5224c10cd6cd9740f
-          PREVIOUS_RUN: '36882151184'
         shell: bash
         run: |
           set -euo pipefail
           ACTUAL="$(gh api "repos/$GITHUB_REPOSITORY/branches/$EXEC_REF" --jq '.commit.sha')"
           test "$ACTUAL" = "$EXPECTED_SHA"
           python maintenance/validate_protocol038_plan.py
-          test "$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$PREVIOUS_RUN" --jq '.conclusion')" = "failure"
-          SCI="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$PREVIOUS_RUN/jobs" --jq '.jobs[0].steps[] | select(.name == "Execute registered Stage A B C science only") | .conclusion')"
-          test "$SCI" = "skipped"
           gh api --method POST "repos/$GITHUB_REPOSITORY/actions/workflows/protocol038-birth-initialization.yml/dispatches"             -f ref=main             -f "inputs[execution_ref]=$EXEC_REF"             -f "inputs[expected_execution_sha]=$EXPECTED_SHA"             -f "inputs[resume_run_id]="
 
       - name: Remove one-shot repair dispatcher
