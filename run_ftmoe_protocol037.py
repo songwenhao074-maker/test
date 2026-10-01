@@ -669,7 +669,15 @@ def run_until(src, st, stop, checkpoint_dir=None, checkpoint_every=0, ledger_pat
 
 def state_prefix_equal(a, b, n):
     keys = ("F_probability", "D_probability", "F_logits", "D_logits", "F_delta", "D_delta", "F_version", "D_version", "F_expert_count", "D_expert_count", "F_hash", "D_hash")
-    return all(np.array_equal(a["out"][k][:n], b["out"][k][:n], equal_nan=True) for k in keys)
+    for k in keys:
+        x = a["out"][k][:n]
+        y = b["out"][k][:n]
+        if x.dtype.kind in ("U", "S", "O") or y.dtype.kind in ("U", "S", "O"):
+            if not np.array_equal(x, y):
+                return False
+        elif not np.array_equal(x, y, equal_nan=True):
+            return False
+    return True
 
 
 def state_exact_equal(a, b, n):
