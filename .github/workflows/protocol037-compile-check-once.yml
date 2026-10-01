@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 98fa38ec0ed75d522850fe0117d8fd6b7ad521ac
+          ref: 57346b6f0357a38f6f2fe6839da07a8a4cf53be9
           fetch-depth: 1
       - name: Validate registration
         run: python maintenance/validate_protocol037_plan.py
