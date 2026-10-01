@@ -1,0 +1,47 @@
+name: Protocol037 provenance repair dispatch once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol037-provenance-repair-dispatch-once.yml'
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  dispatch:
+    if: contains(github.event.head_commit.message, '[p037-provenance-repair-dispatch]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      EXECUTION_REF: codex/protocol-037-single-dynamic-birth-20261001
+      EXPECTED_SHA: b127656c5b88c4ac4b559b6188fa69b42662078c
+      PLAN_SHA: 01240a944bb654d529577b397602cf67c24c2245c6fbe909564b47da2726012a
+      FIXTURE_RUN_ID: '36867455835'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/protocol-037-single-dynamic-birth-20261001
+          fetch-depth: 1
+      - name: Smoke-test repaired frozen target and dispatch once
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test "$(sha256sum artifacts/ftmoe_online/protocol_037/plan.json | awk '{print $1}')" = "$PLAN_SHA"
+          python maintenance/validate_protocol037_plan.py
+          python -m py_compile run_ftmoe_protocol037.py analyze_ftmoe_protocol037.py maintenance/protocol037_finalize.py
+          python maintenance/protocol037_finalize.py --help >/dev/null
+          ACTIVE="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/protocol037-single-dynamic-birth.yml/runs?per_page=50" --jq '[.workflow_runs[] | select(.status=="queued" or .status=="in_progress")] | length')"
+          test "$ACTIVE" = "0"
+          FIX_CONCLUSION="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$FIXTURE_RUN_ID" --jq '.status + ":" + (.conclusion // "")')"
+          test "$FIX_CONCLUSION" = "completed:failure"
+          gh api -X POST "repos/$GITHUB_REPOSITORY/actions/workflows/protocol037-single-dynamic-birth.yml/dispatches" \
+            -f ref=main \
+            -f "inputs[execution_ref]=$EXECUTION_REF" \
+            -f "inputs[expected_execution_sha]=$EXPECTED_SHA" \
+            -f "inputs[resume_run_id]=" \
+            -f "inputs[fixture_run_id]=$FIXTURE_RUN_ID"
