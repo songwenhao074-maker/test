@@ -1,11 +1,18 @@
 """Protocol-039 immutable scientific manifest, provenance and compact publication helpers."""
 from __future__ import annotations
-import argparse, json, platform, shutil, sys
+import argparse, hashlib, json, platform, shutil, sys
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[1]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0,str(ROOT))
-from protocol035_common import dump_json, sha256_file
+
+def sha256_file(path):
+    h=hashlib.sha256()
+    with Path(path).open("rb") as f:
+        for b in iter(lambda:f.read(4*1024*1024),b""):
+            h.update(b)
+    return h.hexdigest()
+
+def dump_json(path,obj):
+    p=Path(path); p.parent.mkdir(parents=True,exist_ok=True)
+    p.write_text(json.dumps(obj,indent=2,ensure_ascii=False,allow_nan=False)+"\n",encoding="utf8")
 
 def J(p): return json.loads(Path(p).read_text(encoding="utf8"))
 
