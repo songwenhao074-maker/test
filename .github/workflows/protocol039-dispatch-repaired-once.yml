@@ -1,0 +1,39 @@
+name: Protocol039 dispatch repaired once
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol039-dispatch-repaired-once.yml'
+permissions:
+  contents: read
+  actions: write
+jobs:
+  dispatch:
+    if: contains(github.event.head_commit.message, '[p039-dispatch-repaired]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch frozen Protocol039 exactly once
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const execBranch = 'codex/protocol-039-d-vs-c-sleep-wake-20261002';
+            const execSha = '29141fdada61fefde55438be250e75c2723bfea9';
+            const br = await github.rest.repos.getBranch({owner, repo, branch: execBranch});
+            if (br.data.commit.sha !== execSha) core.setFailed('execution branch SHA mismatch');
+            const arts = await github.rest.actions.listArtifactsForRepo({owner, repo, per_page: 100});
+            if (arts.data.artifacts.some(a => !a.expired && a.name.startsWith('protocol039-raw-'))) core.setFailed('Protocol039 raw artifact already exists');
+            const runs = await github.rest.actions.listWorkflowRuns({owner, repo, workflow_id: 'protocol039-d-vs-c-sleep-wake.yml', per_page: 20});
+            if (runs.data.workflow_runs.some(r => r.status === 'queued' || r.status === 'in_progress')) core.setFailed('formal Protocol039 run already active');
+            await github.rest.actions.createWorkflowDispatch({
+              owner, repo,
+              workflow_id: 'protocol039-d-vs-c-sleep-wake.yml',
+              ref: 'main',
+              inputs: {
+                execution_ref: execBranch,
+                expected_execution_sha: execSha,
+                resume_artifact_id: ''
+              }
+            });
+            core.info('Protocol039 dispatched at '+execSha);
