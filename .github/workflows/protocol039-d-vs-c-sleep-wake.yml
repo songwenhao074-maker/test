@@ -30,10 +30,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 350
     env:
-      EXECUTION_REF: \${{ inputs.execution_ref }}
-      EXPECTED_EXECUTION_SHA: \${{ inputs.expected_execution_sha }}
-      RESUME_ARTIFACT_ID: \${{ inputs.resume_artifact_id }}
-      GH_TOKEN: \${{ github.token }}
+      EXECUTION_REF: ${{ inputs.execution_ref }}
+      EXPECTED_EXECUTION_SHA: ${{ inputs.expected_execution_sha }}
+      RESUME_ARTIFACT_ID: ${{ inputs.resume_artifact_id }}
+      GH_TOKEN: ${{ github.token }}
       OMP_NUM_THREADS: "1"
       MKL_NUM_THREADS: "1"
       OPENBLAS_NUM_THREADS: "1"
@@ -43,7 +43,7 @@ jobs:
       - name: Checkout exact frozen Protocol039 execution SHA
         uses: actions/checkout@v4
         with:
-          ref: \${{ inputs.expected_execution_sha }}
+          ref: ${{ inputs.expected_execution_sha }}
           fetch-depth: 0
 
       - name: Enforce checkout, registration, kernel and no duplicate science launch
@@ -162,7 +162,7 @@ jobs:
             --out-dir "$SCI_ROOT" --run-id "$GITHUB_RUN_ID" \
             --fixture-report /tmp/protocol039_preflight/fixture_report.json \
             --implementation-manifest "$SCI_ROOT/implementation_manifest.json" \
-            "\${RESUME_ARGS[@]}"
+            "${RESUME_ARGS[@]}"
           RC=$?
           echo "rc=$RC" >> "$GITHUB_OUTPUT"
           exit 0
@@ -181,8 +181,8 @@ jobs:
         if: always() && steps.science.outcome != 'skipped'
         uses: actions/upload-artifact@v4
         with:
-          name: protocol039-raw-\${{ github.run_id }}
-          path: artifacts/ftmoe_online/protocol_039/runtime/run_\${{ github.run_id }}
+          name: protocol039-raw-${{ github.run_id }}
+          path: artifacts/ftmoe_online/protocol_039/runtime/run_${{ github.run_id }}
           retention-days: 90
           compression-level: 6
           if-no-files-found: error
@@ -198,9 +198,7 @@ jobs:
         if: steps.science.outputs.rc == '0'
         shell: bash
         env:
-          RAW_ARTIFACT_ID: \${{ steps.raw_upload.outputs.artifact-id }}
-          RAW_ARTIFACT_URL: \${{ steps.raw_upload.outputs.artifact-url }}
-          RAW_ARTIFACT_DIGEST: \${{ steps.raw_upload.outputs.artifact-digest }}
+          RAW_ARTIFACT_ID: ${{ steps.raw_upload.outputs.artifact-id }}
         run: |
           set -euo pipefail
           SCI_ROOT="artifacts/ftmoe_online/protocol_039/runtime/run_$GITHUB_RUN_ID"
@@ -233,8 +231,8 @@ jobs:
         if: steps.science.outputs.rc == '0'
         uses: actions/upload-artifact@v4
         with:
-          name: protocol039-compact-\${{ github.run_id }}
-          path: artifacts/ftmoe_online/protocol_039/runs/run_\${{ github.run_id }}
+          name: protocol039-compact-${{ github.run_id }}
+          path: artifacts/ftmoe_online/protocol_039/runs/run_${{ github.run_id }}
           retention-days: 90
           compression-level: 6
           if-no-files-found: error
