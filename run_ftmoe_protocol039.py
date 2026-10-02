@@ -299,6 +299,7 @@ class Machine:
         self.first_birth_prediction = None
         self.first_sleep_prediction = None
         self.first_wake_prediction = None
+        self.pending_transition = None
 
         n = int(src["n"])
         self.out = alloc_outputs(n)
@@ -529,112 +530,120 @@ class Machine:
         self.wake_checks.append(row)
         return row
 
-    def _apply_birth(self, t):
-        if not self.forced_events and int(t) != 351:
-            raise AssertionError("Protocol039 real birth occurred at unexpected time")
-        self._checkpoint("pre_birth_t%d" % t, named=True)
-        self.expert = p37.make_expert()
-        self.optimizer = p37.make_optimizer(self.expert)
-        self.version = 0
-        if any(torch.count_nonzero(q).item() for q in self.expert.parameters()):
-            raise AssertionError("birth expert not zero")
-        self.state = ACTIVE_BEFORE_SLEEP
-        self.birth_t = int(t)
-        self.first_birth_prediction = int(t) + 1
-        self.lifecycle_events.append({
-            "event": "birth", "at_interval": int(t), "first_affected_prediction": int(t)+1,
-            "expert_hash_before_update": self.model_hash(), "optimizer_hash_before_update": self.opt_hash(),
-            "optimizer_step_before_update": optimizer_step_value(self.optimizer),
-        })
-        self._checkpoint("post_birth_t%d" % t, named=True)
+    def _begin_transition(self, kind, t):
+        if self.pending_transition is not None:
+            raise AssertionError("nested pending transition")
+        self.pending_transition = str(kind)
+        self.substep = "transition_pending"
+        self._checkpoint("pre_%s_t%d" % (kind, t), named=True)
+        self._finish_pending_transition(t)
 
-    def _apply_sleep(self, t):
-        self._checkpoint("pre_sleep_t%d" % t, named=True)
-        if self.expert is None or self.optimizer is None:
-            raise AssertionError("sleep without expert")
-        self.sleep_expert_hash = self.model_hash()
-        self.sleep_optimizer_hash = self.opt_hash()
-        self.sleep_optimizer_step = optimizer_step_value(self.optimizer)
-        self.sleep_snapshot = {
-            "expert": copy.deepcopy(self.expert.state_dict()),
-            "optimizer": copy.deepcopy(self.optimizer.state_dict()),
-            "expert_hash": self.sleep_expert_hash,
-            "optimizer_hash": self.sleep_optimizer_hash,
-            "optimizer_step": self.sleep_optimizer_step,
-        }
-        self.state = SLEEPING
-        self.sleep_t = int(t)
-        self.first_sleep_prediction = int(t) + 1
-        self.lifecycle_events.append({
-            "event": "sleep", "at_interval": int(t), "first_affected_prediction": int(t)+1,
-            "expert_hash": self.sleep_expert_hash, "optimizer_hash": self.sleep_optimizer_hash,
-            "optimizer_step": self.sleep_optimizer_step,
-        })
-        self._checkpoint("post_sleep_t%d" % t, named=True)
-
-    def _apply_wake(self, t):
-        self._checkpoint("pre_wake_t%d" % t, named=True)
-        if self.sleep_snapshot is None or self.expert is None or self.optimizer is None:
-            raise AssertionError("wake without preserved sleeping state")
-        self.wake_pre_expert_hash = self.model_hash()
-        self.wake_pre_optimizer_hash = self.opt_hash()
-        self.wake_pre_optimizer_step = optimizer_step_value(self.optimizer)
-        if self.wake_pre_expert_hash != self.sleep_snapshot["expert_hash"]:
-            raise AssertionError("sleeping expert weights changed")
-        if self.wake_pre_optimizer_hash != self.sleep_snapshot["optimizer_hash"]:
-            raise AssertionError("sleeping optimizer changed")
-        if self.wake_pre_optimizer_step != self.sleep_snapshot["optimizer_step"]:
-            raise AssertionError("sleeping Adam step changed")
-        self.expert.load_state_dict(copy.deepcopy(self.sleep_snapshot["expert"]))
-        self.optimizer.load_state_dict(copy.deepcopy(self.sleep_snapshot["optimizer"]))
-        if self.model_hash() != self.sleep_snapshot["expert_hash"] or self.opt_hash() != self.sleep_snapshot["optimizer_hash"]:
-            raise AssertionError("wake restore not exact")
-        self.state = ACTIVE_FINAL
-        self.wake_t = int(t)
-        self.first_wake_prediction = int(t) + 1
-        self.lifecycle_events.append({
-            "event": "wake", "at_interval": int(t), "first_affected_prediction": int(t)+1,
-            "expert_hash_before_update": self.model_hash(), "optimizer_hash_before_update": self.opt_hash(),
-            "optimizer_step_before_update": optimizer_step_value(self.optimizer),
-        })
-        self._checkpoint("post_wake_t%d" % t, named=True)
+    def _finish_pending_transition(self, t):
+        kind = self.pending_transition
+        if kind not in ("birth", "sleep", "wake"):
+            raise AssertionError("invalid pending transition")
+        if kind == "birth":
+            if not self.forced_events and int(t) != 351:
+                raise AssertionError("Protocol039 real birth occurred at unexpected time")
+            self.expert = p37.make_expert()
+            self.optimizer = p37.make_optimizer(self.expert)
+            self.version = 0
+            if any(torch.count_nonzero(q).item() for q in self.expert.parameters()):
+                raise AssertionError("birth expert not zero")
+            self.state = ACTIVE_BEFORE_SLEEP
+            self.birth_t = int(t)
+            self.first_birth_prediction = int(t) + 1
+            self.lifecycle_events.append({
+                "event": "birth", "at_interval": int(t), "first_affected_prediction": int(t)+1,
+                "expert_hash_before_update": self.model_hash(), "optimizer_hash_before_update": self.opt_hash(),
+                "optimizer_step_before_update": optimizer_step_value(self.optimizer),
+            })
+        elif kind == "sleep":
+            if self.expert is None or self.optimizer is None:
+                raise AssertionError("sleep without expert")
+            self.sleep_expert_hash = self.model_hash()
+            self.sleep_optimizer_hash = self.opt_hash()
+            self.sleep_optimizer_step = optimizer_step_value(self.optimizer)
+            self.sleep_snapshot = {
+                "expert": copy.deepcopy(self.expert.state_dict()),
+                "optimizer": copy.deepcopy(self.optimizer.state_dict()),
+                "expert_hash": self.sleep_expert_hash,
+                "optimizer_hash": self.sleep_optimizer_hash,
+                "optimizer_step": self.sleep_optimizer_step,
+            }
+            self.state = SLEEPING
+            self.sleep_t = int(t)
+            self.first_sleep_prediction = int(t) + 1
+            self.lifecycle_events.append({
+                "event": "sleep", "at_interval": int(t), "first_affected_prediction": int(t)+1,
+                "expert_hash": self.sleep_expert_hash, "optimizer_hash": self.sleep_optimizer_hash,
+                "optimizer_step": self.sleep_optimizer_step,
+            })
+        else:
+            if self.sleep_snapshot is None or self.expert is None or self.optimizer is None:
+                raise AssertionError("wake without preserved sleeping state")
+            self.wake_pre_expert_hash = self.model_hash()
+            self.wake_pre_optimizer_hash = self.opt_hash()
+            self.wake_pre_optimizer_step = optimizer_step_value(self.optimizer)
+            if self.wake_pre_expert_hash != self.sleep_snapshot["expert_hash"]:
+                raise AssertionError("sleeping expert weights changed")
+            if self.wake_pre_optimizer_hash != self.sleep_snapshot["optimizer_hash"]:
+                raise AssertionError("sleeping optimizer changed")
+            if self.wake_pre_optimizer_step != self.sleep_snapshot["optimizer_step"]:
+                raise AssertionError("sleeping Adam step changed")
+            self.expert.load_state_dict(copy.deepcopy(self.sleep_snapshot["expert"]))
+            self.optimizer.load_state_dict(copy.deepcopy(self.sleep_snapshot["optimizer"]))
+            if self.model_hash() != self.sleep_snapshot["expert_hash"] or self.opt_hash() != self.sleep_snapshot["optimizer_hash"]:
+                raise AssertionError("wake restore not exact")
+            self.state = ACTIVE_FINAL
+            self.wake_t = int(t)
+            self.first_wake_prediction = int(t) + 1
+            self.lifecycle_events.append({
+                "event": "wake", "at_interval": int(t), "first_affected_prediction": int(t)+1,
+                "expert_hash_before_update": self.model_hash(), "optimizer_hash_before_update": self.opt_hash(),
+                "optimizer_step_before_update": optimizer_step_value(self.optimizer),
+            })
+        self.pending_transition = None
+        self.substep = "after_transition"
+        self._checkpoint("post_%s_t%d" % (kind, t), named=True)
 
     def _transition(self, t):
         if not self._due(t) or self.state == ACTIVE_FINAL:
+            self.substep = "after_transition"
             return
         t0 = time.process_time()
         self.lifecycle_check_calls += 1
-        before_events = len(self.lifecycle_events)
         if self.state == ABSENT:
             row = self._birth_check(t)
             if row and row["streak_after"] >= 2:
-                self._apply_birth(t)
                 row["state_change"] = "birth"
+                self.state_check_cpu_seconds += time.process_time() - t0
+                self._begin_transition("birth", t)
+                return
             elif row:
                 row["state_change"] = "none"
-            # real source must reproduce registered t351 birth exactly.
             if not self.forced_events and int(t) == 351 and self.birth_t != 351:
                 raise AssertionError("Protocol039 birth did not reproduce expected t351")
-            if not self.forced_events and self.birth_t is not None and self.birth_t != 351:
-                raise AssertionError("Protocol039 birth occurred at unexpected time")
         elif self.state == ACTIVE_BEFORE_SLEEP:
             row = self._sleep_check(t)
             if row and row["streak_after"] >= 3:
-                self._apply_sleep(t)
                 row["state_change"] = "sleep"
+                self.state_check_cpu_seconds += time.process_time() - t0
+                self._begin_transition("sleep", t)
+                return
             elif row:
                 row["state_change"] = "none"
         elif self.state == SLEEPING:
             row = self._wake_check(t)
             if row and row["streak_after"] >= 2:
-                self._apply_wake(t)
                 row["state_change"] = "wake"
+                self.state_check_cpu_seconds += time.process_time() - t0
+                self._begin_transition("wake", t)
+                return
             elif row:
                 row["state_change"] = "none"
-        if len(self.lifecycle_events) - before_events > 1:
-            raise AssertionError("more than one state transition at a cursor")
         self.state_check_cpu_seconds += time.process_time() - t0
-        # persist state after every real lifecycle check, even when no transition.
+        self.substep = "after_transition"
         self._checkpoint("after_check_t%d" % t, named=False)
 
     def _update(self, t):
@@ -679,8 +688,13 @@ class Machine:
             if self.substep == "after_predict":
                 self._settle(t); self.substep = "after_settle"
                 if pause == (t, self.substep): return
+            if self.substep == "transition_pending":
+                self._finish_pending_transition(t)
+                if pause == (t, self.substep): return
             if self.substep == "after_settle":
-                self._transition(t); self.substep = "after_transition"
+                self._transition(t)
+                if self.substep != "after_transition":
+                    raise AssertionError("transition did not settle to after_transition")
                 if pause == (t, self.substep): return
             if self.substep == "after_transition":
                 self._update(t); self.substep = "after_update"
@@ -719,6 +733,7 @@ def machine_payload(m, ledger_snapshot=None):
     return {
         "protocol": "039", "plan_sha256": PLAN_SHA, "source_id": m.src["source_id"],
         "identity": m.identity, "cursor": int(m.cursor), "substep": m.substep, "state": m.state,
+        "pending_transition": m.pending_transition,
         "expert_exists": m.expert is not None,
         "expert_state": None if m.expert is None else m.expert.state_dict(),
         "optimizer_state": None if m.optimizer is None else m.optimizer.state_dict(),
@@ -778,7 +793,12 @@ def save_checkpoint(m, checkpoint_dir, reason, ledger_path=None, named=False):
 
 def restore_checkpoint(path, src, work_dir, identity=None, forced_events=None, allow_gradient=True):
     path = Path(path)
-    meta_path = path.with_suffix(".json") if path.name != "latest.pt" else path.with_name("latest.json")
+    if path.name == "latest.pt":
+        meta_path = path.with_name("latest.json")
+    elif Path(str(path) + ".json").exists():
+        meta_path = Path(str(path) + ".json")
+    else:
+        meta_path = path.with_suffix(".json")
     meta = J(meta_path)
     if sha256_file(path) != meta["sha256"]:
         raise AssertionError("checkpoint hash mismatch")
@@ -794,6 +814,7 @@ def restore_checkpoint(path, src, work_dir, identity=None, forced_events=None, a
             raise RuntimeError("ambiguous_step: committed action newer than checkpoint")
     m = Machine(src, work_dir, identity=identity or x.get("identity"), forced_events=forced_events, allow_gradient=allow_gradient)
     m.cursor = int(x["cursor"]); m.substep = x["substep"]; m.state = x["state"]
+    m.pending_transition = x.get("pending_transition")
     if x["expert_exists"]:
         m.expert = p37.make_expert(); m.optimizer = p37.make_optimizer(m.expert)
         m.expert.load_state_dict(x["expert_state"]); m.optimizer.load_state_dict(x["optimizer_state"])
@@ -824,7 +845,7 @@ def _array_exact(a,b):
 
 def machine_equivalent(a, b, n=None):
     n = int(a.src["n"] if n is None else n)
-    if a.cursor != b.cursor or a.substep != b.substep or a.state != b.state:
+    if a.cursor != b.cursor or a.substep != b.substep or a.state != b.state or a.pending_transition != b.pending_transition:
         return False
     scalar = ("version","birth_streak","sleep_streak","wake_streak","birth_t","sleep_t","wake_t",
               "prediction_forward_calls","training_forward_calls","optimizer_step_calls","lifecycle_check_calls","sleep_prediction_count","action_seq")
@@ -931,6 +952,22 @@ def cmd_preflight(a):
         recoveries.append({"pause":[pause[0],pause[1]],"pass":bool(ok and rng_ok),"rng_restore_pass":rng_ok})
         if not (ok and rng_ok): raise AssertionError("synthetic disk recovery mismatch: "+repr(pause))
 
+    # Directly restore every named pre/post lifecycle checkpoint from a clean process work directory.
+    named_transition_recoveries=[]
+    named_cp_dir=out/"synthetic_continuous/checkpoints"
+    for stem in ("pre_birth_t351","post_birth_t351","pre_sleep_t671","post_sleep_t671","pre_wake_t751","post_wake_t751"):
+        cp=named_cp_dir/(stem+".pt")
+        if not cp.exists() or not Path(str(cp)+".json").exists():
+            raise AssertionError("missing named lifecycle checkpoint: "+stem)
+        clean=out/"named_transition_resume"/stem
+        rr,_=restore_checkpoint(cp,syn,clean,forced_events=forced,allow_gradient=True)
+        run_with_checkpoints(rr,clean/"checkpoints",stop_cursor=syn["n"])
+        rr.terminal_settle()
+        ok=machine_equivalent(cont,rr,syn["n"]) and rr.terminal_actual==cont.terminal_actual
+        named_transition_recoveries.append({"checkpoint":stem,"pass":bool(ok)})
+        if not ok:
+            raise AssertionError("named lifecycle checkpoint recovery mismatch: "+stem)
+
     # True future feature/label/B-logit perturbation, rerun through same production entrypoint.
     cutoff=500
     base500=Machine(syn,out/"future_base",forced_events=forced,allow_gradient=True)
@@ -968,6 +1005,7 @@ def cmd_preflight(a):
         "protocol":"039",
         "synthetic_forced_events_only":forced,
         "synthetic_disk_recovery":recoveries,
+        "named_lifecycle_checkpoint_recovery":named_transition_recoveries,
         "future_perturbation":{"cutoff":cutoff,"changed":changed,"truncated_state_unchanged":future_pass},
         "sleeping_actual_prediction_forward_calls":len(sleeping_forward),
         "sleeping_actual_optimizer_steps":len(sleeping_updates),
@@ -977,7 +1015,7 @@ def cmd_preflight(a):
         "real_prefix_pass":real_pass,
         "production_entrypoint_shared":True,
     }
-    report["all_pass"]=bool(all(x["pass"] for x in recoveries) and future_pass and len(sleeping_forward)==0 and len(sleeping_updates)==0 and sleep_hash_pass and all(v==0 for v in terminal.values()) and real_pass)
+    report["all_pass"]=bool(all(x["pass"] for x in recoveries) and all(x["pass"] for x in named_transition_recoveries) and future_pass and len(sleeping_forward)==0 and len(sleeping_updates)==0 and sleep_hash_pass and all(v==0 for v in terminal.values()) and real_pass)
     W(out/"fixture_report.json",report)
     if not report["all_pass"]: raise AssertionError("Protocol039 fixture aggregate failed")
     print(json.dumps(report,indent=2))
