@@ -524,6 +524,8 @@ class Machine:
         return row
 
     def _apply_birth(self, t):
+        if not self.forced_events and int(t) != 351:
+            raise AssertionError("Protocol039 real birth occurred at unexpected time")
         self._checkpoint("pre_birth_t%d" % t, named=True)
         self.expert = p37.make_expert()
         self.optimizer = p37.make_optimizer(self.expert)
@@ -865,11 +867,20 @@ def run_with_checkpoints(machine, checkpoint_dir, ledger_path=None, stop_cursor=
 
 
 def fixture_recovery_case(src, base_work, pause, forced):
-    a = Machine(src, Path(base_work)/("case_%s_%s"%pause), forced_events=forced, allow_gradient=True)
-    run_with_checkpoints(a, Path(base_work)/("case_%s_%s"%pause)/"checkpoints", stop_cursor=src["n"], pause=pause)
-    cp = save_checkpoint(a, Path(base_work)/("case_%s_%s"%pause)/"checkpoints", "fixture_pause", named=True)
-    b, _ = restore_checkpoint(cp, src, Path(base_work)/("case_%s_%s"%pause), forced_events=forced, allow_gradient=True)
-    run_with_checkpoints(b, Path(base_work)/("case_%s_%s"%pause)/"checkpoints", stop_cursor=src["n"])
+    case=Path(base_work)/("case_%s_%s"%pause)
+    a = Machine(src, case, forced_events=forced, allow_gradient=True)
+    run_with_checkpoints(a, case/"checkpoints", stop_cursor=src["n"], pause=pause)
+    cp = save_checkpoint(a, case/"checkpoints", "fixture_pause", named=True)
+    saved=torch.load(cp,map_location="cpu",weights_only=False)
+    expected_rng=recursive_digest({"torch":saved["torch_rng"],"numpy":saved["numpy_rng"],"python":saved["python_rng"]})
+    # Deliberately perturb all global RNGs before disk restore.
+    torch.rand(17); np.random.rand(17); random.random()
+    b, _ = restore_checkpoint(cp, src, case, forced_events=forced, allow_gradient=True)
+    restored_rng=recursive_digest({"torch":torch.get_rng_state(),"numpy":np.random.get_state(),"python":random.getstate()})
+    if restored_rng!=expected_rng:
+        raise AssertionError("checkpoint failed to restore RNG exactly")
+    b._fixture_rng_restore_pass=True
+    run_with_checkpoints(b, case/"checkpoints", stop_cursor=src["n"])
     b.terminal_settle()
     return b
 
@@ -904,8 +915,9 @@ def cmd_preflight(a):
     for pause in pauses:
         rr=fixture_recovery_case(syn,out/"synthetic_resume",pause,forced)
         ok=machine_equivalent(cont,rr,syn["n"]) and rr.terminal_actual==cont.terminal_actual
-        recoveries.append({"pause":[pause[0],pause[1]],"pass":bool(ok)})
-        if not ok: raise AssertionError("synthetic disk recovery mismatch: "+repr(pause))
+        rng_ok=bool(getattr(rr,"_fixture_rng_restore_pass",False))
+        recoveries.append({"pause":[pause[0],pause[1]],"pass":bool(ok and rng_ok),"rng_restore_pass":rng_ok})
+        if not (ok and rng_ok): raise AssertionError("synthetic disk recovery mismatch: "+repr(pause))
 
     # True future feature/label/B-logit perturbation, rerun through same production entrypoint.
     cutoff=500
@@ -1007,7 +1019,11 @@ def science_audit(src,m,fixture,ledger):
         "birth_exact_t351":birth_ok,"pre_sleep_predictions_exact_D_keep":pre_pred,
         "pre_sleep_update_hash_chain_exact_D_keep":pre_hash,"no_sleep_implies_full_exact_D_keep":no_sleep_exact,
         "sleep_prediction_forward_calls_zero":sleep_forward_zero,"sleep_optimizer_steps_zero":sleep_step_zero,
-        "sleep_expert_optimizer_preserved":bool(m.sleep_t is None or (m.sleep_expert_hash==m.wake_pre_expert_hash if m.wake_t is not None else True)),
+        "sleep_expert_optimizer_preserved":bool(
+            m.sleep_t is None or
+            (m.wake_t is not None and m.sleep_expert_hash==m.wake_pre_expert_hash and m.sleep_optimizer_hash==m.wake_pre_optimizer_hash and m.sleep_optimizer_step==m.wake_pre_optimizer_step) or
+            (m.wake_t is None and m.model_hash()==m.sleep_expert_hash and m.opt_hash()==m.sleep_optimizer_hash and optimizer_step_value(m.optimizer)==m.sleep_optimizer_step)
+        ),
         "lifecycle_event_limits_pass":limits,"optimizer_step_budget_pass":step_budget,
         "actual_optimizer_steps":int(m.optimizer_step_calls),"actual_prediction_forward_calls":int(m.prediction_forward_calls),
         "terminal_actual_zero_calls":terminal,"fixture_all_pass":bool(fixture.get("all_pass")),
