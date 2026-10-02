@@ -1,0 +1,20 @@
+{
+  "source_hashes_unchanged": true,
+  "cached_alignment_pass": true,
+  "F_files_loaded": false,
+  "birth_exact_t351": true,
+  "pre_sleep_predictions_exact_D_keep": true,
+  "pre_sleep_update_hash_chain_exact_D_keep": true,
+  "no_sleep_implies_full_exact_D_keep": true,
+  "sleep_prediction_forward_calls_zero": true,
+  "sleep_optimizer_steps_zero": true,
+  "sleep_expert_optimizer_preserved": true,
+  "lifecycle_event_limits_pass": true,
+  "optimizer_step_budget_pass": true,
+  "actual_optimizer_steps": 311,
+  "actual_prediction_forward_calls": 4960,
+  "terminal_actual_zero_calls": true,
+  "fixture_all_pass": true,
+  "ledger_zero_budget_fields_pass": true,
+  "all_pass": true
+}

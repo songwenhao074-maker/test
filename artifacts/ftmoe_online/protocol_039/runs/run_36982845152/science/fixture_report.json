@@ -1,0 +1,108 @@
+{
+  "protocol": "039",
+  "synthetic_forced_events_only": {
+    "351": "birth",
+    "671": "sleep",
+    "751": "wake"
+  },
+  "synthetic_disk_recovery": [
+    {
+      "pause": [
+        351,
+        "after_settle"
+      ],
+      "pass": true,
+      "rng_restore_pass": true
+    },
+    {
+      "pause": [
+        351,
+        "after_transition"
+      ],
+      "pass": true,
+      "rng_restore_pass": true
+    },
+    {
+      "pause": [
+        671,
+        "after_settle"
+      ],
+      "pass": true,
+      "rng_restore_pass": true
+    },
+    {
+      "pause": [
+        671,
+        "after_transition"
+      ],
+      "pass": true,
+      "rng_restore_pass": true
+    },
+    {
+      "pause": [
+        751,
+        "after_transition"
+      ],
+      "pass": true,
+      "rng_restore_pass": true
+    },
+    {
+      "pause": [
+        783,
+        "after_update"
+      ],
+      "pass": true,
+      "rng_restore_pass": true
+    }
+  ],
+  "named_lifecycle_checkpoint_recovery": [
+    {
+      "checkpoint": "pre_birth_t351",
+      "pass": true
+    },
+    {
+      "checkpoint": "post_birth_t351",
+      "pass": true
+    },
+    {
+      "checkpoint": "pre_sleep_t671",
+      "pass": true
+    },
+    {
+      "checkpoint": "post_sleep_t671",
+      "pass": true
+    },
+    {
+      "checkpoint": "pre_wake_t751",
+      "pass": true
+    },
+    {
+      "checkpoint": "post_wake_t751",
+      "pass": true
+    }
+  ],
+  "future_perturbation": {
+    "cutoff": 500,
+    "changed": {
+      "feature_values": 642400,
+      "label_values": 8800,
+      "logit_values": 8800
+    },
+    "truncated_state_unchanged": true
+  },
+  "sleeping_actual_prediction_forward_calls": 0,
+  "sleeping_actual_optimizer_steps": 0,
+  "sleep_preserved_expert_optimizer_hash": true,
+  "terminal_actual_counter_deltas": {
+    "forward_delta": 0,
+    "steps_delta": 0,
+    "events_delta": 0,
+    "checks_delta": 0
+  },
+  "real_engineering_prefixes": 1,
+  "real_engineering_prefix_steps_max": 256,
+  "real_engineering_gradient_steps": 0,
+  "real_prefix_pass": true,
+  "production_entrypoint_shared": true,
+  "all_pass": true
+}

@@ -1,0 +1,14 @@
+{
+  "protocol": "039",
+  "run_id": "36982845152",
+  "result_label": "progress_to_next_step",
+  "primary_D_over_C_signal": true,
+  "management_preserved_signal": true,
+  "cycle_resource_signal": true,
+  "progress_to_next_step_signal": true,
+  "validity_all_pass": true,
+  "failure_reasons": [],
+  "publication_status": "pending_until_main_sync",
+  "automatic_followup_training": false,
+  "stop_after_registered_budget": true
+}

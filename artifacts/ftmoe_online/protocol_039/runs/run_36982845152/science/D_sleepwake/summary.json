@@ -1,0 +1,27 @@
+{
+  "protocol": "039",
+  "arm": "D_sleepwake",
+  "completed": true,
+  "birth_t": 351,
+  "sleep_t": 1599,
+  "wake_t": 2255,
+  "cycle_status": "cycle_observed",
+  "prediction_forward_calls": 4960,
+  "training_forward_calls": 311,
+  "optimizer_steps": 311,
+  "sleep_predictions": 656,
+  "lifecycle_check_calls": 141,
+  "state_check_cpu_seconds": 0.014461533999998277,
+  "prediction_forward_seconds": 1.0032646749994854,
+  "update_seconds": 0.3748928799996918,
+  "resident_parameter_interval_integral": 415584,
+  "final_expert_hash": "38698ac864839dce694e21ee5578941f4b3dd78e34775ed8d112afc3579d099e",
+  "final_optimizer_hash": "3d0700eb2f3b7b30d1072412e97a0bb9da59b1308cbf979a22885fabb489b2b9",
+  "terminal_actual": {
+    "forward_delta": 0,
+    "steps_delta": 0,
+    "events_delta": 0,
+    "checks_delta": 0
+  },
+  "prediction_sha256": "bc387d13721ed2e759a205ed3b4f6fa884c1ca105068a79a340148e1f5e96512"
+}

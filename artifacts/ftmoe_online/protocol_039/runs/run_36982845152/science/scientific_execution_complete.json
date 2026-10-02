@@ -1,0 +1,8 @@
+{
+  "protocol": "039",
+  "run_id": "36982845152",
+  "completed": true,
+  "training_sequences_completed": 1,
+  "optimizer_steps": 311,
+  "audit_all_pass": true
+}

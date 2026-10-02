@@ -1,0 +1,11 @@
+{
+  "protocol": "039",
+  "run_id": "36982845152",
+  "artifact_id": 11216467452,
+  "artifact_name": "protocol039-raw-36982845152",
+  "size_in_bytes": 28858386,
+  "digest": "sha256:03a25b90b28f09f3dab3f1704a3d52053b0750f3616f3c0ed03dbda374c2ae0a",
+  "expires_at": "2026-12-31T08:13:40Z",
+  "archive_download_url": "https://api.github.com/repos/songwenhao074-maker/test/actions/artifacts/11216467452/zip",
+  "raw_manifest_file_count": 65
+}

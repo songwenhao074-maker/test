@@ -1,0 +1,29 @@
+{
+  "protocol": "039",
+  "events": [
+    {
+      "event": "birth",
+      "at_interval": 351,
+      "first_affected_prediction": 352,
+      "expert_hash_before_update": "15878c9012c5667ff7c51f7098b333043e6d42f5df6d1bcac379b9d86a26017c",
+      "optimizer_hash_before_update": "48e60491ba79769a7ef420a44fd1fee40241bb9512e16ac6a187ee8a45a1ed40",
+      "optimizer_step_before_update": 0
+    },
+    {
+      "event": "sleep",
+      "at_interval": 1599,
+      "first_affected_prediction": 1600,
+      "expert_hash": "ff9fb2ec0066f44d1d39ce97ceb94cb7806859b1ede5d59aa51a54ae5e1ef8f0",
+      "optimizer_hash": "28c96a3d7954d648d8b9e6301ec60580e619eae998071e384271761ee1c4bb05",
+      "optimizer_step": 78
+    },
+    {
+      "event": "wake",
+      "at_interval": 2255,
+      "first_affected_prediction": 2256,
+      "expert_hash_before_update": "ff9fb2ec0066f44d1d39ce97ceb94cb7806859b1ede5d59aa51a54ae5e1ef8f0",
+      "optimizer_hash_before_update": "28c96a3d7954d648d8b9e6301ec60580e619eae998071e384271761ee1c4bb05",
+      "optimizer_step_before_update": 78
+    }
+  ]
+}

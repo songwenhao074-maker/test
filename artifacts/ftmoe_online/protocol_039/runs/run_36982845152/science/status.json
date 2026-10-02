@@ -1,0 +1,15 @@
+{
+  "protocol": "039",
+  "run_id": "36982845152",
+  "scientific_status": "completed",
+  "publication_status": "pending_until_main_sync",
+  "training_sequences_registered": 1,
+  "training_sequences_completed": 1,
+  "new_streams": 0,
+  "birth_t": 351,
+  "sleep_t": 1599,
+  "wake_t": 2255,
+  "validity_all_pass": true,
+  "automatic_followup_training": false,
+  "stop_after_registered_budget": true
+}

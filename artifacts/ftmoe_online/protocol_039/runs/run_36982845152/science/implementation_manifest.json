@@ -1,0 +1,61 @@
+{
+  "protocol": "039",
+  "run_id": "36982845152",
+  "checkout_sha": "600ebb0a1691c72fe7f451bae2c8e8357ad4add4",
+  "plan_sha256": "2182aa9c08a2067ea8abb89b70555a8174fc9a2809d0655c59effa4174cd9811",
+  "workflow_sha256": "2e4a9cc9f379c0498e1b76e5e2875fde42d17853d8cfa3e3fa4c3ac2ed9fc3db",
+  "run_script_sha256": "1336e663abd9a8fd72c7008ed960e1ef33bcdba400dce36726a97904fbf4d5ab",
+  "analysis_script_sha256": "c3d9f081a3d311e8515ba5c768f79808fd697d33df3778ab86beb23cc21cac48",
+  "kernel_reference_commit": "7440a3973f97599ea2ad4de45d5bacaaf8b517c8",
+  "kernel_files": {
+    "run_ftmoe_protocol037.py": "541395fd5ec9f69007ef74b49a5270c472cb6785416022d759b66660b09fe747",
+    "analyze_ftmoe_protocol037.py": "4b484ccd1403d8b408b4c421848740efcd8acd25fbb5561027a95ed3ba3e7c81",
+    "protocol035_common.py": "5c99c7fd2b06cab274b86054d492fbca44176c48e7ac5ad0e6e286876c4ac94d"
+  },
+  "files": {
+    "run_ftmoe_protocol039.py": {
+      "sha256": "1336e663abd9a8fd72c7008ed960e1ef33bcdba400dce36726a97904fbf4d5ab",
+      "size": 62799
+    },
+    "analyze_ftmoe_protocol039.py": {
+      "sha256": "c3d9f081a3d311e8515ba5c768f79808fd697d33df3778ab86beb23cc21cac48",
+      "size": 13659
+    },
+    "maintenance/protocol039_finalize.py": {
+      "sha256": "b5a06f3307b38feefce6ec7f1c1309a7ac13a4fa59b4606f37caec9259795c67",
+      "size": 5702
+    },
+    "maintenance/materialize_protocol039_sources.py": {
+      "sha256": "52972d7049c80fed711feea40789a00856a5f1f5c20351a466bc01680244cf8d",
+      "size": 1883
+    },
+    "artifacts/ftmoe_online/protocol_039/plan.json": {
+      "sha256": "2182aa9c08a2067ea8abb89b70555a8174fc9a2809d0655c59effa4174cd9811",
+      "size": 7669
+    },
+    "maintenance/validate_protocol039_plan.py": {
+      "sha256": "f2fffdf8b596f5ae805ce98f6cc4106db91e84e3d7c46f2e0dbd9663f2bd3a67",
+      "size": 2063
+    },
+    ".github/workflows/protocol039-d-vs-c-sleep-wake.yml": {
+      "sha256": "2e4a9cc9f379c0498e1b76e5e2875fde42d17853d8cfa3e3fa4c3ac2ed9fc3db",
+      "size": 14780
+    },
+    "run_ftmoe_protocol037.py": {
+      "sha256": "541395fd5ec9f69007ef74b49a5270c472cb6785416022d759b66660b09fe747",
+      "size": 49440
+    },
+    "analyze_ftmoe_protocol037.py": {
+      "sha256": "4b484ccd1403d8b408b4c421848740efcd8acd25fbb5561027a95ed3ba3e7c81",
+      "size": 17024
+    },
+    "protocol035_common.py": {
+      "sha256": "5c99c7fd2b06cab274b86054d492fbca44176c48e7ac5ad0e6e286876c4ac94d",
+      "size": 3388
+    }
+  },
+  "python": "3.8.18 (default, Dec 12 2024, 19:15:30) \n[GCC 13.2.0]",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.34",
+  "pip_freeze_sha256": "8adb485eb88b140caee0aa4bae9718f6b8f910899d8f4c747940826fa9e8e50e",
+  "science_identity_not_preflight_identity": true
+}
