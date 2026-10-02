@@ -2,6 +2,9 @@
 from __future__ import annotations
 import argparse, json, platform, shutil, sys
 from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0,str(ROOT))
 from protocol035_common import dump_json, sha256_file
 
 def J(p): return json.loads(Path(p).read_text(encoding="utf8"))
