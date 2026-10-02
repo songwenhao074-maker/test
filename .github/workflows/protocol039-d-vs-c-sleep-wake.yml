@@ -1,0 +1,288 @@
+name: Protocol-039 D vs C sleep wake
+
+on:
+  workflow_dispatch:
+    inputs:
+      execution_ref:
+        description: Frozen Protocol039 execution branch
+        required: true
+        type: string
+      expected_execution_sha:
+        description: Exact frozen checkout SHA
+        required: true
+        type: string
+      resume_artifact_id:
+        description: Optional prior Protocol039 raw artifact ID for exact resume
+        required: false
+        default: ""
+        type: string
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: protocol039-science
+  cancel-in-progress: false
+
+jobs:
+  protocol039:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      EXECUTION_REF: ${{ inputs.execution_ref }}
+      EXPECTED_EXECUTION_SHA: ${{ inputs.expected_execution_sha }}
+      RESUME_ARTIFACT_ID: ${{ inputs.resume_artifact_id }}
+      GH_TOKEN: ${{ github.token }}
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      PYTHONHASHSEED: "1"
+
+    steps:
+      - name: Checkout exact frozen Protocol039 execution SHA
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.expected_execution_sha }}
+          fetch-depth: 0
+
+      - name: Enforce checkout, registration, kernel and no duplicate science launch
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_EXECUTION_SHA"
+          git fetch origin "$EXECUTION_REF" --depth=1
+          test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_EXECUTION_SHA"
+          python maintenance/validate_protocol039_plan.py
+          test "$(sha256sum artifacts/ftmoe_online/protocol_039/plan.json | awk '{print $1}')" = "2182aa9c08a2067ea8abb89b70555a8174fc9a2809d0655c59effa4174cd9811"
+          test "$(git hash-object run_ftmoe_protocol037.py)" = "1d18b5b5da8133d80e7d6f2e561840ceeec27d9e"
+          test "$(git hash-object analyze_ftmoe_protocol037.py)" = "4328ad21e11b01a0bba22cf3c113d12b9ef0d98d"
+          test "$(git hash-object protocol035_common.py)" = "861e84692a2fe9a80c8952e837f78325b66f7ae3"
+          python -m py_compile run_ftmoe_protocol039.py analyze_ftmoe_protocol039.py maintenance/materialize_protocol039_sources.py maintenance/protocol039_finalize.py
+          if [ -z "$RESUME_ARTIFACT_ID" ]; then
+            COUNT="$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?per_page=100" --jq '[.artifacts[] | select(.expired==false and (.name|startswith("protocol039-raw-")))] | length')"
+            test "$COUNT" = "0" || { echo "existing Protocol039 raw artifact found; refuse duplicate fresh science launch"; exit 1; }
+          fi
+
+      - name: Setup Python 3.8
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.8"
+
+      - name: Install frozen CPU dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.4.1
+          python -m pip install numpy==1.24.4 psutil==5.9.8
+          python -m pip freeze > /tmp/protocol039_pip_freeze.txt
+
+      - name: Download and verify exact Protocol036 and Protocol037 source artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/p036_zip /tmp/p037_zip /tmp/source036 /tmp/source037
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11147931152/zip" -o /tmp/p036.zip
+          echo "040bacac8f23659f56599b71d6d6706b62a544e44161c7c42fb5af73650f56c0  /tmp/p036.zip" | sha256sum -c -
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11167124178/zip" -o /tmp/p037.zip
+          echo "498ead6571ef34e56702fd23f8cc57ac30afe92e99a8ffbfbd85a0b92e413c77  /tmp/p037.zip" | sha256sum -c -
+          unzip -q /tmp/p036.zip -d /tmp/p036_zip
+          unzip -q /tmp/p037.zip -d /tmp/p037_zip
+          python maintenance/materialize_protocol039_sources.py \
+            --extracted036 /tmp/p036_zip --extracted037 /tmp/p037_zip \
+            --out036 /tmp/source036 --out037 /tmp/source037 \
+            --report /tmp/protocol039_materialization.json
+
+      - name: Run production-entrypoint fixtures and one bounded real prefix
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/protocol039_preflight
+          python run_ftmoe_protocol039.py preflight --source036 /tmp/source036 --source037 /tmp/source037 --out-dir /tmp/protocol039_preflight
+          python - <<'PY'
+          import json
+          p=json.load(open('/tmp/protocol039_preflight/fixture_report.json'))
+          assert p['all_pass'] is True
+          assert p['real_engineering_prefixes']==1
+          assert p['real_engineering_prefix_steps_max']<=256
+          assert p['real_engineering_gradient_steps']==0
+          PY
+
+      - name: Record fresh science provenance before sequence start
+        shell: bash
+        run: |
+          set -euo pipefail
+          SCI_ROOT="artifacts/ftmoe_online/protocol_039/runtime/run_$GITHUB_RUN_ID"
+          mkdir -p "$SCI_ROOT"
+          python maintenance/protocol039_finalize.py provenance \
+            --out "$SCI_ROOT/implementation_manifest.json" \
+            --run-id "$GITHUB_RUN_ID" --checkout-sha "$(git rev-parse HEAD)" \
+            --run-script run_ftmoe_protocol039.py --analysis-script analyze_ftmoe_protocol039.py \
+            --finalize-script maintenance/protocol039_finalize.py --materializer maintenance/materialize_protocol039_sources.py \
+            --plan artifacts/ftmoe_online/protocol_039/plan.json --validator maintenance/validate_protocol039_plan.py \
+            --workflow .github/workflows/protocol039-d-vs-c-sleep-wake.yml \
+            --kernel-run run_ftmoe_protocol037.py --kernel-analysis analyze_ftmoe_protocol037.py \
+            --kernel-common protocol035_common.py --pip-freeze /tmp/protocol039_pip_freeze.txt
+          cp /tmp/protocol039_preflight/fixture_report.json "$SCI_ROOT/fixture_report.pre_science.json"
+          cp /tmp/protocol039_materialization.json "$SCI_ROOT/source_materialization.json"
+
+      - name: Restore exact prior Protocol039 state only when explicitly requested
+        if: inputs.resume_artifact_id != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          SCI_ROOT="artifacts/ftmoe_online/protocol_039/runtime/run_$GITHUB_RUN_ID"
+          rm -rf /tmp/p039_resume
+          mkdir -p /tmp/p039_resume
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$RESUME_ARTIFACT_ID/zip" -o /tmp/p039_resume.zip
+          unzip -q /tmp/p039_resume.zip -d /tmp/p039_resume
+          cp "$SCI_ROOT/implementation_manifest.json" /tmp/protocol039_current_implementation_manifest.json
+          cp -a /tmp/p039_resume/. "$SCI_ROOT"/
+          cp /tmp/protocol039_current_implementation_manifest.json "$SCI_ROOT/implementation_manifest.json"
+          test -f "$SCI_ROOT/checkpoints/latest.pt"
+          test -f "$SCI_ROOT/checkpoints/latest.json"
+          test -f "$SCI_ROOT/budget_ledger.json"
+
+      - name: Execute the single registered D_sleepwake scientific sequence
+        id: science
+        shell: bash
+        run: |
+          set +e
+          SCI_ROOT="artifacts/ftmoe_online/protocol_039/runtime/run_$GITHUB_RUN_ID"
+          RESUME_ARGS=()
+          if [ -n "$RESUME_ARTIFACT_ID" ]; then
+            RESUME_ARGS=(--resume-checkpoint "$SCI_ROOT/checkpoints/latest.pt")
+          fi
+          python run_ftmoe_protocol039.py science \
+            --source036 /tmp/source036 --source037 /tmp/source037 \
+            --out-dir "$SCI_ROOT" --run-id "$GITHUB_RUN_ID" \
+            --fixture-report /tmp/protocol039_preflight/fixture_report.json \
+            --implementation-manifest "$SCI_ROOT/implementation_manifest.json" \
+            "${RESUME_ARGS[@]}"
+          RC=$?
+          echo "rc=$RC" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Seal immutable raw scientific manifest
+        if: always() && steps.science.outcome != 'skipped'
+        shell: bash
+        run: |
+          set -euo pipefail
+          SCI_ROOT="artifacts/ftmoe_online/protocol_039/runtime/run_$GITHUB_RUN_ID"
+          test -d "$SCI_ROOT"
+          python maintenance/protocol039_finalize.py manifest --root "$SCI_ROOT" --out "$SCI_ROOT/scientific_raw_manifest.json"
+
+      - name: Upload raw Protocol039 scientific artifact before analysis
+        id: raw_upload
+        if: always() && steps.science.outcome != 'skipped'
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol039-raw-${{ github.run_id }}
+          path: artifacts/ftmoe_online/protocol_039/runtime/run_${{ github.run_id }}
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
+
+      - name: Stop after preserved interrupted evidence
+        if: steps.science.outputs.rc != '0'
+        shell: bash
+        run: |
+          echo "Protocol039 science interrupted; raw evidence uploaded. No analysis or automatic rerun."
+          exit 1
+
+      - name: Analyze only the sealed registered comparisons
+        if: steps.science.outputs.rc == '0'
+        shell: bash
+        env:
+          RAW_ARTIFACT_ID: ${{ steps.raw_upload.outputs.artifact-id }}
+        run: |
+          set -euo pipefail
+          SCI_ROOT="artifacts/ftmoe_online/protocol_039/runtime/run_$GITHUB_RUN_ID"
+          ANALYSIS_ROOT="/tmp/protocol039_analysis"
+          rm -rf "$ANALYSIS_ROOT"; mkdir -p "$ANALYSIS_ROOT"
+          python analyze_ftmoe_protocol039.py \
+            --science-root "$SCI_ROOT" --manifest /tmp/source036/inputs/seed3601/manifest.json \
+            --output-dir "$ANALYSIS_ROOT" --docs-output docs/PROTOCOL039_RESULTS.md --run-id "$GITHUB_RUN_ID"
+          cp docs/PROTOCOL039_RESULTS.md "$ANALYSIS_ROOT/PROTOCOL039_RESULTS.md"
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$RAW_ARTIFACT_ID" > /tmp/protocol039_raw_artifact_info.json
+          python maintenance/protocol039_finalize.py artifact-index \
+            --info /tmp/protocol039_raw_artifact_info.json --raw-manifest "$SCI_ROOT/scientific_raw_manifest.json" \
+            --out "$ANALYSIS_ROOT/artifact_index.json" --run-id "$GITHUB_RUN_ID"
+          python maintenance/protocol039_finalize.py publication-status \
+            --out "$ANALYSIS_ROOT/publication_status.json" --run-id "$GITHUB_RUN_ID" --status pending_until_main_sync
+          python maintenance/protocol039_finalize.py manifest --root "$ANALYSIS_ROOT" --out "$ANALYSIS_ROOT/analysis_manifest.json"
+
+      - name: Build compact handoff after raw artifact receipt
+        if: steps.science.outputs.rc == '0'
+        shell: bash
+        run: |
+          set -euo pipefail
+          SCI_ROOT="artifacts/ftmoe_online/protocol_039/runtime/run_$GITHUB_RUN_ID"
+          COMPACT="artifacts/ftmoe_online/protocol_039/runs/run_$GITHUB_RUN_ID"
+          rm -rf "$COMPACT"
+          python maintenance/protocol039_finalize.py compact --science "$SCI_ROOT" --analysis /tmp/protocol039_analysis --dst "$COMPACT"
+
+      - name: Upload compact Protocol039 handoff
+        id: compact_upload
+        if: steps.science.outputs.rc == '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol039-compact-${{ github.run_id }}
+          path: artifacts/ftmoe_online/protocol_039/runs/run_${{ github.run_id }}
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
+
+      - name: Write terminal stop pointers
+        if: steps.science.outputs.rc == '0'
+        shell: bash
+        run: |
+          set -euo pipefail
+          STATUS="/tmp/protocol039_analysis/analysis_status.json"
+          LABEL="$(python -c "import json;print(json.load(open('$STATUS'))['result_label'])")"
+          cat > AGENTS.md <<EOF
+          # Active Experiment Directive
+
+          Protocol-039 scientific execution is complete in run $GITHUB_RUN_ID. Result label: $LABEL.
+
+          Read docs/PROTOCOL039_RESULTS.md and artifacts/ftmoe_online/protocol_039/runs/run_$GITHUB_RUN_ID/. Historical033-038 and Protocol039 scientific budgets are closed and immutable.
+
+          Stop after Protocol-039. No threshold tuning, extra seeds, permanent deletion, F research, or automatic next protocol is authorized. A new registered instruction and user handoff are required before further science.
+          EOF
+          cat > NEXT_EXPERIMENT_LATEST.md <<EOF
+          # Protocol-039 已完成，停止等待分析
+
+          Protocol-039 run $GITHUB_RUN_ID 已完成，结果标签 **$LABEL**。
+
+          请先读取 docs/PROTOCOL039_RESULTS.md 与 artifacts/ftmoe_online/protocol_039/runs/run_$GITHUB_RUN_ID/。本轮只有一条 D_sleepwake 新科学序列，C/B/D_keep 未重训，F 研究保持 DEFERRED。
+
+          039 到此停止。不自动调阈值、追加seed、永久删除、恢复F研究或启动下一协议。下一步必须由新的预登记指示与用户执行交接授权。
+          EOF
+          cat > PROJECT_CONTEXT_LATEST.md <<EOF
+          # Project Context Latest
+
+          Latest bounded science is Protocol-039 run $GITHUB_RUN_ID, result label **$LABEL**. Read docs/PROTOCOL039_RESULTS.md and artifacts/ftmoe_online/protocol_039/runs/run_$GITHUB_RUN_ID/.
+
+          Protocol-039 tested one D_sleepwake lifecycle sequence on observed seed3601 with cached C/B/D_keep controls. It did not train or compare F. Historical033-039 budgets are closed.
+
+          No automatic follow-up is authorized. Permanent deletion, new-stream confirmation and deferred F research require separate future registration and user handoff.
+          EOF
+
+      - name: Commit compact results to Protocol039 execution branch
+        if: steps.science.outputs.rc == '0'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PROTOCOL039_RESULTS.md "artifacts/ftmoe_online/protocol_039/runs/run_$GITHUB_RUN_ID" AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md
+          git commit -m "results: Protocol039 D-vs-C sleep/wake [skip ci]"
+          git push origin HEAD:"$EXECUTION_REF"
+
+      - name: Confirm terminal bounded stop
+        if: steps.science.outputs.rc == '0'
+        run: echo "Protocol039 completed. No automatic next protocol will be launched."
