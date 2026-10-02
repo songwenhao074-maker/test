@@ -151,6 +151,11 @@ def load_sources(source036, source037):
     if len(keep_update_by_t) != 352:
         raise AssertionError("cached D_keep update times are not unique")
 
+    historical_cost = {
+        "C_ref": J(source036 / "stage_B/seed3601/C_ref/summary.json"),
+        "D_lin": J(source036 / "stage_B/seed3601/D_lin/summary.json"),
+        "D_keep": J(source037 / "D_birth/summary.json"),
+    }
     return {
         "source036_root": source036,
         "source037_root": source037,
@@ -160,6 +165,7 @@ def load_sources(source036, source037):
         "keep_lifecycle": keep_lifecycle,
         "keep_updates": updates,
         "keep_update_by_t": keep_update_by_t,
+        "historical_cost": historical_cost,
         "hashes036": h36, "hashes037": h37,
         "source_id": "p036_run36831958978+p037_run36871854703_seed3601",
         "n": N,
@@ -815,7 +821,7 @@ def machine_equivalent(a, b, n=None):
     if a.cursor != b.cursor or a.substep != b.substep or a.state != b.state:
         return False
     scalar = ("version","birth_streak","sleep_streak","wake_streak","birth_t","sleep_t","wake_t",
-              "prediction_forward_calls","training_forward_calls","optimizer_step_calls","lifecycle_check_calls","sleep_prediction_count")
+              "prediction_forward_calls","training_forward_calls","optimizer_step_calls","lifecycle_check_calls","sleep_prediction_count","action_seq")
     if any(getattr(a,k) != getattr(b,k) for k in scalar):
         return False
     for k in a.out:
@@ -1093,8 +1099,10 @@ def cmd_science(a):
             "incremental_expert":{"prediction_forward_calls":m.prediction_forward_calls,"training_forward_calls":m.training_forward_calls,"optimizer_steps":m.optimizer_step_calls,
                                   "prediction_forward_seconds":m.prediction_forward_seconds,"update_seconds":m.update_seconds,"sleep_predictions":m.sleep_prediction_count},
             "controller":{"lifecycle_check_calls":m.lifecycle_check_calls,"cpu_seconds":m.state_check_cpu_seconds},
+            "historical_B_components":{"C_ref":src["historical_cost"]["C_ref"],"D_lin":src["historical_cost"]["D_lin"]},
+            "historical_D_keep":src["historical_cost"]["D_keep"],
             "sleep_memory_note":"sleep preserves expert weights and Adam state; no expert-memory deletion is claimed",
-            "deployment_note":"Complete D still includes historical B=C+D_lin path; historical run costs must be reported separately, not summed as a same-run speed benchmark.",
+            "deployment_note":"Complete D includes historical C + D_lin costs plus controller + incremental expert. Historical source-run timing is reported separately and is not summed into a same-run speed benchmark.",
         })
         W(out/"scientific_execution_complete.json",{"protocol":"039","run_id":str(a.run_id),"completed":True,"training_sequences_completed":1,"optimizer_steps":m.optimizer_step_calls,"audit_all_pass":audit["all_pass"]})
         W(out/"status.json",{
