@@ -1,0 +1,147 @@
+{
+  "protocol": "039",
+  "root": "artifacts/ftmoe_online/protocol_039/runs/run_36982845152",
+  "file_count": 28,
+  "files": [
+    {
+      "path": "analysis/PROTOCOL039_RESULTS.md",
+      "sha256": "c950ae013214f82d54d7cb98dde2b072a8fcdd727e9f5c5e164b015b4cf1ece2",
+      "size": 1972
+    },
+    {
+      "path": "analysis/analysis_manifest.json",
+      "sha256": "a46eb0f6023f396e5c8cc880aac41df42effe5b3f219c014980119d18be1724a",
+      "size": 1175
+    },
+    {
+      "path": "analysis/analysis_status.json",
+      "sha256": "06ef9ab738222de71fa2184bbe8548b7f9f82fc23f8047d4cbeebcee1417a24b",
+      "size": 426
+    },
+    {
+      "path": "analysis/artifact_index.json",
+      "sha256": "8f63321c280ed81a6c932638fdf9a743dd300680854fd553c3b74a7651077a3c",
+      "size": 437
+    },
+    {
+      "path": "analysis/comparison.json",
+      "sha256": "d6b2d08d373fa79cffabef0e87b35be4f42ec84cc2dfa998659c9e17eaa43ee0",
+      "size": 154084
+    },
+    {
+      "path": "analysis/cost_profile.json",
+      "sha256": "b55c39a25d4a650dd6b55550483a24d12c5bf831e5cdbc0f509fa5ab0eb19101",
+      "size": 4558
+    },
+    {
+      "path": "analysis/event_diagnostics.json",
+      "sha256": "1b9d13df702d2cd60829febc01c0becc823fc2a9454e2d48d970621ecab6358b",
+      "size": 12102
+    },
+    {
+      "path": "analysis/publication_status.json",
+      "sha256": "1f1331a36e7e6a4423225f5ca758343e01165d4e1b1a83aca335f6c45a267196",
+      "size": 120
+    },
+    {
+      "path": "science/B_ref/summary.json",
+      "sha256": "f1cdab225f66dc07442334ddb9d6f234e91eedc4673b56059021415022d83dd5",
+      "size": 190
+    },
+    {
+      "path": "science/C_ref/summary.json",
+      "sha256": "c4a9516ed1b068ed9c8c0df51b69a84cfc8c61246b5a7e808b908fffe5ae4056",
+      "size": 190
+    },
+    {
+      "path": "science/D_keep/summary.json",
+      "sha256": "b0fab1755f194569881bd0c0d3294b61bf8691d331e2befebeced39d44b51ecd",
+      "size": 191
+    },
+    {
+      "path": "science/D_sleepwake/birth_checks.json",
+      "sha256": "8ff549f53307adaa2cc10c11d0607f8f8423b9907b0009d42c4b81b01bae295e",
+      "size": 1087
+    },
+    {
+      "path": "science/D_sleepwake/forward_log.json",
+      "sha256": "b62d720ec9f8f43498c7fa2501481b7d7e6778b797d1f1eeebf77a2c33834516",
+      "size": 973615
+    },
+    {
+      "path": "science/D_sleepwake/lifecycle_events.json",
+      "sha256": "3eb6d21757fd84b195d62d298350f0772befca471793dddbb7f0062933b138f8",
+      "size": 1061
+    },
+    {
+      "path": "science/D_sleepwake/sleep_checks.json",
+      "sha256": "6b1c82e15a754159452074d1dfbabb0801553849932d15e827f1dcfd0070a313",
+      "size": 34405
+    },
+    {
+      "path": "science/D_sleepwake/summary.json",
+      "sha256": "68cbcd4874cdc01b76ff5e95fbfb8866aded1c026533b1878e94d6d6eea5780d",
+      "size": 903
+    },
+    {
+      "path": "science/D_sleepwake/update_log.json",
+      "sha256": "f771642166041282e1748a3e5b36c991f0365476b8fb953e7ceaee7dae2162d6",
+      "size": 348005
+    },
+    {
+      "path": "science/D_sleepwake/wake_checks.json",
+      "sha256": "146959d01a6cd4e91fc4bdcf5b3d3e92aa0deedabdf13f27b6d7f4492af08e35",
+      "size": 25913
+    },
+    {
+      "path": "science/budget_ledger.json",
+      "sha256": "b00757f96fccf30c2a47e55c7f8151c6afda5dbdc9a5aa0c0ce62c358a41cffb",
+      "size": 1023
+    },
+    {
+      "path": "science/budget_ledger_events.jsonl",
+      "sha256": "a6613e8ba866e0f9fdbe94ab168b306eafa2bf4be4f9998e4bdf4133b2e9322b",
+      "size": 224
+    },
+    {
+      "path": "science/fixture_report.json",
+      "sha256": "ec3d8384393f14ed648b883e08159f1744d0e7269ace14790befee61aef826e7",
+      "size": 2072
+    },
+    {
+      "path": "science/implementation_manifest.json",
+      "sha256": "a803562e2509ce5453a6642a6494835152a79f4c6043f55ef242d8db4ace7a0b",
+      "size": 2711
+    },
+    {
+      "path": "science/run_audit.json",
+      "sha256": "374d7f4585787e48fd835d2ffbee78706226db6eea1840aaf1a390a8bc3b76e2",
+      "size": 680
+    },
+    {
+      "path": "science/science_cost_raw.json",
+      "sha256": "0c202b5aea1bcce7a5f9ee31e7dab82694228d44351b9e93ba64395e090414e7",
+      "size": 3752
+    },
+    {
+      "path": "science/scientific_execution_complete.json",
+      "sha256": "ea9e50e61b304d33ce485aa75bc609a8d5432bafaaa0049696bc2a609d8b8c72",
+      "size": 161
+    },
+    {
+      "path": "science/scientific_raw_manifest.json",
+      "sha256": "fc4bb65f85dd960fec088421b729695e96c04cbcd26e4a8522b75e68aec0b648",
+      "size": 10680
+    },
+    {
+      "path": "science/source_lock.json",
+      "sha256": "ef6c22634bf198006cfe0854a6ab74bfb72c6181fde5245dad4d69ed295750fb",
+      "size": 1083
+    },
+    {
+      "path": "science/status.json",
+      "sha256": "2319a31663fdc7b34b00a7b023afd1aec36a27a48690a7b245364052c0cba181",
+      "size": 397
+    }
+  ]
+}

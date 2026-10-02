@@ -1,0 +1,1112 @@
+{
+  "protocol": "039",
+  "checks": [
+    {
+      "at_interval": 1615,
+      "m": 1613,
+      "recent": [
+        1550,
+        1613
+      ],
+      "previous": [
+        1294,
+        1549
+      ],
+      "sleep_matured_intervals": 14,
+      "all_recent_issued_sleeping": false,
+      "eligible": false,
+      "R": null,
+      "P": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": false,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1631,
+      "m": 1629,
+      "recent": [
+        1566,
+        1629
+      ],
+      "previous": [
+        1310,
+        1565
+      ],
+      "sleep_matured_intervals": 30,
+      "all_recent_issued_sleeping": false,
+      "eligible": false,
+      "R": null,
+      "P": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": false,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1647,
+      "m": 1645,
+      "recent": [
+        1582,
+        1645
+      ],
+      "previous": [
+        1326,
+        1581
+      ],
+      "sleep_matured_intervals": 46,
+      "all_recent_issued_sleeping": false,
+      "eligible": false,
+      "R": null,
+      "P": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": false,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1663,
+      "m": 1661,
+      "recent": [
+        1598,
+        1661
+      ],
+      "previous": [
+        1342,
+        1597
+      ],
+      "sleep_matured_intervals": 62,
+      "all_recent_issued_sleeping": false,
+      "eligible": false,
+      "R": null,
+      "P": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": false,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1679,
+      "m": 1677,
+      "recent": [
+        1614,
+        1677
+      ],
+      "previous": [
+        1358,
+        1613
+      ],
+      "sleep_matured_intervals": 78,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.2761747208436084,
+      "P": 0.4045889555259068,
+      "positive_support": 128,
+      "negative_support": 896,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1695,
+      "m": 1693,
+      "recent": [
+        1630,
+        1693
+      ],
+      "previous": [
+        1374,
+        1629
+      ],
+      "sleep_matured_intervals": 94,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.33308697864886094,
+      "P": 0.3728896182833814,
+      "positive_support": 142,
+      "negative_support": 882,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1711,
+      "m": 1709,
+      "recent": [
+        1646,
+        1709
+      ],
+      "previous": [
+        1390,
+        1645
+      ],
+      "sleep_matured_intervals": 110,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.3260929427050506,
+      "P": 0.35154796768536556,
+      "positive_support": 144,
+      "negative_support": 880,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1727,
+      "m": 1725,
+      "recent": [
+        1662,
+        1725
+      ],
+      "previous": [
+        1406,
+        1661
+      ],
+      "sleep_matured_intervals": 126,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.3149428745080782,
+      "P": 0.3279883259050023,
+      "positive_support": 141,
+      "negative_support": 883,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1743,
+      "m": 1741,
+      "recent": [
+        1678,
+        1741
+      ],
+      "previous": [
+        1422,
+        1677
+      ],
+      "sleep_matured_intervals": 142,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.31364531872446566,
+      "P": 0.29728005292923276,
+      "positive_support": 120,
+      "negative_support": 904,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1759,
+      "m": 1757,
+      "recent": [
+        1694,
+        1757
+      ],
+      "previous": [
+        1438,
+        1693
+      ],
+      "sleep_matured_intervals": 158,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.2613756551582356,
+      "P": 0.28696047575182504,
+      "positive_support": 119,
+      "negative_support": 905,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1775,
+      "m": 1773,
+      "recent": [
+        1710,
+        1773
+      ],
+      "previous": [
+        1454,
+        1709
+      ],
+      "sleep_matured_intervals": 174,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.25443304100252173,
+      "P": 0.26333563331444115,
+      "positive_support": 110,
+      "negative_support": 914,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1791,
+      "m": 1789,
+      "recent": [
+        1726,
+        1789
+      ],
+      "previous": [
+        1470,
+        1725
+      ],
+      "sleep_matured_intervals": 190,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.23898702019416962,
+      "P": 0.266098367735634,
+      "positive_support": 101,
+      "negative_support": 923,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1807,
+      "m": 1805,
+      "recent": [
+        1742,
+        1805
+      ],
+      "previous": [
+        1486,
+        1741
+      ],
+      "sleep_matured_intervals": 206,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.19057755955403782,
+      "P": 0.26447325724558546,
+      "positive_support": 93,
+      "negative_support": 931,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1823,
+      "m": 1821,
+      "recent": [
+        1758,
+        1821
+      ],
+      "previous": [
+        1502,
+        1757
+      ],
+      "sleep_matured_intervals": 222,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.1624712480768226,
+      "P": 0.25468480486918,
+      "positive_support": 73,
+      "negative_support": 951,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1839,
+      "m": 1837,
+      "recent": [
+        1774,
+        1837
+      ],
+      "previous": [
+        1518,
+        1773
+      ],
+      "sleep_matured_intervals": 238,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.13125981950121268,
+      "P": 0.251164176151046,
+      "positive_support": 61,
+      "negative_support": 963,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1855,
+      "m": 1853,
+      "recent": [
+        1790,
+        1853
+      ],
+      "previous": [
+        1534,
+        1789
+      ],
+      "sleep_matured_intervals": 254,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.0844204981848043,
+      "P": 0.23623120640913597,
+      "positive_support": 55,
+      "negative_support": 969,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1871,
+      "m": 1869,
+      "recent": [
+        1806,
+        1869
+      ],
+      "previous": [
+        1550,
+        1805
+      ],
+      "sleep_matured_intervals": 270,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.08261075205998189,
+      "P": 0.2327048957533669,
+      "positive_support": 51,
+      "negative_support": 973,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1887,
+      "m": 1885,
+      "recent": [
+        1822,
+        1885
+      ],
+      "previous": [
+        1566,
+        1821
+      ],
+      "sleep_matured_intervals": 286,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.14233896529598233,
+      "P": 0.22601362860151908,
+      "positive_support": 55,
+      "negative_support": 969,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1903,
+      "m": 1901,
+      "recent": [
+        1838,
+        1901
+      ],
+      "previous": [
+        1582,
+        1837
+      ],
+      "sleep_matured_intervals": 302,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.13775786324960215,
+      "P": 0.22853704209853767,
+      "positive_support": 57,
+      "negative_support": 967,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1919,
+      "m": 1917,
+      "recent": [
+        1854,
+        1917
+      ],
+      "previous": [
+        1598,
+        1853
+      ],
+      "sleep_matured_intervals": 318,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.13305209235651355,
+      "P": 0.2234892008850793,
+      "positive_support": 51,
+      "negative_support": 973,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1935,
+      "m": 1933,
+      "recent": [
+        1870,
+        1933
+      ],
+      "previous": [
+        1614,
+        1869
+      ],
+      "sleep_matured_intervals": 334,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.14375246282446613,
+      "P": 0.21575208779552343,
+      "positive_support": 50,
+      "negative_support": 974,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1951,
+      "m": 1949,
+      "recent": [
+        1886,
+        1949
+      ],
+      "previous": [
+        1630,
+        1885
+      ],
+      "sleep_matured_intervals": 350,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.12238656167990916,
+      "P": 0.22481821179497538,
+      "positive_support": 49,
+      "negative_support": 975,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1967,
+      "m": 1965,
+      "recent": [
+        1902,
+        1965
+      ],
+      "previous": [
+        1646,
+        1901
+      ],
+      "sleep_matured_intervals": 366,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.11603675899807271,
+      "P": 0.21238591661459677,
+      "positive_support": 53,
+      "negative_support": 971,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1983,
+      "m": 1981,
+      "recent": [
+        1918,
+        1981
+      ],
+      "previous": [
+        1662,
+        1917
+      ],
+      "sleep_matured_intervals": 382,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.14310286777664843,
+      "P": 0.1928506213108914,
+      "positive_support": 61,
+      "negative_support": 963,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1999,
+      "m": 1997,
+      "recent": [
+        1934,
+        1997
+      ],
+      "previous": [
+        1678,
+        1933
+      ],
+      "sleep_matured_intervals": 398,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.15579687186337554,
+      "P": 0.18264652329073788,
+      "positive_support": 59,
+      "negative_support": 965,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 2015,
+      "m": 2013,
+      "recent": [
+        1950,
+        2013
+      ],
+      "previous": [
+        1694,
+        1949
+      ],
+      "sleep_matured_intervals": 414,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.12811666153096002,
+      "P": 0.17214310755273743,
+      "positive_support": 54,
+      "negative_support": 970,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 2031,
+      "m": 2029,
+      "recent": [
+        1966,
+        2029
+      ],
+      "previous": [
+        1710,
+        1965
+      ],
+      "sleep_matured_intervals": 430,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.14529828307130624,
+      "P": 0.15987187068785233,
+      "positive_support": 56,
+      "negative_support": 968,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 2047,
+      "m": 2045,
+      "recent": [
+        1982,
+        2045
+      ],
+      "previous": [
+        1726,
+        1981
+      ],
+      "sleep_matured_intervals": 446,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.2014769686047344,
+      "P": 0.14989061962803396,
+      "positive_support": 70,
+      "negative_support": 954,
+      "ratio_condition": true,
+      "difference_condition": true,
+      "support_condition": true,
+      "candidate": true,
+      "streak_before": 0,
+      "streak_after": 1,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 2063,
+      "m": 2061,
+      "recent": [
+        1998,
+        2061
+      ],
+      "previous": [
+        1742,
+        1997
+      ],
+      "sleep_matured_intervals": 462,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.17050414660411553,
+      "P": 0.14318441157546535,
+      "positive_support": 53,
+      "negative_support": 971,
+      "ratio_condition": false,
+      "difference_condition": true,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 1,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 2079,
+      "m": 2077,
+      "recent": [
+        2014,
+        2077
+      ],
+      "previous": [
+        1758,
+        2013
+      ],
+      "sleep_matured_intervals": 478,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.17028457421642518,
+      "P": 0.1388283591459185,
+      "positive_support": 57,
+      "negative_support": 967,
+      "ratio_condition": false,
+      "difference_condition": true,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 2095,
+      "m": 2093,
+      "recent": [
+        2030,
+        2093
+      ],
+      "previous": [
+        1774,
+        2029
+      ],
+      "sleep_matured_intervals": 494,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.15382410635733462,
+      "P": 0.13258818120504845,
+      "positive_support": 50,
+      "negative_support": 974,
+      "ratio_condition": false,
+      "difference_condition": true,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 2111,
+      "m": 2109,
+      "recent": [
+        2046,
+        2109
+      ],
+      "previous": [
+        1790,
+        2045
+      ],
+      "sleep_matured_intervals": 510,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.1066608028838274,
+      "P": 0.14051310673067519,
+      "positive_support": 38,
+      "negative_support": 986,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 2127,
+      "m": 2125,
+      "recent": [
+        2062,
+        2125
+      ],
+      "previous": [
+        1806,
+        2061
+      ],
+      "sleep_matured_intervals": 526,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.1408703468084861,
+      "P": 0.1381660583379848,
+      "positive_support": 46,
+      "negative_support": 978,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 2143,
+      "m": 2141,
+      "recent": [
+        2078,
+        2141
+      ],
+      "previous": [
+        1822,
+        2077
+      ],
+      "sleep_matured_intervals": 542,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.1693944696804849,
+      "P": 0.14078169068081917,
+      "positive_support": 53,
+      "negative_support": 971,
+      "ratio_condition": false,
+      "difference_condition": true,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 2159,
+      "m": 2157,
+      "recent": [
+        2094,
+        2157
+      ],
+      "previous": [
+        1838,
+        2093
+      ],
+      "sleep_matured_intervals": 558,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.17676003219058084,
+      "P": 0.13822925291907895,
+      "positive_support": 44,
+      "negative_support": 980,
+      "ratio_condition": true,
+      "difference_condition": true,
+      "support_condition": true,
+      "candidate": true,
+      "streak_before": 0,
+      "streak_after": 1,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 2175,
+      "m": 2173,
+      "recent": [
+        2110,
+        2173
+      ],
+      "previous": [
+        1854,
+        2109
+      ],
+      "sleep_matured_intervals": 574,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.14425546778435364,
+      "P": 0.14607318290543098,
+      "positive_support": 41,
+      "negative_support": 983,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 1,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 2191,
+      "m": 2189,
+      "recent": [
+        2126,
+        2189
+      ],
+      "previous": [
+        1870,
+        2125
+      ],
+      "sleep_matured_intervals": 590,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.1241072823942481,
+      "P": 0.1527309570251108,
+      "positive_support": 48,
+      "negative_support": 976,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 2207,
+      "m": 2205,
+      "recent": [
+        2142,
+        2205
+      ],
+      "previous": [
+        1886,
+        2141
+      ],
+      "sleep_matured_intervals": 606,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.1373947943919283,
+      "P": 0.1475455667769448,
+      "positive_support": 60,
+      "negative_support": 964,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 2223,
+      "m": 2221,
+      "recent": [
+        2158,
+        2221
+      ],
+      "previous": [
+        1902,
+        2157
+      ],
+      "sleep_matured_intervals": 622,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.14459439945000116,
+      "P": 0.14797979515432363,
+      "positive_support": 79,
+      "negative_support": 945,
+      "ratio_condition": false,
+      "difference_condition": false,
+      "support_condition": true,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 2239,
+      "m": 2237,
+      "recent": [
+        2174,
+        2237
+      ],
+      "previous": [
+        1918,
+        2173
+      ],
+      "sleep_matured_intervals": 638,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.19366897812418357,
+      "P": 0.14887402676239098,
+      "positive_support": 85,
+      "negative_support": 939,
+      "ratio_condition": true,
+      "difference_condition": true,
+      "support_condition": true,
+      "candidate": true,
+      "streak_before": 0,
+      "streak_after": 1,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 2255,
+      "m": 2253,
+      "recent": [
+        2190,
+        2253
+      ],
+      "previous": [
+        1934,
+        2189
+      ],
+      "sleep_matured_intervals": 654,
+      "all_recent_issued_sleeping": true,
+      "eligible": true,
+      "R": 0.21268502474216475,
+      "P": 0.1478196619175563,
+      "positive_support": 93,
+      "negative_support": 931,
+      "ratio_condition": true,
+      "difference_condition": true,
+      "support_condition": true,
+      "candidate": true,
+      "streak_before": 1,
+      "streak_after": 2,
+      "forced_fixture": false,
+      "state_change": "wake"
+    }
+  ]
+}

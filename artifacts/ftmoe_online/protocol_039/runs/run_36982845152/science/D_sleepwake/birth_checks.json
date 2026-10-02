@@ -1,0 +1,53 @@
+{
+  "protocol": "039",
+  "checks": [
+    {
+      "at_interval": 335,
+      "m": 333,
+      "recent": [
+        270,
+        333
+      ],
+      "previous": [
+        14,
+        269
+      ],
+      "R": 0.28469476264490434,
+      "P": 0.036574763501596365,
+      "positive_support": 106,
+      "negative_support": 918,
+      "ratio_condition": true,
+      "difference_condition": true,
+      "support_condition": true,
+      "candidate": true,
+      "streak_before": 0,
+      "streak_after": 1,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 351,
+      "m": 349,
+      "recent": [
+        286,
+        349
+      ],
+      "previous": [
+        30,
+        285
+      ],
+      "R": 0.43564074934047037,
+      "P": 0.0390207168230477,
+      "positive_support": 168,
+      "negative_support": 856,
+      "ratio_condition": true,
+      "difference_condition": true,
+      "support_condition": true,
+      "candidate": true,
+      "streak_before": 1,
+      "streak_after": 2,
+      "forced_fixture": false,
+      "state_change": "birth"
+    }
+  ]
+}

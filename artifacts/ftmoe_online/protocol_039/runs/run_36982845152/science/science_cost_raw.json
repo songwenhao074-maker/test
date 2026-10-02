@@ -1,0 +1,89 @@
+{
+  "protocol": "039",
+  "science_invocation_wall_seconds": 53.722567981000026,
+  "science_invocation_cpu_seconds": 49.804541211,
+  "incremental_expert": {
+    "prediction_forward_calls": 4960,
+    "training_forward_calls": 311,
+    "optimizer_steps": 311,
+    "prediction_forward_seconds": 1.0032646749994854,
+    "update_seconds": 0.3748928799996918,
+    "sleep_predictions": 656
+  },
+  "controller": {
+    "lifecycle_check_calls": 141,
+    "cpu_seconds": 0.014461533999998277
+  },
+  "historical_B_components": {
+    "C_ref": {
+      "protocol": "036",
+      "seed": 3601,
+      "arm": "C_ref",
+      "sequence": "B_seed3601_C_ref",
+      "completed": true,
+      "stream_sha256": "09fadb02f2017f8d528ee8284129c29adcb6be137b1a9e93f4a249eebcd1b659",
+      "feature_tape_sha256": "c71a2ea6d59045fe4cc8a953a776d37f48dbe1feec4aba859cd00f11c984529c",
+      "predictions_sha256": "da02b63c4a6cf7a2e4fe7c5b98dcd872ca1fa08114bb029f46fce4053b9e9576",
+      "updates": 373,
+      "initialization": {
+        "shared_first4_expert_and_router_rows_sha256": "7e8a7a901775b003d82d6f30d2ce448a2e7f1c100bd00019115271883c2de29b",
+        "all5_learner_state_sha256": "a63d9af61e4e6a66d3df87eb03b4bdd822e96e6de8ea694937d8c87d4667a2fa",
+        "frozen_base_sha256": "ddf996d3060e9c0c8bc8c1983764c4e9392570fd92979e246a0548acdc9e2e58",
+        "normalization_buffers_sha256": "28b40256ac35b649fd9865677685ef860d0262c100ce7183fad563e7bed0ab0c",
+        "model_seed": 1
+      },
+      "causal_access_all_pass": true,
+      "cost": {
+        "wall_seconds_this_invocation": 72.733269221,
+        "cpu_seconds_this_invocation": 72.727811581,
+        "peak_rss_bytes": 469479424,
+        "effective_memory_limit_bytes": 16764375040,
+        "memory_soft_limit_bytes": 13411500032
+      }
+    },
+    "D_lin": {
+      "protocol": "036",
+      "arm": "D_lin",
+      "sequence": "B_seed3601_D_lin",
+      "completed": true,
+      "feature_tape_sha256": "c71a2ea6d59045fe4cc8a953a776d37f48dbe1feec4aba859cd00f11c984529c",
+      "parameter_count": 74,
+      "updates": 373,
+      "initial_zero_output_exact": true,
+      "initial_branch_hash": "15878c9012c5667ff7c51f7098b333043e6d42f5df6d1bcac379b9d86a26017c",
+      "final_branch_hash": "7297a0a3a7404689379b71988042c4e565ab7b236a85eb196e5ff4f8ac6db505",
+      "parameter_updated": true,
+      "prediction_sha256": "1ea811ed175817294f275505db85d0bf283c3d0aca6b883b036243ad7843bef6",
+      "causality_all_pass": true,
+      "isolation_all_pass": true,
+      "cost": {
+        "branch_wall_seconds_this_invocation": 1.9188545989999852,
+        "branch_cpu_seconds_this_invocation": 1.918707585000007,
+        "peak_rss_bytes": 472432640,
+        "effective_memory_limit_bytes": 16764375040,
+        "memory_soft_limit_bytes": 13411500032
+      }
+    }
+  },
+  "historical_D_keep": {
+    "protocol": "037",
+    "arm": "D_birth",
+    "completed": true,
+    "parameter_count": 74,
+    "birth_occurred": true,
+    "birth_t": 351,
+    "first_affected_prediction": 352,
+    "trigger_status": "activated",
+    "optimizer_steps": 352,
+    "inference_calls": 5616,
+    "resident_parameter_interval_integral": 415584,
+    "final_expert_hash": "900202d4731a87f387b246c22dd6f73e73c0b6eeaedf2eb2bd146396d8d47d42",
+    "prediction_sha256": "badf9005b2be9fc6436d1ff2b9377b27715e846d7d16f8e4bdfcbfa76f732e8c",
+    "cost": {
+      "inference_seconds": 0.7416451849995838,
+      "update_seconds": 0.2690288490005628
+    }
+  },
+  "sleep_memory_note": "sleep preserves expert weights and Adam state; no expert-memory deletion is claimed",
+  "deployment_note": "Complete D includes historical C + D_lin costs plus controller + incremental expert. Historical source-run timing is reported separately and is not summed into a same-run speed benchmark."
+}

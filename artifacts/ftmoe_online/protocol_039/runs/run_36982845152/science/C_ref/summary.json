@@ -1,0 +1,7 @@
+{
+  "protocol": "039",
+  "arm": "C_ref",
+  "cached_control": true,
+  "training_this_protocol": 0,
+  "prediction_sha256": "da02b63c4a6cf7a2e4fe7c5b98dcd872ca1fa08114bb029f46fce4053b9e9576"
+}

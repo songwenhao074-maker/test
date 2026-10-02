@@ -1,0 +1,42 @@
+{
+  "protocol": "039",
+  "root": "/tmp/protocol039_analysis",
+  "file_count": 7,
+  "files": [
+    {
+      "path": "PROTOCOL039_RESULTS.md",
+      "sha256": "c950ae013214f82d54d7cb98dde2b072a8fcdd727e9f5c5e164b015b4cf1ece2",
+      "size": 1972
+    },
+    {
+      "path": "analysis_status.json",
+      "sha256": "06ef9ab738222de71fa2184bbe8548b7f9f82fc23f8047d4cbeebcee1417a24b",
+      "size": 426
+    },
+    {
+      "path": "artifact_index.json",
+      "sha256": "8f63321c280ed81a6c932638fdf9a743dd300680854fd553c3b74a7651077a3c",
+      "size": 437
+    },
+    {
+      "path": "comparison.json",
+      "sha256": "d6b2d08d373fa79cffabef0e87b35be4f42ec84cc2dfa998659c9e17eaa43ee0",
+      "size": 154084
+    },
+    {
+      "path": "cost_profile.json",
+      "sha256": "b55c39a25d4a650dd6b55550483a24d12c5bf831e5cdbc0f509fa5ab0eb19101",
+      "size": 4558
+    },
+    {
+      "path": "event_diagnostics.json",
+      "sha256": "1b9d13df702d2cd60829febc01c0becc823fc2a9454e2d48d970621ecab6358b",
+      "size": 12102
+    },
+    {
+      "path": "publication_status.json",
+      "sha256": "1f1331a36e7e6a4423225f5ca758343e01165d4e1b1a83aca335f6c45a267196",
+      "size": 120
+    }
+  ]
+}

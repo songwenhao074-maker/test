@@ -1,0 +1,1487 @@
+{
+  "protocol": "039",
+  "checks": [
+    {
+      "at_interval": 367,
+      "m": 365,
+      "recent": [
+        238,
+        365
+      ],
+      "active_matured_intervals": 14,
+      "all_recent_issued_active": false,
+      "eligible": false,
+      "U": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 383,
+      "m": 381,
+      "recent": [
+        254,
+        381
+      ],
+      "active_matured_intervals": 30,
+      "all_recent_issued_active": false,
+      "eligible": false,
+      "U": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 399,
+      "m": 397,
+      "recent": [
+        270,
+        397
+      ],
+      "active_matured_intervals": 46,
+      "all_recent_issued_active": false,
+      "eligible": false,
+      "U": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 415,
+      "m": 413,
+      "recent": [
+        286,
+        413
+      ],
+      "active_matured_intervals": 62,
+      "all_recent_issued_active": false,
+      "eligible": false,
+      "U": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 431,
+      "m": 429,
+      "recent": [
+        302,
+        429
+      ],
+      "active_matured_intervals": 78,
+      "all_recent_issued_active": false,
+      "eligible": false,
+      "U": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 447,
+      "m": 445,
+      "recent": [
+        318,
+        445
+      ],
+      "active_matured_intervals": 94,
+      "all_recent_issued_active": false,
+      "eligible": false,
+      "U": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 463,
+      "m": 461,
+      "recent": [
+        334,
+        461
+      ],
+      "active_matured_intervals": 110,
+      "all_recent_issued_active": false,
+      "eligible": false,
+      "U": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 479,
+      "m": 477,
+      "recent": [
+        350,
+        477
+      ],
+      "active_matured_intervals": 126,
+      "all_recent_issued_active": false,
+      "eligible": false,
+      "U": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 495,
+      "m": 493,
+      "recent": [
+        366,
+        493
+      ],
+      "active_matured_intervals": 142,
+      "all_recent_issued_active": true,
+      "eligible": false,
+      "U": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 511,
+      "m": 509,
+      "recent": [
+        382,
+        509
+      ],
+      "active_matured_intervals": 158,
+      "all_recent_issued_active": true,
+      "eligible": false,
+      "U": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 527,
+      "m": 525,
+      "recent": [
+        398,
+        525
+      ],
+      "active_matured_intervals": 174,
+      "all_recent_issued_active": true,
+      "eligible": false,
+      "U": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 543,
+      "m": 541,
+      "recent": [
+        414,
+        541
+      ],
+      "active_matured_intervals": 190,
+      "all_recent_issued_active": true,
+      "eligible": false,
+      "U": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 559,
+      "m": 557,
+      "recent": [
+        430,
+        557
+      ],
+      "active_matured_intervals": 206,
+      "all_recent_issued_active": true,
+      "eligible": false,
+      "U": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 575,
+      "m": 573,
+      "recent": [
+        446,
+        573
+      ],
+      "active_matured_intervals": 222,
+      "all_recent_issued_active": true,
+      "eligible": false,
+      "U": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 591,
+      "m": 589,
+      "recent": [
+        462,
+        589
+      ],
+      "active_matured_intervals": 238,
+      "all_recent_issued_active": true,
+      "eligible": false,
+      "U": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 607,
+      "m": 605,
+      "recent": [
+        478,
+        605
+      ],
+      "active_matured_intervals": 254,
+      "all_recent_issued_active": true,
+      "eligible": false,
+      "U": null,
+      "positive_support": 0,
+      "negative_support": 0,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 623,
+      "m": 621,
+      "recent": [
+        494,
+        621
+      ],
+      "active_matured_intervals": 270,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.009751419866277455,
+      "positive_support": 559,
+      "negative_support": 1489,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 639,
+      "m": 637,
+      "recent": [
+        510,
+        637
+      ],
+      "active_matured_intervals": 286,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.010352893023306092,
+      "positive_support": 535,
+      "negative_support": 1513,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 655,
+      "m": 653,
+      "recent": [
+        526,
+        653
+      ],
+      "active_matured_intervals": 302,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.011157238851882105,
+      "positive_support": 542,
+      "negative_support": 1506,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 671,
+      "m": 669,
+      "recent": [
+        542,
+        669
+      ],
+      "active_matured_intervals": 318,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.011625584362620883,
+      "positive_support": 542,
+      "negative_support": 1506,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 687,
+      "m": 685,
+      "recent": [
+        558,
+        685
+      ],
+      "active_matured_intervals": 334,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.011836168571810003,
+      "positive_support": 539,
+      "negative_support": 1509,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 703,
+      "m": 701,
+      "recent": [
+        574,
+        701
+      ],
+      "active_matured_intervals": 350,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.01329903235589,
+      "positive_support": 572,
+      "negative_support": 1476,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 719,
+      "m": 717,
+      "recent": [
+        590,
+        717
+      ],
+      "active_matured_intervals": 366,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.01464693905051839,
+      "positive_support": 591,
+      "negative_support": 1457,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 735,
+      "m": 733,
+      "recent": [
+        606,
+        733
+      ],
+      "active_matured_intervals": 382,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.015836718480525452,
+      "positive_support": 619,
+      "negative_support": 1429,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 751,
+      "m": 749,
+      "recent": [
+        622,
+        749
+      ],
+      "active_matured_intervals": 398,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.015655327774327207,
+      "positive_support": 592,
+      "negative_support": 1456,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 767,
+      "m": 765,
+      "recent": [
+        638,
+        765
+      ],
+      "active_matured_intervals": 414,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.01517226237655446,
+      "positive_support": 578,
+      "negative_support": 1470,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 783,
+      "m": 781,
+      "recent": [
+        654,
+        781
+      ],
+      "active_matured_intervals": 430,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.016075821398498464,
+      "positive_support": 589,
+      "negative_support": 1459,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 799,
+      "m": 797,
+      "recent": [
+        670,
+        797
+      ],
+      "active_matured_intervals": 446,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.015387431295883693,
+      "positive_support": 568,
+      "negative_support": 1480,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 815,
+      "m": 813,
+      "recent": [
+        686,
+        813
+      ],
+      "active_matured_intervals": 462,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.015948181961414242,
+      "positive_support": 553,
+      "negative_support": 1495,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 831,
+      "m": 829,
+      "recent": [
+        702,
+        829
+      ],
+      "active_matured_intervals": 478,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.016205663877204467,
+      "positive_support": 544,
+      "negative_support": 1504,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 847,
+      "m": 845,
+      "recent": [
+        718,
+        845
+      ],
+      "active_matured_intervals": 494,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.018834968353142623,
+      "positive_support": 541,
+      "negative_support": 1507,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 863,
+      "m": 861,
+      "recent": [
+        734,
+        861
+      ],
+      "active_matured_intervals": 510,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.019407675017553513,
+      "positive_support": 509,
+      "negative_support": 1539,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 879,
+      "m": 877,
+      "recent": [
+        750,
+        877
+      ],
+      "active_matured_intervals": 526,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.02231660601719961,
+      "positive_support": 546,
+      "negative_support": 1502,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 895,
+      "m": 893,
+      "recent": [
+        766,
+        893
+      ],
+      "active_matured_intervals": 542,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.024645705080371914,
+      "positive_support": 556,
+      "negative_support": 1492,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 911,
+      "m": 909,
+      "recent": [
+        782,
+        909
+      ],
+      "active_matured_intervals": 558,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.022801367662324858,
+      "positive_support": 530,
+      "negative_support": 1518,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 927,
+      "m": 925,
+      "recent": [
+        798,
+        925
+      ],
+      "active_matured_intervals": 574,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.02418083386601011,
+      "positive_support": 548,
+      "negative_support": 1500,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 943,
+      "m": 941,
+      "recent": [
+        814,
+        941
+      ],
+      "active_matured_intervals": 590,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.025470149465103106,
+      "positive_support": 555,
+      "negative_support": 1493,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 959,
+      "m": 957,
+      "recent": [
+        830,
+        957
+      ],
+      "active_matured_intervals": 606,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.026716701451783065,
+      "positive_support": 539,
+      "negative_support": 1509,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 975,
+      "m": 973,
+      "recent": [
+        846,
+        973
+      ],
+      "active_matured_intervals": 622,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.025592629772596832,
+      "positive_support": 519,
+      "negative_support": 1529,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 991,
+      "m": 989,
+      "recent": [
+        862,
+        989
+      ],
+      "active_matured_intervals": 638,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.02505634188530938,
+      "positive_support": 515,
+      "negative_support": 1533,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1007,
+      "m": 1005,
+      "recent": [
+        878,
+        1005
+      ],
+      "active_matured_intervals": 654,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.02510461661406487,
+      "positive_support": 511,
+      "negative_support": 1537,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1023,
+      "m": 1021,
+      "recent": [
+        894,
+        1021
+      ],
+      "active_matured_intervals": 670,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.025867699505882726,
+      "positive_support": 532,
+      "negative_support": 1516,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1039,
+      "m": 1037,
+      "recent": [
+        910,
+        1037
+      ],
+      "active_matured_intervals": 686,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.03146901553144861,
+      "positive_support": 575,
+      "negative_support": 1473,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1055,
+      "m": 1053,
+      "recent": [
+        926,
+        1053
+      ],
+      "active_matured_intervals": 702,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.03488555450942009,
+      "positive_support": 595,
+      "negative_support": 1453,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1071,
+      "m": 1069,
+      "recent": [
+        942,
+        1069
+      ],
+      "active_matured_intervals": 718,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.03821545802828537,
+      "positive_support": 640,
+      "negative_support": 1408,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1087,
+      "m": 1085,
+      "recent": [
+        958,
+        1085
+      ],
+      "active_matured_intervals": 734,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.03866064338327739,
+      "positive_support": 645,
+      "negative_support": 1403,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1103,
+      "m": 1101,
+      "recent": [
+        974,
+        1101
+      ],
+      "active_matured_intervals": 750,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.03652691603895897,
+      "positive_support": 622,
+      "negative_support": 1426,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1119,
+      "m": 1117,
+      "recent": [
+        990,
+        1117
+      ],
+      "active_matured_intervals": 766,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.0345924768772226,
+      "positive_support": 583,
+      "negative_support": 1465,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1135,
+      "m": 1133,
+      "recent": [
+        1006,
+        1133
+      ],
+      "active_matured_intervals": 782,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.03308564798524019,
+      "positive_support": 571,
+      "negative_support": 1477,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1151,
+      "m": 1149,
+      "recent": [
+        1022,
+        1149
+      ],
+      "active_matured_intervals": 798,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.031745833958243735,
+      "positive_support": 544,
+      "negative_support": 1504,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1167,
+      "m": 1165,
+      "recent": [
+        1038,
+        1165
+      ],
+      "active_matured_intervals": 814,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.02839361109437145,
+      "positive_support": 537,
+      "negative_support": 1511,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1183,
+      "m": 1181,
+      "recent": [
+        1054,
+        1181
+      ],
+      "active_matured_intervals": 830,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.026682185923854004,
+      "positive_support": 519,
+      "negative_support": 1529,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1199,
+      "m": 1197,
+      "recent": [
+        1070,
+        1197
+      ],
+      "active_matured_intervals": 846,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.025961005192479143,
+      "positive_support": 493,
+      "negative_support": 1555,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1215,
+      "m": 1213,
+      "recent": [
+        1086,
+        1213
+      ],
+      "active_matured_intervals": 862,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.025669172579001837,
+      "positive_support": 483,
+      "negative_support": 1565,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1231,
+      "m": 1229,
+      "recent": [
+        1102,
+        1229
+      ],
+      "active_matured_intervals": 878,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.027696344743371737,
+      "positive_support": 502,
+      "negative_support": 1546,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1247,
+      "m": 1245,
+      "recent": [
+        1118,
+        1245
+      ],
+      "active_matured_intervals": 894,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.033470405930894696,
+      "positive_support": 560,
+      "negative_support": 1488,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1263,
+      "m": 1261,
+      "recent": [
+        1134,
+        1261
+      ],
+      "active_matured_intervals": 910,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.034750113936806944,
+      "positive_support": 533,
+      "negative_support": 1515,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1279,
+      "m": 1277,
+      "recent": [
+        1150,
+        1277
+      ],
+      "active_matured_intervals": 926,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.03620680394394382,
+      "positive_support": 536,
+      "negative_support": 1512,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1295,
+      "m": 1293,
+      "recent": [
+        1166,
+        1293
+      ],
+      "active_matured_intervals": 942,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.03820414937906909,
+      "positive_support": 541,
+      "negative_support": 1507,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1311,
+      "m": 1309,
+      "recent": [
+        1182,
+        1309
+      ],
+      "active_matured_intervals": 958,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.03798913859944298,
+      "positive_support": 552,
+      "negative_support": 1496,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1327,
+      "m": 1325,
+      "recent": [
+        1198,
+        1325
+      ],
+      "active_matured_intervals": 974,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.03415002200289507,
+      "positive_support": 512,
+      "negative_support": 1536,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1343,
+      "m": 1341,
+      "recent": [
+        1214,
+        1341
+      ],
+      "active_matured_intervals": 990,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.03530690116707276,
+      "positive_support": 524,
+      "negative_support": 1524,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1359,
+      "m": 1357,
+      "recent": [
+        1230,
+        1357
+      ],
+      "active_matured_intervals": 1006,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.036711541218871116,
+      "positive_support": 517,
+      "negative_support": 1531,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1375,
+      "m": 1373,
+      "recent": [
+        1246,
+        1373
+      ],
+      "active_matured_intervals": 1022,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.0353497979531103,
+      "positive_support": 506,
+      "negative_support": 1542,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1391,
+      "m": 1389,
+      "recent": [
+        1262,
+        1389
+      ],
+      "active_matured_intervals": 1038,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.034713372030746315,
+      "positive_support": 523,
+      "negative_support": 1525,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1407,
+      "m": 1405,
+      "recent": [
+        1278,
+        1405
+      ],
+      "active_matured_intervals": 1054,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.03749275744972764,
+      "positive_support": 556,
+      "negative_support": 1492,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1423,
+      "m": 1421,
+      "recent": [
+        1294,
+        1421
+      ],
+      "active_matured_intervals": 1070,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.03964907187145622,
+      "positive_support": 554,
+      "negative_support": 1494,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1439,
+      "m": 1437,
+      "recent": [
+        1310,
+        1437
+      ],
+      "active_matured_intervals": 1086,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.0398820496035041,
+      "positive_support": 554,
+      "negative_support": 1494,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1455,
+      "m": 1453,
+      "recent": [
+        1326,
+        1453
+      ],
+      "active_matured_intervals": 1102,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.04006293182499941,
+      "positive_support": 563,
+      "negative_support": 1485,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1471,
+      "m": 1469,
+      "recent": [
+        1342,
+        1469
+      ],
+      "active_matured_intervals": 1118,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.03469542150345799,
+      "positive_support": 519,
+      "negative_support": 1529,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1487,
+      "m": 1485,
+      "recent": [
+        1358,
+        1485
+      ],
+      "active_matured_intervals": 1134,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.02811433765007002,
+      "positive_support": 493,
+      "negative_support": 1555,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1503,
+      "m": 1501,
+      "recent": [
+        1374,
+        1501
+      ],
+      "active_matured_intervals": 1150,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.022134368917737228,
+      "positive_support": 454,
+      "negative_support": 1594,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1519,
+      "m": 1517,
+      "recent": [
+        1390,
+        1517
+      ],
+      "active_matured_intervals": 1166,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.017656000819613278,
+      "positive_support": 422,
+      "negative_support": 1626,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1535,
+      "m": 1533,
+      "recent": [
+        1406,
+        1533
+      ],
+      "active_matured_intervals": 1182,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.00901731780352033,
+      "positive_support": 346,
+      "negative_support": 1702,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1551,
+      "m": 1549,
+      "recent": [
+        1422,
+        1549
+      ],
+      "active_matured_intervals": 1198,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": 0.001650080870401972,
+      "positive_support": 278,
+      "negative_support": 1770,
+      "candidate": false,
+      "streak_before": 0,
+      "streak_after": 0,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1567,
+      "m": 1565,
+      "recent": [
+        1438,
+        1565
+      ],
+      "active_matured_intervals": 1214,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": -0.002714286383445647,
+      "positive_support": 227,
+      "negative_support": 1821,
+      "candidate": true,
+      "streak_before": 0,
+      "streak_after": 1,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1583,
+      "m": 1581,
+      "recent": [
+        1454,
+        1581
+      ],
+      "active_matured_intervals": 1230,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": -0.005594079155483234,
+      "positive_support": 175,
+      "negative_support": 1873,
+      "candidate": true,
+      "streak_before": 1,
+      "streak_after": 2,
+      "forced_fixture": false,
+      "state_change": "none"
+    },
+    {
+      "at_interval": 1599,
+      "m": 1597,
+      "recent": [
+        1470,
+        1597
+      ],
+      "active_matured_intervals": 1246,
+      "all_recent_issued_active": true,
+      "eligible": true,
+      "U": -0.005746236858456647,
+      "positive_support": 176,
+      "negative_support": 1872,
+      "candidate": true,
+      "streak_before": 2,
+      "streak_after": 3,
+      "forced_fixture": false,
+      "state_change": "sleep"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "protocol": "039",
+  "source036": {
+    "stage_B/seed3601/C_ref/feature_tape.npz": "c71a2ea6d59045fe4cc8a953a776d37f48dbe1feec4aba859cd00f11c984529c",
+    "stage_B/seed3601/C_ref/update_batches.json": "4d32d2ece194cb41b8bc16de1c89ddfedcd42da668b96446937fb430d6246b6f",
+    "stage_B/seed3601/D_lin/predictions.npz": "1ea811ed175817294f275505db85d0bf283c3d0aca6b883b036243ad7843bef6",
+    "inputs/seed3601/manifest.json": "73a1c6fd8d8d12c8e84958df55b2379ab2f2542ac34923bc3934d363329cb02b",
+    "stage_B/seed3601/C_ref/predictions.npz": "da02b63c4a6cf7a2e4fe7c5b98dcd872ca1fa08114bb029f46fce4053b9e9576"
+  },
+  "source037": {
+    "D_birth/predictions.npz": "badf9005b2be9fc6436d1ff2b9377b27715e846d7d16f8e4bdfcbfa76f732e8c",
+    "D_birth/birth_checks.json": "4b8afb4f98abdc5405a69310206d0f145e981b28069883138fad9b7468a70d98",
+    "D_birth/lifecycle_events.json": "b2eb7dc30f4855e151d39e1ef8c633eef8505547c944f21bc5d3ed33b59a2711",
+    "D_birth/update_log.json": "b1b64946dc8029938e6ead7ca8e2ddb0a2decb5b0928efdcebe390a4e82f6838"
+  },
+  "F_files_loaded": false,
+  "verified": true
+}
