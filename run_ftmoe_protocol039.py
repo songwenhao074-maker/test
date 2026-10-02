@@ -1093,7 +1093,8 @@ def cmd_science(a):
     fixture=J(a.fixture_report)
     if not fixture.get("all_pass"): raise AssertionError("preflight fixture failed")
     shutil.copy2(a.fixture_report,out/"fixture_report.json")
-    shutil.copy2(a.implementation_manifest,out/"implementation_manifest.json")
+    src_manifest=Path(a.implementation_manifest); dst_manifest=out/"implementation_manifest.json"
+    if src_manifest.resolve()!=dst_manifest.resolve(): shutil.copy2(src_manifest,dst_manifest)
     source_lock={"protocol":"039","source036":src["hashes036"],"source037":src["hashes037"],"F_files_loaded":False,"verified":True}
     W(out/"source_lock.json",source_lock)
     ledger=out/"budget_ledger.json"
