@@ -1029,7 +1029,10 @@ def science_audit(src,m,fixture,ledger):
         "terminal_actual_zero_calls":terminal,"fixture_all_pass":bool(fixture.get("all_pass")),
         "ledger_zero_budget_fields_pass":ledger_pass,
     }
-    out["all_pass"]=bool(all([source_still,birth_ok,pre_pred,pre_hash,no_sleep_exact,sleep_forward_zero,sleep_step_zero,limits,step_budget,terminal,fixture.get("all_pass"),ledger_pass]))
+    out["all_pass"]=bool(all([
+        source_still,birth_ok,pre_pred,pre_hash,no_sleep_exact,sleep_forward_zero,sleep_step_zero,
+        out["sleep_expert_optimizer_preserved"],limits,step_budget,terminal,fixture.get("all_pass"),ledger_pass
+    ]))
     return out
 
 
