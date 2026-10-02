@@ -1,0 +1,25 @@
+name: Protocol039 repaired freeze check once
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol039-repaired-check-once.yml'
+permissions:
+  contents: read
+jobs:
+  check:
+    if: contains(github.event.head_commit.message, '[p039-repaired-check]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: cf33f33addb6e9fe741fa623de9a27043c5f9476
+          fetch-depth: 1
+      - run: python maintenance/validate_protocol039_plan.py
+      - run: python -m py_compile run_ftmoe_protocol039.py analyze_ftmoe_protocol039.py maintenance/materialize_protocol039_sources.py maintenance/protocol039_finalize.py run_ftmoe_protocol037.py analyze_ftmoe_protocol037.py protocol035_common.py
+      - run: python maintenance/protocol039_finalize.py --help >/dev/null
+      - run: |
+          test "$(git hash-object run_ftmoe_protocol037.py)" = "1d18b5b5da8133d80e7d6f2e561840ceeec27d9e"
+          test "$(git hash-object analyze_ftmoe_protocol037.py)" = "4328ad21e11b01a0bba22cf3c113d12b9ef0d98d"
+          test "$(git hash-object protocol035_common.py)" = "861e84692a2fe9a80c8952e837f78325b66f7ae3"
