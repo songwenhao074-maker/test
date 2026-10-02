@@ -10,12 +10,15 @@ P036 = [
  "stage_B/seed3601/D_lin/predictions.npz",
  "inputs/seed3601/manifest.json",
  "stage_B/seed3601/C_ref/predictions.npz",
+ "stage_B/seed3601/C_ref/summary.json",
+ "stage_B/seed3601/D_lin/summary.json",
 ]
 P037 = [
  "D_birth/predictions.npz",
  "D_birth/birth_checks.json",
  "D_birth/lifecycle_events.json",
  "D_birth/update_log.json",
+ "D_birth/summary.json",
 ]
 
 def locate(root,suffix):
