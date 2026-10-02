@@ -1,0 +1,45 @@
+name: Protocol039 launch after proven pre-start failure once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol039-launch-after-prestart-once.yml'
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  dispatch:
+    if: contains(github.event.head_commit.message, '[p039-launch-after-prestart]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact frozen execution SHA
+        uses: actions/checkout@v4
+        with:
+          ref: 600ebb0a1691c72fe7f451bae2c8e8357ad4add4
+          fetch-depth: 1
+      - name: Validate frozen registration and code
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "600ebb0a1691c72fe7f451bae2c8e8357ad4add4"
+          python maintenance/validate_protocol039_plan.py
+          python -m py_compile run_ftmoe_protocol039.py analyze_ftmoe_protocol039.py maintenance/materialize_protocol039_sources.py maintenance/protocol039_finalize.py
+          test "$(sha256sum artifacts/ftmoe_online/protocol_039/plan.json | awk '{print $1}')" = "2182aa9c08a2067ea8abb89b70555a8174fc9a2809d0655c59effa4174cd9811"
+      - name: Confirm only known pre-start raw evidence exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          COUNT="$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?per_page=100" --jq '[.artifacts[] | select(.expired==false and (.name|startswith("protocol039-raw-")) and .id != 11213976080)] | length')"
+          test "$COUNT" = "0"
+      - name: Dispatch formal Protocol039 exactly once
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api --method POST             -H "Accept: application/vnd.github+json"             "repos/$GITHUB_REPOSITORY/actions/workflows/protocol039-d-vs-c-sleep-wake.yml/dispatches"             -f ref=main             -f 'inputs[execution_ref]=codex/protocol-039-d-vs-c-sleep-wake-20261002'             -f 'inputs[expected_execution_sha]=600ebb0a1691c72fe7f451bae2c8e8357ad4add4'             -f 'inputs[resume_artifact_id]='
