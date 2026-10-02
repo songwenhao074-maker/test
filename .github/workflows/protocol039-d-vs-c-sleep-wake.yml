@@ -60,7 +60,7 @@ jobs:
           test "$(git hash-object protocol035_common.py)" = "861e84692a2fe9a80c8952e837f78325b66f7ae3"
           python -m py_compile run_ftmoe_protocol039.py analyze_ftmoe_protocol039.py maintenance/materialize_protocol039_sources.py maintenance/protocol039_finalize.py
           if [ -z "$RESUME_ARTIFACT_ID" ]; then
-            COUNT="$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?per_page=100" --jq '[.artifacts[] | select(.expired==false and (.name|startswith("protocol039-raw-")))] | length')"
+            COUNT="$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?per_page=100" --jq '[.artifacts[] | select(.expired==false and (.name|startswith("protocol039-raw-")) and .id != 11213976080)] | length')"
             test "$COUNT" = "0" || { echo "existing Protocol039 raw artifact found; refuse duplicate fresh science launch"; exit 1; }
           fi
 
