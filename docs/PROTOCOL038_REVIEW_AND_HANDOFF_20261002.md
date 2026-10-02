@@ -1,0 +1,13 @@
+# Protocol-038 独立复核与停止交接（2026-10-02）
+
+科学训练已完成，禁止因主分支陈旧指针再次执行。run36884471028，实际checkout07cf3f8b1ac6271efbbfdcd6eb13fa9e3e7ca051；结果保存于[执行分支固定提交](https://github.com/songwenhao074-maker/test/blob/c8b4ec85ccbcc90c006ba3403e99ed011a3fd8c9/docs/PROTOCOL038_RESULTS.md)。本文件是后续独立复核，不改写原始报告。
+
+原始artifact11174205562为56,264,192 bytes，ZIP SHA256 87a727f5167691326512de86c651568564bc7b7cdea044d600675e92aa1d418d已核验；科学manifest92项、terminal96项、compact19项全部匹配。独立AP复算与报告一致；donor21步哈希链一致，两个新臂各352次成熟批次更新，725次账本事件；此前5次失败run科学步骤均skipped。
+
+D_warm比D_zero全程AP+0.000785256、六窗+0.000187899，未达登记初始化收益门槛；D_bias几乎无差异。完整权重继承减少138次误报，也少检出135个异常。细微初始化改进不是继续推进动态生命周期的必需前置条件。
+
+工程局限：恢复fixture只比较同一内存checkpoint的两个副本；未来扰动只检查数组前缀相同，没有通过运行器测不变性；terminal_zero_update直接为True；all_pass证据覆盖不足。early_only标签与B比较而非D_zero，不能直接视为初始化专属收益。核心预测可复算，不等于全部协议验证已落实，也不据此断言结果伪造或发生未来泄露。
+
+主分支发布失败的真实错误是git认证缺失could not read Username，不是非快进。Actions成功不代表主分支交付成功。现通过新交接指针明确038已结束；完整原始证据仍引用原artifact/执行分支，不重训解决发布。
+
+用户已调整优先级：以完整D>C为目标，F研究暂缓。下一轮只按Protocol-039做一次休眠/唤醒试验；先补真实生产入口合成测试。历史038预算关闭，永久删除、多流确认及F探索均无自动执行授权。

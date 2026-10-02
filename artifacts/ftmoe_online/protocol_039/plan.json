@@ -1,0 +1,223 @@
+{
+  "protocol": "039",
+  "revision": 1,
+  "date": "2026-10-02",
+  "status": "instructions_registered_not_implemented_not_started",
+  "code_base_commit": "e2854dad6b1e4df15f01e9ffd1de150e70c1b6e8",
+  "kernel_reference_commit": "7440a3973f97599ea2ad4de45d5bacaaf8b517c8",
+  "execution_branch": "codex/protocol-039-d-vs-c-sleep-wake-20261002",
+  "instructions": "docs/PROTOCOL039_D_VS_C_SLEEP_WAKE_20261002.md",
+  "instructions_sha256": "87ca213eaa64b01a05da57319aad31e2e70bc7116e56d2b0d57b0d3ea68b1a28",
+  "objective": "Preserve D>C while introducing one sleep/wake cycle; F research deferred until complete D>C objective is resolved.",
+  "source036": {
+    "protocol036_run_id": 36831958978,
+    "artifact_id": 11147931152,
+    "zip_sha256": "040bacac8f23659f56599b71d6d6706b62a544e44161c7c42fb5af73650f56c0",
+    "replay_seed": 3601,
+    "already_observed_development_data": true,
+    "independent_confirmation": false,
+    "stream_sha256": "09fadb02f2017f8d528ee8284129c29adcb6be137b1a9e93f4a249eebcd1b659",
+    "files": {
+      "stage_B/seed3601/C_ref/feature_tape.npz": "c71a2ea6d59045fe4cc8a953a776d37f48dbe1feec4aba859cd00f11c984529c",
+      "stage_B/seed3601/C_ref/update_batches.json": "4d32d2ece194cb41b8bc16de1c89ddfedcd42da668b96446937fb430d6246b6f",
+      "stage_B/seed3601/D_lin/predictions.npz": "1ea811ed175817294f275505db85d0bf283c3d0aca6b883b036243ad7843bef6",
+      "inputs/seed3601/manifest.json": "73a1c6fd8d8d12c8e84958df55b2379ab2f2542ac34923bc3934d363329cb02b",
+      "stage_B/seed3601/C_ref/predictions.npz": "da02b63c4a6cf7a2e4fe7c5b98dcd872ca1fa08114bb029f46fce4053b9e9576"
+    }
+  },
+  "source037": {
+    "run_id": 36871854703,
+    "artifact_id": 11167124178,
+    "zip_sha256": "498ead6571ef34e56702fd23f8cc57ac30afe92e99a8ffbfbd85a0b92e413c77",
+    "files": {
+      "D_birth/predictions.npz": "badf9005b2be9fc6436d1ff2b9377b27715e846d7d16f8e4bdfcbfa76f732e8c",
+      "D_birth/birth_checks.json": "4b8afb4f98abdc5405a69310206d0f145e981b28069883138fad9b7468a70d98",
+      "D_birth/lifecycle_events.json": "b2eb7dc30f4855e151d39e1ef8c633eef8505547c944f21bc5d3ed33b59a2711",
+      "D_birth/update_log.json": "b1b64946dc8029938e6ead7ca8e2ddb0a2decb5b0928efdcebe390a4e82f6838"
+    },
+    "historical_manifest_exception_only": [
+      "status.json"
+    ],
+    "load_F_files": false
+  },
+  "F_research": {
+    "status": "DEFERRED",
+    "training": 0,
+    "new_comparisons": 0,
+    "donor_trials": 0,
+    "pass_gate": false,
+    "automatic_resume": false
+  },
+  "arms": {
+    "C_ref": "cached036_C",
+    "B_ref": "cached036_D_lin",
+    "D_keep": "cached037_D_birth",
+    "D_sleepwake": "only_new_scientific_sequence"
+  },
+  "budget": {
+    "new_training_sequence_slots": 1,
+    "sequence_names": [
+      "D_sleepwake"
+    ],
+    "scientific_optimizer_steps_max": 352,
+    "new_streams": 0,
+    "baseline_retraining": 0,
+    "other_real_streams": 0,
+    "hyperparameter_sweeps": 0,
+    "donor_updates": 0,
+    "real_engineering_prefixes_max": 1,
+    "real_engineering_prefix_steps_max": 256,
+    "real_engineering_gradient_steps": 0,
+    "max_births": 1,
+    "max_sleeps": 1,
+    "max_wakes": 1,
+    "permanent_deletions": 0,
+    "restart_from_zero_after_start": false,
+    "automatic_next_protocol": false
+  },
+  "expert": {
+    "architecture": "Linear(73,1)",
+    "parameters": 74,
+    "constructor_seed": 3701,
+    "initialization": "w=b=0",
+    "delta": "2*tanh((w dot issued_z+b)/2)",
+    "logits": "[B0-delta/2,B1+delta/2]",
+    "classification": "exact B copy",
+    "loss": "mean BCEWithLogits(issued_B_margin+delta,y>0)+0.001*mean(delta^2)",
+    "optimizer": "AdamW",
+    "lr": 0.0001,
+    "weight_decay": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "clip_grad_norm": 1.0,
+    "update_every": 16,
+    "actual_C_batches_preserve_order_duplicates": true,
+    "catchup_updates": false
+  },
+  "states": [
+    "ABSENT",
+    "ACTIVE_BEFORE_SLEEP",
+    "SLEEPING",
+    "ACTIVE_FINAL"
+  ],
+  "event_order": [
+    "predict_with_current_state",
+    "settle_label_t_minus_2",
+    "at_most_one_state_transition_if_due",
+    "update_once_if_post_transition_active"
+  ],
+  "birth": {
+    "inherit_protocol037": true,
+    "recent": 64,
+    "previous": 256,
+    "min_matured": 320,
+    "ratio_min": 1.25,
+    "denominator_floor": 1e-06,
+    "absolute_increase_min": 0.02,
+    "recent_min_positive": 16,
+    "recent_min_negative": 16,
+    "consecutive_checks": 2,
+    "expected_t": 351,
+    "force_t_forbidden": true
+  },
+  "sleep": {
+    "only_state": "ACTIVE_BEFORE_SLEEP",
+    "min_matured_active_intervals": 256,
+    "recent_intervals": 128,
+    "require_all_recent_issued_active": true,
+    "utility": "mean(B_issued_BCE-D_issued_BCE)",
+    "utility_max": 0.0,
+    "consecutive_checks": 3,
+    "failed_check_resets": true,
+    "preserve_weights_and_optimizer": true,
+    "forward_calls_while_sleeping": 0,
+    "optimizer_steps_while_sleeping": 0
+  },
+  "wake": {
+    "only_state": "SLEEPING",
+    "min_matured_sleep_intervals": 64,
+    "recent": 64,
+    "previous": 256,
+    "require_all_recent_issued_sleeping": true,
+    "ratio_min": 1.25,
+    "denominator_floor": 1e-06,
+    "absolute_increase_min": 0.02,
+    "recent_min_positive": 16,
+    "recent_min_negative": 16,
+    "consecutive_checks": 2,
+    "restore_optimizer_exactly": true,
+    "reset_optimizer": false,
+    "next_state": "ACTIVE_FINAL"
+  },
+  "analysis": {
+    "primary_baseline": "C_ref",
+    "AP": "tie-grouped noninterpolated",
+    "threshold": 0.5,
+    "primary_D_over_C_signal": {
+      "full_AP_delta_min": 0.002,
+      "six_AP_delta_min": 0.002,
+      "positive_windows_min": 4,
+      "late4_AP_delta_min": 0.0,
+      "prefix32_AP_delta_min": -0.005,
+      "guards_and_validity_required": true
+    },
+    "management_preserved_signal": {
+      "baseline": "D_keep",
+      "full_AP_delta_min": -0.001,
+      "six_AP_delta_min": -0.001,
+      "late4_AP_delta_min": -0.001,
+      "prefix32_AP_delta_min": -0.005,
+      "guards_and_validity_required": true
+    },
+    "guards": {
+      "full_and_recurrence_pooled_fpr_delta_max": 0.01,
+      "full_and_recurrence_pooled_recall_delta_min": -0.01,
+      "W_mean_AP_delta_min": -0.02,
+      "each_recurrence_recall_delta_min": -0.02,
+      "each_recurrence_prefix32_recall_delta_min": -0.03
+    },
+    "cycle_resource_signal": {
+      "sleep_and_wake_observed": true,
+      "sleep_predictions_min": 64,
+      "expert_forward_total_less_than": 5616,
+      "expert_steps_less_than": 352,
+      "sleep_forward_steps_zero": true,
+      "actual_call_audit_required": true
+    },
+    "progress_signal": "primary AND management_preserved AND cycle_resource",
+    "B_is_attribution_only": true,
+    "event_before_lengths": [
+      64
+    ],
+    "event_after_lengths": [
+      64,
+      128,
+      256
+    ],
+    "single_class_AP": null,
+    "single_stream_development_only": true,
+    "complete_dynamic_deletion_success_claim": false
+  },
+  "runtime": {
+    "workflow": "protocol039-d-vs-c-sleep-wake.yml",
+    "formal_trigger": "workflow_dispatch_only",
+    "one_shot_dispatch_helper_allowed": true,
+    "helper_training_allowed": false,
+    "exact_resume_only": true,
+    "actual_forward_optimizer_call_instrumentation": true,
+    "production_entrypoint_synthetic_fixtures": true,
+    "checkpoint_every_actual_update_and_transition": true,
+    "checkpoint_every_predictions": 512,
+    "ambiguously_executed_step": "stop_no_replay",
+    "authentication_error": "publication_pending_no_science_rerun"
+  },
+  "freeze": {
+    "this_turn_launch_authorized": false,
+    "before_real_lifecycle_diagnostics": true,
+    "historical_protocols_immutable": true,
+    "future_roadmap_is_not_execution_authorization": true
+  }
+}

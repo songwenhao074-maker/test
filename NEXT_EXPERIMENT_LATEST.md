@@ -1,11 +1,9 @@
-# 下一实验交接
+# 下一实验交接：Protocol-039
 
-当前：Protocol-038 已登记，尚未实现或启动。
+目标优先级：完整D优于C。F相关实验暂缓，不再作为当前推进门槛。
 
-先读 [Protocol-038 实验指示](docs/PROTOCOL038_BIRTH_INITIALIZATION_20261001.md) 与 [冻结计划](artifacts/ftmoe_online/protocol_038/plan.json)，运行 `python maintenance/validate_protocol038_plan.py`。
+038科学训练已经完成，勿重跑；参见[独立复核与停止交接](docs/PROTOCOL038_REVIEW_AND_HANDOFF_20261002.md)。当前039仅登记，尚未实现或启动。
 
-收到用户执行交接后，按顺序完成：已有037结果只读诊断 → 重建一次21步历史donor → 两条新序列D_bias/D_warm。两组均重置优化器，保持结构、出生规则、后续batch不变。新增科学更新上限725，B/F/D_zero仅复用；原始工件不可访问或不匹配就停止，不重训补齐。
+收到用户执行交接后：读取[完整039指示](docs/PROTOCOL039_D_VS_C_SLEEP_WAKE_20261002.md)与[冻结plan](artifacts/ftmoe_online/protocol_039/plan.json)，运行 `python maintenance/validate_protocol039_plan.py`；补齐真实入口的恢复、未来扰动和调用计数合成测试，然后实施唯一D_sleepwake新序列。
 
-本轮检验历史偏置与特征权重能否改善冷启动。donor成本必须计入，不能把效果接近F当成已经证明动态增删成功。完成后上传证据并停止，下一轮跨流、结构或休眠/删除实验需新登记。
-
-037历史结果：[结果说明](docs/PROTOCOL037_RESULTS.md)。本次指示提交不启动训练。
+沿用零初始化出生与原预测结构，只加一次休眠/唤醒。C为主基线，缓存D_keep衡量管理损失，B仅解释贡献。最多352科学更新，不重训基线、不增加流、不做F/donor或永久删除。未触发也交付并停止，不改阈值凑事件。成功后也必须交付并停止，下一步另登记。
