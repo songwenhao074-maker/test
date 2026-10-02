@@ -816,6 +816,12 @@ def restore_checkpoint(path, src, work_dir, identity=None, forced_events=None, a
     return m, x.get("ledger_snapshot")
 
 
+def _array_exact(a,b):
+    aa=np.asarray(a); bb=np.asarray(b)
+    if aa.dtype.kind in ("f","c") or bb.dtype.kind in ("f","c"):
+        return np.array_equal(aa,bb,equal_nan=True)
+    return np.array_equal(aa,bb)
+
 def machine_equivalent(a, b, n=None):
     n = int(a.src["n"] if n is None else n)
     if a.cursor != b.cursor or a.substep != b.substep or a.state != b.state:
@@ -825,9 +831,9 @@ def machine_equivalent(a, b, n=None):
     if any(getattr(a,k) != getattr(b,k) for k in scalar):
         return False
     for k in a.out:
-        if not np.array_equal(a.out[k][:n], b.out[k][:n], equal_nan=True):
+        if not _array_exact(a.out[k][:n], b.out[k][:n]):
             return False
-    if not np.array_equal(a.b_loss[:n], b.b_loss[:n], equal_nan=True) or not np.array_equal(a.d_loss[:n], b.d_loss[:n], equal_nan=True):
+    if not _array_exact(a.b_loss[:n], b.b_loss[:n]) or not _array_exact(a.d_loss[:n], b.d_loss[:n]):
         return False
     for k in ("birth_checks","sleep_checks","wake_checks","lifecycle_events","update_events","forward_events","settlement_events"):
         if getattr(a,k) != getattr(b,k):
