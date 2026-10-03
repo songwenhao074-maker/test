@@ -1,0 +1,17 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "run_id": "37128097274",
+  "validity": false,
+  "system_result_label": "invalid_execution",
+  "main_development_success": false,
+  "D_over_C": false,
+  "cumulative_preservation": false,
+  "addition_policy_signal": false,
+  "window_policy_signal": false,
+  "pool_exercised": true,
+  "multi_active_exercised": true,
+  "victim_selection_exercised": false,
+  "publication_status": "pending_until_main_sync",
+  "automatic_followup": false
+}

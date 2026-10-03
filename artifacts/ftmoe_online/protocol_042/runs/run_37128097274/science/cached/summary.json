@@ -1,0 +1,14 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "cached_controls": [
+    "C_ref",
+    "B_ref",
+    "D_keep",
+    "D_039",
+    "D_040",
+    "W_041"
+  ],
+  "training": false,
+  "F_loaded": false
+}

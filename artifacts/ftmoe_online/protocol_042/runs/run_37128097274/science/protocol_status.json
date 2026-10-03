@@ -1,0 +1,14 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "science_status": "completed",
+  "analysis_status": "pending",
+  "publication_status": "pending",
+  "run_id": "37128097274",
+  "resume": false,
+  "science_rc": 0,
+  "restart_from_zero": false,
+  "science_reexecuted": false,
+  "next_arm": "R_win128",
+  "U_boundary_recovered_from_raw_artifact": 11274660283
+}

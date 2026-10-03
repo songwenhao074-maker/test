@@ -1,0 +1,17 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "arm": "R_win128",
+  "wall_seconds": 54.36125617699999,
+  "process_seconds": 51.549939154,
+  "prediction_seconds": 0.4593321609997929,
+  "update_seconds": 0.23528954899994403,
+  "controller_cpu_seconds": 7.1311877009999876,
+  "live_optimizer_steps": 306,
+  "shadow_optimizer_steps": 32,
+  "deployed_forwards": 4880,
+  "reuse_forwards": 288,
+  "qualification_forwards": 64,
+  "live_training_forwards": 306,
+  "shadow_training_forwards": 32
+}

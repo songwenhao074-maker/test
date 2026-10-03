@@ -1,15 +1,7 @@
 # Project Context Latest
 
-目标：修改结构，使保留新增、知识保存/选择、休眠复用及容量管理思想的D优于持续学习C。
+Latest bounded science is Protocol-042 revision 2 science run 37128097274. Analysis/publication recovery run 37130973490 did not reexecute science. System label: **invalid_execution**. Main development success: False. Addition-policy signal: False. Window-policy signal: False. Pool exercised: True.
 
-最新完成041 run37110969550：暖启动候选BCE0.501080578368035，零初始化0.5206202995032794，live0.5008784185917762；均拒绝，池仅接受E0。暖启动明显继承能力，尚未形成部署收益。W对C full AP+0.018371、six+0.012523；对D_keep为-0.000880/-0.000960。结果来自已见seed3601，不能作独立确认。
+Protocol-042 tested additive multi-expert admission and current-epoch historical versus global-time window-128 utility using the same seen seed3601. Read docs/PROTOCOL042_RESULTS.md and artifacts/ftmoe_online/protocol_042/runs/run_37128097274/.
 
-用户进一步指出：替换失败可能因为旧专家仍有用；历史高分又可能在故障变化后过时。因此2026-10-03重建未执行的042，撤销revision1困难加权，而不是追加其预算。
-
-当前唯一登记为[042 revision2](docs/PROTOCOL042_WINDOWED_UTILITY_20261003.md)：U_parent复现门控、R_win128替换、A_hist累积评分补充、A_win128固定时间128窗补充。A_win128为主臂。加性logit允许用已发行贡献计算单专家移除损失，评分无额外专家forward；复用preview仍有成本。正负分开、支持不足为未知、成熟期与连续检查保护，低效用休眠、历史价值入档；不永久删除。新候选作为零起点增量学习，不能复制父修正后再叠加。
-
-四臂总专家梯度上限2576；多活动带来的额外计算显式计账，不宣称等算力。64/256、幅度代理只读诊断；ADWIN/EMA/多seed/永久删除留后续，不自动执行。
-
-041仍有恢复/门控工程缺口：shadow更新计数/ready事务、真正跨梯度和事件的磁盘恢复、缺失结果fail-closed。新版必须先修并测试，再共同冻结；U失败停止。用户将交其他模型执行，本次只发布计划。
-
-历史033–041预算关闭；042旧revision预算撤销，不能从零重复科学序列。结果和失败raw保留，分析/发布不得重训。没有042结果，不自动043或F。
+Historical033–042 budgets are closed. Any retry or next protocol requires new preregistration and user handoff.

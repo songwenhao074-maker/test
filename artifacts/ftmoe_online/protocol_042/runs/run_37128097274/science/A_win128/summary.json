@@ -1,0 +1,86 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "arm": "A_win128",
+  "first_birth_t": 351,
+  "ids_created": 2,
+  "accepted_experts": 2,
+  "active_ids_final": [
+    0,
+    1
+  ],
+  "deployment_epoch_final": 4,
+  "attempts_after_e0": 1,
+  "live_optimizer_steps": 596,
+  "shadow_optimizer_steps": 16,
+  "deployed_prediction_forwards": 9504,
+  "reuse_preview_forwards": 288,
+  "shadow_qualification_forwards": 32,
+  "live_training_forwards": 596,
+  "shadow_training_forwards": 16,
+  "reuse_slots_started": 9,
+  "max_active_seen": 2,
+  "max_resident_seen": 2,
+  "permanent_deletions": 0,
+  "actual_optimizer_calls": 612,
+  "per_expert": {
+    "0": {
+      "role_final": "active",
+      "version": 306,
+      "optimizer_step": 306,
+      "model_hash_final": "2aa300e32d8faff6c895927ea58856ab18b989eec7037583c4bb59831ad149a0",
+      "optimizer_hash_final": "2d59b42729f6e6d379cd7adf2fea959154cd0682a43d45b0653e17eacdb4b213",
+      "reactivations": 1,
+      "first_active_t": 352,
+      "historical_utility": [
+        {
+          "epoch": 2,
+          "at_interval": 1615,
+          "reason": "nonuseful_three_checks",
+          "score": {
+            "valid": true,
+            "reason": "ok",
+            "score": -0.006240724455890389,
+            "score_pos": -0.003216759682685367,
+            "score_neg": -0.006496992657009458,
+            "positive_host_rows": 160,
+            "negative_host_rows": 1888,
+            "positive_intervals": 101,
+            "fpr_live": 0.08739406779661017,
+            "fpr_removed": 0.0847457627118644,
+            "recall_live": 0.9625,
+            "recall_removed": 0.9625,
+            "removal_fpr_delta": -0.0026483050847457695,
+            "removal_recall_delta": 0.0,
+            "epoch_matured": 270,
+            "intervals": 128,
+            "first_i": 1486,
+            "last_i": 1613
+          }
+        }
+      ],
+      "active_predictions": 4880
+    },
+    "1": {
+      "role_final": "active",
+      "version": 306,
+      "optimizer_step": 306,
+      "model_hash_final": "d6bb13c20f0800fe6274fa50e6431bfbc63194973d00a65d29dcaa332b42d3f5",
+      "optimizer_hash_final": "2c2cea54df0afe06952e58b1655ebf5a7940ee1680f31fbba8df78526a9df70d",
+      "reactivations": 1,
+      "first_active_t": 1344,
+      "historical_utility": [],
+      "active_predictions": 4624
+    }
+  },
+  "terminal_progress": 3,
+  "next_substep": "done",
+  "terminal_counter_delta": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

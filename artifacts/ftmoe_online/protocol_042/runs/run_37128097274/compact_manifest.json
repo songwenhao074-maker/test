@@ -1,0 +1,533 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "root": "/home/runner/work/test/test/frozen/artifacts/ftmoe_online/protocol_042/runs/run_37128097274",
+  "file_count": 105,
+  "files": [
+    {
+      "path": "analysis/PROTOCOL042_RESULTS.md",
+      "sha256": "2c5735a9084f9faea84dc42fe618a810b859d6e12cad0f973b4f1d2d615ca117",
+      "size": 1603
+    },
+    {
+      "path": "analysis/analysis_manifest.json",
+      "sha256": "ca26573b298208aabedaccc8f4c865ee02a3fd607ab61f82003f825a5caa4694",
+      "size": 1509
+    },
+    {
+      "path": "analysis/analysis_recovery.json",
+      "sha256": "eeabe5edb8218bc8baa52281ca441ae842e7965644b3739670f33cae32259e1e",
+      "size": 779
+    },
+    {
+      "path": "analysis/analysis_status.json",
+      "sha256": "157529d7468a9f6388bb04fed230193aff1216a31037b92cdf236076c4eab483",
+      "size": 478
+    },
+    {
+      "path": "analysis/artifact_index.json",
+      "sha256": "7ab05a3a63777da2b6f446120292d01493083bc2b9d3f42b66f6ab04a5f6e14c",
+      "size": 456
+    },
+    {
+      "path": "analysis/comparison.json",
+      "sha256": "a024ee8b2fc9d42e8f5619105dde8c5c5ad35a73ba11cafddb961759aab9e0d9",
+      "size": 229239
+    },
+    {
+      "path": "analysis/cost_profile.json",
+      "sha256": "46765f25a1d192a81f54c28b77b0f9cc0df38093c31548c210fb4a1dccd991fd",
+      "size": 2670
+    },
+    {
+      "path": "analysis/mechanism_diagnostics.json",
+      "sha256": "d3661b7f9361dff448193bf03986facb264496e1be42fd92665572c0f000df5c",
+      "size": 951
+    },
+    {
+      "path": "analysis/read_only_window_diagnostics.json",
+      "sha256": "0cea8555b3d3db45a3ec95542570d767617fd7beb98b116767efb98b53dd6607",
+      "size": 17148
+    },
+    {
+      "path": "analysis/score_recompute.json",
+      "sha256": "9e771e5b3f951a95cf758bdbbc9628e25f0d560ab52f37363dcc2c9d4e46d80a",
+      "size": 104002
+    },
+    {
+      "path": "publication_status.json",
+      "sha256": "fc0c1ec45d90e42d040f74838406825d5208ffef45ef5f3e37fa891a18cba932",
+      "size": 213
+    },
+    {
+      "path": "science/A_hist/archive_events.json",
+      "sha256": "7a758253eceba0a4cbfc15c369dd75b7fabdcdd589936b66a34270e6be6d26ca",
+      "size": 76
+    },
+    {
+      "path": "science/A_hist/birth_checks.json",
+      "sha256": "691c4bd2be118072ec79270865f75f96ddd0e769a8d96c6b6306361debacb7e0",
+      "size": 591
+    },
+    {
+      "path": "science/A_hist/candidate_decisions.json",
+      "sha256": "fcd283c70fadf829c7398bdd0ce32afaa4e2bc2d867fedfc27e39f4140a48b50",
+      "size": 2386
+    },
+    {
+      "path": "science/A_hist/lifecycle_events.json",
+      "sha256": "61c4dd12e1656664e4e1e4db991579248a35e68ce8936012bb5c6992573956d9",
+      "size": 1352
+    },
+    {
+      "path": "science/A_hist/opportunity_log.json",
+      "sha256": "0f5fc257e36269b6ac119465ed5d051aae2611deca30b47f9111ddc1fc5ff635",
+      "size": 115177
+    },
+    {
+      "path": "science/A_hist/predictions.npz",
+      "sha256": "7fdafa7cd0fbd5671d15b7f07668c1ed29b4a7d263a4379ca3bf0508d0eab551",
+      "size": 3624018
+    },
+    {
+      "path": "science/A_hist/pressure_checks.json",
+      "sha256": "726fed62a841f6cefc1e913e9ce3c8ad82caa9f093d01757dca49fbad12e02af",
+      "size": 149570
+    },
+    {
+      "path": "science/A_hist/qualification_records.json",
+      "sha256": "5c88597d2955775be47e797d36cee15c0d2b3902ac0213e962066c0dc819ced5",
+      "size": 1716
+    },
+    {
+      "path": "science/A_hist/reuse_decisions.json",
+      "sha256": "18c60e4b81bec1a8af441ca44369aec1cd7724a0822eec1e4493721160ab3f42",
+      "size": 79
+    },
+    {
+      "path": "science/A_hist/run_audit.json",
+      "sha256": "05739f61cebe8d2f48fd52642b0c90b32bbf22aecfd4de6732fbd37bb1ac2f78",
+      "size": 791
+    },
+    {
+      "path": "science/A_hist/science_cost_raw.json",
+      "sha256": "c602befebc1c7814c9e758011289aaf3c788f53438acef64790cbe4b237268ff",
+      "size": 477
+    },
+    {
+      "path": "science/A_hist/scientific_execution_complete.json",
+      "sha256": "907f15696079a18cae870df77d10a40fa3dad621dea35cfe5877cdfdd8dca3d4",
+      "size": 106
+    },
+    {
+      "path": "science/A_hist/settlement_log.json",
+      "sha256": "8a55753dbe689b260b2a81d4acaa57480ead5f4caaad13ffa8a68e541e1c2fc3",
+      "size": 1243392
+    },
+    {
+      "path": "science/A_hist/source_lock.json",
+      "sha256": "5da69bd7402a65ce13d73a157eb3475c14e5bf2472e2a3af0c30240f20ee3d12",
+      "size": 3183
+    },
+    {
+      "path": "science/A_hist/status.json",
+      "sha256": "092a73b9f8774ddd91c24261d93362c2404ed4d1dd021fe882f366884da71abb",
+      "size": 160
+    },
+    {
+      "path": "science/A_hist/summary.json",
+      "sha256": "3aac3d97511af3fd139615ec2aa65240b4d06b52bbbcb8c3307606c220632527",
+      "size": 1581
+    },
+    {
+      "path": "science/A_hist/update_log.json",
+      "sha256": "b89fb548f1e32368be08858f9a43de964aeab01607578789f745dae4d73dfaee",
+      "size": 830152
+    },
+    {
+      "path": "science/A_hist/utility_checks.json",
+      "sha256": "b8bed0e4db3866c3132ecd0ca5fb8e1f6cc0e0af78d8275e649524be01d3798e",
+      "size": 514762
+    },
+    {
+      "path": "science/A_hist/utility_tracker_summary.json",
+      "sha256": "f377e167e840d730af8d8dc86abc7cb30fee615033284c1c742d54c2f20a5328",
+      "size": 3434
+    },
+    {
+      "path": "science/A_hist/victim_tables.json",
+      "sha256": "2b0ae29c03ac262492413b4d2dc1652da46a725af724937704a14cea5493aa7e",
+      "size": 628528
+    },
+    {
+      "path": "science/A_win128/archive_events.json",
+      "sha256": "023e8ac77aa5bd246265f2a0d441cb89da7fb113e787404ee2a8bae62c44eede",
+      "size": 1078
+    },
+    {
+      "path": "science/A_win128/birth_checks.json",
+      "sha256": "d36e088d558f0a51f9fa949ceae7d6abbb31f5bd55fc71e651c8a1b7bb1c7bf7",
+      "size": 593
+    },
+    {
+      "path": "science/A_win128/candidate_decisions.json",
+      "sha256": "3d7a14597143ac58f4b63c3e71da7571c359425a07ba98ae212389cabedb2028",
+      "size": 2388
+    },
+    {
+      "path": "science/A_win128/lifecycle_events.json",
+      "sha256": "c17d90c44ef9c8df52d2a405ef2a8e341f6d1543b925db77a2ce5a2b5901e38a",
+      "size": 2411
+    },
+    {
+      "path": "science/A_win128/opportunity_log.json",
+      "sha256": "d048f7051fb91936ca114226118801e59ebbaa4138c547e6f918fb6e1f097091",
+      "size": 111376
+    },
+    {
+      "path": "science/A_win128/predictions.npz",
+      "sha256": "00fa533ff34da4ffe416138878df9a427ce29e812c8bf3547843f55d892447d4",
+      "size": 3580000
+    },
+    {
+      "path": "science/A_win128/pressure_checks.json",
+      "sha256": "8ee28f1437c7e4741a688b4bb6240d83f2db6583d0d9d939118a8ec54ca8c08a",
+      "size": 147143
+    },
+    {
+      "path": "science/A_win128/qualification_records.json",
+      "sha256": "761cfad61bf41a9ea16773d0d8b3f40e7ef9565d14355338c01ec4bb1ea748d3",
+      "size": 1718
+    },
+    {
+      "path": "science/A_win128/reuse_decisions.json",
+      "sha256": "feef618643230231e59aed1aac5d27faec7f988a69ab1e1052d7a92f221bb36a",
+      "size": 20517
+    },
+    {
+      "path": "science/A_win128/run_audit.json",
+      "sha256": "05739f61cebe8d2f48fd52642b0c90b32bbf22aecfd4de6732fbd37bb1ac2f78",
+      "size": 791
+    },
+    {
+      "path": "science/A_win128/science_cost_raw.json",
+      "sha256": "32990f773270668e3146f796fccd9c15c15427d9e96c28395229eae993e1f322",
+      "size": 487
+    },
+    {
+      "path": "science/A_win128/scientific_execution_complete.json",
+      "sha256": "c89428edb611f049833514f5de4a52cb712b2d13dda044915c5b8c2c45e42276",
+      "size": 108
+    },
+    {
+      "path": "science/A_win128/settlement_log.json",
+      "sha256": "16e151dd0d9b1cf380c6ea79aab7ea0d711fc12bb6b72d68735ca1a24a5c2271",
+      "size": 1235354
+    },
+    {
+      "path": "science/A_win128/source_lock.json",
+      "sha256": "1162508e7242d66cc9a1dcc4498cd25e2b609d5bbe05e75f0f6ec9f48a18a089",
+      "size": 3185
+    },
+    {
+      "path": "science/A_win128/status.json",
+      "sha256": "1c4eecddfd0181c7918e519b0674bc5639aab7e45de1a8f1a2d21e38538583cb",
+      "size": 162
+    },
+    {
+      "path": "science/A_win128/summary.json",
+      "sha256": "aafa2ecb614f9568cc27fdd24306893c82109e8587bf72ae59e3f9ce1921c291",
+      "size": 2439
+    },
+    {
+      "path": "science/A_win128/update_log.json",
+      "sha256": "f44557412a8a206f74671a02194402af57b2cc3f4503e2c8e3fb4a2f00b8d93d",
+      "size": 771306
+    },
+    {
+      "path": "science/A_win128/utility_checks.json",
+      "sha256": "d3b355dc2cf44805e0d6d7499cd7d3fa6c9104f92dbff7eeb5bb27f99be5cc11",
+      "size": 460761
+    },
+    {
+      "path": "science/A_win128/utility_tracker_summary.json",
+      "sha256": "fba3324c1134ecaa8f981545199f0138be70daccfab52cbc3e376544da52e206",
+      "size": 4451
+    },
+    {
+      "path": "science/A_win128/victim_tables.json",
+      "sha256": "3e17a44b6968029d3337bec51c2d0600d92e8361810764dd04a134928a17eb67",
+      "size": 568261
+    },
+    {
+      "path": "science/R_win128/archive_events.json",
+      "sha256": "aab4b6307b18fd94594327d7bfd3a46cc0457ef5aea9b1a9451091a3ef3c1a59",
+      "size": 1079
+    },
+    {
+      "path": "science/R_win128/birth_checks.json",
+      "sha256": "a4261c8ae3a4aa0939729a47c72b9655ab2fbb05ead662f1cb458eda0668e3b4",
+      "size": 593
+    },
+    {
+      "path": "science/R_win128/candidate_decisions.json",
+      "sha256": "3a2728005f752a196e212ddbb0d0d678acc73107e3a6935a1055e12da948ac3d",
+      "size": 5892
+    },
+    {
+      "path": "science/R_win128/lifecycle_events.json",
+      "sha256": "a844aa9e02c923388fc05e468da7a95ec69d379c9e87c4ad20c202102b5b4b60",
+      "size": 1717
+    },
+    {
+      "path": "science/R_win128/opportunity_log.json",
+      "sha256": "57d27ad4db3542f3977e01b445b59498710faaaa3525d1ccb52d4b4114fd07b8",
+      "size": 104696
+    },
+    {
+      "path": "science/R_win128/predictions.npz",
+      "sha256": "883959f461eeff8932ccb8c49b15a037e2a43d276148a4d914b33fd5da90617d",
+      "size": 3280760
+    },
+    {
+      "path": "science/R_win128/pressure_checks.json",
+      "sha256": "4fb53c7a125991e3bc0c7e1eaaa024cdbeac9e0bd9126e8bd6fae07909d06f5c",
+      "size": 145032
+    },
+    {
+      "path": "science/R_win128/qualification_records.json",
+      "sha256": "52fdaa5eaebad338e3d096521c1422248db2383fce6a99999ef7260e5be7fd69",
+      "size": 4594
+    },
+    {
+      "path": "science/R_win128/reuse_decisions.json",
+      "sha256": "3f4b2703c713034efa56a29769ec11a85e2652e400bdfce8c2ac6a1aaa2001b2",
+      "size": 20021
+    },
+    {
+      "path": "science/R_win128/run_audit.json",
+      "sha256": "05739f61cebe8d2f48fd52642b0c90b32bbf22aecfd4de6732fbd37bb1ac2f78",
+      "size": 791
+    },
+    {
+      "path": "science/R_win128/science_cost_raw.json",
+      "sha256": "14206b8b1881cbf003d95f69dfe88d97afad770cc08fb4b01d641658bf9d5f64",
+      "size": 483
+    },
+    {
+      "path": "science/R_win128/scientific_execution_complete.json",
+      "sha256": "f589e9c2068f5af00d14c51f6609992a53482a824be521c5c1f518c6d29f00ca",
+      "size": 108
+    },
+    {
+      "path": "science/R_win128/settlement_log.json",
+      "sha256": "8af4692d3d04795469e65f628ea74a50a396e3987c8112ccfe51aa9a7173948b",
+      "size": 1180016
+    },
+    {
+      "path": "science/R_win128/source_lock.json",
+      "sha256": "5f00ebd170c4adc8530b120754877f6f75c40db3e5fbecb21f84f9f501fc840b",
+      "size": 3185
+    },
+    {
+      "path": "science/R_win128/status.json",
+      "sha256": "dff2f84ce9ceab2bbd6e1e6c7fb86f73d6be61f759322a44d3494135c6ee7a07",
+      "size": 162
+    },
+    {
+      "path": "science/R_win128/summary.json",
+      "sha256": "b03ed46a66ef46ed7dc5e97f40a5e9a967a8796e930bb92b611affadfcabd424",
+      "size": 2021
+    },
+    {
+      "path": "science/R_win128/update_log.json",
+      "sha256": "de122b38d2da367c0dd709829b07be6dd1e1dc9febc9d40c5e78a837cdf775cf",
+      "size": 422879
+    },
+    {
+      "path": "science/R_win128/utility_checks.json",
+      "sha256": "685f93fca3a4f76039c95ad46fc502e8d809d5350dd7948a76369e1455d15f56",
+      "size": 241806
+    },
+    {
+      "path": "science/R_win128/utility_tracker_summary.json",
+      "sha256": "782a5410d2c169c4c2cc9061eba9de6d2c7396f2f7604767e8a1f0744397ee19",
+      "size": 2513
+    },
+    {
+      "path": "science/R_win128/victim_tables.json",
+      "sha256": "d85add79fba60ad92a00bd5264ca8ce18d318bf5347ac9d48d2f9de7d75f7622",
+      "size": 313954
+    },
+    {
+      "path": "science/U_parent/birth_checks.json",
+      "sha256": "3e1328d4f242fd9575717848bad114b47887e1ecd236df18f766834b3522655e",
+      "size": 593
+    },
+    {
+      "path": "science/U_parent/candidate_decisions.json",
+      "sha256": "d21c2a2a8d0a53d42fe2db7f93872e2cd79a80c0ad493d49669b2663fa01fe0e",
+      "size": 2030
+    },
+    {
+      "path": "science/U_parent/initialization_events.json",
+      "sha256": "439b148d7f2c2b192e439c42b1c02fc2984c6df3ac36d90d9a1747635f58acc8",
+      "size": 1321
+    },
+    {
+      "path": "science/U_parent/lifecycle_events.json",
+      "sha256": "757cdbdcac8559013b81802f4366b15c461bcc773eb27040129a0c3613924784",
+      "size": 2367
+    },
+    {
+      "path": "science/U_parent/opportunity_audit.json",
+      "sha256": "44f429204f67187cd4cf5f8c3c655e13e1d194741d19655bb30c06681d1acf17",
+      "size": 223626
+    },
+    {
+      "path": "science/U_parent/opportunity_log.json",
+      "sha256": "b3144e5e4e4181a3e02dbf2b6dd89a8e4c803a66c3c0d7cef432cfac5739385e",
+      "size": 85397
+    },
+    {
+      "path": "science/U_parent/predictions.npz",
+      "sha256": "51a5ac7ec4e72f340ab1f051bb3707ad44e5540786a94bf0b10f9a8af9e7dd6a",
+      "size": 2330920
+    },
+    {
+      "path": "science/U_parent/pressure_checks.json",
+      "sha256": "2213ff130939cd5a77ccf6002c418a47d24157835c5d75d1638e75eb1deb8446",
+      "size": 131920
+    },
+    {
+      "path": "science/U_parent/qualification_first.npz",
+      "sha256": "f8844850f0d3eb29395fdaf90e0962fbe161545be47b5024d6b5e195767fd335",
+      "size": 7235
+    },
+    {
+      "path": "science/U_parent/reproduction_report.json",
+      "sha256": "1f90a72f68501fe712578643ddfc50f464cfb36492aa5571ff18be929e02d802",
+      "size": 1733
+    },
+    {
+      "path": "science/U_parent/reproduction_report_gate_failure_original.json",
+      "sha256": "83bc441c79e897e4a7cb5cc92304d9143370a9257dd42ee0506f408a3b24fa44",
+      "size": 1117
+    },
+    {
+      "path": "science/U_parent/reproduction_tolerance_audit.json",
+      "sha256": "e43c68a9ea50b45de87797c82523c5cfe55d06253e6889989e947c0d3511e694",
+      "size": 571
+    },
+    {
+      "path": "science/U_parent/reuse_decisions.json",
+      "sha256": "73fbac9ef4ac3f798fdba1efb3d287d6e321f9f6733f39488b6b8548f1601be1",
+      "size": 24865
+    },
+    {
+      "path": "science/U_parent/run_audit.json",
+      "sha256": "807de07311b502c451418a2f522b207633438a48ceffd6dec9802247f026c09c",
+      "size": 298
+    },
+    {
+      "path": "science/U_parent/scientific_execution_complete.json",
+      "sha256": "8bce32c2802dda117205d0f0819418a5908f72fd800fff637bdf800dde0e865e",
+      "size": 227
+    },
+    {
+      "path": "science/U_parent/sleep_checks.json",
+      "sha256": "1682e5e1e5dae3946f227e4cc358893f17ff8bad09baa19f58c8026dd38720c0",
+      "size": 75828
+    },
+    {
+      "path": "science/U_parent/source_lock.json",
+      "sha256": "4ce82d793763bdab150492dab403baa4592fe3c6ba0ac8f95955dcf807754162",
+      "size": 3185
+    },
+    {
+      "path": "science/U_parent/status.json",
+      "sha256": "b17e588e28cdd932ad40e0f95adc535e6f372a4de10ff002f80001be4f090f78",
+      "size": 693
+    },
+    {
+      "path": "science/U_parent/status_gate_failure_original.json",
+      "sha256": "bd02e9f55b0b498be626a801e1ff3a8c3a4c688beda37266940100c774f6f92b",
+      "size": 568
+    },
+    {
+      "path": "science/U_parent/summary.json",
+      "sha256": "2d6d840a771f723ae2be4975724c96670bd99063487c3827e7d7b39d129bce4c",
+      "size": 893
+    },
+    {
+      "path": "science/U_parent/update_log.json",
+      "sha256": "55c11815c8b9d350c2f9b422ad1f5c7b55fe5bb0d494728a7e7719ea9b9bec45",
+      "size": 336361
+    },
+    {
+      "path": "science/budget_ledger.json",
+      "sha256": "4c94b13a54c119e4e12a90e2d9feafa65688b72e48e096e4f55e4b3785c43a63",
+      "size": 1831
+    },
+    {
+      "path": "science/cached/B_ref/predictions.npz",
+      "sha256": "1ea811ed175817294f275505db85d0bf283c3d0aca6b883b036243ad7843bef6",
+      "size": 2370519
+    },
+    {
+      "path": "science/cached/C_ref/predictions.npz",
+      "sha256": "da02b63c4a6cf7a2e4fe7c5b98dcd872ca1fa08114bb029f46fce4053b9e9576",
+      "size": 3069116
+    },
+    {
+      "path": "science/cached/D_039/predictions.npz",
+      "sha256": "bc387d13721ed2e759a205ed3b4f6fa884c1ca105068a79a340148e1f5e96512",
+      "size": 2347018
+    },
+    {
+      "path": "science/cached/D_040/predictions.npz",
+      "sha256": "51a5ac7ec4e72f340ab1f051bb3707ad44e5540786a94bf0b10f9a8af9e7dd6a",
+      "size": 2330920
+    },
+    {
+      "path": "science/cached/D_keep/predictions.npz",
+      "sha256": "badf9005b2be9fc6436d1ff2b9377b27715e846d7d16f8e4bdfcbfa76f732e8c",
+      "size": 2382924
+    },
+    {
+      "path": "science/cached/W_041/predictions.npz",
+      "sha256": "51a5ac7ec4e72f340ab1f051bb3707ad44e5540786a94bf0b10f9a8af9e7dd6a",
+      "size": 2330920
+    },
+    {
+      "path": "science/cached/summary.json",
+      "sha256": "7e30531a6edceb1aafee61f94d4cc1bee7ad23267f7ef400fae363ae9cd2f8c8",
+      "size": 189
+    },
+    {
+      "path": "science/fixture_report.json",
+      "sha256": "ddf0ee646a1b6191beb1d6cf384ef5a114b71a8a06c148207764f3daeeab8819",
+      "size": 7594
+    },
+    {
+      "path": "science/implementation_manifest.json",
+      "sha256": "2e258e1beee5a40f2f1b85433dfe32a3af3cd5985f3aee965ac67bee00f95c81",
+      "size": 1627
+    },
+    {
+      "path": "science/protocol_status.json",
+      "sha256": "a4ed7470b204a7798fe065857d573595e42022e1d863552f50e56329a61f573b",
+      "size": 350
+    },
+    {
+      "path": "science/scientific_raw_manifest.json",
+      "sha256": "680c9b60acd74d6539861613378655178fb395e4b33bf05f290c87ed114ad85a",
+      "size": 47337
+    },
+    {
+      "path": "science/source_materialization.json",
+      "sha256": "44b79502657bb51ba4ef7f4f4b50c132e22fe9c5c26d4631e9b4761d3cd93b6d",
+      "size": 7172
+    }
+  ]
+}

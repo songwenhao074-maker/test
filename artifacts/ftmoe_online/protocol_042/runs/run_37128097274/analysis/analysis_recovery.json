@@ -1,0 +1,15 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "science_run_id": "37128097274",
+  "analysis_recovery_run_id": "37130973490",
+  "raw_artifact_id": 11276470062,
+  "raw_artifact_digest": "sha256:764913d9ffb3e26d2895b1ba802595458b5efdeb46c8bc118c226c2c2c7bc991",
+  "frozen_execution_sha": "da5eaa7e71f44497ede538c884e7ca688e6afbf4",
+  "original_analyzer_sha256": "124aff3c196e64ce8ff21830161792ebdafa929538a89aad61ed67a620f38801",
+  "recovered_analyzer_sha256": "b76dc74e39d4da86672fb2adcf8be7cc17805d23c9254ceba185fd7ee4649484",
+  "patch_scope": "cost_profile_only_allow_missing_U_runtime_file_and_recover_scientific_counters_from_sealed_summary",
+  "scientific_metrics_or_thresholds_changed": false,
+  "science_reexecuted": false,
+  "missing_U_wall_process_seconds_fabricated": false
+}

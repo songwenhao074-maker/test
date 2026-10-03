@@ -1,0 +1,14 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "arm": "U_parent",
+  "science_status": "completed",
+  "error": "RuntimeError('U_reproduction_failed_stop_before_new_arms')",
+  "traceback": "Traceback (most recent call last):\n  File \"run_ftmoe_protocol042.py\", line 517, in cmd_arm\n    if not audit[\"all_pass\"] or not rep[\"all_pass\"]: raise RuntimeError(\"U_reproduction_failed_stop_before_new_arms\")\nRuntimeError: U_reproduction_failed_stop_before_new_arms\n",
+  "analysis_status": "pending",
+  "publication_status": "pending",
+  "restart_from_zero": false,
+  "recovered_gate_only": true,
+  "science_reexecuted": false,
+  "original_failure_preserved": "status_gate_failure_original.json"
+}

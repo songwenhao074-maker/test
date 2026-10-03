@@ -1,0 +1,223 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "arm": "R_win128",
+  "decisions": [
+    {
+      "event": "shadow_start",
+      "at_interval": 1055,
+      "candidate_id": 1,
+      "attempt": 1,
+      "proposal_epoch": 1,
+      "retained_ids": [],
+      "victim_id": 0,
+      "initialization": "zero_weights_bias_fresh_AdamW",
+      "model_hash": "15878c9012c5667ff7c51f7098b333043e6d42f5df6d1bcac379b9d86a26017c",
+      "optimizer_state_empty": true
+    },
+    {
+      "event": "shadow_training_complete",
+      "at_interval": 1295,
+      "candidate_id": 1,
+      "updates": 16,
+      "validation_start": 1296,
+      "model_hash": "1a4b1c8fa16e3b9d13a31ed175ca1cb4d40fce6b3511c8af79d37bce65be0c98",
+      "optimizer_step": 16
+    },
+    {
+      "positive_host_rows": 126,
+      "negative_host_rows": 386,
+      "finite": true,
+      "support": true,
+      "candidate": {
+        "ap": 0.5586610286671069,
+        "bce": 0.5206202947804679,
+        "rows": 512,
+        "positives": 126,
+        "negatives": 386,
+        "tp": 60,
+        "fp": 59,
+        "fn": 66,
+        "tn": 327,
+        "recall": 0.47619047619047616,
+        "fpr": 0.15284974093264247
+      },
+      "live": {
+        "ap": 0.5745306203512925,
+        "bce": 0.5008784142299635,
+        "rows": 512,
+        "positives": 126,
+        "negatives": 386,
+        "tp": 61,
+        "fp": 59,
+        "fn": 65,
+        "tn": 327,
+        "recall": 0.48412698412698413,
+        "fpr": 0.15284974093264247
+      },
+      "B": {
+        "ap": 0.5546807404635709,
+        "bce": 0.5281114443414049,
+        "rows": 512,
+        "positives": 126,
+        "negatives": 386,
+        "tp": 58,
+        "fp": 59,
+        "fn": 68,
+        "tn": 327,
+        "recall": 0.4603174603174603,
+        "fpr": 0.15284974093264247
+      },
+      "checks": {
+        "bce_vs_live": false,
+        "bce_vs_B": true,
+        "fpr_vs_live": true,
+        "fpr_vs_B": true,
+        "recall_vs_live": true,
+        "recall_vs_B": true
+      },
+      "pass": false,
+      "reason": "quality_rejected",
+      "event": "shadow_evaluate",
+      "at_interval": 1343,
+      "candidate_id": 1,
+      "intervals": [
+        1296,
+        1328
+      ],
+      "updates": 16,
+      "plan": {
+        "retained_ids": [],
+        "victim_id": 0
+      },
+      "victim_recheck": {
+        "valid": true,
+        "reason": "ok",
+        "score": 0.03530690128020869,
+        "score_pos": 0.1600677859815914,
+        "score_neg": -0.007589885848088256,
+        "positive_host_rows": 524,
+        "negative_host_rows": 1524,
+        "positive_intervals": 126,
+        "fpr_live": 0.07545931758530183,
+        "fpr_removed": 0.07414698162729659,
+        "recall_live": 0.3530534351145038,
+        "recall_removed": 0.3282442748091603,
+        "removal_fpr_delta": -0.0013123359580052424,
+        "removal_recall_delta": -0.024809160305343525,
+        "epoch_matured": 990,
+        "intervals": 128,
+        "first_i": 1214,
+        "last_i": 1341
+      }
+    },
+    {
+      "event": "shadow_start",
+      "at_interval": 2831,
+      "candidate_id": 2,
+      "attempt": 2,
+      "proposal_epoch": 3,
+      "retained_ids": [],
+      "victim_id": 0,
+      "initialization": "zero_weights_bias_fresh_AdamW",
+      "model_hash": "15878c9012c5667ff7c51f7098b333043e6d42f5df6d1bcac379b9d86a26017c",
+      "optimizer_state_empty": true
+    },
+    {
+      "event": "shadow_training_complete",
+      "at_interval": 3071,
+      "candidate_id": 2,
+      "updates": 16,
+      "validation_start": 3072,
+      "model_hash": "efa6b49b4f8258e2c3c627a6047bbc597974a1b160518362bc2aab3187565fca",
+      "optimizer_step": 16
+    },
+    {
+      "positive_host_rows": 74,
+      "negative_host_rows": 438,
+      "finite": true,
+      "support": true,
+      "candidate": {
+        "ap": 0.6620879827092252,
+        "bce": 0.2545482001236478,
+        "rows": 512,
+        "positives": 74,
+        "negatives": 438,
+        "tp": 39,
+        "fp": 11,
+        "fn": 35,
+        "tn": 427,
+        "recall": 0.527027027027027,
+        "fpr": 0.02511415525114155
+      },
+      "live": {
+        "ap": 0.6604518738895909,
+        "bce": 0.24835461372199313,
+        "rows": 512,
+        "positives": 74,
+        "negatives": 438,
+        "tp": 40,
+        "fp": 14,
+        "fn": 34,
+        "tn": 424,
+        "recall": 0.5405405405405406,
+        "fpr": 0.0319634703196347
+      },
+      "B": {
+        "ap": 0.6616884868724809,
+        "bce": 0.25663432473869063,
+        "rows": 512,
+        "positives": 74,
+        "negatives": 438,
+        "tp": 38,
+        "fp": 11,
+        "fn": 36,
+        "tn": 427,
+        "recall": 0.5135135135135135,
+        "fpr": 0.02511415525114155
+      },
+      "checks": {
+        "bce_vs_live": false,
+        "bce_vs_B": true,
+        "fpr_vs_live": true,
+        "fpr_vs_B": true,
+        "recall_vs_live": true,
+        "recall_vs_B": true
+      },
+      "pass": false,
+      "reason": "quality_rejected",
+      "event": "shadow_evaluate",
+      "at_interval": 3119,
+      "candidate_id": 2,
+      "intervals": [
+        3072,
+        3104
+      ],
+      "updates": 16,
+      "plan": {
+        "retained_ids": [],
+        "victim_id": 0
+      },
+      "victim_recheck": {
+        "valid": true,
+        "reason": "ok",
+        "score": 0.008175117416657864,
+        "score_pos": 0.08776234288018057,
+        "score_neg": -0.008004189287442521,
+        "positive_host_rows": 346,
+        "negative_host_rows": 1702,
+        "positive_intervals": 127,
+        "fpr_live": 0.03407755581668625,
+        "fpr_removed": 0.029964747356051705,
+        "recall_live": 0.6184971098265896,
+        "recall_removed": 0.5982658959537572,
+        "removal_fpr_delta": -0.0041128084606345434,
+        "removal_recall_delta": -0.020231213872832332,
+        "epoch_matured": 766,
+        "intervals": 128,
+        "first_i": 2990,
+        "last_i": 3117
+      }
+    }
+  ]
+}

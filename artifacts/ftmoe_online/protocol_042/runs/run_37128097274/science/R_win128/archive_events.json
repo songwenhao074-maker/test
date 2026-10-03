@@ -1,0 +1,36 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "arm": "R_win128",
+  "events": [
+    {
+      "event": "archive_accepted",
+      "expert_id": 0,
+      "at_interval": 1615,
+      "reason": "nonuseful_three_checks",
+      "model_hash": "1aa682267085d22a8d6c2d91c4ed0ff16c03c43667ccb355c6d698d9231f4fe2",
+      "optimizer_hash": "31a63a82826ee50505621b66c985236c039a82878855f294e6b39c614c641eb3",
+      "optimizer_step": 79,
+      "utility": {
+        "valid": true,
+        "reason": "ok",
+        "score": -0.006114228780939008,
+        "score_pos": -0.003136941258272142,
+        "score_neg": -0.006366541282859929,
+        "positive_host_rows": 160,
+        "negative_host_rows": 1888,
+        "positive_intervals": 101,
+        "fpr_live": 0.08633474576271187,
+        "fpr_removed": 0.0847457627118644,
+        "recall_live": 0.9625,
+        "recall_removed": 0.9625,
+        "removal_fpr_delta": -0.0015889830508474673,
+        "removal_recall_delta": 0.0,
+        "epoch_matured": 1262,
+        "intervals": 128,
+        "first_i": 1486,
+        "last_i": 1613
+      }
+    }
+  ]
+}

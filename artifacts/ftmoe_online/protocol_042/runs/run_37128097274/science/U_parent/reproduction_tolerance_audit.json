@@ -1,0 +1,20 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "arm": "U_parent",
+  "against": "cached041_W_parent",
+  "tolerance": 1e-12,
+  "all_pass": true,
+  "numeric_count": 18737,
+  "max_abs_diff": 1.1102230246251565e-16,
+  "max_path": "candidate_decisions[2]/B/bce",
+  "structural_mismatch_count": 0,
+  "numeric_over_tolerance_count": 0,
+  "structural_mismatches": [],
+  "numeric_over_tolerance": [],
+  "prediction_arrays_exact": true,
+  "counts_hashes_qualification_exact": true,
+  "full_AP_absolute_difference": 0.0,
+  "original_gate_all_pass": false,
+  "science_reexecuted": false
+}
