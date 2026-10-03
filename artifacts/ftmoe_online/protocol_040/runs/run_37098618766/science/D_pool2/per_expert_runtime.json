@@ -1,0 +1,13 @@
+{
+  "0": {
+    "accepted": true,
+    "role_final": "active",
+    "version": 295,
+    "optimizer_step": 295,
+    "active_predictions": 4704,
+    "reactivations": 2,
+    "first_active_t": 352,
+    "model_hash_final": "e8c432f32124e29fc2cd518b40435f2c8920ffedf5941ca978478ab2109283c1",
+    "optimizer_hash_final": "ba7bd4bf9a1fe04bcec7669c660b53d02d08b66465a75327498bfee929e40d37"
+  }
+}

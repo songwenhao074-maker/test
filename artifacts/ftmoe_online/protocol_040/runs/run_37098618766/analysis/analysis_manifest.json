@@ -1,0 +1,62 @@
+{
+  "protocol": "040",
+  "root": "/tmp/protocol040_analysis",
+  "file_count": 11,
+  "files": [
+    {
+      "path": "PROTOCOL040_RESULTS.md",
+      "sha256": "bff518056dfeab9b185a30e8ed2b19358ea572d9ed2d86074ca82a9aa5e8c9a3",
+      "size": 1890
+    },
+    {
+      "path": "analysis_status.json",
+      "sha256": "5cfc83f7456c10d136ccc5cb4099884728d891b62d7c93f5424d3f0488624bd5",
+      "size": 514
+    },
+    {
+      "path": "artifact_index.json",
+      "sha256": "b5ff06414b7527bf63b8254cc88097e592d06e67e1abe33a08e602e7bec9c703",
+      "size": 436
+    },
+    {
+      "path": "candidate_decisions.json",
+      "sha256": "11896f6c7e1a1c55e963ffef9b02637ce88d96df0992f110a6a431df5014385f",
+      "size": 1907
+    },
+    {
+      "path": "comparison.json",
+      "sha256": "d69f5a63b90c95de909c9c269077d66cd8472bd46fa8be72f53cf1ef28e9c2bb",
+      "size": 198849
+    },
+    {
+      "path": "core_metric_recompute.json",
+      "sha256": "a006be689de7e18d56857c2bbcbcf38fe65d9fb8fafe75deb90703a48ec83169",
+      "size": 696
+    },
+    {
+      "path": "cost_profile.json",
+      "sha256": "aa9728cea8debf7cb3eb0302f78c1691c79a5cdd6c0fbfd7826581f1c73d494d",
+      "size": 832
+    },
+    {
+      "path": "lifecycle_events.json",
+      "sha256": "1c72957c3f18d2962caa72acdd54d4ad35f1ee0397997503d543c1d90bfd637c",
+      "size": 2308
+    },
+    {
+      "path": "per_expert.json",
+      "sha256": "af376b00ce33bf6d02490f686d5b36ed0003edbd67300b99205a3f0a7e948aaf",
+      "size": 1935
+    },
+    {
+      "path": "per_window.json",
+      "sha256": "3a00412c1ce5aea95318cf1ea718766ebb7ebe04d9969edfe69360f33098ca84",
+      "size": 47583
+    },
+    {
+      "path": "reuse_decisions.json",
+      "sha256": "c9bf4b821ffe3747bbf5bb84171564c162bd84be59915c0f70ed65fdb433060b",
+      "size": 24810
+    }
+  ]
+}

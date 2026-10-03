@@ -1,0 +1,68 @@
+{
+  "protocol": "040",
+  "events": [
+    {
+      "event": "first_birth",
+      "expert_id": 0,
+      "at_interval": 351,
+      "first_affected_prediction": 352,
+      "model_hash_before_update": "15878c9012c5667ff7c51f7098b333043e6d42f5df6d1bcac379b9d86a26017c",
+      "optimizer_hash_before_update": "48e60491ba79769a7ef420a44fd1fee40241bb9512e16ac6a187ee8a45a1ed40",
+      "optimizer_step_before_update": 0
+    },
+    {
+      "event": "deactivate",
+      "reason": "sleep",
+      "expert_id": 0,
+      "at_interval": 1599,
+      "dormant_from_prediction": 1600,
+      "model_hash": "ff9fb2ec0066f44d1d39ce97ceb94cb7806859b1ede5d59aa51a54ae5e1ef8f0",
+      "optimizer_hash": "28c96a3d7954d648d8b9e6301ec60580e619eae998071e384271761ee1c4bb05",
+      "optimizer_step": 78
+    },
+    {
+      "event": "sleep",
+      "expert_id": 0,
+      "at_interval": 1599,
+      "first_affected_prediction": 1600
+    },
+    {
+      "event": "activate",
+      "reason": "reuse_accept",
+      "expert_id": 0,
+      "at_interval": 2351,
+      "first_affected_prediction": 2352,
+      "dormant_predictions_before_reactivation": 752,
+      "model_hash_before_update": "ff9fb2ec0066f44d1d39ce97ceb94cb7806859b1ede5d59aa51a54ae5e1ef8f0",
+      "optimizer_hash_before_update": "28c96a3d7954d648d8b9e6301ec60580e619eae998071e384271761ee1c4bb05",
+      "optimizer_step_before_update": 78
+    },
+    {
+      "event": "deactivate",
+      "reason": "sleep",
+      "expert_id": 0,
+      "at_interval": 4047,
+      "dormant_from_prediction": 4048,
+      "model_hash": "be715c40c05728f5dd21d357426684c79f581c43b24ebe0ae4172ffe8bd1b924",
+      "optimizer_hash": "505042b997294b29597593e591271f365eb0e919105874054a753cac8ae047c4",
+      "optimizer_step": 184
+    },
+    {
+      "event": "sleep",
+      "expert_id": 0,
+      "at_interval": 4047,
+      "first_affected_prediction": 4048
+    },
+    {
+      "event": "activate",
+      "reason": "reuse_accept",
+      "expert_id": 0,
+      "at_interval": 4207,
+      "first_affected_prediction": 4208,
+      "dormant_predictions_before_reactivation": 160,
+      "model_hash_before_update": "be715c40c05728f5dd21d357426684c79f581c43b24ebe0ae4172ffe8bd1b924",
+      "optimizer_hash_before_update": "505042b997294b29597593e591271f365eb0e919105874054a753cac8ae047c4",
+      "optimizer_step_before_update": 184
+    }
+  ]
+}

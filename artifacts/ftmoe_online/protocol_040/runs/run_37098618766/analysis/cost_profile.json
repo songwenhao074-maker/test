@@ -1,0 +1,24 @@
+{
+  "protocol": "040",
+  "science_cost_raw": {
+    "wall_seconds": 31.914321365999996,
+    "process_seconds": 30.079255751999998,
+    "prediction_seconds": 0.8903480389997895,
+    "update_seconds": 0.3386195789999107,
+    "controller_cpu_seconds": 2.074845407999985,
+    "live_optimizer_steps": 295,
+    "shadow_optimizer_steps": 16,
+    "deployed_forwards": 4704,
+    "reuse_preview_forwards": 352,
+    "shadow_preview_forwards": 32
+  },
+  "incremental": {
+    "live_optimizer_steps": 295,
+    "shadow_optimizer_steps": 16,
+    "deployed_prediction_forwards": 4704,
+    "reuse_preview_forwards": 352,
+    "shadow_qualification_forwards": 32,
+    "accepted_experts": 1
+  },
+  "boundary": "Historical B=C+D_lin cost is separate. Dormant retained weights/Adam still consume memory; no full same-machine B end-to-end speedup claim."
+}

@@ -1,0 +1,29 @@
+{
+  "protocol": "040",
+  "new_science_sequences": 1,
+  "sequence": {
+    "name": "D_pool2",
+    "started": true,
+    "completed": true,
+    "live_optimizer_steps": 295,
+    "shadow_optimizer_steps": 16,
+    "prediction_sha256": "51a5ac7ec4e72f340ab1f051bb3707ad44e5540786a94bf0b10f9a8af9e7dd6a"
+  },
+  "new_streams": 0,
+  "extra_seeds": 0,
+  "control_retraining": 0,
+  "F_training": 0,
+  "F_comparisons": 0,
+  "donor_updates": 0,
+  "hyperparameter_sweeps": 0,
+  "accepted_expert_permanent_deletions": 0,
+  "real_engineering_prefixes": 1,
+  "real_engineering_prefix_intervals_max": 256,
+  "real_engineering_gradient_steps": 0,
+  "ids_created": 2,
+  "accepted_experts": 1,
+  "reuse_slots_started": 11,
+  "deployed_dynamic_prediction_forwards": 4704,
+  "reuse_preview_forwards": 352,
+  "shadow_qualification_forwards": 32
+}

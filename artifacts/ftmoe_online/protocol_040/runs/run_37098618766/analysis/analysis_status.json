@@ -1,0 +1,18 @@
+{
+  "protocol": "040",
+  "run_id": "37098618766",
+  "result_label": "quality_retained_pool_not_exercised",
+  "validity_all_pass": true,
+  "primary_D_over_C": true,
+  "cumulative_preservation": true,
+  "pool_exercised": false,
+  "local_two_expert_utility": null,
+  "failure_reasons": [
+    "pool_not_exercised"
+  ],
+  "science_status": "completed",
+  "analysis_status": "completed",
+  "publication_status": "pending_until_main_sync",
+  "automatic_followup_training": false,
+  "stop_after_registered_budget": true
+}
