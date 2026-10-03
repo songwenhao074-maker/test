@@ -1,0 +1,41 @@
+name: Protocol041 dispatch once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol041-dispatch-once.yml'
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  dispatch:
+    if: contains(github.event.head_commit.message, '[p041-dispatch-once]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch frozen Protocol041 exactly once
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner=context.repo.owner, repo=context.repo.repo;
+            const execBranch='codex/protocol-041-parent-initialization-20261003';
+            const execSha='a1b43179fdbe18dc7a71e8a6d5a8537d9e4e522a';
+            const br=await github.rest.repos.getBranch({owner,repo,branch:execBranch});
+            if(br.data.commit.sha!==execSha){core.setFailed('execution branch SHA mismatch: '+br.data.commit.sha);return;}
+            const pre=await github.rest.actions.getArtifact({owner,repo,artifact_id:11270066389});
+            if(pre.data.expired){core.setFailed('registered engineering preflight artifact expired');return;}
+            const arts=await github.rest.actions.listArtifactsForRepo({owner,repo,per_page:100});
+            if(arts.data.artifacts.some(a=>!a.expired && a.name.startsWith('protocol041-raw-'))){
+              core.setFailed('Protocol041 raw artifact already exists; fresh launch forbidden');return;
+            }
+            const runs=await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'protocol041-parent-initialization.yml',per_page:20});
+            if(runs.data.workflow_runs.some(r=>r.status==='queued'||r.status==='in_progress')){
+              core.setFailed('Protocol041 formal run already active');return;
+            }
+            await github.rest.actions.createWorkflowDispatch({
+              owner,repo,workflow_id:'protocol041-parent-initialization.yml',ref:'main',
+              inputs:{execution_ref:execBranch,expected_execution_sha:execSha,resume_artifact_id:'',resume_arm:''}
+            });
+            core.info('Protocol041 dispatched at '+execSha);
