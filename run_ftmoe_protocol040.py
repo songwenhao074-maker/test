@@ -380,6 +380,7 @@ class Machine:
 
     def _first_birth(self,t):
         if self.experts or self.next_id!=0: raise AssertionError("invalid first birth")
+        if self.real_science and int(t)!=351: raise AssertionError("Protocol040 real first birth must occur at t351")
         row=self._begin_action("first_birth",t)
         x=self._new_expert(0,t,"active"); x["first_active_t"]=int(t)+1
         self.experts[0]=x; self.active_id=0; self.next_id=1; self.first_birth_t=int(t); self._topology_epoch()
@@ -640,7 +641,7 @@ def run_audit(src,m,fixture,before36,before39):
       "preview_total_within_2080":m.reuse_preview_forwards+m.shadow_preview_forwards<=2080,
       "capacity_never_above_2":m.max_capacity_seen<=2,
       "created_ids_at_most_2":m.next_id<=2,
-      "second_candidate_attempt_at_most_1":True,
+      "second_candidate_attempt_at_most_1":bool(m.next_id<=2 and (not m.second_attempt_consumed or m.next_id==2)),
       "accepted_expert_permanent_deletions_zero":True,
       "terminal_settlement_optimizer_steps_zero":m.terminal_settle_optimizer_steps==0,
       "no_F_loaded":True,
@@ -716,7 +717,8 @@ def cmd_science(a):
     t0=time.perf_counter(); c0=time.process_time()
     try:
         if a.resume_checkpoint:
-            if (root/"action_journal.json").exists() and J(root/"action_journal.json").get("status")=="pending":
+            journal=root/"runtime_state/action_journal.json"
+            if journal.exists() and J(journal).get("status")=="pending":
                 raise RuntimeError("ambiguous_step: pending action journal; preserve and stop")
             m=Machine.restore(src,root/"runtime_state",a.resume_checkpoint,allow_gradient=True,real_science=True)
         else:
