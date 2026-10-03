@@ -1,0 +1,82 @@
+name: Protocol042 publication recovery once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol042-publication-recovery-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    if: contains(github.event.head_commit.message, '[p042r2-publish-recovery]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: publish
+          fetch-depth: 0
+
+      - name: Checkout fixed recovered result commit
+        uses: actions/checkout@v4
+        with:
+          ref: 16a0bc0
+          path: result
+          fetch-depth: 1
+
+      - name: Verify recovered analysis evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C result rev-parse HEAD)" = "16a0bc0f0bff2b6ff1bfc4d27437858e4db729a1" || test "$(git -C result rev-parse --short=7 HEAD)" = "16a0bc0"
+          python - <<'PY'
+          import json, pathlib
+          root=pathlib.Path('result/artifacts/ftmoe_online/protocol_042/runs/run_37128097274')
+          st=json.load(open(root/'analysis/analysis_status.json'))
+          rec=json.load(open(root/'analysis/analysis_recovery.json'))
+          pub=json.load(open(root/'publication_status.json'))
+          assert st['protocol']=='042' and st['revision']==2
+          assert rec['science_reexecuted'] is False
+          assert rec['scientific_metrics_or_thresholds_changed'] is False
+          assert rec['raw_artifact_id']==11276470062
+          assert pub['publication_status']=='pending_main_sync' and pub['main_synced'] is False
+          assert pathlib.Path('result/docs/PROTOCOL042_RESULTS.md').exists()
+          print(json.dumps({'analysis_status':st,'recovery':rec,'publication':pub},indent=2))
+          PY
+
+      - name: Publish result-only files to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC="result/artifacts/ftmoe_online/protocol_042/runs/run_37128097274"
+          DST="publish/artifacts/ftmoe_online/protocol_042/runs/run_37128097274"
+          rm -rf "$DST"
+          mkdir -p "$(dirname "$DST")"
+          cp -a "$SRC" "$DST"
+          cp result/docs/PROTOCOL042_RESULTS.md publish/docs/PROTOCOL042_RESULTS.md
+          cp result/AGENTS.md publish/AGENTS.md
+          cp result/NEXT_EXPERIMENT_LATEST.md publish/NEXT_EXPERIMENT_LATEST.md
+          cp result/PROJECT_CONTEXT_LATEST.md publish/PROJECT_CONTEXT_LATEST.md
+          cp result/docs/GITHUB_EXPERIMENT_HANDOFF.md publish/docs/GITHUB_EXPERIMENT_HANDOFF.md
+          cp result/README.md publish/README.md
+          cd publish
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PROTOCOL042_RESULTS.md artifacts/ftmoe_online/protocol_042/runs/run_37128097274             AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md docs/GITHUB_EXPERIMENT_HANDOFF.md README.md
+          git commit -m "results: publish Protocol042 revision2 science run 37128097274 [skip ci]"
+          git push origin HEAD:main
+
+      - name: Mark publication synced
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd publish
+          PUB="artifacts/ftmoe_online/protocol_042/runs/run_37128097274/publication_status.json"
+          printf '{"protocol":"042","revision":2,"run_id":"37128097274","analysis_recovery_run_id":"37130973490","publication_status":"synced_to_main","main_synced":true,"science_reexecuted":false}\n' > "$PUB"
+          git add "$PUB"
+          git commit -m "results: mark Protocol042 recovered publication synced [skip ci]"
+          git push origin HEAD:main
