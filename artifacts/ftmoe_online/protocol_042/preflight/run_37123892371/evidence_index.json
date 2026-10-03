@@ -1,0 +1,13 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "preflight_run_id": 37123892371,
+  "artifact_id": 11273688509,
+  "artifact_name": "protocol042-rev2-engineering-37123892371",
+  "artifact_digest": "sha256:0aa5ae51079e0307483fd5dda843bc2422e27e296e7eec48d3cce1c0a77e2e7e",
+  "execution_sha_tested": "7904e951c2f1192d9f7ca97dd98024479df7d994",
+  "real_engineering_prefixes": 1,
+  "real_engineering_prefix_intervals_max": 256,
+  "real_engineering_gradient_steps": 0,
+  "science_started": false
+}
