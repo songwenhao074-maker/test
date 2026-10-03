@@ -1,12 +1,15 @@
 name: Protocol042 analysis publication recovery once
+
 on:
   push:
     branches: [main]
     paths:
       - '.github/workflows/protocol042-analysis-publish-recovery-once.yml'
+
 permissions:
   contents: write
   actions: read
+
 jobs:
   recover:
     if: contains(github.event.head_commit.message, '[p042r2-analysis-recovery]')
@@ -14,39 +17,46 @@ jobs:
     timeout-minutes: 180
     env:
       GH_TOKEN: ${{ github.token }}
-      OMP_NUM_THREADS: "1"
-      MKL_NUM_THREADS: "1"
-      OPENBLAS_NUM_THREADS: "1"
-      PYTHONHASHSEED: "1"
       SCIENCE_RUN_ID: "37128097274"
       RAW_ARTIFACT_ID: "11276470062"
       RAW_DIGEST: "sha256:764913d9ffb3e26d2895b1ba802595458b5efdeb46c8bc118c226c2c2c7bc991"
       EXECUTION_REF: "codex/protocol-042-windowed-utility-20261003"
       EXECUTION_SHA: "da5eaa7e71f44497ede538c884e7ca688e6afbf4"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      PYTHONHASHSEED: "1"
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout recovery helper
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: recovery_tool
+          fetch-depth: 1
+
+      - name: Checkout exact frozen science implementation
+        uses: actions/checkout@v4
         with:
           ref: da5eaa7e71f44497ede538c884e7ca688e6afbf4
+          path: frozen
           fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.8.18"
 
-      - name: Install frozen analysis dependencies
+      - name: Install fixed analysis dependencies
         shell: bash
         run: |
           set -euo pipefail
-          test "$(git rev-parse HEAD)" = "$EXECUTION_SHA"
-          python maintenance/validate_protocol042_plan.py
+          test "$(git -C frozen rev-parse HEAD)" = "$EXECUTION_SHA"
+          python frozen/maintenance/validate_protocol042_plan.py
           python -m pip install --upgrade pip
           python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.4.1
           python -m pip install numpy==1.24.4 psutil==5.9.8
-          python -m pip freeze > /tmp/p042_recovery_pip_freeze.txt
-          echo "73a1c6fd8d8d12c8e84958df55b2379ab2f2542ac34923bc3934d363329cb02b  artifacts/ftmoe_online/protocol_036/runs/run_36831958978/seed3601/stream_manifest.json" | sha256sum -c -
-          sha256sum analyze_ftmoe_protocol042.py > /tmp/original_analyzer_sha256.txt
 
-      - name: Download and fail-closed validate completed science
+      - name: Download immutable completed science
         shell: bash
         run: |
           set -euo pipefail
@@ -55,145 +65,42 @@ jobs:
           curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$RAW_ARTIFACT_ID/zip" -o /tmp/p042raw.zip
           echo "${RAW_DIGEST#sha256:}  /tmp/p042raw.zip" | sha256sum -c -
           unzip -q /tmp/p042raw.zip -d /tmp/p042raw
-          python - <<'PY'
-          import json, pathlib
-          root=pathlib.Path('/tmp/p042raw')
-          led=json.load(open(root/'budget_ledger.json'))
-          assert led['protocol']=='042' and led['revision']==2
-          assert led['order']==['U_parent','R_win128','A_hist','A_win128']
-          assert all(type(led['sequences'][a].get('completed')) is bool and led['sequences'][a]['completed'] for a in led['order'])
-          assert led['total_optimizer_steps']<=2576
-          assert led['new_streams']==led['extra_seeds']==led['F_loads']==led['extra_arms']==led['permanent_deletions']==0
-          ps=json.load(open(root/'protocol_status.json'))
-          assert ps['science_status']=='completed' and ps['science_rc']==0 and ps['restart_from_zero'] is False
-          for arm in led['order']:
-              st=json.load(open(root/arm/'status.json')); assert st['science_status']=='completed', (arm,st)
-              au=json.load(open(root/arm/'run_audit.json')); assert type(au.get('all_pass')) is bool and au['all_pass'] is True, (arm,au)
-              sm=json.load(open(root/arm/'summary.json')); assert sm['terminal_progress']==3 and sm['next_substep']=='done'
-          u=json.load(open(root/'U_parent/reproduction_report.json'))
-          assert u['all_pass'] is True and u['science_reexecuted'] is False
-          assert u['gate_recovery']=='preregistered_float_tolerance_1e-12'
-          assert (root/'U_parent/reproduction_report_gate_failure_original.json').exists()
-          assert (root/'U_parent/reproduction_tolerance_audit.json').exists()
-          assert not (root/'U_parent/science_cost_raw.json').exists()
-          for arm in ['R_win128','A_hist','A_win128']:
-              assert (root/arm/'science_cost_raw.json').exists()
-          raw=json.load(open(root/'scientific_raw_manifest.json'))
-          assert raw['protocol']=='042' and raw['revision']==2 and raw['file_count']>250
-          print(json.dumps({'science_complete':True,'total_optimizer_steps':led['total_optimizer_steps'],
-                            'U_cost_file_missing_only':True,'science_reexecuted':False},indent=2))
-          PY
-
-      - name: Apply cost-only analysis recovery patch
-        shell: bash
-        run: |
-          set -euo pipefail
-          cp analyze_ftmoe_protocol042.py /tmp/analyze_ftmoe_protocol042.original.py
-          python - <<'PY'
-          from pathlib import Path
-          p=Path('analyze_ftmoe_protocol042.py')
-          s=p.read_text()
-          old='''    costs={arm:J(root/arm/"science_cost_raw.json") for arm in c.ARMS}; dump_json(out/"cost_profile.json",{"protocol":"042","revision":2,"arms":costs,
-      "note":"R/A may realize different compute. Score computation uses zero extra expert forward; reuse previews and multi-active deployment remain explicit."})'''
-          new='''    costs={}
-    for arm in c.ARMS:
-        cp=root/arm/"science_cost_raw.json"
-        if cp.exists():
-            costs[arm]=J(cp)
-        elif arm=="U_parent":
-            sm=J(root/arm/"summary.json")
-            costs[arm]={"protocol":"042","revision":2,"arm":"U_parent","availability":"runtime_seconds_unavailable_due_to_original_U_gate_failure_before_cost_write","wall_seconds":None,"process_seconds":None,"prediction_seconds":None,"update_seconds":None,"controller_cpu_seconds":None,"live_optimizer_steps":int(sm["live_optimizer_steps"]),"shadow_optimizer_steps":int(sm["shadow_optimizer_steps"]),"deployed_forwards":int(sm["deployed_prediction_forwards"]),"reuse_forwards":int(sm["reuse_preview_forwards"]),"qualification_forwards":int(sm["shadow_qualification_forwards"]),"science_reexecuted":False}
-        else:
-            raise FileNotFoundError(str(cp))
-    dump_json(out/"cost_profile.json",{"protocol":"042","revision":2,"arms":costs,
-      "note":"R/A may realize different compute. Score computation uses zero extra expert forward; reuse previews and multi-active deployment remain explicit. U runtime seconds are unavailable because the original U reproduction gate stopped before science_cost_raw.json was written; U scientific counters are recovered from the sealed summary without retraining."})'''
-          assert old in s
-          p.write_text(s.replace(old,new))
-          PY
-          python -m py_compile analyze_ftmoe_protocol042.py
-          python - <<'PY'
-          import hashlib,json,os,pathlib
-          orig=pathlib.Path('/tmp/analyze_ftmoe_protocol042.original.py').read_bytes()
-          patched=pathlib.Path('analyze_ftmoe_protocol042.py').read_bytes()
-          obj={'protocol':'042','revision':2,'science_run_id':'37128097274',
-               'analysis_recovery_run_id':os.environ['GITHUB_RUN_ID'],
-               'raw_artifact_id':11276470062,
-               'raw_artifact_digest':'sha256:764913d9ffb3e26d2895b1ba802595458b5efdeb46c8bc118c226c2c2c7bc991',
-               'frozen_execution_sha':'da5eaa7e71f44497ede538c884e7ca688e6afbf4',
-               'original_analyzer_sha256':hashlib.sha256(orig).hexdigest(),
-               'recovered_analyzer_sha256':hashlib.sha256(patched).hexdigest(),
-               'patch_scope':'cost_profile_only_allow_missing_U_runtime_file_and_recover_scientific_counters_from_sealed_summary',
-               'scientific_metrics_or_thresholds_changed':False,'science_reexecuted':False,
-               'missing_U_wall_process_seconds_fabricated':False}
-          pathlib.Path('/tmp/p042analysis/analysis_recovery.json').write_text(json.dumps(obj,indent=2)+'\n')
-          print(json.dumps(obj,indent=2))
-          PY
-
-      - name: Run read-only analysis
-        shell: bash
-        run: |
-          set -euo pipefail
-          python analyze_ftmoe_protocol042.py             --science-root /tmp/p042raw             --manifest artifacts/ftmoe_online/protocol_036/runs/run_36831958978/seed3601/stream_manifest.json             --fixture-report /tmp/p042raw/fixture_report.json             --output-dir /tmp/p042analysis             --docs-output docs/PROTOCOL042_RESULTS.md             --run-id "$SCIENCE_RUN_ID"
-          cp docs/PROTOCOL042_RESULTS.md /tmp/p042analysis/PROTOCOL042_RESULTS.md
           gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$RAW_ARTIFACT_ID" > /tmp/p042_raw_info.json
-          python maintenance/protocol042_finalize.py artifact-index             --info /tmp/p042_raw_info.json --raw-manifest /tmp/p042raw/scientific_raw_manifest.json             --out /tmp/p042analysis/artifact_index.json --run-id "$SCIENCE_RUN_ID"
-          python maintenance/protocol042_finalize.py manifest --root /tmp/p042analysis --out /tmp/p042analysis/analysis_manifest.json
-          python - <<'PY'
-          import json
-          s=json.load(open('/tmp/p042analysis/analysis_status.json'))
-          r=json.load(open('/tmp/p042analysis/analysis_recovery.json'))
-          assert s['protocol']=='042' and s['revision']==2 and type(s['validity']) is bool
-          assert r['science_reexecuted'] is False and r['scientific_metrics_or_thresholds_changed'] is False
-          print(json.dumps(s,indent=2))
-          PY
 
-      - name: Build compact evidence and terminal pointers
+      - name: Run read-only recovery analysis
         shell: bash
         run: |
           set -euo pipefail
-          COMPACT="artifacts/ftmoe_online/protocol_042/runs/run_$SCIENCE_RUN_ID"
-          rm -rf "$COMPACT"
-          python maintenance/protocol042_finalize.py compact --science /tmp/p042raw --analysis /tmp/p042analysis --dst "$COMPACT"
-          printf '{"protocol":"042","revision":2,"run_id":"%s","analysis_recovery_run_id":"%s","publication_status":"pending_main_sync","main_synced":false,"science_reexecuted":false}\n' "$SCIENCE_RUN_ID" "$GITHUB_RUN_ID" > "$COMPACT/publication_status.json"
-          python maintenance/protocol042_finalize.py manifest --root "$COMPACT" --out "$COMPACT/compact_manifest.json"
-          python - <<'PY'
-          import json,os,pathlib
-          st=json.load(open('/tmp/p042analysis/analysis_status.json'))
-          rid=os.environ['SCIENCE_RUN_ID']; rec=os.environ['GITHUB_RUN_ID']
-          sys=st['system_result_label']; main=st['main_development_success']; add=st['addition_policy_signal']; win=st['window_policy_signal']; pool=st['pool_exercised']
-          pathlib.Path('AGENTS.md').write_text("# Active Experiment Directive — Protocol-042 revision 2 completed\n\n"+f"Protocol-042 revision 2 science run {rid} completed. Analysis/publication recovered in run {rec} without scientific reexecution. System label: {sys}. Main development success: {main}. Addition-policy signal: {add}. Window-policy signal: {win}. Pool exercised: {pool}.\n\n"+f"Read docs/PROTOCOL042_RESULTS.md and artifacts/ftmoe_online/protocol_042/runs/run_{rid}/. Historical033–042 scientific budgets are closed.\n\nStop after Protocol-042 revision 2. Do not retry, add 64/256 science arms, add seed/stream, enable F, add hard weighting, delete accepted memories, or automatically start Protocol-043.\n")
-          pathlib.Path('NEXT_EXPERIMENT_LATEST.md').write_text("# Protocol-042 revision 2 已完成，停止等待分析\n\n"+f"Protocol-042 revision 2 science run {rid} 已完成；分析/发布在run {rec}无重训恢复。系统标签 **{sys}**；main development success={main}；addition-policy signal={add}；window-policy signal={win}；pool exercised={pool}。\n\n"+f"读取 docs/PROTOCOL042_RESULTS.md 与 artifacts/ftmoe_online/protocol_042/runs/run_{rid}/。四条登记序列均已关闭。\n\n不自动重试，不把64/256窗口变成科学臂，不加seed/新流，不恢复F，不加困难样本加权，不永久删除accepted memory，不启动Protocol-043。\n")
-          pathlib.Path('PROJECT_CONTEXT_LATEST.md').write_text("# Project Context Latest\n\n"+f"Latest bounded science is Protocol-042 revision 2 science run {rid}. Analysis/publication recovery run {rec} did not reexecute science. System label: **{sys}**. Main development success: {main}. Addition-policy signal: {add}. Window-policy signal: {win}. Pool exercised: {pool}.\n\n"+f"Protocol-042 tested additive multi-expert admission and current-epoch historical versus global-time window-128 utility using the same seen seed3601. Read docs/PROTOCOL042_RESULTS.md and artifacts/ftmoe_online/protocol_042/runs/run_{rid}/.\n\nHistorical033–042 budgets are closed. Any retry or next protocol requires new preregistration and user handoff.\n")
-          pathlib.Path('docs/GITHUB_EXPERIMENT_HANDOFF.md').write_text("# 当前交接：Protocol-042 revision 2 已完成\n\n"+f"Protocol-042 revision 2 science run {rid} 已完成；analysis/publication recovery run {rec} 仅消费封存raw，未重训。系统标签 **{sys}**；main development success={main}；addition-policy signal={add}；window-policy signal={win}；pool exercised={pool}。\n\n"+f"结果见 [PROTOCOL042_RESULTS.md](PROTOCOL042_RESULTS.md)，紧凑证据见 ../artifacts/ftmoe_online/protocol_042/runs/run_{rid}/。原raw artifact ID 11276470062。\n\n到此停止。不重跑042，不增加窗口科学臂/seed/流/F/困难加权/永久删除，也不自动进入043。\n")
-          pathlib.Path('README.md').write_text("# PreGAN+ / FT-MoE 在线实验\n\n目标：在合理部署场景中，通过结构修改，使保留动态新增、知识保存/选择、休眠复用及容量管理思想的完整D优于持续学习C。\n\n"+f"**最新完成：[Protocol-042 revision 2 窗口效用与加性接入](docs/PROTOCOL042_RESULTS.md)，science run {rid}。**\n分析/发布在run {rec}无重训恢复。系统标签 **{sys}**；main development success={main}；addition-policy signal={add}；window-policy signal={win}；pool exercised={pool}。\n\n"+f"[执行交接](docs/GITHUB_EXPERIMENT_HANDOFF.md) / [042紧凑证据](artifacts/ftmoe_online/protocol_042/runs/run_{rid}/) / [042冻结方案](docs/PROTOCOL042_WINDOWED_UTILITY_20261003.md)\n\n结果仍属于已观察seed3601开发证据，不是独立确认。Protocol-042 revision 2 到此停止。\n")
-
-          PY
+          python recovery_tool/maintenance/protocol042_analysis_recovery.py             --repo frozen             --science /tmp/p042raw             --analysis /tmp/p042analysis             --raw-info /tmp/p042_raw_info.json             --science-run-id "$SCIENCE_RUN_ID"             --recovery-run-id "$GITHUB_RUN_ID"             --raw-artifact-id "$RAW_ARTIFACT_ID"             --raw-digest "$RAW_DIGEST"
 
       - name: Upload compact recovered handoff
         uses: actions/upload-artifact@v4
         with:
           name: protocol042-compact-recovery-${{ github.run_id }}
-          path: artifacts/ftmoe_online/protocol_042/runs/run_37128097274
+          path: frozen/artifacts/ftmoe_online/protocol_042/runs/run_37128097274
           retention-days: 90
           compression-level: 6
           if-no-files-found: error
 
-      - name: Commit and publish recovered results
+      - name: Commit to execution branch and publish to main
         shell: bash
         run: |
           set -euo pipefail
+          cd frozen
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add docs/PROTOCOL042_RESULTS.md "artifacts/ftmoe_online/protocol_042/runs/run_$SCIENCE_RUN_ID"             AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md docs/GITHUB_EXPERIMENT_HANDOFF.md README.md
           git commit -m "results: Protocol042 revision2 science run $SCIENCE_RUN_ID recovered analysis $GITHUB_RUN_ID [skip ci]"
           RESULT="$(git rev-parse HEAD)"
           git push origin HEAD:"$EXECUTION_REF"
+
           git fetch origin main
           git checkout -B p042-recovery-publish origin/main
           git checkout "$RESULT" -- docs/PROTOCOL042_RESULTS.md "artifacts/ftmoe_online/protocol_042/runs/run_$SCIENCE_RUN_ID"             AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md docs/GITHUB_EXPERIMENT_HANDOFF.md README.md
           git add docs/PROTOCOL042_RESULTS.md "artifacts/ftmoe_online/protocol_042/runs/run_$SCIENCE_RUN_ID"             AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md docs/GITHUB_EXPERIMENT_HANDOFF.md README.md
           git commit -m "results: publish Protocol042 revision2 science run $SCIENCE_RUN_ID [skip ci]"
           git push origin HEAD:main
+
           PUB="artifacts/ftmoe_online/protocol_042/runs/run_$SCIENCE_RUN_ID/publication_status.json"
           printf '{"protocol":"042","revision":2,"run_id":"%s","analysis_recovery_run_id":"%s","publication_status":"synced_to_main","main_synced":true,"science_reexecuted":false}\n' "$SCIENCE_RUN_ID" "$GITHUB_RUN_ID" > "$PUB"
           git add "$PUB"
