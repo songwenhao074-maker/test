@@ -1,0 +1,584 @@
+{
+  "protocol": "041",
+  "revision": 1,
+  "date": "2026-10-03",
+  "status": "instructions_registered_not_implemented_not_started",
+  "instructions": "docs/PROTOCOL041_PARENT_INITIALIZATION_20261003.md",
+  "instructions_sha256": "0683a9972e7be36bb105de88044bd236c45826b49122f8833bc3a76570ae848d",
+  "registration_base_commit": "5ac353e3fd0772c74fb5778155d525b62e8ef85c",
+  "execution_branch": "codex/protocol-041-parent-initialization-20261003",
+  "objective": "Test whether second-expert weights copied from the current active parent, with fresh Adam, improve candidate qualification and useful dynamic pooling while preserving D>C.",
+  "authorization": {
+    "this_publication": "documents_and_registration_only",
+    "launch_in_this_turn": false,
+    "implementation_and_two_science_sequences": "after_user_handoff_to_execution_model",
+    "historical_033_040_budgets_closed": true,
+    "F_research": "DEFERRED",
+    "automatic_next_protocol": false
+  },
+  "source036": {
+    "protocol036_run_id": 36831958978,
+    "artifact_id": 11147931152,
+    "zip_sha256": "040bacac8f23659f56599b71d6d6706b62a544e44161c7c42fb5af73650f56c0",
+    "replay_seed": 3601,
+    "already_observed_development_data": true,
+    "independent_confirmation": false,
+    "stream_sha256": "09fadb02f2017f8d528ee8284129c29adcb6be137b1a9e93f4a249eebcd1b659",
+    "files": {
+      "stage_B/seed3601/C_ref/feature_tape.npz": "c71a2ea6d59045fe4cc8a953a776d37f48dbe1feec4aba859cd00f11c984529c",
+      "stage_B/seed3601/C_ref/update_batches.json": "4d32d2ece194cb41b8bc16de1c89ddfedcd42da668b96446937fb430d6246b6f",
+      "stage_B/seed3601/D_lin/predictions.npz": "1ea811ed175817294f275505db85d0bf283c3d0aca6b883b036243ad7843bef6",
+      "inputs/seed3601/manifest.json": "73a1c6fd8d8d12c8e84958df55b2379ab2f2542ac34923bc3934d363329cb02b",
+      "stage_B/seed3601/C_ref/predictions.npz": "da02b63c4a6cf7a2e4fe7c5b98dcd872ca1fa08114bb029f46fce4053b9e9576"
+    }
+  },
+  "source040": {
+    "run_id": 37098618766,
+    "artifact_id": 11265231995,
+    "artifact_name": "protocol040-raw-37098618766",
+    "expected_zip_sha256": "319d9f75aac25346e09027dabbe212acc33c14c81e06d8f1e09f8e418574e9fd",
+    "size_in_bytes": 32011607,
+    "digest_origin": "published GitHub artifact digest; executor must verify downloaded bytes",
+    "manifest_path": "artifacts/ftmoe_online/protocol_040/runs/run_37098618766/science/scientific_raw_manifest.json",
+    "manifest_ref": "5ac353e3fd0772c74fb5778155d525b62e8ef85c",
+    "manifest_sha256": "4eee7b48a62b58d377fa7298bb89a08755cbaa3bcb0a9a4f4156509eb1ae35f3",
+    "files": {
+      "B_ref/predictions.npz": "1ea811ed175817294f275505db85d0bf283c3d0aca6b883b036243ad7843bef6",
+      "C_ref/predictions.npz": "da02b63c4a6cf7a2e4fe7c5b98dcd872ca1fa08114bb029f46fce4053b9e9576",
+      "D_039/predictions.npz": "bc387d13721ed2e759a205ed3b4f6fa884c1ca105068a79a340148e1f5e96512",
+      "D_keep/predictions.npz": "badf9005b2be9fc6436d1ff2b9377b27715e846d7d16f8e4bdfcbfa76f732e8c",
+      "D_pool2/birth_checks.json": "ff08d5cb85702fed832eb0cb9c9781b9195fc93cbe7b8117e9011349e5169e2f",
+      "D_pool2/candidate_decisions.json": "36c100ee1ad207d96c4e8bf4760f9ff412858b24b8759ad1b060e2b2e847ad8b",
+      "D_pool2/lifecycle_events.json": "b05d76c102063002d4737f37a4b7f076ca3e1ea90176c03333aee21b82502906",
+      "D_pool2/opportunity_log.json": "fac473aee5d4b8f22590355c16447dc8f43b44c62d6e79c3228e7218358fbe4a",
+      "D_pool2/per_expert_runtime.json": "326a651ba5e36e67f9ab72d3bcb579127942ec51b80a5559fff2a9756780d776",
+      "D_pool2/predictions.npz": "51a5ac7ec4e72f340ab1f051bb3707ad44e5540786a94bf0b10f9a8af9e7dd6a",
+      "D_pool2/prefix039_audit.json": "dbba34925612a13c85b3c995bb06bb114203b4f506c325b10df93fe8728aeff9",
+      "D_pool2/pressure_checks.json": "391f7ef53b9bdb75972f38bcd9a6f6f59f7a046a277ba63160a1d56c8a6230ed",
+      "D_pool2/reuse_decisions.json": "671276db156b4851b54a70850cb268c9e05e05806ca68d702da3cb3fe8a5386f",
+      "D_pool2/sleep_checks.json": "fa5a9f9c9bcbc29dc1338d46c5f82d65778b8ae6ace8f6d787275ac9004fd600",
+      "D_pool2/summary.json": "496b165ce0ac1cd79d4bbd5073cb760f2a93ed64061d536e184f9fbf0ee72b47",
+      "D_pool2/update_log.json": "8fc610dcf77087d9fcb4450133a3cfd5fe8fc3d5c9a6e70e869629c98405ab10"
+    },
+    "restore_historical_checkpoints": false,
+    "load_F_files": false
+  },
+  "kernel": {
+    "reference_commit": "562979a1a826de828f7d2bdc0017b3993c8623a1",
+    "files": {
+      "run_ftmoe_protocol040.py": "613fa9729803c4084638a5efc42e78761b280997aaf881dec82a5a16010c7c82",
+      "analyze_ftmoe_protocol040.py": "dcac30b617fe4238220935f65bc17cbe94e13b91a2c4ddd8c7c97887a45e3ce9",
+      "maintenance/validate_protocol040_plan.py": "18af5e0eb0e80b9cbcc34d91ffd09b14fe863daa31950858fa98e1215832c7e7",
+      "maintenance/materialize_protocol040_sources.py": "f7924ed346ca40a4b1398d7959f037a753d48228f861fc3af83a993884e99ae8",
+      "maintenance/protocol040_finalize.py": "dc75da7b70eb6852d6bafa301e752fbcf521d42f820dd6ad0ff241005c712e86",
+      "run_ftmoe_protocol037.py": "541395fd5ec9f69007ef74b49a5270c472cb6785416022d759b66660b09fe747",
+      "run_ftmoe_protocol039.py": "1336e663abd9a8fd72c7008ed960e1ef33bcdba400dce36726a97904fbf4d5ab",
+      "analyze_ftmoe_protocol037.py": "4b484ccd1403d8b408b4c421848740efcd8acd25fbb5561027a95ed3ba3e7c81",
+      "analyze_ftmoe_protocol039.py": "c3d9f081a3d311e8515ba5c768f79808fd697d33df3778ab86beb23cc21cac48",
+      "protocol035_common.py": "5c99c7fd2b06cab274b86054d492fbca44176c48e7ac5ad0e6e286876c4ac94d"
+    },
+    "historical_files_immutable": true
+  },
+  "historical_controller_plan": {
+    "path": "artifacts/ftmoe_online/protocol_040/plan.json",
+    "ref": "5ac353e3fd0772c74fb5778155d525b62e8ef85c",
+    "sha256": "97839cb55ea9d00521e15529e5b5505004c69fd9587d2d22503b7b1ff99dcd35"
+  },
+  "data": {
+    "replay_seed": 3601,
+    "observed_development_data": true,
+    "prediction_intervals": 5968,
+    "hosts": 16,
+    "feature_dim": 73,
+    "target": "same_host_raw[t+1]>0",
+    "label_settlement": "after_prediction_at_t_plus_2",
+    "prediction_visible_labels": "i+2<t",
+    "decision_update_visible_labels": "i+2<=t",
+    "phase_ids_online": false,
+    "baseline_retraining": false
+  },
+  "expert": {
+    "architecture": "Linear(73,1)",
+    "parameters": 74,
+    "constructor_seed": 3701,
+    "delta": "2*tanh((w dot issued_z+b)/2)",
+    "logits": "[B0-delta/2,B1+delta/2]",
+    "classification": "exact B_ref copy",
+    "loss": "mean BCEWithLogits(issued_B_margin+delta,y>0)+0.001*mean(delta^2)",
+    "optimizer": "AdamW",
+    "lr": 0.0001,
+    "weight_decay": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-8,
+    "clip_grad_norm": 1,
+    "update_every": 16,
+    "actual_C_batches_preserve_order_duplicates": true,
+    "catchup_updates": false,
+    "correction_reference": "B_ref for every expert; select at most one correction, never add candidate to active correction"
+  },
+  "arms": {
+    "cached": [
+      "C_ref",
+      "B_ref",
+      "D_keep",
+      "D_039",
+      "D_040"
+    ],
+    "new": [
+      "Z_zero",
+      "W_parent"
+    ],
+    "sequence_order": [
+      "Z_zero",
+      "W_parent"
+    ],
+    "Z_zero": {
+      "E0": "zero",
+      "second_candidate": "zero",
+      "optimizer": "fresh_AdamW"
+    },
+    "W_parent": {
+      "E0": "zero",
+      "second_candidate": "deep_copy_current_active_parent_weights_and_bias_before_same_t_updates",
+      "optimizer": "fresh_AdamW"
+    },
+    "only_algorithm_difference": "second_candidate_parameter_initialization",
+    "joint_freeze_before_any_science": true,
+    "independent_full_sequences": true
+  },
+  "initialization": {
+    "parent": "current_active_expert",
+    "no_active_parent": "donor_unavailable_stop_no_fallback",
+    "copy_after_settlement_before_same_t_gradients": true,
+    "copy_optimizer": false,
+    "copy_rng": false,
+    "shared_parameter_storage": false,
+    "first_child_optimizer_step": 1,
+    "extra_donor_training_steps": 0,
+    "synthetic_full_adam_clone_control_only": true,
+    "copy_B_D_lin": false,
+    "add_parent_and_candidate_corrections": false
+  },
+  "inherited_controller": {
+    "pool": {
+      "capacity_including_shadow": 2,
+      "active_max": 1,
+      "shadow_max": 1,
+      "ids_created_max": 2,
+      "second_candidate_attempts_max": 1,
+      "accepted_expert_permanent_deletions": 0,
+      "rejected_unaccepted_candidate_disposal": true,
+      "id_reuse": false,
+      "global_host_shared_selection": true,
+      "active_training": true,
+      "dormant_training": false,
+      "dormant_forward": "only registered bounded prequential qualification previews",
+      "no_active_output": "exact B_ref copy",
+      "restore_same_id_weights_adam_step": true,
+      "terminal_active_state": false
+    },
+    "event_order": [
+      "live_and_pending_validation_predict",
+      "settle_t_minus_2",
+      "due16_first_birth_else_reuse_accept_else_shadow_accept_else_sleep_at_most_one_live_transition",
+      "if_transition_cancel_obsolete_slots_else_start_due_checks_or_shadow",
+      "post_transition_active_update_once",
+      "uncancelled_shadow_training_update_once"
+    ],
+    "first_birth": {
+      "inherit_protocol037": true,
+      "recent": 64,
+      "previous": 256,
+      "min_matured": 320,
+      "ratio_min": 1.25,
+      "denominator_floor": 0.000001,
+      "absolute_increase_min": 0.02,
+      "recent_min_positive": 16,
+      "recent_min_negative": 16,
+      "consecutive_checks": 2,
+      "expected_t": 351,
+      "force_t_forbidden": true,
+      "matching_prefix": "exact039 until first actual differing040 model action",
+      "zero_initialized_direct_active": true
+    },
+    "sleep": {
+      "min_matured_current_active_epoch": 256,
+      "recent_intervals": 128,
+      "all_recent_same_active_epoch": true,
+      "utility": "mean(B_issued_BCE-D_live_issued_BCE)",
+      "utility_max": 0,
+      "consecutive_due16_checks": 3,
+      "reset_on_failure": true,
+      "preserve_weights_adam": true,
+      "cancel_pending_reuse_and_unaccepted_shadow": true,
+      "repeated": true
+    },
+    "pressure": {
+      "source": "actual full D_pool2 issued BCE",
+      "recent": 64,
+      "previous": 256,
+      "ratio_min": 1.25,
+      "denominator_floor": 0.000001,
+      "absolute_increase_min": 0.02,
+      "positive_min": 16,
+      "negative_min": 16,
+      "consecutive_due16_checks": 2,
+      "recent_same_deployment_epoch": true,
+      "active_epoch_matured_min": 256,
+      "no_active_epoch_matured_min": 64,
+      "previous_window_may_cross_epochs": true,
+      "reset_on_transition_or_failure": true,
+      "permanent_latching": false
+    },
+    "reuse": {
+      "clock": "(t+1)%64==0",
+      "deployment_epoch_matured_min": 64,
+      "require_pressure": false,
+      "pending_slots_max": 1,
+      "started_slots_max": 32,
+      "candidates": "all accepted dormant IDs, at most two; no similarity or phase filter",
+      "validation_intervals": 32,
+      "first_validation_prediction": "start_t+1",
+      "evaluation": "next due16 after all 32 labels mature",
+      "freeze_candidate_weights": true,
+      "active_training_continues": true,
+      "cancel_on_live_topology_change": true,
+      "parallel_with_shadow_training_or_validation": true,
+      "priority_over_shadow_accept": true,
+      "accept_cancels_shadow": true,
+      "winner": "minimum qualification BCE among passing candidates, exact ties smaller ID",
+      "no_pass": "keep live"
+    },
+    "qualification": {
+      "positive_host_rows_min": 16,
+      "negative_host_rows_min": 16,
+      "all_finite": true,
+      "candidate_BCE_relative_to_live_max": 0.99,
+      "candidate_BCE_relative_to_B_max": 1,
+      "fpr_delta_vs_each_live_and_B_max": 0.01,
+      "recall_delta_vs_each_live_and_B_min": -0.02,
+      "threshold": 0.5,
+      "training_regularizer_in_validation": false,
+      "insufficient_support": "reject_no_extension",
+      "window_selection": "first32 consecutive new issued intervals only"
+    },
+    "second_birth": {
+      "requires_current_pressure": true,
+      "no_live_transition_same_step": true,
+      "capacity_required": true,
+      "no_pending_reuse_at_creation": true,
+      "existing_dormant_requires": "quality-rejected reuse with sufficient support, age<=64 cursors, same deployment epoch and candidate ID/hash set",
+      "insufficient_reuse_support_does_not_authorize_birth": true,
+      "shadow_updates_max": 16,
+      "update_clock": "common due16 opportunities",
+      "batch": "same registered C batch as active at that opportunity",
+      "additional_updates": true,
+      "freeze_after_updates": 16,
+      "validation_intervals": 32,
+      "accept": "old active dormant; candidate active with retained Adam; normal same-t live update allowed",
+      "reject_or_cancel": "dispose unaccepted shadow; no retry",
+      "capacity_full": "record_capacity_block_no_purge"
+    }
+  },
+  "budget": {
+    "new_science_sequences": 2,
+    "sequence_names": [
+      "Z_zero",
+      "W_parent"
+    ],
+    "new_streams": 0,
+    "extra_seeds": 0,
+    "control_retraining": 0,
+    "zero_arm_reproduction_is_counted_science": true,
+    "F_training": 0,
+    "F_comparisons": 0,
+    "F_loads": 0,
+    "donor_updates": 0,
+    "hyperparameter_sweeps": 0,
+    "per_arm": {
+      "live_optimizer_steps_max": 352,
+      "shadow_optimizer_steps_max": 16,
+      "total_optimizer_steps_max": 368,
+      "max_updates_per_due16": 2,
+      "deployed_dynamic_prediction_forwards_max": 5616,
+      "reuse_preview_forwards_max": 2048,
+      "shadow_qualification_forwards_max": 32,
+      "total_preview_forwards_max": 2080
+    },
+    "combined": {
+      "live_optimizer_steps_max": 704,
+      "shadow_optimizer_steps_max": 32,
+      "total_optimizer_steps_max": 736,
+      "deployed_dynamic_prediction_forwards_max": 11232,
+      "reuse_preview_forwards_max": 4096,
+      "shadow_qualification_forwards_max": 64,
+      "total_preview_forwards_max": 4160
+    },
+    "real_engineering_prefixes_max": 1,
+    "real_engineering_prefix_intervals_max": 256,
+    "real_engineering_gradient_steps": 0,
+    "restart_from_zero_after_science_start": false,
+    "accepted_expert_permanent_deletions": 0
+  },
+  "reproduction": {
+    "Z_against": "cached_D_040",
+    "prediction_arrays": "exact",
+    "parameters_optimizer_steps_batches_and_discrete_events": "exact",
+    "AP_absolute_tolerance": 1e-12,
+    "excluded_metadata": [
+      "runtime_timing",
+      "new_audit_fields",
+      "checkpoint_file_names",
+      "action_sequence_numbers"
+    ],
+    "mismatch": "preserve_stop_before_W_no_tolerance_relaxation",
+    "expected_first_birth_t": 351,
+    "expected_candidate_start_t": 1055,
+    "expected_parent_steps_before_candidate": 44,
+    "expected_candidate_training_complete_t": 1295,
+    "expected_validation_intervals": [
+      1296,
+      1328
+    ],
+    "expected_candidate_evaluation_t": 1343,
+    "expected_Z_candidate_accepted": false,
+    "expected_Z_lifecycle_times": [
+      351,
+      1599,
+      2351,
+      4047,
+      4207
+    ],
+    "expected_Z_live_steps": 295,
+    "expected_Z_shadow_steps": 16,
+    "expected_Z_forwards": [
+      4704,
+      352,
+      32
+    ],
+    "force_expected_times_forbidden": true,
+    "paired_live_prefix": "exact until first differing live transition takes effect",
+    "first_candidate_paired_labels_live_B": "exact"
+  },
+  "engineering": {
+    "required_fixture_ids": [
+      "zero_B_and_nonzero_gradient",
+      "parent_copy_timing_no_alias_fresh_adam",
+      "full_adam_clone_synthetic_equivalence",
+      "expert_optimizer_and_dormant_isolation",
+      "controller_competing_events_capacity_and_censoring",
+      "disk_resume_all_substeps_to_terminal",
+      "future_feature_and_label_perturbation",
+      "actual_call_counters_terminal_zero",
+      "AP_ties_single_class_confusion_and_class_copy",
+      "complete_opportunity_accounting"
+    ],
+    "production_entrypoint_required": true,
+    "synthetic_training_only": true,
+    "real_prefix_optional": true,
+    "all_pass": "actual_assertions_for_every_required_fixture_id",
+    "checkpoint_semantics": "cursor_plus_next_unexecuted_substep",
+    "serialize_shadow_ready": true,
+    "serialize_terminal_settlement_progress": true,
+    "persist_rng_optimizer_pending_predictions_slots_counters_action_ids": true,
+    "crash_pending_ambiguous": "preserve_stop_no_replay",
+    "resume_test": "disk_restore_continue_to_terminal_compare_all_state_outputs_events_actual_counters",
+    "actual_future_perturbation_required": true,
+    "hardcoded_pass_forbidden": true,
+    "missing_fixture": "engineering_incomplete_do_not_launch"
+  },
+  "analysis": {
+    "AP": "tie-grouped noninterpolated",
+    "single_class_AP": null,
+    "threshold": 0.5,
+    "primary_baseline": "C_ref",
+    "cumulative_preservation_baseline": "D_keep",
+    "do_not_reset_loss_allowance_against_039": true,
+    "windows": [
+      [
+        "U_rec1",
+        3300,
+        3428
+      ],
+      [
+        "V_rec1",
+        3808,
+        3936
+      ],
+      [
+        "U_rec2",
+        4316,
+        4444
+      ],
+      [
+        "V_rec2",
+        4824,
+        4952
+      ],
+      [
+        "U_rec3",
+        5332,
+        5460
+      ],
+      [
+        "V_rec3",
+        5840,
+        5968
+      ]
+    ],
+    "late4": [
+      "U_rec2",
+      "V_rec2",
+      "U_rec3",
+      "V_rec3"
+    ],
+    "prefix_lengths": [
+      32,
+      64
+    ],
+    "primary": {
+      "full_AP_delta_min": 0.002,
+      "six_AP_delta_min": 0.002,
+      "positive_windows_min": 4,
+      "late4_AP_delta_min": 0,
+      "prefix32_AP_delta_min": -0.005,
+      "guards_and_validity_required": true
+    },
+    "cumulative_preservation": {
+      "baseline": "D_keep",
+      "full_AP_delta_min": -0.001,
+      "six_AP_delta_min": -0.001,
+      "late4_AP_delta_min": -0.001,
+      "prefix32_AP_delta_min": -0.005,
+      "guards_and_validity_required": true
+    },
+    "guards": {
+      "full_and_recurrence_pooled_fpr_delta_max": 0.01,
+      "full_and_recurrence_pooled_recall_delta_min": -0.01,
+      "W_mean_AP_delta_min": -0.02,
+      "each_recurrence_recall_delta_min": -0.02,
+      "each_recurrence_prefix32_recall_delta_min": -0.03
+    },
+    "pool_exercised": {
+      "accepted_distinct_ids": 2,
+      "active_predictions_each_min": 64,
+      "same_id_reactivation_after_dormant_predictions_min": 64,
+      "post_reactivation_active_predictions_min": 64
+    },
+    "local_two_expert_utility": "each ID first activation first64 consecutive actual active predictions; >=16 positives and negatives, issued BCE strictly lower than B; interrupted windows censored; descriptive only",
+    "event_diagnostics": {
+      "before": 64,
+      "after": [
+        32,
+        64,
+        128
+      ],
+      "report_overlap_and_intervening_transitions": true
+    },
+    "labels_priority": [
+      "invalid_execution",
+      "D_over_C_not_established",
+      "D_over_C_with_excess_pool_loss",
+      "quality_retained_pool_not_exercised",
+      "quality_retained_pool_exercised"
+    ],
+    "statistical_confirmation": false,
+    "causal_reuse_advantage_claim": false,
+    "complete_dynamic_deletion_claim": false,
+    "overall_deployment_speedup_claim": false,
+    "initialization_baseline": "Z_zero",
+    "candidate_comparison": {
+      "window": "first comparable future qualification window, expected [1296,1328)",
+      "metrics": [
+        "BCE",
+        "AP",
+        "recall",
+        "FPR",
+        "confusion"
+      ],
+      "candidate_qualification_signal": "validity AND W_original_qualification_pass AND W_candidate_BCE < Z_candidate_BCE",
+      "labels": [
+        "candidate_qualification_signal",
+        "candidate_improved_but_not_qualified",
+        "no_candidate_improvement",
+        "mechanism_not_observed"
+      ],
+      "thresholds_unchanged": true
+    },
+    "initialization_system_signal": {
+      "full_AP_delta_min": 0,
+      "six_AP_delta_min": 0.0005,
+      "positive_windows_min": 4,
+      "late4_AP_delta_min": 0,
+      "guards_vs_Z_required": true,
+      "validity_required": true
+    },
+    "separate_flags": [
+      "validity",
+      "candidate_qualification_signal",
+      "initialization_system_signal",
+      "D_over_C",
+      "cumulative_preservation",
+      "pool_exercised"
+    ],
+    "joint_success": "all six separate_flags true",
+    "independent_recompute": [
+      "full_AP",
+      "six_window_AP",
+      "prefix32_AP",
+      "prefix64_AP",
+      "late4_AP",
+      "BCE",
+      "confusion"
+    ],
+    "no_reuse_causal_claim": true
+  },
+  "runtime": {
+    "workflow": "protocol041-parent-initialization.yml",
+    "formal_trigger": "workflow_dispatch_only",
+    "create_workflow_this_publication": false,
+    "expected_checkout_sha_lock": true,
+    "protocol_concurrency_lock": true,
+    "source_code_frozen_before_new_real_science": true,
+    "python": "3.8.18",
+    "torch": "2.4.1+cpu",
+    "numpy": "1.24.4",
+    "cpu_threads": 1,
+    "job_timeout_minutes": 350,
+    "exact_resume_only": true,
+    "ambiguous_update": "preserve_and_stop_no_replay",
+    "synthetic_fixtures_share_production_entrypoint": true,
+    "checkpoint_events": [
+      "every_actual_update_with_next_substep",
+      "every_live_transition_with_next_substep",
+      "every_slot_creation_or_finish_with_next_substep",
+      "every512_complete_intervals",
+      "terminal_settlement_progress"
+    ],
+    "terminal_settle_only": true,
+    "budget_key": "protocol041_and_arm_not_run_id",
+    "new_runners": [
+      "run_ftmoe_protocol041.py",
+      "analyze_ftmoe_protocol041.py"
+    ],
+    "fixes_applied_identically_to_both_arms": true
+  },
+  "delivery": {
+    "docs": "docs/PROTOCOL041_RESULTS.md",
+    "compact_root": "artifacts/ftmoe_online/protocol_041/runs/run_<id>/",
+    "raw_artifact_first": true,
+    "raw_retention_days_min": 90,
+    "source_bundle_required": true,
+    "independent_core_metric_recomputation": true,
+    "separate_science_analysis_publication_status": true,
+    "sync_main_and_execution_branch_pointers": true,
+    "no_force_push": true,
+    "non_fast_forward_retries_max": 3,
+    "authentication_error": "publication_pending_no_retraining",
+    "stop_after_registered_two_sequences": true,
+    "independent_full_metrics_recomputation": true
+  }
+}
