@@ -1,7 +1,28 @@
-# Protocol-042 revision 2 已完成，停止等待分析
+# 下一轮实验：Protocol-043 revision 1
 
-Protocol-042 revision 2 science run 37128097274 已完成；分析/发布在run 37130973490无重训恢复。系统标签 **invalid_execution**；main development success=False；addition-policy signal=False；window-policy signal=False；pool exercised=True。
+状态：**计划已登记，尚未实现、尚未运行**。日期：2026-10-03（Asia/Shanghai）。
 
-读取 docs/PROTOCOL042_RESULTS.md 与 artifacts/ftmoe_online/protocol_042/runs/run_37128097274/。四条登记序列均已关闭。
+完整执行指示：[按需新增、窗口退出与有限专家池回收](docs/PROTOCOL043_BOUNDED_LIFECYCLE_20261003.md)。
+机器登记：[plan.json](artifacts/ftmoe_online/protocol_043/plan.json)，校验：[plan.sha256](artifacts/ftmoe_online/protocol_043/plan.sha256)。
 
-不自动重试，不把64/256窗口变成科学臂，不加seed/新流，不恢复F，不加困难样本加权，不永久删除accepted memory，不启动Protocol-043。
+## 用户目标
+
+结构逻辑合理、关键机制实际运行、效果超过C即可。不要求严格替换，不要求精度最高，不要求胜过A_hist、D_keep或本轮对照。
+
+## 用户交接后按顺序执行
+
+1. 对042封存产物做完整只读审计；原结果不覆盖、不重训。
+2. 实现043，修复评分精度、分析器边界、增量统计和恢复测试。用合成数据经生产入口验证满容量→回收休眠专家→新增→接受，以及失败与断点恢复分支。
+3. 冻结所有代码、分析与阈值，验证输入/fixture/hash/预算门控。
+4. 同一已见seed3601只跑D_no_gc、D_bounded两臂各一次。前者容量满时阻塞，后者在严格条件下回收休眠专家；主臂固定D_bounded。
+5. 封存raw，分析并上传docs/PROTOCOL043_RESULTS.md和对应run目录，更新根目录状态，停止。
+
+## 核心约束
+
+- active<=2，active+dormant+shadow<=3，shadow<=1；新增不强制删旧，活动专家先按128成熟区间窗口退出。
+- 后续候选最多4次/臂；两臂真实optimizer steps总上限1536；没有额外seed、流、U复现、扫描或补跑预算。
+- 仅在需要新候选且驻留满时回收；对象必须是保护期已过、两次近期非重叠复用窗口均有充分支持且整体/正负类均无正贡献的休眠专家。
+- 真实流不触发回收就如实报告；通过合成回收测试不能声称真实回收提高了性能。
+- 033–042历史预算仍关闭，043完成或工程阻塞即停止，不自动启动044。
+
+042曾出现数值D>C与真实新增/休眠/复用，但原validity=false。新一轮的任务是修复并验证合理结构，不把旧报告的机制误判或成功布尔值直接当结论。

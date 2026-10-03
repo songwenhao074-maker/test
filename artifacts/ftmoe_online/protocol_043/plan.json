@@ -1,0 +1,579 @@
+{
+  "protocol": "043",
+  "revision": 1,
+  "date": "2026-10-03",
+  "timezone": "Asia/Shanghai",
+  "status": "instructions_registered_not_implemented_not_started",
+  "instructions": "docs/PROTOCOL043_BOUNDED_LIFECYCLE_20261003.md",
+  "instructions_sha256": "eceb6a564ee27d1edf5f2cbc096d7a092f9826df53f4c3d72f06019e0178a096",
+  "registration_base_commit": "19445006dee657884bca5cd800f477a8428f6493",
+  "objective": "Structurally coherent demand-driven admission, recent-utility sleep, bounded dormant retention and evidence-gated reclamation; predesignated D_bounded exceeds C, not best among D variants.",
+  "authorization": {
+    "this_publication": "instructions_only_no_workflow_dispatch_no_science",
+    "execution_after_user_handoff": true,
+    "historical033_042_budgets_closed": true,
+    "permanent_eviction_scope": "043 online experimental dormant experts only; preserve historical artifacts",
+    "new_protocol_after043": false
+  },
+  "source036": {
+    "protocol036_run_id": 36831958978,
+    "artifact_id": 11147931152,
+    "zip_sha256": "040bacac8f23659f56599b71d6d6706b62a544e44161c7c42fb5af73650f56c0",
+    "replay_seed": 3601,
+    "already_observed_development_data": true,
+    "independent_confirmation": false,
+    "stream_sha256": "09fadb02f2017f8d528ee8284129c29adcb6be137b1a9e93f4a249eebcd1b659",
+    "files": {
+      "stage_B/seed3601/C_ref/feature_tape.npz": "c71a2ea6d59045fe4cc8a953a776d37f48dbe1feec4aba859cd00f11c984529c",
+      "stage_B/seed3601/C_ref/update_batches.json": "4d32d2ece194cb41b8bc16de1c89ddfedcd42da668b96446937fb430d6246b6f",
+      "stage_B/seed3601/D_lin/predictions.npz": "1ea811ed175817294f275505db85d0bf283c3d0aca6b883b036243ad7843bef6",
+      "inputs/seed3601/manifest.json": "73a1c6fd8d8d12c8e84958df55b2379ab2f2542ac34923bc3934d363329cb02b",
+      "stage_B/seed3601/C_ref/predictions.npz": "da02b63c4a6cf7a2e4fe7c5b98dcd872ca1fa08114bb029f46fce4053b9e9576"
+    }
+  },
+  "source041": {
+    "run_id": 37110969550,
+    "artifact_id": 11269043834,
+    "artifact_name": "protocol041-raw-37110969550",
+    "expected_zip_sha256": "baa36f1fbb3489f76d8f0ffb5d8e4ebc88317e231bd934146e185ac2e4ffde6e",
+    "size_in_bytes": 64506487,
+    "digest_origin": "published artifact digest; downloaded bytes must be verified",
+    "manifest_path": "artifacts/ftmoe_online/protocol_041/runs/run_37110969550/science/scientific_raw_manifest.json",
+    "manifest_ref": "28eec9f190d5337b1d5d6d42d54406b42547fc28",
+    "manifest_sha256": "3ff9265d2fbc628223521fe1172e4fb1995949a7fd4409f745281b812e645c1e",
+    "files": {
+      "W_parent/birth_checks.json": "1912a797475b9c104f301ccd7daddfe0495227646b8bb8e5845998960b1c4453",
+      "W_parent/candidate_decisions.json": "f4311d295f53e45d9d29b5133ce1f6055757e0756b539224dda57d02e9a80ba9",
+      "W_parent/initialization_events.json": "1c20809a6127739bade8017c2a90d7497eeda5f1d7d9b706bf3df3b09f14c2a5",
+      "W_parent/lifecycle_events.json": "3aed63d40f53b2b0093fb209823bf49486e6aed69cab75960e7e8c610672b0c5",
+      "W_parent/opportunity_audit.json": "a8dc7e750980fc9478b64089439232a7eb26ed606991c07b7be66beb307e2e7c",
+      "W_parent/opportunity_log.json": "6d645f10747a518eb290d9041dd943ea505c7dede0c31e4bf754cebd1f2e92c7",
+      "W_parent/predictions.npz": "51a5ac7ec4e72f340ab1f051bb3707ad44e5540786a94bf0b10f9a8af9e7dd6a",
+      "W_parent/pressure_checks.json": "dd93eee9d9d9398447006806a44f9dfddfa902d8dd4032e1bfe606e51f959283",
+      "W_parent/qualification_first.npz": "f8844850f0d3eb29395fdaf90e0962fbe161545be47b5024d6b5e195767fd335",
+      "W_parent/reuse_decisions.json": "b14e9ca547e7ceac3306a481958ac3e6169b7e15d7ec98aee0eb859e82bf59fe",
+      "W_parent/run_audit.json": "8bd4e804b9c7e1687d3d03315fae648f6fceafa5ec4194b525a660be998aa95f",
+      "W_parent/science_cost_raw.json": "7c8f1f6ed86f5d9824e6ddee5b6e42da6474f17e3cbffc02b082997f8320f3bd",
+      "W_parent/scientific_execution_complete.json": "7845bf56b92736078baec4a63cb1495111e4b8df5117f546d0173e3d63908185",
+      "W_parent/sleep_checks.json": "55305851ecc61e4ea4a04325d81ab4219e72009f58585c2dfb675770005b1f1f",
+      "W_parent/source_lock.json": "64206928c823a5ef6624c32a217b7708add30f59d58a8e807f9a2ead13cad757",
+      "W_parent/status.json": "92fb017dd473671827a0bc3687ecb831e92816903d1de77291acb8c71b563551",
+      "W_parent/summary.json": "63bd364d4d67fa8b6143d184a58e221b9685f707354eb1a189b67c829169b66c",
+      "W_parent/update_log.json": "ce66b6fe4c773e99ee1ca44ce610a2eec02ca1849c87e0eb5c843f69f2d1d393",
+      "cached/B_ref/predictions.npz": "1ea811ed175817294f275505db85d0bf283c3d0aca6b883b036243ad7843bef6",
+      "cached/C_ref/predictions.npz": "da02b63c4a6cf7a2e4fe7c5b98dcd872ca1fa08114bb029f46fce4053b9e9576",
+      "cached/D_039/predictions.npz": "bc387d13721ed2e759a205ed3b4f6fa884c1ca105068a79a340148e1f5e96512",
+      "cached/D_040/predictions.npz": "51a5ac7ec4e72f340ab1f051bb3707ad44e5540786a94bf0b10f9a8af9e7dd6a",
+      "cached/D_keep/predictions.npz": "badf9005b2be9fc6436d1ff2b9377b27715e846d7d16f8e4bdfcbfa76f732e8c",
+      "cached/summary.json": "355e47222258a3431efe6b0bf926d116180d881762a2acfd6b827b3e44d05fb8"
+    },
+    "restore_historical_checkpoints": false,
+    "load_F_files": false,
+    "raw_Z_failed_report": "historical only; not a gate for043",
+    "scientific_reproduction_reference": null,
+    "purpose": "frozen baseline cache; no U or other baseline retraining"
+  },
+  "source042": {
+    "run_id": 37128097274,
+    "artifact_id": 11276470062,
+    "zip_sha256": "764913d9ffb3e26d2895b1ba802595458b5efdeb46c8bc118c226c2c2c7bc991",
+    "publication_commit": "19445006dee657884bca5cd800f477a8428f6493",
+    "execution_commit": "da5eaa7e71f44497ede538c884e7ca688e6afbf4",
+    "files": {
+      "protocol042_common.py": "763b4a18a4f4066286cb2bcaf049ff52c6670f3deed5eb123dbc30d8b4f6836c",
+      "protocol042_engine.py": "50f6e8406a0ff40f982956d74cd716c5a40defd478a98805a0143eabaa5b1bc9",
+      "run_ftmoe_protocol042.py": "1d0dba4f0ed24edc34b260f504ded9d676db43a4a619f053dff683801b3386c3",
+      "analyze_ftmoe_protocol042.py": "124aff3c196e64ce8ff21830161792ebdafa929538a89aad61ed67a620f38801",
+      "maintenance/materialize_protocol042_sources.py": "8d2f13826b05ca7c73518d7b1d982d801b5507385567da73602ad349595934e3",
+      "maintenance/protocol042_finalize.py": "08a3e6690fc59ce031a2d9b8e67e511a5e37f7b7989f889d0752b07afbc0c801",
+      "run_ftmoe_protocol041.py": "5ea6aa2f6c6bc629f5933748b1ff24b76d423e193c406cb0839d8e7b944abbd4",
+      "run_ftmoe_protocol040.py": "613fa9729803c4084638a5efc42e78761b280997aaf881dec82a5a16010c7c82",
+      "run_ftmoe_protocol039.py": "1336e663abd9a8fd72c7008ed960e1ef33bcdba400dce36726a97904fbf4d5ab",
+      "run_ftmoe_protocol037.py": "541395fd5ec9f69007ef74b49a5270c472cb6785416022d759b66660b09fe747"
+    },
+    "raw_manifest_path": "artifacts/ftmoe_online/protocol_042/runs/run_37128097274/science/scientific_raw_manifest.json",
+    "raw_manifest_git_blob_sha": "6e8d2072f5b3985d36a3f63d463452487ca6a235",
+    "purpose": "read-only full audit; no replay gradients; original validity remains historical",
+    "source_code_paths_are_repo_root": true
+  },
+  "kernel": {
+    "reference_commit": "a1b43179fdbe18dc7a71e8a6d5a8537d9e4e522a",
+    "files": {
+      "run_ftmoe_protocol040.py": "613fa9729803c4084638a5efc42e78761b280997aaf881dec82a5a16010c7c82",
+      "analyze_ftmoe_protocol040.py": "dcac30b617fe4238220935f65bc17cbe94e13b91a2c4ddd8c7c97887a45e3ce9",
+      "maintenance/validate_protocol040_plan.py": "18af5e0eb0e80b9cbcc34d91ffd09b14fe863daa31950858fa98e1215832c7e7",
+      "maintenance/materialize_protocol040_sources.py": "f7924ed346ca40a4b1398d7959f037a753d48228f861fc3af83a993884e99ae8",
+      "maintenance/protocol040_finalize.py": "dc75da7b70eb6852d6bafa301e752fbcf521d42f820dd6ad0ff241005c712e86",
+      "run_ftmoe_protocol037.py": "541395fd5ec9f69007ef74b49a5270c472cb6785416022d759b66660b09fe747",
+      "run_ftmoe_protocol039.py": "1336e663abd9a8fd72c7008ed960e1ef33bcdba400dce36726a97904fbf4d5ab",
+      "analyze_ftmoe_protocol037.py": "4b484ccd1403d8b408b4c421848740efcd8acd25fbb5561027a95ed3ba3e7c81",
+      "analyze_ftmoe_protocol039.py": "c3d9f081a3d311e8515ba5c768f79808fd697d33df3778ab86beb23cc21cac48",
+      "protocol035_common.py": "5c99c7fd2b06cab274b86054d492fbca44176c48e7ac5ad0e6e286876c4ac94d",
+      "run_ftmoe_protocol041.py": "5ea6aa2f6c6bc629f5933748b1ff24b76d423e193c406cb0839d8e7b944abbd4",
+      "analyze_ftmoe_protocol041.py": "38d3c7d2c716e4199e2bc6c6defc6fce746faad1d6f726cb22b2116fcbe9abf5",
+      "maintenance/materialize_protocol041_sources.py": "0dd8d019dd796e50e0b7a8ff3a797ffbfc897970aedd95b0b01899197c09162e",
+      "maintenance/protocol041_finalize.py": "b8fb5d8f29c477d9a698378573928c431a693591f3857af612f44c3a69c8d8a4"
+    },
+    "historical_files_immutable": true,
+    "purpose": "immutable historical dependencies; changed runtime logic implemented under043"
+  },
+  "data": {
+    "replay_seed": 3601,
+    "observed_development_data": true,
+    "prediction_intervals": 5968,
+    "hosts": 16,
+    "feature_dim": 73,
+    "target": "same_host_raw[t+1]>0",
+    "label_settlement": "after_prediction_at_t_plus_2",
+    "prediction_visible_labels": "i+2<t",
+    "decision_update_visible_labels": "i+2<=t",
+    "phase_ids_online": false,
+    "baseline_retraining": false
+  },
+  "execution_order": [
+    "audit042_read_only",
+    "synthetic_production_preflight",
+    "freeze_both_arms",
+    "D_no_gc",
+    "D_bounded",
+    "seal_and_analyze",
+    "stop"
+  ],
+  "arms": {
+    "order": [
+      "D_no_gc",
+      "D_bounded"
+    ],
+    "primary": "D_bounded",
+    "D_no_gc": {
+      "permanent_reclamation": false,
+      "full_resident": "record_would_delete_and_block_no_attempt_consumed"
+    },
+    "D_bounded": {
+      "permanent_reclamation": true,
+      "full_resident": "qualified_dormant_eviction_atomic_with_candidate_creation"
+    },
+    "only_policy_difference": "permanent_reclamation",
+    "performance_negative_stops_next_arm": false,
+    "engineering_failure_stops": true
+  },
+  "structure": {
+    "feature_dim": 73,
+    "parameters_per_expert": 74,
+    "delta": "2*tanh((w dot issued_z+b)/2)",
+    "live_margin": "B_margin+sum(active_delta)",
+    "classification": "exact_B_ref_copy",
+    "renormalize": false,
+    "total_clip": false,
+    "resident_including_shadow_max": 3,
+    "active_max": 2,
+    "shadow_max": 1,
+    "dormant_max": "3-active-shadow",
+    "admission": "only_if_active_count_less_than_2_no_active_replacement",
+    "initial_birth": {
+      "inherit_protocol037": true,
+      "recent": 64,
+      "previous": 256,
+      "min_matured": 320,
+      "ratio_min": 1.25,
+      "denominator_floor": 0.000001,
+      "absolute_increase_min": 0.02,
+      "recent_min_positive": 16,
+      "recent_min_negative": 16,
+      "consecutive_checks": 2,
+      "expected_t": 351,
+      "force_t_forbidden": true,
+      "matching_prefix": "exact039 until first actual differing040 model action",
+      "zero_initialized_direct_active": true
+    },
+    "candidate_attempts_after_E0_max": 4,
+    "ids_created_max": 5,
+    "ids_monotonic": true,
+    "id_reuse": false,
+    "attempt_rejection_or_cancel_consumes_budget": true,
+    "attempt_cooldown_intervals": 256,
+    "deleted_id_reload": false
+  },
+  "training": {
+    "optimizer": "AdamW",
+    "lr": 0.0001,
+    "weight_decay": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-8,
+    "clip_per_expert": 1,
+    "regularizer": 0.001,
+    "update_every": 16,
+    "batch_intervals": 32,
+    "hosts": 16,
+    "batch_source": "actual_C_batches_order_duplicates_preserved",
+    "live_loss": "mean_BCE(B_margin+sum(active_delta),y)+0.001*sum(mean(delta_i_squared))",
+    "shadow_loss": "mean_BCE(B_margin+detach(sum(retained_active_delta_before_same_t_updates))+delta_new,y)+0.001*mean(delta_new_squared)",
+    "shadow_updates_per_candidate": 16,
+    "extra_forward_to_compute_context": false,
+    "weighted_training": false
+  },
+  "score": {
+    "window_unit": "global_issued_time_intervals_with_mature_labels",
+    "fixed_window": 128,
+    "range": "[t-2-W+1,t-2]",
+    "formula": "BCE(issued_live_margin-issued_delta_i,y)-BCE(issued_live_margin,y)",
+    "dtype": "float64_from_issued_float32",
+    "reuse_current_parameters_for_old_predictions": false,
+    "active_epoch_mature_min": 128,
+    "positive_rows_min": 16,
+    "negative_rows_min": 16,
+    "positive_intervals_min": 4,
+    "positive_intervals_are_independent_events": false,
+    "current_epoch_only": true,
+    "topology_resets_statistics": true,
+    "weight_update_resets_epoch": false,
+    "missing": "null_not_zero",
+    "eligible": {
+      "overall_max": 0,
+      "positive_max": 0,
+      "negative_max": 0,
+      "removal_fpr_increase_max": 0.01,
+      "removal_recall_change_min": -0.02,
+      "consecutive_due16": 3
+    },
+    "tie": "minimum_score_then_lowest_id",
+    "extra_expert_forwards": 0,
+    "diagnostic_windows": [],
+    "historical_memory_score_controls_current_activity": false,
+    "implementation": "per_interval_sufficient_statistics_ring128_incremental_sums",
+    "subtraction": "cast_each_issued_operand_to_float64_before_subtraction",
+    "online_AP": false,
+    "unbounded_online_history": false,
+    "late_old_epoch_labels": "metrics_only_exclude_from_current_control",
+    "near_threshold_recompute": "optional bounded no-forward fallback frozen before science"
+  },
+  "controller": {
+    "clock16": "(t+1)%16==0",
+    "clock64": "(t+1)%64==0",
+    "pressure": {
+      "source": "actual full D_pool2 issued BCE",
+      "recent": 64,
+      "previous": 256,
+      "ratio_min": 1.25,
+      "denominator_floor": 0.000001,
+      "absolute_increase_min": 0.02,
+      "positive_min": 16,
+      "negative_min": 16,
+      "consecutive_due16_checks": 2,
+      "recent_same_deployment_epoch": true,
+      "active_epoch_matured_min": 256,
+      "no_active_epoch_matured_min": 64,
+      "previous_window_may_cross_epochs": true,
+      "reset_on_transition_or_failure": true,
+      "permanent_latching": false
+    },
+    "initial_birth": "first pressure bootstrap direct zero-initialized active; no hardcoded birth time",
+    "priority": [
+      "first_birth",
+      "reuse_accept",
+      "shadow_accept",
+      "sleep"
+    ],
+    "activity_transitions_per_due16_max": 1,
+    "topology_resets": "score_and_pressure_streak_and_pending_slots",
+    "not_topology_changes": [
+      "ordinary_gradient_update",
+      "shadow_creation",
+      "dormant_permanent_eviction"
+    ],
+    "admission_lock": [
+      "deployment_epoch",
+      "retained_active_ids",
+      "candidate_id_and_frozen_version_for_qualification"
+    ],
+    "victim_id": null,
+    "qualification": {
+      "positive_host_rows_min": 16,
+      "negative_host_rows_min": 16,
+      "all_finite": true,
+      "candidate_BCE_relative_to_live_max": 0.99,
+      "candidate_BCE_relative_to_B_max": 1,
+      "fpr_delta_vs_each_live_and_B_max": 0.01,
+      "recall_delta_vs_each_live_and_B_min": -0.02,
+      "threshold": 0.5,
+      "training_regularizer_in_validation": false,
+      "insufficient_support": "reject_no_extension",
+      "window_selection": "first32 consecutive new issued intervals only"
+    },
+    "qualification_intervals": 32,
+    "qualification_system": "issued_live_margin+candidate_delta",
+    "qualification_start": "first prediction after shadow training complete or reuse slot start",
+    "qualification_decision": "first due16 after all32 labels mature",
+    "reuse": {
+      "epoch_mature_min": 128,
+      "require_pressure": false,
+      "active_count_max_before_admission": 1,
+      "slots_max": 32,
+      "candidates": "all dormant current IDs/hashes up to3",
+      "candidate_training": false,
+      "retain_same_ID_Adam": true,
+      "can_overlap_shadow": true,
+      "topology_change_cancels": true,
+      "priority_over_shadow": true
+    },
+    "birth": {
+      "requires_pressure": true,
+      "requires_active_vacancy": true,
+      "no_pending_shadow_or_reuse": true,
+      "no_same_t_topology_transition": true,
+      "dormant_requires": "sufficient-support quality rejection of all dormant candidates in same epoch and ID/hash set; decision age<=64",
+      "unknown_reuse_does_not_authorize": true,
+      "attempt_before_reuse_start_if_fresh_rejection": true,
+      "no_active_replacement": true,
+      "remaining_stream_feasibility_before_eviction": true
+    },
+    "terminal": "two settle-only ticks; no training/control/acceptance"
+  },
+  "reclamation": {
+    "trigger": "all noncapacity birth gates pass AND resident_count==3",
+    "only_state": "dormant",
+    "minimum_dormant_predictions": 256,
+    "pending_slot_reference_forbidden": true,
+    "reuse_evidence": {
+      "latest_two_completed_slots": true,
+      "nonoverlapping": true,
+      "same_epoch": true,
+      "same_dormant_ID_hash_set": true,
+      "each_window_start_min": "t-255",
+      "latest_decision_age_max": 64,
+      "positive_rows_min": 16,
+      "negative_rows_min": 16,
+      "positive_intervals_min": 4,
+      "candidate_reuse_accept": false,
+      "Q": "BCE(issued_live)-BCE(issued_live+dormant_delta)",
+      "overall_Q_max": 0,
+      "positive_Q_max": 0,
+      "negative_Q_max": 0,
+      "support_unknown": "ineligible"
+    },
+    "sort": [
+      "last_active_prediction_ascending",
+      "expert_id_ascending"
+    ],
+    "one_delete_per_birth_max": 1,
+    "deletions_per_arm_max": 4,
+    "delete_and_create_atomic": true,
+    "pretraining_eviction_risk_explicit": true,
+    "rejected_new_candidate_restores_victim": false,
+    "no_eligible": "capacity_blocked_no_safe_eviction",
+    "no_periodic_age_only_deletion": true
+  },
+  "audit042": {
+    "original_artifacts_immutable": true,
+    "new_location": "audit042/",
+    "old_runtime_float32_and_registered_float64_separate": true,
+    "all_control_points_not_first20": true,
+    "compare_discrete_decisions": true,
+    "on_first_counterfactual_action_difference": "record; no subsequent alternate-trajectory claim",
+    "fix_prefix_control_boundary": true,
+    "missing_event_fields": "schema_error_not_empty_defaults",
+    "invalid042_not_automatically_invalid043": true,
+    "missing_required_source_stops": true
+  },
+  "budget": {
+    "science_sequences": 2,
+    "each": {
+      "live_optimizer_steps": 704,
+      "shadow_optimizer_steps": 64,
+      "total_optimizer_steps": 768,
+      "deployed_expert_interval_forwards": 11232,
+      "reuse_preview_forwards": 3072,
+      "shadow_qualification_forwards": 128,
+      "prediction_expert_forwards": 14432,
+      "training_expert_forwards": 768,
+      "max_live_steps_per_due16": 2,
+      "max_shadow_steps_per_due16": 1
+    },
+    "total": {
+      "optimizer_steps": 1536,
+      "deployed_forwards": 22464,
+      "reuse_forwards": 6144,
+      "shadow_qualification_forwards": 256,
+      "prediction_expert_forwards": 28864,
+      "training_expert_forwards": 1536
+    },
+    "real_engineering_prefix_max": 1,
+    "real_engineering_intervals_max": 256,
+    "real_engineering_gradients": 0,
+    "new_streams": 0,
+    "extra_seeds": 0,
+    "F_loads": 0,
+    "extra_arms": 0,
+    "U_reproduction_runs": 0,
+    "restart_from_zero": false,
+    "do_not_spend_to_fill_cap": true,
+    "budget_key": "protocol043_revision1_arm"
+  },
+  "engineering": {
+    "required_fixture_ids": [
+      "float64_counterfactual_independent_golden",
+      "window_expiry_epoch_late_labels_unknown",
+      "sleep_useful_protection_no_forced_replacement",
+      "joint_Adam_detached_shadow_future_qualification",
+      "reuse_same_id_Adam",
+      "eviction_positive_weak_gain_protected",
+      "eviction_stale_unknown_overlap_hash_guards",
+      "production_full_pool_delete_birth_accept64",
+      "production_eviction_then_candidate_reject",
+      "two_arm_first_GC_divergence",
+      "disk_resume_continue_to_end_all_states",
+      "crash_atomic_step_eviction_budget",
+      "fail_closed_source_fixture_budget",
+      "future_label_noninterference"
+    ],
+    "production_tick_required": true,
+    "synthetic_gradients_only": true,
+    "handwritten_decision_pass_forbidden": true,
+    "resume_must_continue_to_same_endpoint": true,
+    "independent_score_checker_must_not_call_production_tracker": true,
+    "score_abs_tolerance": 1e-10,
+    "score_relative_tolerance": 0,
+    "metrics_abs_tolerance": 1e-12,
+    "discrete_decisions": "exact",
+    "tolerance_changes_decision": false,
+    "missing_or_nonboolean_pass": "fail_closed",
+    "new_implementation_must_pass_not_old_fixture_flag": true
+  },
+  "analysis": {
+    "AP": "tie-grouped noninterpolated",
+    "single_class_AP": null,
+    "threshold": 0.5,
+    "windows": [
+      [
+        "U_rec1",
+        3300,
+        3428
+      ],
+      [
+        "V_rec1",
+        3808,
+        3936
+      ],
+      [
+        "U_rec2",
+        4316,
+        4444
+      ],
+      [
+        "V_rec2",
+        4824,
+        4952
+      ],
+      [
+        "U_rec3",
+        5332,
+        5460
+      ],
+      [
+        "V_rec3",
+        5840,
+        5968
+      ]
+    ],
+    "late4": [
+      "U_rec2",
+      "V_rec2",
+      "U_rec3",
+      "V_rec3"
+    ],
+    "prefix_lengths": [
+      32,
+      64
+    ],
+    "primary": {
+      "full_AP_delta_min": 0.002,
+      "six_AP_delta_min": 0.002,
+      "positive_windows_min": 4,
+      "late4_AP_delta_min": 0,
+      "prefix32_AP_delta_min": -0.005,
+      "guards_and_validity_required": true
+    },
+    "guards": {
+      "full_and_recurrence_pooled_fpr_delta_max": 0.01,
+      "full_and_recurrence_pooled_recall_delta_min": -0.01,
+      "W_mean_AP_delta_min": -0.02,
+      "each_recurrence_recall_delta_min": -0.02,
+      "each_recurrence_prefix32_recall_delta_min": -0.03
+    },
+    "primary_arm": "D_bounded",
+    "primary_baseline": "C_ref",
+    "development_seen_data": true,
+    "independent_confirmation": false,
+    "core_lifecycle": {
+      "post_E0_accepted_candidate_min": 1,
+      "accepted_candidate_active_predictions_min": 64,
+      "window_sleep_events_min": 1,
+      "sleep_dormant_predictions_min": 64,
+      "events_need_not_same_ID": true
+    },
+    "reuse": {
+      "same_ID_dormant_predictions_min": 64,
+      "post_reuse_active_predictions_min": 64,
+      "required_for_core_goal": false
+    },
+    "gc_closed_loop": {
+      "permanent_eviction_followed_by_its_candidate_accept": true,
+      "accepted_candidate_active_predictions_min": 64
+    },
+    "core_goal_supported": "validity AND D_over_C AND core_lifecycle_exercised AND gc_engineering_verified AND resource_bounds_pass",
+    "full_reclamation_demonstrated": "core_goal_supported AND gc_admission_closed_loop",
+    "required_superiority_baselines": [
+      "C_ref"
+    ],
+    "diagnostic_baselines": [
+      "B_ref",
+      "D_keep",
+      "042_A_hist",
+      "042_A_win128",
+      "D_no_gc"
+    ],
+    "require_win_over_hist": false,
+    "require_win_over_no_gc": false,
+    "require_preserve_D_keep": false,
+    "no_natural_gc": "report unexercised on stream; synthetic mechanism coverage only; no extra science",
+    "first_divergence_audit": "compare before first control difference, not before first output difference; absence of GC requires whole-trajectory equality",
+    "invalid_execution_still_show_metrics": true,
+    "claim_restrictions": [
+      "no independent generalization confirmation",
+      "no best structure/window",
+      "no equal-compute superiority",
+      "no guarantee deleted expert forever useless",
+      "no end-to-end speedup from cached B"
+    ]
+  },
+  "runtime": {
+    "workflow": "protocol043-bounded-lifecycle.yml",
+    "execution_branch": "codex/protocol-043-bounded-lifecycle-20261003",
+    "formal_trigger": "workflow_dispatch_only_after_user_handoff",
+    "create_workflow_this_publication": false,
+    "python": "3.8.18",
+    "torch": "2.4.1+cpu",
+    "numpy": "1.24.4",
+    "cpu_threads": 1,
+    "job_timeout_minutes": 350,
+    "freeze_before_any_real_gradient": true,
+    "both_entrypoints_verify_gate": true,
+    "exact_resume_only": true,
+    "ambiguous_step": "preserve_and_stop",
+    "no_force_push": true
+  },
+  "delivery": {
+    "docs": "docs/PROTOCOL043_RESULTS.md",
+    "compact_root": "artifacts/ftmoe_online/protocol_043/runs/run_<id>/",
+    "raw_artifact_first": true,
+    "raw_retention_days_min": 90,
+    "source_bundle_required": true,
+    "science_analysis_publication_status_separate": true,
+    "score_metrics_independent_full_recompute": true,
+    "result_commit_skip_ci": true,
+    "stop_after_two_or_blocked": true
+  }
+}
