@@ -1,0 +1,86 @@
+{
+  "protocol": "041",
+  "arm": "Z_zero",
+  "decisions": [
+    {
+      "event": "shadow_start",
+      "at_interval": 1055,
+      "candidate_id": 1,
+      "deployment_epoch": 1,
+      "capacity_after": 2,
+      "initialization": "Z_zero"
+    },
+    {
+      "event": "shadow_training_complete",
+      "at_interval": 1295,
+      "candidate_id": 1,
+      "updates": 16,
+      "validation_start": 1296,
+      "model_hash": "bb55f99e710ab9174069da664503126bd3242a16ae85206148957986640addbf",
+      "optimizer_step": 16
+    },
+    {
+      "positive_host_rows": 126,
+      "negative_host_rows": 386,
+      "finite": true,
+      "support": true,
+      "candidate": {
+        "ap": 0.5586610286671069,
+        "bce": 0.5206202995032794,
+        "rows": 512,
+        "positives": 126,
+        "negatives": 386,
+        "tp": 60,
+        "fp": 59,
+        "fn": 66,
+        "tn": 327,
+        "recall": 0.47619047619047616,
+        "fpr": 0.15284974093264247
+      },
+      "live": {
+        "ap": 0.5745306203512925,
+        "bce": 0.5008784185917762,
+        "rows": 512,
+        "positives": 126,
+        "negatives": 386,
+        "tp": 61,
+        "fp": 59,
+        "fn": 65,
+        "tn": 327,
+        "recall": 0.48412698412698413,
+        "fpr": 0.15284974093264247
+      },
+      "B": {
+        "ap": 0.5546807404635709,
+        "bce": 0.528111444341405,
+        "rows": 512,
+        "positives": 126,
+        "negatives": 386,
+        "tp": 58,
+        "fp": 59,
+        "fn": 68,
+        "tn": 327,
+        "recall": 0.4603174603174603,
+        "fpr": 0.15284974093264247
+      },
+      "checks": {
+        "bce_vs_live": false,
+        "bce_vs_B": true,
+        "fpr_vs_live": true,
+        "fpr_vs_B": true,
+        "recall_vs_live": true,
+        "recall_vs_B": true
+      },
+      "pass": false,
+      "reason": "quality_rejected",
+      "event": "shadow_evaluate",
+      "at_interval": 1343,
+      "candidate_id": 1,
+      "intervals": [
+        1296,
+        1328
+      ],
+      "updates": 16
+    }
+  ]
+}

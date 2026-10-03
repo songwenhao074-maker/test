@@ -1,9 +1,9 @@
-# Active Experiment Directive — Protocol-041 registered, not run
+# Active Experiment Directive — Protocol-041 completed
 
-The user authorized publication of Protocol-041 instructions and will hand execution to another model. This publication does not launch science. After that user handoff, implement and execute only the registered Z_zero and W_parent sequences.
+Protocol-041 science run 37110969550 completed. Candidate label: candidate_improved_but_not_qualified. System label: quality_retained_pool_not_exercised. Joint development success: False.
 
-Read docs/PROTOCOL041_PARENT_INITIALIZATION_20261003.md, artifacts/ftmoe_online/protocol_041/plan.json, and docs/GITHUB_EXPERIMENT_HANDOFF.md. Validate registration with maintenance/validate_protocol041_plan.py. Registration validation is not scientific validation.
+Read docs/PROTOCOL041_RESULTS.md and artifacts/ftmoe_online/protocol_041/runs/run_37110969550/. Historical033–041 scientific budgets are closed.
 
-040 is complete (run37098618766; quality_retained_pool_not_exercised). Historical033–040 budgets remain closed. 041 includes one explicitly budgeted zero-initialization reproduction plus one current-parent weight initialization with fresh Adam; both implementations must be frozen before science. Fix and test substep disk recovery and causal fixtures before launch. If Z fails exact040 reproduction, preserve evidence and stop before W.
+Analysis/publication was recovered from immutable raw artifact 11269043834 after a post-science workflow-condition error; no science was rerun.
 
-Do not change retry count, training length, thresholds, loss, or sampling to force acceptance. No extra seed/stream, F loading/research, donor pretraining, permanent deletion, additional arm, or automatic next protocol. Stop after the registered two sequences and publish all results, including negative results. Do not rerun science to repair analysis or publication.
+Stop after Protocol-041. No retry, third initialization arm, threshold/training change, extra seed/stream, permanent deletion, F research, or automatic next protocol is authorized.

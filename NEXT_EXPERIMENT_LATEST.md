@@ -1,9 +1,7 @@
-# 下一实验：Protocol-041 第二专家当前父模型初始化
+# Protocol-041 已完成，停止等待分析
 
-状态：仅登记、未实现、未运行（2026-10-03）。用户将把本交接给执行模型。
+Protocol-041 science run 37110969550 已完成。候选标签 **candidate_improved_but_not_qualified**，系统标签 **quality_retained_pool_not_exercised**，joint development success=False。
 
-请执行 [完整指示](docs/PROTOCOL041_PARENT_INITIALIZATION_20261003.md) 和 [机器登记](artifacts/ftmoe_online/protocol_041/plan.json)。只有两条新科学序列：Z_zero复现040，W_parent只把第二候选改为复制出生时活动E0的权重和偏置，并重置Adam。两臂训练/出生/验收/睡醒规则及单次机会完全相同。先补生产入口合成恢复与因果测试；Z复现不通过则停止W。
+读取 docs/PROTOCOL041_RESULTS.md 与 artifacts/ftmoe_online/protocol_041/runs/run_37110969550/。Z_zero 与 W_parent 两条登记序列均已关闭。分析/发布由 immutable raw artifact 11269043834 恢复，未重跑科学序列。
 
-主要回答暖启动是否改善相同未来窗口上的BCE并通过原资格，以及能否保留D>C、形成有用双专家池。040/038负结果和审计局限见方案。F继续暂缓，不额外重试、不调阈值、不自动进入下一协议。
-
-最新已完成仍为 [040结果](docs/PROTOCOL040_RESULTS.md)，run37098618766；本文件不是041完成报告。
+不自动重试、不加第三初始化臂、不改训练长度/阈值、不增加seed/新流、不恢复F、不启动下一协议。

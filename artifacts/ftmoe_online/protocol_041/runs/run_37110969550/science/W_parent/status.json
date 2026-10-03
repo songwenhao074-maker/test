@@ -1,0 +1,8 @@
+{
+  "protocol": "041",
+  "arm": "W_parent",
+  "science_status": "completed",
+  "analysis_status": "pending",
+  "publication_status": "pending",
+  "automatic_followup": false
+}

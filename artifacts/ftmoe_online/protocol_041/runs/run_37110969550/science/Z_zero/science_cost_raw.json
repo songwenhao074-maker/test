@@ -1,0 +1,14 @@
+{
+  "arm": "Z_zero",
+  "wall_seconds": 38.01945093200001,
+  "process_seconds": 34.451969551,
+  "prediction_seconds": 0.9055377350001947,
+  "update_seconds": 0.3380010740000614,
+  "controller_cpu_seconds": 2.3356125089999926,
+  "live_optimizer_steps": 295,
+  "shadow_optimizer_steps": 16,
+  "deployed_forwards": 4704,
+  "reuse_preview_forwards": 352,
+  "shadow_preview_forwards": 32,
+  "copy_events": 1
+}

@@ -1,0 +1,28 @@
+{
+  "protocol": "041",
+  "arm": "W_parent",
+  "checks": [
+    {
+      "at_interval": 335,
+      "m": 333,
+      "R": 0.28469476264490434,
+      "P": 0.036574763501596365,
+      "positive_support": 106,
+      "negative_support": 918,
+      "candidate": true,
+      "streak_before": 0,
+      "streak_after": 1
+    },
+    {
+      "at_interval": 351,
+      "m": 349,
+      "R": 0.43564074934047037,
+      "P": 0.0390207168230477,
+      "positive_support": 168,
+      "negative_support": 856,
+      "candidate": true,
+      "streak_before": 1,
+      "streak_after": 2
+    }
+  ]
+}

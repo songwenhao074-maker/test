@@ -1,0 +1,251 @@
+{
+  "protocol": "041",
+  "all_pass": true,
+  "required_fixture_ids": [
+    "zero_B_and_nonzero_gradient",
+    "parent_copy_timing_no_alias_fresh_adam",
+    "full_adam_clone_synthetic_equivalence",
+    "expert_optimizer_and_dormant_isolation",
+    "controller_competing_events_capacity_and_censoring",
+    "disk_resume_all_substeps_to_terminal",
+    "future_feature_and_label_perturbation",
+    "actual_call_counters_terminal_zero",
+    "AP_ties_single_class_confusion_and_class_copy",
+    "complete_opportunity_accounting"
+  ],
+  "fixtures": [
+    {
+      "test_id": "zero_B_and_nonzero_gradient",
+      "pass": true,
+      "zero_exact_B": true,
+      "gradient_norm": 0.3624737560749054,
+      "loss": 0.6958931088447571
+    },
+    {
+      "test_id": "parent_copy_timing_no_alias_fresh_adam",
+      "pass": true,
+      "parent_step": 44,
+      "copy_equal": true,
+      "nonalias": true,
+      "fresh_adam": true,
+      "first_child_step": 1
+    },
+    {
+      "test_id": "full_adam_clone_synthetic_equivalence",
+      "pass": true
+    },
+    {
+      "test_id": "expert_optimizer_and_dormant_isolation",
+      "pass": true,
+      "dormant_predictions": 80
+    },
+    {
+      "test_id": "controller_competing_events_capacity_and_censoring",
+      "pass": true,
+      "reuse_priority_cancelled_shadow": true,
+      "insufficient_support_rejected": true,
+      "shadow_frozen_after_16": true,
+      "capacity_block": true,
+      "attempt_block": true,
+      "tail_censored": true
+    },
+    {
+      "test_id": "disk_resume_all_substeps_to_terminal",
+      "pass": true,
+      "substeps": [
+        {
+          "test_id": "predict",
+          "start_cursor": 16,
+          "start_substep": "predict",
+          "target_cursor": 19,
+          "pass": true,
+          "base_digest": "70245fe5008c9ef4997906fc250de9c9f6230ca56a643fd82c9e5744002a709b",
+          "resumed_digest": "70245fe5008c9ef4997906fc250de9c9f6230ca56a643fd82c9e5744002a709b"
+        },
+        {
+          "test_id": "settle",
+          "start_cursor": 16,
+          "start_substep": "settle",
+          "target_cursor": 19,
+          "pass": true,
+          "base_digest": "b9730d5ed041e84f8aabc635d7936f21d8e404234a471947d92e730ba5ca4952",
+          "resumed_digest": "b9730d5ed041e84f8aabc635d7936f21d8e404234a471947d92e730ba5ca4952"
+        },
+        {
+          "test_id": "control",
+          "start_cursor": 16,
+          "start_substep": "control",
+          "target_cursor": 19,
+          "pass": true,
+          "base_digest": "93038a81e6d03a0f11c90dc9ea34ce432f47ceed37ffe36286167919e517aa01",
+          "resumed_digest": "93038a81e6d03a0f11c90dc9ea34ce432f47ceed37ffe36286167919e517aa01"
+        },
+        {
+          "test_id": "live_update",
+          "start_cursor": 16,
+          "start_substep": "live_update",
+          "target_cursor": 19,
+          "pass": true,
+          "base_digest": "93038a81e6d03a0f11c90dc9ea34ce432f47ceed37ffe36286167919e517aa01",
+          "resumed_digest": "93038a81e6d03a0f11c90dc9ea34ce432f47ceed37ffe36286167919e517aa01"
+        },
+        {
+          "test_id": "shadow_update",
+          "start_cursor": 16,
+          "start_substep": "shadow_update",
+          "target_cursor": 19,
+          "pass": true,
+          "base_digest": "93038a81e6d03a0f11c90dc9ea34ce432f47ceed37ffe36286167919e517aa01",
+          "resumed_digest": "93038a81e6d03a0f11c90dc9ea34ce432f47ceed37ffe36286167919e517aa01"
+        },
+        {
+          "test_id": "finish",
+          "start_cursor": 16,
+          "start_substep": "finish",
+          "target_cursor": 19,
+          "pass": true,
+          "base_digest": "93038a81e6d03a0f11c90dc9ea34ce432f47ceed37ffe36286167919e517aa01",
+          "resumed_digest": "93038a81e6d03a0f11c90dc9ea34ce432f47ceed37ffe36286167919e517aa01"
+        }
+      ],
+      "terminal_midpoint_pass": true,
+      "named_breakpoints": [
+        "post_E0_update",
+        "post_shadow_creation",
+        "post_live_before_shadow",
+        "post_shadow16",
+        "qualification_ready_predecision",
+        "post_accept_reject_sleep_reuse",
+        "terminal_between_two_settles"
+      ]
+    },
+    {
+      "test_id": "future_feature_and_label_perturbation",
+      "pass": true,
+      "perturb_start": 80,
+      "feature_values_changed": 56064,
+      "label_values_changed": 768,
+      "prefix_same": true,
+      "future_used": true,
+      "prediction_visibility": "issued feature at t only affects t; labels settle at i+2",
+      "decision_update_visibility": "i+2<=t"
+    },
+    {
+      "test_id": "actual_call_counters_terminal_zero",
+      "pass": true,
+      "before": [
+        4,
+        0,
+        64,
+        0,
+        0,
+        0
+      ],
+      "after": [
+        4,
+        0,
+        64,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "test_id": "AP_ties_single_class_confusion_and_class_copy",
+      "pass": true,
+      "tie_metrics": {
+        "ap": 0.5,
+        "bce": 0.9162907318741551,
+        "rows": 4,
+        "positives": 2,
+        "negatives": 2,
+        "tp": 1,
+        "fp": 1,
+        "fn": 1,
+        "tn": 1,
+        "recall": 0.5,
+        "fpr": 0.5
+      },
+      "single_class_AP": null,
+      "class_copy": true
+    },
+    {
+      "test_id": "complete_opportunity_accounting",
+      "pass": true,
+      "due16_expected": [
+        15,
+        31,
+        47,
+        63,
+        79,
+        95,
+        111,
+        127,
+        143,
+        159,
+        175,
+        191
+      ],
+      "due16_observed": [
+        15,
+        31,
+        47,
+        63,
+        79,
+        95,
+        111,
+        127,
+        143,
+        159,
+        175,
+        191
+      ],
+      "due64_expected": [
+        63,
+        127,
+        191
+      ],
+      "due64_observed": [
+        63,
+        127,
+        191
+      ],
+      "blocking_reason_set": [
+        "no_accepted_expert",
+        "no_active_parent",
+        "no_current_pressure",
+        "no_dormant_reuse_candidate"
+      ]
+    }
+  ],
+  "real_engineering_prefixes": 1,
+  "real_engineering_prefix_intervals_max": 256,
+  "real_engineering_gradient_steps": 0,
+  "real_prefix_exact_B_and_resume": true,
+  "production_entrypoint_shared": true,
+  "source036_hashes": {
+    "stage_B/seed3601/C_ref/feature_tape.npz": "c71a2ea6d59045fe4cc8a953a776d37f48dbe1feec4aba859cd00f11c984529c",
+    "stage_B/seed3601/C_ref/update_batches.json": "4d32d2ece194cb41b8bc16de1c89ddfedcd42da668b96446937fb430d6246b6f",
+    "stage_B/seed3601/D_lin/predictions.npz": "1ea811ed175817294f275505db85d0bf283c3d0aca6b883b036243ad7843bef6",
+    "inputs/seed3601/manifest.json": "73a1c6fd8d8d12c8e84958df55b2379ab2f2542ac34923bc3934d363329cb02b",
+    "stage_B/seed3601/C_ref/predictions.npz": "da02b63c4a6cf7a2e4fe7c5b98dcd872ca1fa08114bb029f46fce4053b9e9576"
+  },
+  "source040_hashes": {
+    "B_ref/predictions.npz": "1ea811ed175817294f275505db85d0bf283c3d0aca6b883b036243ad7843bef6",
+    "C_ref/predictions.npz": "da02b63c4a6cf7a2e4fe7c5b98dcd872ca1fa08114bb029f46fce4053b9e9576",
+    "D_039/predictions.npz": "bc387d13721ed2e759a205ed3b4f6fa884c1ca105068a79a340148e1f5e96512",
+    "D_keep/predictions.npz": "badf9005b2be9fc6436d1ff2b9377b27715e846d7d16f8e4bdfcbfa76f732e8c",
+    "D_pool2/birth_checks.json": "ff08d5cb85702fed832eb0cb9c9781b9195fc93cbe7b8117e9011349e5169e2f",
+    "D_pool2/candidate_decisions.json": "36c100ee1ad207d96c4e8bf4760f9ff412858b24b8759ad1b060e2b2e847ad8b",
+    "D_pool2/lifecycle_events.json": "b05d76c102063002d4737f37a4b7f076ca3e1ea90176c03333aee21b82502906",
+    "D_pool2/opportunity_log.json": "fac473aee5d4b8f22590355c16447dc8f43b44c62d6e79c3228e7218358fbe4a",
+    "D_pool2/per_expert_runtime.json": "326a651ba5e36e67f9ab72d3bcb579127942ec51b80a5559fff2a9756780d776",
+    "D_pool2/predictions.npz": "51a5ac7ec4e72f340ab1f051bb3707ad44e5540786a94bf0b10f9a8af9e7dd6a",
+    "D_pool2/prefix039_audit.json": "dbba34925612a13c85b3c995bb06bb114203b4f506c325b10df93fe8728aeff9",
+    "D_pool2/pressure_checks.json": "391f7ef53b9bdb75972f38bcd9a6f6f59f7a046a277ba63160a1d56c8a6230ed",
+    "D_pool2/reuse_decisions.json": "671276db156b4851b54a70850cb268c9e05e05806ca68d702da3cb3fe8a5386f",
+    "D_pool2/sleep_checks.json": "fa5a9f9c9bcbc29dc1338d46c5f82d65778b8ae6ace8f6d787275ac9004fd600",
+    "D_pool2/summary.json": "496b165ce0ac1cd79d4bbd5073cb760f2a93ed64061d536e184f9fbf0ee72b47",
+    "D_pool2/update_log.json": "8fc610dcf77087d9fcb4450133a3cfd5fe8fc3d5c9a6e70e869629c98405ab10"
+  }
+}
