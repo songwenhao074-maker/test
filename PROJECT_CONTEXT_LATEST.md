@@ -1,11 +1,7 @@
 # Project Context Latest
 
-目标：通过结构修改，使保留动态新增、知识保存/选择、休眠复用和容量管理思想的完整D优于持续学习C。
+Latest bounded science is Protocol-041 science run 37110969550. Candidate label: **candidate_improved_but_not_qualified**. System label: **quality_retained_pool_not_exercised**. Joint development success: False.
 
-最新已完成科学：Protocol-040 run37098618766，quality_retained_pool_not_exercised。D040相对C full AP+0.018371、六窗+0.012523；相对D_keep为-0.000880/-0.000960。只接受E0，候选E1在1055创建、16次更新后于1343拒绝；只在BCE相对live条件失败。E0在351出生，1599/4047休眠，2351/4207复用。新增池并未产生两个可用专家。040恢复/未来扰动fixture覆盖不足，041必须补齐，不能照抄all_pass。
+Protocol-041 compared counted Z_zero against W_parent, where only the second candidate copied current active E0 weights/bias before same-t gradients with fresh Adam. Analysis/publication was recovered from raw artifact 11269043834 without retraining.
 
-038已有第一专家历史donor初始化试验：warm-zero full AP+0.000785256、six+0.000187899，BCE略差，未达初始化信号。该donor只来自出生前21次更新，不等同本轮继承当前活动E0；038审计局限保留。
-
-当前已登记、未执行：[Protocol-041](docs/PROTOCOL041_PARENT_INITIALIZATION_20261003.md)。用户要求设计并发布，之后交执行模型。Z_zero完整复现040计入041科学预算，W_parent只改变第二候选参数初始化为复制出生时active E0，Adam重置；两臂合计最多736次梯度，0新流/种子/F/donor更新，单次候选机会不变。必须先冻结两臂、完成真实生产入口合成fixture、修复子步骤checkpoint；Z复现失败停止W。完整阈值/成本/源锁/交付见plan。
-
-所有结果仍为已见seed3601开发证据。候选通过、初始化系统收益、D>C、累计保持、池运行分开判断；不能把接受第二ID当成有用专业化，也不能声称复用因果收益、跨流确认或整体部署加速。历史033–040关闭，041两臂完成或阻塞后停止，未来修改需新登记和用户交接。
+Read docs/PROTOCOL041_RESULTS.md and artifacts/ftmoe_online/protocol_041/runs/run_37110969550/. Historical033–041 budgets are closed. Any retry or next protocol requires new preregistration and user handoff.

@@ -1,0 +1,11 @@
+{
+  "protocol": "041",
+  "run_id": "37110969550",
+  "artifact_id": 11269043834,
+  "artifact_name": "protocol041-raw-37110969550",
+  "size_in_bytes": 64506487,
+  "digest": "sha256:baa36f1fbb3489f76d8f0ffb5d8e4ebc88317e231bd934146e185ac2e4ffde6e",
+  "expires_at": "2027-01-01T08:49:17Z",
+  "archive_download_url": "https://api.github.com/repos/songwenhao074-maker/test/actions/artifacts/11269043834/zip",
+  "raw_manifest_file_count": 141
+}

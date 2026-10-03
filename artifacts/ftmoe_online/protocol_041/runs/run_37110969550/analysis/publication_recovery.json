@@ -1,0 +1,8 @@
+{
+  "protocol": "041",
+  "science_run_id": "37110969550",
+  "raw_artifact_id": 11269043834,
+  "science_reexecuted": false,
+  "recovery_scope": "analysis_and_publication_only",
+  "reason": "formal workflow used loose expression coercion and raw Z checker compared plan-excluded new_audit_fields; analysis uses independent normalized reproduction audit without science reexecution"
+}

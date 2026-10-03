@@ -1,0 +1,19 @@
+{
+  "protocol": "041",
+  "run_id": "37110969550",
+  "validity": true,
+  "candidate_result_label": "candidate_improved_but_not_qualified",
+  "system_result_label": "quality_retained_pool_not_exercised",
+  "separate_flags": {
+    "validity": true,
+    "candidate_qualification_signal": false,
+    "initialization_system_signal": false,
+    "D_over_C": true,
+    "cumulative_preservation": true,
+    "pool_exercised": false
+  },
+  "joint_development_success": false,
+  "publication_status": "pending_until_main_sync",
+  "automatic_followup_training": false,
+  "stop_after_registered_two_sequences": true
+}

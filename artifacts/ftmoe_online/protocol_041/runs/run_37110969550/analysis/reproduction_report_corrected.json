@@ -1,0 +1,51 @@
+{
+  "protocol": "041",
+  "arm": "Z_zero",
+  "against": "cached_D_040",
+  "all_pass": true,
+  "array_checks": {
+    "probability": true,
+    "detection_logits": true,
+    "delta": true,
+    "active_id": true,
+    "deployment_epoch": true,
+    "expert_version": true,
+    "expert_hash": true,
+    "accepted_count": true,
+    "shadow_present": true,
+    "labels": true,
+    "raw_labels": true,
+    "class_probability": true,
+    "model_version": true
+  },
+  "update_exact": true,
+  "discrete_event_checks": {
+    "birth_checks": true,
+    "candidate_decisions": false,
+    "lifecycle_events": true,
+    "reuse_decisions": true,
+    "sleep_checks": true,
+    "pressure_checks": true,
+    "opportunity_log": true
+  },
+  "full_AP_absolute_difference": 0.0,
+  "expected_counts_and_events": true,
+  "qualification_window": [
+    1296,
+    1328
+  ],
+  "excluded_metadata": [
+    "runtime_timing",
+    "new_audit_fields",
+    "checkpoint_file_names",
+    "action_sequence_numbers"
+  ],
+  "raw_checker_all_pass": false,
+  "candidate_decisions_raw_equal": false,
+  "candidate_decisions_equal_after_registered_exclusion": true,
+  "registered_excluded_new_audit_fields": [
+    "initialization",
+    "optimizer_step"
+  ],
+  "correction_scope": "analysis_only_no_science_reexecution"
+}

@@ -1,0 +1,31 @@
+{
+  "protocol": "041",
+  "training_sequence_budget": 2,
+  "sequences": {
+    "Z_zero": {
+      "started": true,
+      "completed": true,
+      "live_optimizer_steps": 295,
+      "shadow_optimizer_steps": 16
+    },
+    "W_parent": {
+      "started": true,
+      "completed": true,
+      "live_optimizer_steps": 295,
+      "shadow_optimizer_steps": 16
+    }
+  },
+  "new_streams": 0,
+  "extra_seeds": 0,
+  "control_retraining": 0,
+  "F_training": 0,
+  "F_comparisons": 0,
+  "F_loads": 0,
+  "donor_updates": 0,
+  "hyperparameter_sweeps": 0,
+  "accepted_expert_permanent_deletions": 0,
+  "real_engineering_prefixes": 1,
+  "real_engineering_prefix_intervals_max": 256,
+  "real_engineering_gradient_steps": 0,
+  "combined_optimizer_steps": 622
+}

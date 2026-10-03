@@ -1,0 +1,14 @@
+{
+  "arm": "W_parent",
+  "wall_seconds": 36.12286028300002,
+  "process_seconds": 35.091514120999996,
+  "prediction_seconds": 0.9066961619982692,
+  "update_seconds": 0.3464079759999379,
+  "controller_cpu_seconds": 2.3370838649999963,
+  "live_optimizer_steps": 295,
+  "shadow_optimizer_steps": 16,
+  "deployed_forwards": 4704,
+  "reuse_preview_forwards": 352,
+  "shadow_preview_forwards": 32,
+  "copy_events": 1
+}

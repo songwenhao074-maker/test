@@ -1,0 +1,8 @@
+{
+  "protocol": "041",
+  "arm": "Z_zero",
+  "science_status": "interrupted",
+  "error": "RuntimeError('Z_reproduction_failed_stop_before_W')",
+  "traceback": "Traceback (most recent call last):\n  File \"run_ftmoe_protocol041.py\", line 712, in cmd_arm\n    if not rep[\"all_pass\"]: raise RuntimeError(\"Z_reproduction_failed_stop_before_W\")\nRuntimeError: Z_reproduction_failed_stop_before_W\n",
+  "automatic_followup": false
+}
