@@ -18,5 +18,5 @@ jobs:
           python-version: '3.8.18'
       - run: |
           set -euo pipefail
-          python -m py_compile protocol043_common.py protocol043_engine.py maintenance/protocol043_audit042.py maintenance/validate_protocol043_plan.py maintenance/materialize_protocol043_sources.py maintenance/protocol043_finalize.py run_ftmoe_protocol043.py
+          python -m py_compile protocol043_common.py protocol043_engine.py maintenance/protocol043_audit042.py maintenance/validate_protocol043_plan.py maintenance/materialize_protocol043_sources.py maintenance/protocol043_finalize.py run_ftmoe_protocol043.py analyze_ftmoe_protocol043.py
           python maintenance/validate_protocol043_plan.py
