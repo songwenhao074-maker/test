@@ -24,13 +24,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 4af4340076f415d02d50b69835d19d1f7232041c
+          ref: 3974d436817759cf496918a02abbc08b3250d79a
           fetch-depth: 1
       - name: Validate frozen registration, kernels and syntax
         shell: bash
         run: |
           set -euo pipefail
-          test "$(git rev-parse HEAD)" = "4af4340076f415d02d50b69835d19d1f7232041c"
+          test "$(git rev-parse HEAD)" = "3974d436817759cf496918a02abbc08b3250d79a"
           python maintenance/validate_protocol041_plan.py
           python - <<'PY'
           import hashlib,json
