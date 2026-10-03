@@ -1,7 +1,10 @@
-# Protocol-041 已完成，停止等待分析
+# 下一实验：Protocol-042 暖启动候选困难样本加权
 
-Protocol-041 science run 37110969550 已完成。候选标签 **candidate_improved_but_not_qualified**，系统标签 **quality_retained_pool_not_exercised**，joint development success=False。
+状态：仅登记，未实现、未运行（2026-10-03）。用户将交给执行模型。
 
-读取 docs/PROTOCOL041_RESULTS.md 与 artifacts/ftmoe_online/protocol_041/runs/run_37110969550/。Z_zero 与 W_parent 两条登记序列均已关闭。分析/发布由 immutable raw artifact 11269043834 恢复，未重跑科学序列。
+执行 [完整指示](docs/PROTOCOL042_MATURE_ERROR_WEIGHTING_20261003.md) 和 [机器登记](artifacts/ftmoe_online/protocol_042/plan.json)。
+U_uniform严格复现041 W_parent；H_hard仅对16次shadow训练BCE按成熟issued live误差加权，v=1+2*abs(y-p)，再除以batch所有样本出现次数上的均值。候选验收仍用原始未加权未来BCE，live训练不变。
 
-不自动重试、不加第三初始化臂、不改训练长度/阈值、不增加seed/新流、不恢复F、不启动下一协议。
+先补完整事务恢复、真实含更新/事件的磁盘恢复测试及fail-closed门控，再冻结两臂。U不通过禁止启动H。两条新科学序列梯度合计<=736，单次候选机会不变，F暂缓，完成后停止。
+
+最新完成仍为 [041结果](docs/PROTOCOL041_RESULTS.md)，run37110969550；042尚无结果。

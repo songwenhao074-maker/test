@@ -1,7 +1,11 @@
 # Project Context Latest
 
-Latest bounded science is Protocol-041 science run 37110969550. Candidate label: **candidate_improved_but_not_qualified**. System label: **quality_retained_pool_not_exercised**. Joint development success: False.
+目标：修改结构，使保留动态新增、知识保存/选择、休眠复用及容量管理思想的完整D优于持续学习C。
 
-Protocol-041 compared counted Z_zero against W_parent, where only the second candidate copied current active E0 weights/bias before same-t gradients with fresh Adam. Analysis/publication was recovered from raw artifact 11269043834 without retraining.
+最新完成科学041 run37110969550：暖启动候选BCE0.501080578368035，零初始化0.5206202995032794，live0.5008784185917762。暖启动消除了本次验收约98.98%的冷启动BCE差距，但未优于live，候选仍拒绝，W/Z/040最终预测相同。W相对C full AP+0.018371、six+0.012523；相对D_keep为-0.000880/-0.000960，池只接受E0。暖启动继承了能力，尚未形成增量能力。
 
-Read docs/PROTOCOL041_RESULTS.md and artifacts/ftmoe_online/protocol_041/runs/run_37110969550/. Historical033–041 budgets are closed. Any retry or next protocol requires new preregistration and user handoff.
+041审计需保留限制：Z复现器因新审计字段误报，工作流门控未阻止W继续；后续分析确认语义复现，但恢复fixture未跨真实更新/事件，shadow事务保存及ready仍需修复。不能把历史validity=True当成完整预检证明，也不据此抹去可核对的候选结果。
+
+当前已登记、未执行：[Protocol-042](docs/PROTOCOL042_MATURE_ERROR_WEIGHTING_20261003.md)。U_uniform复现041暖启动；H_hard只改变shadow阶段的逐样本BCE权重，依据成熟标签与当时已发行live概率的绝对误差，原始权重1到3、均值归一。保持同初始化/批次/更新次数/验收/控制器。原始未来BCE与护栏决定接受；困难分组和加权训练损失仅诊断。两个新序列总梯度<=736，无额外模型forward来算权重。
+
+先修复并用真实生产入口合成事件验证恢复和启动门控；两臂提前冻结，U失败停止H。用户本次只要求设计发布，将交其他模型执行；历史033–041预算关闭，042完成/阻塞后停止。F、新流、重试、删除、043无自动授权。所有结果仍是已见seed3601开发证据。
