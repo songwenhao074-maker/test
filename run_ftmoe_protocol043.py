@@ -383,9 +383,16 @@ def audit_arm(src,m,fixture,gate,before36,before41):
     valid["all_pass"]=all(valid.values()); return valid
 
 def cmd_preflight(a):
-    runtime(); c.verify_plan(); src=c.load_sources(a.source036,a.source041); rep=run_fixtures(src,a.out_dir)
-    print(json.dumps({"protocol":"043","revision":1,"all_pass":rep["all_pass"],"fixtures":len(rep["fixtures"])},indent=2))
-    if not rep["all_pass"]: raise RuntimeError("engineering_incomplete")
+    runtime(); c.verify_plan(); src=c.load_sources(a.source036,a.source041)
+    try:
+        rep=run_fixtures(src,a.out_dir)
+        print(json.dumps({"protocol":"043","revision":1,"all_pass":rep["all_pass"],"fixtures":len(rep["fixtures"])},indent=2))
+        if not rep["all_pass"]: raise RuntimeError("engineering_incomplete")
+    except Exception as e:
+        W(Path(a.out_dir)/"preflight_exception.json",{"protocol":"043","revision":1,"all_pass":False,
+          "error":repr(e),"traceback":traceback.format_exc(),"science_sequences_started":0,
+          "real_prefix_consumed":bool((Path(a.out_dir)/"fixture_report.json").exists() and J(Path(a.out_dir)/"fixture_report.json").get("real_engineering_prefixes")==1)})
+        raise
 
 def cmd_copy(a):
     runtime(); src=c.load_sources(a.source036,a.source041); copy_controls(src,a.source042,a.out_dir)
