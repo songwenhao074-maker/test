@@ -1,0 +1,240 @@
+name: Protocol041 analysis publish recovery once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol041-analysis-publish-recovery-once.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  recover:
+    if: contains(github.event.head_commit.message, '[p041-analysis-publish]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SCI_RUN_ID: "37110969550"
+      RAW_ARTIFACT_ID: "11269043834"
+      EXEC_BRANCH: "codex/protocol-041-parent-initialization-20261003"
+      EXEC_SHA: "a1b43179fdbe18dc7a71e8a6d5a8537d9e4e522a"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      PYTHONHASHSEED: "1"
+
+    steps:
+      - name: Checkout frozen Protocol041 analysis code
+        uses: actions/checkout@v4
+        with:
+          ref: a1b43179fdbe18dc7a71e8a6d5a8537d9e4e522a
+          fetch-depth: 0
+
+      - name: Verify recovery is analysis-only
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXEC_SHA"
+          test "$(git hash-object run_ftmoe_protocol041.py)" = "6bb4c86ad8dae5dbfa17f5ab1ef71b5598f6816f"
+          test "$(git hash-object analyze_ftmoe_protocol041.py)" = "be1484c1c77ed29701bd1c1a46da3362c5a92aa6"
+          INFO="$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$RAW_ARTIFACT_ID")"
+          test "$(echo "$INFO" | jq -r .name)" = "protocol041-raw-37110969550"
+          test "$(echo "$INFO" | jq -r .digest)" = "sha256:baa36f1fbb3489f76d8f0ffb5d8e4ebc88317e231bd934146e185ac2e4ffde6e"
+          test "$(echo "$INFO" | jq -r .expired)" = "false"
+          # Never invoke run_ftmoe_protocol041.py in this recovery workflow.
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.8.18"
+
+      - name: Install analysis dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.4.1
+          python -m pip install numpy==1.24.4 psutil==5.9.8
+
+      - name: Download immutable raw science and locked source manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/p041raw /tmp/p041analysis
+          mkdir -p /tmp/p041raw /tmp/p041analysis
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$RAW_ARTIFACT_ID/zip" -o /tmp/p041raw.zip
+          echo "baa36f1fbb3489f76d8f0ffb5d8e4ebc88317e231bd934146e185ac2e4ffde6e  /tmp/p041raw.zip" | sha256sum -c -
+          unzip -q /tmp/p041raw.zip -d /tmp/p041raw
+          test -f /tmp/p041raw/Z_zero/reproduction_report.json
+          test -f /tmp/p041raw/W_parent/scientific_execution_complete.json
+          python - <<'PY'
+          import json
+          z=json.load(open('/tmp/p041raw/Z_zero/reproduction_report.json'))
+          w=json.load(open('/tmp/p041raw/W_parent/scientific_execution_complete.json'))
+          led=json.load(open('/tmp/p041raw/budget_ledger.json'))
+          assert z['all_pass'] is True
+          assert w['complete'] is True and w['audit_all_pass'] is True
+          assert led['sequences']['Z_zero']['completed'] is True
+          assert led['sequences']['W_parent']['completed'] is True
+          assert led['combined_optimizer_steps'] <= 736
+          PY
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11147931152/zip" -o /tmp/p036.zip
+          echo "040bacac8f23659f56599b71d6d6706b62a544e44161c7c42fb5af73650f56c0  /tmp/p036.zip" | sha256sum -c -
+          ENTRY="$(unzip -Z1 /tmp/p036.zip | grep 'inputs/seed3601/manifest.json$' | head -n1)"
+          test -n "$ENTRY"
+          unzip -p /tmp/p036.zip "$ENTRY" > /tmp/seed3601_manifest.json
+          echo "73a1c6fd8d8d12c8e84958df55b2379ab2f2542ac34923bc3934d363329cb02b  /tmp/seed3601_manifest.json" | sha256sum -c -
+
+      - name: Run frozen analysis only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python analyze_ftmoe_protocol041.py             --science-root /tmp/p041raw             --manifest /tmp/seed3601_manifest.json             --fixture-report /tmp/p041raw/fixture_report.json             --output-dir /tmp/p041analysis             --docs-output docs/PROTOCOL041_RESULTS.md             --run-id "$SCI_RUN_ID"
+          cp docs/PROTOCOL041_RESULTS.md /tmp/p041analysis/PROTOCOL041_RESULTS.md
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$RAW_ARTIFACT_ID" > /tmp/p041_raw_info.json
+          python maintenance/protocol041_finalize.py artifact-index             --info /tmp/p041_raw_info.json --raw-manifest /tmp/p041raw/scientific_raw_manifest.json             --out /tmp/p041analysis/artifact_index.json --run-id "$SCI_RUN_ID"
+          cat > /tmp/p041analysis/publication_recovery.json <<'EOF'
+          {
+            "protocol": "041",
+            "science_run_id": "37110969550",
+            "raw_artifact_id": 11269043834,
+            "science_reexecuted": false,
+            "recovery_scope": "analysis_and_publication_only",
+            "reason": "formal workflow stop condition treated skipped zcached empty output as failure after both science arms completed successfully"
+          }
+          EOF
+          python maintenance/protocol041_finalize.py manifest --root /tmp/p041analysis --out /tmp/p041analysis/analysis_manifest.json
+
+      - name: Build compact evidence without checkpoints
+        shell: bash
+        run: |
+          set -euo pipefail
+          COMPACT="artifacts/ftmoe_online/protocol_041/runs/run_$SCI_RUN_ID"
+          rm -rf "$COMPACT"; mkdir -p "$COMPACT/science" "$COMPACT/analysis"
+          python - <<'PY'
+          from pathlib import Path
+          import shutil
+          src=Path('/tmp/p041raw')
+          dst=Path('artifacts/ftmoe_online/protocol_041/runs/run_37110969550/science')
+          top=['fixture_report.json','implementation_manifest.json','budget_ledger.json','source_materialization.json','scientific_raw_manifest.json']
+          for name in top:
+              p=src/name
+              if p.exists(): shutil.copy2(p,dst/name)
+          for arm in ['cached','Z_zero','W_parent']:
+              for p in (src/arm).rglob('*'):
+                  if not p.is_file(): continue
+                  rel=p.relative_to(src)
+                  if 'checkpoints' in rel.parts or 'runtime_state' in rel.parts: continue
+                  q=dst/rel; q.parent.mkdir(parents=True,exist_ok=True); shutil.copy2(p,q)
+          PY
+          cp -a /tmp/p041analysis/. "$COMPACT/analysis/"
+          echo '{"protocol":"041","publication_status":"pending_main_sync","science_reexecuted":false}' > "$COMPACT/publication_status.json"
+          python maintenance/protocol041_finalize.py manifest --root "$COMPACT" --out "$COMPACT/compact_manifest.json"
+
+      - name: Upload compact recovered handoff
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol041-compact-37110969550
+          path: artifacts/ftmoe_online/protocol_041/runs/run_37110969550
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
+
+      - name: Write terminal pointers
+        shell: bash
+        run: |
+          set -euo pipefail
+          STATUS="/tmp/p041analysis/analysis_status.json"
+          SYS="$(python -c "import json;print(json.load(open('$STATUS'))['system_result_label'])")"
+          CAND="$(python -c "import json;print(json.load(open('$STATUS'))['candidate_result_label'])")"
+          JOINT="$(python -c "import json;print(json.load(open('$STATUS'))['joint_development_success'])")"
+          cat > AGENTS.md <<EOF
+          # Active Experiment Directive — Protocol-041 completed
+
+          Protocol-041 science run 37110969550 completed. Candidate label: $CAND. System label: $SYS. Joint development success: $JOINT.
+
+          Read docs/PROTOCOL041_RESULTS.md and artifacts/ftmoe_online/protocol_041/runs/run_37110969550/. Historical033–041 scientific budgets are closed.
+
+          Analysis/publication was recovered from immutable raw artifact 11269043834 after a post-science workflow-condition error; no science was rerun.
+
+          Stop after Protocol-041. No retry, third initialization arm, threshold/training change, extra seed/stream, permanent deletion, F research, or automatic next protocol is authorized.
+          EOF
+          cat > NEXT_EXPERIMENT_LATEST.md <<EOF
+          # Protocol-041 已完成，停止等待分析
+
+          Protocol-041 science run 37110969550 已完成。候选标签 **$CAND**，系统标签 **$SYS**，joint development success=$JOINT。
+
+          读取 docs/PROTOCOL041_RESULTS.md 与 artifacts/ftmoe_online/protocol_041/runs/run_37110969550/。Z_zero 与 W_parent 两条登记序列均已关闭。分析/发布由 immutable raw artifact 11269043834 恢复，未重跑科学序列。
+
+          不自动重试、不加第三初始化臂、不改训练长度/阈值、不增加seed/新流、不恢复F、不启动下一协议。
+          EOF
+          cat > PROJECT_CONTEXT_LATEST.md <<EOF
+          # Project Context Latest
+
+          Latest bounded science is Protocol-041 science run 37110969550. Candidate label: **$CAND**. System label: **$SYS**. Joint development success: $JOINT.
+
+          Protocol-041 compared counted Z_zero against W_parent, where only the second candidate copied current active E0 weights/bias before same-t gradients with fresh Adam. Analysis/publication was recovered from raw artifact 11269043834 without retraining.
+
+          Read docs/PROTOCOL041_RESULTS.md and artifacts/ftmoe_online/protocol_041/runs/run_37110969550/. Historical033–041 budgets are closed. Any retry or next protocol requires new preregistration and user handoff.
+          EOF
+          cat > docs/GITHUB_EXPERIMENT_HANDOFF.md <<EOF
+          # 当前交接：Protocol-041 已完成
+
+          Protocol-041 science run 37110969550 已完成。候选标签 **$CAND**；系统标签 **$SYS**；joint development success=$JOINT。
+
+          结果见 [PROTOCOL041_RESULTS.md](PROTOCOL041_RESULTS.md)，紧凑证据见 ../artifacts/ftmoe_online/protocol_041/runs/run_37110969550/。两条登记科学序列 Z_zero/W_parent 已消费并关闭；raw artifact 11269043834 在分析前上传。原正式workflow在科学完成后因条件表达式误判跳过分析，后续只从raw恢复分析/发布，没有重训。
+
+          到此停止。不重跑041，不追加候选/初始化臂，不改阈值或训练长度，不自动进入下一协议。
+          EOF
+          cat > README.md <<EOF
+          # PreGAN+ / FT-MoE 在线实验
+
+          目标：在合理部署场景中，通过结构修改，使保留动态新增、知识保存/选择、休眠复用及容量管理思想的完整D优于持续学习C。
+
+          **最新完成：[Protocol-041 第二专家当前父模型初始化](docs/PROTOCOL041_RESULTS.md)，science run 37110969550。**
+          候选标签 **$CAND**；系统标签 **$SYS**；joint development success=$JOINT。
+
+          [执行交接](docs/GITHUB_EXPERIMENT_HANDOFF.md) / [041紧凑证据](artifacts/ftmoe_online/protocol_041/runs/run_37110969550/) / [041冻结方案](docs/PROTOCOL041_PARENT_INITIALIZATION_20261003.md)
+
+          Z_zero/W_parent科学只运行一次；分析/发布从已封存raw artifact恢复。结果仍属于已观察seed3601开发证据，不是独立确认。Protocol-041到此停止。
+          EOF
+
+      - name: Commit result evidence to execution branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PROTOCOL041_RESULTS.md artifacts/ftmoe_online/protocol_041/runs/run_37110969550             AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md docs/GITHUB_EXPERIMENT_HANDOFF.md README.md
+          git commit -m "results: Protocol041 recovered analysis for science run 37110969550 [skip ci]"
+          git rev-parse HEAD > /tmp/p041_result_commit.txt
+          git push origin HEAD:"$EXEC_BRANCH"
+
+      - name: Publish result-only commit to current main
+        shell: bash
+        run: |
+          set -euo pipefail
+          RESULT="$(cat /tmp/p041_result_commit.txt)"
+          SUCCESS=0
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git checkout -B p041-publish origin/main
+            git checkout "$RESULT" -- docs/PROTOCOL041_RESULTS.md artifacts/ftmoe_online/protocol_041/runs/run_37110969550               AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md docs/GITHUB_EXPERIMENT_HANDOFF.md README.md
+            git add docs/PROTOCOL041_RESULTS.md artifacts/ftmoe_online/protocol_041/runs/run_37110969550               AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md docs/GITHUB_EXPERIMENT_HANDOFF.md README.md
+            git commit -m "results: publish Protocol041 science run 37110969550 [skip ci]" || true
+            if git push origin HEAD:main; then SUCCESS=1; break; fi
+          done
+          test "$SUCCESS" = 1
+
+      - name: Mark publication synced on main and execution branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          PUB="artifacts/ftmoe_online/protocol_041/runs/run_37110969550/publication_status.json"
+          printf '{"protocol":"041","run_id":"37110969550","publication_status":"synced_to_main","main_synced":true,"science_reexecuted":false}\n' > "$PUB"
+          git add "$PUB"; git commit -m "results: mark Protocol041 publication synced [skip ci]"; git push origin HEAD:main
+          git fetch origin "$EXEC_BRANCH"; git checkout -B p041-exec-final FETCH_HEAD
+          printf '{"protocol":"041","run_id":"37110969550","publication_status":"synced_to_main","main_synced":true,"science_reexecuted":false}\n' > "$PUB"
+          git add "$PUB"; git commit -m "results: mark Protocol041 publication synced [skip ci]"; git push origin HEAD:"$EXEC_BRANCH"
