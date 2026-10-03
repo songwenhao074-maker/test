@@ -447,11 +447,17 @@ def _fixture_recompute(out):
     keys=("score","score_pos","score_neg","removal_fpr_delta","removal_recall_delta")
     score_ok=all(abs(float(online[k])-float(offline[k]))<=1e-10 for k in keys)
     bm=binary_metrics(m.out["probability"][:150],s["B"]["labels"][:150])
-    manual_bce=float(np.mean(c.stable_bce_rows(m.out["live_margin"][:150],s["B"]["labels"][:150])))
-    metric_ok=abs(bm["bce"]-manual_bce)<=1e-12
+    pp=np.asarray(m.out["probability"][:150],dtype=np.float64).reshape(-1)
+    yy=(np.asarray(s["B"]["labels"][:150]).reshape(-1)>0)
+    pc=np.clip(pp,1e-12,1-1e-12)
+    manual_bce=float(-(yy*np.log(pc)+(~yy)*np.log(1-pc)).mean())
+    pred=pp>=.5
+    manual_conf={"tp":int((pred&yy).sum()),"fp":int((pred&~yy).sum()),"fn":int((~pred&yy).sum()),"tn":int((~pred&~yy).sum())}
+    metric_ok=abs(bm["bce"]-manual_bce)<=1e-12 and all(manual_conf[k]==bm[k] for k in manual_conf)
     return {"test_id":"independent_metric_and_score_recompute","pass":bool(score_ok and metric_ok),
       "online_score":{k:online[k] for k in keys},"offline_score":{k:offline[k] for k in keys},
-      "score_abs_tolerance":1e-10,"metric_bce":bm["bce"],"manual_bce":manual_bce,"expert_forward_calls_during_recompute":0}
+      "score_abs_tolerance":1e-10,"metric_bce":bm["bce"],"manual_bce":manual_bce,"manual_confusion":manual_conf,
+      "expert_forward_calls_during_recompute":0}
 
 def run_fixtures(real_src,out):
     out=Path(out); out.mkdir(parents=True,exist_ok=True)
