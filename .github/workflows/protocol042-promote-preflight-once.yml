@@ -1,0 +1,91 @@
+name: Protocol042 rev2 promote preflight evidence once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol042-promote-preflight-once.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  promote:
+    if: contains(github.event.head_commit.message, '[p042r2-promote]')
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      EXEC_BRANCH: codex/protocol-042-windowed-utility-20261003
+      EXEC_SHA: 7904e951c2f1192d9f7ca97dd98024479df7d994
+      PREFLIGHT_RUN: "37123892371"
+      PREFLIGHT_ARTIFACT: "11273688509"
+      PREFLIGHT_DIGEST: "sha256:0aa5ae51079e0307483fd5dda843bc2422e27e296e7eec48d3cce1c0a77e2e7e"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 7904e951c2f1192d9f7ca97dd98024479df7d994
+          fetch-depth: 0
+      - name: Verify immutable successful engineering artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXEC_SHA"
+          INFO="$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$PREFLIGHT_ARTIFACT")"
+          test "$(echo "$INFO" | jq -r .name)" = "protocol042-rev2-engineering-$PREFLIGHT_RUN"
+          test "$(echo "$INFO" | jq -r .digest)" = "$PREFLIGHT_DIGEST"
+          test "$(echo "$INFO" | jq -r .expired)" = "false"
+          rm -rf /tmp/p042promote
+          mkdir -p /tmp/p042promote
+          gh run download "$PREFLIGHT_RUN" -n "protocol042-rev2-engineering-$PREFLIGHT_RUN" -D /tmp/p042promote
+          find /tmp/p042promote -maxdepth 4 -type f -print
+      - name: Validate and stage compact preflight evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          FIX="$(find /tmp/p042promote -type f -name fixture_report.json -print -quit)"
+          MAT="$(find /tmp/p042promote -type f -name p042_materialization.json -print -quit)"
+          test -n "$FIX"; test -n "$MAT"
+          python - "$FIX" <<'PY'
+          import json,sys
+          p=json.load(open(sys.argv[1]))
+          assert p.get('protocol')=='042' and p.get('revision')==2
+          assert type(p.get('all_pass')) is bool and p['all_pass'] is True
+          assert p.get('real_engineering_prefixes')==1
+          assert p.get('real_engineering_prefix_intervals_max')<=256
+          assert p.get('real_engineering_gradient_steps')==0
+          req=p['required_fixture_ids']; rows=p['fixtures']; by={x['test_id']:x for x in rows}
+          assert set(req)==set(by)
+          for k in req:
+              assert type(by[k].get('pass')) is bool and by[k]['pass'] is True
+              assert len(by[k])>2
+          print('preflight evidence validated')
+          PY
+          DEST="artifacts/ftmoe_online/protocol_042/preflight/run_$PREFLIGHT_RUN"
+          mkdir -p "$DEST"
+          cp "$FIX" "$DEST/fixture_report.json"
+          cp "$MAT" "$DEST/source_materialization.json"
+          cat > "$DEST/evidence_index.json" <<EOF
+          {
+            "protocol": "042",
+            "revision": 2,
+            "preflight_run_id": $PREFLIGHT_RUN,
+            "artifact_id": $PREFLIGHT_ARTIFACT,
+            "artifact_name": "protocol042-rev2-engineering-$PREFLIGHT_RUN",
+            "artifact_digest": "$PREFLIGHT_DIGEST",
+            "execution_sha_tested": "$EXEC_SHA",
+            "real_engineering_prefixes": 1,
+            "real_engineering_prefix_intervals_max": 256,
+            "real_engineering_gradient_steps": 0,
+            "science_started": false
+          }
+          EOF
+      - name: Commit immutable engineering evidence to execution branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/ftmoe_online/protocol_042/preflight/run_37123892371
+          git commit -m "evidence: freeze Protocol042 rev2 engineering preflight [skip ci]"
+          git push origin HEAD:"$EXEC_BRANCH"
