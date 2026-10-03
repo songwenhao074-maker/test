@@ -1,0 +1,40 @@
+name: Protocol042 revision2 dispatch once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol042-dispatch-once.yml'
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  dispatch:
+    if: contains(github.event.head_commit.message, '[p042r2-dispatch]')
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      EXEC_BRANCH: codex/protocol-042-windowed-utility-20261003
+      EXEC_SHA: da5eaa7e71f44497ede538c884e7ca688e6afbf4
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Validate one fresh dispatch
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f .github/workflows/protocol042-windowed-utility.yml
+          HEAD_SHA="$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/$EXEC_BRANCH" --jq .object.sha)"
+          test "$HEAD_SHA" = "$EXEC_SHA"
+          COUNT="$(gh api --paginate "repos/$GITHUB_REPOSITORY/actions/artifacts?per_page=100" --jq '[.artifacts[] | select(.expired==false and (.name|startswith("protocol042-raw-")))] | length' | awk '{s+=$1} END{print s+0}')"
+          test "$COUNT" = "0" || { echo "Protocol042 raw artifact already exists; fresh dispatch forbidden"; exit 1; }
+      - name: Dispatch frozen formal workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh workflow run protocol042-windowed-utility.yml --ref main             -f execution_ref="$EXEC_BRANCH"             -f expected_execution_sha="$EXEC_SHA"             -f resume_artifact_id="" -f resume_artifact_digest="" -f resume_arm=""
+          sleep 3
+          gh run list --workflow protocol042-windowed-utility.yml --limit 5
