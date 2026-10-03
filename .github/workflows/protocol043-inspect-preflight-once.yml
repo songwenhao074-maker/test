@@ -1,0 +1,37 @@
+name: Protocol043 inspect preflight fixture once
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/protocol043-inspect-preflight-once.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  inspect:
+    if: contains(github.event.head_commit.message, '[p043-inspect-fixture]')
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Download fixture artifact and print failures
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11277888416/zip" -o /tmp/e.zip
+          echo "92f2c28693e3d4fe0b623d51224dcc42d7edc8ca1ca99ba427a2857d6a6c916a  /tmp/e.zip" | sha256sum -c -
+          rm -rf /tmp/e && mkdir /tmp/e && unzip -q /tmp/e.zip -d /tmp/e
+          python - <<'PY'
+          import json,pathlib
+          p=pathlib.Path('/tmp/e/preflight/fixture_report.json')
+          x=json.load(open(p))
+          print('REAL_PREFIXES',x.get('real_engineering_prefixes'))
+          print('ALL_PASS',x.get('all_pass'))
+          for r in x.get('fixtures',[]):
+              if r.get('pass') is not True:
+                  print('\nFAIL',r.get('test_id'))
+                  print(json.dumps(r,indent=2))
+          q=pathlib.Path('/tmp/e/preflight/preflight_exception.json')
+          if q.exists():
+              print('\nEXCEPTION')
+              print(q.read_text())
+          PY
