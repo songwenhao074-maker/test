@@ -24,13 +24,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 80e8424d1bdc78a4890260d5c26e20f92c182bc0
+          ref: 7904e951c2f1192d9f7ca97dd98024479df7d994
           fetch-depth: 1
       - name: Static registration kernel and syntax gates
         shell: bash
         run: |
           set -euo pipefail
-          test "$(git rev-parse HEAD)" = "80e8424d1bdc78a4890260d5c26e20f92c182bc0"
+          test "$(git rev-parse HEAD)" = "7904e951c2f1192d9f7ca97dd98024479df7d994"
           python maintenance/validate_protocol042_plan.py
           python - <<'PY'
           import hashlib,json
