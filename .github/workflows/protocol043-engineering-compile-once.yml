@@ -1,0 +1,22 @@
+name: Protocol043 engineering compile once
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/protocol043-engineering-compile-once.yml']
+permissions:
+  contents: read
+jobs:
+  check:
+    if: contains(github.event.head_commit.message, '[p043-compile]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/protocol-043-bounded-lifecycle-20261003
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8.18'
+      - run: |
+          set -euo pipefail
+          python -m py_compile protocol043_common.py protocol043_engine.py maintenance/protocol043_audit042.py maintenance/validate_protocol043_plan.py maintenance/materialize_protocol043_sources.py maintenance/protocol043_finalize.py
+          python maintenance/validate_protocol043_plan.py
