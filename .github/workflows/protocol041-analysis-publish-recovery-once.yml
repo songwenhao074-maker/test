@@ -107,20 +107,11 @@ jobs:
           Path('/tmp/p041analysis/reproduction_report_corrected.json').write_text(json.dumps(corrected,indent=2)+'\n')
           Path('/tmp/p041raw/Z_zero/reproduction_report.json').write_text(json.dumps(corrected,indent=2)+'\n')
           PY
-          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11147931152/zip" -o /tmp/p036.zip
-          echo "040bacac8f23659f56599b71d6d6706b62a544e44161c7c42fb5af73650f56c0  /tmp/p036.zip" | sha256sum -c -
-          python - <<'PY'
-          import hashlib, zipfile
-          z=zipfile.ZipFile('/tmp/p036.zip')
-          want='73a1c6fd8d12c8e84958df55b2379ab2f2542ac34923bc3934d363329cb02b'
-          hits=[]
-          for n in z.namelist():
-              if n.endswith('inputs/seed3601/manifest.json'):
-                  b=z.read(n)
-                  if hashlib.sha256(b).hexdigest()==want: hits.append((n,b))
-          assert len(hits)==1,[(n,len(b)) for n,b in hits]
-          open('/tmp/seed3601_manifest.json','wb').write(hits[0][1])
-          PY
+          MANIFEST_SRC="artifacts/ftmoe_online/protocol_036/runs/run_36831958978/seed3601/stream_manifest.json"
+          test -f "$MANIFEST_SRC"
+          echo "73a1c6fd8d8d12c8e84958df55b2379ab2f2542ac34923bc3934d363329cb02b  $MANIFEST_SRC" | sha256sum -c -
+          cp "$MANIFEST_SRC" /tmp/seed3601_manifest.json
+          echo "73a1c6fd8d8d12c8e84958df55b2379ab2f2542ac34923bc3934d363329cb02b  /tmp/seed3601_manifest.json" | sha256sum -c -
 
       - name: Run frozen analysis only
         shell: bash
