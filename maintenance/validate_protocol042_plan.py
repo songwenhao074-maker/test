@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate Protocol-042 registration only. Never launches or certifies science."""
+"""Validate Protocol-042 revision 2 registration only; does not launch science."""
 import hashlib
 import json
 from pathlib import Path
@@ -7,9 +7,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PLAN = ROOT / "artifacts/ftmoe_online/protocol_042/plan.json"
 
-def check(value, message):
-    if not value:
-        raise ValueError(message)
+def require(condition, label):
+    if not condition:
+        raise ValueError(label)
 
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -17,80 +17,64 @@ def digest(path):
 def main():
     p = json.loads(PLAN.read_text(encoding="utf-8"))
     wanted = PLAN.with_suffix(".sha256").read_text(encoding="utf-8").split()[0]
-    check(digest(PLAN) == wanted, "plan digest")
-    check(p["protocol"] == "042" and p["revision"] == 1, "identity")
-    check(p["status"] == "instructions_registered_not_implemented_not_started", "immutable registration status")
-    check(digest(ROOT / p["instructions"]) == p["instructions_sha256"], "instructions digest")
-    prior_path = ROOT / p["historical_registration"]["path"]
-    check(digest(prior_path) == p["historical_registration"]["sha256"], "historical registration digest")
-    prior = json.loads(prior_path.read_text(encoding="utf-8"))
-    for key in ("source036", "data", "expert", "initialization", "inherited_controller"):
-        check(p[key] == prior[key], "unregistered inherited change: " + key)
-    check(p["arms"]["new"] == p["arms"]["sequence_order"] == ["U_uniform", "H_hard"], "arms/order")
-    check(p["arms"]["U_uniform"]["shadow_BCE"] == "original_unweighted_kernel", "uniform kernel")
-    check(p["arms"]["H_hard"]["shadow_BCE"] == "mature_issued_live_error_weighted", "weighted kernel")
-    check(p["arms"]["live_loss_both"] == "original_unweighted_including_accepted_candidate", "live loss")
-    w = p["weighting"]
-    check(w["coefficient"] == 2 and w["raw_weight_bounds"] == [1, 3], "weight constants")
-    check(w["error"] == "abs(y-p_live_issued)" and w["raw_weight"] == "1+2*error", "weight formula")
-    check(w["probability_source"] == "own_arm_out.probability[i,h]_issued_before_label" and w["maturity"] == "i+2<=t", "causal source")
-    check(w["normalization"] == "divide_by_float32_mean_over_all_batch_occurrences_and_hosts", "normalization")
-    check(w["dtype"] == "float32" and w["order"] == "batch_occurrence_then_host", "weight precision/order")
-    for key in ("requires_grad", "regularizer_weighted", "normalize_per_class", "normalize_per_host",
-                "resample", "replace_batch", "qualification_weighted", "coefficient_sweep"):
-        check(w[key] is False, "forbidden weighting option: " + key)
-    check(w["extra_model_forwards"] == 0 and w["future_or_recomputed_probability_forbidden"], "hidden forwards/leakage")
-    golden = w["golden_fixture"]
-    raw = [1 + 2 * abs(y - prob) for y, prob in zip(golden["y"], golden["p"])]
-    applied = [v / (sum(raw) / len(raw)) for v in raw]
-    check(all(abs(a - b) <= 1e-6 for a, b in zip(raw, golden["expected_raw"])), "golden raw weights")
-    check(all(abs(a - b) <= 1e-6 for a, b in zip(applied, golden["expected_applied"])), "golden applied weights")
+    require(digest(PLAN) == wanted, "plan SHA256")
+    require((p["protocol"], p["revision"]) == ("042", 2), "superseded registration")
+    require(p["status"] == "instructions_registered_not_implemented_not_started", "registration status")
+    require(digest(ROOT / p["instructions"]) == p["instructions_sha256"], "directive SHA256")
+    arms = ["U_parent", "R_win128", "A_hist", "A_win128"]
+    require(p["arms"]["order"] == p["budget"]["order"] == arms, "four arms/order")
+    require(p["arms"]["primary"] == p["analysis"]["primary_arm"] == "A_win128", "primary")
+    require(p["supersedes"]["revision"] == 1 and p["supersedes"]["old_budget_not_additive"], "supersession")
+    require(p["authorization"]["launch_in_this_turn"] is False, "publication only")
+    require(p["authorization"]["automatic_next_protocol"] is False, "stop rule")
+    require(p["arms"]["all_frozen_before_U"] is True, "joint freeze")
+    require(p["arms"]["A_hist"]["score"] == "cumulative_current_deployment_epoch", "history control")
+    require(p["arms"]["A_hist"]["admission"] == p["arms"]["A_win128"]["admission"], "window pair")
+    require(p["arms"]["R_win128"]["window"] == p["arms"]["A_win128"]["window"] == 128, "window")
+    require(p["arms"]["new_arm_initialization"] == "zero_weights_bias_fresh_AdamW", "initialization")
+    s = p["new_structure"]
+    require([s[k] for k in ["resident_including_shadow", "active_max", "shadow_max", "ids_created_max",
+                           "candidate_attempts_after_E0_max"]] == [3, 2, 1, 3, 2], "capacity")
+    require(not s["renormalize"] and not s["total_clip"] and s["permanent_deletions"] == 0, "additivity")
+    q = p["score"]
+    require(q["fixed_window"] == q["active_epoch_mature_min"] == 128, "window/maturity")
+    require(q["missing"] == "null_not_zero" and q["extra_expert_forwards"] == 0, "unknown/overhead")
+    require(q["positive_rows_min"] == q["negative_rows_min"] == 16 and q["positive_intervals_min"] == 4, "support")
+    require(q["positive_intervals_are_independent_events"] is False, "independence")
+    require(q["eligible"] == {"overall_max": 0, "positive_max": 0, "negative_max": 0,
+                            "removal_fpr_increase_max": 0.01, "removal_recall_change_min": -0.02,
+                            "consecutive_due16": 3}, "retirement")
+    require(q["A_victim_requires_nonuseful"] and not q["R_victim_requires_nonuseful"], "admission contrast")
+    require(p["training"]["weighted_training"] is False and p["training"]["shadow_updates_per_candidate"] == 16, "training")
     b = p["budget"]
-    check(b["new_science_sequences"] == 2 and b["sequence_names"] == p["arms"]["new"], "science budget")
-    check(b["per_arm"] == prior["budget"]["per_arm"], "per-arm budget changed")
-    check(b["combined"] == prior["budget"]["combined"], "combined budget changed")
-    check(b["combined"]["total_optimizer_steps_max"] == 736, "gradient total")
-    for key, value in b["combined"].items():
-        check(value == 2 * b["per_arm"][key], "combined arithmetic: " + key)
-    for key in ("new_streams", "extra_seeds", "control_retraining", "F_training", "F_comparisons",
-                "F_loads", "donor_updates", "hyperparameter_sweeps", "weight_computation_extra_model_forwards"):
-        check(b[key] == 0, "forbidden budget: " + key)
-    check(b["real_engineering_prefixes_max"] == 1 and b["real_engineering_prefix_intervals_max"] == 256
-          and b["real_engineering_gradient_steps"] == 0, "engineering budget")
-    check(b["restart_from_zero_after_science_start"] is False, "restart")
-    for key in ("windows", "late4", "prefix_lengths", "primary", "cumulative_preservation",
-                "guards", "pool_exercised", "labels_priority"):
-        check(p["analysis"][key] == prior["analysis"][key], "quality gate changed: " + key)
-    check(p["analysis"]["hard_weighting_system_signal"] == {
-        "full_AP_delta_min": 0, "six_AP_delta_min": 0.0005, "positive_windows_min": 4,
-        "late4_AP_delta_min": 0, "guards_vs_U_required": True, "validity_required": True}, "system signal")
-    required = [
-        "weight_formula_and_unweighted_regularizer", "issued_error_provenance_maturity_future_perturbation",
-        "parent_initialization_and_expert_isolation", "eventful_disk_resume_through_gradients_and_decisions",
-        "crash_injection_transaction_and_ready_integrity", "controller_competition_capacity_opportunity_terminal",
-        "reproduction_schema_positive_and_negative_controls", "fail_closed_workflow_and_H_entrypoint_gate",
-        "independent_metrics_and_weight_recompute"]
-    check(p["engineering"]["required_fixture_ids"] == required, "fixture inventory")
-    check(len(p["engineering"]["required_resume_breakpoints"]) == 12, "resume coverage")
-    check(p["engineering"]["serialize_shadow_ready"] and p["engineering"]["persist_all_RNGs"], "checkpoint content")
-    check(p["gate"]["enforce_in_workflow_and_H_process"] and p["gate"]["no_OR_of_optional_rc_fields"], "unsafe gate")
-    check(p["gate"]["missing_empty_string_or_string_true"] == "fail_closed", "missing-value gate")
-    check(len(p["gate"]["negative_gate_tests"]) == 10, "negative gate tests")
-    check(p["reproduction"]["prediction_arrays"] == p["reproduction"]["qualification_arrays"] == "exact", "reproduction arrays")
-    check(p["reproduction"]["metric_absolute_tolerance"] == 1e-12, "metric tolerance")
+    require(b["science_sequences"] == 4 and b["total"]["optimizer_steps"] == 2576, "budget")
+    for k in ["U", "each_new"]:
+        require(b[k]["live_steps"] + b[k]["shadow_steps"] == b[k]["total_steps"], "per-arm arithmetic")
+    for source, target in [("total_steps", "optimizer_steps"), ("deployed_forwards", "deployed_forwards"),
+                           ("reuse_forwards", "reuse_forwards"), ("qualification_forwards", "qualification_forwards")]:
+        require(b["U"][source] + 3 * b["each_new"][source] == b["total"][target], "total arithmetic")
+    require(sum(b["total"][k] for k in ["deployed_forwards", "reuse_forwards", "qualification_forwards"]) ==
+            b["total"]["prediction_expert_forwards"] == 50800, "forward total")
+    for k in ["new_streams", "extra_seeds", "F_loads", "extra_arms", "permanent_deletions", "real_engineering_gradients"]:
+        require(b[k] == 0, "forbidden: " + k)
+    require(b["restart_from_zero"] is False and b["old_revision_budget_additional"] is False, "restart/addition")
+    require(p["gate"]["prior_revision_rejected"] and p["gate"]["all_new_require_U_reproduction"], "gate")
+    require(p["gate"]["missing_or_nonboolean_pass"] == "fail_closed", "missing report")
+    require(len(p["engineering"]["required_fixture_ids"]) == 10 and p["engineering"]["real_event_evidence_required"], "fixtures")
+    require(p["analysis"]["diagnostic_windows"] == [64, 256] and not p["analysis"]["diagnostic_windows_control"], "no extra arms")
     src = p["source041"]
-    check(src["run_id"] == 37110969550 and src["artifact_id"] == 11269043834, "041 source identity")
-    mp = ROOT / src["manifest_path"]
-    check(digest(mp) == src["manifest_sha256"], "041 immutable manifest")
-    locked = {x["path"]: x["sha256"] for x in json.loads(mp.read_text(encoding="utf-8"))["files"]}
+    manifest = ROOT / src["manifest_path"]
+    require(digest(manifest) == src["manifest_sha256"], "historical manifest")
+    entries = {e["path"]: e["sha256"] for e in json.loads(manifest.read_text(encoding="utf-8"))["files"]}
     for path, expected in src["files"].items():
-        check(locked.get(path) == expected, "041 file lock: " + path)
-    check(src["restore_historical_checkpoints"] is False and src["load_F_files"] is False, "source scope")
-    check(p["authorization"]["launch_in_this_turn"] is False and p["authorization"]["automatic_next_protocol"] is False, "publication scope")
-    check(p["runtime"]["formal_trigger"] == "workflow_dispatch_only" and p["runtime"]["create_workflow_this_publication"] is False, "workflow scope")
-    check(p["delivery"]["stop_after_registered_two_sequences"] and p["delivery"]["no_force_push"], "stop/publication")
-    print(json.dumps({"protocol": "042", "registration_valid": True, "plan_sha256": wanted,
-                      "science_started": False, "scientific_validity": "not_evaluated"}, indent=2))
+        require(entries.get(path) == expected, "source lock: " + path)
+    require(p["source036"]["replay_seed"] == p["data"]["replay_seed"] == 3601, "data")
+    require(p["runtime"]["formal_trigger"] == "workflow_dispatch_only" and
+            not p["runtime"]["create_workflow_this_publication"], "workflow")
+    require(p["delivery"]["stop_after_four_or_blocked"] and p["delivery"]["no_force_push"], "delivery")
+    print(json.dumps({"protocol": "042", "revision": 2, "registration_valid": True,
+                      "plan_sha256": wanted, "science_started": False,
+                      "scientific_validity": "not_evaluated"}, indent=2))
 
 if __name__ == "__main__":
     main()

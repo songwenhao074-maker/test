@@ -1,19 +1,26 @@
 {
   "protocol": "042",
-  "revision": 1,
+  "revision": 2,
   "date": "2026-10-03",
   "status": "instructions_registered_not_implemented_not_started",
-  "instructions": "docs/PROTOCOL042_MATURE_ERROR_WEIGHTING_20261003.md",
-  "instructions_sha256": "cfc510fc83bbcd88982518920252a5c384286f579c80026a825ecb790365ca8a",
-  "registration_base_commit": "28eec9f190d5337b1d5d6d42d54406b42547fc28",
-  "execution_branch": "codex/protocol-042-mature-error-weighting-20261003",
+  "instructions": "docs/PROTOCOL042_WINDOWED_UTILITY_20261003.md",
+  "instructions_sha256": "2f75cdbcbb9cde30c76bb5f879f34b4c7b5c017559d1ca37487b9a42019c2644",
+  "registration_base_commit": "c20ff2b4e8593100ccd73ce6b5503d14c42961e0",
+  "supersedes": {
+    "revision": 1,
+    "commit": "c20ff2b4e8593100ccd73ce6b5503d14c42961e0",
+    "old_plan_sha256": "a4c509a8fce7045037a6d0fa2a244463c31aa0022995392fffe37742dd2d2aa1",
+    "old_arms_cancelled": [
+      "U_uniform",
+      "H_hard"
+    ],
+    "old_budget_not_additive": true
+  },
   "objective": "With parent warm initialization fixed, test whether bounded detached weights from matured issued live prediction errors during shadow training create useful incremental capability and preserve complete D>C.",
   "authorization": {
-    "this_publication": "documents_and_registration_only",
+    "publish_plan": true,
     "launch_in_this_turn": false,
-    "implementation_and_two_science_sequences": "after_user_handoff_to_execution_model",
-    "historical_033_041_budgets_closed": true,
-    "F_research": "DEFERRED",
+    "execute_after_user_handoff": true,
     "automatic_next_protocol": false
   },
   "source036": {
@@ -93,11 +100,6 @@
     },
     "historical_files_immutable": true
   },
-  "historical_registration": {
-    "path": "artifacts/ftmoe_online/protocol_041/plan.json",
-    "ref": "28eec9f190d5337b1d5d6d42d54406b42547fc28",
-    "sha256": "32f9ea891e5b6b993c07550cc2a4f37fcc55f0df9a369580366ddc01d24110ca"
-  },
   "data": {
     "replay_seed": 3601,
     "observed_development_data": true,
@@ -111,68 +113,209 @@
     "phase_ids_online": false,
     "baseline_retraining": false
   },
-  "expert": {
-    "architecture": "Linear(73,1)",
-    "parameters": 74,
-    "constructor_seed": 3701,
-    "delta": "2*tanh((w dot issued_z+b)/2)",
-    "logits": "[B0-delta/2,B1+delta/2]",
-    "classification": "exact B_ref copy",
-    "loss": "mean BCEWithLogits(issued_B_margin+delta,y>0)+0.001*mean(delta^2)",
-    "optimizer": "AdamW",
-    "lr": 0.0001,
-    "weight_decay": 0.0001,
-    "betas": [
-      0.9,
-      0.999
+  "arms": {
+    "order": [
+      "U_parent",
+      "R_win128",
+      "A_hist",
+      "A_win128"
     ],
-    "eps": 1e-8,
-    "clip_grad_norm": 1,
-    "update_every": 16,
-    "actual_C_batches_preserve_order_duplicates": true,
-    "catchup_updates": false,
-    "correction_reference": "B_ref for every expert; select at most one correction, never add candidate to active correction"
-  },
-  "initialization": {
-    "parent": "current_active_expert",
-    "no_active_parent": "donor_unavailable_stop_no_fallback",
-    "copy_after_settlement_before_same_t_gradients": true,
-    "copy_optimizer": false,
-    "copy_rng": false,
-    "shared_parameter_storage": false,
-    "first_child_optimizer_step": 1,
-    "extra_donor_training_steps": 0,
-    "synthetic_full_adam_clone_control_only": true,
-    "copy_B_D_lin": false,
-    "add_parent_and_candidate_corrections": false
-  },
-  "inherited_controller": {
-    "pool": {
-      "capacity_including_shadow": 2,
-      "active_max": 1,
-      "shadow_max": 1,
-      "ids_created_max": 2,
-      "second_candidate_attempts_max": 1,
-      "accepted_expert_permanent_deletions": 0,
-      "rejected_unaccepted_candidate_disposal": true,
-      "id_reuse": false,
-      "global_host_shared_selection": true,
-      "active_training": true,
-      "dormant_training": false,
-      "dormant_forward": "only registered bounded prequential qualification previews",
-      "no_active_output": "exact B_ref copy",
-      "restore_same_id_weights_adam_step": true,
-      "terminal_active_state": false
+    "primary": "A_win128",
+    "U_parent": {
+      "kernel": "exact041_W_parent",
+      "controller": {
+        "pool": {
+          "capacity_including_shadow": 2,
+          "active_max": 1,
+          "shadow_max": 1,
+          "ids_created_max": 2,
+          "second_candidate_attempts_max": 1,
+          "accepted_expert_permanent_deletions": 0,
+          "rejected_unaccepted_candidate_disposal": true,
+          "id_reuse": false,
+          "global_host_shared_selection": true,
+          "active_training": true,
+          "dormant_training": false,
+          "dormant_forward": "only registered bounded prequential qualification previews",
+          "no_active_output": "exact B_ref copy",
+          "restore_same_id_weights_adam_step": true,
+          "terminal_active_state": false
+        },
+        "event_order": [
+          "live_and_pending_validation_predict",
+          "settle_t_minus_2",
+          "due16_first_birth_else_reuse_accept_else_shadow_accept_else_sleep_at_most_one_live_transition",
+          "if_transition_cancel_obsolete_slots_else_start_due_checks_or_shadow",
+          "post_transition_active_update_once",
+          "uncancelled_shadow_training_update_once"
+        ],
+        "first_birth": {
+          "inherit_protocol037": true,
+          "recent": 64,
+          "previous": 256,
+          "min_matured": 320,
+          "ratio_min": 1.25,
+          "denominator_floor": 0.000001,
+          "absolute_increase_min": 0.02,
+          "recent_min_positive": 16,
+          "recent_min_negative": 16,
+          "consecutive_checks": 2,
+          "expected_t": 351,
+          "force_t_forbidden": true,
+          "matching_prefix": "exact039 until first actual differing040 model action",
+          "zero_initialized_direct_active": true
+        },
+        "sleep": {
+          "min_matured_current_active_epoch": 256,
+          "recent_intervals": 128,
+          "all_recent_same_active_epoch": true,
+          "utility": "mean(B_issued_BCE-D_live_issued_BCE)",
+          "utility_max": 0,
+          "consecutive_due16_checks": 3,
+          "reset_on_failure": true,
+          "preserve_weights_adam": true,
+          "cancel_pending_reuse_and_unaccepted_shadow": true,
+          "repeated": true
+        },
+        "pressure": {
+          "source": "actual full D_pool2 issued BCE",
+          "recent": 64,
+          "previous": 256,
+          "ratio_min": 1.25,
+          "denominator_floor": 0.000001,
+          "absolute_increase_min": 0.02,
+          "positive_min": 16,
+          "negative_min": 16,
+          "consecutive_due16_checks": 2,
+          "recent_same_deployment_epoch": true,
+          "active_epoch_matured_min": 256,
+          "no_active_epoch_matured_min": 64,
+          "previous_window_may_cross_epochs": true,
+          "reset_on_transition_or_failure": true,
+          "permanent_latching": false
+        },
+        "reuse": {
+          "clock": "(t+1)%64==0",
+          "deployment_epoch_matured_min": 64,
+          "require_pressure": false,
+          "pending_slots_max": 1,
+          "started_slots_max": 32,
+          "candidates": "all accepted dormant IDs, at most two; no similarity or phase filter",
+          "validation_intervals": 32,
+          "first_validation_prediction": "start_t+1",
+          "evaluation": "next due16 after all 32 labels mature",
+          "freeze_candidate_weights": true,
+          "active_training_continues": true,
+          "cancel_on_live_topology_change": true,
+          "parallel_with_shadow_training_or_validation": true,
+          "priority_over_shadow_accept": true,
+          "accept_cancels_shadow": true,
+          "winner": "minimum qualification BCE among passing candidates, exact ties smaller ID",
+          "no_pass": "keep live"
+        },
+        "qualification": {
+          "positive_host_rows_min": 16,
+          "negative_host_rows_min": 16,
+          "all_finite": true,
+          "candidate_BCE_relative_to_live_max": 0.99,
+          "candidate_BCE_relative_to_B_max": 1,
+          "fpr_delta_vs_each_live_and_B_max": 0.01,
+          "recall_delta_vs_each_live_and_B_min": -0.02,
+          "threshold": 0.5,
+          "training_regularizer_in_validation": false,
+          "insufficient_support": "reject_no_extension",
+          "window_selection": "first32 consecutive new issued intervals only"
+        },
+        "second_birth": {
+          "requires_current_pressure": true,
+          "no_live_transition_same_step": true,
+          "capacity_required": true,
+          "no_pending_reuse_at_creation": true,
+          "existing_dormant_requires": "quality-rejected reuse with sufficient support, age<=64 cursors, same deployment epoch and candidate ID/hash set",
+          "insufficient_reuse_support_does_not_authorize_birth": true,
+          "shadow_updates_max": 16,
+          "update_clock": "common due16 opportunities",
+          "batch": "same registered C batch as active at that opportunity",
+          "additional_updates": true,
+          "freeze_after_updates": 16,
+          "validation_intervals": 32,
+          "accept": "old active dormant; candidate active with retained Adam; normal same-t live update allowed",
+          "reject_or_cancel": "dispose unaccepted shadow; no retry",
+          "capacity_full": "record_capacity_block_no_purge"
+        }
+      },
+      "expert": {
+        "architecture": "Linear(73,1)",
+        "parameters": 74,
+        "constructor_seed": 3701,
+        "delta": "2*tanh((w dot issued_z+b)/2)",
+        "logits": "[B0-delta/2,B1+delta/2]",
+        "classification": "exact B_ref copy",
+        "loss": "mean BCEWithLogits(issued_B_margin+delta,y>0)+0.001*mean(delta^2)",
+        "optimizer": "AdamW",
+        "lr": 0.0001,
+        "weight_decay": 0.0001,
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "eps": 1e-8,
+        "clip_grad_norm": 1,
+        "update_every": 16,
+        "actual_C_batches_preserve_order_duplicates": true,
+        "catchup_updates": false,
+        "correction_reference": "B_ref for every expert; select at most one correction, never add candidate to active correction"
+      },
+      "initialization": {
+        "parent": "current_active_expert",
+        "no_active_parent": "donor_unavailable_stop_no_fallback",
+        "copy_after_settlement_before_same_t_gradients": true,
+        "copy_optimizer": false,
+        "copy_rng": false,
+        "shared_parameter_storage": false,
+        "first_child_optimizer_step": 1,
+        "extra_donor_training_steps": 0,
+        "synthetic_full_adam_clone_control_only": true,
+        "copy_B_D_lin": false,
+        "add_parent_and_candidate_corrections": false
+      }
     },
-    "event_order": [
-      "live_and_pending_validation_predict",
-      "settle_t_minus_2",
-      "due16_first_birth_else_reuse_accept_else_shadow_accept_else_sleep_at_most_one_live_transition",
-      "if_transition_cancel_obsolete_slots_else_start_due_checks_or_shadow",
-      "post_transition_active_update_once",
-      "uncancelled_shadow_training_update_once"
-    ],
-    "first_birth": {
+    "R_win128": {
+      "admission": "replace_if_any_active",
+      "score": "global_time_window",
+      "window": 128
+    },
+    "A_hist": {
+      "admission": "add_if_vacant_else_replace_only_nonuseful",
+      "score": "cumulative_current_deployment_epoch",
+      "window": null
+    },
+    "A_win128": {
+      "admission": "add_if_vacant_else_replace_only_nonuseful",
+      "score": "global_time_window",
+      "window": 128
+    },
+    "all_frozen_before_U": true,
+    "new_arm_initialization": "zero_weights_bias_fresh_AdamW"
+  },
+  "new_structure": {
+    "feature_dim": 73,
+    "expert_parameters": 74,
+    "expert_delta": "2*tanh((w dot issued_z+b)/2)",
+    "margin": "B_margin+sum(active_delta)",
+    "renormalize": false,
+    "total_clip": false,
+    "classification": "B_ref_exact_copy",
+    "resident_including_shadow": 3,
+    "active_max": 2,
+    "shadow_max": 1,
+    "ids_created_max": 3,
+    "candidate_attempts_after_E0_max": 2,
+    "attempt_rejection_consumes_budget": true,
+    "next_attempt_cooldown_mature_intervals": 256,
+    "permanent_deletions": 0,
+    "full_resident_capacity": "skip_preserve_memory",
+    "initial_birth": {
       "inherit_protocol037": true,
       "recent": 64,
       "previous": 256,
@@ -187,19 +330,66 @@
       "force_t_forbidden": true,
       "matching_prefix": "exact039 until first actual differing040 model action",
       "zero_initialized_direct_active": true
+    }
+  },
+  "training": {
+    "optimizer": "AdamW",
+    "lr": 0.0001,
+    "weight_decay": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-8,
+    "clip_per_expert": 1,
+    "regularizer": 0.001,
+    "update_every": 16,
+    "batch_intervals": 32,
+    "hosts": 16,
+    "batch_source": "actual_C_batches_order_duplicates_preserved",
+    "live_loss": "mean_BCE(B_margin+sum(active_delta),y)+0.001*sum(mean(delta_i_squared))",
+    "shadow_loss": "mean_BCE(B_margin+detach(sum(retained_active_delta_before_same_t_updates))+delta_new,y)+0.001*mean(delta_new_squared)",
+    "shadow_updates_per_candidate": 16,
+    "extra_forward_to_compute_context": false,
+    "weighted_training": false
+  },
+  "score": {
+    "window_unit": "global_issued_time_intervals_with_mature_labels",
+    "fixed_window": 128,
+    "range": "[t-2-W+1,t-2]",
+    "formula": "BCE(issued_live_margin-issued_delta_i,y)-BCE(issued_live_margin,y)",
+    "dtype": "float64_from_issued_float32",
+    "reuse_current_parameters_for_old_predictions": false,
+    "active_epoch_mature_min": 128,
+    "positive_rows_min": 16,
+    "negative_rows_min": 16,
+    "positive_intervals_min": 4,
+    "positive_intervals_are_independent_events": false,
+    "current_epoch_only": true,
+    "topology_resets_statistics": true,
+    "weight_update_resets_epoch": false,
+    "missing": "null_not_zero",
+    "eligible": {
+      "overall_max": 0,
+      "positive_max": 0,
+      "negative_max": 0,
+      "removal_fpr_increase_max": 0.01,
+      "removal_recall_change_min": -0.02,
+      "consecutive_due16": 3
     },
-    "sleep": {
-      "min_matured_current_active_epoch": 256,
-      "recent_intervals": 128,
-      "all_recent_same_active_epoch": true,
-      "utility": "mean(B_issued_BCE-D_live_issued_BCE)",
-      "utility_max": 0,
-      "consecutive_due16_checks": 3,
-      "reset_on_failure": true,
-      "preserve_weights_adam": true,
-      "cancel_pending_reuse_and_unaccepted_shadow": true,
-      "repeated": true
-    },
+    "tie": "minimum_score_then_lowest_id",
+    "R_victim_requires_nonuseful": false,
+    "A_victim_requires_nonuseful": true,
+    "extra_expert_forwards": 0,
+    "diagnostic_windows": [
+      64,
+      256
+    ],
+    "diagnostic_magnitude": "mean_abs_issued_delta",
+    "historical_memory_score_controls_current_activity": false
+  },
+  "controller": {
+    "section_authority": "instructions sections5-6",
     "pressure": {
       "source": "actual full D_pool2 issued BCE",
       "recent": 64,
@@ -217,25 +407,21 @@
       "reset_on_transition_or_failure": true,
       "permanent_latching": false
     },
-    "reuse": {
-      "clock": "(t+1)%64==0",
-      "deployment_epoch_matured_min": 64,
-      "require_pressure": false,
-      "pending_slots_max": 1,
-      "started_slots_max": 32,
-      "candidates": "all accepted dormant IDs, at most two; no similarity or phase filter",
-      "validation_intervals": 32,
-      "first_validation_prediction": "start_t+1",
-      "evaluation": "next due16 after all 32 labels mature",
-      "freeze_candidate_weights": true,
-      "active_training_continues": true,
-      "cancel_on_live_topology_change": true,
-      "parallel_with_shadow_training_or_validation": true,
-      "priority_over_shadow_accept": true,
-      "accept_cancels_shadow": true,
-      "winner": "minimum qualification BCE among passing candidates, exact ties smaller ID",
-      "no_pass": "keep live"
-    },
+    "clock16": "(t+1)%16==0",
+    "clock64": "(t+1)%64==0",
+    "one_transition_per_due16": true,
+    "priority": [
+      "first_birth",
+      "reuse_accept",
+      "shadow_accept",
+      "sleep"
+    ],
+    "proposal_locks": [
+      "epoch",
+      "retained_ids",
+      "victim_id"
+    ],
+    "topology_change_cancels_pending": true,
     "qualification": {
       "positive_host_rows_min": 16,
       "negative_host_rows_min": 16,
@@ -249,176 +435,63 @@
       "insufficient_support": "reject_no_extension",
       "window_selection": "first32 consecutive new issued intervals only"
     },
-    "second_birth": {
-      "requires_current_pressure": true,
-      "no_live_transition_same_step": true,
-      "capacity_required": true,
-      "no_pending_reuse_at_creation": true,
-      "existing_dormant_requires": "quality-rejected reuse with sufficient support, age<=64 cursors, same deployment epoch and candidate ID/hash set",
-      "insufficient_reuse_support_does_not_authorize_birth": true,
-      "shadow_updates_max": 16,
-      "update_clock": "common due16 opportunities",
-      "batch": "same registered C batch as active at that opportunity",
-      "additional_updates": true,
-      "freeze_after_updates": 16,
-      "validation_intervals": 32,
-      "accept": "old active dormant; candidate active with retained Adam; normal same-t live update allowed",
-      "reject_or_cancel": "dispose unaccepted shadow; no retry",
-      "capacity_full": "record_capacity_block_no_purge"
-    }
-  },
-  "arms": {
-    "cached": [
-      "C_ref",
-      "B_ref",
-      "D_keep",
-      "D_039",
-      "D_040",
-      "W_041"
-    ],
-    "new": [
-      "U_uniform",
-      "H_hard"
-    ],
-    "sequence_order": [
-      "U_uniform",
-      "H_hard"
-    ],
-    "initialization_both": "current_active_parent_weights_and_bias_before_same_t_gradients_fresh_AdamW",
-    "U_uniform": {
-      "shadow_BCE": "original_unweighted_kernel",
-      "reproduce": "cached041_W_parent"
-    },
-    "H_hard": {
-      "shadow_BCE": "mature_issued_live_error_weighted"
-    },
-    "live_loss_both": "original_unweighted_including_accepted_candidate",
-    "only_algorithm_difference": "per_sample_shadow_training_BCE_weights",
-    "joint_freeze_before_any_science": true,
-    "independent_full_sequences": true
-  },
-  "weighting": {
-    "apply_to": "only_H_shadow_training_up_to16_steps",
-    "probability_source": "own_arm_out.probability[i,h]_issued_before_label",
-    "target": "same_mature_binary_target_as_BCE",
-    "maturity": "i+2<=t",
-    "error": "abs(y-p_live_issued)",
-    "coefficient": 2,
-    "raw_weight": "1+2*error",
-    "raw_weight_bounds": [
-      1,
-      3
-    ],
-    "normalization": "divide_by_float32_mean_over_all_batch_occurrences_and_hosts",
-    "applied_weight_mean": 1,
-    "max_to_min_ratio_max": 3,
-    "dtype": "float32",
-    "order": "batch_occurrence_then_host",
-    "requires_grad": false,
-    "regularizer_weighted": false,
-    "normalize_per_class": false,
-    "normalize_per_host": false,
-    "resample": false,
-    "replace_batch": false,
-    "extra_model_forwards": 0,
-    "nonfinite_or_out_of_range_probability": "fail_no_silent_clip",
-    "future_or_recomputed_probability_forbidden": true,
-    "U_diagnostic_weights_do_not_affect_training": true,
-    "qualification_weighted": false,
-    "coefficient_sweep": false,
-    "trace_fields": [
-      "t",
-      "ordered_batch_indices",
-      "host_indices",
-      "y",
-      "issued_p",
-      "error",
-      "raw_v",
-      "applied_w",
-      "issued_reference",
-      "maturity",
-      "ESS",
-      "positive_negative_weight_mass",
-      "loss_weighted_BCE",
-      "loss_unweighted_BCE",
-      "loss_regularizer",
-      "model_optimizer_hashes",
-      "gradient_norm_pre_post_clip"
-    ],
-    "golden_fixture": {
-      "y": [
-        0,
-        1,
-        0,
-        1
-      ],
-      "p": [
-        0.1,
-        0.9,
-        0.9,
-        0.1
-      ],
-      "expected_error": [
-        0.1,
-        0.1,
-        0.9,
-        0.9
-      ],
-      "expected_raw": [
-        1.2,
-        1.2,
-        2.8,
-        2.8
-      ],
-      "expected_applied": [
-        0.6,
-        0.6,
-        1.4,
-        1.4
-      ],
-      "absolute_tolerance": 0.000001
-    }
+    "qualification_intervals": 32,
+    "qualification_predictions": "actual_live-victim_contribution+candidate_contribution",
+    "A_victim_recheck_at_acceptance": true,
+    "reuse_epoch_mature_min": 128,
+    "reuse_slots_max": 32,
+    "reuse_candidates_max": 3,
+    "reuse_candidate_training": false,
+    "reuse_accept_retains_same_id_Adam": true,
+    "reuse_quality_reject_before_birth_if_dormant": true,
+    "reuse_rejection_freshness": 64,
+    "terminal_settle_only": true
   },
   "budget": {
-    "new_science_sequences": 2,
-    "sequence_names": [
-      "U_uniform",
-      "H_hard"
+    "science_sequences": 4,
+    "order": [
+      "U_parent",
+      "R_win128",
+      "A_hist",
+      "A_win128"
     ],
+    "U": {
+      "live_steps": 352,
+      "shadow_steps": 16,
+      "total_steps": 368,
+      "deployed_forwards": 5616,
+      "reuse_forwards": 2048,
+      "qualification_forwards": 32
+    },
+    "each_new": {
+      "live_steps": 704,
+      "shadow_steps": 32,
+      "total_steps": 736,
+      "deployed_forwards": 11232,
+      "reuse_forwards": 3072,
+      "qualification_forwards": 64,
+      "max_live_steps_per_due16": 2,
+      "max_shadow_steps_per_due16": 1
+    },
+    "total": {
+      "optimizer_steps": 2576,
+      "deployed_forwards": 39312,
+      "reuse_forwards": 11264,
+      "qualification_forwards": 224,
+      "prediction_expert_forwards": 50800
+    },
+    "counts_are_expert_interval_calls": true,
+    "training_forwards_separate": true,
+    "real_engineering_prefix_max": 1,
+    "real_engineering_intervals_max": 256,
+    "real_engineering_gradients": 0,
     "new_streams": 0,
     "extra_seeds": 0,
-    "control_retraining": 0,
-    "F_training": 0,
-    "F_comparisons": 0,
     "F_loads": 0,
-    "donor_updates": 0,
-    "hyperparameter_sweeps": 0,
-    "per_arm": {
-      "live_optimizer_steps_max": 352,
-      "shadow_optimizer_steps_max": 16,
-      "total_optimizer_steps_max": 368,
-      "max_updates_per_due16": 2,
-      "deployed_dynamic_prediction_forwards_max": 5616,
-      "reuse_preview_forwards_max": 2048,
-      "shadow_qualification_forwards_max": 32,
-      "total_preview_forwards_max": 2080
-    },
-    "combined": {
-      "live_optimizer_steps_max": 704,
-      "shadow_optimizer_steps_max": 32,
-      "total_optimizer_steps_max": 736,
-      "deployed_dynamic_prediction_forwards_max": 11232,
-      "reuse_preview_forwards_max": 4096,
-      "shadow_qualification_forwards_max": 64,
-      "total_preview_forwards_max": 4160
-    },
-    "real_engineering_prefixes_max": 1,
-    "real_engineering_prefix_intervals_max": 256,
-    "real_engineering_gradient_steps": 0,
-    "restart_from_zero_after_science_start": false,
-    "accepted_expert_permanent_deletions": 0,
-    "uniform_arm_reproduction_is_counted_science": true,
-    "weight_computation_extra_model_forwards": 0
+    "extra_arms": 0,
+    "permanent_deletions": 0,
+    "restart_from_zero": false,
+    "old_revision_budget_additional": false
   },
   "reproduction": {
     "U_against": "cached041_W_parent",
@@ -458,87 +531,45 @@
       32
     ],
     "force_expected_times_forbidden": true,
-    "paired_initial_state": "exact before first weighted shadow update",
-    "paired_live_prefix": "exact until first differing live transition takes effect",
-    "first_candidate_paired_labels_live_B": "exact",
-    "all16_shadow_batches_paired_exact": true
+    "new_arms_not_required_to_match_U": true,
+    "A_hist_vs_A_win128_prefix": "predictions_parameters_Adam_discrete_actions_exact_until_first_window_caused_topology_divergence; score_values_and_registered_buffers_may_differ"
   },
   "engineering": {
     "required_fixture_ids": [
-      "weight_formula_and_unweighted_regularizer",
-      "issued_error_provenance_maturity_future_perturbation",
-      "parent_initialization_and_expert_isolation",
-      "eventful_disk_resume_through_gradients_and_decisions",
-      "crash_injection_transaction_and_ready_integrity",
-      "controller_competition_capacity_opportunity_terminal",
-      "reproduction_schema_positive_and_negative_controls",
-      "fail_closed_workflow_and_H_entrypoint_gate",
-      "independent_metrics_and_weight_recompute"
+      "additive_and_counterfactual_arithmetic",
+      "global_window_expiry_epoch_and_unknown",
+      "maturity_prequential_class_support",
+      "multi_expert_victim_and_add_replace",
+      "independent_optimizers_detached_shadow",
+      "future_qualification_recheck_cancel_and_budget",
+      "eventful_disk_resume_all_states",
+      "crash_transaction_atomicity",
+      "fail_closed_revision_reproduction_gates",
+      "independent_metric_and_score_recompute"
     ],
-    "production_entrypoint_required": true,
+    "production_entrypoint": true,
     "synthetic_training_only": true,
-    "real_prefix_optional": true,
-    "all_pass": "actual_assertions_AND_nonempty_required_event_evidence",
-    "checkpoint_semantics": "atomic_parameter_optimizer_shadow_count_status_next_operation_commit",
-    "serialize_shadow_ready": true,
-    "serialize_terminal_settlement_progress": true,
-    "persist_all_RNGs": true,
-    "crash_pending_ambiguous": "preserve_stop_no_replay",
-    "required_resume_breakpoints": [
-      "post_E0_birth_and_update",
-      "post_shadow_creation",
-      "post_live_before_shadow",
-      "post_shadow_update1",
-      "post_shadow_update15",
-      "post_shadow_update16_freeze",
-      "qualification_ready_predecision",
-      "post_shadow_accept",
-      "post_shadow_reject",
-      "post_sleep",
-      "post_reuse",
-      "terminal_between_two_settles"
-    ],
-    "resume_required_evidence": [
-      "actual_event_occurred",
-      "checkpoint_digest",
-      "actual_steps_before",
-      "actual_steps_after",
-      "post_resume_gradient_except_terminal",
-      "post_resume_control_decision_except_terminal",
-      "outputs_parameters_Adam_all_RNGs_events_weights_counters_equal_to_uninterrupted_terminal"
-    ],
-    "resume_after_gradients_both_arms": true,
-    "handcrafted_nonupdating_cursor_test_not_sufficient": true,
-    "fixture_name_list_not_evidence": true,
-    "hardcoded_pass_forbidden": true,
-    "missing_fixture": "engineering_incomplete_do_not_launch"
+    "real_event_evidence_required": true,
+    "missing": "engineering_incomplete",
+    "score_recompute_tolerance": 1e-10,
+    "serialize": [
+      "all_parameters_Adam_RNG",
+      "window_queues_sums_counts_epoch_streak",
+      "shadow_updates_ready_next_operation",
+      "retained_ids_victim",
+      "issued_and_qualification",
+      "budget_action_ids",
+      "terminal_progress"
+    ]
   },
   "gate": {
-    "H_requires": [
-      "U_exit_code_zero",
-      "U_reproduction_all_pass_boolean_true",
-      "all_fixture_content_valid",
-      "frozen_source_and_input_hashes_match",
-      "report_hashes_match",
-      "H_budget_slot_available_or_exact_resume"
-    ],
-    "enforce_in_workflow_and_H_process": true,
-    "missing_empty_string_or_string_true": "fail_closed",
-    "no_OR_of_optional_rc_fields": true,
-    "negative_gate_tests": [
-      "missing_report",
-      "empty_report",
-      "string_true",
-      "all_pass_false",
-      "U_nonzero_exit",
-      "missing_fixture",
-      "wrong_source_hash",
-      "wrong_input_hash",
-      "wrong_report_hash",
-      "budget_consumed"
-    ],
-    "arm_started_persisted_before_first_gradient": true,
-    "budget_identity": "protocol042_and_arm_not_run_id"
+    "all_new_require_U_reproduction": true,
+    "enforce_workflow_and_each_entrypoint": true,
+    "missing_or_nonboolean_pass": "fail_closed",
+    "prior_revision_rejected": true,
+    "negative_scientific_result_stops_later_arms": false,
+    "engineering_failure_stops": true,
+    "budget_key": "protocol042_revision2_arm"
   },
   "analysis": {
     "AP": "tie-grouped noninterpolated",
@@ -615,7 +646,6 @@
       "same_id_reactivation_after_dormant_predictions_min": 64,
       "post_reactivation_active_predictions_min": 64
     },
-    "local_two_expert_utility": "each ID first activation first64 consecutive actual active predictions; >=16 positives and negatives, issued BCE strictly lower than B; interrupted windows censored; descriptive only",
     "event_diagnostics": {
       "before": 64,
       "after": [
@@ -632,72 +662,41 @@
       "quality_retained_pool_not_exercised",
       "quality_retained_pool_exercised"
     ],
-    "statistical_confirmation": false,
-    "causal_reuse_advantage_claim": false,
-    "complete_dynamic_deletion_claim": false,
-    "overall_deployment_speedup_claim": false,
+    "primary_arm": "A_win128",
     "primary_baseline": "C_ref",
     "cumulative_preservation_baseline": "D_keep",
-    "weighting_baseline": "U_uniform",
-    "do_not_reset_loss_allowance": true,
-    "candidate_comparison": {
-      "window": "first paired future qualification, expected [1296,1328)",
-      "metrics": "original_unweighted_BCE_AP_recall_FPR_confusion",
-      "candidate_qualification_signal": "validity AND H_original_qualification_pass AND H_candidate_BCE < U_candidate_BCE",
-      "labels": [
-        "candidate_qualification_signal",
-        "candidate_improved_but_not_qualified",
-        "no_candidate_improvement",
-        "mechanism_not_observed"
+    "mechanism_comparisons": [
+      [
+        "A_win128",
+        "R_win128"
       ],
-      "thresholds_unchanged": true
-    },
-    "hard_weighting_system_signal": {
+      [
+        "A_win128",
+        "A_hist"
+      ]
+    ],
+    "mechanism_signal": {
       "full_AP_delta_min": 0,
       "six_AP_delta_min": 0.0005,
       "positive_windows_min": 4,
       "late4_AP_delta_min": 0,
-      "guards_vs_U_required": true,
-      "validity_required": true
+      "guards_required": true,
+      "not_statistical_significance": true
     },
-    "separate_flags": [
-      "validity",
-      "candidate_qualification_signal",
-      "hard_weighting_system_signal",
-      "D_over_C",
-      "cumulative_preservation",
-      "pool_exercised"
+    "diagnostic_windows": [
+      64,
+      256
     ],
-    "joint_success": "all six separate_flags true",
-    "independent_recompute": [
-      "full_AP",
-      "six_window_AP",
-      "prefix32_AP",
-      "prefix64_AP",
-      "late4_AP",
-      "BCE",
-      "confusion",
-      "every_shadow_training_weight_from_issued_predictions"
-    ],
-    "error_bins": {
-      "edges": [
-        0,
-        0.25,
-        0.5,
-        0.75,
-        1
-      ],
-      "intervals": "left_closed_right_open_except_last_closed",
-      "source": "common_live_mature_absolute_error_on_same_qualification_rows",
-      "descriptive_only": true,
-      "empty": "null",
-      "affects_acceptance": false
-    },
-    "report_classwise_BCE_weight_mass_ESS": true,
-    "no_reuse_causal_claim": true
+    "diagnostic_windows_control": false,
+    "phase_labels_online": false,
+    "independent_confirmation": false,
+    "permanent_deletion_claim": false,
+    "overall_deployment_speedup_claim": false,
+    "main_success": "validity AND A_win128_D_over_C AND cumulative_preservation AND pool_exercised",
+    "mechanisms_separate": true
   },
   "runtime": {
-    "workflow": "protocol042-mature-error-weighting.yml",
+    "workflow": "protocol042-windowed-utility.yml",
     "formal_trigger": "workflow_dispatch_only",
     "create_workflow_this_publication": false,
     "expected_checkout_sha_lock": true,
@@ -718,28 +717,23 @@
       "terminal_settlement_progress"
     ],
     "terminal_settle_only": true,
-    "budget_key": "protocol042_and_arm_not_run_id",
+    "budget_key": "protocol042_revision2_arm",
     "new_runners": [
       "run_ftmoe_protocol042.py",
       "analyze_ftmoe_protocol042.py"
     ],
-    "fixes_applied_identically_to_both_arms": true
+    "execution_branch": "codex/protocol-042-windowed-utility-20261003",
+    "fixes_applied_to_all_arms": true
   },
   "delivery": {
     "docs": "docs/PROTOCOL042_RESULTS.md",
     "compact_root": "artifacts/ftmoe_online/protocol_042/runs/run_<id>/",
+    "revision_required": 2,
     "raw_artifact_first": true,
     "raw_retention_days_min": 90,
     "source_bundle_required": true,
-    "independent_core_metric_recomputation": true,
-    "separate_science_analysis_publication_status": true,
-    "sync_main_and_execution_branch_pointers": true,
+    "independent_score_metric_recompute": true,
     "no_force_push": true,
-    "non_fast_forward_retries_max": 3,
-    "authentication_error": "publication_pending_no_retraining",
-    "stop_after_registered_two_sequences": true,
-    "independent_full_metrics_recomputation": true,
-    "weight_trace_and_independent_recompute_required": true,
-    "fixture_breakpoint_evidence_required": true
+    "stop_after_four_or_blocked": true
   }
 }

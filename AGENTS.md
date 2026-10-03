@@ -1,11 +1,15 @@
-# Active Experiment Directive — Protocol-042 registered, not run
+# Active Experiment Directive — Protocol-042 revision 2, registered not run
 
-The user authorized publication of Protocol-042 and will hand execution to another model. This publication does not implement or launch science. After that handoff, execute only U_uniform and H_hard as registered.
+The user requested replacing the unrun revision 1 plan after discussing online windowed expert utility and useful-old-expert preservation. Revision 1 U_uniform/H_hard and its budget are cancelled, not additional authorization.
 
-Read docs/PROTOCOL042_MATURE_ERROR_WEIGHTING_20261003.md, artifacts/ftmoe_online/protocol_042/plan.json, and docs/GITHUB_EXPERIMENT_HANDOFF.md. Run maintenance/validate_protocol042_plan.py; this validates registration only.
+Read docs/PROTOCOL042_WINDOWED_UTILITY_20261003.md, artifacts/ftmoe_online/protocol_042/plan.json (revision must equal 2), and docs/GITHUB_EXPERIMENT_HANDOFF.md. Run maintenance/validate_protocol042_plan.py before implementation. This validates registration only.
 
-Both arms copy the current active parent before same-t gradients and use fresh Adam. Only H shadow BCE receives bounded detached weights from matured, previously issued live prediction errors; batches, 16 shadow updates, unweighted future qualification, single attempt and lifecycle rules stay fixed. U is a counted full reproduction of041 W_parent. Freeze both arms and analysis before science; if U fails, do not start H.
+This publication changes instructions only. After user handoff, implement and freeze all four arms and analysis before science: U_parent (exact041 W_parent), R_win128, A_hist, A_win128. U failure blocks all new arms. A_win128 is the prespecified primary, never the best observed arm. The new-arm pair A_hist/A_win128 differs only in scoring horizon; A/R is an admission-policy comparison with differing realized compute.
 
-Before any science, repair and actually test atomic shadow update/count checkpoints, ready persistence, eventful disk resume through real synthetic updates/decisions, and fail-closed workflow plus H-entrypoint gates. Named breakpoints and all_pass booleans without event evidence are insufficient. Missing/failed evidence means engineering_incomplete.
+Use additive logit corrections, issued pre-label contributions, matured labels, fixed global-time windows, positive/negative support, null for unobserved experts, mature-period protection, and classwise removal guards. Preserve useful old experts when adding to a vacant active slot. Archive retired accepted experts with their Adam state. Do not permanently delete accepted memories. 64/256 windows are read-only diagnostics, not scientific arms.
 
-Historical033–041 budgets are closed. No F, new seed/stream, donor training, weight scan, retry, threshold change, extra arm, permanent deletion, or automatic043. Stop after two registered sequences or a blocking failure. Preserve raw evidence and report negative results; never retrain to repair analysis/publication.
+Repair and test transactional updates/ready persistence, actual eventful disk resume, and fail-closed workflow/process gates before science. Synthetic fixtures must exercise production code, actual gradients, topology transitions and window expiry, with event evidence.
+
+Exactly four sequences, total <=2576 expert optimizer steps, including <=368 for U and <=736 per new arm. No separate revision 1 run, new stream/seed, F, hard-example weighting, retry of the same candidate, unregistered arm, from-zero restart, or automatic043. At most two post-E0 candidate attempts per new arm with registered cooldown. Historical033–041 budgets remain closed.
+
+Preserve raw failures; analysis/publication recovery must never retrain. Stop after registered delivery or a blocking engineering/source failure. Scientific negative results do not permit tuning or extra runs.
