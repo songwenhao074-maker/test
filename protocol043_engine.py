@@ -116,10 +116,10 @@ class Machine043:
     def _make_active(self,eid,t,reason):
         eid=int(eid); x=self.experts[eid]; before=list(self.active_ids)
         dormant_predictions=0
-        if x["role"]=="dormant":
+        if x["role"]=="dormant" and x.get("dormant_since_prediction") is not None:
             if x.get("dormant_model_hash")!=self._model_hash(x) or x.get("dormant_optimizer_hash")!=self._opt_hash(x) or x.get("dormant_optimizer_step")!=c.opt_step(x["optimizer"]):
                 raise AssertionError("dormant state changed")
-            ds=x.get("dormant_since_prediction"); dormant_predictions=0 if ds is None else max(0,int(t)+1-int(ds))
+            ds=x.get("dormant_since_prediction"); dormant_predictions=max(0,int(t)+1-int(ds))
             x["reactivations"]=int(x.get("reactivations",0))+1
         x["role"]="active"; x["dormant_since_prediction"]=None
         if x.get("first_active_t") is None: x["first_active_t"]=int(t)+1
