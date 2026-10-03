@@ -1,0 +1,77 @@
+{
+  "protocol": "040",
+  "all_pass": true,
+  "real_engineering_prefixes": 1,
+  "real_engineering_prefix_intervals_max": 256,
+  "real_engineering_gradient_steps": 0,
+  "real_prefix_disk_resume_at": 128,
+  "real_prefix_exact_B": true,
+  "real_prefix_no_birth_or_gradient": true,
+  "qualification_pass_fixture": {
+    "positive_host_rows": 256,
+    "negative_host_rows": 256,
+    "finite": true,
+    "support": true,
+    "candidate": {
+      "ap": 1.0,
+      "bce": 0.10536051565782632,
+      "rows": 512,
+      "positives": 256,
+      "negatives": 256,
+      "tp": 256,
+      "fp": 0,
+      "fn": 0,
+      "tn": 256,
+      "recall": 1.0,
+      "fpr": 0.0
+    },
+    "live": {
+      "ap": 1.0,
+      "bce": 0.544727175441672,
+      "rows": 512,
+      "positives": 256,
+      "negatives": 256,
+      "tp": 256,
+      "fp": 0,
+      "fn": 0,
+      "tn": 256,
+      "recall": 1.0,
+      "fpr": 0.0
+    },
+    "B": {
+      "ap": 1.0,
+      "bce": 0.5108256237659906,
+      "rows": 512,
+      "positives": 256,
+      "negatives": 256,
+      "tp": 256,
+      "fp": 0,
+      "fn": 0,
+      "tn": 256,
+      "recall": 1.0,
+      "fpr": 0.0
+    },
+    "checks": {
+      "bce_vs_live": true,
+      "bce_vs_B": true,
+      "fpr_vs_live": true,
+      "fpr_vs_B": true,
+      "recall_vs_live": true,
+      "recall_vs_B": true
+    },
+    "pass": true,
+    "reason": "pass"
+  },
+  "qualification_insufficient_support_fixture": {
+    "positive_host_rows": 0,
+    "negative_host_rows": 512,
+    "finite": true,
+    "support": false,
+    "pass": false,
+    "reason": "insufficient_support"
+  },
+  "two_expert_optimizer_isolation_pass": true,
+  "learned_state_disk_restore_pass": true,
+  "capacity_includes_shadow_tested_by_machine": true,
+  "production_entrypoint_shared": true
+}

@@ -1,0 +1,81 @@
+{
+  "runtime": {
+    "0": {
+      "accepted": true,
+      "role_final": "active",
+      "version": 295,
+      "optimizer_step": 295,
+      "active_predictions": 4704,
+      "reactivations": 2,
+      "first_active_t": 352,
+      "model_hash_final": "e8c432f32124e29fc2cd518b40435f2c8920ffedf5941ca978478ab2109283c1",
+      "optimizer_hash_final": "ba7bd4bf9a1fe04bcec7669c660b53d02d08b66465a75327498bfee929e40d37"
+    }
+  },
+  "local_first64": [
+    {
+      "expert_id": 0,
+      "observed": true,
+      "start": 352,
+      "end": 416,
+      "censored": false,
+      "support": {
+        "positive": 356,
+        "negative": 668
+      },
+      "sufficient_support": true,
+      "B": {
+        "ap": 0.7105165873482042,
+        "bce": 0.7458736671193561,
+        "rows": 1024,
+        "positives": 356,
+        "negatives": 668,
+        "tp": 129,
+        "fp": 35,
+        "fn": 227,
+        "tn": 633,
+        "recall": 0.36235955056179775,
+        "fpr": 0.05239520958083832
+      },
+      "expert_system": {
+        "ap": 0.7107842192961746,
+        "bce": 0.7436204971296572,
+        "rows": 1024,
+        "positives": 356,
+        "negatives": 668,
+        "tp": 129,
+        "fp": 35,
+        "fn": 227,
+        "tn": 633,
+        "recall": 0.36235955056179775,
+        "fpr": 0.05239520958083832
+      },
+      "issued_bce_improves_B": true
+    }
+  ],
+  "pool_exercised": {
+    "accepted_distinct_ids": [
+      0
+    ],
+    "active_prediction_counts": {
+      "0": 4704
+    },
+    "qualifying_reactivations": [
+      {
+        "expert_id": 0,
+        "at_interval": 2351,
+        "dormant_predictions": 752,
+        "post_reactivation_contiguous_active_predictions": 1696,
+        "passes": true
+      },
+      {
+        "expert_id": 0,
+        "at_interval": 4207,
+        "dormant_predictions": 160,
+        "post_reactivation_contiguous_active_predictions": 1760,
+        "passes": true
+      }
+    ],
+    "pass": false
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "protocol": "040",
+  "root": "artifacts/ftmoe_online/protocol_040/runs/run_37098618766",
+  "file_count": 33,
+  "files": [
+    {
+      "path": "analysis/PROTOCOL040_RESULTS.md",
+      "sha256": "bff518056dfeab9b185a30e8ed2b19358ea572d9ed2d86074ca82a9aa5e8c9a3",
+      "size": 1890
+    },
+    {
+      "path": "analysis/analysis_manifest.json",
+      "sha256": "8d96bc25de75a591b1485e2b61dc2b986c66c5981f6cf2e451861d8786af7a76",
+      "size": 1787
+    },
+    {
+      "path": "analysis/analysis_status.json",
+      "sha256": "5cfc83f7456c10d136ccc5cb4099884728d891b62d7c93f5424d3f0488624bd5",
+      "size": 514
+    },
+    {
+      "path": "analysis/artifact_index.json",
+      "sha256": "b5ff06414b7527bf63b8254cc88097e592d06e67e1abe33a08e602e7bec9c703",
+      "size": 436
+    },
+    {
+      "path": "analysis/candidate_decisions.json",
+      "sha256": "11896f6c7e1a1c55e963ffef9b02637ce88d96df0992f110a6a431df5014385f",
+      "size": 1907
+    },
+    {
+      "path": "analysis/comparison.json",
+      "sha256": "d69f5a63b90c95de909c9c269077d66cd8472bd46fa8be72f53cf1ef28e9c2bb",
+      "size": 198849
+    },
+    {
+      "path": "analysis/core_metric_recompute.json",
+      "sha256": "a006be689de7e18d56857c2bbcbcf38fe65d9fb8fafe75deb90703a48ec83169",
+      "size": 696
+    },
+    {
+      "path": "analysis/cost_profile.json",
+      "sha256": "aa9728cea8debf7cb3eb0302f78c1691c79a5cdd6c0fbfd7826581f1c73d494d",
+      "size": 832
+    },
+    {
+      "path": "analysis/lifecycle_events.json",
+      "sha256": "1c72957c3f18d2962caa72acdd54d4ad35f1ee0397997503d543c1d90bfd637c",
+      "size": 2308
+    },
+    {
+      "path": "analysis/per_expert.json",
+      "sha256": "af376b00ce33bf6d02490f686d5b36ed0003edbd67300b99205a3f0a7e948aaf",
+      "size": 1935
+    },
+    {
+      "path": "analysis/per_window.json",
+      "sha256": "3a00412c1ce5aea95318cf1ea718766ebb7ebe04d9969edfe69360f33098ca84",
+      "size": 47583
+    },
+    {
+      "path": "analysis/reuse_decisions.json",
+      "sha256": "c9bf4b821ffe3747bbf5bb84171564c162bd84be59915c0f70ed65fdb433060b",
+      "size": 24810
+    },
+    {
+      "path": "science/D_pool2/birth_checks.json",
+      "sha256": "ff08d5cb85702fed832eb0cb9c9781b9195fc93cbe7b8117e9011349e5169e2f",
+      "size": 554
+    },
+    {
+      "path": "science/D_pool2/candidate_decisions.json",
+      "sha256": "36c100ee1ad207d96c4e8bf4760f9ff412858b24b8759ad1b060e2b2e847ad8b",
+      "size": 1928
+    },
+    {
+      "path": "science/D_pool2/lifecycle_events.json",
+      "sha256": "b05d76c102063002d4737f37a4b7f076ca3e1ea90176c03333aee21b82502906",
+      "size": 2329
+    },
+    {
+      "path": "science/D_pool2/opportunity_log.json",
+      "sha256": "fac473aee5d4b8f22590355c16447dc8f43b44c62d6e79c3228e7218358fbe4a",
+      "size": 85359
+    },
+    {
+      "path": "science/D_pool2/per_expert_runtime.json",
+      "sha256": "326a651ba5e36e67f9ab72d3bcb579127942ec51b80a5559fff2a9756780d776",
+      "size": 384
+    },
+    {
+      "path": "science/D_pool2/predictions.npz",
+      "sha256": "51a5ac7ec4e72f340ab1f051bb3707ad44e5540786a94bf0b10f9a8af9e7dd6a",
+      "size": 2330920
+    },
+    {
+      "path": "science/D_pool2/prefix039_audit.json",
+      "sha256": "dbba34925612a13c85b3c995bb06bb114203b4f506c325b10df93fe8728aeff9",
+      "size": 213
+    },
+    {
+      "path": "science/D_pool2/pressure_checks.json",
+      "sha256": "391f7ef53b9bdb75972f38bcd9a6f6f59f7a046a277ba63160a1d56c8a6230ed",
+      "size": 131869
+    },
+    {
+      "path": "science/D_pool2/reuse_decisions.json",
+      "sha256": "671276db156b4851b54a70850cb268c9e05e05806ca68d702da3cb3fe8a5386f",
+      "size": 24831
+    },
+    {
+      "path": "science/D_pool2/sleep_checks.json",
+      "sha256": "fa5a9f9c9bcbc29dc1338d46c5f82d65778b8ae6ace8f6d787275ac9004fd600",
+      "size": 75786
+    },
+    {
+      "path": "science/D_pool2/summary.json",
+      "sha256": "496b165ce0ac1cd79d4bbd5073cb760f2a93ed64061d536e184f9fbf0ee72b47",
+      "size": 1101
+    },
+    {
+      "path": "science/D_pool2/update_log.json",
+      "sha256": "8fc610dcf77087d9fcb4450133a3cfd5fe8fc3d5c9a6e70e869629c98405ab10",
+      "size": 336327
+    },
+    {
+      "path": "science/budget_ledger.json",
+      "sha256": "d5ddf3ace9437ec114a46a5279341e17fe01f73cbec909b3d9d4907d46264e5f",
+      "size": 821
+    },
+    {
+      "path": "science/fixture_report.json",
+      "sha256": "0d9d4ed9c9dcc0d2ac0b50a59c334ba448c4ed645f35585e707871a5416f92eb",
+      "size": 1759
+    },
+    {
+      "path": "science/implementation_manifest.json",
+      "sha256": "ac21c3df13aca014c2e69863e0b7201313fed9adce1c6005a018ac45a7cc5fac",
+      "size": 1636
+    },
+    {
+      "path": "science/run_audit.json",
+      "sha256": "9733834322d1dec613a1ee7ff631eb3f5da3914caf428aafbd5497c73d4e1f04",
+      "size": 767
+    },
+    {
+      "path": "science/science_cost_raw.json",
+      "sha256": "9f5a80b7c0f0af9dda0b7e0f889b74898a8ffa12637064b3852544ad4c9fd726",
+      "size": 371
+    },
+    {
+      "path": "science/scientific_execution_complete.json",
+      "sha256": "af8c732110fc466337797819ca2b783fec91e478c9a149a5364e7c56a7efd352",
+      "size": 97
+    },
+    {
+      "path": "science/scientific_raw_manifest.json",
+      "sha256": "4eee7b48a62b58d377fa7298bb89a08755cbaa3bcb0a9a4f4156509eb1ae35f3",
+      "size": 11424
+    },
+    {
+      "path": "science/source_lock.json",
+      "sha256": "ae40e96287e04f4e6af0dc69df147ed4776285e2d921fd6f72e8d00901d6eb4a",
+      "size": 1526
+    },
+    {
+      "path": "science/status.json",
+      "sha256": "96caf88bcf4533019b1fd267321c95d34984f94bfe9c42d101f85552cc83f0a7",
+      "size": 182
+    }
+  ]
+}
