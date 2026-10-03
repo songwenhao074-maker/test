@@ -1,0 +1,51 @@
+name: Protocol040 dispatch after prestart materialization fix once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol040-dispatch-after-prestart-fix-once.yml'
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  dispatch:
+    if: contains(github.event.head_commit.message, '[p040-dispatch-after-prestart-fix]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact repaired Protocol040 execution SHA
+        uses: actions/checkout@v4
+        with:
+          ref: 562979a1a826de828f7d2bdc0017b3993c8623a1
+          fetch-depth: 1
+      - name: Validate registration and repaired code before dispatch
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "562979a1a826de828f7d2bdc0017b3993c8623a1"
+          python maintenance/validate_protocol040_plan.py
+          python -m py_compile run_ftmoe_protocol040.py analyze_ftmoe_protocol040.py             maintenance/validate_protocol040_plan.py maintenance/materialize_protocol040_sources.py maintenance/protocol040_finalize.py
+      - name: Dispatch formal Protocol040 after proven pre-science failure
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner=context.repo.owner, repo=context.repo.repo;
+            const execBranch='codex/protocol-040-two-expert-pool-20261003';
+            const execSha='562979a1a826de828f7d2bdc0017b3993c8623a1';
+            const br=await github.rest.repos.getBranch({owner,repo,branch:execBranch});
+            if(br.data.commit.sha!==execSha){core.setFailed('execution branch SHA mismatch');return;}
+            const arts=await github.rest.actions.listArtifactsForRepo({owner,repo,per_page:100});
+            if(arts.data.artifacts.some(a=>!a.expired && a.name.startsWith('protocol040-raw-'))){
+              core.setFailed('Protocol040 raw artifact exists; science may have started');return;
+            }
+            const runs=await github.rest.actions.listWorkflowRuns({owner,repo,workflow_id:'protocol040-two-expert-pool.yml',per_page:20});
+            if(runs.data.workflow_runs.some(r=>r.status==='queued'||r.status==='in_progress')){
+              core.setFailed('formal Protocol040 run already active');return;
+            }
+            await github.rest.actions.createWorkflowDispatch({
+              owner,repo,workflow_id:'protocol040-two-expert-pool.yml',ref:'main',
+              inputs:{execution_ref:execBranch,expected_execution_sha:execSha,resume_artifact_id:''}
+            });
+            core.info('Repaired Protocol040 dispatched at '+execSha);
