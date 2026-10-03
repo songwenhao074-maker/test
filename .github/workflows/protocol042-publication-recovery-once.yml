@@ -24,7 +24,7 @@ jobs:
       - name: Checkout fixed recovered result commit
         uses: actions/checkout@v4
         with:
-          ref: 16a0bc0
+          ref: codex/protocol-042-windowed-utility-20261003
           path: result
           fetch-depth: 1
 
