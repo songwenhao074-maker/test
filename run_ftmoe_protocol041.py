@@ -426,10 +426,11 @@ def _disk_resume_case(src,out,name,arm,prepare,steps_after=2,terminal=False):
     if terminal:
         # ensure last two issued predictions exist before terminal.
         a.advance(src["n"]); b.advance(src["n"]); a.terminal_settle(); b.terminal_settle()
-    ok=_semantic(a)==_semantic(b)
+    base_digest=hashlib.sha256(json.dumps(_semantic(a),sort_keys=True,default=str,allow_nan=True).encode()).hexdigest()
+    resumed_digest=hashlib.sha256(json.dumps(_semantic(b),sort_keys=True,default=str,allow_nan=True).encode()).hexdigest()
+    ok=base_digest==resumed_digest
     return {"test_id":name,"start_cursor":start_cursor,"start_substep":start_step,"target_cursor":target,"pass":bool(ok),
-            "base_digest":hashlib.sha256(json.dumps(_semantic(a),sort_keys=True,default=str).encode()).hexdigest(),
-            "resumed_digest":hashlib.sha256(json.dumps(_semantic(b),sort_keys=True,default=str).encode()).hexdigest()}
+            "base_digest":base_digest,"resumed_digest":resumed_digest}
 
 def run_fixtures(real_src,out):
     out=Path(out); out.mkdir(parents=True,exist_ok=True); rows=[]
