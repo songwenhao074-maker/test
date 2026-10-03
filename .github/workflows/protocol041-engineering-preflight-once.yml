@@ -1,0 +1,90 @@
+name: Protocol041 engineering preflight once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol041-engineering-preflight-once.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  preflight:
+    if: contains(github.event.head_commit.message, '[p041-preflight]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      GH_TOKEN: ${{ github.token }}
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      PYTHONHASHSEED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 4af4340076f415d02d50b69835d19d1f7232041c
+          fetch-depth: 1
+      - name: Validate frozen registration, kernels and syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "4af4340076f415d02d50b69835d19d1f7232041c"
+          python maintenance/validate_protocol041_plan.py
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          p=json.load(open('artifacts/ftmoe_online/protocol_041/plan.json'))
+          for rel,want in p['kernel']['files'].items():
+              got=hashlib.sha256(Path(rel).read_bytes()).hexdigest()
+              assert got==want,(rel,got,want)
+          print('kernel sha256 locks OK')
+          PY
+          python -m py_compile run_ftmoe_protocol041.py analyze_ftmoe_protocol041.py maintenance/materialize_protocol041_sources.py
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.8.18"
+      - name: Install fixed dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.4.1
+          python -m pip install numpy==1.24.4 psutil==5.9.8
+      - name: Download and lock Protocol036/040 sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/p036 /tmp/p040 /tmp/source036 /tmp/source040
+          mkdir -p /tmp/p036 /tmp/p040 /tmp/source036 /tmp/source040
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11147931152/zip" -o /tmp/p036.zip
+          echo "040bacac8f23659f56599b71d6d6706b62a544e44161c7c42fb5af73650f56c0  /tmp/p036.zip" | sha256sum -c -
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11265231995/zip" -o /tmp/p040.zip
+          echo "319d9f75aac25346e09027dabbe212acc33c14c81e06d8f1e09f8e418574e9fd  /tmp/p040.zip" | sha256sum -c -
+          unzip -q /tmp/p036.zip -d /tmp/p036
+          unzip -q /tmp/p040.zip -d /tmp/p040
+          python maintenance/materialize_protocol041_sources.py --extracted036 /tmp/p036 --extracted040 /tmp/p040             --out036 /tmp/source036 --out040 /tmp/source040 --report /tmp/p041_materialization.json
+      - name: Run all Protocol041 engineering fixtures
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/p041_preflight
+          python run_ftmoe_protocol041.py preflight --source036 /tmp/source036 --source040 /tmp/source040 --out-dir /tmp/p041_preflight
+          python - <<'PY'
+          import json
+          p=json.load(open('/tmp/p041_preflight/fixture_report.json'))
+          assert p['all_pass'] is True
+          req=set(p['required_fixture_ids']); got={x['test_id'] for x in p['fixtures']}
+          assert req==got,(req-got,got-req)
+          assert p['real_engineering_gradient_steps']==0
+          assert p['real_engineering_prefix_intervals_max']<=256
+          print('ALL FIXTURES PASS')
+          PY
+      - name: Upload engineering report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol041-engineering-preflight-${{ github.run_id }}
+          path: /tmp/p041_preflight
+          retention-days: 30
+          if-no-files-found: warn
