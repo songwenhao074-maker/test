@@ -60,7 +60,7 @@ def cmd_compact(a):
       "scientific_raw_manifest.json"
     }
     for p,rel in walk(src):
-        if Path(rel).name in keep_names or rel.startswith("D_pool2/"):
+        if Path(rel).name in keep_names or rel.startswith("Z_zero/") or rel.startswith("W_parent/") or rel.startswith("cached/"):
             q=dst/"science"/rel; q.parent.mkdir(parents=True,exist_ok=True); shutil.copy2(p,q)
     for p,rel in walk(ana):
         q=dst/"analysis"/rel; q.parent.mkdir(parents=True,exist_ok=True); shutil.copy2(p,q)
