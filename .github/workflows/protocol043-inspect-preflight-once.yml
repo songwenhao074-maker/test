@@ -17,8 +17,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11277888416/zip" -o /tmp/e.zip
-          echo "92f2c28693e3d4fe0b623d51224dcc42d7edc8ca1ca99ba427a2857d6a6c916a  /tmp/e.zip" | sha256sum -c -
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11278244520/zip" -o /tmp/e.zip
+          echo "a24444cf0bf29a614133e309259ef803265b50f359bf7fbc052e37bf5636085a  /tmp/e.zip" | sha256sum -c -
           rm -rf /tmp/e && mkdir /tmp/e && unzip -q /tmp/e.zip -d /tmp/e
           python - <<'PY'
           import json,pathlib
