@@ -158,52 +158,15 @@ jobs:
           python maintenance/protocol042_finalize.py manifest --root "$COMPACT" --out "$COMPACT/compact_manifest.json"
           python - <<'PY'
           import json,os,pathlib
-          s=json.load(open('/tmp/p042analysis/analysis_status.json'))
+          st=json.load(open('/tmp/p042analysis/analysis_status.json'))
           rid=os.environ['SCIENCE_RUN_ID']; rec=os.environ['GITHUB_RUN_ID']
-          sys=s['system_result_label']; main=s['main_development_success']; add=s['addition_policy_signal']; win=s['window_policy_signal']; pool=s['pool_exercised']
-          pathlib.Path('AGENTS.md').write_text(f"""# Active Experiment Directive — Protocol-042 revision 2 completed
+          sys=st['system_result_label']; main=st['main_development_success']; add=st['addition_policy_signal']; win=st['window_policy_signal']; pool=st['pool_exercised']
+          pathlib.Path('AGENTS.md').write_text("# Active Experiment Directive — Protocol-042 revision 2 completed\n\n"+f"Protocol-042 revision 2 science run {rid} completed. Analysis/publication recovered in run {rec} without scientific reexecution. System label: {sys}. Main development success: {main}. Addition-policy signal: {add}. Window-policy signal: {win}. Pool exercised: {pool}.\n\n"+f"Read docs/PROTOCOL042_RESULTS.md and artifacts/ftmoe_online/protocol_042/runs/run_{rid}/. Historical033–042 scientific budgets are closed.\n\nStop after Protocol-042 revision 2. Do not retry, add 64/256 science arms, add seed/stream, enable F, add hard weighting, delete accepted memories, or automatically start Protocol-043.\n")
+          pathlib.Path('NEXT_EXPERIMENT_LATEST.md').write_text("# Protocol-042 revision 2 已完成，停止等待分析\n\n"+f"Protocol-042 revision 2 science run {rid} 已完成；分析/发布在run {rec}无重训恢复。系统标签 **{sys}**；main development success={main}；addition-policy signal={add}；window-policy signal={win}；pool exercised={pool}。\n\n"+f"读取 docs/PROTOCOL042_RESULTS.md 与 artifacts/ftmoe_online/protocol_042/runs/run_{rid}/。四条登记序列均已关闭。\n\n不自动重试，不把64/256窗口变成科学臂，不加seed/新流，不恢复F，不加困难样本加权，不永久删除accepted memory，不启动Protocol-043。\n")
+          pathlib.Path('PROJECT_CONTEXT_LATEST.md').write_text("# Project Context Latest\n\n"+f"Latest bounded science is Protocol-042 revision 2 science run {rid}. Analysis/publication recovery run {rec} did not reexecute science. System label: **{sys}**. Main development success: {main}. Addition-policy signal: {add}. Window-policy signal: {win}. Pool exercised: {pool}.\n\n"+f"Protocol-042 tested additive multi-expert admission and current-epoch historical versus global-time window-128 utility using the same seen seed3601. Read docs/PROTOCOL042_RESULTS.md and artifacts/ftmoe_online/protocol_042/runs/run_{rid}/.\n\nHistorical033–042 budgets are closed. Any retry or next protocol requires new preregistration and user handoff.\n")
+          pathlib.Path('docs/GITHUB_EXPERIMENT_HANDOFF.md').write_text("# 当前交接：Protocol-042 revision 2 已完成\n\n"+f"Protocol-042 revision 2 science run {rid} 已完成；analysis/publication recovery run {rec} 仅消费封存raw，未重训。系统标签 **{sys}**；main development success={main}；addition-policy signal={add}；window-policy signal={win}；pool exercised={pool}。\n\n"+f"结果见 [PROTOCOL042_RESULTS.md](PROTOCOL042_RESULTS.md)，紧凑证据见 ../artifacts/ftmoe_online/protocol_042/runs/run_{rid}/。原raw artifact ID 11276470062。\n\n到此停止。不重跑042，不增加窗口科学臂/seed/流/F/困难加权/永久删除，也不自动进入043。\n")
+          pathlib.Path('README.md').write_text("# PreGAN+ / FT-MoE 在线实验\n\n目标：在合理部署场景中，通过结构修改，使保留动态新增、知识保存/选择、休眠复用及容量管理思想的完整D优于持续学习C。\n\n"+f"**最新完成：[Protocol-042 revision 2 窗口效用与加性接入](docs/PROTOCOL042_RESULTS.md)，science run {rid}。**\n分析/发布在run {rec}无重训恢复。系统标签 **{sys}**；main development success={main}；addition-policy signal={add}；window-policy signal={win}；pool exercised={pool}。\n\n"+f"[执行交接](docs/GITHUB_EXPERIMENT_HANDOFF.md) / [042紧凑证据](artifacts/ftmoe_online/protocol_042/runs/run_{rid}/) / [042冻结方案](docs/PROTOCOL042_WINDOWED_UTILITY_20261003.md)\n\n结果仍属于已观察seed3601开发证据，不是独立确认。Protocol-042 revision 2 到此停止。\n")
 
-Protocol-042 revision 2 science run {rid} completed. Analysis/publication recovered in run {rec} without scientific reexecution. System label: {sys}. Main development success: {main}. Addition-policy signal: {add}. Window-policy signal: {win}. Pool exercised: {pool}.
-
-Read docs/PROTOCOL042_RESULTS.md and artifacts/ftmoe_online/protocol_042/runs/run_{rid}/. Historical033–042 scientific budgets are closed.
-
-Stop after Protocol-042 revision 2. Do not retry, add 64/256 science arms, add seed/stream, enable F, add hard weighting, delete accepted memories, or automatically start Protocol-043.
-""")
-          pathlib.Path('NEXT_EXPERIMENT_LATEST.md').write_text(f"""# Protocol-042 revision 2 已完成，停止等待分析
-
-Protocol-042 revision 2 science run {rid} 已完成；分析/发布在run {rec}无重训恢复。系统标签 **{sys}**；main development success={main}；addition-policy signal={add}；window-policy signal={win}；pool exercised={pool}。
-
-读取 docs/PROTOCOL042_RESULTS.md 与 artifacts/ftmoe_online/protocol_042/runs/run_{rid}/。四条登记序列均已关闭。
-
-不自动重试，不把64/256窗口变成科学臂，不加seed/新流，不恢复F，不加困难样本加权，不永久删除accepted memory，不启动Protocol-043。
-""")
-          pathlib.Path('PROJECT_CONTEXT_LATEST.md').write_text(f"""# Project Context Latest
-
-Latest bounded science is Protocol-042 revision 2 science run {rid}. Analysis/publication recovery run {rec} did not reexecute science. System label: **{sys}**. Main development success: {main}. Addition-policy signal: {add}. Window-policy signal: {win}. Pool exercised: {pool}.
-
-Protocol-042 tested additive multi-expert admission and current-epoch historical versus global-time window-128 utility using the same seen seed3601. Read docs/PROTOCOL042_RESULTS.md and artifacts/ftmoe_online/protocol_042/runs/run_{rid}/.
-
-Historical033–042 budgets are closed. Any retry or next protocol requires new preregistration and user handoff.
-""")
-          pathlib.Path('docs/GITHUB_EXPERIMENT_HANDOFF.md').write_text(f"""# 当前交接：Protocol-042 revision 2 已完成
-
-Protocol-042 revision 2 science run {rid} 已完成；analysis/publication recovery run {rec} 仅消费封存raw，未重训。系统标签 **{sys}**；main development success={main}；addition-policy signal={add}；window-policy signal={win}；pool exercised={pool}。
-
-结果见 [PROTOCOL042_RESULTS.md](PROTOCOL042_RESULTS.md)，紧凑证据见 ../artifacts/ftmoe_online/protocol_042/runs/run_{rid}/。原raw artifact ID 11276470062。
-
-到此停止。不重跑042，不增加窗口科学臂/seed/流/F/困难加权/永久删除，也不自动进入043。
-""")
-          pathlib.Path('README.md').write_text(f"""# PreGAN+ / FT-MoE 在线实验
-
-目标：在合理部署场景中，通过结构修改，使保留动态新增、知识保存/选择、休眠复用及容量管理思想的完整D优于持续学习C。
-
-**最新完成：[Protocol-042 revision 2 窗口效用与加性接入](docs/PROTOCOL042_RESULTS.md)，science run {rid}。**
-分析/发布在run {rec}无重训恢复。系统标签 **{sys}**；main development success={main}；addition-policy signal={add}；window-policy signal={win}；pool exercised={pool}。
-
-[执行交接](docs/GITHUB_EXPERIMENT_HANDOFF.md) / [042紧凑证据](artifacts/ftmoe_online/protocol_042/runs/run_{rid}/) / [042冻结方案](docs/PROTOCOL042_WINDOWED_UTILITY_20261003.md)
-
-结果仍属于已观察seed3601开发证据，不是独立确认。Protocol-042 revision 2 到此停止。
-""")
           PY
 
       - name: Upload compact recovered handoff
