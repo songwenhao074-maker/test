@@ -1,0 +1,97 @@
+name: Protocol042 rev2 engineering preflight once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol042-engineering-preflight-once.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  preflight:
+    if: contains(github.event.head_commit.message, '[p042r2-preflight]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      GH_TOKEN: ${{ github.token }}
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      PYTHONHASHSEED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: be57b0c2b432ff55b017cba32f0127832ee78123
+          fetch-depth: 1
+      - name: Static registration kernel and syntax gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "be57b0c2b432ff55b017cba32f0127832ee78123"
+          python maintenance/validate_protocol042_plan.py
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          p=json.load(open('artifacts/ftmoe_online/protocol_042/plan.json'))
+          assert p['revision']==2
+          for rel,want in p['kernel']['files'].items():
+              q=Path(rel)
+              assert q.exists(),('missing kernel',rel)
+              got=hashlib.sha256(q.read_bytes()).hexdigest()
+              assert got==want,(rel,got,want)
+          print('fixed historical kernel locks OK')
+          PY
+          python -m py_compile protocol042_common.py protocol042_engine.py run_ftmoe_protocol042.py analyze_ftmoe_protocol042.py maintenance/materialize_protocol042_sources.py maintenance/protocol042_finalize.py
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.8.18"
+      - name: Install fixed dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.4.1
+          python -m pip install numpy==1.24.4 psutil==5.9.8
+      - name: Download verify and materialize locked sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/p036 /tmp/p041 /tmp/source036 /tmp/source041
+          mkdir -p /tmp/p036 /tmp/p041 /tmp/source036 /tmp/source041
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11147931152/zip" -o /tmp/p036.zip
+          echo "040bacac8f23659f56599b71d6d6706b62a544e44161c7c42fb5af73650f56c0  /tmp/p036.zip" | sha256sum -c -
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11269043834/zip" -o /tmp/p041.zip
+          echo "baa36f1fbb3489f76d8f0ffb5d8e4ebc88317e231bd934146e185ac2e4ffde6e  /tmp/p041.zip" | sha256sum -c -
+          unzip -q /tmp/p036.zip -d /tmp/p036
+          unzip -q /tmp/p041.zip -d /tmp/p041
+          python maintenance/materialize_protocol042_sources.py --extracted036 /tmp/p036 --extracted041 /tmp/p041             --out036 /tmp/source036 --out041 /tmp/source041 --report /tmp/p042_materialization.json
+      - name: Run rev2 production engineering fixtures
+        shell: bash
+        run: |
+          set +e
+          rm -rf /tmp/p042_preflight
+          python run_ftmoe_protocol042.py preflight --source036 /tmp/source036 --source041 /tmp/source041 --out-dir /tmp/p042_preflight
+          RC=$?
+          echo "PRECHECK_RC=$RC"
+          if [ -f /tmp/p042_preflight/fixture_report.json ]; then
+            python - <<'PY'
+          import json
+          p=json.load(open('/tmp/p042_preflight/fixture_report.json'))
+          print(json.dumps(p,indent=2))
+          if p.get('real_engineering_prefixes',0)>0:
+              assert p['all_pass'] is True, 'real prefix was consumed but final gate failed'
+          PY
+          fi
+          exit $RC
+      - name: Upload engineering evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol042-rev2-engineering-${{ github.run_id }}
+          path: |
+            /tmp/p042_preflight
+            /tmp/p042_materialization.json
+          retention-days: 90
+          if-no-files-found: warn
