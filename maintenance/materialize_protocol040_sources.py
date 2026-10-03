@@ -33,11 +33,13 @@ def index(root):
     return out
 
 def materialize(src_root, dest_root, expected, label):
-    idx=index(src_root); dest_root=Path(dest_root); rows=[]
+    src_root=Path(src_root); dest_root=Path(dest_root); rows=[]
     for rel,digest in expected.items():
-        hits=idx.get(digest,[])
+        suffix=Path(rel).as_posix()
+        named=[p for p in src_root.rglob(Path(rel).name) if p.is_file() and p.as_posix().endswith("/"+suffix)]
+        hits=[p for p in named if sha(p)==digest]
         if len(hits)!=1:
-            raise RuntimeError(f"{label} digest {digest} for {rel}: expected one file, found {len(hits)}")
+            raise RuntimeError(f"{label} {rel}: expected one suffix+digest match, found {len(hits)} from {len(named)} suffix matches")
         q=dest_root/rel; q.parent.mkdir(parents=True,exist_ok=True); shutil.copy2(hits[0],q)
         if sha(q)!=digest: raise RuntimeError("copy digest mismatch "+rel)
         rows.append({"path":rel,"sha256":digest,"source_path":str(hits[0])})
