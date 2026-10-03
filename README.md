@@ -1,11 +1,13 @@
 # PreGAN+ / FT-MoE 在线实验
-目标：在明确合理的部署场景中检验动态残差专家D的优势。
 
-**当前唯一任务：[Protocol-032正常NLL容忍额试验](docs/PROTOCOL032_SINGLE_TASK_DIRECTIVE_20260927.md)，尚未运行。**
-[当前交接](docs/GITHUB_EXPERIMENT_HANDOFF.md) / [计划JSON](artifacts/ftmoe_online/protocol_032/plan.json) / [6800行结果分析](docs/PROTOCOL031_INTERIM6800_ANALYSIS_20260927.md)。
+目标：在合理部署场景中，通过结构修改，使保留动态新增、知识保存/选择、休眠复用及容量管理思想的完整D优于持续学习C。
 
-031的6800行前缀C/D回放已完成：两回归平均AP为C=0.819464、D=0.816672；D未产生真实休眠专家和复用，耗时约为C的18倍。完整9869行流未完成。不能据此声称D更好或更省。
+**当前下一任务：[Protocol-040 最小双专家动态池](docs/PROTOCOL040_TWO_EXPERT_POOL_20261003.md)。方案已登记，尚未实现或启动；由用户交接给执行模型。**
 
-下一次只改变D的F0正常NLL容忍额，其他质量门槛保持；沿用6799计分＋1保护行，C/D各一次。不继续模拟、不追加A/B或种子。实验实现位于既有实验分支，接手前读交接。
+[执行交接](docs/GITHUB_EXPERIMENT_HANDOFF.md) / [机器计划](artifacts/ftmoe_online/protocol_040/plan.json) / [最新已完成结果：039](docs/PROTOCOL039_RESULTS.md)
 
-历史结果、模拟器、checkpoint与恢复依赖保留。[历史索引](docs/HISTORICAL_EXPERIMENTS.md) / [许可证](LICENSE)。
+040保留B=C+D_lin，在其上最多保存两个动态专家、一次只部署一个，检验新增、选择与重复休眠复用能否保住D>C。只新训练一条D_pool2序列；缓存控制不重训，累计性能损失预算固定对D_keep。F研究、新流确认与永久删除不在本轮范围。
+
+039在已观察seed3601上，D相对C全程AP+0.018781、六窗+0.012708；一次休眠/唤醒后保持优势，但只验证一个动态专家的一次周期。不能据此宣布完整动态系统或跨流优势已确认，也不宣称整体部署加速。
+
+历史数据、源码、checkpoint和失败结果保留。[历史索引](docs/HISTORICAL_EXPERIMENTS.md) / [许可证](LICENSE)。

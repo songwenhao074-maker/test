@@ -1,7 +1,9 @@
-# Project Context Latest
+# Project Context Latest — 2026-10-03
 
-Latest bounded science is Protocol-039 run 36982845152, result label **progress_to_next_step**. Read docs/PROTOCOL039_RESULTS.md and artifacts/ftmoe_online/protocol_039/runs/run_36982845152/.
+用户最终目标：通过修改结构，使保留动态专家新增、选择、知识保存/复用与容量管理主要思想的完整D优于持续学习C；不要求与旧D完全相同，也不以战胜F为前置条件。
 
-Protocol-039 tested one D_sleepwake lifecycle sequence on observed seed3601 with cached C/B/D_keep controls. It did not train or compare F. Historical033-039 budgets are closed.
+当前只有[Protocol-040](docs/PROTOCOL040_TWO_EXPERT_POOL_20261003.md)的指示与机器计划已登记，尚未实现/启动。用户将交给其他模型执行。任务是保留B=C+D_lin的学习路径，以最多两个动态专家、一个活动专家测试最小可重复管理池；一条新D_pool2科学序列，最多352次live+16次shadow更新。
 
-No automatic follow-up is authorized. Permanent deletion, new-stream confirmation and deferred F research require separate future registration and user handoff.
+最新已完成科学实验仍是Protocol-039 run36982845152：D_sleepwake相对C全程AP+0.018781、六窗+0.012708；相对D_keep全程−0.000471、六窗−0.000775；少656次动态预测调用和41次更新。只验证一次生命周期、一个已见seed3601，未证明完整动态删除、独立泛化或整体部署加速。
+
+040以C为主比较；累计质量损失预算固定对D_keep，D_039作为上一版参照。两专家真实运行与局部效用分开报告。永久删除、F研究、新流确认暂缓。旧033–039状态/失败证据/预算不改写。源码与精确输入见[GitHub交接](docs/GITHUB_EXPERIMENT_HANDOFF.md)。
