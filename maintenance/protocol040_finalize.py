@@ -25,7 +25,11 @@ def walk(root, skip=()):
 def build_manifest(root,out):
     root=Path(root); out=Path(out)
     rows=[]
-    for p,rel in walk(root,{out.relative_to(root).as_posix()} if out.is_relative_to(root) else set()):
+    try:
+        skip={out.relative_to(root).as_posix()}
+    except ValueError:
+        skip=set()
+    for p,rel in walk(root,skip):
         rows.append({"path":rel,"sha256":sha(p),"size":p.stat().st_size})
     obj={"protocol":"040","root":str(root),"file_count":len(rows),"files":rows}
     dump(out,obj); return obj
