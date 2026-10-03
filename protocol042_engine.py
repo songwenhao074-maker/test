@@ -69,6 +69,37 @@ class UMachine(p41.Machine041):
             if int(j.get("action_seq",0))>int(m.action_seq): raise RuntimeError("ambiguous_step: U journal newer than checkpoint")
         return m
 
+    def _shadow_update_step(self,t):
+        s=self.shadow
+        if s is None or s.get("status")!="training" or t not in self.src["core"]["by_t"]: return False
+        if not self.allow_gradient: raise AssertionError("engineering prefix attempted shadow gradient")
+        if self.shadow_optimizer_steps>=16: raise AssertionError("U shadow step budget")
+        batch=[int(i) for i in self.src["core"]["by_t"][t]["batch_indices"]]
+        if batch and max(batch)+2>t: raise AssertionError("immature batch")
+        row=self._begin_action("shadow_optimizer_step",t,{"expert_id":int(s["id"]),"batch_indices":batch,"update_number":int(s["updates"])+1})
+        before=self.model_hash(s); ob=self.optimizer_hash(s); t0=time.perf_counter()
+        loss,gn,_=p37.do_update(s["model"],s["optimizer"],self.src["core"],batch)
+        self.update_seconds+=time.perf_counter()-t0; s["version"]+=1
+        self.shadow_optimizer_steps+=1; s["updates"]+=1
+        ev={"at_interval":int(t),"kind":"shadow","expert_id":int(s["id"]),"batch_indices":batch,"loss":float(loss),"grad_norm":float(gn),
+            "model_hash_before":before,"model_hash_after":self.model_hash(s),"optimizer_hash_before":ob,"optimizer_hash_after":self.optimizer_hash(s),
+            "optimizer_step_after":p40.opt_step(s["optimizer"]),"version_after":int(s["version"])}
+        self.update_log.append(ev)
+        if s["updates"]==1:
+            if p40.opt_step(s["optimizer"])!=1: raise AssertionError("U child first Adam step")
+            if self.initialization_events:
+                self.initialization_events[-1]["candidate_first_optimizer_step_after"]=1
+                self.initialization_events[-1]["candidate_hash_after_first_update"]=self.model_hash(s)
+        if s["updates"]==16:
+            s["status"]="validating"; s["validation_start"]=int(t)+1; s["issued"]={}; s["settled_rows"]={}; s["ready"]=False
+            self.candidate_decisions.append({"event":"shadow_training_complete","at_interval":int(t),"candidate_id":int(s["id"]),"updates":16,
+              "validation_start":int(t)+1,"model_hash":self.model_hash(s),"optimizer_step":p40.opt_step(s["optimizer"])})
+        self._commit_action(row,{"model_hash_after":ev["model_hash_after"],"optimizer_step_after":ev["optimizer_step_after"],
+                                 "shadow_updates_after":int(s["updates"]),"status_after":s["status"]})
+        self.save_checkpoint(("shadow_training_complete_t%d" if s["updates"]==16 else "shadow_update_t%d")%t,named=s["updates"]==16)
+        return True
+
+
 class NewMachine:
     SUBSTEPS=("predict","settle","control","live_update","shadow_update","finish")
 
