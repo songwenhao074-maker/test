@@ -135,19 +135,26 @@ def setup_useful_pair(src,work,harmful=False):
     m.experts={0:e0,1:e1}; m.active_ids=[0,1]; m.next_id=2; m.tracker.reset(0,0,[0,1],"synthetic_active_pair"); return m
 
 def fixture_float64(out):
-    live=np.ones((128,c.HOSTS),np.float32); delta=np.full_like(live,np.float32(1e-7)); y=np.zeros_like(live,dtype=np.int64); y[:,::2]=1
+    # 129 rows let the independent checker distinguish the sealed 0..127 window
+    # from the adversarial 1..128 membership while production uses only 0..127.
+    live=np.ones((129,c.HOSTS),np.float32); delta=np.full_like(live,np.float32(1e-7)); y=np.zeros_like(live,dtype=np.int64); y[:,::2]=1
+    live[128]=np.float32(-3.25); delta[128]=np.float32(1.75); y[128]=1-y[128]
     tr=c.UtilityTracker(); tr.reset(0,0,[0],"fixture")
     for i in range(128): tr.settle(i,0,live[i],{0:delta[i]},y[i])
     online=tr.score(0,127); off=c.independent_score_from_arrays(live,delta,y,np.arange(128))
-    l64=live.astype(np.float64); d64=delta.astype(np.float64); correct=c.stable_bce_rows(l64-d64,y)-c.stable_bce_rows(l64,y)
-    legacy=c.stable_bce_rows((live-delta).astype(np.float32),y)-c.stable_bce_rows(live,y)
+    l64=live[:128].astype(np.float64); d64=delta[:128].astype(np.float64)
+    correct=c.stable_bce_rows(l64-d64,y[:128])-c.stable_bce_rows(l64,y[:128])
+    legacy=c.stable_bce_rows((live[:128]-delta[:128]).astype(np.float32),y[:128])-c.stable_bce_rows(live[:128],y[:128])
     dtype_detect=float(np.max(np.abs(correct-legacy)))>1e-12
     fields=("score","score_pos","score_neg","removal_fpr_delta","removal_recall_delta")
     exact=all(abs(float(online[k])-float(off[k]))<=1e-10 for k in fields)
-    wrong_sign=c.independent_score_from_arrays(live,-delta,y,np.arange(128)); wrong_member=c.independent_score_from_arrays(live,delta,y,np.r_[np.arange(127),126])
-    detects=abs(wrong_sign["score"]-off["score"])>1e-12 and (wrong_member.get("first_i")!=off.get("first_i") or wrong_member.get("score")!=off.get("score"))
-    return {"test_id":"float64_counterfactual_independent_golden","pass":bool(exact and dtype_detect and detects),"online":online,"independent":off,
-      "float32_bug_max_abs":float(np.max(np.abs(correct-legacy))),"wrong_sign_detected":detects,"production_tracker_called_by_independent":False}
+    wrong_sign=c.independent_score_from_arrays(live,-delta,y,np.arange(128))
+    wrong_member=c.independent_score_from_arrays(live,delta,y,np.arange(1,129))
+    sign_detect=abs(float(wrong_sign["score"])-float(off["score"]))>1e-12
+    member_detect=abs(float(wrong_member["score"])-float(off["score"]))>1e-12 or wrong_member.get("first_i")!=off.get("first_i")
+    return {"test_id":"float64_counterfactual_independent_golden","pass":bool(exact and dtype_detect and sign_detect and member_detect),
+      "online":online,"independent":off,"float32_bug_max_abs":float(np.max(np.abs(correct-legacy))),
+      "wrong_sign_detected":sign_detect,"wrong_window_member_detected":member_detect,"production_tracker_called_by_independent":False}
 
 def fixture_window(out):
     tr=c.UtilityTracker(); tr.reset(1,0,[0],"fixture"); live=np.ones(c.HOSTS,np.float32); d=np.full(c.HOSTS,.1,np.float32)
@@ -211,24 +218,45 @@ def fixture_weak_gain(out):
     r1=next(r for r in table if r["expert_id"]==1); protected=("positive_contribution" in r1["reasons"])
     return {"test_id":"eviction_positive_weak_gain_protected","pass":bool(protected and not r1["eligible"]),"selected":victim,"weak_expert_row":r1,"reuse_evaluations":len(m.reuse_history)}
 
-def fixture_eviction_guards(out,base):
-    # Start from real preview evidence, then perturb one guard at a time without taking lifecycle actions.
-    checks={}
-    m=base
-    _,tab=m._reclamation_table(min(m.cursor-1,367)); checks["baseline_has_table"]=bool(tab)
-    orig=copy.deepcopy(m.reuse_history)
-    if len(m.reuse_history)>=2:
-        m.reuse_history[-2]["intervals"][1]=m.reuse_history[-1]["intervals"][0]+1
-        v,t=m._reclamation_table(min(m.cursor-1,367)); checks["overlap_blocks"]=v is None
-        m.reuse_history=copy.deepcopy(orig); m.reuse_history[-1]["candidates"][0]["support"]=False
-        v,t=m._reclamation_table(min(m.cursor-1,367)); checks["unknown_blocks_that_candidate"]=any("support_unknown" in r.get("reasons",[]) for r in t if r["state"]=="dormant")
-        m.reuse_history=copy.deepcopy(orig)
-        v,t=m._reclamation_table(700); checks["stale_blocks"]=v is None
-        m.reuse_history=copy.deepcopy(orig)
+def fixture_eviction_guards(out,base_unused=None):
+    # Generate two real, non-overlapping future reuse rejection windows through production tick.
+    src=lifecycle_source(n=420,scale=20.0,switch=None)
+    m=setup_full_pool(src,"D_no_gc",Path(out)/"guard_actual",20.0); m.advance(256)
+    dormant=m.dormant_ids(); hashes={eid:m._model_hash(m.experts[eid]) for eid in dormant}
+    relevant=[h for h in m.reuse_history if int(h["epoch"])==m.deployment_epoch and h["candidate_ids"]==dormant and h["candidate_hashes"]==hashes]
+    base_hist=copy.deepcopy(m.reuse_history)
+    victim,base_table=m._reclamation_table(255)
+    baseline=bool(victim is not None and len(relevant)>=2)
+    checks={"baseline_real_two_window_eligible":baseline}
+    if baseline:
+        # Modify only sealed evidence to prove each guard fails closed; no lifecycle transition is invoked.
+        # Locate the last two relevant objects by decision_t.
+        rel_decisions=[int(h["decision_t"]) for h in relevant[-2:]]
+        def mutate_matching(fn):
+            m.reuse_history=copy.deepcopy(base_hist)
+            matches=[h for h in m.reuse_history if int(h["epoch"])==m.deployment_epoch and h["candidate_ids"]==dormant and h["candidate_hashes"]==hashes]
+            fn(matches[-2:])
+            return m._reclamation_table(255)
+        v,t=mutate_matching(lambda hs: hs[0]["intervals"].__setitem__(1,int(hs[1]["intervals"][0])+1))
+        checks["overlap_blocks"]=v is None
+        def unknown(hs):
+            for q in hs[-1]["candidates"]: q["support"]=False
+        v,t=mutate_matching(unknown); checks["unknown_blocks"]=v is None
+        m.reuse_history=copy.deepcopy(base_hist); v,t=m._reclamation_table(500); checks["stale_blocks"]=v is None
+        m.reuse_history=copy.deepcopy(base_hist)
+        # A current hash mismatch means neither evidence window belongs to the current dormant set.
+        target=dormant[0]; old=m.experts[target]["dormant_model_hash"]; m.experts[target]["dormant_model_hash"]="intentional_hash_guard_probe"
+        # _reclamation_table uses actual model hashes; change evidence instead, preserving the frozen model itself.
+        m.experts[target]["dormant_model_hash"]=old
+        for h in m.reuse_history:
+            if int(h["epoch"])==m.deployment_epoch and h["candidate_ids"]==dormant:
+                h["candidate_hashes"][target]="intentional_mismatch"
+        v,t=m._reclamation_table(255); checks["hash_mismatch_blocks"]=v is None
+        m.reuse_history=base_hist
     else:
-        checks.update({"overlap_blocks":False,"unknown_blocks_that_candidate":False,"stale_blocks":False})
-    m.reuse_history=orig
-    return {"test_id":"eviction_stale_unknown_overlap_hash_guards","pass":bool(all(checks.values())),"checks":checks}
+        checks.update({"overlap_blocks":False,"unknown_blocks":False,"stale_blocks":False,"hash_mismatch_blocks":False})
+    return {"test_id":"eviction_stale_unknown_overlap_hash_guards","pass":bool(all(checks.values())),"checks":checks,
+      "real_reuse_history_count":len(relevant),"real_reuse_decisions":[h.get("decision_t") for h in relevant],"baseline_table":base_table}
 
 def fixture_gc_accept(out,src,pair):
     b=pair["D_bounded"]; ev=[x for x in b.reclamation_events if x.get("event")=="permanent_reclaim_and_shadow_start"]
@@ -271,24 +299,30 @@ def fixture_resume(out,src):
     return {"test_id":"disk_resume_continue_to_end_all_states","pass":bool(len(evidence)>=5 and all(x["same_endpoint"] for x in evidence)),
       "continuous_digest":digest,"continuation_cases":evidence,"snapshot_only":False}
 
-def fixture_crash(out):
+def fixture_crash(out,gcsrc,gcpair):
+    # Joint multi-expert optimizer transaction: pending journal is written before either step.
     src=lifecycle_source(n=500,scale=20.0,switch=256)
-    # Joint optimizer ambiguity.
     m=setup_full_pool(src,"D_bounded",Path(out)/"crash_step",20.0); m.checkpoint_dir=Path(out)/"crash_step_cp"; m.save_checkpoint("safe",True)
     safe=Path(out)/"crash_step_cp/latest.pt"; m.crash_probe="after_first_joint_step"; step_block=False
     try: m.advance(16)
     except RuntimeError: pass
     try: Machine043.restore(src,Path(out)/"crash_step",safe,arm="D_bounded",strict_journal=True)
     except RuntimeError as e: step_block="ambiguous_state" in str(e)
-    # GC atomic ambiguity using production evolution to just before natural opportunity.
-    g=setup_full_pool(src,"D_bounded",Path(out)/"crash_gc",20.0); g.checkpoint_dir=Path(out)/"crash_gc_cp"; g.advance(367); g.save_checkpoint("safe_pre_gc",True)
-    gs=Path(out)/"crash_gc_cp/latest.pt"; g.crash_probe="after_reclaim_before_shadow"; gc_block=False
-    try: g.advance(368)
-    except RuntimeError: pass
-    try: Machine043.restore(src,Path(out)/"crash_gc",gs,arm="D_bounded",strict_journal=True)
-    except RuntimeError as e: gc_block="ambiguous_state" in str(e)
-    return {"test_id":"crash_atomic_step_eviction_budget","pass":bool(step_block and gc_block),"joint_step_ambiguous_blocked":step_block,
-      "reclaim_create_ambiguous_blocked":gc_block,"from_zero_retry":False}
+    # Use the paired no-GC arm to locate the first *real* full-capacity birth opportunity.
+    blocks=[x for x in gcpair["D_no_gc"].reclamation_events if x.get("event")=="capacity_blocked_no_gc" and x.get("would_delete_id") is not None]
+    gc_block=False; event_t=None
+    if blocks:
+        event_t=int(blocks[0]["at_interval"])
+        g=setup_full_pool(gcsrc,"D_bounded",Path(out)/"crash_gc",20.0); g.checkpoint_dir=Path(out)/"crash_gc_cp"
+        g.advance(event_t); g.save_checkpoint("safe_pre_gc",True); gs=Path(out)/"crash_gc_cp/latest.pt"
+        g.crash_probe="after_reclaim_before_shadow"
+        try: g.advance(event_t+1)
+        except RuntimeError: pass
+        try: Machine043.restore(gcsrc,Path(out)/"crash_gc",gs,arm="D_bounded",strict_journal=True)
+        except RuntimeError as e: gc_block="ambiguous_state" in str(e)
+    return {"test_id":"crash_atomic_step_eviction_budget","pass":bool(step_block and gc_block),
+      "joint_step_ambiguous_blocked":step_block,"reclaim_create_ambiguous_blocked":gc_block,
+      "real_full_capacity_control_t":event_t,"production_control_path_used":event_t is not None,"from_zero_retry":False}
 
 def fixture_fail_closed(out):
     req=c.verify_plan()["engineering"]["required_fixture_ids"]; d=Path(out)/"gate_negative"; d.mkdir(parents=True,exist_ok=True)
@@ -317,7 +351,7 @@ def run_fixtures(real_src,out):
     gcsrc,pair=run_gc_pair(out,20.0,820)
     rows.append(fixture_joint_shadow(out,pair["D_bounded"])); rows.append(fixture_reuse(out)); rows.append(fixture_weak_gain(out))
     rows.append(fixture_eviction_guards(out,pair["D_no_gc"])); rows.append(fixture_gc_accept(out,gcsrc,pair)); rows.append(fixture_gc_reject(out))
-    rows.append(fixture_pair_divergence(out,pair)); rows.append(fixture_resume(out,gcsrc)); rows.append(fixture_crash(out))
+    rows.append(fixture_pair_divergence(out,pair)); rows.append(fixture_resume(out,gcsrc)); rows.append(fixture_crash(out,gcsrc,pair))
     rows.append(fixture_fail_closed(out)); rows.append(fixture_future(out))
     req=c.verify_plan()["engineering"]["required_fixture_ids"]; by={x["test_id"]:x for x in rows}
     synth_ok=set(by)==set(req) and all(type(by[k].get("pass")) is bool and by[k]["pass"] for k in req)
