@@ -455,16 +455,22 @@ def _fixture_recompute(out):
 
 def run_fixtures(real_src,out):
     out=Path(out); out.mkdir(parents=True,exist_ok=True)
-    # One allowed real prefix, zero gradients, before E0. U production entrypoint and disk restore.
+    # Synthetic production-path fixtures run first and do not consume the single real-prefix allowance.
+    rows=[_fixture_additive(out),_fixture_window(),_fixture_maturity(out),_fixture_victim(out),_fixture_gradients(out),
+          _fixture_qualification(out),_fixture_resume(out),_fixture_crash(out),_fixture_gates(out),_fixture_recompute(out)]
+    req=c.verify_plan()["engineering"]["required_fixture_ids"]; by={x["test_id"]:x for x in rows}
+    synth_ok=set(by)==set(req) and all(type(by[k].get("pass")) is bool and by[k]["pass"] for k in req)
+    if not synth_ok:
+        report={"protocol":"042","revision":2,"all_pass":False,"required_fixture_ids":req,"fixtures":rows,
+          "real_engineering_prefixes":0,"real_engineering_prefix_intervals_max":0,"real_engineering_gradient_steps":0,
+          "real_prefix_exact_B_disk_resume":None,"production_entrypoint_shared":True,"real_event_evidence_required":True}
+        W(out/"fixture_report.json",report); return report
+    # Only after every synthetic gate passes, consume the one allowed real zero-gradient prefix.
     us=u_source(real_src); m=UMachine(us,out/"real_prefix",allow_gradient=False,real_science=False); m.checkpoint_dir=out/"real_prefix_cp"
     m.advance(128); m.save_checkpoint("real128",True)
     r=UMachine.restore(us,out/"real_prefix_restore",m.checkpoint_dir/"latest.pt",allow_gradient=False,strict_journal=False); r.checkpoint_dir=out/"real_prefix_restore_cp"; r.advance(256)
     real_ok=bool(np.array_equal(r.out["probability"][:256],real_src["B"]["probability"][:256]) and r.live_optimizer_steps==0 and r.shadow_optimizer_steps==0 and not r.experts)
-    rows=[_fixture_additive(out),_fixture_window(),_fixture_maturity(out),_fixture_victim(out),_fixture_gradients(out),
-          _fixture_qualification(out),_fixture_resume(out),_fixture_crash(out),_fixture_gates(out),_fixture_recompute(out)]
-    req=c.verify_plan()["engineering"]["required_fixture_ids"]; by={x["test_id"]:x for x in rows}
-    ok=real_ok and set(by)==set(req) and all(type(by[k].get("pass")) is bool and by[k]["pass"] for k in req)
-    report={"protocol":"042","revision":2,"all_pass":bool(ok),"required_fixture_ids":req,"fixtures":rows,
+    report={"protocol":"042","revision":2,"all_pass":bool(real_ok),"required_fixture_ids":req,"fixtures":rows,
       "real_engineering_prefixes":1,"real_engineering_prefix_intervals_max":256,"real_engineering_gradient_steps":0,
       "real_prefix_exact_B_disk_resume":real_ok,"production_entrypoint_shared":True,"real_event_evidence_required":True}
     W(out/"fixture_report.json",report); return report
