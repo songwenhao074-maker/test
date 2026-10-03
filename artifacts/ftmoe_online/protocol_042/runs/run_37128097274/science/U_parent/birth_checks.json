@@ -1,0 +1,29 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "arm": "U_parent",
+  "checks": [
+    {
+      "at_interval": 335,
+      "m": 333,
+      "R": 0.28469476264490434,
+      "P": 0.03657476350159636,
+      "positive_support": 106,
+      "negative_support": 918,
+      "candidate": true,
+      "streak_before": 0,
+      "streak_after": 1
+    },
+    {
+      "at_interval": 351,
+      "m": 349,
+      "R": 0.43564074934047037,
+      "P": 0.039020716823047696,
+      "positive_support": 168,
+      "negative_support": 856,
+      "candidate": true,
+      "streak_before": 1,
+      "streak_after": 2
+    }
+  ]
+}

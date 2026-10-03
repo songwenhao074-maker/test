@@ -1,0 +1,12 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "run_id": "37128097274",
+  "artifact_id": 11276470062,
+  "artifact_name": "protocol042-raw-37128097274",
+  "size_in_bytes": 218587097,
+  "digest": "sha256:764913d9ffb3e26d2895b1ba802595458b5efdeb46c8bc118c226c2c2c7bc991",
+  "expires_at": "2027-01-01T14:00:05Z",
+  "archive_download_url": "https://api.github.com/repos/songwenhao074-maker/test/actions/artifacts/11276470062/zip",
+  "raw_manifest_file_count": 276
+}

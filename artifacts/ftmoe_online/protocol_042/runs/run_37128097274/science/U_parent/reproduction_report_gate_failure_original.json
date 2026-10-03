@@ -1,0 +1,46 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "arm": "U_parent",
+  "against": "cached041_W_parent",
+  "all_pass": false,
+  "prediction_arrays": {
+    "probability": true,
+    "detection_logits": true,
+    "delta": true,
+    "active_id": true,
+    "deployment_epoch": true,
+    "expert_version": true,
+    "expert_hash": true,
+    "accepted_count": true,
+    "shadow_present": true,
+    "labels": true,
+    "raw_labels": true,
+    "class_probability": true,
+    "model_version": true
+  },
+  "discrete_events": {
+    "birth_checks": false,
+    "candidate_decisions": false,
+    "initialization_events": true,
+    "lifecycle_events": true,
+    "opportunity_log": true,
+    "pressure_checks": false,
+    "reuse_decisions": false,
+    "sleep_checks": false,
+    "update_log": true
+  },
+  "expected_counts": true,
+  "final_model_optimizer_hash_exact": true,
+  "qualification_arrays_exact": true,
+  "qualification_metric_exact": true,
+  "full_AP_absolute_difference": 0.0,
+  "excluded_metadata": [
+    "protocol",
+    "revision",
+    "arm",
+    "runtime_timing",
+    "action_sequence_numbers",
+    "checkpoint_file_names"
+  ]
+}

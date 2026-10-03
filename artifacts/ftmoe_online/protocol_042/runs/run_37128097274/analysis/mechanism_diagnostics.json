@@ -1,0 +1,34 @@
+{
+  "mechanisms": {
+    "addition_policy_exercised": true,
+    "addition_policy_signal": false,
+    "window_policy_signal": false,
+    "window_prefix_audit": {
+      "first_prediction_divergence": 1616,
+      "predictions_identical_if_none": false,
+      "updates_exact_before_divergence": false,
+      "discrete_actions_exact_before_divergence": false,
+      "legal_window_caused_control_difference_observed": true,
+      "window_mechanism_exercised": false
+    },
+    "window_result_label": "window_mechanism_not_exercised"
+  },
+  "activity": {
+    "pool_exercised": true,
+    "accepted_ids": [
+      0,
+      1
+    ],
+    "active_prediction_counts": {
+      "0": 4880,
+      "1": 4624,
+      "2": 0
+    },
+    "same_id_reactivation_64": true,
+    "multi_active_exercised": true,
+    "multi_active_longest_run": 3616,
+    "victim_selection_exercised": false,
+    "sleep_selection_exercised": true,
+    "replacement_selection_exercised": false
+  }
+}

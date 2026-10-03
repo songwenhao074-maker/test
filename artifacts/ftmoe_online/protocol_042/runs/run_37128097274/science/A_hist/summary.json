@@ -1,0 +1,60 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "arm": "A_hist",
+  "first_birth_t": 351,
+  "ids_created": 2,
+  "accepted_experts": 2,
+  "active_ids_final": [
+    0,
+    1
+  ],
+  "deployment_epoch_final": 2,
+  "attempts_after_e0": 1,
+  "live_optimizer_steps": 642,
+  "shadow_optimizer_steps": 16,
+  "deployed_prediction_forwards": 10240,
+  "reuse_preview_forwards": 0,
+  "shadow_qualification_forwards": 32,
+  "live_training_forwards": 642,
+  "shadow_training_forwards": 16,
+  "reuse_slots_started": 0,
+  "max_active_seen": 2,
+  "max_resident_seen": 2,
+  "permanent_deletions": 0,
+  "actual_optimizer_calls": 658,
+  "per_expert": {
+    "0": {
+      "role_final": "active",
+      "version": 352,
+      "optimizer_step": 352,
+      "model_hash_final": "2999e4cadf8d6d6c01870fa302e9b851a7a6450c39f4b1cfed899403f4caa223",
+      "optimizer_hash_final": "5dc10dfdaee08040ed01a187f53ce3ab61d388c2becd1790233f98b4987eb2bc",
+      "reactivations": 0,
+      "first_active_t": 352,
+      "historical_utility": [],
+      "active_predictions": 5616
+    },
+    "1": {
+      "role_final": "active",
+      "version": 306,
+      "optimizer_step": 306,
+      "model_hash_final": "4779983a437dc53315d73465abedc5a789087d8f3665b29a649c5d5a21ffaacf",
+      "optimizer_hash_final": "c462d75c5b8042d8e1b74618684b4db17a45764811f777f94327be5f58a2a8de",
+      "reactivations": 1,
+      "first_active_t": 1344,
+      "historical_utility": [],
+      "active_predictions": 4624
+    }
+  },
+  "terminal_progress": 3,
+  "next_substep": "done",
+  "terminal_counter_delta": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

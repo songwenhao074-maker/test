@@ -1,0 +1,79 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "arm": "A_win128",
+  "records": [
+    {
+      "positive_host_rows": 126,
+      "negative_host_rows": 386,
+      "finite": true,
+      "support": true,
+      "candidate": {
+        "ap": 0.5804861235786886,
+        "bce": 0.49390645149568957,
+        "rows": 512,
+        "positives": 126,
+        "negatives": 386,
+        "tp": 62,
+        "fp": 59,
+        "fn": 64,
+        "tn": 327,
+        "recall": 0.49206349206349204,
+        "fpr": 0.15284974093264247
+      },
+      "live": {
+        "ap": 0.5745306203512925,
+        "bce": 0.5008784142299635,
+        "rows": 512,
+        "positives": 126,
+        "negatives": 386,
+        "tp": 61,
+        "fp": 59,
+        "fn": 65,
+        "tn": 327,
+        "recall": 0.48412698412698413,
+        "fpr": 0.15284974093264247
+      },
+      "B": {
+        "ap": 0.5546807404635709,
+        "bce": 0.5281114443414049,
+        "rows": 512,
+        "positives": 126,
+        "negatives": 386,
+        "tp": 58,
+        "fp": 59,
+        "fn": 68,
+        "tn": 327,
+        "recall": 0.4603174603174603,
+        "fpr": 0.15284974093264247
+      },
+      "checks": {
+        "bce_vs_live": true,
+        "bce_vs_B": true,
+        "fpr_vs_live": true,
+        "fpr_vs_B": true,
+        "recall_vs_live": true,
+        "recall_vs_B": true
+      },
+      "pass": true,
+      "reason": "pass",
+      "event": "shadow_evaluate",
+      "at_interval": 1343,
+      "candidate_id": 1,
+      "intervals": [
+        1296,
+        1328
+      ],
+      "updates": 16,
+      "plan": {
+        "retained_ids": [
+          0
+        ],
+        "victim_id": null
+      },
+      "victim_recheck": {
+        "reason": "no_victim"
+      }
+    }
+  ]
+}

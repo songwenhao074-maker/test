@@ -1,0 +1,50 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "arm": "A_hist",
+  "events": [
+    {
+      "event": "first_birth",
+      "expert_id": 0,
+      "at_interval": 351,
+      "first_affected_prediction": 352,
+      "model_hash_before_update": "15878c9012c5667ff7c51f7098b333043e6d42f5df6d1bcac379b9d86a26017c",
+      "optimizer_hash_before_update": "48e60491ba79769a7ef420a44fd1fee40241bb9512e16ac6a187ee8a45a1ed40",
+      "optimizer_step_before_update": 0
+    },
+    {
+      "event": "epoch_transition",
+      "at_interval": 351,
+      "old_epoch": 0,
+      "new_epoch": 1,
+      "active_ids": [
+        0
+      ],
+      "first_affected_prediction": 352,
+      "reason": "first_birth"
+    },
+    {
+      "event": "activate",
+      "expert_id": 1,
+      "at_interval": 1343,
+      "reason": "shadow_accept",
+      "first_affected_prediction": 1344,
+      "dormant_predictions_before_reactivation": 0,
+      "model_hash": "6353e3a8981616d233dad2fd20dd3e9e25ec614f2957967e401683f1435ae2f6",
+      "optimizer_hash": "eb35264e563cad70fa551a4db7597414df6e885ea4f3acc6f9545faaef96b75a",
+      "optimizer_step": 16
+    },
+    {
+      "event": "epoch_transition",
+      "at_interval": 1343,
+      "old_epoch": 1,
+      "new_epoch": 2,
+      "active_ids": [
+        0,
+        1
+      ],
+      "first_affected_prediction": 1344,
+      "reason": "shadow_accept"
+    }
+  ]
+}

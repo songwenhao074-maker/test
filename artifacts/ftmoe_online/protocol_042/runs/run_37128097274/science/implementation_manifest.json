@@ -1,0 +1,24 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "run_id": "37128097274",
+  "checkout_sha": "da5eaa7e71f44497ede538c884e7ca688e6afbf4",
+  "plan_sha256": "11eaf5e89c53a6ec0f122854d513e208da6b0aa0ceda95ec38999fa4961f4be7",
+  "workflow_sha256": "1f730f48858a884418829876fa73968112d536a5b5268f6877f8e48b138a83a4",
+  "files": {
+    "protocol042_common.py": "763b4a18a4f4066286cb2bcaf049ff52c6670f3deed5eb123dbc30d8b4f6836c",
+    "protocol042_engine.py": "50f6e8406a0ff40f982956d74cd716c5a40defd478a98805a0143eabaa5b1bc9",
+    "run_ftmoe_protocol042.py": "1d0dba4f0ed24edc34b260f504ded9d676db43a4a619f053dff683801b3386c3",
+    "analyze_ftmoe_protocol042.py": "124aff3c196e64ce8ff21830161792ebdafa929538a89aad61ed67a620f38801",
+    "maintenance/materialize_protocol042_sources.py": "8d2f13826b05ca7c73518d7b1d982d801b5507385567da73602ad349595934e3",
+    "maintenance/protocol042_finalize.py": "08a3e6690fc59ce031a2d9b8e67e511a5e37f7b7989f889d0752b07afbc0c801",
+    "run_ftmoe_protocol041.py": "5ea6aa2f6c6bc629f5933748b1ff24b76d423e193c406cb0839d8e7b944abbd4",
+    "run_ftmoe_protocol040.py": "613fa9729803c4084638a5efc42e78761b280997aaf881dec82a5a16010c7c82",
+    "run_ftmoe_protocol039.py": "1336e663abd9a8fd72c7008ed960e1ef33bcdba400dce36726a97904fbf4d5ab",
+    "run_ftmoe_protocol037.py": "541395fd5ec9f69007ef74b49a5270c472cb6785416022d759b66660b09fe747"
+  },
+  "python": "3.8.18 (default, Dec 12 2024, 19:15:30) \n[GCC 13.2.0]",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.34",
+  "pip_freeze_sha256": "8adb485eb88b140caee0aa4bae9718f6b8f910899d8f4c747940826fa9e8e50e",
+  "science_identity_not_preflight_identity": true
+}

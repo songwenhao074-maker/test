@@ -1,0 +1,74 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "arm": "R_win128",
+  "first_birth_t": 351,
+  "ids_created": 3,
+  "accepted_experts": 1,
+  "active_ids_final": [
+    0
+  ],
+  "deployment_epoch_final": 3,
+  "attempts_after_e0": 2,
+  "live_optimizer_steps": 306,
+  "shadow_optimizer_steps": 32,
+  "deployed_prediction_forwards": 4880,
+  "reuse_preview_forwards": 288,
+  "shadow_qualification_forwards": 64,
+  "live_training_forwards": 306,
+  "shadow_training_forwards": 32,
+  "reuse_slots_started": 9,
+  "max_active_seen": 1,
+  "max_resident_seen": 2,
+  "permanent_deletions": 0,
+  "actual_optimizer_calls": 338,
+  "per_expert": {
+    "0": {
+      "role_final": "active",
+      "version": 306,
+      "optimizer_step": 306,
+      "model_hash_final": "4259451457563539b68666c66e2985c0297224dc9e9b208ad907a1f134685789",
+      "optimizer_hash_final": "a2e4899995f7ed23d2f9d7d6ec7a0ef30a5014a456ce4493212fe1b01bac3981",
+      "reactivations": 1,
+      "first_active_t": 352,
+      "historical_utility": [
+        {
+          "epoch": 1,
+          "at_interval": 1615,
+          "reason": "nonuseful_three_checks",
+          "score": {
+            "valid": true,
+            "reason": "ok",
+            "score": -0.006114228780939008,
+            "score_pos": -0.003136941258272142,
+            "score_neg": -0.006366541282859929,
+            "positive_host_rows": 160,
+            "negative_host_rows": 1888,
+            "positive_intervals": 101,
+            "fpr_live": 0.08633474576271187,
+            "fpr_removed": 0.0847457627118644,
+            "recall_live": 0.9625,
+            "recall_removed": 0.9625,
+            "removal_fpr_delta": -0.0015889830508474673,
+            "removal_recall_delta": 0.0,
+            "epoch_matured": 1262,
+            "intervals": 128,
+            "first_i": 1486,
+            "last_i": 1613
+          }
+        }
+      ],
+      "active_predictions": 4880
+    }
+  },
+  "terminal_progress": 3,
+  "next_substep": "done",
+  "terminal_counter_delta": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

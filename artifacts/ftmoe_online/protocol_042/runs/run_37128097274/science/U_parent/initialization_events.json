@@ -1,0 +1,29 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "arm": "U_parent",
+  "events": [
+    {
+      "event": "shadow_initialization",
+      "arm": "W_parent",
+      "at_interval": 1055,
+      "candidate_id": 1,
+      "copy_after_settlement_before_same_t_gradients": true,
+      "zero_constructor_hash": "15878c9012c5667ff7c51f7098b333043e6d42f5df6d1bcac379b9d86a26017c",
+      "candidate_initial_hash": "efa5ef771b3a7b1a559dc2417641247fabb3952d78a3ac29d09c7925ddec51a2",
+      "candidate_optimizer_state_empty": true,
+      "candidate_optimizer_step_before": 0,
+      "global_rng_unchanged": true,
+      "max_training_label_available_interval": 1053,
+      "donor_id": 0,
+      "donor_model_hash_before": "efa5ef771b3a7b1a559dc2417641247fabb3952d78a3ac29d09c7925ddec51a2",
+      "donor_optimizer_hash_before": "ecb16b44cff50184136b362e3bf944ca850f2ccfd35f61df75dbb1d5a894fd1f",
+      "donor_optimizer_step_before": 44,
+      "donor_model_hash_after": "efa5ef771b3a7b1a559dc2417641247fabb3952d78a3ac29d09c7925ddec51a2",
+      "donor_optimizer_hash_after": "ecb16b44cff50184136b362e3bf944ca850f2ccfd35f61df75dbb1d5a894fd1f",
+      "donor_optimizer_step_after": 44,
+      "candidate_first_optimizer_step_after": 1,
+      "candidate_hash_after_first_update": "784d937cad311870bc8a89f8490cd98887ce1b4758785790d6de37923c3a5e45"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "fixture_all_pass": true,
+  "first_birth_t351": true,
+  "live_steps_within_352": true,
+  "shadow_steps_within_16": true,
+  "terminal_progress_complete": true,
+  "output_all_finite": true,
+  "source036_unchanged": true,
+  "source041_unchanged": true,
+  "no_F_loaded": true,
+  "all_pass": true
+}

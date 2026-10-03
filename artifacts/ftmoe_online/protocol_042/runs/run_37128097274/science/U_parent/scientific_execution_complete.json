@@ -1,0 +1,10 @@
+{
+  "protocol": "042",
+  "revision": 2,
+  "arm": "U_parent",
+  "complete": true,
+  "audit_all_pass": true,
+  "reproduction_all_pass": true,
+  "science_reexecuted": false,
+  "boundary_recovered_from_raw_artifact": 11274660283
+}
