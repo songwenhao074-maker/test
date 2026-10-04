@@ -1,0 +1,50 @@
+{
+  "protocol": "043",
+  "revision": 1,
+  "budget_key": "protocol043_revision1_arm",
+  "order": [
+    "D_no_gc",
+    "D_bounded"
+  ],
+  "sequences": {
+    "D_no_gc": {
+      "started": true,
+      "completed": true,
+      "restart_from_zero": false,
+      "resume_events": [],
+      "live_optimizer_steps": 596,
+      "shadow_optimizer_steps": 16,
+      "deployed_forwards": 9504,
+      "reuse_forwards": 288,
+      "qualification_forwards": 32,
+      "permanent_deletions": 0,
+      "started_run_id": "37168746303"
+    },
+    "D_bounded": {
+      "started": true,
+      "completed": true,
+      "restart_from_zero": false,
+      "resume_events": [],
+      "live_optimizer_steps": 596,
+      "shadow_optimizer_steps": 16,
+      "deployed_forwards": 9504,
+      "reuse_forwards": 288,
+      "qualification_forwards": 32,
+      "permanent_deletions": 0,
+      "started_run_id": "37168746303"
+    }
+  },
+  "total_optimizer_steps": 1224,
+  "total_deployed_forwards": 19008,
+  "total_reuse_forwards": 576,
+  "total_qualification_forwards": 64,
+  "new_streams": 0,
+  "extra_seeds": 0,
+  "F_loads": 0,
+  "extra_arms": 0,
+  "U_reproduction_runs": 0,
+  "restart_from_zero": false,
+  "real_engineering_prefixes": 1,
+  "real_engineering_prefix_intervals_max": 256,
+  "real_engineering_gradient_steps": 0
+}

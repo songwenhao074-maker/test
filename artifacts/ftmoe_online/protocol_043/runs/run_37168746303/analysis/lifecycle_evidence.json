@@ -1,0 +1,31 @@
+{
+  "post_E0_accepts": [
+    {
+      "expert_id": 1,
+      "at_interval": 1343,
+      "active_predictions_total": 4624,
+      "post_accept_consecutive": 4624
+    }
+  ],
+  "sleep_events": [
+    {
+      "expert_id": 0,
+      "at_interval": 1615,
+      "dormant_predictions": 736
+    }
+  ],
+  "reuse_events": [
+    {
+      "expert_id": 0,
+      "at_interval": 2351,
+      "dormant_before": 736,
+      "post_active": 3616
+    }
+  ],
+  "gc_events": [],
+  "gc_closed_loop_rows": [],
+  "core_lifecycle_exercised": true,
+  "reuse_exercised": true,
+  "gc_exercised_on_stream": false,
+  "gc_admission_closed_loop": false
+}

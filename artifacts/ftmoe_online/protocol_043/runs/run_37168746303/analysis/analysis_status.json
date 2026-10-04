@@ -1,0 +1,18 @@
+{
+  "protocol": "043",
+  "revision": 1,
+  "run_id": "37168746303",
+  "validity": false,
+  "system_result_label": "invalid_execution",
+  "D_over_C": true,
+  "core_lifecycle_exercised": true,
+  "reuse_exercised": true,
+  "gc_engineering_verified": true,
+  "gc_exercised_on_stream": false,
+  "gc_admission_closed_loop": false,
+  "resource_bounds_pass": true,
+  "core_goal_supported": false,
+  "full_reclamation_demonstrated": false,
+  "publication_status": "pending_until_main_sync",
+  "automatic_followup": false
+}

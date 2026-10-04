@@ -1,0 +1,65 @@
+{
+  "protocol": "043",
+  "revision": 1,
+  "arm": "D_no_gc",
+  "first_birth_t": 351,
+  "ids_created": 2,
+  "resident_experts_final": 2,
+  "active_ids_final": [
+    0,
+    1
+  ],
+  "deployment_epoch_final": 4,
+  "attempts_after_e0": 1,
+  "live_optimizer_steps": 596,
+  "shadow_optimizer_steps": 16,
+  "deployed_prediction_forwards": 9504,
+  "reuse_preview_forwards": 288,
+  "shadow_qualification_forwards": 32,
+  "live_training_forwards": 596,
+  "shadow_training_forwards": 16,
+  "reuse_slots_started": 9,
+  "max_active_seen": 2,
+  "max_resident_seen": 2,
+  "peak_resident_tensor_bytes": 1792,
+  "permanent_deletions": 0,
+  "deleted_ids": [],
+  "actual_optimizer_calls": 612,
+  "near_threshold_recompute_count": 0,
+  "per_expert": {
+    "0": {
+      "role_final": "active",
+      "version": 306,
+      "optimizer_step": 306,
+      "model_hash_final": "5f04ebdd15b30df12382bdeed3d17c4ca85ffb7308d46078352a79554f4d74d5",
+      "optimizer_hash_final": "979f496ce81232a535ca2e4ee24bbeaeb1c046b58eeb2b99cdc2f0ecdd97ec6f",
+      "reactivations": 1,
+      "first_active_t": 352,
+      "last_active_prediction": 5967,
+      "active_predictions": 4880
+    },
+    "1": {
+      "role_final": "active",
+      "version": 306,
+      "optimizer_step": 306,
+      "model_hash_final": "8970207eca12a55c9c6bc0d48a4882b0ec594b1eb3f81dd345dec1d3de4c722d",
+      "optimizer_hash_final": "826fe0c42e7eaf3a6d9a977dd1fba78784523947bba4b326a5ad9c236020cf4a",
+      "reactivations": 0,
+      "first_active_t": 1344,
+      "last_active_prediction": 5967,
+      "active_predictions": 4624
+    }
+  },
+  "tombstones": [],
+  "terminal_progress": 3,
+  "next_substep": "done",
+  "terminal_counter_delta": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

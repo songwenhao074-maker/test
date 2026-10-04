@@ -1,0 +1,40 @@
+{
+  "protocol": "043",
+  "revision": 1,
+  "source_protocol": "042",
+  "source_run_id": 37128097274,
+  "original042_validity_remains_unchanged": true,
+  "control_points_checked": 592,
+  "legacy_float32_matches_published_count": 592,
+  "legacy_mismatch_count": 0,
+  "max_abs_registered_minus_legacy_score": 1.3293716162599e-09,
+  "first_registered_discrete_difference": null,
+  "subsequent_counterfactual_closed_loop_claim_forbidden": false,
+  "sleep_event_count": 1,
+  "sleep_schema_missing_active_ids_count": 1,
+  "boundary_1615_1616": {
+    "sleep_event": {
+      "event": "sleep",
+      "expert_id": 0,
+      "at_interval": 1615,
+      "reason": "nonuseful_three_checks",
+      "dormant_from_prediction": 1616
+    },
+    "active_ids_prediction_1615": [
+      0,
+      1
+    ],
+    "active_ids_prediction_1616": [
+      1,
+      -1
+    ],
+    "control_at_1615_first_affected_prediction": 1616,
+    "control_difference_may_precede_first_output_difference_by_one_tick": true
+  },
+  "all_control_points_included": true,
+  "notes": [
+    "legacy_float32 reproduces old arithmetic only",
+    "registered_float64 is a fixed-output audit, not a replayed corrected trajectory",
+    "after the first discrete action difference no alternate closed-loop trajectory is inferred"
+  ]
+}

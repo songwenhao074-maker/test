@@ -1,0 +1,22 @@
+{
+  "protocol": "043",
+  "revision": 1,
+  "run_id": "37168746303",
+  "execution_sha": "9d9320cf84ebaf034dca9e8257f0dc82171cc916",
+  "plan_valid": true,
+  "sources_valid": true,
+  "audit042_valid": true,
+  "fixture_valid": true,
+  "budget_valid": true,
+  "source_bundle_valid": true,
+  "execution_sha_valid": true,
+  "all_pass": true,
+  "science_sequences_authorized": [
+    "D_no_gc",
+    "D_bounded"
+  ],
+  "historical033_042_read_only": true,
+  "real_engineering_gradients": 0,
+  "no_force_push": true,
+  "restart_from_zero": false
+}

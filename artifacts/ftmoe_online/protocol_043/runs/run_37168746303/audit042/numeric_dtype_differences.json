@@ -1,0 +1,3812 @@
+{
+  "rows": [
+    {
+      "at_interval": 495,
+      "expert_id": 0,
+      "score_diff": -4.3166553664875096e-11,
+      "score_pos_diff": 2.7582653175373117e-11,
+      "score_neg_diff": -6.907803994614381e-11
+    },
+    {
+      "at_interval": 511,
+      "expert_id": 0,
+      "score_diff": 3.5838487776398975e-10,
+      "score_pos_diff": 1.726370046917225e-09,
+      "score_neg_diff": -1.4387937174141496e-10
+    },
+    {
+      "at_interval": 527,
+      "expert_id": 0,
+      "score_diff": -3.492927657181011e-10,
+      "score_pos_diff": -6.787599995949911e-10,
+      "score_neg_diff": -2.3484625442243834e-10
+    },
+    {
+      "at_interval": 543,
+      "expert_id": 0,
+      "score_diff": -6.77333494847332e-10,
+      "score_pos_diff": -3.0268556723556106e-09,
+      "score_neg_diff": 5.36958127701076e-11
+    },
+    {
+      "at_interval": 559,
+      "expert_id": 0,
+      "score_diff": -7.143194698938649e-10,
+      "score_pos_diff": -2.9777785653939404e-09,
+      "score_neg_diff": 2.2586632217325153e-11
+    },
+    {
+      "at_interval": 575,
+      "expert_id": 0,
+      "score_diff": -5.982191044612284e-10,
+      "score_pos_diff": -2.3728683948287532e-09,
+      "score_neg_diff": -4.6055495354913045e-11
+    },
+    {
+      "at_interval": 591,
+      "expert_id": 0,
+      "score_diff": -2.735028661882133e-10,
+      "score_pos_diff": -1.3976596269227315e-10,
+      "score_neg_diff": -3.168139101755729e-10
+    },
+    {
+      "at_interval": 607,
+      "expert_id": 0,
+      "score_diff": -7.414672348327045e-10,
+      "score_pos_diff": -2.3670324103552964e-09,
+      "score_neg_diff": -1.8968938962984905e-10
+    },
+    {
+      "at_interval": 623,
+      "expert_id": 0,
+      "score_diff": -9.692535524186141e-10,
+      "score_pos_diff": -2.7338643779351024e-09,
+      "score_neg_diff": -3.0678380582432885e-10
+    },
+    {
+      "at_interval": 639,
+      "expert_id": 0,
+      "score_diff": -1.0888281769261265e-09,
+      "score_pos_diff": -3.5649192209330494e-09,
+      "score_neg_diff": -2.1327714897975691e-10
+    },
+    {
+      "at_interval": 655,
+      "expert_id": 0,
+      "score_diff": -5.756151701119538e-10,
+      "score_pos_diff": -1.869660017084218e-09,
+      "score_neg_diff": -1.0989650639156578e-10
+    },
+    {
+      "at_interval": 671,
+      "expert_id": 0,
+      "score_diff": -2.1761776755613305e-10,
+      "score_pos_diff": -3.1748665502151496e-10,
+      "score_neg_diff": -1.8167558299767017e-10
+    },
+    {
+      "at_interval": 687,
+      "expert_id": 0,
+      "score_diff": -3.0096879675978183e-10,
+      "score_pos_diff": -2.1133774869008803e-09,
+      "score_neg_diff": 3.464058120211666e-10
+    },
+    {
+      "at_interval": 703,
+      "expert_id": 0,
+      "score_diff": -1.9196468893645235e-10,
+      "score_pos_diff": -1.5625202104407876e-09,
+      "score_neg_diff": 3.391720038506407e-10
+    },
+    {
+      "at_interval": 719,
+      "expert_id": 0,
+      "score_diff": -6.822007091178417e-10,
+      "score_pos_diff": -3.7097399666063957e-09,
+      "score_neg_diff": 5.458539922148509e-10
+    },
+    {
+      "at_interval": 735,
+      "expert_id": 0,
+      "score_diff": -1.3399142906322936e-10,
+      "score_pos_diff": -1.5861766206048955e-09,
+      "score_neg_diff": 4.950516992868748e-10
+    },
+    {
+      "at_interval": 751,
+      "expert_id": 0,
+      "score_diff": 3.7018000817456986e-10,
+      "score_pos_diff": -8.485420699422264e-12,
+      "score_neg_diff": 5.241428697316808e-10
+    },
+    {
+      "at_interval": 767,
+      "expert_id": 0,
+      "score_diff": 3.186222761325519e-10,
+      "score_pos_diff": 4.97971469615166e-10,
+      "score_neg_diff": 2.4810266514851964e-10
+    },
+    {
+      "at_interval": 783,
+      "expert_id": 0,
+      "score_diff": 3.0099683509532404e-10,
+      "score_pos_diff": 1.504016355902138e-10,
+      "score_neg_diff": 3.617922844992294e-10
+    },
+    {
+      "at_interval": 799,
+      "expert_id": 0,
+      "score_diff": -5.033646711255502e-10,
+      "score_pos_diff": -2.3233041740455818e-09,
+      "score_neg_diff": 1.9509859960215037e-10
+    },
+    {
+      "at_interval": 815,
+      "expert_id": 0,
+      "score_diff": -6.110670788816996e-10,
+      "score_pos_diff": -1.3398880199799734e-09,
+      "score_neg_diff": -3.4147645648630043e-10
+    },
+    {
+      "at_interval": 831,
+      "expert_id": 0,
+      "score_diff": -9.114329499460005e-10,
+      "score_pos_diff": -2.682239194640168e-09,
+      "score_neg_diff": -2.7092856083599237e-10
+    },
+    {
+      "at_interval": 847,
+      "expert_id": 0,
+      "score_diff": -5.5936501264231e-10,
+      "score_pos_diff": -1.555525097618471e-09,
+      "score_neg_diff": -2.0175213843315332e-10
+    },
+    {
+      "at_interval": 863,
+      "expert_id": 0,
+      "score_diff": -3.5297424358371465e-10,
+      "score_pos_diff": -7.225941928146185e-10,
+      "score_neg_diff": -2.30728267221203e-10
+    },
+    {
+      "at_interval": 879,
+      "expert_id": 0,
+      "score_diff": -3.226406294909445e-10,
+      "score_pos_diff": -8.184018879253685e-10,
+      "score_neg_diff": -1.4242382707224666e-10
+    },
+    {
+      "at_interval": 895,
+      "expert_id": 0,
+      "score_diff": -1.0506773576168804e-10,
+      "score_pos_diff": -4.16636100619705e-10,
+      "score_neg_diff": 1.1039520859956742e-11
+    },
+    {
+      "at_interval": 911,
+      "expert_id": 0,
+      "score_diff": -3.4577394072976553e-10,
+      "score_pos_diff": -9.217249324899868e-10,
+      "score_neg_diff": -1.4468432528447206e-10
+    },
+    {
+      "at_interval": 927,
+      "expert_id": 0,
+      "score_diff": -1.4991549668330606e-10,
+      "score_pos_diff": -5.959870374994125e-10,
+      "score_neg_diff": 1.3049309896540073e-11
+    },
+    {
+      "at_interval": 943,
+      "expert_id": 0,
+      "score_diff": -5.342214726145045e-10,
+      "score_pos_diff": -1.717604863893385e-09,
+      "score_neg_diff": -9.431672630400012e-11
+    },
+    {
+      "at_interval": 959,
+      "expert_id": 0,
+      "score_diff": -2.8896045278781202e-11,
+      "score_pos_diff": -6.683906761395519e-10,
+      "score_neg_diff": 1.9952516722154812e-10
+    },
+    {
+      "at_interval": 975,
+      "expert_id": 0,
+      "score_diff": 1.3136506812894133e-10,
+      "score_pos_diff": -1.5929813024229134e-10,
+      "score_neg_diff": 2.3002707377761666e-10
+    },
+    {
+      "at_interval": 991,
+      "expert_id": 0,
+      "score_diff": 7.928498135800766e-12,
+      "score_pos_diff": -6.001991681436891e-10,
+      "score_neg_diff": 2.1222448711583075e-10
+    },
+    {
+      "at_interval": 1007,
+      "expert_id": 0,
+      "score_diff": -3.2724672277550937e-10,
+      "score_pos_diff": -2.390190670387149e-09,
+      "score_neg_diff": 3.5861166987338766e-10
+    },
+    {
+      "at_interval": 1023,
+      "expert_id": 0,
+      "score_diff": -4.6193661396021213e-10,
+      "score_pos_diff": -2.8511569077904753e-09,
+      "score_neg_diff": 3.764968805469726e-10
+    },
+    {
+      "at_interval": 1039,
+      "expert_id": 0,
+      "score_diff": -7.624322700960917e-11,
+      "score_pos_diff": -1.6813351544353594e-09,
+      "score_neg_diff": 5.50320154030226e-10
+    },
+    {
+      "at_interval": 1055,
+      "expert_id": 0,
+      "score_diff": -2.404233548358725e-10,
+      "score_pos_diff": -2.2849646896805353e-09,
+      "score_neg_diff": 5.968113989118784e-10
+    },
+    {
+      "at_interval": 1071,
+      "expert_id": 0,
+      "score_diff": 3.690066030515027e-10,
+      "score_pos_diff": -4.388097663010626e-10,
+      "score_neg_diff": 7.361958542784208e-10
+    },
+    {
+      "at_interval": 1087,
+      "expert_id": 0,
+      "score_diff": -3.1899384522748875e-10,
+      "score_pos_diff": -2.1314217613088715e-09,
+      "score_neg_diff": 5.142320944062639e-10
+    },
+    {
+      "at_interval": 1103,
+      "expert_id": 0,
+      "score_diff": -5.174221537340706e-10,
+      "score_pos_diff": -2.4660580799640286e-09,
+      "score_neg_diff": 3.3254386570813477e-10
+    },
+    {
+      "at_interval": 1119,
+      "expert_id": 0,
+      "score_diff": -5.427326921214615e-10,
+      "score_pos_diff": -3.231623219024371e-09,
+      "score_neg_diff": 5.273172714453933e-10
+    },
+    {
+      "at_interval": 1135,
+      "expert_id": 0,
+      "score_diff": -4.771624415034204e-10,
+      "score_pos_diff": -2.592291659109236e-09,
+      "score_neg_diff": 3.4053475143902556e-10
+    },
+    {
+      "at_interval": 1151,
+      "expert_id": 0,
+      "score_diff": -3.4989062341894694e-10,
+      "score_pos_diff": -2.4573574008979193e-09,
+      "score_neg_diff": 4.123845813441829e-10
+    },
+    {
+      "at_interval": 1167,
+      "expert_id": 0,
+      "score_diff": -1.031048878219476e-09,
+      "score_pos_diff": -4.544349896384858e-09,
+      "score_neg_diff": 2.1755644855070422e-10
+    },
+    {
+      "at_interval": 1183,
+      "expert_id": 0,
+      "score_diff": -4.058789762617643e-10,
+      "score_pos_diff": -2.3358757428315613e-09,
+      "score_neg_diff": 2.4923439007062953e-10
+    },
+    {
+      "at_interval": 1199,
+      "expert_id": 0,
+      "score_diff": -5.918592005382806e-12,
+      "score_pos_diff": -9.012578738865074e-10,
+      "score_neg_diff": 2.7794138691972226e-10
+    },
+    {
+      "at_interval": 1215,
+      "expert_id": 0,
+      "score_diff": 7.332824104866464e-10,
+      "score_pos_diff": 1.87361151593457e-09,
+      "score_neg_diff": 3.8134696789260403e-10
+    },
+    {
+      "at_interval": 1231,
+      "expert_id": 0,
+      "score_diff": 9.268334225098762e-10,
+      "score_pos_diff": 2.198990323165617e-09,
+      "score_neg_diff": 5.137527139820186e-10
+    },
+    {
+      "at_interval": 1247,
+      "expert_id": 0,
+      "score_diff": 9.16421279140156e-10,
+      "score_pos_diff": 2.1301159169873074e-09,
+      "score_neg_diff": 4.5965447593998565e-10
+    },
+    {
+      "at_interval": 1263,
+      "expert_id": 0,
+      "score_diff": 1.0494209182199121e-09,
+      "score_pos_diff": 2.4838547052485893e-09,
+      "score_neg_diff": 5.447653161905208e-10
+    },
+    {
+      "at_interval": 1279,
+      "expert_id": 0,
+      "score_diff": 6.834761437368719e-10,
+      "score_pos_diff": 1.022412876583445e-09,
+      "score_neg_diff": 5.633239803445877e-10
+    },
+    {
+      "at_interval": 1295,
+      "expert_id": 0,
+      "score_diff": 1.196179315321455e-09,
+      "score_pos_diff": 2.7087746767850973e-09,
+      "score_neg_diff": 6.531706356338596e-10
+    },
+    {
+      "at_interval": 1311,
+      "expert_id": 0,
+      "score_diff": 1.2308762065149637e-09,
+      "score_pos_diff": 3.4947845450883364e-09,
+      "score_neg_diff": 3.9553033938377613e-10
+    },
+    {
+      "at_interval": 1327,
+      "expert_id": 0,
+      "score_diff": 9.75374475631341e-10,
+      "score_pos_diff": 2.1618039858228855e-09,
+      "score_neg_diff": 5.798979699211948e-10
+    },
+    {
+      "at_interval": 1487,
+      "expert_id": 0,
+      "score_diff": 5.091817106839258e-10,
+      "score_pos_diff": 1.9904267123393993e-10,
+      "score_neg_diff": 6.075087499030074e-10
+    },
+    {
+      "at_interval": 1487,
+      "expert_id": 1,
+      "score_diff": 4.2157901995742986e-10,
+      "score_pos_diff": -6.541068034437991e-10,
+      "score_neg_diff": 7.626163888753423e-10
+    },
+    {
+      "at_interval": 1503,
+      "expert_id": 0,
+      "score_diff": 1.0748170686802894e-09,
+      "score_pos_diff": 3.1143192469329506e-09,
+      "score_neg_diff": 4.939299958622856e-10
+    },
+    {
+      "at_interval": 1503,
+      "expert_id": 1,
+      "score_diff": 5.250254944341726e-10,
+      "score_pos_diff": 7.428047135715765e-10,
+      "score_neg_diff": 4.629980357440111e-10
+    },
+    {
+      "at_interval": 1519,
+      "expert_id": 0,
+      "score_diff": 1.0668097377708463e-09,
+      "score_pos_diff": 2.5963032002085384e-09,
+      "score_neg_diff": 6.6985632665717e-10
+    },
+    {
+      "at_interval": 1519,
+      "expert_id": 1,
+      "score_diff": -1.4799276908117331e-10,
+      "score_pos_diff": -1.2631604096036142e-11,
+      "score_neg_diff": -1.8312340532844473e-10
+    },
+    {
+      "at_interval": 1535,
+      "expert_id": 0,
+      "score_diff": 1.0558267454774395e-09,
+      "score_pos_diff": 3.220566008321768e-09,
+      "score_neg_diff": 6.157563677694489e-10
+    },
+    {
+      "at_interval": 1535,
+      "expert_id": 1,
+      "score_diff": -2.8219906272886064e-10,
+      "score_pos_diff": -6.59914692335839e-10,
+      "score_neg_diff": -2.054131600058573e-10
+    },
+    {
+      "at_interval": 1551,
+      "expert_id": 0,
+      "score_diff": 1.0158657292105855e-09,
+      "score_pos_diff": 3.4335666254659003e-09,
+      "score_neg_diff": 6.361364351947785e-10
+    },
+    {
+      "at_interval": 1551,
+      "expert_id": 1,
+      "score_diff": -1.9674049238707636e-10,
+      "score_pos_diff": 3.776637648444936e-10,
+      "score_neg_diff": -2.869576581562838e-10
+    },
+    {
+      "at_interval": 1567,
+      "expert_id": 0,
+      "score_diff": 5.792357353311128e-10,
+      "score_pos_diff": 2.064842408167067e-09,
+      "score_neg_diff": 3.940447889858034e-10
+    },
+    {
+      "at_interval": 1567,
+      "expert_id": 1,
+      "score_diff": -2.3608071454770535e-10,
+      "score_pos_diff": 1.3471982054230613e-09,
+      "score_neg_diff": -4.334471696496034e-10
+    },
+    {
+      "at_interval": 1583,
+      "expert_id": 0,
+      "score_diff": 3.687232593904688e-10,
+      "score_pos_diff": 1.0856319025177863e-09,
+      "score_neg_diff": 3.017403375771277e-10
+    },
+    {
+      "at_interval": 1583,
+      "expert_id": 1,
+      "score_diff": -2.5906469070663407e-10,
+      "score_pos_diff": 1.2317629700508287e-09,
+      "score_neg_diff": -3.983571846954276e-10
+    },
+    {
+      "at_interval": 1599,
+      "expert_id": 0,
+      "score_diff": 4.538814289689608e-11,
+      "score_pos_diff": 1.140415839886999e-09,
+      "score_neg_diff": -5.7563179917119456e-11
+    },
+    {
+      "at_interval": 1599,
+      "expert_id": 1,
+      "score_diff": -8.524000654624997e-10,
+      "score_pos_diff": 1.1909118305224176e-09,
+      "score_neg_diff": -1.0445063123882409e-09
+    },
+    {
+      "at_interval": 1615,
+      "expert_id": 0,
+      "score_diff": -2.3358391609829e-11,
+      "score_pos_diff": 1.3961921744611028e-09,
+      "score_neg_diff": -1.4365928759085822e-10
+    },
+    {
+      "at_interval": 1615,
+      "expert_id": 1,
+      "score_diff": -8.804714925897406e-10,
+      "score_pos_diff": 1.462501875463748e-09,
+      "score_neg_diff": -1.0790285581274012e-09
+    },
+    {
+      "at_interval": 1759,
+      "expert_id": 1,
+      "score_diff": 2.107532434160453e-10,
+      "score_pos_diff": 1.5729817622045505e-10,
+      "score_neg_diff": 2.1856061491881684e-10
+    },
+    {
+      "at_interval": 1775,
+      "expert_id": 1,
+      "score_diff": -2.1078843271543635e-10,
+      "score_pos_diff": 1.8020702811927247e-10,
+      "score_neg_diff": -2.6614676434943974e-10
+    },
+    {
+      "at_interval": 1791,
+      "expert_id": 1,
+      "score_diff": -3.4597142425235594e-10,
+      "score_pos_diff": 1.991050037515596e-10,
+      "score_neg_diff": -4.1901045740727616e-10
+    },
+    {
+      "at_interval": 1807,
+      "expert_id": 1,
+      "score_diff": -2.4084082818343067e-10,
+      "score_pos_diff": 4.835830225841109e-10,
+      "score_neg_diff": -3.2492926491795027e-10
+    },
+    {
+      "at_interval": 1823,
+      "expert_id": 1,
+      "score_diff": -1.4528597292243206e-10,
+      "score_pos_diff": 6.455226110591017e-11,
+      "score_neg_diff": -1.6699337659215052e-10
+    },
+    {
+      "at_interval": 1839,
+      "expert_id": 1,
+      "score_diff": -3.42550859639551e-10,
+      "score_pos_diff": -1.0873740441050272e-09,
+      "score_neg_diff": -2.746953645452188e-10
+    },
+    {
+      "at_interval": 1855,
+      "expert_id": 1,
+      "score_diff": -3.8439428549918997e-10,
+      "score_pos_diff": -1.1783480337312913e-09,
+      "score_neg_diff": -3.189308686937786e-10
+    },
+    {
+      "at_interval": 1871,
+      "expert_id": 1,
+      "score_diff": -6.478759096047171e-10,
+      "score_pos_diff": -1.3114281058670962e-09,
+      "score_neg_diff": -5.976912901238529e-10
+    },
+    {
+      "at_interval": 1887,
+      "expert_id": 1,
+      "score_diff": -8.840627717734972e-10,
+      "score_pos_diff": -1.1983380555219414e-09,
+      "score_neg_diff": -8.631110869419811e-10
+    },
+    {
+      "at_interval": 1903,
+      "expert_id": 1,
+      "score_diff": -9.746192594292657e-10,
+      "score_pos_diff": -1.4745432479201792e-09,
+      "score_neg_diff": -9.440539582711294e-10
+    },
+    {
+      "at_interval": 1919,
+      "expert_id": 1,
+      "score_diff": -1.009741014326021e-09,
+      "score_pos_diff": -1.7098526596329156e-09,
+      "score_neg_diff": -9.715268884519235e-10
+    },
+    {
+      "at_interval": 1935,
+      "expert_id": 1,
+      "score_diff": -8.883404806030171e-10,
+      "score_pos_diff": -1.916791248293692e-09,
+      "score_neg_diff": -8.349899270274075e-10
+    },
+    {
+      "at_interval": 1951,
+      "expert_id": 1,
+      "score_diff": -1.0146981631667384e-09,
+      "score_pos_diff": -2.039677802524731e-09,
+      "score_neg_diff": -9.598638628718903e-10
+    },
+    {
+      "at_interval": 1967,
+      "expert_id": 1,
+      "score_diff": -8.495150251655592e-10,
+      "score_pos_diff": 4.085739212233985e-11,
+      "score_neg_diff": -9.000521612734236e-10
+    },
+    {
+      "at_interval": 1983,
+      "expert_id": 1,
+      "score_diff": -8.760599086443666e-10,
+      "score_pos_diff": -5.924730150930202e-11,
+      "score_neg_diff": -9.233135306666029e-10
+    },
+    {
+      "at_interval": 1999,
+      "expert_id": 1,
+      "score_diff": -8.630520074645598e-10,
+      "score_pos_diff": 7.847057075308084e-10,
+      "score_neg_diff": -9.556799561785678e-10
+    },
+    {
+      "at_interval": 2015,
+      "expert_id": 1,
+      "score_diff": -4.777710701023286e-10,
+      "score_pos_diff": 7.900841829736049e-10,
+      "score_neg_diff": -5.449119905298616e-10
+    },
+    {
+      "at_interval": 2031,
+      "expert_id": 1,
+      "score_diff": -3.034353853251237e-10,
+      "score_pos_diff": 8.971085705897219e-10,
+      "score_neg_diff": -3.7092341784866756e-10
+    },
+    {
+      "at_interval": 2047,
+      "expert_id": 1,
+      "score_diff": 7.935461142360989e-11,
+      "score_pos_diff": -8.151750385820833e-10,
+      "score_neg_diff": 1.4048313640852017e-10
+    },
+    {
+      "at_interval": 2063,
+      "expert_id": 1,
+      "score_diff": 1.5690115439531693e-10,
+      "score_pos_diff": -9.611009791840597e-10,
+      "score_neg_diff": 2.2157896264335397e-10
+    },
+    {
+      "at_interval": 2079,
+      "expert_id": 1,
+      "score_diff": 3.0391904704690775e-10,
+      "score_pos_diff": -9.083863704642536e-10,
+      "score_neg_diff": 3.73390345552449e-10
+    },
+    {
+      "at_interval": 2095,
+      "expert_id": 1,
+      "score_diff": 5.829931936512933e-10,
+      "score_pos_diff": -1.1632505254183245e-09,
+      "score_neg_diff": 6.783082472441859e-10
+    },
+    {
+      "at_interval": 2111,
+      "expert_id": 1,
+      "score_diff": 6.054900209689906e-10,
+      "score_pos_diff": -8.652099869888019e-10,
+      "score_neg_diff": 6.873640424204241e-10
+    },
+    {
+      "at_interval": 2127,
+      "expert_id": 1,
+      "score_diff": 7.056521287435169e-10,
+      "score_pos_diff": -2.608852897600933e-09,
+      "score_neg_diff": 8.740133400006456e-10
+    },
+    {
+      "at_interval": 2143,
+      "expert_id": 1,
+      "score_diff": 4.546235497435158e-10,
+      "score_pos_diff": -4.203986114087455e-09,
+      "score_neg_diff": 7.190441193849484e-10
+    },
+    {
+      "at_interval": 2159,
+      "expert_id": 1,
+      "score_diff": 3.35628963857304e-10,
+      "score_pos_diff": -4.950745119414179e-09,
+      "score_neg_diff": 5.899376456092176e-10
+    },
+    {
+      "at_interval": 2175,
+      "expert_id": 1,
+      "score_diff": -2.178890661647115e-11,
+      "score_pos_diff": -3.347563969080536e-09,
+      "score_neg_diff": 1.1164747251712903e-10
+    },
+    {
+      "at_interval": 2191,
+      "expert_id": 1,
+      "score_diff": 5.0394277292808987e-11,
+      "score_pos_diff": -2.71424009656851e-09,
+      "score_neg_diff": 1.8339101591491325e-10
+    },
+    {
+      "at_interval": 2207,
+      "expert_id": 1,
+      "score_diff": -1.223279724044124e-10,
+      "score_pos_diff": -2.4347953514469722e-09,
+      "score_neg_diff": 1.271534440239197e-11
+    },
+    {
+      "at_interval": 2223,
+      "expert_id": 1,
+      "score_diff": -2.1427726433487226e-10,
+      "score_pos_diff": -2.0437432302067293e-09,
+      "score_neg_diff": -9.738151951488305e-11
+    },
+    {
+      "at_interval": 2239,
+      "expert_id": 1,
+      "score_diff": -1.7344785156747644e-10,
+      "score_pos_diff": -2.124562380190209e-09,
+      "score_neg_diff": -4.553920088246066e-11
+    },
+    {
+      "at_interval": 2255,
+      "expert_id": 1,
+      "score_diff": -1.7224832324358452e-10,
+      "score_pos_diff": -1.1298736946052657e-10,
+      "score_neg_diff": -1.766299693312101e-10
+    },
+    {
+      "at_interval": 2271,
+      "expert_id": 1,
+      "score_diff": 4.416226585812755e-11,
+      "score_pos_diff": 1.2305455907718477e-09,
+      "score_neg_diff": -4.757805434352225e-11
+    },
+    {
+      "at_interval": 2287,
+      "expert_id": 1,
+      "score_diff": 2.6333077558782225e-10,
+      "score_pos_diff": 1.2679907696738768e-09,
+      "score_neg_diff": 1.8678022323248555e-10
+    },
+    {
+      "at_interval": 2303,
+      "expert_id": 1,
+      "score_diff": 3.469367692437997e-10,
+      "score_pos_diff": 1.3010283649028676e-09,
+      "score_neg_diff": 2.763930265214931e-10
+    },
+    {
+      "at_interval": 2319,
+      "expert_id": 1,
+      "score_diff": 3.197864386489391e-10,
+      "score_pos_diff": 1.3567401958847203e-09,
+      "score_neg_diff": 2.378354024140661e-10
+    },
+    {
+      "at_interval": 2335,
+      "expert_id": 1,
+      "score_diff": 4.610401088678273e-10,
+      "score_pos_diff": 2.1144224392199984e-09,
+      "score_neg_diff": 3.218724071996082e-10
+    },
+    {
+      "at_interval": 2495,
+      "expert_id": 0,
+      "score_diff": 4.072981678489296e-10,
+      "score_pos_diff": 7.590807565849289e-10,
+      "score_neg_diff": 3.3428668513857396e-10
+    },
+    {
+      "at_interval": 2495,
+      "expert_id": 1,
+      "score_diff": 4.040618967887655e-11,
+      "score_pos_diff": 1.0990507046115816e-09,
+      "score_neg_diff": -1.79312484999139e-10
+    },
+    {
+      "at_interval": 2511,
+      "expert_id": 0,
+      "score_diff": 3.4440448409833735e-10,
+      "score_pos_diff": 7.096108284310176e-10,
+      "score_neg_diff": 2.654643935229295e-10
+    },
+    {
+      "at_interval": 2511,
+      "expert_id": 1,
+      "score_diff": 2.202115716339048e-10,
+      "score_pos_diff": 2.280436117718665e-10,
+      "score_neg_diff": 2.1851866323363556e-10
+    },
+    {
+      "at_interval": 2527,
+      "expert_id": 0,
+      "score_diff": 2.295015167491643e-10,
+      "score_pos_diff": 1.0261018423829427e-10,
+      "score_neg_diff": 2.6058796613603885e-10
+    },
+    {
+      "at_interval": 2527,
+      "expert_id": 1,
+      "score_diff": -4.769852048058798e-12,
+      "score_pos_diff": -8.949283987480516e-10,
+      "score_neg_diff": 2.1330546010056572e-10
+    },
+    {
+      "at_interval": 2543,
+      "expert_id": 0,
+      "score_diff": 3.637534674513776e-10,
+      "score_pos_diff": 8.317897759457793e-10,
+      "score_neg_diff": 2.581582066174537e-10
+    },
+    {
+      "at_interval": 2543,
+      "expert_id": 1,
+      "score_diff": -1.0296157459607769e-10,
+      "score_pos_diff": -1.1569758658069862e-09,
+      "score_neg_diff": 1.348381788168762e-10
+    },
+    {
+      "at_interval": 2559,
+      "expert_id": 0,
+      "score_diff": -2.956638926743249e-11,
+      "score_pos_diff": -4.744857839966699e-10,
+      "score_neg_diff": 7.08133881394124e-11
+    },
+    {
+      "at_interval": 2559,
+      "expert_id": 1,
+      "score_diff": 2.42681821903748e-10,
+      "score_pos_diff": 4.670046641064296e-11,
+      "score_neg_diff": 2.868978440234704e-10
+    },
+    {
+      "at_interval": 2575,
+      "expert_id": 0,
+      "score_diff": -4.1099694481072646e-10,
+      "score_pos_diff": -4.0195573258738904e-10,
+      "score_neg_diff": -4.131169139415247e-10
+    },
+    {
+      "at_interval": 2575,
+      "expert_id": 1,
+      "score_diff": 7.481313968392238e-10,
+      "score_pos_diff": 2.1718595741293534e-09,
+      "score_neg_diff": 4.14297604903191e-10
+    },
+    {
+      "at_interval": 2591,
+      "expert_id": 0,
+      "score_diff": -7.236290559820002e-10,
+      "score_pos_diff": -1.622928194611184e-09,
+      "score_neg_diff": -5.207351112812564e-10
+    },
+    {
+      "at_interval": 2591,
+      "expert_id": 1,
+      "score_diff": 9.635069622574224e-10,
+      "score_pos_diff": 2.961749755170384e-09,
+      "score_neg_diff": 5.126766025598251e-10
+    },
+    {
+      "at_interval": 2607,
+      "expert_id": 0,
+      "score_diff": -4.3390078162397483e-10,
+      "score_pos_diff": 1.0227980962174144e-10,
+      "score_neg_diff": -5.624283296035149e-10
+    },
+    {
+      "at_interval": 2607,
+      "expert_id": 1,
+      "score_diff": 1.3112668169161512e-09,
+      "score_pos_diff": 3.7640720679243955e-09,
+      "score_neg_diff": 7.233062360861853e-10
+    },
+    {
+      "at_interval": 2623,
+      "expert_id": 0,
+      "score_diff": -6.612603381528359e-10,
+      "score_pos_diff": -1.030958179937258e-09,
+      "score_neg_diff": -5.653117019638332e-10
+    },
+    {
+      "at_interval": 2623,
+      "expert_id": 1,
+      "score_diff": 1.3275753471802404e-09,
+      "score_pos_diff": 4.165552867918532e-09,
+      "score_neg_diff": 5.910276764525824e-10
+    },
+    {
+      "at_interval": 2639,
+      "expert_id": 0,
+      "score_diff": -7.05337644194004e-10,
+      "score_pos_diff": -1.0860655846878231e-09,
+      "score_neg_diff": -6.002519852693622e-10
+    },
+    {
+      "at_interval": 2639,
+      "expert_id": 1,
+      "score_diff": 1.206004768272706e-09,
+      "score_pos_diff": 4.424269863662067e-09,
+      "score_neg_diff": 3.1772349855241355e-10
+    },
+    {
+      "at_interval": 2655,
+      "expert_id": 0,
+      "score_diff": -5.482482991897575e-10,
+      "score_pos_diff": -4.331389413803066e-10,
+      "score_neg_diff": -5.775014442349624e-10
+    },
+    {
+      "at_interval": 2655,
+      "expert_id": 1,
+      "score_diff": 1.1271235758961162e-09,
+      "score_pos_diff": 4.321620530184367e-09,
+      "score_neg_diff": 3.1529489262493993e-10
+    },
+    {
+      "at_interval": 2671,
+      "expert_id": 0,
+      "score_diff": -8.847138143613931e-10,
+      "score_pos_diff": -2.0685550078392012e-09,
+      "score_neg_diff": -5.774684393861085e-10
+    },
+    {
+      "at_interval": 2671,
+      "expert_id": 1,
+      "score_diff": 9.437438378522012e-10,
+      "score_pos_diff": 3.5915121085472457e-09,
+      "score_neg_diff": 2.5656166253995583e-10
+    },
+    {
+      "at_interval": 2687,
+      "expert_id": 0,
+      "score_diff": -7.603639003150864e-10,
+      "score_pos_diff": -1.925442458250437e-09,
+      "score_neg_diff": -4.313404564082468e-10
+    },
+    {
+      "at_interval": 2687,
+      "expert_id": 1,
+      "score_diff": 6.835850201863947e-10,
+      "score_pos_diff": 2.8434132513799337e-09,
+      "score_neg_diff": 7.363979391550313e-11
+    },
+    {
+      "at_interval": 2703,
+      "expert_id": 0,
+      "score_diff": -8.014691237068217e-10,
+      "score_pos_diff": -2.647908003972077e-09,
+      "score_neg_diff": -3.0206009742073103e-10
+    },
+    {
+      "at_interval": 2703,
+      "expert_id": 1,
+      "score_diff": 1.2639829764446442e-10,
+      "score_pos_diff": -2.771529707124021e-10,
+      "score_neg_diff": 2.355474010284908e-10
+    },
+    {
+      "at_interval": 2719,
+      "expert_id": 0,
+      "score_diff": -7.879232908486467e-10,
+      "score_pos_diff": -2.6454913260032242e-09,
+      "score_neg_diff": -2.898880250429281e-10
+    },
+    {
+      "at_interval": 2719,
+      "expert_id": 1,
+      "score_diff": 2.499345240318529e-11,
+      "score_pos_diff": -5.45035228755042e-10,
+      "score_neg_diff": 1.7782467338911534e-10
+    },
+    {
+      "at_interval": 2735,
+      "expert_id": 0,
+      "score_diff": -6.761419688028347e-10,
+      "score_pos_diff": -3.0115632626559474e-09,
+      "score_neg_diff": -8.800409533049613e-11
+    },
+    {
+      "at_interval": 2735,
+      "expert_id": 1,
+      "score_diff": -2.8137651280138454e-10,
+      "score_pos_diff": -1.207808068837135e-09,
+      "score_neg_diff": -4.806978860100175e-11
+    },
+    {
+      "at_interval": 2751,
+      "expert_id": 0,
+      "score_diff": -3.210183681379153e-10,
+      "score_pos_diff": -1.828532616987566e-09,
+      "score_neg_diff": 4.833879824195364e-12
+    },
+    {
+      "at_interval": 2751,
+      "expert_id": 1,
+      "score_diff": -4.702391794095956e-10,
+      "score_pos_diff": -2.54160728921371e-09,
+      "score_neg_diff": -2.2508778695085052e-11
+    },
+    {
+      "at_interval": 2767,
+      "expert_id": 0,
+      "score_diff": -1.7702598848617912e-10,
+      "score_pos_diff": -1.712578009960275e-09,
+      "score_neg_diff": 1.6380059114640133e-10
+    },
+    {
+      "at_interval": 2767,
+      "expert_id": 1,
+      "score_diff": -6.475388626453644e-10,
+      "score_pos_diff": -2.8697458472060067e-09,
+      "score_neg_diff": -1.543043774351882e-10
+    },
+    {
+      "at_interval": 2783,
+      "expert_id": 0,
+      "score_diff": -2.486072736562761e-10,
+      "score_pos_diff": -2.257418557638502e-09,
+      "score_neg_diff": 2.1645125709152113e-10
+    },
+    {
+      "at_interval": 2783,
+      "expert_id": 1,
+      "score_diff": -4.770009740927977e-10,
+      "score_pos_diff": -2.6171645337025318e-09,
+      "score_neg_diff": 1.8466837434227834e-11
+    },
+    {
+      "at_interval": 2799,
+      "expert_id": 0,
+      "score_diff": -2.789740348452252e-10,
+      "score_pos_diff": -1.6786070311525236e-09,
+      "score_neg_diff": 6.709843618224465e-11
+    },
+    {
+      "at_interval": 2799,
+      "expert_id": 1,
+      "score_diff": -5.504563361114628e-10,
+      "score_pos_diff": -1.8506220063330137e-09,
+      "score_neg_diff": -2.2897810210420477e-10
+    },
+    {
+      "at_interval": 2815,
+      "expert_id": 0,
+      "score_diff": -5.006655472150623e-10,
+      "score_pos_diff": -2.217463046516599e-09,
+      "score_neg_diff": -8.267174098075536e-11
+    },
+    {
+      "at_interval": 2815,
+      "expert_id": 1,
+      "score_diff": -7.214331686298397e-10,
+      "score_pos_diff": -1.3714732405301078e-09,
+      "score_neg_diff": -5.631659756588636e-10
+    },
+    {
+      "at_interval": 2831,
+      "expert_id": 0,
+      "score_diff": -5.930298266343392e-10,
+      "score_pos_diff": -2.2796428494897825e-09,
+      "score_neg_diff": -1.7086172841157543e-10
+    },
+    {
+      "at_interval": 2831,
+      "expert_id": 1,
+      "score_diff": -5.381424533421053e-10,
+      "score_pos_diff": 7.290536022108718e-10,
+      "score_neg_diff": -8.553282786899485e-10
+    },
+    {
+      "at_interval": 2847,
+      "expert_id": 0,
+      "score_diff": -5.903604185369948e-10,
+      "score_pos_diff": -2.344363078665701e-09,
+      "score_neg_diff": -1.3513955839788983e-10
+    },
+    {
+      "at_interval": 2847,
+      "expert_id": 1,
+      "score_diff": -5.214747626769434e-10,
+      "score_pos_diff": 7.370047142019054e-10,
+      "score_neg_diff": -8.480912066372026e-10
+    },
+    {
+      "at_interval": 2863,
+      "expert_id": 0,
+      "score_diff": -4.4438929272527794e-10,
+      "score_pos_diff": -1.836245183683971e-09,
+      "score_neg_diff": -6.573532863873854e-11
+    },
+    {
+      "at_interval": 2863,
+      "expert_id": 1,
+      "score_diff": -2.9024348939879485e-10,
+      "score_pos_diff": 1.1289692930516182e-09,
+      "score_neg_diff": -6.763398851389324e-10
+    },
+    {
+      "at_interval": 2879,
+      "expert_id": 0,
+      "score_diff": -5.203189060165592e-10,
+      "score_pos_diff": -2.2318254883080257e-09,
+      "score_neg_diff": -1.023203292926933e-10
+    },
+    {
+      "at_interval": 2879,
+      "expert_id": 1,
+      "score_diff": -8.241923202950696e-11,
+      "score_pos_diff": 1.9626639168046633e-09,
+      "score_neg_diff": -5.818866829349068e-10
+    },
+    {
+      "at_interval": 2895,
+      "expert_id": 0,
+      "score_diff": -6.631784062877122e-10,
+      "score_pos_diff": -1.7787318978834676e-09,
+      "score_neg_diff": -4.196280579960021e-10
+    },
+    {
+      "at_interval": 2895,
+      "expert_id": 1,
+      "score_diff": 1.3203340222360527e-10,
+      "score_pos_diff": 1.793611321965205e-09,
+      "score_neg_diff": -2.3072632086146294e-10
+    },
+    {
+      "at_interval": 2911,
+      "expert_id": 0,
+      "score_diff": -4.437550708835669e-10,
+      "score_pos_diff": -3.715168450657558e-10,
+      "score_neg_diff": -4.590576070315211e-10
+    },
+    {
+      "at_interval": 2911,
+      "expert_id": 1,
+      "score_diff": -6.022193464391701e-11,
+      "score_pos_diff": 2.029195752401014e-09,
+      "score_neg_diff": -5.028323061748163e-10
+    },
+    {
+      "at_interval": 2927,
+      "expert_id": 0,
+      "score_diff": -3.6199755693022695e-10,
+      "score_pos_diff": -1.0723799070966322e-09,
+      "score_neg_diff": -2.120232808766609e-10
+    },
+    {
+      "at_interval": 2927,
+      "expert_id": 1,
+      "score_diff": 4.0699468112099374e-10,
+      "score_pos_diff": 3.136692815208786e-09,
+      "score_neg_diff": -1.6929285924505155e-10
+    },
+    {
+      "at_interval": 2943,
+      "expert_id": 0,
+      "score_diff": -7.97925163442681e-11,
+      "score_pos_diff": -4.756030708152892e-10,
+      "score_neg_diff": -4.4479697702826115e-13
+    },
+    {
+      "at_interval": 2943,
+      "expert_id": 1,
+      "score_diff": 1.8250759150489904e-10,
+      "score_pos_diff": 1.395435659384825e-09,
+      "score_neg_diff": -6.064680181661064e-11
+    },
+    {
+      "at_interval": 2959,
+      "expert_id": 0,
+      "score_diff": 5.1362226971551905e-11,
+      "score_pos_diff": 1.7939261187649436e-10,
+      "score_neg_diff": 2.6145257833731783e-11
+    },
+    {
+      "at_interval": 2959,
+      "expert_id": 1,
+      "score_diff": 1.4667447681762646e-10,
+      "score_pos_diff": 4.304788227271761e-10,
+      "score_neg_diff": 9.077613400548801e-11
+    },
+    {
+      "at_interval": 2975,
+      "expert_id": 0,
+      "score_diff": -5.805756049526156e-12,
+      "score_pos_diff": 4.009227810852778e-10,
+      "score_neg_diff": -8.935388019770674e-11
+    },
+    {
+      "at_interval": 2975,
+      "expert_id": 1,
+      "score_diff": 1.3099730761939599e-10,
+      "score_pos_diff": -8.380745229741304e-11,
+      "score_neg_diff": 1.7512141823466942e-10
+    },
+    {
+      "at_interval": 2991,
+      "expert_id": 0,
+      "score_diff": -1.3619478288207088e-10,
+      "score_pos_diff": 3.4052391462147114e-10,
+      "score_neg_diff": -2.2909095627465792e-10
+    },
+    {
+      "at_interval": 2991,
+      "expert_id": 1,
+      "score_diff": 2.05539161211854e-10,
+      "score_pos_diff": 1.0669964824877587e-09,
+      "score_neg_diff": 3.767058019688019e-11
+    },
+    {
+      "at_interval": 3007,
+      "expert_id": 0,
+      "score_diff": -1.3356047864898635e-10,
+      "score_pos_diff": 2.1061744015504757e-10,
+      "score_neg_diff": -2.0920172191796205e-10
+    },
+    {
+      "at_interval": 3007,
+      "expert_id": 1,
+      "score_diff": 7.709563933436248e-11,
+      "score_pos_diff": 4.879703585647377e-10,
+      "score_neg_diff": -1.3203806971395782e-11
+    },
+    {
+      "at_interval": 3023,
+      "expert_id": 0,
+      "score_diff": 2.7100226576703967e-10,
+      "score_pos_diff": 1.7952954262101528e-09,
+      "score_neg_diff": -6.732533107400851e-11
+    },
+    {
+      "at_interval": 3023,
+      "expert_id": 1,
+      "score_diff": 8.360289066935978e-11,
+      "score_pos_diff": 1.2117462953181724e-09,
+      "score_neg_diff": -1.66796479406095e-10
+    },
+    {
+      "at_interval": 3039,
+      "expert_id": 0,
+      "score_diff": -1.2014649518332643e-10,
+      "score_pos_diff": 5.567129535144488e-10,
+      "score_neg_diff": -2.748456236906227e-10
+    },
+    {
+      "at_interval": 3039,
+      "expert_id": 1,
+      "score_diff": 1.9075223779002615e-10,
+      "score_pos_diff": 1.3416075108491077e-09,
+      "score_neg_diff": -7.228067189918308e-11
+    },
+    {
+      "at_interval": 3055,
+      "expert_id": 0,
+      "score_diff": 1.1173344714732192e-10,
+      "score_pos_diff": 2.207388827279999e-09,
+      "score_neg_diff": -3.5035981581221787e-10
+    },
+    {
+      "at_interval": 3055,
+      "expert_id": 1,
+      "score_diff": 3.2545951957757557e-10,
+      "score_pos_diff": 2.085482392680249e-09,
+      "score_neg_diff": -6.262657406552741e-11
+    },
+    {
+      "at_interval": 3071,
+      "expert_id": 0,
+      "score_diff": 3.017485566969569e-12,
+      "score_pos_diff": 1.7541212371519066e-09,
+      "score_neg_diff": -3.6291564718682334e-10
+    },
+    {
+      "at_interval": 3071,
+      "expert_id": 1,
+      "score_diff": 5.818133023971495e-10,
+      "score_pos_diff": 3.043754161907719e-09,
+      "score_neg_diff": 6.733451643481381e-11
+    },
+    {
+      "at_interval": 3087,
+      "expert_id": 0,
+      "score_diff": 5.834654634440106e-11,
+      "score_pos_diff": 1.6440831196451455e-09,
+      "score_neg_diff": -2.5731529754158267e-10
+    },
+    {
+      "at_interval": 3087,
+      "expert_id": 1,
+      "score_diff": 5.565251584224717e-10,
+      "score_pos_diff": 3.274622210544531e-09,
+      "score_neg_diff": 1.5451973901792204e-11
+    },
+    {
+      "at_interval": 3103,
+      "expert_id": 0,
+      "score_diff": 9.762934037593762e-11,
+      "score_pos_diff": 1.5248603213446899e-09,
+      "score_neg_diff": -1.6179233126856207e-10
+    },
+    {
+      "at_interval": 3103,
+      "expert_id": 1,
+      "score_diff": 3.786668882101163e-10,
+      "score_pos_diff": 3.0033258449635447e-09,
+      "score_neg_diff": -9.84061486811183e-11
+    },
+    {
+      "at_interval": 3119,
+      "expert_id": 0,
+      "score_diff": 8.633416204162359e-11,
+      "score_pos_diff": 1.0300480746128216e-09,
+      "score_neg_diff": -1.0551367071731654e-10
+    },
+    {
+      "at_interval": 3119,
+      "expert_id": 1,
+      "score_diff": 3.5211447386301886e-10,
+      "score_pos_diff": 2.2353685569243e-09,
+      "score_neg_diff": -3.073271324927074e-11
+    },
+    {
+      "at_interval": 3135,
+      "expert_id": 0,
+      "score_diff": 8.836210669410649e-11,
+      "score_pos_diff": 1.2084024059166865e-09,
+      "score_neg_diff": -1.4330208721047288e-10
+    },
+    {
+      "at_interval": 3135,
+      "expert_id": 1,
+      "score_diff": 1.8707943072286681e-10,
+      "score_pos_diff": 1.8751899234781266e-09,
+      "score_neg_diff": -1.6208190345423645e-10
+    },
+    {
+      "at_interval": 3151,
+      "expert_id": 0,
+      "score_diff": -1.754257468455922e-10,
+      "score_pos_diff": -6.721276452070768e-10,
+      "score_neg_diff": -7.056319244191922e-11
+    },
+    {
+      "at_interval": 3151,
+      "expert_id": 1,
+      "score_diff": 2.4496835679746476e-10,
+      "score_pos_diff": 2.1912375108845694e-09,
+      "score_neg_diff": -1.6592347548000097e-10
+    },
+    {
+      "at_interval": 3167,
+      "expert_id": 0,
+      "score_diff": -1.2292938542102227e-10,
+      "score_pos_diff": -9.390788424656904e-10,
+      "score_neg_diff": 4.995908201022026e-11
+    },
+    {
+      "at_interval": 3167,
+      "expert_id": 1,
+      "score_diff": -3.666558484778648e-11,
+      "score_pos_diff": 5.509348914578549e-10,
+      "score_neg_diff": -1.611395322731468e-10
+    },
+    {
+      "at_interval": 3183,
+      "expert_id": 0,
+      "score_diff": -1.8210791295075746e-10,
+      "score_pos_diff": -1.161572713015424e-09,
+      "score_neg_diff": 4.247525595135748e-11
+    },
+    {
+      "at_interval": 3183,
+      "expert_id": 1,
+      "score_diff": -3.1679083466705504e-10,
+      "score_pos_diff": -6.774629433825563e-10,
+      "score_neg_diff": -2.3409170782362487e-10
+    },
+    {
+      "at_interval": 3199,
+      "expert_id": 0,
+      "score_diff": -4.406365723685912e-11,
+      "score_pos_diff": -4.763140437624713e-10,
+      "score_neg_diff": 6.347180767085625e-11
+    },
+    {
+      "at_interval": 3199,
+      "expert_id": 1,
+      "score_diff": -3.2859010597099253e-10,
+      "score_pos_diff": -8.672991526348373e-10,
+      "score_neg_diff": -1.9456980644705357e-10
+    },
+    {
+      "at_interval": 3215,
+      "expert_id": 0,
+      "score_diff": 3.2129309716216747e-10,
+      "score_pos_diff": 1.084290157660206e-09,
+      "score_neg_diff": 1.2208696900661842e-10
+    },
+    {
+      "at_interval": 3215,
+      "expert_id": 1,
+      "score_diff": -3.3669882355293057e-10,
+      "score_pos_diff": -1.2443872147993584e-09,
+      "score_neg_diff": -9.971614159387521e-11
+    },
+    {
+      "at_interval": 3231,
+      "expert_id": 0,
+      "score_diff": 4.328005523412948e-10,
+      "score_pos_diff": 1.3694037986899943e-09,
+      "score_neg_diff": 1.7873747447383348e-10
+    },
+    {
+      "at_interval": 3231,
+      "expert_id": 1,
+      "score_diff": -8.613626164329785e-11,
+      "score_pos_diff": -3.5271538988135287e-10,
+      "score_neg_diff": -1.382398362448356e-11
+    },
+    {
+      "at_interval": 3247,
+      "expert_id": 0,
+      "score_diff": 3.7060649688003267e-10,
+      "score_pos_diff": 1.3467709725212273e-09,
+      "score_neg_diff": 1.3734275695898024e-10
+    },
+    {
+      "at_interval": 3247,
+      "expert_id": 1,
+      "score_diff": -1.2743304892218199e-11,
+      "score_pos_diff": 5.904110186860656e-11,
+      "score_neg_diff": -2.989686796739388e-11
+    },
+    {
+      "at_interval": 3263,
+      "expert_id": 0,
+      "score_diff": 4.569782104807407e-10,
+      "score_pos_diff": 1.8999790213358736e-09,
+      "score_neg_diff": 1.2077031735779897e-10
+    },
+    {
+      "at_interval": 3263,
+      "expert_id": 1,
+      "score_diff": 1.1004339410189412e-10,
+      "score_pos_diff": 4.094543350208202e-10,
+      "score_neg_diff": 4.0282988750250937e-11
+    },
+    {
+      "at_interval": 3279,
+      "expert_id": 0,
+      "score_diff": 6.809648678274272e-11,
+      "score_pos_diff": 9.24435042404248e-10,
+      "score_neg_diff": -1.2699263342297318e-10
+    },
+    {
+      "at_interval": 3279,
+      "expert_id": 1,
+      "score_diff": -4.160479144359186e-11,
+      "score_pos_diff": -2.4329124478916775e-10,
+      "score_neg_diff": 4.3429608867495695e-12
+    },
+    {
+      "at_interval": 3295,
+      "expert_id": 0,
+      "score_diff": 1.8400215639341466e-10,
+      "score_pos_diff": 1.311101241463497e-09,
+      "score_neg_diff": -6.698767061885658e-11
+    },
+    {
+      "at_interval": 3295,
+      "expert_id": 1,
+      "score_diff": 4.617106068131871e-11,
+      "score_pos_diff": 1.121834639072894e-10,
+      "score_neg_diff": 3.147098553979433e-11
+    },
+    {
+      "at_interval": 3311,
+      "expert_id": 0,
+      "score_diff": 2.0317064003405605e-10,
+      "score_pos_diff": 1.6286288012645755e-09,
+      "score_neg_diff": -9.572933244716975e-11
+    },
+    {
+      "at_interval": 3311,
+      "expert_id": 1,
+      "score_diff": 6.378753645078228e-11,
+      "score_pos_diff": -5.012590759134739e-10,
+      "score_neg_diff": 1.8227043312168956e-10
+    },
+    {
+      "at_interval": 3327,
+      "expert_id": 0,
+      "score_diff": 1.306257012279044e-10,
+      "score_pos_diff": 2.1069213734792314e-09,
+      "score_neg_diff": -2.5036082061669074e-10
+    },
+    {
+      "at_interval": 3327,
+      "expert_id": 1,
+      "score_diff": -1.614718343843219e-10,
+      "score_pos_diff": -1.8384630328521778e-09,
+      "score_neg_diff": 1.6181534324283264e-10
+    },
+    {
+      "at_interval": 3343,
+      "expert_id": 0,
+      "score_diff": -8.906608436887176e-11,
+      "score_pos_diff": 8.238589116471573e-10,
+      "score_neg_diff": -2.6951558519672236e-10
+    },
+    {
+      "at_interval": 3343,
+      "expert_id": 1,
+      "score_diff": -2.280707146577743e-10,
+      "score_pos_diff": -2.809917284962715e-09,
+      "score_neg_diff": 2.822591925813467e-10
+    },
+    {
+      "at_interval": 3359,
+      "expert_id": 0,
+      "score_diff": -2.142158256335236e-10,
+      "score_pos_diff": 6.346462105843997e-10,
+      "score_neg_diff": -3.760918399625668e-10
+    },
+    {
+      "at_interval": 3359,
+      "expert_id": 1,
+      "score_diff": 1.7671413529533886e-10,
+      "score_pos_diff": -1.3519556203711591e-09,
+      "score_neg_diff": 4.682279034981529e-10
+    },
+    {
+      "at_interval": 3375,
+      "expert_id": 0,
+      "score_diff": -1.2939467032568874e-10,
+      "score_pos_diff": 8.939680523623039e-10,
+      "score_neg_diff": -3.64043271222636e-10
+    },
+    {
+      "at_interval": 3375,
+      "expert_id": 1,
+      "score_diff": -1.1754549764098066e-10,
+      "score_pos_diff": -2.36692992506074e-09,
+      "score_neg_diff": 3.9821971935249945e-10
+    },
+    {
+      "at_interval": 3391,
+      "expert_id": 0,
+      "score_diff": -1.971898495184421e-10,
+      "score_pos_diff": 9.184059762690211e-10,
+      "score_neg_diff": -4.6126809663538104e-10
+    },
+    {
+      "at_interval": 3391,
+      "expert_id": 1,
+      "score_diff": 3.382081680686211e-11,
+      "score_pos_diff": -2.025197324943828e-09,
+      "score_neg_diff": 5.212212458513554e-10
+    },
+    {
+      "at_interval": 3407,
+      "expert_id": 0,
+      "score_diff": 6.997447309087246e-10,
+      "score_pos_diff": 4.764423633396575e-09,
+      "score_neg_diff": -3.804851329836101e-10
+    },
+    {
+      "at_interval": 3407,
+      "expert_id": 1,
+      "score_diff": -1.7090051943058349e-10,
+      "score_pos_diff": -3.139146657893388e-09,
+      "score_neg_diff": 6.179411639502252e-10
+    },
+    {
+      "at_interval": 3423,
+      "expert_id": 0,
+      "score_diff": 7.392964573860183e-10,
+      "score_pos_diff": 4.730086100579456e-09,
+      "score_neg_diff": -3.6538596454027683e-10
+    },
+    {
+      "at_interval": 3423,
+      "expert_id": 1,
+      "score_diff": -1.8974200509391803e-10,
+      "score_pos_diff": -3.373630038522313e-09,
+      "score_neg_diff": 6.915836111252849e-10
+    },
+    {
+      "at_interval": 3439,
+      "expert_id": 0,
+      "score_diff": 9.452599501746928e-10,
+      "score_pos_diff": 5.300974270650016e-09,
+      "score_neg_diff": -2.3627150236293915e-10
+    },
+    {
+      "at_interval": 3439,
+      "expert_id": 1,
+      "score_diff": -2.3452934039269735e-10,
+      "score_pos_diff": -2.8388551440161613e-09,
+      "score_neg_diff": 4.719203049174947e-10
+    },
+    {
+      "at_interval": 3455,
+      "expert_id": 0,
+      "score_diff": 7.194959142364787e-10,
+      "score_pos_diff": 3.6453116636359084e-09,
+      "score_neg_diff": -1.5194478140967416e-10
+    },
+    {
+      "at_interval": 3455,
+      "expert_id": 1,
+      "score_diff": -5.1739553613705525e-11,
+      "score_pos_diff": -2.2513608061158763e-09,
+      "score_neg_diff": 6.034074654867605e-10
+    },
+    {
+      "at_interval": 3471,
+      "expert_id": 0,
+      "score_diff": 6.543892441812638e-10,
+      "score_pos_diff": 3.3323681314367803e-09,
+      "score_neg_diff": -2.4059651840269147e-10
+    },
+    {
+      "at_interval": 3471,
+      "expert_id": 1,
+      "score_diff": 1.5566966465874188e-10,
+      "score_pos_diff": -6.254386383797161e-10,
+      "score_neg_diff": 4.167175866529038e-10
+    },
+    {
+      "at_interval": 3487,
+      "expert_id": 0,
+      "score_diff": 5.783680062654284e-10,
+      "score_pos_diff": 2.322974090862573e-09,
+      "score_neg_diff": -8.30550662966889e-11
+    },
+    {
+      "at_interval": 3487,
+      "expert_id": 1,
+      "score_diff": -3.61098533019355e-10,
+      "score_pos_diff": -1.6520461665336938e-09,
+      "score_neg_diff": 1.2833144703155996e-10
+    },
+    {
+      "at_interval": 3503,
+      "expert_id": 0,
+      "score_diff": 3.565640699365602e-10,
+      "score_pos_diff": 1.7063384316617913e-09,
+      "score_neg_diff": -1.2799327396562088e-10
+    },
+    {
+      "at_interval": 3503,
+      "expert_id": 1,
+      "score_diff": -4.079241978927062e-10,
+      "score_pos_diff": -1.2159351581164657e-09,
+      "score_neg_diff": -1.1785523165025458e-10
+    },
+    {
+      "at_interval": 3519,
+      "expert_id": 0,
+      "score_diff": 2.2415480582793634e-10,
+      "score_pos_diff": 1.009536981788628e-09,
+      "score_neg_diff": -5.2154568858098216e-11
+    },
+    {
+      "at_interval": 3519,
+      "expert_id": 1,
+      "score_diff": -4.0281358457128214e-10,
+      "score_pos_diff": -1.2923040415557807e-09,
+      "score_neg_diff": -8.987733474130621e-11
+    },
+    {
+      "at_interval": 3535,
+      "expert_id": 0,
+      "score_diff": -4.953583099265302e-10,
+      "score_pos_diff": -2.1598413890711043e-09,
+      "score_neg_diff": 2.6727800528369983e-11
+    },
+    {
+      "at_interval": 3535,
+      "expert_id": 1,
+      "score_diff": -2.2518479095290367e-10,
+      "score_pos_diff": 1.4374595957988845e-10,
+      "score_neg_diff": -3.4090457280006037e-10
+    },
+    {
+      "at_interval": 3551,
+      "expert_id": 0,
+      "score_diff": -4.013095758481633e-10,
+      "score_pos_diff": -1.5351160342902403e-09,
+      "score_neg_diff": -4.663167248175615e-11
+    },
+    {
+      "at_interval": 3551,
+      "expert_id": 1,
+      "score_diff": -2.6505482877969833e-10,
+      "score_pos_diff": 4.752682969400013e-11,
+      "score_neg_diff": -3.6283678058607327e-10
+    },
+    {
+      "at_interval": 3567,
+      "expert_id": 0,
+      "score_diff": -4.744530046618678e-10,
+      "score_pos_diff": -1.6756766529901768e-09,
+      "score_neg_diff": -8.337501002098069e-11
+    },
+    {
+      "at_interval": 3567,
+      "expert_id": 1,
+      "score_diff": -2.7877781333396356e-10,
+      "score_pos_diff": -5.880627235166358e-10,
+      "score_neg_diff": -1.7808505538285946e-10
+    },
+    {
+      "at_interval": 3583,
+      "expert_id": 0,
+      "score_diff": 8.749433816346297e-11,
+      "score_pos_diff": 1.5690135302115493e-10,
+      "score_neg_diff": 6.589906745291252e-11
+    },
+    {
+      "at_interval": 3583,
+      "expert_id": 1,
+      "score_diff": -1.808216666676632e-10,
+      "score_pos_diff": -2.211353322678633e-10,
+      "score_neg_diff": -1.6827848663136802e-10
+    },
+    {
+      "at_interval": 3599,
+      "expert_id": 0,
+      "score_diff": 3.2068150218611535e-11,
+      "score_pos_diff": 2.943664478838315e-10,
+      "score_neg_diff": -3.866945132158239e-11
+    },
+    {
+      "at_interval": 3599,
+      "expert_id": 1,
+      "score_diff": -3.3161519884250534e-10,
+      "score_pos_diff": -1.0611198100751729e-09,
+      "score_neg_diff": -1.3487960835029122e-10
+    },
+    {
+      "at_interval": 3615,
+      "expert_id": 0,
+      "score_diff": 4.739920053675739e-10,
+      "score_pos_diff": 1.8109664878807052e-09,
+      "score_neg_diff": 1.4442739192099818e-10
+    },
+    {
+      "at_interval": 3615,
+      "expert_id": 1,
+      "score_diff": -2.2545793357253707e-10,
+      "score_pos_diff": -5.376098108356153e-10,
+      "score_neg_diff": -1.4851240116159348e-10
+    },
+    {
+      "at_interval": 3631,
+      "expert_id": 0,
+      "score_diff": 7.555194117894737e-10,
+      "score_pos_diff": 1.960449191873437e-09,
+      "score_neg_diff": 4.6124129862712415e-10
+    },
+    {
+      "at_interval": 3631,
+      "expert_id": 1,
+      "score_diff": 7.518901300185288e-12,
+      "score_pos_diff": -8.423215493158498e-10,
+      "score_neg_diff": 2.150741026246683e-10
+    },
+    {
+      "at_interval": 3647,
+      "expert_id": 0,
+      "score_diff": 8.279179807002546e-10,
+      "score_pos_diff": 2.1273698358470483e-09,
+      "score_neg_diff": 5.026583524414541e-10
+    },
+    {
+      "at_interval": 3647,
+      "expert_id": 1,
+      "score_diff": -1.1557339894135987e-10,
+      "score_pos_diff": -7.856438069553384e-10,
+      "score_neg_diff": 5.214874192194241e-11
+    },
+    {
+      "at_interval": 3663,
+      "expert_id": 0,
+      "score_diff": 7.870894665196193e-10,
+      "score_pos_diff": 2.077419292145777e-09,
+      "score_neg_diff": 4.4214980982060226e-10
+    },
+    {
+      "at_interval": 3663,
+      "expert_id": 1,
+      "score_diff": 6.617373315975783e-11,
+      "score_pos_diff": -9.646832013765483e-10,
+      "score_neg_diff": 3.417493499562746e-10
+    },
+    {
+      "at_interval": 3679,
+      "expert_id": 0,
+      "score_diff": 5.502231769163868e-10,
+      "score_pos_diff": 9.286954399945202e-10,
+      "score_neg_diff": 4.4666111087554583e-10
+    },
+    {
+      "at_interval": 3679,
+      "expert_id": 1,
+      "score_diff": 2.153450577579985e-10,
+      "score_pos_diff": -5.619864122674567e-11,
+      "score_neg_diff": 2.8964805900977275e-10
+    },
+    {
+      "at_interval": 3695,
+      "expert_id": 0,
+      "score_diff": 7.591240700280388e-10,
+      "score_pos_diff": 1.4580767981886567e-09,
+      "score_neg_diff": 5.617366675980673e-10
+    },
+    {
+      "at_interval": 3695,
+      "expert_id": 1,
+      "score_diff": 3.704061675435799e-10,
+      "score_pos_diff": 4.0323443195600106e-10,
+      "score_neg_diff": 3.6113531739698224e-10
+    },
+    {
+      "at_interval": 3711,
+      "expert_id": 0,
+      "score_diff": 4.566800704958185e-10,
+      "score_pos_diff": 7.963053272330711e-10,
+      "score_neg_diff": 3.6642119199958856e-10
+    },
+    {
+      "at_interval": 3711,
+      "expert_id": 1,
+      "score_diff": 4.2286067963165364e-10,
+      "score_pos_diff": 1.088472725147005e-09,
+      "score_neg_diff": 2.459674902990927e-10
+    },
+    {
+      "at_interval": 3727,
+      "expert_id": 0,
+      "score_diff": 7.605675863414652e-10,
+      "score_pos_diff": 1.12593098733349e-09,
+      "score_neg_diff": 6.623224121926619e-10
+    },
+    {
+      "at_interval": 3727,
+      "expert_id": 1,
+      "score_diff": 4.445848160103405e-10,
+      "score_pos_diff": 1.506262753414589e-09,
+      "score_neg_diff": 1.591026436032622e-10
+    },
+    {
+      "at_interval": 3743,
+      "expert_id": 0,
+      "score_diff": 3.6488160670006264e-10,
+      "score_pos_diff": 8.299881337769932e-10,
+      "score_neg_diff": 2.4417130817244725e-10
+    },
+    {
+      "at_interval": 3743,
+      "expert_id": 1,
+      "score_diff": 7.420740064101317e-11,
+      "score_pos_diff": 8.847170739068044e-10,
+      "score_neg_diff": -1.3614628077262408e-10
+    },
+    {
+      "at_interval": 3759,
+      "expert_id": 0,
+      "score_diff": 4.5093232446669074e-10,
+      "score_pos_diff": 2.2012169725860176e-09,
+      "score_neg_diff": -7.398522766655091e-12
+    },
+    {
+      "at_interval": 3759,
+      "expert_id": 1,
+      "score_diff": -6.10993434665974e-11,
+      "score_pos_diff": 4.779400451793148e-10,
+      "score_neg_diff": -2.022526034454672e-10
+    },
+    {
+      "at_interval": 3775,
+      "expert_id": 0,
+      "score_diff": 5.151823221499763e-10,
+      "score_pos_diff": 2.4540255938454436e-09,
+      "score_neg_diff": -2.3049274294750788e-11
+    },
+    {
+      "at_interval": 3775,
+      "expert_id": 1,
+      "score_diff": -2.162124698029677e-10,
+      "score_pos_diff": -1.5702156241914622e-10,
+      "score_neg_diff": -2.3264413095622216e-10
+    },
+    {
+      "at_interval": 3791,
+      "expert_id": 0,
+      "score_diff": 7.309902960717096e-10,
+      "score_pos_diff": 2.941141219459098e-09,
+      "score_neg_diff": 1.4015786448107193e-10
+    },
+    {
+      "at_interval": 3791,
+      "expert_id": 1,
+      "score_diff": -3.402240754749042e-10,
+      "score_pos_diff": -4.055265533098318e-10,
+      "score_neg_diff": -3.22766977424796e-10
+    },
+    {
+      "at_interval": 3807,
+      "expert_id": 0,
+      "score_diff": 8.973285500063488e-10,
+      "score_pos_diff": 3.767961331835323e-09,
+      "score_neg_diff": 1.344286088694746e-10
+    },
+    {
+      "at_interval": 3807,
+      "expert_id": 1,
+      "score_diff": -2.9136541356694634e-10,
+      "score_pos_diff": -3.066228763948242e-10,
+      "score_neg_diff": -2.873105864548489e-10
+    },
+    {
+      "at_interval": 3823,
+      "expert_id": 0,
+      "score_diff": 4.752752757325451e-10,
+      "score_pos_diff": 2.7087120602065085e-09,
+      "score_neg_diff": -1.0264536096094012e-10
+    },
+    {
+      "at_interval": 3823,
+      "expert_id": 1,
+      "score_diff": -4.841972586766552e-10,
+      "score_pos_diff": -4.5002095799828723e-10,
+      "score_neg_diff": -4.930406665619794e-10
+    },
+    {
+      "at_interval": 3839,
+      "expert_id": 0,
+      "score_diff": 1.902601375058932e-10,
+      "score_pos_diff": 1.596250506774588e-09,
+      "score_neg_diff": -1.900201402477153e-10
+    },
+    {
+      "at_interval": 3839,
+      "expert_id": 1,
+      "score_diff": -5.435728464564527e-10,
+      "score_pos_diff": -7.452309949695923e-10,
+      "score_neg_diff": -4.890300713748623e-10
+    },
+    {
+      "at_interval": 3855,
+      "expert_id": 0,
+      "score_diff": -4.8091504736835766e-11,
+      "score_pos_diff": 1.4861902541962735e-09,
+      "score_neg_diff": -4.826123996964915e-10
+    },
+    {
+      "at_interval": 3855,
+      "expert_id": 1,
+      "score_diff": -6.439289657045322e-10,
+      "score_pos_diff": -1.2014922910752457e-09,
+      "score_neg_diff": -4.860225605356422e-10
+    },
+    {
+      "at_interval": 3871,
+      "expert_id": 0,
+      "score_diff": 1.0650553876334623e-10,
+      "score_pos_diff": 1.7052844136777878e-09,
+      "score_neg_diff": -3.398743213950395e-10
+    },
+    {
+      "at_interval": 3871,
+      "expert_id": 1,
+      "score_diff": -5.481561446071814e-10,
+      "score_pos_diff": -1.3985073619993127e-09,
+      "score_neg_diff": -3.107376585555243e-10
+    },
+    {
+      "at_interval": 3887,
+      "expert_id": 0,
+      "score_diff": -1.916235755142215e-10,
+      "score_pos_diff": 7.573683069583836e-10,
+      "score_neg_diff": -4.4979652814858273e-10
+    },
+    {
+      "at_interval": 3887,
+      "expert_id": 1,
+      "score_diff": -5.854682676165179e-10,
+      "score_pos_diff": -1.4827428659880404e-09,
+      "score_neg_diff": -3.4136499342854974e-10
+    },
+    {
+      "at_interval": 3903,
+      "expert_id": 0,
+      "score_diff": -3.9969712348902897e-10,
+      "score_pos_diff": 9.661625666179674e-11,
+      "score_neg_diff": -5.347190225324372e-10
+    },
+    {
+      "at_interval": 3903,
+      "expert_id": 1,
+      "score_diff": -3.9528956410211924e-10,
+      "score_pos_diff": -1.3143869742604508e-09,
+      "score_neg_diff": -1.4524939741635337e-10
+    },
+    {
+      "at_interval": 3919,
+      "expert_id": 0,
+      "score_diff": -6.294037574114397e-10,
+      "score_pos_diff": 1.3178912128264386e-10,
+      "score_neg_diff": -8.222641317834345e-10
+    },
+    {
+      "at_interval": 3919,
+      "expert_id": 1,
+      "score_diff": -3.981927305246602e-10,
+      "score_pos_diff": -1.4488085314789956e-09,
+      "score_neg_diff": -1.3200243600009626e-10
+    },
+    {
+      "at_interval": 3935,
+      "expert_id": 0,
+      "score_diff": -6.332680439063987e-10,
+      "score_pos_diff": -9.729385352930109e-11,
+      "score_neg_diff": -7.657927278414967e-10
+    },
+    {
+      "at_interval": 3935,
+      "expert_id": 1,
+      "score_diff": -3.714937125282036e-10,
+      "score_pos_diff": -1.2509446187247697e-09,
+      "score_neg_diff": -1.540411738052902e-10
+    },
+    {
+      "at_interval": 3951,
+      "expert_id": 0,
+      "score_diff": -5.922153845875494e-10,
+      "score_pos_diff": -4.0575709459034215e-11,
+      "score_neg_diff": -7.191090778402298e-10
+    },
+    {
+      "at_interval": 3951,
+      "expert_id": 1,
+      "score_diff": -2.928658010548091e-10,
+      "score_pos_diff": -1.3871286619338008e-09,
+      "score_neg_diff": -4.115248137918914e-11
+    },
+    {
+      "at_interval": 3967,
+      "expert_id": 0,
+      "score_diff": -3.571825639078763e-10,
+      "score_pos_diff": 7.534627505245695e-10,
+      "score_neg_diff": -6.053195705096881e-10
+    },
+    {
+      "at_interval": 3967,
+      "expert_id": 1,
+      "score_diff": -5.291901396253795e-10,
+      "score_pos_diff": -1.7331467302983405e-09,
+      "score_neg_diff": -2.6020581219213246e-10
+    },
+    {
+      "at_interval": 3983,
+      "expert_id": 0,
+      "score_diff": -1.6125741800904203e-11,
+      "score_pos_diff": 2.2283551392998646e-10,
+      "score_neg_diff": -6.50425165116264e-11
+    },
+    {
+      "at_interval": 3983,
+      "expert_id": 1,
+      "score_diff": -4.809410604142417e-10,
+      "score_pos_diff": -1.566481926812413e-09,
+      "score_neg_diff": -2.5872445939129074e-10
+    },
+    {
+      "at_interval": 3999,
+      "expert_id": 0,
+      "score_diff": 1.8778134147461045e-10,
+      "score_pos_diff": 8.720536098794085e-11,
+      "score_neg_diff": 2.0773175714305925e-10
+    },
+    {
+      "at_interval": 3999,
+      "expert_id": 1,
+      "score_diff": -1.595149307781485e-10,
+      "score_pos_diff": -1.1929415250772069e-09,
+      "score_neg_diff": 4.547723742726051e-11
+    },
+    {
+      "at_interval": 4015,
+      "expert_id": 0,
+      "score_diff": 3.468057980550443e-11,
+      "score_pos_diff": 1.5291871935385615e-10,
+      "score_neg_diff": 1.2784625788575532e-11
+    },
+    {
+      "at_interval": 4015,
+      "expert_id": 1,
+      "score_diff": -2.51368821591047e-10,
+      "score_pos_diff": -8.314378682067192e-10,
+      "score_neg_diff": -1.4394862732358682e-10
+    },
+    {
+      "at_interval": 4031,
+      "expert_id": 0,
+      "score_diff": 1.9732314740505963e-11,
+      "score_pos_diff": 3.164434166091912e-10,
+      "score_neg_diff": -2.455789738231573e-11
+    },
+    {
+      "at_interval": 4031,
+      "expert_id": 1,
+      "score_diff": -2.4496059000678194e-10,
+      "score_pos_diff": -4.847214652228815e-10,
+      "score_neg_diff": -2.0917136425713245e-10
+    },
+    {
+      "at_interval": 4047,
+      "expert_id": 0,
+      "score_diff": 2.8870711550610384e-10,
+      "score_pos_diff": 3.1599398965520553e-10,
+      "score_neg_diff": 2.8433193993704364e-10
+    },
+    {
+      "at_interval": 4047,
+      "expert_id": 1,
+      "score_diff": -4.382891619081342e-12,
+      "score_pos_diff": 3.9097760879541754e-10,
+      "score_neg_diff": -6.777496792953475e-11
+    },
+    {
+      "at_interval": 4063,
+      "expert_id": 0,
+      "score_diff": 2.939559541961789e-10,
+      "score_pos_diff": 1.1892142340319545e-09,
+      "score_neg_diff": 1.556804372915277e-10
+    },
+    {
+      "at_interval": 4063,
+      "expert_id": 1,
+      "score_diff": -1.8147846420069058e-10,
+      "score_pos_diff": -6.336678274113106e-10,
+      "score_neg_diff": -1.1163635987854192e-10
+    },
+    {
+      "at_interval": 4079,
+      "expert_id": 0,
+      "score_diff": 4.838630262519322e-10,
+      "score_pos_diff": 2.204620354329112e-09,
+      "score_neg_diff": 2.0795689302521847e-10
+    },
+    {
+      "at_interval": 4079,
+      "expert_id": 1,
+      "score_diff": -2.7636270355513304e-10,
+      "score_pos_diff": -5.904901342196345e-10,
+      "score_neg_diff": -2.2599552784718924e-10
+    },
+    {
+      "at_interval": 4095,
+      "expert_id": 0,
+      "score_diff": 5.197440607236647e-10,
+      "score_pos_diff": 2.0615633436471548e-09,
+      "score_neg_diff": 2.65405271544783e-10
+    },
+    {
+      "at_interval": 4095,
+      "expert_id": 1,
+      "score_diff": 5.038393140199826e-11,
+      "score_pos_diff": -3.7933212300444996e-10,
+      "score_neg_diff": 1.21269974964755e-10
+    },
+    {
+      "at_interval": 4111,
+      "expert_id": 0,
+      "score_diff": 2.854829211570986e-10,
+      "score_pos_diff": 2.2717010911277313e-09,
+      "score_neg_diff": -6.07385981787889e-11
+    },
+    {
+      "at_interval": 4111,
+      "expert_id": 1,
+      "score_diff": 5.941786125618354e-11,
+      "score_pos_diff": 6.854562403790787e-11,
+      "score_neg_diff": 5.7826786761805415e-11
+    },
+    {
+      "at_interval": 4127,
+      "expert_id": 0,
+      "score_diff": 1.9313521962271984e-10,
+      "score_pos_diff": 2.176339247705883e-09,
+      "score_neg_diff": -1.7957830014680987e-10
+    },
+    {
+      "at_interval": 4127,
+      "expert_id": 1,
+      "score_diff": -1.4245632451448387e-11,
+      "score_pos_diff": 8.572519760025044e-10,
+      "score_neg_diff": -1.7803056598375555e-10
+    },
+    {
+      "at_interval": 4143,
+      "expert_id": 0,
+      "score_diff": 4.52381316434769e-10,
+      "score_pos_diff": 2.0759232804978822e-09,
+      "score_neg_diff": 1.348760252789516e-10
+    },
+    {
+      "at_interval": 4143,
+      "expert_id": 1,
+      "score_diff": 5.7019982485639886e-11,
+      "score_pos_diff": 4.441538040134141e-10,
+      "score_neg_diff": -1.868920296299592e-11
+    },
+    {
+      "at_interval": 4159,
+      "expert_id": 0,
+      "score_diff": 5.461008121404598e-10,
+      "score_pos_diff": 1.8472297025340367e-09,
+      "score_neg_diff": 2.4584029950647235e-10
+    },
+    {
+      "at_interval": 4159,
+      "expert_id": 1,
+      "score_diff": -4.827867099155281e-11,
+      "score_pos_diff": 4.147202442572606e-10,
+      "score_neg_diff": -1.5512457117450307e-10
+    },
+    {
+      "at_interval": 4175,
+      "expert_id": 0,
+      "score_diff": 5.974128249389143e-10,
+      "score_pos_diff": 1.4065450193445628e-09,
+      "score_neg_diff": 4.0102151634135996e-10
+    },
+    {
+      "at_interval": 4175,
+      "expert_id": 1,
+      "score_diff": -2.1344400032152766e-10,
+      "score_pos_diff": 4.696511339552512e-10,
+      "score_neg_diff": -3.7924379175241496e-10
+    },
+    {
+      "at_interval": 4191,
+      "expert_id": 0,
+      "score_diff": 5.38425628734962e-10,
+      "score_pos_diff": 3.198167564111287e-10,
+      "score_neg_diff": 5.980709330555278e-10
+    },
+    {
+      "at_interval": 4191,
+      "expert_id": 1,
+      "score_diff": -4.146178018971103e-11,
+      "score_pos_diff": 1.0939028502465753e-09,
+      "score_neg_diff": -3.5123497686695426e-10
+    },
+    {
+      "at_interval": 4207,
+      "expert_id": 0,
+      "score_diff": 4.1116598580720476e-10,
+      "score_pos_diff": -4.3492112689058615e-11,
+      "score_neg_diff": 5.424989416025205e-10
+    },
+    {
+      "at_interval": 4207,
+      "expert_id": 1,
+      "score_diff": -2.3569341183610204e-10,
+      "score_pos_diff": 5.052355096790695e-10,
+      "score_neg_diff": -4.4971882121047635e-10
+    },
+    {
+      "at_interval": 4223,
+      "expert_id": 0,
+      "score_diff": 1.754417063015712e-10,
+      "score_pos_diff": -4.986982216070857e-10,
+      "score_neg_diff": 3.685370619788131e-10
+    },
+    {
+      "at_interval": 4223,
+      "expert_id": 1,
+      "score_diff": -2.4012040099330445e-10,
+      "score_pos_diff": -2.0186674207223199e-10,
+      "score_neg_diff": -2.5107748085478887e-10
+    },
+    {
+      "at_interval": 4239,
+      "expert_id": 0,
+      "score_diff": -1.4540211656227653e-10,
+      "score_pos_diff": -5.210790687826261e-10,
+      "score_neg_diff": -3.3199297477803924e-11
+    },
+    {
+      "at_interval": 4239,
+      "expert_id": 1,
+      "score_diff": 1.753939528337245e-11,
+      "score_pos_diff": 3.067097097131377e-11,
+      "score_neg_diff": 1.3617410150879028e-11
+    },
+    {
+      "at_interval": 4255,
+      "expert_id": 0,
+      "score_diff": -3.32490306120814e-10,
+      "score_pos_diff": -3.9526858175431556e-10,
+      "score_neg_diff": -3.142030594038836e-10
+    },
+    {
+      "at_interval": 4255,
+      "expert_id": 1,
+      "score_diff": 7.774726609038884e-11,
+      "score_pos_diff": -6.467062918166788e-10,
+      "score_neg_diff": 2.887797665926395e-10
+    },
+    {
+      "at_interval": 4271,
+      "expert_id": 0,
+      "score_diff": -4.212886489315948e-10,
+      "score_pos_diff": -6.185747747355919e-11,
+      "score_neg_diff": -5.259905427879019e-10
+    },
+    {
+      "at_interval": 4271,
+      "expert_id": 1,
+      "score_diff": 3.560950145864439e-10,
+      "score_pos_diff": 2.9595093216372437e-10,
+      "score_neg_diff": 3.736149167821168e-10
+    },
+    {
+      "at_interval": 4287,
+      "expert_id": 0,
+      "score_diff": -2.614124316319133e-10,
+      "score_pos_diff": 2.7122609713714496e-11,
+      "score_neg_diff": -3.3831942629347633e-10
+    },
+    {
+      "at_interval": 4287,
+      "expert_id": 1,
+      "score_diff": 4.853990594883006e-10,
+      "score_pos_diff": 4.86492802639904e-10,
+      "score_neg_diff": 4.851075314019071e-10
+    },
+    {
+      "at_interval": 4303,
+      "expert_id": 0,
+      "score_diff": -6.489528203007522e-10,
+      "score_pos_diff": -1.9392662475858913e-10,
+      "score_neg_diff": -7.723832649852991e-10
+    },
+    {
+      "at_interval": 4303,
+      "expert_id": 1,
+      "score_diff": 5.517417321632134e-10,
+      "score_pos_diff": -9.530229730381201e-11,
+      "score_neg_diff": 7.272589518450556e-10
+    },
+    {
+      "at_interval": 4319,
+      "expert_id": 0,
+      "score_diff": -4.739952779234113e-10,
+      "score_pos_diff": 3.458754116447693e-10,
+      "score_neg_diff": -6.723751520831822e-10
+    },
+    {
+      "at_interval": 4319,
+      "expert_id": 1,
+      "score_diff": 7.884276773117982e-10,
+      "score_pos_diff": 5.893524982272802e-10,
+      "score_neg_diff": 8.365968690374204e-10
+    },
+    {
+      "at_interval": 4335,
+      "expert_id": 0,
+      "score_diff": -3.8093717503323576e-10,
+      "score_pos_diff": 4.196784170185097e-10,
+      "score_neg_diff": -5.551496033706638e-10
+    },
+    {
+      "at_interval": 4335,
+      "expert_id": 1,
+      "score_diff": 1.3293716162599e-09,
+      "score_pos_diff": 2.5141390037550226e-09,
+      "score_neg_diff": 1.0715684875886589e-09
+    },
+    {
+      "at_interval": 4351,
+      "expert_id": 0,
+      "score_diff": -1.8050000296504498e-10,
+      "score_pos_diff": 1.5759610838550486e-09,
+      "score_neg_diff": -5.703589042033164e-10
+    },
+    {
+      "at_interval": 4351,
+      "expert_id": 1,
+      "score_diff": 9.439462779134433e-10,
+      "score_pos_diff": 2.292817840969519e-09,
+      "score_neg_diff": 6.4455473684083e-10
+    },
+    {
+      "at_interval": 4367,
+      "expert_id": 0,
+      "score_diff": -9.975186041760731e-11,
+      "score_pos_diff": 1.4223685562697597e-09,
+      "score_neg_diff": -4.0381926275090407e-10
+    },
+    {
+      "at_interval": 4367,
+      "expert_id": 1,
+      "score_diff": 8.847842215831125e-10,
+      "score_pos_diff": 2.7317548145430748e-09,
+      "score_neg_diff": 5.158229017532268e-10
+    },
+    {
+      "at_interval": 4383,
+      "expert_id": 0,
+      "score_diff": 3.303554044903345e-11,
+      "score_pos_diff": 1.3052136593749708e-09,
+      "score_neg_diff": -2.211019718006968e-10
+    },
+    {
+      "at_interval": 4383,
+      "expert_id": 1,
+      "score_diff": 7.056905849608941e-10,
+      "score_pos_diff": 2.997247000070813e-09,
+      "score_neg_diff": 2.479162795193668e-10
+    },
+    {
+      "at_interval": 4399,
+      "expert_id": 0,
+      "score_diff": 1.427950353447005e-10,
+      "score_pos_diff": 5.173316219853064e-10,
+      "score_neg_diff": 6.318661045778828e-11
+    },
+    {
+      "at_interval": 4399,
+      "expert_id": 1,
+      "score_diff": 3.3499759043154054e-10,
+      "score_pos_diff": 1.2169120225391516e-09,
+      "score_neg_diff": 1.4754508639164277e-10
+    },
+    {
+      "at_interval": 4415,
+      "expert_id": 0,
+      "score_diff": 5.075102317564362e-11,
+      "score_pos_diff": 2.564693596385226e-10,
+      "score_neg_diff": 4.0360700892527746e-12
+    },
+    {
+      "at_interval": 4415,
+      "expert_id": 1,
+      "score_diff": 3.1992033328043235e-10,
+      "score_pos_diff": 7.477498117219872e-10,
+      "score_neg_diff": 2.2276792303183024e-10
+    },
+    {
+      "at_interval": 4431,
+      "expert_id": 0,
+      "score_diff": 1.5620850793429675e-10,
+      "score_pos_diff": -2.8123336992535997e-12,
+      "score_neg_diff": 1.9115710923889306e-10
+    },
+    {
+      "at_interval": 4431,
+      "expert_id": 1,
+      "score_diff": 2.705388994425628e-10,
+      "score_pos_diff": 1.2850166885430836e-09,
+      "score_neg_diff": 4.758338775084914e-11
+    },
+    {
+      "at_interval": 4447,
+      "expert_id": 0,
+      "score_diff": 1.1013736363890692e-10,
+      "score_pos_diff": 1.029094864879454e-11,
+      "score_neg_diff": 1.3078915554742832e-10
+    },
+    {
+      "at_interval": 4447,
+      "expert_id": 1,
+      "score_diff": 2.393136279421615e-10,
+      "score_pos_diff": 9.106435067823826e-10,
+      "score_neg_diff": 1.00458713396534e-10
+    },
+    {
+      "at_interval": 4463,
+      "expert_id": 0,
+      "score_diff": 8.719569510873271e-11,
+      "score_pos_diff": -3.998440467611886e-12,
+      "score_neg_diff": 1.0644838829843017e-10
+    },
+    {
+      "at_interval": 4463,
+      "expert_id": 1,
+      "score_diff": 9.756865454457753e-13,
+      "score_pos_diff": 1.4569721470958363e-10,
+      "score_neg_diff": -2.9577586040108184e-11
+    },
+    {
+      "at_interval": 4479,
+      "expert_id": 0,
+      "score_diff": -1.0419720121446208e-10,
+      "score_pos_diff": -1.3671658527503183e-09,
+      "score_neg_diff": 1.976011160254032e-10
+    },
+    {
+      "at_interval": 4479,
+      "expert_id": 1,
+      "score_diff": 1.5473678501715105e-10,
+      "score_pos_diff": 4.72612494278879e-10,
+      "score_neg_diff": 7.877737698280818e-11
+    },
+    {
+      "at_interval": 4495,
+      "expert_id": 0,
+      "score_diff": -4.990264451665283e-11,
+      "score_pos_diff": -1.4636265532885773e-09,
+      "score_neg_diff": 3.0720314313226194e-10
+    },
+    {
+      "at_interval": 4495,
+      "expert_id": 1,
+      "score_diff": 1.919538260980458e-10,
+      "score_pos_diff": -1.5916336998378355e-10,
+      "score_neg_diff": 2.8064581734932315e-10
+    },
+    {
+      "at_interval": 4511,
+      "expert_id": 0,
+      "score_diff": 2.2319762704725576e-10,
+      "score_pos_diff": -1.2858627496115105e-09,
+      "score_neg_diff": 6.218876542202212e-10
+    },
+    {
+      "at_interval": 4511,
+      "expert_id": 1,
+      "score_diff": -7.546335084596123e-12,
+      "score_pos_diff": 3.0687841851007036e-10,
+      "score_neg_diff": -9.061657674225287e-11
+    },
+    {
+      "at_interval": 4527,
+      "expert_id": 0,
+      "score_diff": 1.3989193137220468e-10,
+      "score_pos_diff": -1.1099080265974948e-09,
+      "score_neg_diff": 5.059949386571061e-10
+    },
+    {
+      "at_interval": 4527,
+      "expert_id": 1,
+      "score_diff": 6.679532274511679e-11,
+      "score_pos_diff": 4.6539239129117504e-10,
+      "score_neg_diff": -4.996543283286581e-11
+    },
+    {
+      "at_interval": 4543,
+      "expert_id": 0,
+      "score_diff": 1.1967705992876887e-10,
+      "score_pos_diff": -9.809820178396933e-10,
+      "score_neg_diff": 4.6398579249540273e-10
+    },
+    {
+      "at_interval": 4543,
+      "expert_id": 1,
+      "score_diff": -3.460970746105296e-11,
+      "score_pos_diff": 5.770223465706437e-10,
+      "score_neg_diff": -2.2594076089232917e-10
+    },
+    {
+      "at_interval": 4559,
+      "expert_id": 0,
+      "score_diff": 6.926190385114772e-10,
+      "score_pos_diff": 4.54715876063716e-10,
+      "score_neg_diff": 7.733723141056803e-10
+    },
+    {
+      "at_interval": 4559,
+      "expert_id": 1,
+      "score_diff": -2.365591542097256e-10,
+      "score_pos_diff": -2.1761004109777105e-10,
+      "score_neg_diff": -2.4299119660842194e-10
+    },
+    {
+      "at_interval": 4575,
+      "expert_id": 0,
+      "score_diff": 8.890919944715137e-10,
+      "score_pos_diff": 1.5770854622232378e-09,
+      "score_neg_diff": 6.288952743987997e-10
+    },
+    {
+      "at_interval": 4575,
+      "expert_id": 1,
+      "score_diff": -6.956555331782965e-10,
+      "score_pos_diff": -6.094337950957041e-10,
+      "score_neg_diff": -7.282642978251319e-10
+    },
+    {
+      "at_interval": 4591,
+      "expert_id": 0,
+      "score_diff": 7.301344737142834e-10,
+      "score_pos_diff": 1.0467300359806586e-09,
+      "score_neg_diff": 6.098110922475586e-10
+    },
+    {
+      "at_interval": 4591,
+      "expert_id": 1,
+      "score_diff": -6.269347888054888e-10,
+      "score_pos_diff": -5.099840133526712e-10,
+      "score_neg_diff": -6.713823993281798e-10
+    },
+    {
+      "at_interval": 4607,
+      "expert_id": 0,
+      "score_diff": 1.0424133986552953e-09,
+      "score_pos_diff": 2.116949615604824e-09,
+      "score_neg_diff": 6.605298998735298e-10
+    },
+    {
+      "at_interval": 4607,
+      "expert_id": 1,
+      "score_diff": -5.687010862232e-10,
+      "score_pos_diff": -1.3656076269796813e-11,
+      "score_neg_diff": -7.659606369309069e-10
+    },
+    {
+      "at_interval": 4623,
+      "expert_id": 0,
+      "score_diff": 1.1829797488815963e-09,
+      "score_pos_diff": 2.878076721390954e-09,
+      "score_neg_diff": 6.223531377747005e-10
+    },
+    {
+      "at_interval": 4623,
+      "expert_id": 1,
+      "score_diff": -8.881649825320803e-10,
+      "score_pos_diff": -2.6831166455298927e-10,
+      "score_neg_diff": -1.093171704200091e-09
+    },
+    {
+      "at_interval": 4639,
+      "expert_id": 0,
+      "score_diff": 1.103866532903286e-09,
+      "score_pos_diff": 3.1722662552358116e-09,
+      "score_neg_diff": 3.9085940387040274e-10
+    },
+    {
+      "at_interval": 4639,
+      "expert_id": 1,
+      "score_diff": -6.208594922896271e-10,
+      "score_pos_diff": -1.3948660421148062e-09,
+      "score_neg_diff": -3.5404830239435525e-10
+    },
+    {
+      "at_interval": 4655,
+      "expert_id": 0,
+      "score_diff": 1.1614305489571208e-09,
+      "score_pos_diff": 3.7163632449210837e-09,
+      "score_neg_diff": 3.941396480022785e-10
+    },
+    {
+      "at_interval": 4655,
+      "expert_id": 1,
+      "score_diff": -6.888439957331016e-10,
+      "score_pos_diff": -1.1654833764751515e-09,
+      "score_neg_diff": -5.457008742451586e-10
+    },
+    {
+      "at_interval": 4671,
+      "expert_id": 0,
+      "score_diff": 1.1746463454698208e-09,
+      "score_pos_diff": 4.009425319528859e-09,
+      "score_neg_diff": 3.967138319238561e-10
+    },
+    {
+      "at_interval": 4671,
+      "expert_id": 1,
+      "score_diff": -5.243270487925722e-10,
+      "score_pos_diff": -1.2153027750816392e-09,
+      "score_neg_diff": -3.3470645179056735e-10
+    },
+    {
+      "at_interval": 4687,
+      "expert_id": 0,
+      "score_diff": 7.015683936573147e-10,
+      "score_pos_diff": 3.454726796303653e-09,
+      "score_neg_diff": -3.65849035094401e-11
+    },
+    {
+      "at_interval": 4687,
+      "expert_id": 1,
+      "score_diff": -3.9038258389800795e-10,
+      "score_pos_diff": -2.645586735794403e-10,
+      "score_neg_diff": -4.2411741393161284e-10
+    },
+    {
+      "at_interval": 4703,
+      "expert_id": 0,
+      "score_diff": 3.439268297239506e-10,
+      "score_pos_diff": 1.4348778831774212e-09,
+      "score_neg_diff": 7.913288600780444e-11
+    },
+    {
+      "at_interval": 4703,
+      "expert_id": 1,
+      "score_diff": -2.4777164521483375e-10,
+      "score_pos_diff": -8.186187144820778e-11,
+      "score_neg_diff": -2.880410077121809e-10
+    },
+    {
+      "at_interval": 4719,
+      "expert_id": 0,
+      "score_diff": 3.9761328257670314e-10,
+      "score_pos_diff": 1.7684199105083565e-09,
+      "score_neg_diff": 8.430954545612934e-11
+    },
+    {
+      "at_interval": 4719,
+      "expert_id": 1,
+      "score_diff": -3.9711556612531673e-10,
+      "score_pos_diff": -8.237919547904315e-10,
+      "score_neg_diff": -2.995968438612717e-10
+    },
+    {
+      "at_interval": 4735,
+      "expert_id": 0,
+      "score_diff": 2.6566402636790665e-10,
+      "score_pos_diff": 1.3977578816604108e-09,
+      "score_neg_diff": 9.417636809283536e-12
+    },
+    {
+      "at_interval": 4735,
+      "expert_id": 1,
+      "score_diff": -8.858305668851818e-11,
+      "score_pos_diff": 3.0113308027712726e-10,
+      "score_neg_diff": -1.7679425371591728e-10
+    },
+    {
+      "at_interval": 4751,
+      "expert_id": 0,
+      "score_diff": 2.098182539170268e-10,
+      "score_pos_diff": 5.763451799145614e-10,
+      "score_neg_diff": 1.208554072790191e-10
+    },
+    {
+      "at_interval": 4751,
+      "expert_id": 1,
+      "score_diff": 1.6675856095299535e-10,
+      "score_pos_diff": 4.611536378457126e-10,
+      "score_neg_diff": 9.530344525707224e-11
+    },
+    {
+      "at_interval": 4767,
+      "expert_id": 0,
+      "score_diff": 7.003134704086644e-11,
+      "score_pos_diff": 1.3808453824815103e-09,
+      "score_neg_diff": -2.151992941484826e-10
+    },
+    {
+      "at_interval": 4767,
+      "expert_id": 1,
+      "score_diff": 1.900750676644969e-10,
+      "score_pos_diff": 9.369699200539872e-10,
+      "score_neg_diff": 2.7552168879729777e-11
+    },
+    {
+      "at_interval": 4783,
+      "expert_id": 0,
+      "score_diff": 3.024062758018309e-10,
+      "score_pos_diff": 2.0764137909079494e-09,
+      "score_neg_diff": -1.3488711883558047e-10
+    },
+    {
+      "at_interval": 4783,
+      "expert_id": 1,
+      "score_diff": 3.6425916449811524e-10,
+      "score_pos_diff": 9.158297661904236e-10,
+      "score_neg_diff": 2.2829684410280437e-10
+    },
+    {
+      "at_interval": 4799,
+      "expert_id": 0,
+      "score_diff": 3.1419954225203606e-10,
+      "score_pos_diff": 2.25674455511804e-09,
+      "score_neg_diff": -1.6316553490269836e-10
+    },
+    {
+      "at_interval": 4799,
+      "expert_id": 1,
+      "score_diff": 2.475182558914213e-11,
+      "score_pos_diff": 6.269397674618649e-10,
+      "score_neg_diff": -1.2323109720158154e-10
+    },
+    {
+      "at_interval": 4815,
+      "expert_id": 0,
+      "score_diff": 3.676642575459188e-10,
+      "score_pos_diff": 2.052079367542703e-09,
+      "score_neg_diff": -3.106201927616237e-11
+    },
+    {
+      "at_interval": 4815,
+      "expert_id": 1,
+      "score_diff": 5.156626774888151e-11,
+      "score_pos_diff": 4.275418439420031e-10,
+      "score_neg_diff": -3.743278256806981e-11
+    },
+    {
+      "at_interval": 4831,
+      "expert_id": 0,
+      "score_diff": 7.315030690555058e-10,
+      "score_pos_diff": 3.1517505688638536e-09,
+      "score_neg_diff": 1.3491132343224077e-10
+    },
+    {
+      "at_interval": 4831,
+      "expert_id": 1,
+      "score_diff": 3.6429620344641256e-10,
+      "score_pos_diff": 6.200132577488526e-10,
+      "score_neg_diff": 3.012618713521542e-10
+    },
+    {
+      "at_interval": 4847,
+      "expert_id": 0,
+      "score_diff": 8.64580773293766e-10,
+      "score_pos_diff": 3.578407722915067e-09,
+      "score_neg_diff": 1.8322287957672767e-10
+    },
+    {
+      "at_interval": 4847,
+      "expert_id": 1,
+      "score_diff": 7.236488856060541e-10,
+      "score_pos_diff": 1.427878862023113e-09,
+      "score_neg_diff": 5.468385501361528e-10
+    },
+    {
+      "at_interval": 4863,
+      "expert_id": 0,
+      "score_diff": 8.122768416001999e-10,
+      "score_pos_diff": 3.380979725353672e-09,
+      "score_neg_diff": 1.6735510373344642e-10
+    },
+    {
+      "at_interval": 4863,
+      "expert_id": 1,
+      "score_diff": 4.5458633645550917e-10,
+      "score_pos_diff": 3.4487960057227873e-10,
+      "score_neg_diff": 4.82130301827921e-10
+    },
+    {
+      "at_interval": 4879,
+      "expert_id": 0,
+      "score_diff": 9.466963970562736e-10,
+      "score_pos_diff": 3.7709834699306555e-09,
+      "score_neg_diff": 2.0272935066789621e-10
+    },
+    {
+      "at_interval": 4879,
+      "expert_id": 1,
+      "score_diff": 3.6290652774551013e-10,
+      "score_pos_diff": 4.892338305306776e-10,
+      "score_neg_diff": 3.296296872609683e-10
+    },
+    {
+      "at_interval": 4895,
+      "expert_id": 0,
+      "score_diff": 1.0517748586132136e-09,
+      "score_pos_diff": 2.279027494500596e-09,
+      "score_neg_diff": 7.246592822335307e-10
+    },
+    {
+      "at_interval": 4895,
+      "expert_id": 1,
+      "score_diff": 3.3860149926956407e-10,
+      "score_pos_diff": 8.838160724111699e-10,
+      "score_neg_diff": 1.9327838201438352e-10
+    },
+    {
+      "at_interval": 4911,
+      "expert_id": 0,
+      "score_diff": 7.409020374212621e-10,
+      "score_pos_diff": 1.6677222658412205e-09,
+      "score_neg_diff": 5.145461869082713e-10
+    },
+    {
+      "at_interval": 4911,
+      "expert_id": 1,
+      "score_diff": 3.5295504192955907e-10,
+      "score_pos_diff": 9.555833329483177e-10,
+      "score_neg_diff": 2.0577607933586206e-10
+    },
+    {
+      "at_interval": 4927,
+      "expert_id": 0,
+      "score_diff": 5.938258110065042e-10,
+      "score_pos_diff": 5.336977942915766e-10,
+      "score_neg_diff": 6.090602033131942e-10
+    },
+    {
+      "at_interval": 4927,
+      "expert_id": 1,
+      "score_diff": 5.841094075434428e-10,
+      "score_pos_diff": 8.421369209615781e-10,
+      "score_neg_diff": 5.187340158113729e-10
+    },
+    {
+      "at_interval": 4943,
+      "expert_id": 0,
+      "score_diff": 4.5208309611046577e-10,
+      "score_pos_diff": 2.664543030661548e-10,
+      "score_neg_diff": 4.979815691752432e-10
+    },
+    {
+      "at_interval": 4943,
+      "expert_id": 1,
+      "score_diff": 6.098857851036255e-10,
+      "score_pos_diff": 8.183503423520033e-10,
+      "score_neg_diff": 5.583409576695453e-10
+    },
+    {
+      "at_interval": 4959,
+      "expert_id": 0,
+      "score_diff": 7.535353498946615e-11,
+      "score_pos_diff": -7.153103318002785e-10,
+      "score_neg_diff": 2.7145359571267846e-10
+    },
+    {
+      "at_interval": 4959,
+      "expert_id": 1,
+      "score_diff": 2.824592174738294e-10,
+      "score_pos_diff": 4.0452167223564706e-10,
+      "score_neg_diff": 2.521853472575719e-10
+    },
+    {
+      "at_interval": 4975,
+      "expert_id": 0,
+      "score_diff": -1.300545760495042e-10,
+      "score_pos_diff": -6.542690070276969e-10,
+      "score_neg_diff": 1.2143877917147883e-11
+    },
+    {
+      "at_interval": 4975,
+      "expert_id": 1,
+      "score_diff": -1.5750087865862294e-10,
+      "score_pos_diff": -3.443865839204696e-10,
+      "score_neg_diff": -1.068062461390129e-10
+    },
+    {
+      "at_interval": 4991,
+      "expert_id": 0,
+      "score_diff": -3.1949185463030216e-10,
+      "score_pos_diff": -9.956209329198273e-10,
+      "score_neg_diff": -1.3017571048878906e-10
+    },
+    {
+      "at_interval": 4991,
+      "expert_id": 1,
+      "score_diff": -8.597844571717195e-11,
+      "score_pos_diff": -1.1509204839166287e-09,
+      "score_neg_diff": 2.1220532449295337e-10
+    },
+    {
+      "at_interval": 5007,
+      "expert_id": 0,
+      "score_diff": -5.946296349735279e-10,
+      "score_pos_diff": -1.995026012446832e-09,
+      "score_neg_diff": -2.0475648780660105e-10
+    },
+    {
+      "at_interval": 5007,
+      "expert_id": 1,
+      "score_diff": -1.6919254365588277e-10,
+      "score_pos_diff": -1.4839839446254693e-09,
+      "score_neg_diff": 1.9684800751235132e-10
+    },
+    {
+      "at_interval": 5023,
+      "expert_id": 0,
+      "score_diff": -8.111004519938125e-10,
+      "score_pos_diff": -1.8155302192179867e-09,
+      "score_neg_diff": -5.338653200070986e-10
+    },
+    {
+      "at_interval": 5023,
+      "expert_id": 1,
+      "score_diff": -1.5817849894489422e-10,
+      "score_pos_diff": -1.442318898320881e-09,
+      "score_neg_diff": 1.9626025110630607e-10
+    },
+    {
+      "at_interval": 5039,
+      "expert_id": 0,
+      "score_diff": -1.0376203259782578e-09,
+      "score_pos_diff": -3.054027766791201e-09,
+      "score_neg_diff": -4.681777743265059e-10
+    },
+    {
+      "at_interval": 5039,
+      "expert_id": 1,
+      "score_diff": -1.6347401904370784e-10,
+      "score_pos_diff": -1.4331203919979232e-09,
+      "score_neg_diff": 1.9507984290456637e-10
+    },
+    {
+      "at_interval": 5055,
+      "expert_id": 0,
+      "score_diff": -1.0864199323154522e-09,
+      "score_pos_diff": -2.2956225878556502e-09,
+      "score_neg_diff": -7.555435860284732e-10
+    },
+    {
+      "at_interval": 5055,
+      "expert_id": 1,
+      "score_diff": -2.2451072077822598e-10,
+      "score_pos_diff": -1.6121178281203186e-09,
+      "score_neg_diff": 1.5518276767767514e-10
+    },
+    {
+      "at_interval": 5071,
+      "expert_id": 0,
+      "score_diff": -1.0006956899406838e-09,
+      "score_pos_diff": -2.1101122030242614e-09,
+      "score_neg_diff": -6.944829086807935e-10
+    },
+    {
+      "at_interval": 5071,
+      "expert_id": 1,
+      "score_diff": -1.0886981073598978e-10,
+      "score_pos_diff": -1.5624550663700942e-09,
+      "score_neg_diff": 2.9233783102600164e-10
+    },
+    {
+      "at_interval": 5087,
+      "expert_id": 0,
+      "score_diff": -9.79195306002184e-10,
+      "score_pos_diff": -1.5930099739325243e-09,
+      "score_neg_diff": -7.93841228863279e-10
+    },
+    {
+      "at_interval": 5087,
+      "expert_id": 1,
+      "score_diff": 9.95451984731055e-12,
+      "score_pos_diff": -1.5732997222725476e-09,
+      "score_neg_diff": 4.880510023896889e-10
+    },
+    {
+      "at_interval": 5103,
+      "expert_id": 0,
+      "score_diff": -8.263963502223859e-10,
+      "score_pos_diff": -1.9976172799252012e-09,
+      "score_neg_diff": -5.096145120481177e-10
+    },
+    {
+      "at_interval": 5103,
+      "expert_id": 1,
+      "score_diff": 9.514811421390545e-11,
+      "score_pos_diff": -1.7334886512343495e-09,
+      "score_neg_diff": 5.89742178702668e-10
+    },
+    {
+      "at_interval": 5119,
+      "expert_id": 0,
+      "score_diff": -6.690319088661911e-10,
+      "score_pos_diff": -1.8335731960528179e-09,
+      "score_neg_diff": -3.9856684792838326e-10
+    },
+    {
+      "at_interval": 5119,
+      "expert_id": 1,
+      "score_diff": -1.1927421550428363e-10,
+      "score_pos_diff": -1.1775716452291918e-09,
+      "score_neg_diff": 1.265156816115942e-10
+    },
+    {
+      "at_interval": 5135,
+      "expert_id": 0,
+      "score_diff": -3.884740237825035e-10,
+      "score_pos_diff": -1.0642765002621957e-09,
+      "score_neg_diff": -2.5252079637397284e-10
+    },
+    {
+      "at_interval": 5135,
+      "expert_id": 1,
+      "score_diff": -2.318460857325677e-10,
+      "score_pos_diff": -1.0852565669045022e-09,
+      "score_neg_diff": -6.01629232543921e-11
+    },
+    {
+      "at_interval": 5151,
+      "expert_id": 0,
+      "score_diff": -7.564108306726269e-10,
+      "score_pos_diff": -2.4803426083852553e-09,
+      "score_neg_diff": -3.9738551251694565e-10
+    },
+    {
+      "at_interval": 5151,
+      "expert_id": 1,
+      "score_diff": -2.782369334930479e-10,
+      "score_pos_diff": -2.482849014925903e-09,
+      "score_neg_diff": 1.8089466730097925e-10
+    },
+    {
+      "at_interval": 5167,
+      "expert_id": 0,
+      "score_diff": -3.227920795240147e-10,
+      "score_pos_diff": -9.255796823426365e-10,
+      "score_neg_diff": -2.1075107284329597e-10
+    },
+    {
+      "at_interval": 5167,
+      "expert_id": 1,
+      "score_diff": -3.915623832118076e-10,
+      "score_pos_diff": -2.785741057970137e-09,
+      "score_neg_diff": 5.344709050336682e-11
+    },
+    {
+      "at_interval": 5183,
+      "expert_id": 0,
+      "score_diff": -2.1966288683838986e-10,
+      "score_pos_diff": -9.91752867329776e-10,
+      "score_neg_diff": -8.03751848063583e-11
+    },
+    {
+      "at_interval": 5183,
+      "expert_id": 1,
+      "score_diff": -4.079722219774151e-10,
+      "score_pos_diff": -2.5196352192169424e-09,
+      "score_neg_diff": -2.7020913284658832e-11
+    },
+    {
+      "at_interval": 5199,
+      "expert_id": 0,
+      "score_diff": -1.061920395367677e-10,
+      "score_pos_diff": -1.8412515973703636e-09,
+      "score_neg_diff": 1.9976045036868006e-10
+    },
+    {
+      "at_interval": 5199,
+      "expert_id": 1,
+      "score_diff": -6.415699638218086e-10,
+      "score_pos_diff": -3.5809643549045145e-09,
+      "score_neg_diff": -1.2325055906425852e-10
+    },
+    {
+      "at_interval": 5215,
+      "expert_id": 0,
+      "score_diff": -2.886054407610916e-10,
+      "score_pos_diff": -3.243187638585221e-09,
+      "score_neg_diff": 1.6966309173555016e-10
+    },
+    {
+      "at_interval": 5215,
+      "expert_id": 1,
+      "score_diff": -6.693151866077329e-10,
+      "score_pos_diff": -3.296333594970946e-09,
+      "score_neg_diff": -2.6185321619354163e-10
+    },
+    {
+      "at_interval": 5231,
+      "expert_id": 0,
+      "score_diff": -2.977438599491289e-10,
+      "score_pos_diff": -3.003168550647084e-09,
+      "score_neg_diff": 1.8664709014459824e-10
+    },
+    {
+      "at_interval": 5231,
+      "expert_id": 1,
+      "score_diff": -7.902732496178899e-10,
+      "score_pos_diff": -2.9352273042682064e-09,
+      "score_neg_diff": -4.0623138533590897e-10
+    },
+    {
+      "at_interval": 5247,
+      "expert_id": 0,
+      "score_diff": -2.8948685896340587e-10,
+      "score_pos_diff": -2.901708161945349e-09,
+      "score_neg_diff": 2.213678606741154e-10
+    },
+    {
+      "at_interval": 5247,
+      "expert_id": 1,
+      "score_diff": -6.673093778941652e-10,
+      "score_pos_diff": -3.1363200161949045e-09,
+      "score_neg_diff": -1.844614148927004e-10
+    },
+    {
+      "at_interval": 5263,
+      "expert_id": 0,
+      "score_diff": -2.574552116635376e-10,
+      "score_pos_diff": -1.8594587050668743e-09,
+      "score_neg_diff": 8.07560539706903e-11
+    },
+    {
+      "at_interval": 5263,
+      "expert_id": 1,
+      "score_diff": -5.163657574441816e-10,
+      "score_pos_diff": -2.9353177770363725e-09,
+      "score_neg_diff": -5.682211645652302e-12
+    },
+    {
+      "at_interval": 5279,
+      "expert_id": 0,
+      "score_diff": 8.018681682195328e-11,
+      "score_pos_diff": -7.028154794253005e-10,
+      "score_neg_diff": 2.3660379471629467e-10
+    },
+    {
+      "at_interval": 5279,
+      "expert_id": 1,
+      "score_diff": -4.5212840069086546e-10,
+      "score_pos_diff": -1.2804246413145037e-09,
+      "score_neg_diff": -2.866632469594732e-10
+    },
+    {
+      "at_interval": 5295,
+      "expert_id": 0,
+      "score_diff": -1.8641762482632385e-10,
+      "score_pos_diff": -1.159305824949275e-09,
+      "score_neg_diff": 2.3171938326460584e-11
+    },
+    {
+      "at_interval": 5295,
+      "expert_id": 1,
+      "score_diff": -3.0997750026517945e-10,
+      "score_pos_diff": -1.4899446763166901e-09,
+      "score_neg_diff": -5.577685535662624e-11
+    },
+    {
+      "at_interval": 5311,
+      "expert_id": 0,
+      "score_diff": -3.0377150534582897e-10,
+      "score_pos_diff": -2.2976032951205205e-09,
+      "score_neg_diff": 1.0579135657773353e-10
+    },
+    {
+      "at_interval": 5311,
+      "expert_id": 1,
+      "score_diff": -1.786928244262853e-10,
+      "score_pos_diff": -6.905746651603151e-10,
+      "score_neg_diff": -7.354464259812232e-11
+    },
+    {
+      "at_interval": 5327,
+      "expert_id": 0,
+      "score_diff": -3.014453179260579e-10,
+      "score_pos_diff": -8.3449067794783e-10,
+      "score_neg_diff": -1.8118313967196986e-10
+    },
+    {
+      "at_interval": 5327,
+      "expert_id": 1,
+      "score_diff": 2.002232364281542e-11,
+      "score_pos_diff": 4.370655538876722e-10,
+      "score_neg_diff": -7.406821943972686e-11
+    },
+    {
+      "at_interval": 5343,
+      "expert_id": 0,
+      "score_diff": 9.825061380794309e-11,
+      "score_pos_diff": 6.862044127364797e-10,
+      "score_neg_diff": -2.545597760361673e-11
+    },
+    {
+      "at_interval": 5343,
+      "expert_id": 1,
+      "score_diff": -1.3889387036336576e-11,
+      "score_pos_diff": 5.347040987063734e-10,
+      "score_neg_diff": -1.2931449487607605e-10
+    },
+    {
+      "at_interval": 5359,
+      "expert_id": 0,
+      "score_diff": -9.018753105438648e-11,
+      "score_pos_diff": 5.692803312085104e-10,
+      "score_neg_diff": -2.2378495584396418e-10
+    },
+    {
+      "at_interval": 5359,
+      "expert_id": 1,
+      "score_diff": 3.546539624477152e-11,
+      "score_pos_diff": 4.773515662609418e-10,
+      "score_neg_diff": -5.40535290138866e-11
+    },
+    {
+      "at_interval": 5375,
+      "expert_id": 0,
+      "score_diff": -8.875606499758604e-11,
+      "score_pos_diff": 6.788146850178478e-10,
+      "score_neg_diff": -2.431705913019666e-10
+    },
+    {
+      "at_interval": 5375,
+      "expert_id": 1,
+      "score_diff": 2.914846033812146e-10,
+      "score_pos_diff": 2.1621234819885204e-09,
+      "score_neg_diff": -8.483747124948815e-11
+    },
+    {
+      "at_interval": 5391,
+      "expert_id": 0,
+      "score_diff": -4.4387067806017644e-11,
+      "score_pos_diff": -1.4706243167683652e-11,
+      "score_neg_diff": -5.0358050195098425e-11
+    },
+    {
+      "at_interval": 5391,
+      "expert_id": 1,
+      "score_diff": 3.210449388973968e-10,
+      "score_pos_diff": 2.452593909213485e-09,
+      "score_neg_diff": -1.0776520474597984e-10
+    },
+    {
+      "at_interval": 5407,
+      "expert_id": 0,
+      "score_diff": -1.1994092828301883e-10,
+      "score_pos_diff": -1.4027529138260775e-10,
+      "score_neg_diff": -1.1577836519366391e-10
+    },
+    {
+      "at_interval": 5407,
+      "expert_id": 1,
+      "score_diff": 2.6461549011008723e-10,
+      "score_pos_diff": 2.366183596280713e-09,
+      "score_neg_diff": -1.6558786286591243e-10
+    },
+    {
+      "at_interval": 5423,
+      "expert_id": 0,
+      "score_diff": -3.1897546062809035e-10,
+      "score_pos_diff": 1.206691413457861e-10,
+      "score_neg_diff": -4.0804028125090985e-10
+    },
+    {
+      "at_interval": 5423,
+      "expert_id": 1,
+      "score_diff": 3.417520919035688e-10,
+      "score_pos_diff": 2.7858634149557915e-09,
+      "score_neg_diff": -1.5338496445194139e-10
+    },
+    {
+      "at_interval": 5439,
+      "expert_id": 0,
+      "score_diff": -1.4720392634871848e-10,
+      "score_pos_diff": 1.1722737780495152e-09,
+      "score_neg_diff": -4.1918107353267064e-10
+    },
+    {
+      "at_interval": 5439,
+      "expert_id": 1,
+      "score_diff": 3.3277850483917626e-10,
+      "score_pos_diff": 2.388444615697427e-09,
+      "score_neg_diff": -9.094536929099561e-11
+    },
+    {
+      "at_interval": 5455,
+      "expert_id": 0,
+      "score_diff": -1.8479302837286563e-10,
+      "score_pos_diff": 7.856866789113237e-10,
+      "score_neg_diff": -3.74583279325047e-10
+    },
+    {
+      "at_interval": 5455,
+      "expert_id": 1,
+      "score_diff": 2.4038438383930383e-10,
+      "score_pos_diff": 2.3414463146131936e-09,
+      "score_neg_diff": -1.705063000512208e-10
+    },
+    {
+      "at_interval": 5471,
+      "expert_id": 0,
+      "score_diff": -3.7718672326117475e-10,
+      "score_pos_diff": -1.5194255922890143e-10,
+      "score_neg_diff": -4.278397176468718e-10
+    },
+    {
+      "at_interval": 5471,
+      "expert_id": 1,
+      "score_diff": 2.271364008335497e-10,
+      "score_pos_diff": 1.3177319235779805e-09,
+      "score_neg_diff": -1.811713452870567e-11
+    },
+    {
+      "at_interval": 5487,
+      "expert_id": 0,
+      "score_diff": -4.377360405573294e-10,
+      "score_pos_diff": -2.641310885287407e-10,
+      "score_neg_diff": -4.781846368526188e-10
+    },
+    {
+      "at_interval": 5487,
+      "expert_id": 1,
+      "score_diff": 2.8050619813035915e-10,
+      "score_pos_diff": 7.452006303698688e-10,
+      "score_neg_diff": 1.722360344624807e-10
+    },
+    {
+      "at_interval": 5503,
+      "expert_id": 0,
+      "score_diff": -3.232799097863115e-10,
+      "score_pos_diff": -3.4627661155139933e-10,
+      "score_neg_diff": -3.1727584448582036e-10
+    },
+    {
+      "at_interval": 5503,
+      "expert_id": 1,
+      "score_diff": -1.7523552053866354e-12,
+      "score_pos_diff": -4.940375539219666e-10,
+      "score_neg_diff": 1.2677530900062628e-10
+    },
+    {
+      "at_interval": 5519,
+      "expert_id": 0,
+      "score_diff": -7.631062309831904e-10,
+      "score_pos_diff": -6.018423329146039e-10,
+      "score_neg_diff": -8.035945971152092e-10
+    },
+    {
+      "at_interval": 5519,
+      "expert_id": 1,
+      "score_diff": 8.417377819064376e-11,
+      "score_pos_diff": 7.378651856182472e-11,
+      "score_neg_diff": 8.678169814702041e-11
+    },
+    {
+      "at_interval": 5535,
+      "expert_id": 0,
+      "score_diff": -8.115279724260627e-10,
+      "score_pos_diff": -1.2189304496312836e-09,
+      "score_neg_diff": -7.126438744675667e-10
+    },
+    {
+      "at_interval": 5535,
+      "expert_id": 1,
+      "score_diff": 9.338186994500841e-11,
+      "score_pos_diff": -3.3122121712025887e-10,
+      "score_neg_diff": 1.9644087051462478e-10
+    },
+    {
+      "at_interval": 5551,
+      "expert_id": 0,
+      "score_diff": -3.5673586827600356e-10,
+      "score_pos_diff": -7.332946402871521e-10,
+      "score_neg_diff": -2.6334195154381623e-10
+    },
+    {
+      "at_interval": 5551,
+      "expert_id": 1,
+      "score_diff": 4.518202543872529e-11,
+      "score_pos_diff": 4.135822240236564e-11,
+      "score_neg_diff": 4.6130405051414414e-11
+    },
+    {
+      "at_interval": 5567,
+      "expert_id": 0,
+      "score_diff": -1.1876133930444066e-10,
+      "score_pos_diff": -2.5362112410221016e-10,
+      "score_neg_diff": -8.365629890205728e-11
+    },
+    {
+      "at_interval": 5567,
+      "expert_id": 1,
+      "score_diff": 5.354152798203726e-11,
+      "score_pos_diff": 1.9685197916174957e-10,
+      "score_neg_diff": 1.6236715097428522e-11
+    },
+    {
+      "at_interval": 5583,
+      "expert_id": 0,
+      "score_diff": -1.352806044269128e-10,
+      "score_pos_diff": 9.220302993329099e-11,
+      "score_neg_diff": -1.946728811139109e-10
+    },
+    {
+      "at_interval": 5583,
+      "expert_id": 1,
+      "score_diff": 5.614535746045757e-12,
+      "score_pos_diff": -2.0088859742362075e-10,
+      "score_neg_diff": 5.952914550189092e-11
+    },
+    {
+      "at_interval": 5599,
+      "expert_id": 0,
+      "score_diff": 3.199560755229314e-11,
+      "score_pos_diff": 2.3269982468709927e-10,
+      "score_neg_diff": -1.8395006004534586e-11
+    },
+    {
+      "at_interval": 5599,
+      "expert_id": 1,
+      "score_diff": 7.596575798962668e-11,
+      "score_pos_diff": 1.9285334093566142e-10,
+      "score_neg_diff": 4.661890491697296e-11
+    },
+    {
+      "at_interval": 5615,
+      "expert_id": 0,
+      "score_diff": 2.059002170151647e-10,
+      "score_pos_diff": 3.494085853983364e-10,
+      "score_neg_diff": 1.6965008911573598e-10
+    },
+    {
+      "at_interval": 5615,
+      "expert_id": 1,
+      "score_diff": 1.8414669789024174e-10,
+      "score_pos_diff": 3.161693545861155e-10,
+      "score_neg_diff": 1.5079785684046776e-10
+    },
+    {
+      "at_interval": 5631,
+      "expert_id": 0,
+      "score_diff": 2.2988488022901432e-10,
+      "score_pos_diff": 1.3146523453189118e-09,
+      "score_neg_diff": -4.913142982732044e-11
+    },
+    {
+      "at_interval": 5631,
+      "expert_id": 1,
+      "score_diff": 2.043585179550833e-10,
+      "score_pos_diff": -4.284727015194372e-11,
+      "score_neg_diff": 2.679430635699198e-10
+    },
+    {
+      "at_interval": 5647,
+      "expert_id": 0,
+      "score_diff": 4.549884427551554e-10,
+      "score_pos_diff": 1.855936945793779e-09,
+      "score_neg_diff": 5.371173731477663e-11
+    },
+    {
+      "at_interval": 5647,
+      "expert_id": 1,
+      "score_diff": 2.8062559047359326e-10,
+      "score_pos_diff": 3.6409880492527247e-10,
+      "score_neg_diff": 2.5671617782940803e-10
+    },
+    {
+      "at_interval": 5663,
+      "expert_id": 0,
+      "score_diff": 7.697743588386263e-10,
+      "score_pos_diff": 2.8264226931140612e-09,
+      "score_neg_diff": 8.779084837567952e-11
+    },
+    {
+      "at_interval": 5663,
+      "expert_id": 1,
+      "score_diff": 3.662261761211427e-10,
+      "score_pos_diff": 8.382646243809688e-10,
+      "score_neg_diff": 2.0969847039364886e-10
+    },
+    {
+      "at_interval": 5679,
+      "expert_id": 0,
+      "score_diff": 8.088792448346371e-10,
+      "score_pos_diff": 2.47738346503823e-09,
+      "score_neg_diff": 2.4690263462218143e-10
+    },
+    {
+      "at_interval": 5679,
+      "expert_id": 1,
+      "score_diff": 2.6380672993320253e-10,
+      "score_pos_diff": 5.462658832222633e-10,
+      "score_neg_diff": 1.6867035546042075e-10
+    },
+    {
+      "at_interval": 5695,
+      "expert_id": 0,
+      "score_diff": 6.039362170084939e-10,
+      "score_pos_diff": 2.1759032770019004e-09,
+      "score_neg_diff": 6.066770436713442e-11
+    },
+    {
+      "at_interval": 5695,
+      "expert_id": 1,
+      "score_diff": 2.2726342335799288e-10,
+      "score_pos_diff": 3.2250507472908474e-10,
+      "score_neg_diff": 1.9434810878682374e-10
+    },
+    {
+      "at_interval": 5711,
+      "expert_id": 0,
+      "score_diff": 7.894644417361096e-10,
+      "score_pos_diff": 2.7109836597816184e-09,
+      "score_neg_diff": 1.7045986931002455e-10
+    },
+    {
+      "at_interval": 5711,
+      "expert_id": 1,
+      "score_diff": 4.714575708997248e-10,
+      "score_pos_diff": 1.4537847939366522e-09,
+      "score_neg_diff": 1.5500742009399993e-10
+    },
+    {
+      "at_interval": 5727,
+      "expert_id": 0,
+      "score_diff": 9.088135903556616e-10,
+      "score_pos_diff": 3.3593037379597845e-09,
+      "score_neg_diff": 5.759070564187452e-11
+    },
+    {
+      "at_interval": 5727,
+      "expert_id": 1,
+      "score_diff": 5.899820805510547e-10,
+      "score_pos_diff": 1.9105716453360344e-09,
+      "score_neg_diff": 1.3125097363120286e-10
+    },
+    {
+      "at_interval": 5743,
+      "expert_id": 0,
+      "score_diff": 9.627590079330783e-10,
+      "score_pos_diff": 3.66204601365272e-09,
+      "score_neg_diff": 2.032018780670497e-11
+    },
+    {
+      "at_interval": 5743,
+      "expert_id": 1,
+      "score_diff": 3.9925158318299125e-10,
+      "score_pos_diff": 1.8509642291109074e-09,
+      "score_neg_diff": -1.0760461272019128e-10
+    },
+    {
+      "at_interval": 5759,
+      "expert_id": 0,
+      "score_diff": 8.33439154496185e-10,
+      "score_pos_diff": 3.0677098639131373e-09,
+      "score_neg_diff": 9.834813692599642e-11
+    },
+    {
+      "at_interval": 5759,
+      "expert_id": 1,
+      "score_diff": 3.680489558954836e-10,
+      "score_pos_diff": 2.3073345109536625e-09,
+      "score_neg_diff": -2.699898395130962e-10
+    },
+    {
+      "at_interval": 5775,
+      "expert_id": 0,
+      "score_diff": 5.586518747602298e-10,
+      "score_pos_diff": 1.9147114588280445e-09,
+      "score_neg_diff": 1.4916153330394623e-10
+    },
+    {
+      "at_interval": 5775,
+      "expert_id": 1,
+      "score_diff": 1.2937102777943466e-11,
+      "score_pos_diff": 6.23774275287925e-10,
+      "score_neg_diff": -1.715178589434263e-10
+    },
+    {
+      "at_interval": 5791,
+      "expert_id": 0,
+      "score_diff": 4.4789401354439207e-10,
+      "score_pos_diff": 2.0780662329800137e-09,
+      "score_neg_diff": 1.3383050527157603e-11
+    },
+    {
+      "at_interval": 5791,
+      "expert_id": 1,
+      "score_diff": 6.584385814356608e-11,
+      "score_pos_diff": 1.1311560021987077e-10,
+      "score_neg_diff": 5.3243909281519564e-11
+    },
+    {
+      "at_interval": 5807,
+      "expert_id": 0,
+      "score_diff": 3.086064945256872e-10,
+      "score_pos_diff": 2.268499957325254e-09,
+      "score_neg_diff": -2.0461268714511843e-10
+    },
+    {
+      "at_interval": 5807,
+      "expert_id": 1,
+      "score_diff": 3.251561520034585e-11,
+      "score_pos_diff": 4.3348317990687946e-11,
+      "score_neg_diff": 2.96789572085121e-11
+    },
+    {
+      "at_interval": 5823,
+      "expert_id": 0,
+      "score_diff": 5.198932187533423e-10,
+      "score_pos_diff": 2.9123713440881716e-09,
+      "score_neg_diff": -7.166958389606681e-11
+    },
+    {
+      "at_interval": 5823,
+      "expert_id": 1,
+      "score_diff": 3.8075140262883167e-10,
+      "score_pos_diff": 1.7778181010674743e-10,
+      "score_neg_diff": 4.3093754953371644e-10
+    },
+    {
+      "at_interval": 5839,
+      "expert_id": 0,
+      "score_diff": 4.065416510379283e-10,
+      "score_pos_diff": 2.012746511126373e-09,
+      "score_neg_diff": -9.07742891270713e-12
+    },
+    {
+      "at_interval": 5839,
+      "expert_id": 1,
+      "score_diff": 7.195039355978317e-11,
+      "score_pos_diff": -1.342154231503967e-09,
+      "score_neg_diff": 4.3786192380212974e-10
+    },
+    {
+      "at_interval": 5855,
+      "expert_id": 0,
+      "score_diff": -5.197959770941729e-11,
+      "score_pos_diff": 9.851898186141739e-10,
+      "score_neg_diff": -2.9671903085601303e-10
+    },
+    {
+      "at_interval": 5855,
+      "expert_id": 1,
+      "score_diff": -1.9048995020254367e-10,
+      "score_pos_diff": -2.01276102729242e-09,
+      "score_neg_diff": 2.395088398443601e-10
+    },
+    {
+      "at_interval": 5871,
+      "expert_id": 0,
+      "score_diff": 7.860101979006995e-11,
+      "score_pos_diff": 2.0307813833331245e-09,
+      "score_neg_diff": -3.546991576321157e-10
+    },
+    {
+      "at_interval": 5871,
+      "expert_id": 1,
+      "score_diff": -4.51189988148748e-11,
+      "score_pos_diff": -7.714255709917461e-10,
+      "score_neg_diff": 1.160898634167129e-10
+    },
+    {
+      "at_interval": 5887,
+      "expert_id": 0,
+      "score_diff": 1.187148764708601e-10,
+      "score_pos_diff": 2.0033138481423407e-09,
+      "score_neg_diff": -2.9273534551260694e-10
+    },
+    {
+      "at_interval": 5887,
+      "expert_id": 1,
+      "score_diff": 3.523278717387779e-11,
+      "score_pos_diff": -8.229853881713822e-10,
+      "score_neg_diff": 2.226010660522082e-10
+    },
+    {
+      "at_interval": 5903,
+      "expert_id": 0,
+      "score_diff": 3.32366025543665e-10,
+      "score_pos_diff": 3.0046845497788688e-09,
+      "score_neg_diff": -2.4526101982669246e-10
+    },
+    {
+      "at_interval": 5903,
+      "expert_id": 1,
+      "score_diff": 2.383919502774168e-10,
+      "score_pos_diff": 1.3253194375284494e-10,
+      "score_neg_diff": 2.6127380467477757e-10
+    },
+    {
+      "at_interval": 5919,
+      "expert_id": 0,
+      "score_diff": 2.1986399463200246e-10,
+      "score_pos_diff": 2.7554092896231452e-09,
+      "score_neg_diff": -3.521890157981433e-10
+    },
+    {
+      "at_interval": 5919,
+      "expert_id": 1,
+      "score_diff": 2.1301631465686643e-10,
+      "score_pos_diff": 5.252328051652544e-10,
+      "score_neg_diff": 1.425760898232653e-10
+    },
+    {
+      "at_interval": 5935,
+      "expert_id": 0,
+      "score_diff": 3.560803561730719e-10,
+      "score_pos_diff": 3.211925517221381e-09,
+      "score_neg_diff": -2.9243091802244603e-10
+    },
+    {
+      "at_interval": 5935,
+      "expert_id": 1,
+      "score_diff": 3.2044308959783274e-10,
+      "score_pos_diff": 5.833534003074625e-10,
+      "score_neg_diff": 2.607408681326584e-10
+    },
+    {
+      "at_interval": 5951,
+      "expert_id": 0,
+      "score_diff": 4.355639113273746e-12,
+      "score_pos_diff": 2.2334986291006054e-09,
+      "score_neg_diff": -5.26649403774504e-10
+    },
+    {
+      "at_interval": 5951,
+      "expert_id": 1,
+      "score_diff": -4.879670712637507e-11,
+      "score_pos_diff": 3.563128923855796e-10,
+      "score_neg_diff": -1.4529802708218575e-10
+    },
+    {
+      "at_interval": 5967,
+      "expert_id": 0,
+      "score_diff": -6.578150957975426e-11,
+      "score_pos_diff": 1.4483291302380685e-09,
+      "score_neg_diff": -4.1743416275691336e-10
+    },
+    {
+      "at_interval": 5967,
+      "expert_id": 1,
+      "score_diff": 3.100020387961089e-10,
+      "score_pos_diff": 1.3608426746580804e-09,
+      "score_neg_diff": 6.594398638259946e-11
+    }
+  ]
+}

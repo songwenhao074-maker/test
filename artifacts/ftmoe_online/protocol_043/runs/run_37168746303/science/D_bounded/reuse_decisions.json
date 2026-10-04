@@ -1,0 +1,842 @@
+{
+  "protocol": "043",
+  "revision": 1,
+  "arm": "D_bounded",
+  "decisions": [
+    {
+      "event": "reuse_start",
+      "at_interval": 1791,
+      "epoch": 3,
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "active_ids": [
+        1
+      ],
+      "slot_number": 1,
+      "prediction_start": 1792
+    },
+    {
+      "event": "reuse_evaluate",
+      "at_interval": 1839,
+      "decision_t": 1839,
+      "start_t": 1791,
+      "prediction_start": 1792,
+      "epoch": 3,
+      "intervals": [
+        1792,
+        1824
+      ],
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "candidates": [
+        {
+          "positive_host_rows": 31,
+          "negative_host_rows": 481,
+          "finite": true,
+          "support": true,
+          "candidate": {
+            "ap": 0.9392992726965816,
+            "bce": 0.06991653574536981,
+            "rows": 512,
+            "positives": 31,
+            "negatives": 481,
+            "tp": 30,
+            "fp": 15,
+            "fn": 1,
+            "tn": 466,
+            "recall": 0.967741935483871,
+            "fpr": 0.031185031185031187
+          },
+          "live": {
+            "ap": 0.9383213787273184,
+            "bce": 0.06995915229732509,
+            "rows": 512,
+            "positives": 31,
+            "negatives": 481,
+            "tp": 30,
+            "fp": 15,
+            "fn": 1,
+            "tn": 466,
+            "recall": 0.967741935483871,
+            "fpr": 0.031185031185031187
+          },
+          "B": {
+            "ap": 0.9383213787273184,
+            "bce": 0.07222340595785148,
+            "rows": 512,
+            "positives": 31,
+            "negatives": 481,
+            "tp": 30,
+            "fp": 15,
+            "fn": 1,
+            "tn": 466,
+            "recall": 0.967741935483871,
+            "fpr": 0.031185031185031187
+          },
+          "checks": {
+            "bce_vs_live": false,
+            "bce_vs_B": true,
+            "fpr_vs_live": true,
+            "fpr_vs_B": true,
+            "recall_vs_live": true,
+            "recall_vs_B": true
+          },
+          "pass": false,
+          "reason": "quality_rejected",
+          "Q": 4.261655195520272e-05,
+          "Q_pos": -0.0029725855445708435,
+          "Q_neg": 0.00023694350620116409,
+          "positive_intervals": 20,
+          "candidate_id": 0,
+          "candidate_hash": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+        }
+      ],
+      "winner": null
+    },
+    {
+      "event": "reuse_start",
+      "at_interval": 1855,
+      "epoch": 3,
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "active_ids": [
+        1
+      ],
+      "slot_number": 2,
+      "prediction_start": 1856
+    },
+    {
+      "event": "reuse_evaluate",
+      "at_interval": 1903,
+      "decision_t": 1903,
+      "start_t": 1855,
+      "prediction_start": 1856,
+      "epoch": 3,
+      "intervals": [
+        1856,
+        1888
+      ],
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "candidates": [
+        {
+          "positive_host_rows": 32,
+          "negative_host_rows": 480,
+          "finite": true,
+          "support": true,
+          "candidate": {
+            "ap": 0.6863420649379568,
+            "bce": 0.19918898750493905,
+            "rows": 512,
+            "positives": 32,
+            "negatives": 480,
+            "tp": 32,
+            "fp": 41,
+            "fn": 0,
+            "tn": 439,
+            "recall": 1.0,
+            "fpr": 0.08541666666666667
+          },
+          "live": {
+            "ap": 0.7015962183556466,
+            "bce": 0.1981085264345978,
+            "rows": 512,
+            "positives": 32,
+            "negatives": 480,
+            "tp": 32,
+            "fp": 43,
+            "fn": 0,
+            "tn": 437,
+            "recall": 1.0,
+            "fpr": 0.08958333333333333
+          },
+          "B": {
+            "ap": 0.6999979416585175,
+            "bce": 0.2051812915968776,
+            "rows": 512,
+            "positives": 32,
+            "negatives": 480,
+            "tp": 32,
+            "fp": 43,
+            "fn": 0,
+            "tn": 437,
+            "recall": 1.0,
+            "fpr": 0.08958333333333333
+          },
+          "checks": {
+            "bce_vs_live": false,
+            "bce_vs_B": true,
+            "fpr_vs_live": true,
+            "fpr_vs_B": true,
+            "recall_vs_live": true,
+            "recall_vs_B": true
+          },
+          "pass": false,
+          "reason": "quality_rejected",
+          "Q": -0.0010804610703413421,
+          "Q_pos": -0.0013827659434515565,
+          "Q_neg": -0.0010603074121339944,
+          "positive_intervals": 20,
+          "candidate_id": 0,
+          "candidate_hash": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+        }
+      ],
+      "winner": null
+    },
+    {
+      "event": "reuse_start",
+      "at_interval": 1919,
+      "epoch": 3,
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "active_ids": [
+        1
+      ],
+      "slot_number": 3,
+      "prediction_start": 1920
+    },
+    {
+      "event": "reuse_evaluate",
+      "at_interval": 1967,
+      "decision_t": 1967,
+      "start_t": 1919,
+      "prediction_start": 1920,
+      "epoch": 3,
+      "intervals": [
+        1920,
+        1952
+      ],
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "candidates": [
+        {
+          "positive_host_rows": 29,
+          "negative_host_rows": 483,
+          "finite": true,
+          "support": true,
+          "candidate": {
+            "ap": 0.8549828290506133,
+            "bce": 0.17273707432321253,
+            "rows": 512,
+            "positives": 29,
+            "negatives": 483,
+            "tp": 29,
+            "fp": 33,
+            "fn": 0,
+            "tn": 450,
+            "recall": 1.0,
+            "fpr": 0.06832298136645963
+          },
+          "live": {
+            "ap": 0.8564952307445032,
+            "bce": 0.17045197649013547,
+            "rows": 512,
+            "positives": 29,
+            "negatives": 483,
+            "tp": 29,
+            "fp": 32,
+            "fn": 0,
+            "tn": 451,
+            "recall": 1.0,
+            "fpr": 0.06625258799171843
+          },
+          "B": {
+            "ap": 0.8574068439034409,
+            "bce": 0.17660358173598517,
+            "rows": 512,
+            "positives": 29,
+            "negatives": 483,
+            "tp": 29,
+            "fp": 32,
+            "fn": 0,
+            "tn": 451,
+            "recall": 1.0,
+            "fpr": 0.06625258799171843
+          },
+          "checks": {
+            "bce_vs_live": false,
+            "bce_vs_B": true,
+            "fpr_vs_live": true,
+            "fpr_vs_B": true,
+            "recall_vs_live": true,
+            "recall_vs_B": true
+          },
+          "pass": false,
+          "reason": "quality_rejected",
+          "Q": -0.002285097833077013,
+          "Q_pos": -1.9541634059295968e-05,
+          "Q_neg": -0.0024211250168689673,
+          "positive_intervals": 26,
+          "candidate_id": 0,
+          "candidate_hash": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+        }
+      ],
+      "winner": null
+    },
+    {
+      "event": "reuse_start",
+      "at_interval": 1983,
+      "epoch": 3,
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "active_ids": [
+        1
+      ],
+      "slot_number": 4,
+      "prediction_start": 1984
+    },
+    {
+      "event": "reuse_evaluate",
+      "at_interval": 2031,
+      "decision_t": 2031,
+      "start_t": 1983,
+      "prediction_start": 1984,
+      "epoch": 3,
+      "intervals": [
+        1984,
+        2016
+      ],
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "candidates": [
+        {
+          "positive_host_rows": 23,
+          "negative_host_rows": 489,
+          "finite": true,
+          "support": true,
+          "candidate": {
+            "ap": 0.7448455338406799,
+            "bce": 0.1289080032270202,
+            "rows": 512,
+            "positives": 23,
+            "negatives": 489,
+            "tp": 22,
+            "fp": 24,
+            "fn": 1,
+            "tn": 465,
+            "recall": 0.9565217391304348,
+            "fpr": 0.049079754601226995
+          },
+          "live": {
+            "ap": 0.7530709753834745,
+            "bce": 0.12654481238095333,
+            "rows": 512,
+            "positives": 23,
+            "negatives": 489,
+            "tp": 22,
+            "fp": 23,
+            "fn": 1,
+            "tn": 466,
+            "recall": 0.9565217391304348,
+            "fpr": 0.04703476482617587
+          },
+          "B": {
+            "ap": 0.7573086018178973,
+            "bce": 0.1321865528913263,
+            "rows": 512,
+            "positives": 23,
+            "negatives": 489,
+            "tp": 22,
+            "fp": 24,
+            "fn": 1,
+            "tn": 465,
+            "recall": 0.9565217391304348,
+            "fpr": 0.049079754601226995
+          },
+          "checks": {
+            "bce_vs_live": false,
+            "bce_vs_B": true,
+            "fpr_vs_live": true,
+            "fpr_vs_B": true,
+            "recall_vs_live": true,
+            "recall_vs_B": true
+          },
+          "pass": false,
+          "reason": "quality_rejected",
+          "Q": -0.0023631908460667924,
+          "Q_pos": -0.0031386353012166743,
+          "Q_neg": -0.002326717998483055,
+          "positive_intervals": 17,
+          "candidate_id": 0,
+          "candidate_hash": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+        }
+      ],
+      "winner": null
+    },
+    {
+      "event": "reuse_start",
+      "at_interval": 2047,
+      "epoch": 3,
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "active_ids": [
+        1
+      ],
+      "slot_number": 5,
+      "prediction_start": 2048
+    },
+    {
+      "event": "reuse_evaluate",
+      "at_interval": 2095,
+      "decision_t": 2095,
+      "start_t": 2047,
+      "prediction_start": 2048,
+      "epoch": 3,
+      "intervals": [
+        2048,
+        2080
+      ],
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "candidates": [
+        {
+          "positive_host_rows": 9,
+          "negative_host_rows": 503,
+          "finite": true,
+          "support": false,
+          "pass": false,
+          "reason": "insufficient_support",
+          "Q": -0.0016237098030250103,
+          "Q_pos": -0.00046241937924551844,
+          "Q_neg": -0.0016444883593152995,
+          "positive_intervals": 9,
+          "candidate_id": 0,
+          "candidate_hash": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+        }
+      ],
+      "winner": null
+    },
+    {
+      "event": "reuse_start",
+      "at_interval": 2111,
+      "epoch": 3,
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "active_ids": [
+        1
+      ],
+      "slot_number": 6,
+      "prediction_start": 2112
+    },
+    {
+      "event": "reuse_evaluate",
+      "at_interval": 2159,
+      "decision_t": 2159,
+      "start_t": 2111,
+      "prediction_start": 2112,
+      "epoch": 3,
+      "intervals": [
+        2112,
+        2144
+      ],
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "candidates": [
+        {
+          "positive_host_rows": 26,
+          "negative_host_rows": 486,
+          "finite": true,
+          "support": true,
+          "candidate": {
+            "ap": 0.7935715393145827,
+            "bce": 0.1904518629392742,
+            "rows": 512,
+            "positives": 26,
+            "negatives": 486,
+            "tp": 21,
+            "fp": 30,
+            "fn": 5,
+            "tn": 456,
+            "recall": 0.8076923076923077,
+            "fpr": 0.06172839506172839
+          },
+          "live": {
+            "ap": 0.7954848968888589,
+            "bce": 0.18741905645306717,
+            "rows": 512,
+            "positives": 26,
+            "negatives": 486,
+            "tp": 21,
+            "fp": 29,
+            "fn": 5,
+            "tn": 457,
+            "recall": 0.8076923076923077,
+            "fpr": 0.059670781893004114
+          },
+          "B": {
+            "ap": 0.7960247424360285,
+            "bce": 0.19432656876340143,
+            "rows": 512,
+            "positives": 26,
+            "negatives": 486,
+            "tp": 21,
+            "fp": 29,
+            "fn": 5,
+            "tn": 457,
+            "recall": 0.8076923076923077,
+            "fpr": 0.059670781893004114
+          },
+          "checks": {
+            "bce_vs_live": false,
+            "bce_vs_B": true,
+            "fpr_vs_live": true,
+            "fpr_vs_B": true,
+            "recall_vs_live": true,
+            "recall_vs_B": true
+          },
+          "pass": false,
+          "reason": "quality_rejected",
+          "Q": -0.0030328064862070094,
+          "Q_pos": -0.014127367843924023,
+          "Q_neg": -0.0024392702818847004,
+          "positive_intervals": 22,
+          "candidate_id": 0,
+          "candidate_hash": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+        }
+      ],
+      "winner": null
+    },
+    {
+      "event": "reuse_start",
+      "at_interval": 2175,
+      "epoch": 3,
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "active_ids": [
+        1
+      ],
+      "slot_number": 7,
+      "prediction_start": 2176
+    },
+    {
+      "event": "reuse_evaluate",
+      "at_interval": 2223,
+      "decision_t": 2223,
+      "start_t": 2175,
+      "prediction_start": 2176,
+      "epoch": 3,
+      "intervals": [
+        2176,
+        2208
+      ],
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "candidates": [
+        {
+          "positive_host_rows": 45,
+          "negative_host_rows": 467,
+          "finite": true,
+          "support": true,
+          "candidate": {
+            "ap": 0.8678574854843182,
+            "bce": 0.18549402595055517,
+            "rows": 512,
+            "positives": 45,
+            "negatives": 467,
+            "tp": 45,
+            "fp": 35,
+            "fn": 0,
+            "tn": 432,
+            "recall": 1.0,
+            "fpr": 0.07494646680942184
+          },
+          "live": {
+            "ap": 0.8694774734192805,
+            "bce": 0.18453334439051508,
+            "rows": 512,
+            "positives": 45,
+            "negatives": 467,
+            "tp": 45,
+            "fp": 33,
+            "fn": 0,
+            "tn": 434,
+            "recall": 1.0,
+            "fpr": 0.07066381156316917
+          },
+          "B": {
+            "ap": 0.8695473899656728,
+            "bce": 0.1970385746297058,
+            "rows": 512,
+            "positives": 45,
+            "negatives": 467,
+            "tp": 45,
+            "fp": 35,
+            "fn": 0,
+            "tn": 432,
+            "recall": 1.0,
+            "fpr": 0.07494646680942184
+          },
+          "checks": {
+            "bce_vs_live": false,
+            "bce_vs_B": true,
+            "fpr_vs_live": true,
+            "fpr_vs_B": true,
+            "recall_vs_live": true,
+            "recall_vs_B": true
+          },
+          "pass": false,
+          "reason": "quality_rejected",
+          "Q": -0.0009606815600400919,
+          "Q_pos": -0.0010555395024885764,
+          "Q_neg": -0.0009515410730803876,
+          "positive_intervals": 28,
+          "candidate_id": 0,
+          "candidate_hash": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+        }
+      ],
+      "winner": null
+    },
+    {
+      "event": "reuse_start",
+      "at_interval": 2239,
+      "epoch": 3,
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "active_ids": [
+        1
+      ],
+      "slot_number": 8,
+      "prediction_start": 2240
+    },
+    {
+      "event": "reuse_evaluate",
+      "at_interval": 2287,
+      "decision_t": 2287,
+      "start_t": 2239,
+      "prediction_start": 2240,
+      "epoch": 3,
+      "intervals": [
+        2240,
+        2272
+      ],
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "candidates": [
+        {
+          "positive_host_rows": 43,
+          "negative_host_rows": 469,
+          "finite": true,
+          "support": true,
+          "candidate": {
+            "ap": 0.7488929616359434,
+            "bce": 0.15800616951512103,
+            "rows": 512,
+            "positives": 43,
+            "negatives": 469,
+            "tp": 40,
+            "fp": 26,
+            "fn": 3,
+            "tn": 443,
+            "recall": 0.9302325581395349,
+            "fpr": 0.05543710021321962
+          },
+          "live": {
+            "ap": 0.7460880300617223,
+            "bce": 0.158489529914903,
+            "rows": 512,
+            "positives": 43,
+            "negatives": 469,
+            "tp": 40,
+            "fp": 26,
+            "fn": 3,
+            "tn": 443,
+            "recall": 0.9302325581395349,
+            "fpr": 0.05543710021321962
+          },
+          "B": {
+            "ap": 0.7452842804436991,
+            "bce": 0.16856489051202048,
+            "rows": 512,
+            "positives": 43,
+            "negatives": 469,
+            "tp": 41,
+            "fp": 27,
+            "fn": 2,
+            "tn": 442,
+            "recall": 0.9534883720930233,
+            "fpr": 0.057569296375266525
+          },
+          "checks": {
+            "bce_vs_live": false,
+            "bce_vs_B": true,
+            "fpr_vs_live": true,
+            "fpr_vs_B": true,
+            "recall_vs_live": true,
+            "recall_vs_B": false
+          },
+          "pass": false,
+          "reason": "quality_rejected",
+          "Q": 0.0004833603997818889,
+          "Q_pos": -0.006154841996751303,
+          "Q_neg": 0.0010919802357113716,
+          "positive_intervals": 30,
+          "candidate_id": 0,
+          "candidate_hash": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+        }
+      ],
+      "winner": null
+    },
+    {
+      "event": "reuse_start",
+      "at_interval": 2303,
+      "epoch": 3,
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "active_ids": [
+        1
+      ],
+      "slot_number": 9,
+      "prediction_start": 2304
+    },
+    {
+      "event": "reuse_evaluate",
+      "at_interval": 2351,
+      "decision_t": 2351,
+      "start_t": 2303,
+      "prediction_start": 2304,
+      "epoch": 3,
+      "intervals": [
+        2304,
+        2336
+      ],
+      "candidate_ids": [
+        0
+      ],
+      "candidate_hashes": {
+        "0": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+      },
+      "candidates": [
+        {
+          "positive_host_rows": 66,
+          "negative_host_rows": 446,
+          "finite": true,
+          "support": true,
+          "candidate": {
+            "ap": 0.7482218251200844,
+            "bce": 0.19669621364720463,
+            "rows": 512,
+            "positives": 66,
+            "negatives": 446,
+            "tp": 39,
+            "fp": 11,
+            "fn": 27,
+            "tn": 435,
+            "recall": 0.5909090909090909,
+            "fpr": 0.02466367713004484
+          },
+          "live": {
+            "ap": 0.742612803303073,
+            "bce": 0.20470387992695527,
+            "rows": 512,
+            "positives": 66,
+            "negatives": 446,
+            "tp": 39,
+            "fp": 10,
+            "fn": 27,
+            "tn": 436,
+            "recall": 0.5909090909090909,
+            "fpr": 0.02242152466367713
+          },
+          "B": {
+            "ap": 0.7348274886863226,
+            "bce": 0.20792675374410446,
+            "rows": 512,
+            "positives": 66,
+            "negatives": 446,
+            "tp": 39,
+            "fp": 11,
+            "fn": 27,
+            "tn": 435,
+            "recall": 0.5909090909090909,
+            "fpr": 0.02466367713004484
+          },
+          "checks": {
+            "bce_vs_live": true,
+            "bce_vs_B": true,
+            "fpr_vs_live": true,
+            "fpr_vs_B": true,
+            "recall_vs_live": true,
+            "recall_vs_B": true
+          },
+          "pass": true,
+          "reason": "pass",
+          "Q": 0.008007666279750603,
+          "Q_pos": 0.09531243786203948,
+          "Q_neg": -0.00491187390955672,
+          "positive_intervals": 30,
+          "candidate_id": 0,
+          "candidate_hash": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0"
+        }
+      ],
+      "winner": 0
+    }
+  ]
+}

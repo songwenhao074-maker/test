@@ -1,7 +1,7 @@
-# 当前交接：Protocol-042 revision 2 已完成
+# 当前交接：Protocol-043 revision 1 已完成
 
-Protocol-042 revision 2 science run 37128097274 已完成；analysis/publication recovery run 37130973490 仅消费封存raw，未重训。系统标签 **invalid_execution**；main development success=False；addition-policy signal=False；window-policy signal=False；pool exercised=True。
+science run 37168746303 已完成。系统标签 **invalid_execution**；validity=False；D_over_C=True；core lifecycle=True；GC engineering=True；GC on stream=False；core_goal_supported=False；full reclamation demonstrated=False。
 
-结果见 [PROTOCOL042_RESULTS.md](PROTOCOL042_RESULTS.md)，紧凑证据见 ../artifacts/ftmoe_online/protocol_042/runs/run_37128097274/。原raw artifact ID 11276470062。
+结果见 [PROTOCOL043_RESULTS.md](PROTOCOL043_RESULTS.md)，紧凑证据见 ../artifacts/ftmoe_online/protocol_043/runs/run_37168746303/。
 
-到此停止。不重跑042，不增加窗口科学臂/seed/流/F/困难加权/永久删除，也不自动进入043。
+到此停止。不自动补跑、调阈值、增加seed/流/额外臂/F或启动044。

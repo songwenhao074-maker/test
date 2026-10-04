@@ -1,0 +1,1648 @@
+{
+  "protocol": "043",
+  "revision": 1,
+  "all_pass": true,
+  "fixtures": [
+    {
+      "test_id": "float64_counterfactual_independent_golden",
+      "pass": true,
+      "online": {
+        "valid": true,
+        "reason": "ok",
+        "score": -2.3105857088756565e-08,
+        "score_pos": 2.689414341228158e-08,
+        "score_neg": -7.310585758979471e-08,
+        "positive_host_rows": 1024,
+        "negative_host_rows": 1024,
+        "positive_intervals": 128,
+        "fpr_live": 1.0,
+        "fpr_removed": 1.0,
+        "recall_live": 1.0,
+        "recall_removed": 1.0,
+        "removal_fpr_delta": 0.0,
+        "removal_recall_delta": 0.0,
+        "epoch_matured": 128,
+        "intervals": 128,
+        "first_i": 0,
+        "last_i": 127
+      },
+      "independent": {
+        "valid": true,
+        "reason": "ok",
+        "score": -2.3105857088756565e-08,
+        "score_pos": 2.689414341228158e-08,
+        "score_neg": -7.310585758979471e-08,
+        "positive_host_rows": 1024,
+        "negative_host_rows": 1024,
+        "positive_intervals": 128,
+        "removal_fpr_delta": 0.0,
+        "removal_recall_delta": 0.0,
+        "fpr_live": 1.0,
+        "fpr_removed": 1.0,
+        "recall_live": 1.0,
+        "recall_removed": 1.0,
+        "intervals": 128,
+        "first_i": 0,
+        "last_i": 127
+      },
+      "float32_bug_max_abs": 1.4043114671125068e-08,
+      "wrong_sign_detected": true,
+      "wrong_window_member_detected": true,
+      "production_tracker_called_by_independent": false
+    },
+    {
+      "test_id": "window_expiry_epoch_late_labels_unknown",
+      "pass": true,
+      "window_before": {
+        "valid": true,
+        "reason": "ok",
+        "score": -0.04710781347300327,
+        "score_pos": 0.027892187644583784,
+        "score_neg": -0.07210781384553255,
+        "positive_host_rows": 512,
+        "negative_host_rows": 1536,
+        "positive_intervals": 128,
+        "fpr_live": 1.0,
+        "fpr_removed": 1.0,
+        "recall_live": 1.0,
+        "recall_removed": 1.0,
+        "removal_fpr_delta": 0.0,
+        "removal_recall_delta": 0.0,
+        "epoch_matured": 128,
+        "intervals": 128,
+        "first_i": 0,
+        "last_i": 127
+      },
+      "window_after": {
+        "valid": true,
+        "reason": "ok",
+        "score": -0.04710781347300327,
+        "score_pos": 0.027892187644583784,
+        "score_neg": -0.07210781384553255,
+        "positive_host_rows": 512,
+        "negative_host_rows": 1536,
+        "positive_intervals": 128,
+        "fpr_live": 1.0,
+        "fpr_removed": 1.0,
+        "recall_live": 1.0,
+        "recall_removed": 1.0,
+        "removal_fpr_delta": 0.0,
+        "removal_recall_delta": 0.0,
+        "epoch_matured": 129,
+        "intervals": 128,
+        "first_i": 1,
+        "last_i": 128
+      },
+      "late_old_epoch_rejected_from_control": true,
+      "unknown": {
+        "valid": false,
+        "reason": "epoch_mature_lt128",
+        "score": null,
+        "score_pos": null,
+        "score_neg": null,
+        "epoch_matured": 12,
+        "intervals": 0
+      }
+    },
+    {
+      "test_id": "sleep_useful_protection_no_forced_replacement",
+      "pass": true,
+      "two_useful_sleep_events": [],
+      "harmful_sleep_events": [
+        {
+          "event": "sleep",
+          "expert_id": 1,
+          "at_interval": 175,
+          "reason": "nonuseful_three_checks",
+          "active_ids_before": [
+            0,
+            1
+          ],
+          "active_ids_after": [
+            0
+          ],
+          "resident_ids_before": [
+            0,
+            1
+          ],
+          "resident_ids_after": [
+            0,
+            1
+          ],
+          "dormant_from_prediction": 176,
+          "last_active_prediction": 175,
+          "utility": {
+            "at_interval": 175,
+            "epoch": 0,
+            "expert_id": 1,
+            "valid": true,
+            "reason": "ok",
+            "score": -0.07442698788655727,
+            "score_pos": -0.07442657795575018,
+            "score_neg": -0.07442739781736434,
+            "positive_host_rows": 1024,
+            "negative_host_rows": 1024,
+            "positive_intervals": 128,
+            "fpr_live": 0.0,
+            "fpr_removed": 0.0,
+            "recall_live": 1.0,
+            "recall_removed": 1.0,
+            "removal_fpr_delta": 0.0,
+            "removal_recall_delta": 0.0,
+            "epoch_matured": 174,
+            "intervals": 128,
+            "first_i": 46,
+            "last_i": 173,
+            "eligible_now": true,
+            "streak_before": 2,
+            "streak_after": 3,
+            "eligible_three": true
+          },
+          "model_hash": "bef8c372d59ed5ab233bec9ec3863bd0fe35eaa6f895c8ab3f60ad75f6e4ee54",
+          "optimizer_hash": "633ca596523800de0e9929d2eedc2c55959d8484781ae5326fcb0303d496cd69",
+          "optimizer_step": 10,
+          "first_affected_prediction": 176
+        }
+      ],
+      "unknown_before128_sleep_events": [],
+      "active_full_forced_replacement_events": []
+    },
+    {
+      "test_id": "joint_Adam_detached_shadow_future_qualification",
+      "pass": true,
+      "shadow_starts": [
+        {
+          "event": "shadow_start",
+          "at_interval": 367,
+          "candidate_id": 3,
+          "attempt": 1,
+          "proposal_epoch": 0,
+          "retained_ids": [
+            0
+          ],
+          "created_by_reclamation": true,
+          "reclaimed_id": 1,
+          "model_hash": "15878c9012c5667ff7c51f7098b333043e6d42f5df6d1bcac379b9d86a26017c",
+          "optimizer_state_empty": true
+        }
+      ],
+      "shadow_update_count": 16,
+      "shadow_steps": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "training_complete": [
+        {
+          "event": "shadow_training_complete",
+          "at_interval": 607,
+          "candidate_id": 3,
+          "updates": 16,
+          "validation_start": 608,
+          "model_hash": "00eeaa6e5a3ab3062fa883b48ad8bf52e4bf2a1fe0a5049085dd0e1d9409138c",
+          "optimizer_step": 16
+        }
+      ],
+      "evaluations": [
+        {
+          "positive_host_rows": 256,
+          "negative_host_rows": 256,
+          "finite": true,
+          "support": true,
+          "candidate": {
+            "ap": 0.41666666666666663,
+            "bce": 1.3001533014084679,
+            "rows": 512,
+            "positives": 256,
+            "negatives": 256,
+            "tp": 0,
+            "fp": 256,
+            "fn": 256,
+            "tn": 0,
+            "recall": 0.0,
+            "fpr": 1.0
+          },
+          "live": {
+            "ap": 0.41666666666666663,
+            "bce": 1.3235326154606573,
+            "rows": 512,
+            "positives": 256,
+            "negatives": 256,
+            "tp": 0,
+            "fp": 256,
+            "fn": 256,
+            "tn": 0,
+            "recall": 0.0,
+            "fpr": 1.0
+          },
+          "B": {
+            "ap": 0.5,
+            "bce": 2.1269280110429722,
+            "rows": 512,
+            "positives": 256,
+            "negatives": 256,
+            "tp": 0,
+            "fp": 256,
+            "fn": 256,
+            "tn": 0,
+            "recall": 0.0,
+            "fpr": 1.0
+          },
+          "checks": {
+            "bce_vs_live": true,
+            "bce_vs_B": true,
+            "fpr_vs_live": true,
+            "fpr_vs_B": true,
+            "recall_vs_live": true,
+            "recall_vs_B": true
+          },
+          "pass": true,
+          "reason": "pass",
+          "event": "shadow_evaluate",
+          "at_interval": 655,
+          "candidate_id": 3,
+          "intervals": [
+            608,
+            640
+          ],
+          "updates": 16,
+          "retained_ids": [
+            0
+          ],
+          "proposal_epoch": 0,
+          "created_by_reclamation": true,
+          "reclaimed_id": 1
+        }
+      ],
+      "joint_live_same_t": true
+    },
+    {
+      "test_id": "reuse_same_id_Adam",
+      "pass": true,
+      "before": {
+        "model": "f37ac7b1bb1080e86fe00905d188477455ffcf31c7f54de6c209e629670381f0",
+        "optimizer": "48e60491ba79769a7ef420a44fd1fee40241bb9512e16ac6a187ee8a45a1ed40",
+        "step": 0
+      },
+      "reuse_activations": [
+        {
+          "event": "activate",
+          "expert_id": 1,
+          "at_interval": 239,
+          "reason": "reuse_accept",
+          "active_ids_before": [
+            0
+          ],
+          "active_ids_after": [
+            0,
+            1
+          ],
+          "first_affected_prediction": 240,
+          "dormant_predictions_before_reactivation": 240,
+          "model_hash": "f37ac7b1bb1080e86fe00905d188477455ffcf31c7f54de6c209e629670381f0",
+          "optimizer_hash": "48e60491ba79769a7ef420a44fd1fee40241bb9512e16ac6a187ee8a45a1ed40",
+          "optimizer_step": 0
+        }
+      ]
+    },
+    {
+      "test_id": "eviction_positive_weak_gain_protected",
+      "pass": true,
+      "selected": null,
+      "weak_expert_row": {
+        "expert_id": 1,
+        "state": "dormant",
+        "eligible": false,
+        "reasons": [
+          "pending_reuse_reference",
+          "positive_contribution",
+          "positive_contribution"
+        ],
+        "last_active_prediction": -1,
+        "dormant_predictions": 320,
+        "evidence_count": 2,
+        "evidence": [
+          {
+            "positive_host_rows": 256,
+            "negative_host_rows": 256,
+            "finite": true,
+            "support": true,
+            "candidate": {
+              "ap": 1.0,
+              "bce": 0.05122745618449054,
+              "rows": 512,
+              "positives": 256,
+              "negatives": 256,
+              "tp": 256,
+              "fp": 0,
+              "fn": 0,
+              "tn": 256,
+              "recall": 1.0,
+              "fpr": 0.0
+            },
+            "live": {
+              "ap": 1.0,
+              "bce": 0.051327430706763565,
+              "rows": 512,
+              "positives": 256,
+              "negatives": 256,
+              "tp": 256,
+              "fp": 0,
+              "fn": 0,
+              "tn": 256,
+              "recall": 1.0,
+              "fpr": 0.0
+            },
+            "B": {
+              "ap": 1.0,
+              "bce": 0.12692801104297258,
+              "rows": 512,
+              "positives": 256,
+              "negatives": 256,
+              "tp": 256,
+              "fp": 0,
+              "fn": 0,
+              "tn": 256,
+              "recall": 1.0,
+              "fpr": 0.0
+            },
+            "checks": {
+              "bce_vs_live": false,
+              "bce_vs_B": true,
+              "fpr_vs_live": true,
+              "fpr_vs_B": true,
+              "recall_vs_live": true,
+              "recall_vs_B": true
+            },
+            "pass": false,
+            "reason": "quality_rejected",
+            "Q": 9.997452227302264e-05,
+            "Q_pos": 9.997644163050115e-05,
+            "Q_neg": 9.997260291554413e-05,
+            "positive_intervals": 32,
+            "candidate_id": 1,
+            "candidate_hash": "acdfdd35553b9b2145ca294dc349afae63a70c902423b071558702bb3bb0d09c"
+          },
+          {
+            "positive_host_rows": 256,
+            "negative_host_rows": 256,
+            "finite": true,
+            "support": true,
+            "candidate": {
+              "ap": 1.0,
+              "bce": 0.05091988949278128,
+              "rows": 512,
+              "positives": 256,
+              "negatives": 256,
+              "tp": 256,
+              "fp": 0,
+              "fn": 0,
+              "tn": 256,
+              "recall": 1.0,
+              "fpr": 0.0
+            },
+            "live": {
+              "ap": 1.0,
+              "bce": 0.05101927895607469,
+              "rows": 512,
+              "positives": 256,
+              "negatives": 256,
+              "tp": 256,
+              "fp": 0,
+              "fn": 0,
+              "tn": 256,
+              "recall": 1.0,
+              "fpr": 0.0
+            },
+            "B": {
+              "ap": 1.0,
+              "bce": 0.12692801104297258,
+              "rows": 512,
+              "positives": 256,
+              "negatives": 256,
+              "tp": 256,
+              "fp": 0,
+              "fn": 0,
+              "tn": 256,
+              "recall": 1.0,
+              "fpr": 0.0
+            },
+            "checks": {
+              "bce_vs_live": false,
+              "bce_vs_B": true,
+              "fpr_vs_live": true,
+              "fpr_vs_B": true,
+              "recall_vs_live": true,
+              "recall_vs_B": true
+            },
+            "pass": false,
+            "reason": "quality_rejected",
+            "Q": 9.938946329337423e-05,
+            "Q_pos": 9.938777440140698e-05,
+            "Q_neg": 9.939115218534147e-05,
+            "positive_intervals": 32,
+            "candidate_id": 1,
+            "candidate_hash": "acdfdd35553b9b2145ca294dc349afae63a70c902423b071558702bb3bb0d09c"
+          }
+        ]
+      },
+      "reuse_evaluations": 2
+    },
+    {
+      "test_id": "eviction_stale_unknown_overlap_hash_guards",
+      "pass": true,
+      "checks": {
+        "baseline_real_two_window_eligible": true,
+        "overlap_blocks": true,
+        "unknown_blocks": true,
+        "stale_blocks": true,
+        "hash_mismatch_blocks": true
+      },
+      "real_reuse_history_count": 2,
+      "real_reuse_decisions": [
+        239,
+        303
+      ],
+      "baseline_table": [
+        {
+          "expert_id": 0,
+          "state": "active",
+          "eligible": false,
+          "reasons": [
+            "state_not_dormant"
+          ],
+          "last_active_prediction": 318
+        },
+        {
+          "expert_id": 1,
+          "state": "dormant",
+          "eligible": true,
+          "reasons": [],
+          "last_active_prediction": -1,
+          "dormant_predictions": 319,
+          "evidence_count": 2,
+          "evidence": [
+            {
+              "positive_host_rows": 256,
+              "negative_host_rows": 256,
+              "finite": true,
+              "support": true,
+              "candidate": {
+                "ap": 1.0,
+                "bce": 0.12462082747163106,
+                "rows": 512,
+                "positives": 256,
+                "negatives": 256,
+                "tp": 256,
+                "fp": 0,
+                "fn": 0,
+                "tn": 256,
+                "recall": 1.0,
+                "fpr": 0.0
+              },
+              "live": {
+                "ap": 1.0,
+                "bce": 0.051327430706763565,
+                "rows": 512,
+                "positives": 256,
+                "negatives": 256,
+                "tp": 256,
+                "fp": 0,
+                "fn": 0,
+                "tn": 256,
+                "recall": 1.0,
+                "fpr": 0.0
+              },
+              "B": {
+                "ap": 1.0,
+                "bce": 0.12692801104297258,
+                "rows": 512,
+                "positives": 256,
+                "negatives": 256,
+                "tp": 256,
+                "fp": 0,
+                "fn": 0,
+                "tn": 256,
+                "recall": 1.0,
+                "fpr": 0.0
+              },
+              "checks": {
+                "bce_vs_live": false,
+                "bce_vs_B": true,
+                "fpr_vs_live": true,
+                "fpr_vs_B": true,
+                "recall_vs_live": true,
+                "recall_vs_B": true
+              },
+              "pass": false,
+              "reason": "quality_rejected",
+              "Q": -0.07329339676486747,
+              "Q_pos": -0.07329475347543804,
+              "Q_neg": -0.0732920400542969,
+              "positive_intervals": 32,
+              "candidate_id": 1,
+              "candidate_hash": "966722fb86299ccef611500a28f9703f01ea78bcd9097876d7837c0d3239080f"
+            },
+            {
+              "positive_host_rows": 256,
+              "negative_host_rows": 256,
+              "finite": true,
+              "support": true,
+              "candidate": {
+                "ap": 1.0,
+                "bce": 0.12389903325549008,
+                "rows": 512,
+                "positives": 256,
+                "negatives": 256,
+                "tp": 256,
+                "fp": 0,
+                "fn": 0,
+                "tn": 256,
+                "recall": 1.0,
+                "fpr": 0.0
+              },
+              "live": {
+                "ap": 1.0,
+                "bce": 0.05101927895607469,
+                "rows": 512,
+                "positives": 256,
+                "negatives": 256,
+                "tp": 256,
+                "fp": 0,
+                "fn": 0,
+                "tn": 256,
+                "recall": 1.0,
+                "fpr": 0.0
+              },
+              "B": {
+                "ap": 1.0,
+                "bce": 0.12692801104297258,
+                "rows": 512,
+                "positives": 256,
+                "negatives": 256,
+                "tp": 256,
+                "fp": 0,
+                "fn": 0,
+                "tn": 256,
+                "recall": 1.0,
+                "fpr": 0.0
+              },
+              "checks": {
+                "bce_vs_live": false,
+                "bce_vs_B": true,
+                "fpr_vs_live": true,
+                "fpr_vs_B": true,
+                "recall_vs_live": true,
+                "recall_vs_B": true
+              },
+              "pass": false,
+              "reason": "quality_rejected",
+              "Q": -0.07287975429941541,
+              "Q_pos": -0.07287855998794118,
+              "Q_neg": -0.07288094861088965,
+              "positive_intervals": 32,
+              "candidate_id": 1,
+              "candidate_hash": "966722fb86299ccef611500a28f9703f01ea78bcd9097876d7837c0d3239080f"
+            }
+          ]
+        },
+        {
+          "expert_id": 2,
+          "state": "dormant",
+          "eligible": true,
+          "reasons": [],
+          "last_active_prediction": -1,
+          "dormant_predictions": 319,
+          "evidence_count": 2,
+          "evidence": [
+            {
+              "positive_host_rows": 256,
+              "negative_host_rows": 256,
+              "finite": true,
+              "support": true,
+              "candidate": {
+                "ap": 1.0,
+                "bce": 0.12462082747163106,
+                "rows": 512,
+                "positives": 256,
+                "negatives": 256,
+                "tp": 256,
+                "fp": 0,
+                "fn": 0,
+                "tn": 256,
+                "recall": 1.0,
+                "fpr": 0.0
+              },
+              "live": {
+                "ap": 1.0,
+                "bce": 0.051327430706763565,
+                "rows": 512,
+                "positives": 256,
+                "negatives": 256,
+                "tp": 256,
+                "fp": 0,
+                "fn": 0,
+                "tn": 256,
+                "recall": 1.0,
+                "fpr": 0.0
+              },
+              "B": {
+                "ap": 1.0,
+                "bce": 0.12692801104297258,
+                "rows": 512,
+                "positives": 256,
+                "negatives": 256,
+                "tp": 256,
+                "fp": 0,
+                "fn": 0,
+                "tn": 256,
+                "recall": 1.0,
+                "fpr": 0.0
+              },
+              "checks": {
+                "bce_vs_live": false,
+                "bce_vs_B": true,
+                "fpr_vs_live": true,
+                "fpr_vs_B": true,
+                "recall_vs_live": true,
+                "recall_vs_B": true
+              },
+              "pass": false,
+              "reason": "quality_rejected",
+              "Q": -0.07329339676486747,
+              "Q_pos": -0.07329475347543804,
+              "Q_neg": -0.0732920400542969,
+              "positive_intervals": 32,
+              "candidate_id": 2,
+              "candidate_hash": "966722fb86299ccef611500a28f9703f01ea78bcd9097876d7837c0d3239080f"
+            },
+            {
+              "positive_host_rows": 256,
+              "negative_host_rows": 256,
+              "finite": true,
+              "support": true,
+              "candidate": {
+                "ap": 1.0,
+                "bce": 0.12389903325549008,
+                "rows": 512,
+                "positives": 256,
+                "negatives": 256,
+                "tp": 256,
+                "fp": 0,
+                "fn": 0,
+                "tn": 256,
+                "recall": 1.0,
+                "fpr": 0.0
+              },
+              "live": {
+                "ap": 1.0,
+                "bce": 0.05101927895607469,
+                "rows": 512,
+                "positives": 256,
+                "negatives": 256,
+                "tp": 256,
+                "fp": 0,
+                "fn": 0,
+                "tn": 256,
+                "recall": 1.0,
+                "fpr": 0.0
+              },
+              "B": {
+                "ap": 1.0,
+                "bce": 0.12692801104297258,
+                "rows": 512,
+                "positives": 256,
+                "negatives": 256,
+                "tp": 256,
+                "fp": 0,
+                "fn": 0,
+                "tn": 256,
+                "recall": 1.0,
+                "fpr": 0.0
+              },
+              "checks": {
+                "bce_vs_live": false,
+                "bce_vs_B": true,
+                "fpr_vs_live": true,
+                "fpr_vs_B": true,
+                "recall_vs_live": true,
+                "recall_vs_B": true
+              },
+              "pass": false,
+              "reason": "quality_rejected",
+              "Q": -0.07287975429941541,
+              "Q_pos": -0.07287855998794118,
+              "Q_neg": -0.07288094861088965,
+              "positive_intervals": 32,
+              "candidate_id": 2,
+              "candidate_hash": "966722fb86299ccef611500a28f9703f01ea78bcd9097876d7837c0d3239080f"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "test_id": "production_full_pool_delete_birth_accept64",
+      "pass": true,
+      "gc_events": [
+        {
+          "event": "permanent_reclaim_and_shadow_start",
+          "at_interval": 367,
+          "deleted_id": 1,
+          "candidate_id": 3,
+          "active_ids_before": [
+            0
+          ],
+          "active_ids_after": [
+            0
+          ],
+          "resident_ids_before": [
+            0,
+            1,
+            2
+          ],
+          "resident_ids_after": [
+            0,
+            2,
+            3
+          ],
+          "released_tensor_bytes": 296,
+          "attempt": 1,
+          "candidate_model_hash": "15878c9012c5667ff7c51f7098b333043e6d42f5df6d1bcac379b9d86a26017c",
+          "candidate_optimizer_empty": true,
+          "first_candidate_prediction": null,
+          "table": [
+            {
+              "expert_id": 0,
+              "state": "active",
+              "eligible": false,
+              "reasons": [
+                "state_not_dormant"
+              ],
+              "last_active_prediction": 367
+            },
+            {
+              "expert_id": 1,
+              "state": "dormant",
+              "eligible": true,
+              "reasons": [],
+              "last_active_prediction": -1,
+              "dormant_predictions": 368,
+              "evidence_count": 2,
+              "evidence": [
+                {
+                  "positive_host_rows": 256,
+                  "negative_host_rows": 256,
+                  "finite": true,
+                  "support": true,
+                  "candidate": {
+                    "ap": 0.41666666666666663,
+                    "bce": 2.104314864315975,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "live": {
+                    "ap": 0.41666666666666663,
+                    "bce": 1.3500973807843721,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "B": {
+                    "ap": 0.5,
+                    "bce": 2.1269280110429722,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "checks": {
+                    "bce_vs_live": false,
+                    "bce_vs_B": true,
+                    "fpr_vs_live": true,
+                    "fpr_vs_B": true,
+                    "recall_vs_live": true,
+                    "recall_vs_B": true
+                  },
+                  "pass": false,
+                  "reason": "quality_rejected",
+                  "Q": -0.7542174835316029,
+                  "Q_pos": -0.754214952484008,
+                  "Q_neg": -0.7542200145791976,
+                  "positive_intervals": 32,
+                  "candidate_id": 1,
+                  "candidate_hash": "966722fb86299ccef611500a28f9703f01ea78bcd9097876d7837c0d3239080f"
+                },
+                {
+                  "positive_host_rows": 256,
+                  "negative_host_rows": 256,
+                  "finite": true,
+                  "support": true,
+                  "candidate": {
+                    "ap": 0.41666666666666663,
+                    "bce": 2.098696007515554,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "live": {
+                    "ap": 0.41666666666666663,
+                    "bce": 1.3453591162061889,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "B": {
+                    "ap": 0.5,
+                    "bce": 2.1269280110429722,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "checks": {
+                    "bce_vs_live": false,
+                    "bce_vs_B": true,
+                    "fpr_vs_live": true,
+                    "fpr_vs_B": true,
+                    "recall_vs_live": true,
+                    "recall_vs_B": true
+                  },
+                  "pass": false,
+                  "reason": "quality_rejected",
+                  "Q": -0.753336891309365,
+                  "Q_pos": -0.7533376335638101,
+                  "Q_neg": -0.7533361490549197,
+                  "positive_intervals": 32,
+                  "candidate_id": 1,
+                  "candidate_hash": "966722fb86299ccef611500a28f9703f01ea78bcd9097876d7837c0d3239080f"
+                }
+              ]
+            },
+            {
+              "expert_id": 2,
+              "state": "dormant",
+              "eligible": true,
+              "reasons": [],
+              "last_active_prediction": -1,
+              "dormant_predictions": 368,
+              "evidence_count": 2,
+              "evidence": [
+                {
+                  "positive_host_rows": 256,
+                  "negative_host_rows": 256,
+                  "finite": true,
+                  "support": true,
+                  "candidate": {
+                    "ap": 0.41666666666666663,
+                    "bce": 2.104314864315975,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "live": {
+                    "ap": 0.41666666666666663,
+                    "bce": 1.3500973807843721,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "B": {
+                    "ap": 0.5,
+                    "bce": 2.1269280110429722,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "checks": {
+                    "bce_vs_live": false,
+                    "bce_vs_B": true,
+                    "fpr_vs_live": true,
+                    "fpr_vs_B": true,
+                    "recall_vs_live": true,
+                    "recall_vs_B": true
+                  },
+                  "pass": false,
+                  "reason": "quality_rejected",
+                  "Q": -0.7542174835316029,
+                  "Q_pos": -0.754214952484008,
+                  "Q_neg": -0.7542200145791976,
+                  "positive_intervals": 32,
+                  "candidate_id": 2,
+                  "candidate_hash": "966722fb86299ccef611500a28f9703f01ea78bcd9097876d7837c0d3239080f"
+                },
+                {
+                  "positive_host_rows": 256,
+                  "negative_host_rows": 256,
+                  "finite": true,
+                  "support": true,
+                  "candidate": {
+                    "ap": 0.41666666666666663,
+                    "bce": 2.098696007515554,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "live": {
+                    "ap": 0.41666666666666663,
+                    "bce": 1.3453591162061889,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "B": {
+                    "ap": 0.5,
+                    "bce": 2.1269280110429722,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "checks": {
+                    "bce_vs_live": false,
+                    "bce_vs_B": true,
+                    "fpr_vs_live": true,
+                    "fpr_vs_B": true,
+                    "recall_vs_live": true,
+                    "recall_vs_B": true
+                  },
+                  "pass": false,
+                  "reason": "quality_rejected",
+                  "Q": -0.753336891309365,
+                  "Q_pos": -0.7533376335638101,
+                  "Q_neg": -0.7533361490549197,
+                  "positive_intervals": 32,
+                  "candidate_id": 2,
+                  "candidate_hash": "966722fb86299ccef611500a28f9703f01ea78bcd9097876d7837c0d3239080f"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "accepted": [
+        {
+          "positive_host_rows": 256,
+          "negative_host_rows": 256,
+          "finite": true,
+          "support": true,
+          "candidate": {
+            "ap": 0.41666666666666663,
+            "bce": 1.3001533014084679,
+            "rows": 512,
+            "positives": 256,
+            "negatives": 256,
+            "tp": 0,
+            "fp": 256,
+            "fn": 256,
+            "tn": 0,
+            "recall": 0.0,
+            "fpr": 1.0
+          },
+          "live": {
+            "ap": 0.41666666666666663,
+            "bce": 1.3235326154606573,
+            "rows": 512,
+            "positives": 256,
+            "negatives": 256,
+            "tp": 0,
+            "fp": 256,
+            "fn": 256,
+            "tn": 0,
+            "recall": 0.0,
+            "fpr": 1.0
+          },
+          "B": {
+            "ap": 0.5,
+            "bce": 2.1269280110429722,
+            "rows": 512,
+            "positives": 256,
+            "negatives": 256,
+            "tp": 0,
+            "fp": 256,
+            "fn": 256,
+            "tn": 0,
+            "recall": 0.0,
+            "fpr": 1.0
+          },
+          "checks": {
+            "bce_vs_live": true,
+            "bce_vs_B": true,
+            "fpr_vs_live": true,
+            "fpr_vs_B": true,
+            "recall_vs_live": true,
+            "recall_vs_B": true
+          },
+          "pass": true,
+          "reason": "pass",
+          "event": "shadow_evaluate",
+          "at_interval": 655,
+          "candidate_id": 3,
+          "intervals": [
+            608,
+            640
+          ],
+          "updates": 16,
+          "retained_ids": [
+            0
+          ],
+          "proposal_epoch": 0,
+          "created_by_reclamation": true,
+          "reclaimed_id": 1
+        }
+      ],
+      "candidate_active_predictions": 164,
+      "production_entrypoint": true
+    },
+    {
+      "test_id": "production_eviction_then_candidate_reject",
+      "pass": true,
+      "gc_events": [
+        {
+          "event": "permanent_reclaim_and_shadow_start",
+          "at_interval": 367,
+          "deleted_id": 1,
+          "candidate_id": 3,
+          "active_ids_before": [
+            0
+          ],
+          "active_ids_after": [
+            0
+          ],
+          "resident_ids_before": [
+            0,
+            1,
+            2
+          ],
+          "resident_ids_after": [
+            0,
+            2,
+            3
+          ],
+          "released_tensor_bytes": 296,
+          "attempt": 1,
+          "candidate_model_hash": "15878c9012c5667ff7c51f7098b333043e6d42f5df6d1bcac379b9d86a26017c",
+          "candidate_optimizer_empty": true,
+          "first_candidate_prediction": null,
+          "table": [
+            {
+              "expert_id": 0,
+              "state": "active",
+              "eligible": false,
+              "reasons": [
+                "state_not_dormant"
+              ],
+              "last_active_prediction": 367
+            },
+            {
+              "expert_id": 1,
+              "state": "dormant",
+              "eligible": true,
+              "reasons": [],
+              "last_active_prediction": -1,
+              "dormant_predictions": 368,
+              "evidence_count": 2,
+              "evidence": [
+                {
+                  "positive_host_rows": 256,
+                  "negative_host_rows": 256,
+                  "finite": true,
+                  "support": true,
+                  "candidate": {
+                    "ap": 0.41666666666666663,
+                    "bce": 2.1269167761462744,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "live": {
+                    "ap": 0.41666666666666663,
+                    "bce": 1.3691990056263124,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "B": {
+                    "ap": 0.5,
+                    "bce": 2.1269280110429722,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "checks": {
+                    "bce_vs_live": false,
+                    "bce_vs_B": true,
+                    "fpr_vs_live": true,
+                    "fpr_vs_B": true,
+                    "recall_vs_live": true,
+                    "recall_vs_B": true
+                  },
+                  "pass": false,
+                  "reason": "quality_rejected",
+                  "Q": -0.757717770519962,
+                  "Q_pos": -0.7577165625756328,
+                  "Q_neg": -0.7577189784642914,
+                  "positive_intervals": 32,
+                  "candidate_id": 1,
+                  "candidate_hash": "20c793818e516fca092e9e092b993ee5df69d1caad0a18c64eedf0fd38d64431"
+                },
+                {
+                  "positive_host_rows": 256,
+                  "negative_host_rows": 256,
+                  "finite": true,
+                  "support": true,
+                  "candidate": {
+                    "ap": 0.41666666666666663,
+                    "bce": 2.1269142561673977,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "live": {
+                    "ap": 0.41666666666666663,
+                    "bce": 1.36919684996488,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "B": {
+                    "ap": 0.5,
+                    "bce": 2.1269280110429722,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "checks": {
+                    "bce_vs_live": false,
+                    "bce_vs_B": true,
+                    "fpr_vs_live": true,
+                    "fpr_vs_B": true,
+                    "recall_vs_live": true,
+                    "recall_vs_B": true
+                  },
+                  "pass": false,
+                  "reason": "quality_rejected",
+                  "Q": -0.757717406202518,
+                  "Q_pos": -0.7577162849030168,
+                  "Q_neg": -0.7577185275020193,
+                  "positive_intervals": 32,
+                  "candidate_id": 1,
+                  "candidate_hash": "20c793818e516fca092e9e092b993ee5df69d1caad0a18c64eedf0fd38d64431"
+                }
+              ]
+            },
+            {
+              "expert_id": 2,
+              "state": "dormant",
+              "eligible": true,
+              "reasons": [],
+              "last_active_prediction": -1,
+              "dormant_predictions": 368,
+              "evidence_count": 2,
+              "evidence": [
+                {
+                  "positive_host_rows": 256,
+                  "negative_host_rows": 256,
+                  "finite": true,
+                  "support": true,
+                  "candidate": {
+                    "ap": 0.41666666666666663,
+                    "bce": 2.1269167761462744,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "live": {
+                    "ap": 0.41666666666666663,
+                    "bce": 1.3691990056263124,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "B": {
+                    "ap": 0.5,
+                    "bce": 2.1269280110429722,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "checks": {
+                    "bce_vs_live": false,
+                    "bce_vs_B": true,
+                    "fpr_vs_live": true,
+                    "fpr_vs_B": true,
+                    "recall_vs_live": true,
+                    "recall_vs_B": true
+                  },
+                  "pass": false,
+                  "reason": "quality_rejected",
+                  "Q": -0.757717770519962,
+                  "Q_pos": -0.7577165625756328,
+                  "Q_neg": -0.7577189784642914,
+                  "positive_intervals": 32,
+                  "candidate_id": 2,
+                  "candidate_hash": "20c793818e516fca092e9e092b993ee5df69d1caad0a18c64eedf0fd38d64431"
+                },
+                {
+                  "positive_host_rows": 256,
+                  "negative_host_rows": 256,
+                  "finite": true,
+                  "support": true,
+                  "candidate": {
+                    "ap": 0.41666666666666663,
+                    "bce": 2.1269142561673977,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "live": {
+                    "ap": 0.41666666666666663,
+                    "bce": 1.36919684996488,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "B": {
+                    "ap": 0.5,
+                    "bce": 2.1269280110429722,
+                    "rows": 512,
+                    "positives": 256,
+                    "negatives": 256,
+                    "tp": 0,
+                    "fp": 256,
+                    "fn": 256,
+                    "tn": 0,
+                    "recall": 0.0,
+                    "fpr": 1.0
+                  },
+                  "checks": {
+                    "bce_vs_live": false,
+                    "bce_vs_B": true,
+                    "fpr_vs_live": true,
+                    "fpr_vs_B": true,
+                    "recall_vs_live": true,
+                    "recall_vs_B": true
+                  },
+                  "pass": false,
+                  "reason": "quality_rejected",
+                  "Q": -0.757717406202518,
+                  "Q_pos": -0.7577162849030168,
+                  "Q_neg": -0.7577185275020193,
+                  "positive_intervals": 32,
+                  "candidate_id": 2,
+                  "candidate_hash": "20c793818e516fca092e9e092b993ee5df69d1caad0a18c64eedf0fd38d64431"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "candidate_decisions": [
+        {
+          "positive_host_rows": 256,
+          "negative_host_rows": 256,
+          "finite": true,
+          "support": true,
+          "candidate": {
+            "ap": 0.41666666666666663,
+            "bce": 1.3691724268716419,
+            "rows": 512,
+            "positives": 256,
+            "negatives": 256,
+            "tp": 0,
+            "fp": 256,
+            "fn": 256,
+            "tn": 0,
+            "recall": 0.0,
+            "fpr": 1.0
+          },
+          "live": {
+            "ap": 0.41666666666666663,
+            "bce": 1.3691843827327055,
+            "rows": 512,
+            "positives": 256,
+            "negatives": 256,
+            "tp": 0,
+            "fp": 256,
+            "fn": 256,
+            "tn": 0,
+            "recall": 0.0,
+            "fpr": 1.0
+          },
+          "B": {
+            "ap": 0.5,
+            "bce": 2.1269280110429722,
+            "rows": 512,
+            "positives": 256,
+            "negatives": 256,
+            "tp": 0,
+            "fp": 256,
+            "fn": 256,
+            "tn": 0,
+            "recall": 0.0,
+            "fpr": 1.0
+          },
+          "checks": {
+            "bce_vs_live": false,
+            "bce_vs_B": true,
+            "fpr_vs_live": true,
+            "fpr_vs_B": true,
+            "recall_vs_live": true,
+            "recall_vs_B": true
+          },
+          "pass": false,
+          "reason": "quality_rejected",
+          "event": "shadow_evaluate",
+          "at_interval": 655,
+          "candidate_id": 3,
+          "intervals": [
+            608,
+            640
+          ],
+          "updates": 16,
+          "retained_ids": [
+            0
+          ],
+          "proposal_epoch": 0,
+          "created_by_reclamation": true,
+          "reclaimed_id": 1
+        }
+      ],
+      "deleted_not_restored": true,
+      "no_gc_blocks": [
+        {
+          "event": "capacity_blocked_no_gc",
+          "at_interval": 367,
+          "would_delete_id": 1,
+          "attempt_consumed": false
+        },
+        {
+          "event": "capacity_blocked_no_gc",
+          "at_interval": 383,
+          "would_delete_id": 1,
+          "attempt_consumed": false
+        },
+        {
+          "event": "capacity_blocked_no_gc",
+          "at_interval": 431,
+          "would_delete_id": 1,
+          "attempt_consumed": false
+        }
+      ]
+    },
+    {
+      "test_id": "two_arm_first_GC_divergence",
+      "pass": true,
+      "first_gc_control_t": 367,
+      "pre_and_control_tick_outputs_exact": true,
+      "active_ids_exact": true,
+      "no_gc_block_at_same_t": [
+        {
+          "event": "capacity_blocked_no_gc",
+          "at_interval": 367,
+          "would_delete_id": 1,
+          "attempt_consumed": false
+        }
+      ]
+    },
+    {
+      "test_id": "disk_resume_continue_to_end_all_states",
+      "pass": true,
+      "continuous_digest": "64d063292117b3fc05dc4122ab02e94b26c5e52f43355b5d2a16c4cd123a03ac",
+      "continuation_cases": [
+        {
+          "checkpoint": "manual_window_expiry.pt",
+          "checkpoint_sha": "1c8a3a9ef897c6fa92646651d51ac98df65b4d3077a2f73a40f7a4374980a903",
+          "same_endpoint": true
+        },
+        {
+          "checkpoint": "reclaim_create_t367.pt",
+          "checkpoint_sha": "4bfddc3d3100f4b639002452f1761619e086e29cb36cffead1448a50389e9570",
+          "same_endpoint": true
+        },
+        {
+          "checkpoint": "shadow_01_t367.pt",
+          "checkpoint_sha": "59cf621ffeb0abf44b039c732fb174f66aeabe6a3801148513598213e6093e86",
+          "same_endpoint": true
+        },
+        {
+          "checkpoint": "shadow_15_t591.pt",
+          "checkpoint_sha": "13b918a78bab118bfc8c29c0fcbf3ac065084fdcdee9cc3869a0536683319b66",
+          "same_endpoint": true
+        },
+        {
+          "checkpoint": "shadow_16_t607.pt",
+          "checkpoint_sha": "72019cc684b89ca908b42c6d04d962c27b48b708c474ed6752b3dbf62fcee53e",
+          "same_endpoint": true
+        },
+        {
+          "checkpoint": "shadow_accept_t655.pt",
+          "checkpoint_sha": "f72ba4f0fd00ae397bd6feb9b5e2a46239257f79b055054c165952a313314e4b",
+          "same_endpoint": true
+        }
+      ],
+      "snapshot_only": false
+    },
+    {
+      "test_id": "crash_atomic_step_eviction_budget",
+      "pass": true,
+      "joint_step_ambiguous_blocked": true,
+      "reclaim_create_ambiguous_blocked": true,
+      "real_full_capacity_control_t": 367,
+      "production_control_path_used": true,
+      "from_zero_retry": false
+    },
+    {
+      "test_id": "fail_closed_source_fixture_budget",
+      "pass": true,
+      "negative_fixture_cases": {
+        "missing": true,
+        "string": true,
+        "revision": true,
+        "false": true
+      },
+      "overbudget_detected": true
+    },
+    {
+      "test_id": "future_label_noninterference",
+      "pass": true,
+      "prefix_predictions_exact": true,
+      "future_labels_changed_from": 130,
+      "compared_before_future_visibility": true
+    }
+  ],
+  "required_fixture_ids": [
+    "float64_counterfactual_independent_golden",
+    "window_expiry_epoch_late_labels_unknown",
+    "sleep_useful_protection_no_forced_replacement",
+    "joint_Adam_detached_shadow_future_qualification",
+    "reuse_same_id_Adam",
+    "eviction_positive_weak_gain_protected",
+    "eviction_stale_unknown_overlap_hash_guards",
+    "production_full_pool_delete_birth_accept64",
+    "production_eviction_then_candidate_reject",
+    "two_arm_first_GC_divergence",
+    "disk_resume_continue_to_end_all_states",
+    "crash_atomic_step_eviction_budget",
+    "fail_closed_source_fixture_budget",
+    "future_label_noninterference"
+  ],
+  "real_engineering_prefixes": 1,
+  "real_engineering_prefix_intervals_max": 256,
+  "real_engineering_gradient_steps": 0,
+  "real_prefix_disk_continuation_pass": true,
+  "real_prefix_detection_logits_exact_B": true,
+  "real_prefix_probability_max_abs_vs_cached_B": 5.960464477539063e-08,
+  "real_prefix_probability_tolerance": 5e-07,
+  "real_prefix_empty_dynamic_state": true,
+  "real_prefix_zero_gradient": true
+}
