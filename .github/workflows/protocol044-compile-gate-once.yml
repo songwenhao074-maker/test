@@ -48,3 +48,5 @@ jobs:
 # retry after excluding elapsed rebuild timing from resume semantics 85aed9ba
 
 # retry after completed-control checkpoint boundary fix ebf41dab
+
+# retry after deferred checkpoint queue initialization 2cbc8b4e
