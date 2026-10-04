@@ -88,3 +88,5 @@ jobs:
 # retry after deferred checkpoint queue initialization 2cbc8b4e
 
 # retry after settle-tick checkpoint fix 560be11b
+
+# retry after qualification raw audit stream c2f67aaf
