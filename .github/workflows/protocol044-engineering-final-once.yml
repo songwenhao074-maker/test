@@ -85,3 +85,5 @@ jobs:
 # retry after sklearn dependency lock
 
 # retry after restoring locked Protocol031 nonblocking reuse dependency
+
+# retry after restoring remaining locked 031/033 dependencies
