@@ -42,3 +42,5 @@ jobs:
 # retry with fixed dill dependency
 
 # retry after functional GC arm keyword fix 512b20a2
+
+# diagnostic rerun after semantic diff instrumentation 49d7e156
