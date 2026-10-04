@@ -130,6 +130,15 @@ def complete_seq(path,name,steps,extra=None):
     if x["total_optimizer_steps_used"]>2360: raise AssertionError("global optimizer budget")
     W(path,x)
 
+def assert_resume_binding(path,name,cursor,state_sha256):
+    x=load_ledger(path); r=x["sequences"][name]
+    if not r.get("started") or r.get("completed"): raise RuntimeError("resume binding illegal sequence state")
+    if int(r.get("cursor",-1))!=int(cursor): raise RuntimeError("resume cursor mismatch")
+    if str(r.get("state_sha256"))!=str(state_sha256): raise RuntimeError("resume state hash mismatch")
+    if int(r.get("optimizer_steps_used",-1))<0: raise RuntimeError("resume budget invalid")
+    return r
+
+
 def make_c(data,input_lock,out,run_id):
     digest,m=validate_input(data,input_lock)
     b=s4.build_replay(Path(data))
@@ -156,15 +165,29 @@ def restore_c_ckpt(s,out,label):
 
 def cmd_c(a):
     runtime(); plan(); out=Path(a.out); out.mkdir(parents=True,exist_ok=True)
-    validate_gate(a.gate,a.input_lock,a.execution_sha,"C_ref",a.ledger,0); start_seq(a.ledger,"C_ref",a.run_id,a.resume_label)
+    resume=bool(a.resume_label)
+    validate_gate(a.gate,a.input_lock,a.execution_sha,"C_ref",a.ledger,0,resume=resume)
+    start_seq(a.ledger,"C_ref",a.run_id,a.resume_label)
     s,digest,m=make_c(a.data,a.input_lock,out,a.run_id)
-    if a.resume_label: restore_c_ckpt(s,out,a.resume_label)
+    if a.resume_label:
+        meta_path=out/"checkpoints"/(a.resume_label+".meta.json")
+        if not meta_path.is_file(): raise FileNotFoundError(meta_path)
+        meta=J(meta_path); assert_resume_binding(a.ledger,"C_ref",meta["cursor"],sha256_file(meta_path))
+        restore_c_ckpt(s,out,a.resume_label)
+    target=N if a.stop_cursor is None else min(N,int(a.stop_cursor))
+    if target<int(s.cursor) or target-int(s.cursor)>512: raise RuntimeError("C segment cursor bound")
     ini=r36.initinfo(s); t0=time.perf_counter()
-    while s.cursor<N:
-        s.step()
-        if s.cursor%512==0 and not (out/"checkpoints"/("cursor_%04d.meta.json"%s.cursor)).exists(): save_c_ckpt(s,out,"cursor_%04d"%s.cursor)
-    s.finish()
-    if not (out/"checkpoints/final.meta.json").exists(): save_c_ckpt(s,out,"final")
+    while s.cursor<target: s.step()
+    label="final" if target==N else "cursor_%04d"%target
+    if target==N:
+        s.finish()
+    save_c_ckpt(s,out,label)
+    meta_path=out/"checkpoints"/(label+".meta.json")
+    record_progress(a.ledger,"C_ref",s.cursor,s.updates,sha256_file(meta_path),None)
+    W(out/"segment_status.json",{"protocol":"044","execution_revision":2,"arm":"C_ref","cursor":int(s.cursor),
+      "optimizer_steps_used":int(s.updates),"checkpoint_label":label,"checkpoint_meta_sha256":sha256_file(meta_path),
+      "completed":bool(target==N)})
+    if target<N: return
     s.save()
     updates=[]
     for r in s.update_log:
@@ -174,13 +197,13 @@ def cmd_c(a):
     np.savez_compressed(out/"feature_tape.npz",z=s.z_tape,c_detection_logits=s.predictions["detection_logits"],c_probability=s.predictions["probability"],
       c_class_probability=s.predictions["class_probability"],labels=s.predictions["labels"],raw_labels=s.predictions["raw_labels"],
       model_version=s.predictions["model_version"],visible_input_max=s.visible,label_available_max=s.labelmax)
-    W(out/"update_batches.json",{"protocol":"044","revision":1,"seed":4401,"arm":"C_ref","updates":updates})
+    W(out/"update_batches.json",{"protocol":"044","revision":1,"execution_revision":2,"seed":4401,"arm":"C_ref","updates":updates})
     checks={"final_prediction_index":N-1,"all_settled":bool((s.predictions["labels"]>=0).all()),"terminal_training_steps":0,
       "visible_exact":bool(np.array_equal(s.visible,np.arange(N))),"label_cutoff_exact":bool(np.array_equal(s.labelmax,np.arange(N)-3)),
       "optimizer_steps":int(s.updates),"optimizer_budget":int(s.updates)<=372,"frozen_base_sha256":ini["frozen_base_sha256"],
       "normalization_buffers_sha256":ini["normalization_buffers_sha256"]}
     if not all(v for k,v in checks.items() if k in ("all_settled","visible_exact","label_cutoff_exact","optimizer_budget")): raise AssertionError("C checks")
-    W(out/"summary.json",{"protocol":"044","revision":1,"arm":"C_ref","stream_sha256":digest,"completed":True,"initialization":ini,
+    W(out/"summary.json",{"protocol":"044","revision":1,"execution_revision":2,"arm":"C_ref","stream_sha256":digest,"completed":True,"initialization":ini,
       "feature_tape_sha256":sha256_file(out/"feature_tape.npz"),"predictions_sha256":sha256_file(out/"predictions.npz"),"checks":checks,"wall_seconds":time.perf_counter()-t0})
     complete_seq(a.ledger,"C_ref",s.updates,{"feature_tape_sha256":sha256_file(out/"feature_tape.npz")})
 
@@ -198,21 +221,25 @@ def restore_branch(path,b,opt,tape_sha):
     torch.set_rng_state(x["torch_rng"]);np.random.set_state(x["numpy_rng"]);random.setstate(x["python_rng"]); return x
 
 def cmd_lin(a):
-    runtime(); plan(); validate_gate(a.gate,a.input_lock,a.execution_sha,"D_lin",a.ledger,0); out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
+    runtime(); plan(); resume=bool(a.resume_from)
+    validate_gate(a.gate,a.input_lock,a.execution_sha,"D_lin",a.ledger,0,resume=resume); out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
     start_seq(a.ledger,"D_lin",a.run_id,a.resume_from)
     tp=Path(a.feature_tape); tape_sha=sha256_file(tp)
     with np.load(tp,allow_pickle=False) as q:T={k:q[k].copy() for k in q.files}
     if T["z"].shape!=(N,16,73): raise AssertionError("tape geometry")
     batches=J(a.update_batches)["updates"]; by={int(x["at_interval"]):x for x in batches}
     with torch.random.fork_rng(devices=[]):
-        torch.manual_seed(3501)
-        b=r36.LinearCorrection()
+        torch.manual_seed(3501); b=r36.LinearCorrection()
     opt=torch.optim.AdamW(b.parameters(),lr=1e-4,weight_decay=1e-4,betas=(.9,.999),eps=1e-8)
     pred=np.full((N,16),np.nan,np.float32);delta=np.full((N,16),np.nan,np.float32);logits=np.full((N,16,2),np.nan,np.float32)
     versions=np.zeros(N,np.int32);hashes=[];logs=[];ver=0;cursor=0
     if a.resume_from:
-        x=restore_branch(a.resume_from,b,opt,tape_sha);cursor=x["cursor"];ver=x["version"];pred[:cursor]=x["pred"];delta[:cursor]=x["delta"];logits[:cursor]=x["logits"];versions[:cursor]=x["versions"];hashes=list(x["hashes"]);logs=list(x["logs"])
-    for t in range(cursor,N):
+        rp=Path(a.resume_from); assert_resume_binding(a.ledger,"D_lin",J(str(rp)+".json")["cursor"],sha256_file(rp))
+        x=restore_branch(rp,b,opt,tape_sha);cursor=x["cursor"];ver=x["version"];pred[:cursor]=x["pred"];delta[:cursor]=x["delta"];logits[:cursor]=x["logits"];versions[:cursor]=x["versions"];hashes=list(x["hashes"]);logs=list(x["logs"])
+        if ver!=int(load_ledger(a.ledger)["sequences"]["D_lin"]["optimizer_steps_used"]): raise RuntimeError("D_lin optimizer ledger mismatch")
+    target=N if a.stop_cursor is None else min(N,int(a.stop_cursor))
+    if target<cursor or target-cursor>512: raise RuntimeError("D_lin segment cursor bound")
+    for t in range(cursor,target):
         z=torch.from_numpy(T["z"][t]).float(); cl=torch.from_numpy(T["c_detection_logits"][t]).float(); m=cl[:,1]-cl[:,0]
         with torch.no_grad(): d=b.delta(z,m); oo=r36.compose(cl,d); pp=torch.softmax(oo,-1)[:,1]
         pred[t]=pp.numpy();delta[t]=d.numpy();logits[t]=oo.numpy();versions[t]=ver;hashes.append(r36.bhash(b))
@@ -223,11 +250,14 @@ def cmd_lin(a):
             yy=torch.from_numpy((T["labels"][ii]>0).astype(np.float32)); d2=b.delta(zt,cm); ce=F.binary_cross_entropy_with_logits(cm+d2,yy);pen=.001*(d2*d2).mean();loss=ce+pen
             opt.zero_grad(set_to_none=True);loss.backward();gn=float(torch.nn.utils.clip_grad_norm_(b.parameters(),1.0));opt.step();ver+=1
             logs.append({"at_interval":t,"batch_indices":ii,"loss":float(loss.detach()),"bce":float(ce.detach()),"penalty":float(pen.detach()),"grad_norm":gn,"version_after":ver,"hash_after":r36.bhash(b)})
-        if (t+1)%512==0: save_branch(out,b,opt,t+1,ver,pred,delta,logits,versions,hashes,logs,tape_sha)
-    save_branch(out,b,opt,N,ver,pred,delta,logits,versions,hashes,logs,tape_sha)
+    save_branch(out,b,opt,target,ver,pred,delta,logits,versions,hashes,logs,tape_sha)
+    cp=branch_ckpt(out,target); record_progress(a.ledger,"D_lin",target,ver,sha256_file(cp),None)
+    W(out/"segment_status.json",{"protocol":"044","execution_revision":2,"arm":"D_lin","cursor":target,"optimizer_steps_used":ver,
+      "checkpoint":cp.name,"checkpoint_sha256":sha256_file(cp),"completed":bool(target==N)})
+    if target<N: return
     np.savez_compressed(out/"predictions.npz",probability=pred,detection_logits=logits,delta=delta,class_probability=T["c_class_probability"],
       labels=T["labels"],raw_labels=T["raw_labels"],model_version=versions)
-    W(out/"update_log.json",{"updates":logs});W(out/"summary.json",{"protocol":"044","revision":1,"arm":"D_lin","completed":True,"updates":ver,
+    W(out/"update_log.json",{"updates":logs});W(out/"summary.json",{"protocol":"044","revision":1,"execution_revision":2,"arm":"D_lin","completed":True,"updates":ver,
       "feature_tape_sha256":tape_sha,"predictions_sha256":sha256_file(out/"predictions.npz"),"parameter_count":sum(p.numel() for p in b.parameters()),"zero_initialized":True})
     if ver>372: raise AssertionError("Dlin optimizer budget")
     complete_seq(a.ledger,"D_lin",ver,{"predictions_sha256":sha256_file(out/"predictions.npz")})
@@ -239,19 +269,32 @@ def load_dynamic_source(feature_tape,b_pred,update_batches):
     return {"core":{"T":{"z":T["z"],"labels":B["labels"]},"B":B,"updates":ups,"by_t":by},"B":B,"C":B,"D_keep":B,"D_039":B,"D_040":B,"n":N,"manifest":{"timeline":[]}}
 
 def cmd_dynamic(a):
-    runtime(); plan(); arm=a.arm
-    validate_gate(a.gate,a.input_lock,a.execution_sha,arm,a.ledger,0); start_seq(a.ledger,arm,a.run_id,a.resume_from)
+    runtime(); plan(); arm=a.arm; resume=bool(a.resume_from)
+    validate_gate(a.gate,a.input_lock,a.execution_sha,arm,a.ledger,0,resume=resume); start_seq(a.ledger,arm,a.run_id,a.resume_from)
     out=Path(a.out);out.mkdir(parents=True,exist_ok=True);src=load_dynamic_source(a.feature_tape,a.b_predictions,a.update_batches)
     if a.resume_from:
-        m=Machine044.restore(src,out,a.resume_from,arm=arm,allow_gradient=True,real_science=True,strict_journal=True)
+        rp=Path(a.resume_from); assert_resume_binding(a.ledger,arm,J(str(rp)+".json")["cursor"],sha256_file(rp))
+        m=Machine044.restore(src,out,rp,arm=arm,allow_gradient=True,real_science=True,strict_journal=True)
+        if m.actual_optimizer_calls!=int(load_ledger(a.ledger)["sequences"][arm]["optimizer_steps_used"]): raise RuntimeError("dynamic optimizer ledger mismatch")
     else:
         m=Machine044(src,out,arm,allow_gradient=True,real_science=True)
-    m.checkpoint_dir=out/"checkpoints";m.advance();m.terminal_settle()
+    m.checkpoint_dir=out/"checkpoints"
+    target=N if a.stop_cursor is None else min(N,int(a.stop_cursor))
+    if target<int(m.cursor) or target-int(m.cursor)>512: raise RuntimeError("dynamic segment cursor bound")
+    m.advance(target)
+    if target<N:
+        m.save_checkpoint("science_cursor_%04d"%target,True)
+        cp=out/"checkpoints/latest.pt"; record_progress(a.ledger,arm,m.cursor,m.actual_optimizer_calls,sha256_file(cp),None)
+        W(out/"segment_status.json",{"protocol":"044","execution_revision":2,"arm":arm,"cursor":m.cursor,
+          "optimizer_steps_used":m.actual_optimizer_calls,"checkpoint_sha256":sha256_file(cp),"completed":False})
+        return
+    m.terminal_settle()
+    cp=out/"checkpoints/latest.pt"; record_progress(a.ledger,arm,m.cursor,m.actual_optimizer_calls,sha256_file(cp),None)
     arr={k:np.asarray(v).copy() for k,v in m.out.items() if k!="contribution"}
     arr.update({"class_probability":src["B"]["class_probability"].copy(),"labels":src["B"]["labels"].copy(),"raw_labels":src["B"]["raw_labels"].copy(),
       "model_version":src["B"].get("model_version",np.zeros(N,np.int32)).copy()})
     np.savez_compressed(out/"predictions.npz",**arr)
-    summary={"protocol":"044","revision":1,"arm":arm,"completed":True,"first_birth_t":m.first_birth_t,"ids_created":m.next_id,
+    summary={"protocol":"044","revision":1,"execution_revision":2,"arm":arm,"completed":True,"first_birth_t":m.first_birth_t,"ids_created":m.next_id,
       "accepted_ids":sorted(m.experts),"active_ids_final":list(m.active_ids),"deleted_ids":sorted(m.deleted_ids),"permanent_deletions":m.permanent_deletions,
       "live_optimizer_steps":m.live_optimizer_steps,"shadow_optimizer_steps":m.shadow_optimizer_steps,"actual_optimizer_calls":m.actual_optimizer_calls,
       "deployed_forwards":m.deployed_forwards,"reuse_preview_forwards":m.reuse_preview_forwards,"shadow_preview_forwards":m.shadow_preview_forwards,
@@ -261,11 +304,13 @@ def cmd_dynamic(a):
     W(out/"summary.json",summary)
     if m.actual_optimizer_calls>808: raise AssertionError("dynamic optimizer budget")
     complete_seq(a.ledger,arm,m.actual_optimizer_calls,{"predictions_sha256":summary["predictions_sha256"],"permanent_deletions":m.permanent_deletions})
+    W(out/"segment_status.json",{"protocol":"044","execution_revision":2,"arm":arm,"cursor":m.cursor,
+      "optimizer_steps_used":m.actual_optimizer_calls,"checkpoint_sha256":sha256_file(cp),"completed":True})
 
 def main():
     ap=argparse.ArgumentParser();sp=ap.add_subparsers(dest="cmd",required=True)
-    p=sp.add_parser("C_ref");p.add_argument("--data",required=True);p.add_argument("--input-lock",required=True);p.add_argument("--gate",required=True);p.add_argument("--execution-sha",required=True);p.add_argument("--ledger",required=True);p.add_argument("--out",required=True);p.add_argument("--run-id",required=True);p.add_argument("--resume-label");p.set_defaults(fn=cmd_c)
-    p=sp.add_parser("D_lin");p.add_argument("--feature-tape",required=True);p.add_argument("--update-batches",required=True);p.add_argument("--input-lock",required=True);p.add_argument("--gate",required=True);p.add_argument("--execution-sha",required=True);p.add_argument("--ledger",required=True);p.add_argument("--out",required=True);p.add_argument("--run-id",required=True);p.add_argument("--resume-from");p.set_defaults(fn=cmd_lin)
-    p=sp.add_parser("dynamic");p.add_argument("--arm",choices=("D_no_gc","D_bounded"),required=True);p.add_argument("--feature-tape",required=True);p.add_argument("--b-predictions",required=True);p.add_argument("--update-batches",required=True);p.add_argument("--input-lock",required=True);p.add_argument("--gate",required=True);p.add_argument("--execution-sha",required=True);p.add_argument("--ledger",required=True);p.add_argument("--out",required=True);p.add_argument("--run-id",required=True);p.add_argument("--resume-from");p.set_defaults(fn=cmd_dynamic)
+    p=sp.add_parser("C_ref");p.add_argument("--data",required=True);p.add_argument("--input-lock",required=True);p.add_argument("--gate",required=True);p.add_argument("--execution-sha",required=True);p.add_argument("--ledger",required=True);p.add_argument("--out",required=True);p.add_argument("--run-id",required=True);p.add_argument("--resume-label");p.add_argument("--stop-cursor",type=int);p.set_defaults(fn=cmd_c)
+    p=sp.add_parser("D_lin");p.add_argument("--feature-tape",required=True);p.add_argument("--update-batches",required=True);p.add_argument("--input-lock",required=True);p.add_argument("--gate",required=True);p.add_argument("--execution-sha",required=True);p.add_argument("--ledger",required=True);p.add_argument("--out",required=True);p.add_argument("--run-id",required=True);p.add_argument("--resume-from");p.add_argument("--stop-cursor",type=int);p.set_defaults(fn=cmd_lin)
+    p=sp.add_parser("dynamic");p.add_argument("--arm",choices=("D_no_gc","D_bounded"),required=True);p.add_argument("--feature-tape",required=True);p.add_argument("--b-predictions",required=True);p.add_argument("--update-batches",required=True);p.add_argument("--input-lock",required=True);p.add_argument("--gate",required=True);p.add_argument("--execution-sha",required=True);p.add_argument("--ledger",required=True);p.add_argument("--out",required=True);p.add_argument("--run-id",required=True);p.add_argument("--resume-from");p.add_argument("--stop-cursor",type=int);p.set_defaults(fn=cmd_dynamic)
     a=ap.parse_args();a.fn(a)
 if __name__=="__main__": main()
