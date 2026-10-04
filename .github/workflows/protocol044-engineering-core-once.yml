@@ -70,3 +70,5 @@ jobs:
           path: /tmp/p044e/evidence
           retention-days: 90
           if-no-files-found: error
+
+# rerun after engine syntax/recovery fixes
