@@ -16,6 +16,12 @@ from protocol035_common import sha256_file, sha256_state_dict
 N=5952
 SEQ=("C_ref","D_lin","D_no_gc","D_bounded")
 PLAN_SHA="a27a6cca6abde40b6395876eccd3db5f550a044e952a701fe63aa2e4306a5f51"
+SOURCE_PROBE_DIGEST="sha256:1db5dd429b43759ad3e868012d8e8c850551d21e53f1cd86af0e7daf316ecf49"
+ENGINEERING_CORE_DIGEST="sha256:35091be2e2e3ddb6d1c8d7da37496f85fcd6ce991d43f2e394e76d633032f27b"
+REQUIRED_CASES=("birth_after","single_live_after","joint_live_after","shadow_update01_after","shadow_update15_after","shadow_update16_after",
+"qualification_ready_before_decision","shadow_accept_after","shadow_reject_after","sleep_after","reuse_pending","reuse_accept_after",
+"reuse_reject_after","window_expiry_after","late_old_epoch_settlement","reclaim_create_after","reclaimed_candidate_reject_after",
+"terminal_first_before_second","terminal_second_before_finalize")
 
 def J(p): return json.loads(Path(p).read_text(encoding="utf8"))
 def W(p,x):
@@ -47,6 +53,10 @@ def validate_gate(gate,input_lock,execution_sha,sequence,ledger,optimizer_calls=
     for k in ("E_gate","source_lock_pass","engineering_core_pass","crash_pass","fail_closed_pass","baseline_adapter_pass"):
         if type(g.get(k)) is not bool or not g[k]: raise RuntimeError("gate false "+k)
     if g.get("execution_sha")!=str(execution_sha): raise RuntimeError("execution SHA mismatch")
+    if g.get("source_probe_artifact_digest")!=SOURCE_PROBE_DIGEST: raise RuntimeError("bad source hash")
+    if g.get("engineering_core_artifact_digest")!=ENGINEERING_CORE_DIGEST: raise RuntimeError("bad engineering hash")
+    if tuple(g.get("required_resume_case_ids") or ())!=REQUIRED_CASES or tuple(g.get("resume_case_ids_passed") or ())!=REQUIRED_CASES:
+        raise RuntimeError("missing required case")
     lock=J(input_lock)
     if lock.get("locked") is not True or lock.get("seed")!=4401: raise RuntimeError("data lock")
     led=J(ledger); r=led["sequences"][sequence]
