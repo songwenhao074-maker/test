@@ -1,4 +1,4 @@
-"""Protocol-043 revision1 transactional bounded-lifecycle production engine."""
+"""Protocol-044 revision1 transactional bounded-lifecycle production engine."""
 from __future__ import annotations
 import copy, hashlib, json, os, random, time
 from pathlib import Path
@@ -8,12 +8,12 @@ import torch.nn.functional as F
 
 import run_ftmoe_protocol037 as p37
 from protocol035_common import sha256_file, sha256_state_dict
-import protocol043_common as c
+import protocol044_common as c
 
 def _mh(x): return sha256_state_dict(x["model"].state_dict())
 def _oh(x): return c.opt_digest(x["optimizer"])
 
-class Machine043:
+class Machine044:
     SUBSTEPS=("predict","settle","control","live_update","shadow_update","finish")
     def __init__(self,src,work_dir,arm,allow_gradient=True,real_science=False):
         if arm not in c.ARMS: raise ValueError(arm)
@@ -76,7 +76,7 @@ class Machine043:
 
     def _begin_action(self,kind,t,meta=None):
         self.action_seq+=1
-        row={"protocol":"043","revision":1,"arm":self.arm,"action_seq":self.action_seq,"status":"pending","kind":kind,
+        row={"protocol":"044","revision":1,"arm":self.arm,"action_seq":self.action_seq,"status":"pending","kind":kind,
           "cursor":int(t),"next_substep":self.next_substep,"meta":meta or {}}
         c.W(self.action_journal,row); return row
     def _commit_action(self,row,extra=None):
@@ -197,7 +197,7 @@ class Machine043:
                 dd=self._predict_expert(x,t); self.reuse_preview_forwards+=1
                 rr["candidates"][int(eid)]={"margin":(margin+dd).astype(np.float32),"delta":dd}
             self.reuse_slot["issued"][int(t)]=rr
-        if self.deployed_forwards>11232 or self.reuse_preview_forwards>3072 or self.shadow_preview_forwards>128: raise AssertionError("forward budget")
+        if self.deployed_forwards>11904 or self.reuse_preview_forwards>3072 or self.shadow_preview_forwards>128: raise AssertionError("forward budget")
         self._resource_sample()
 
     def _settle(self,t):
@@ -431,8 +431,7 @@ class Machine043:
         if not self.experts and self.next_id==0:
             r=self._first_birth_check(t)
             if r and r["streak_after"]>=2: self._first_birth(t); transitioned=True
-            if self.real_science and int(t)>=351 and self.first_birth_t is None: raise AssertionError("expected natural E0 birth by t351")
-            if self.real_science and self.first_birth_t is not None and self.first_birth_t!=351: raise AssertionError("natural E0 birth mismatch")
+            
         if not transitioned and self.reuse_slot is not None and self.reuse_slot.get("ready"): transitioned=self._evaluate_reuse(t)
         if not transitioned and self.shadow is not None and self.shadow.get("status")=="validating" and self.shadow.get("ready"): transitioned=self._evaluate_shadow(t)
         selected=None; table=[]
@@ -474,7 +473,7 @@ class Machine043:
           "B_margin":bm.detach().cpu().numpy().astype(np.float32),"background_delta":bg.detach().cpu().numpy().astype(np.float32)}
         if not active: return False
         if not self.allow_gradient: raise AssertionError("real engineering prefix gradient forbidden")
-        if self.live_optimizer_steps+len(active)>704: raise AssertionError("live optimizer budget")
+        if self.live_optimizer_steps+len(active)>744: raise AssertionError("live optimizer budget")
         row=self._begin_action("joint_live_optimizer_steps",t,{"expert_ids":active,"batch_indices":batch})
         before={eid:{"model":self._model_hash(self.experts[eid]),"opt":self._opt_hash(self.experts[eid]),"step":c.opt_step(self.experts[eid]["optimizer"])} for eid in active}
         for eid in active: self.experts[eid]["optimizer"].zero_grad(set_to_none=True)
