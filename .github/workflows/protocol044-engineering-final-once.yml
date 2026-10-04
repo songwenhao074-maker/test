@@ -91,3 +91,5 @@ jobs:
 # retry after wget dependency lock
 
 # retry after pandas dependency lock
+
+# retry after restoring locked Protocol032 guard dependency
