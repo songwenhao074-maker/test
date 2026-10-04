@@ -1,0 +1,49 @@
+{
+  "protocol": "044",
+  "revision": 1,
+  "status": "blocked_incomplete",
+  "stageE": {
+    "status": "completed",
+    "E_gate": true,
+    "run_id": "37184789603",
+    "artifact_id": 11296492568,
+    "artifact_digest": "sha256:90b6bab6a149c46da0aa19e551c02f76b5665a27a83e97d7de192e21e08b6591",
+    "execution_sha": "0fb751738718d3d06aeeaa32cfcb593436fd7c87",
+    "resume_cases_passed": 19,
+    "required_resume_cases": 19,
+    "fixed043_checks_per_arm": 592,
+    "semantic_change": false
+  },
+  "stageS": {
+    "status": "incomplete_exact_resume_unavailable_after_timeout",
+    "generation_key": "protocol044_revision1_seed4401",
+    "seed": 4401,
+    "formal_run_id": "37184889231",
+    "run_conclusion": "cancelled",
+    "last_observed_complete_next_t": 5200,
+    "target_raw_rows": 5953,
+    "latest_durable_checkpoint_available": false,
+    "cancelled_run_artifact_count": 0,
+    "timeout_minutes": 350,
+    "data_lock_reached": false,
+    "model_runs_started": 0,
+    "scientific_optimizer_steps": 0,
+    "sequences": {
+      "C_ref": "not_started",
+      "D_lin": "not_started",
+      "D_no_gc": "not_started",
+      "D_bounded": "not_started"
+    },
+    "restart_from_zero_authorized": false,
+    "exact_resume_only": true,
+    "reroll_authorized": false
+  },
+  "prior_preinitialization_failure": {
+    "run_id": "37178041408",
+    "artifact_id": 11294125846,
+    "artifact_digest": "sha256:9cf412b0c5e4f77186b3fb428f851d0e263c3cb4c05afe52f978ebe2d30eb103",
+    "generated_rows": 0,
+    "model_runs_started": 0
+  },
+  "automatic_next_protocol": false
+}
