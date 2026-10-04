@@ -1,0 +1,388 @@
+{
+  "protocol": "043",
+  "revision": 1,
+  "root": "artifacts/ftmoe_online/protocol_043/runs/run_37168746303",
+  "file_count": 76,
+  "files": [
+    {
+      "path": "analysis/PROTOCOL043_RESULTS.md",
+      "sha256": "c1627e31f25ca0866c21b73ea9c4dd6943a405e1fed715763bdfbd214dd0eb73",
+      "size": 1548
+    },
+    {
+      "path": "analysis/analysis_manifest.json",
+      "sha256": "6d2364d1cd9e1649d98400cf3519d0b6e00c634f1d00a459a49bfbcfcdda116a",
+      "size": 1355
+    },
+    {
+      "path": "analysis/analysis_status.json",
+      "sha256": "e825a6bbef76f3996687141e5da397517acd6a6afaaca394ad90be42e5355016",
+      "size": 513
+    },
+    {
+      "path": "analysis/artifact_index.json",
+      "sha256": "175f891fbad2160ae8af2ff472f1483d9bbb7c68020a37ad485bdbe67b8e9964",
+      "size": 456
+    },
+    {
+      "path": "analysis/comparison.json",
+      "sha256": "70ec9315feebcf7ba760badb6b88354f4946fc320b60f5a2242aa95050112254",
+      "size": 169777
+    },
+    {
+      "path": "analysis/cost_profile.json",
+      "sha256": "11987e6dbce446b41f6628b96f0d430a70380170a63831f1a09393cb0cd0c4f4",
+      "size": 1453
+    },
+    {
+      "path": "analysis/first_control_divergence.json",
+      "sha256": "182008074bb39eb091e9a9c6cf2d7449361aae80707c5beef70177f99f1e60dc",
+      "size": 218
+    },
+    {
+      "path": "analysis/independent_score_recompute.json",
+      "sha256": "41eda00e99d1ec69e0cadd601ebbc9701813a01b91f4280061fa8f9df71b479e",
+      "size": 319
+    },
+    {
+      "path": "analysis/lifecycle_evidence.json",
+      "sha256": "031db3515c9cf07bbcd39f8845a6e0e57fec9ca7b8bdeb442c2cfe8c8dbdc577",
+      "size": 613
+    },
+    {
+      "path": "audit042/all_control_points.json",
+      "sha256": "7dd40c0612b57af2d539863c26813e3c46a8c60542a98e050835f0f0640e35ba",
+      "size": 1333609
+    },
+    {
+      "path": "audit042/audit_summary.json",
+      "sha256": "110967f28b6524a06e9a86a84f32a439412e41f86184cc20d1d2820aa4f849e1",
+      "size": 1274
+    },
+    {
+      "path": "audit042/discrete_selection_audit.json",
+      "sha256": "06f9729c646b2afbbdd981e904ecbbf22ab390bbfe7ee0afdd2a0542ce4b9659",
+      "size": 504411
+    },
+    {
+      "path": "audit042/gate.json",
+      "sha256": "214171ea919a11a49fc59570fafbd6f4975e780a282c966e3f32ab04f626e7bd",
+      "size": 168
+    },
+    {
+      "path": "audit042/legacy_mismatches.json",
+      "sha256": "fb2989323b717f2e869a06272d8ee4b35b4e516d6a555f4ce3d19f9ee3606ff0",
+      "size": 17
+    },
+    {
+      "path": "audit042/numeric_dtype_differences.json",
+      "sha256": "67ada4a88bbb9e45d6f80700f6617e0a3c1c7080ac14cdbbe1c451a1671a07b0",
+      "size": 109117
+    },
+    {
+      "path": "audit042/sleep_schema_gaps.json",
+      "sha256": "21786dc460d94ea6670a4f47d65c17822e6dd0e1ef1c24077d977ee9ccd26e49",
+      "size": 238
+    },
+    {
+      "path": "publication_status.json",
+      "sha256": "f6b8b7ce9ea16074548c3adafcf59c1e64653e7acfdf61d6a41bfa8c6b033710",
+      "size": 168
+    },
+    {
+      "path": "science/D_bounded/birth_checks.json",
+      "sha256": "64b8369e10260472292103723f9dbd71c98aca589f4f05094ef4ea7dad160130",
+      "size": 594
+    },
+    {
+      "path": "science/D_bounded/candidate_decisions.json",
+      "sha256": "a36a532ef12d4b78d1a317d99ed18d99e9228bd435d4f9478160de2033ad0814",
+      "size": 2428
+    },
+    {
+      "path": "science/D_bounded/lifecycle_events.json",
+      "sha256": "3ad7d54f470278ec3f849b48af6582821e5a3e51384d7e0d296150c80872ec58",
+      "size": 4351
+    },
+    {
+      "path": "science/D_bounded/opportunity_log.json",
+      "sha256": "0c830f74895c45032a5e9e8f5cc7ef4e4a633fe5c3e78b8bca88b9d8a93051ea",
+      "size": 134423
+    },
+    {
+      "path": "science/D_bounded/predictions.npz",
+      "sha256": "905caecb73f0648ab59fb685f872944465d653ac6d743d405fb38af23a91f67e",
+      "size": 3580974
+    },
+    {
+      "path": "science/D_bounded/pressure_checks.json",
+      "sha256": "0d375933784c617b42479b599578e96fd5208eae4e1fb200b7d7e5be49fc5ce8",
+      "size": 143283
+    },
+    {
+      "path": "science/D_bounded/qualification_records.json",
+      "sha256": "de0f8cf57401a91d383d5733bbfce177ebcb7fac8392f86a7b9f303853520482",
+      "size": 1691
+    },
+    {
+      "path": "science/D_bounded/reclamation_events.json",
+      "sha256": "069066ddb01684c83569e13d10bb549dd3551dc93090fe348b4e10cd2b23e32f",
+      "size": 79
+    },
+    {
+      "path": "science/D_bounded/reuse_decisions.json",
+      "sha256": "dcfc3d5b603c0d52f4bcdd3ee0a0ab9d69f50db1d8042d48135e1bcc6ac8875c",
+      "size": 22062
+    },
+    {
+      "path": "science/D_bounded/reuse_history.json",
+      "sha256": "8735d81f85c537125801f0b4fdc608e125ae7108d4b06640b4aba8a9dded3e57",
+      "size": 18953
+    },
+    {
+      "path": "science/D_bounded/run_audit.json",
+      "sha256": "ea92988ce78556a6a78ea19b3225ba7bb5355caae3621597fbf24146e57fd99f",
+      "size": 782
+    },
+    {
+      "path": "science/D_bounded/science_cost_raw.json",
+      "sha256": "c4cdcca01775f54c129f0dff8f6a076eb35c9121cd38107fb53b7a6fa4a0addc",
+      "size": 558
+    },
+    {
+      "path": "science/D_bounded/scientific_execution_complete.json",
+      "sha256": "7a781a28b823634ca95f68e77f931af8f0c802af3165fd810a5f156230e5fc0e",
+      "size": 109
+    },
+    {
+      "path": "science/D_bounded/settlement_log.json",
+      "sha256": "d4900d987771f25823913b6cbc58031aa13c4ea8b19a657b523235701ad56fba",
+      "size": 1623158
+    },
+    {
+      "path": "science/D_bounded/sleep_tables.json",
+      "sha256": "08d772555f30c22a2cc9dbdd591c2ffb80d6e93074e285ba9bcdbc0a58b66a6f",
+      "size": 578587
+    },
+    {
+      "path": "science/D_bounded/source_lock.json",
+      "sha256": "d29df509ba6824e30be559c5fc002e4abe16e075356dd721efacbf20781d491e",
+      "size": 3186
+    },
+    {
+      "path": "science/D_bounded/status.json",
+      "sha256": "876398d000d0ce9a61cdefccb433bd475fd05cd076a905abdc56f1f296ef7f48",
+      "size": 163
+    },
+    {
+      "path": "science/D_bounded/summary.json",
+      "sha256": "03d232e762c381a6c1cf4874afe66968521191b2f8dba27e6b1614bfb70734c9",
+      "size": 1728
+    },
+    {
+      "path": "science/D_bounded/tombstones.json",
+      "sha256": "b8f16474f0c4d75034397d87addc261b3d030ab6aedfe8b84c2f21b9d1a75268",
+      "size": 83
+    },
+    {
+      "path": "science/D_bounded/update_log.json",
+      "sha256": "ceca84bc0f3c73b21764f5698d48f578ebba108a95f1e002eeb287dfca022447",
+      "size": 770907
+    },
+    {
+      "path": "science/D_bounded/utility_checks.json",
+      "sha256": "9ed59e34c567719793b3b5a3df9b415ec4a5bc886525d9bc1e534514c6bd4b97",
+      "size": 460736
+    },
+    {
+      "path": "science/D_no_gc/birth_checks.json",
+      "sha256": "4b50ea8d3d3b82a96788a7ebb5d7b82a7cd397405dc3119aabd55be64de1eb48",
+      "size": 592
+    },
+    {
+      "path": "science/D_no_gc/candidate_decisions.json",
+      "sha256": "e16e64a490f5830919a715b233547ffd728a9cd079ca10ff8fb2aa22ceb058ba",
+      "size": 2426
+    },
+    {
+      "path": "science/D_no_gc/lifecycle_events.json",
+      "sha256": "d4427045066aa26e3dae4f6dc0ddf843141defdf808a594dba7c5fd5ad16bce8",
+      "size": 4349
+    },
+    {
+      "path": "science/D_no_gc/opportunity_log.json",
+      "sha256": "993a7fb38b0ce03d611fb6aa8f68e7603a3e8d8150ec0d3fc2f7359da3592731",
+      "size": 134421
+    },
+    {
+      "path": "science/D_no_gc/predictions.npz",
+      "sha256": "905caecb73f0648ab59fb685f872944465d653ac6d743d405fb38af23a91f67e",
+      "size": 3580974
+    },
+    {
+      "path": "science/D_no_gc/pressure_checks.json",
+      "sha256": "a298c7efa544db321ecfc87a1c8312decb2db4d7a927c4186bdd81409a0c782c",
+      "size": 143281
+    },
+    {
+      "path": "science/D_no_gc/qualification_records.json",
+      "sha256": "0bef86104e2d6b4c9594aafb1ffb44ada030371a6edf21aa083e023f527b50fe",
+      "size": 1689
+    },
+    {
+      "path": "science/D_no_gc/reclamation_events.json",
+      "sha256": "b57931167bcc0d878739eb1d59c8a7dba2c14574512b931c5ca198b49111c62b",
+      "size": 77
+    },
+    {
+      "path": "science/D_no_gc/reuse_decisions.json",
+      "sha256": "8cb2048ccf91f2225b7865a9e905247e1d2dfc3a93412f5bbda8a69a35d94ec5",
+      "size": 22060
+    },
+    {
+      "path": "science/D_no_gc/reuse_history.json",
+      "sha256": "876abcb1282754bbac12a5d20a15e724469a4cc837fedc0c3391d1911edbf4b6",
+      "size": 18951
+    },
+    {
+      "path": "science/D_no_gc/run_audit.json",
+      "sha256": "ea92988ce78556a6a78ea19b3225ba7bb5355caae3621597fbf24146e57fd99f",
+      "size": 782
+    },
+    {
+      "path": "science/D_no_gc/science_cost_raw.json",
+      "sha256": "eec8d7701ffe210e99dc6e7c100def4515f587713b9dd0c8cdd650db8df19c02",
+      "size": 562
+    },
+    {
+      "path": "science/D_no_gc/scientific_execution_complete.json",
+      "sha256": "26b0db471e78a20e1aed47824a91c19e6b376d3f23e18b5fb77523707357b279",
+      "size": 107
+    },
+    {
+      "path": "science/D_no_gc/settlement_log.json",
+      "sha256": "0740b02ae97ccae33f1b8d86bf10f7cfa184a9e6b530fdd378a9acb04e2c39c9",
+      "size": 1623156
+    },
+    {
+      "path": "science/D_no_gc/sleep_tables.json",
+      "sha256": "e883e8650c88d0a6df8a63051ba8428c83cc32293eba4d14adb14cf5b1fa032a",
+      "size": 578585
+    },
+    {
+      "path": "science/D_no_gc/source_lock.json",
+      "sha256": "6e3d9329b25e2e6186fb9d418097ae08cb28ca918022c9254d378247b59a32ca",
+      "size": 3184
+    },
+    {
+      "path": "science/D_no_gc/status.json",
+      "sha256": "3dfa56c958263c28b1304c6bf78e436dc35587b25d1014b50b57bf65763bff8e",
+      "size": 161
+    },
+    {
+      "path": "science/D_no_gc/summary.json",
+      "sha256": "2f99b56975bb81d468d6f7777f0f209ceab2ed37bfc0789b657e7b80b6002fc2",
+      "size": 1726
+    },
+    {
+      "path": "science/D_no_gc/tombstones.json",
+      "sha256": "cd8f04e8e84bfc74dd297b3124a3572e0caa3d6a88ea8a792cc662dda2ec4f48",
+      "size": 81
+    },
+    {
+      "path": "science/D_no_gc/update_log.json",
+      "sha256": "50e34f6f75907e2170de59f19798a3c70972a438d24050fa96d943a9cab2e901",
+      "size": 770905
+    },
+    {
+      "path": "science/D_no_gc/utility_checks.json",
+      "sha256": "dd3f5b079c7c4e7c9c97ff3e8bef8c30df5d413132d05a65130f0c6fe92275f9",
+      "size": 460734
+    },
+    {
+      "path": "science/budget_ledger.json",
+      "sha256": "68b00d0eb9a18da7fe2893de61af86033229c4fa545f128d8ea34d9e42f28379",
+      "size": 1295
+    },
+    {
+      "path": "science/cached/042_A_hist/predictions.npz",
+      "sha256": "7fdafa7cd0fbd5671d15b7f07668c1ed29b4a7d263a4379ca3bf0508d0eab551",
+      "size": 3624018
+    },
+    {
+      "path": "science/cached/042_A_win128/predictions.npz",
+      "sha256": "00fa533ff34da4ffe416138878df9a427ce29e812c8bf3547843f55d892447d4",
+      "size": 3580000
+    },
+    {
+      "path": "science/cached/B_ref/predictions.npz",
+      "sha256": "1ea811ed175817294f275505db85d0bf283c3d0aca6b883b036243ad7843bef6",
+      "size": 2370519
+    },
+    {
+      "path": "science/cached/C_ref/predictions.npz",
+      "sha256": "da02b63c4a6cf7a2e4fe7c5b98dcd872ca1fa08114bb029f46fce4053b9e9576",
+      "size": 3069116
+    },
+    {
+      "path": "science/cached/D_039/predictions.npz",
+      "sha256": "bc387d13721ed2e759a205ed3b4f6fa884c1ca105068a79a340148e1f5e96512",
+      "size": 2347018
+    },
+    {
+      "path": "science/cached/D_040/predictions.npz",
+      "sha256": "51a5ac7ec4e72f340ab1f051bb3707ad44e5540786a94bf0b10f9a8af9e7dd6a",
+      "size": 2330920
+    },
+    {
+      "path": "science/cached/D_keep/predictions.npz",
+      "sha256": "badf9005b2be9fc6436d1ff2b9377b27715e846d7d16f8e4bdfcbfa76f732e8c",
+      "size": 2382924
+    },
+    {
+      "path": "science/cached/summary.json",
+      "sha256": "bbe94fdb986cf939ca339994cb77729b77ba2c060a31fcf03f3888ea6bf87fbc",
+      "size": 214
+    },
+    {
+      "path": "science/fixture_report.json",
+      "sha256": "9d7a9c72787c5bde03a0fe2506c2f4405467c44c9e640f40a8a3151fb9fde20b",
+      "size": 50977
+    },
+    {
+      "path": "science/gate_report.json",
+      "sha256": "bd8610d52589f7ee667349bae98c0e2ca7e40519c8b689520e7ef7edeb2fbb63",
+      "size": 536
+    },
+    {
+      "path": "science/implementation_manifest.json",
+      "sha256": "9a574492a2327754c51949672022bc26b33db62771e9b8618d758894c461e716",
+      "size": 8325
+    },
+    {
+      "path": "science/protocol_status.json",
+      "sha256": "6f9d1de1f6412fc432873fb602d3f4f6efd96cf7f00fa1b1eb6047b354eb22c7",
+      "size": 220
+    },
+    {
+      "path": "science/provenance.json",
+      "sha256": "2e1e80aef4399374a7aafcdccfb9b4d7fd8dd3e76a3cd1e145e702551d60ea57",
+      "size": 1169
+    },
+    {
+      "path": "science/scientific_raw_manifest.json",
+      "sha256": "1819ba0063a7e85a651aeb59c00a90d6d8e49482813206a78d4a104203a9a7d4",
+      "size": 89188
+    },
+    {
+      "path": "science/source_bundle/protocol043-source.tar.gz",
+      "sha256": "8f7fb2fa604a9b54d75cc1c3c26a2a62e040518192c0151f3d8a47235cd72dec",
+      "size": 64565
+    },
+    {
+      "path": "science/source_materialization.json",
+      "sha256": "b7d5b5dc01880bb350142acebb6231d7a5ed85e427005317721db4a06259b039",
+      "size": 7964
+    }
+  ]
+}

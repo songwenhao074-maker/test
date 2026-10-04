@@ -1,0 +1,7103 @@
+{
+  "protocol": "043",
+  "revision": 1,
+  "arm": "D_no_gc",
+  "opportunities": [
+    {
+      "event": "due16",
+      "at_interval": 15,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 31,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 47,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 63,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 79,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 95,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 111,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 127,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 143,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 159,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 175,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 191,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 207,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 223,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 239,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 255,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 271,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 287,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 303,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 319,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 335,
+      "epoch": 0,
+      "pressure": null,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [],
+      "resident_ids": [],
+      "resident": 0,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 367,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 383,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 399,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 415,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 431,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 447,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 463,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 479,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 495,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 511,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 527,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 543,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 559,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 575,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 591,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 607,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 623,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 639,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 655,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 671,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 687,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 703,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 719,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 735,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 751,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 767,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 783,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 799,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 815,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 831,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 847,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 863,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 879,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 895,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 911,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 927,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 943,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 959,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 975,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 991,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1007,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1023,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1039,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 1,
+      "attempts_after_e0": 0,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1055,
+      "epoch": 1,
+      "pressure": true,
+      "birth_started": true,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 1071,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": true,
+        "shadow_free": false,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        0
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 1071,
+      "epoch": 1,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1087,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1103,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1119,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1135,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1151,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1167,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1183,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1199,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1215,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1231,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1247,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1263,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1279,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1295,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1311,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1327,
+      "epoch": 1,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0
+      ],
+      "resident_ids": [
+        0
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1359,
+      "epoch": 2,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": false
+    },
+    {
+      "event": "due16",
+      "at_interval": 1375,
+      "epoch": 2,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": false
+    },
+    {
+      "event": "due16",
+      "at_interval": 1391,
+      "epoch": 2,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": false
+    },
+    {
+      "event": "due16",
+      "at_interval": 1407,
+      "epoch": 2,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": false
+    },
+    {
+      "event": "due16",
+      "at_interval": 1423,
+      "epoch": 2,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": false
+    },
+    {
+      "event": "due16",
+      "at_interval": 1439,
+      "epoch": 2,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": false
+    },
+    {
+      "event": "due16",
+      "at_interval": 1455,
+      "epoch": 2,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": false
+    },
+    {
+      "event": "due16",
+      "at_interval": 1471,
+      "epoch": 2,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": false
+    },
+    {
+      "event": "due16",
+      "at_interval": 1487,
+      "epoch": 2,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": false
+    },
+    {
+      "event": "due16",
+      "at_interval": 1503,
+      "epoch": 2,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": false
+    },
+    {
+      "event": "due16",
+      "at_interval": 1519,
+      "epoch": 2,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": false
+    },
+    {
+      "event": "due16",
+      "at_interval": 1535,
+      "epoch": 2,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": false
+    },
+    {
+      "event": "due16",
+      "at_interval": 1551,
+      "epoch": 2,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": false
+    },
+    {
+      "event": "due16",
+      "at_interval": 1567,
+      "epoch": 2,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": false
+    },
+    {
+      "event": "due16",
+      "at_interval": 1583,
+      "epoch": 2,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": false
+    },
+    {
+      "event": "due16",
+      "at_interval": 1599,
+      "epoch": 2,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1631,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1647,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1663,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1679,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1695,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1711,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1727,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1743,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1759,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1775,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1791,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": true,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1807,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1823,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1839,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1855,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": true,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1871,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1887,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1903,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1919,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": true,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1935,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1951,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1967,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1983,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": true,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 1999,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2015,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2031,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2047,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": true,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2063,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2079,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2095,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2111,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": true,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2127,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2143,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2159,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2175,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": true,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2191,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2207,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2223,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2239,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": true,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 2255,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": true,
+        "shadow_free": true,
+        "reuse_free": false,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 2255,
+      "epoch": 3,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2271,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2287,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2303,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": true,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2319,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2335,
+      "epoch": 3,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2367,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2383,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2399,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2415,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2431,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2447,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2463,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2479,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2495,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2511,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2527,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2543,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2559,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2575,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2591,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2607,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2623,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2639,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2655,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2671,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2687,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2703,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2719,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2735,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2751,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2767,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2783,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2799,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2815,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 2831,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": false,
+        "shadow_free": true,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 2831,
+      "epoch": 4,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2847,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2863,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2879,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2895,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2911,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2927,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2943,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2959,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2975,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 2991,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3007,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3023,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3039,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3055,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3071,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3087,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3103,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3119,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3135,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3151,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3167,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3183,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3199,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3215,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3231,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3247,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3263,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3279,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3295,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3311,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3327,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3343,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3359,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3375,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3391,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3407,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 3423,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": false,
+        "shadow_free": true,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 3423,
+      "epoch": 4,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 3439,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": false,
+        "shadow_free": true,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 3439,
+      "epoch": 4,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 3455,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": false,
+        "shadow_free": true,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 3455,
+      "epoch": 4,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 3471,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": false,
+        "shadow_free": true,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 3471,
+      "epoch": 4,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 3487,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": false,
+        "shadow_free": true,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 3487,
+      "epoch": 4,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 3503,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": false,
+        "shadow_free": true,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 3503,
+      "epoch": 4,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 3519,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": false,
+        "shadow_free": true,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 3519,
+      "epoch": 4,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 3535,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": false,
+        "shadow_free": true,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 3535,
+      "epoch": 4,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3551,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3567,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3583,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3599,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3615,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3631,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3647,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3663,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3679,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3695,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3711,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3727,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3743,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3759,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3775,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3791,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3807,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3823,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3839,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3855,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3871,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3887,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3903,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3919,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3935,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3951,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3967,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3983,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 3999,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4015,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4031,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4047,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4063,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4079,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4095,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4111,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4127,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4143,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4159,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4175,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4191,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4207,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4223,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4239,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4255,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4271,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4287,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4303,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4319,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4335,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4351,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4367,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4383,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4399,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4415,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4431,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4447,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4463,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4479,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4495,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4511,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4527,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 4543,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": false,
+        "shadow_free": true,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 4543,
+      "epoch": 4,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 4559,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": false,
+        "shadow_free": true,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 4559,
+      "epoch": 4,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 4575,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": false,
+        "shadow_free": true,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 4575,
+      "epoch": 4,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 4591,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": false,
+        "shadow_free": true,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 4591,
+      "epoch": 4,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4607,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4623,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4639,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4655,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4671,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4687,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4703,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4719,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4735,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4751,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4767,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4783,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4799,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4815,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4831,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4847,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4863,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4879,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4895,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4911,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4927,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4943,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4959,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4975,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 4991,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5007,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5023,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5039,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5055,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5071,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5087,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5103,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5119,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5135,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5151,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5167,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5183,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5199,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5215,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5231,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5247,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5263,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5279,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5295,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5311,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5327,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5343,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5359,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5375,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5391,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5407,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5423,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5439,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5455,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5471,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5487,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5503,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5519,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5535,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5551,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5567,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5583,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5599,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5615,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5631,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 5647,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": false,
+        "shadow_free": true,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 5647,
+      "epoch": 4,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 5663,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": false,
+        "shadow_free": true,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 5663,
+      "epoch": 4,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 5679,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": false,
+        "shadow_free": true,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": true
+      },
+      "resident": 2,
+      "active_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 5679,
+      "epoch": 4,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "birth_gate_blocked",
+      "at_interval": 5695,
+      "gates": {
+        "pressure": true,
+        "active_vacancy": false,
+        "shadow_free": true,
+        "reuse_free": true,
+        "attempt_budget": true,
+        "id_budget": true,
+        "cooldown": true,
+        "reuse_evidence": true,
+        "tail_feasible": false
+      },
+      "resident": 2,
+      "active_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "event": "due16",
+      "at_interval": 5695,
+      "epoch": 4,
+      "pressure": true,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5711,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5727,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5743,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5759,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5775,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5791,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5807,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5823,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5839,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5855,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5871,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5887,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5903,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5919,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5935,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5951,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    },
+    {
+      "event": "due16",
+      "at_interval": 5967,
+      "epoch": 4,
+      "pressure": false,
+      "birth_started": false,
+      "reuse_started": false,
+      "active_ids": [
+        0,
+        1
+      ],
+      "resident_ids": [
+        0,
+        1
+      ],
+      "resident": 2,
+      "attempts_after_e0": 1,
+      "cooldown_ok": true
+    }
+  ]
+}

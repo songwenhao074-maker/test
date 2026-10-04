@@ -1,0 +1,2298 @@
+{
+  "protocol": "043",
+  "revision": 1,
+  "root": "/tmp/p043/raw",
+  "file_count": 458,
+  "files": [
+    {
+      "path": "audit042/all_control_points.json",
+      "sha256": "7dd40c0612b57af2d539863c26813e3c46a8c60542a98e050835f0f0640e35ba",
+      "size": 1333609
+    },
+    {
+      "path": "audit042/audit_summary.json",
+      "sha256": "110967f28b6524a06e9a86a84f32a439412e41f86184cc20d1d2820aa4f849e1",
+      "size": 1274
+    },
+    {
+      "path": "audit042/discrete_selection_audit.json",
+      "sha256": "06f9729c646b2afbbdd981e904ecbbf22ab390bbfe7ee0afdd2a0542ce4b9659",
+      "size": 504411
+    },
+    {
+      "path": "audit042/gate.json",
+      "sha256": "214171ea919a11a49fc59570fafbd6f4975e780a282c966e3f32ab04f626e7bd",
+      "size": 168
+    },
+    {
+      "path": "audit042/legacy_mismatches.json",
+      "sha256": "fb2989323b717f2e869a06272d8ee4b35b4e516d6a555f4ce3d19f9ee3606ff0",
+      "size": 17
+    },
+    {
+      "path": "audit042/numeric_dtype_differences.json",
+      "sha256": "67ada4a88bbb9e45d6f80700f6617e0a3c1c7080ac14cdbbe1c451a1671a07b0",
+      "size": 109117
+    },
+    {
+      "path": "audit042/sleep_schema_gaps.json",
+      "sha256": "21786dc460d94ea6670a4f47d65c17822e6dd0e1ef1c24077d977ee9ccd26e49",
+      "size": 238
+    },
+    {
+      "path": "science/D_bounded/birth_checks.json",
+      "sha256": "64b8369e10260472292103723f9dbd71c98aca589f4f05094ef4ea7dad160130",
+      "size": 594
+    },
+    {
+      "path": "science/D_bounded/candidate_decisions.json",
+      "sha256": "a36a532ef12d4b78d1a317d99ed18d99e9228bd435d4f9478160de2033ad0814",
+      "size": 2428
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_0512.pt",
+      "sha256": "99cc8f3d54bc1772f771141f3f0a7f6805f6383880dfccb00a2fc0991cedf24a",
+      "size": 8736112
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_0512.pt.json",
+      "sha256": "01575f8ad3501061da77eaf919d54cb60c3b9d17db96b562cff7fe088e5f54b3",
+      "size": 389
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_1024.pt",
+      "sha256": "8e2c26b5a7808e32501b5fc8be0bf886662141c5c5913644412e5072091fafb0",
+      "size": 8872112
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_1024.pt.json",
+      "sha256": "e399c8901381df8865784387df4bfd41fb861461faebe853e6886e95581d1d5d",
+      "size": 390
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_1536.pt",
+      "sha256": "37fb02926e64e6a61069669429d8d298a1fed0bfa7ecb667704ebc55ccf67a71",
+      "size": 9040567
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_1536.pt.json",
+      "sha256": "0bc3de468fccf87b3c44f46bc6371c97fa501b5c31df14bedec8cae182852fdb",
+      "size": 392
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_2048.pt",
+      "sha256": "a9680de2a1cf756c224203fe97a9b040d8df96d76d3e2866509f837a15c0be92",
+      "size": 9158967
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_2048.pt.json",
+      "sha256": "f7e35b9ba5fd0362dc5ff0640bdefd6cfd0ac0b18fa2ad53a4faca52c664a35f",
+      "size": 394
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_2560.pt",
+      "sha256": "dde46f23732c042fd58a3db7f0fd45ec924b11cbc66fb192bfd1638fc99cc09c",
+      "size": 9322167
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_2560.pt.json",
+      "sha256": "529bd23d10236feb5a7ff3056617b8fef16449142e6af79b53a07e6b4c7b1307",
+      "size": 394
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_3072.pt",
+      "sha256": "cc2bf9a2c69fe24b2f0d4e7d467840b6b6a22823eabeeda48e0b6fbb72adde82",
+      "size": 9480887
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_3072.pt.json",
+      "sha256": "11f8c8448257aab8df9b6b5f8440567fb4c05683af9a2310bc14dd3abfafed1d",
+      "size": 394
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_3584.pt",
+      "sha256": "34e9e45df86f7aef3f6bcc5ca9b979b946bc9115d713d9971683c3b8fc9fb706",
+      "size": 9642423
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_3584.pt.json",
+      "sha256": "e5dea2ce54e4d1ae52d14aaa7358a3df530dbafe19bb056d7e0f4a5e340c9f36",
+      "size": 394
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_4096.pt",
+      "sha256": "6cfa436af2a840e9ab8b97b838038477c50378b27c2e854c504930da5aa35deb",
+      "size": 9803447
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_4096.pt.json",
+      "sha256": "cf09c917d4ada761df39d608b1e99051d8ffbd186486bba5cd94ee5e7ed210db",
+      "size": 394
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_4608.pt",
+      "sha256": "519d5b172f4f8e934319237390a44b17d33c29150c5954f4cc562864e51898fd",
+      "size": 9964983
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_4608.pt.json",
+      "sha256": "caaaa7d1a81d7b4af54398a915821772a619af894566b67b8642ec7164a73b60",
+      "size": 394
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_5120.pt",
+      "sha256": "211a7c1f70b95f9389324110129db71b8fffabea61216b978f1c259cbd978335",
+      "size": 10127479
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_5120.pt.json",
+      "sha256": "695f9454d8e56f72052b255e38e6df674009b602ee3ce469c8eeb39453f451b2",
+      "size": 394
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_5632.pt",
+      "sha256": "9d642c6e571de0b122ea442838966a8064688d3e88fbcefe0df4a3672dc81ce4",
+      "size": 10292087
+    },
+    {
+      "path": "science/D_bounded/checkpoints/cursor_5632.pt.json",
+      "sha256": "cf3cda1344c4efefdb2a450db6487cf50b947bc067cb356f31900f4fb7ee9f29",
+      "size": 394
+    },
+    {
+      "path": "science/D_bounded/checkpoints/latest.json",
+      "sha256": "9b772a4d70e1f31b09d92a6bf91508698458dcf6010cf5696a489c6bbc420527",
+      "size": 393
+    },
+    {
+      "path": "science/D_bounded/checkpoints/latest.pt",
+      "sha256": "c752100b5522d5a5fd4c070bc41159480153711157f6276d72354bc79e6f0fb7",
+      "size": 10400077
+    },
+    {
+      "path": "science/D_bounded/checkpoints/post_first_birth_t351.pt",
+      "sha256": "8cca600d3da87bc92b138485984ad392d1423b0c90843cb54f94dbeb01ec7754",
+      "size": 8681078
+    },
+    {
+      "path": "science/D_bounded/checkpoints/post_first_birth_t351.pt.json",
+      "sha256": "55e8398af9faf55b5b8a334e3aaa7d41b682d9e285204ff397f2283f48ecfbda",
+      "size": 400
+    },
+    {
+      "path": "science/D_bounded/checkpoints/post_sleep_t1615.pt",
+      "sha256": "1b1981f94a92cf65ef6f262382328e6d5d55d63415aedc09be0149775e91168c",
+      "size": 9024736
+    },
+    {
+      "path": "science/D_bounded/checkpoints/post_sleep_t1615.pt.json",
+      "sha256": "8d4b4f69ad1935f9bd40a0617058c1283846b7f62ac8ad6710b3fe552e688c42",
+      "size": 401
+    },
+    {
+      "path": "science/D_bounded/checkpoints/reuse_accept_t2351.pt",
+      "sha256": "687c0d9a805562a091e20217971dd59e7582d191254e5e269942f0252e0a9d8c",
+      "size": 9225866
+    },
+    {
+      "path": "science/D_bounded/checkpoints/reuse_accept_t2351.pt.json",
+      "sha256": "304b4f8081daebd5870d66e0a09e2144cc0559a90b6dfe9cee5f6d4f5385b684",
+      "size": 405
+    },
+    {
+      "path": "science/D_bounded/checkpoints/shadow_01_t1055.pt",
+      "sha256": "1bf51d76db0288a40fe74f29a316fea8037a318a88ac20f676ec15247ab43823",
+      "size": 8884875
+    },
+    {
+      "path": "science/D_bounded/checkpoints/shadow_01_t1055.pt.json",
+      "sha256": "820e6dad3107b2c23119d7115014743d7a95cb0424eb6f14c3fc75971466cc3d",
+      "size": 393
+    },
+    {
+      "path": "science/D_bounded/checkpoints/shadow_15_t1279.pt",
+      "sha256": "3094240fd0cb996422f9a1d41ed606ddd1d2e8e22c9b5f439b677e6675413a03",
+      "size": 8951947
+    },
+    {
+      "path": "science/D_bounded/checkpoints/shadow_15_t1279.pt.json",
+      "sha256": "00120760f7bddf038e924c884a0ff2b25ab77febe835201c6e63235f009ffb2b",
+      "size": 394
+    },
+    {
+      "path": "science/D_bounded/checkpoints/shadow_16_t1295.pt",
+      "sha256": "222bcd567792ecfb78424f261228da2f78c2069f2ea55ef7199f28806ef1394f",
+      "size": 8957003
+    },
+    {
+      "path": "science/D_bounded/checkpoints/shadow_16_t1295.pt.json",
+      "sha256": "50e8a16c5d3f1b0b0fb53c157a3bfd1ad2cc5d407963a35b22818d4ff28a2490",
+      "size": 394
+    },
+    {
+      "path": "science/D_bounded/checkpoints/shadow_accept_t1343.pt",
+      "sha256": "6a961cd4ea51cffbe643286558fcc567c9df5eaf36f6a17d316a0aa276c0e5dc",
+      "size": 8958047
+    },
+    {
+      "path": "science/D_bounded/checkpoints/shadow_accept_t1343.pt.json",
+      "sha256": "9f1fb2ce597da75039769a51f30cfdddb2a821eb053bfa88621068a5b5b1db86",
+      "size": 403
+    },
+    {
+      "path": "science/D_bounded/checkpoints/shadow_start_t1055.pt",
+      "sha256": "aa5d916d51e0fa12e07d932637eff66ad01f005a20bbd6cf58f962e1ba7438ec",
+      "size": 8881562
+    },
+    {
+      "path": "science/D_bounded/checkpoints/shadow_start_t1055.pt.json",
+      "sha256": "20caf46e3ece8e5ff15f7db681965388afbdd05e09f96de2c870274cbb027a23",
+      "size": 401
+    },
+    {
+      "path": "science/D_bounded/checkpoints/terminal_done.pt",
+      "sha256": "adfa294e249e656b27c276328f303b8b180a1897eda634479f270c0210331681",
+      "size": 10400161
+    },
+    {
+      "path": "science/D_bounded/checkpoints/terminal_done.pt.json",
+      "sha256": "aa52f86a0c71dc2cf2c522167cbe467f3febff29d798ef5b8c7d5e04f33627eb",
+      "size": 393
+    },
+    {
+      "path": "science/D_bounded/checkpoints/terminal_first_settle.pt",
+      "sha256": "f008016c1efc1e3193e100fab550c2b2d2754d9217c3a059d10acc640b535ad3",
+      "size": 10400265
+    },
+    {
+      "path": "science/D_bounded/checkpoints/terminal_first_settle.pt.json",
+      "sha256": "66ec65075e905b8c719cbfdbff76b6b69ea8cbfcf7007c47b7bedaf62cc2d59a",
+      "size": 419
+    },
+    {
+      "path": "science/D_bounded/checkpoints/terminal_second_settle.pt",
+      "sha256": "be171334cc6a73f2c1b8eda6e8e078bfcbedeaa089eef0d7cf8a6769b04dd6a9",
+      "size": 10400414
+    },
+    {
+      "path": "science/D_bounded/checkpoints/terminal_second_settle.pt.json",
+      "sha256": "ceffa75533b1af7a06309bc53e2e86801972766295fb9b82d8d529cbebf44e4e",
+      "size": 413
+    },
+    {
+      "path": "science/D_bounded/lifecycle_events.json",
+      "sha256": "3ad7d54f470278ec3f849b48af6582821e5a3e51384d7e0d296150c80872ec58",
+      "size": 4351
+    },
+    {
+      "path": "science/D_bounded/opportunity_log.json",
+      "sha256": "0c830f74895c45032a5e9e8f5cc7ef4e4a633fe5c3e78b8bca88b9d8a93051ea",
+      "size": 134423
+    },
+    {
+      "path": "science/D_bounded/predictions.npz",
+      "sha256": "905caecb73f0648ab59fb685f872944465d653ac6d743d405fb38af23a91f67e",
+      "size": 3580974
+    },
+    {
+      "path": "science/D_bounded/pressure_checks.json",
+      "sha256": "0d375933784c617b42479b599578e96fd5208eae4e1fb200b7d7e5be49fc5ce8",
+      "size": 143283
+    },
+    {
+      "path": "science/D_bounded/qualification_records.json",
+      "sha256": "de0f8cf57401a91d383d5733bbfce177ebcb7fac8392f86a7b9f303853520482",
+      "size": 1691
+    },
+    {
+      "path": "science/D_bounded/reclamation_events.json",
+      "sha256": "069066ddb01684c83569e13d10bb549dd3551dc93090fe348b4e10cd2b23e32f",
+      "size": 79
+    },
+    {
+      "path": "science/D_bounded/reuse_decisions.json",
+      "sha256": "dcfc3d5b603c0d52f4bcdd3ee0a0ab9d69f50db1d8042d48135e1bcc6ac8875c",
+      "size": 22062
+    },
+    {
+      "path": "science/D_bounded/reuse_history.json",
+      "sha256": "8735d81f85c537125801f0b4fdc608e125ae7108d4b06640b4aba8a9dded3e57",
+      "size": 18953
+    },
+    {
+      "path": "science/D_bounded/run_audit.json",
+      "sha256": "ea92988ce78556a6a78ea19b3225ba7bb5355caae3621597fbf24146e57fd99f",
+      "size": 782
+    },
+    {
+      "path": "science/D_bounded/runtime_state/action_journal.json",
+      "sha256": "0b3c9c4e8846f9f165b856d35370e3d37492233b890496d2a234ba09f428c4c5",
+      "size": 726
+    },
+    {
+      "path": "science/D_bounded/runtime_state/streams/candidate_decisions.jsonl",
+      "sha256": "79384f565f35ecc68d8ac1a33548810d02fa2d01abffccd1c336131c90d10a7a",
+      "size": 1649
+    },
+    {
+      "path": "science/D_bounded/runtime_state/streams/control.jsonl",
+      "sha256": "327ae80526929499b519fbc1832bcf086955379d56fb0a3707022842bf4b6b7c",
+      "size": 82253
+    },
+    {
+      "path": "science/D_bounded/runtime_state/streams/lifecycle.jsonl",
+      "sha256": "70aff2df8540ef8377b28b96021d5bb36e1696963a0d0a5e600fef90addbabc3",
+      "size": 3158
+    },
+    {
+      "path": "science/D_bounded/runtime_state/streams/reuse_decisions.jsonl",
+      "sha256": "046e70fe364dce23c480cd2ee749a7847464b84f9063596cb7d3d98ca9e791e0",
+      "size": 14056
+    },
+    {
+      "path": "science/D_bounded/runtime_state/streams/settlements.jsonl",
+      "sha256": "79ba9ea5926983a0fe08e8a7823468c084046ddd1f30b2f9ad41eac6a281c2fe",
+      "size": 1150000
+    },
+    {
+      "path": "science/D_bounded/science_cost_raw.json",
+      "sha256": "c4cdcca01775f54c129f0dff8f6a076eb35c9121cd38107fb53b7a6fa4a0addc",
+      "size": 558
+    },
+    {
+      "path": "science/D_bounded/scientific_execution_complete.json",
+      "sha256": "7a781a28b823634ca95f68e77f931af8f0c802af3165fd810a5f156230e5fc0e",
+      "size": 109
+    },
+    {
+      "path": "science/D_bounded/settlement_log.json",
+      "sha256": "d4900d987771f25823913b6cbc58031aa13c4ea8b19a657b523235701ad56fba",
+      "size": 1623158
+    },
+    {
+      "path": "science/D_bounded/sleep_tables.json",
+      "sha256": "08d772555f30c22a2cc9dbdd591c2ffb80d6e93074e285ba9bcdbc0a58b66a6f",
+      "size": 578587
+    },
+    {
+      "path": "science/D_bounded/source_lock.json",
+      "sha256": "d29df509ba6824e30be559c5fc002e4abe16e075356dd721efacbf20781d491e",
+      "size": 3186
+    },
+    {
+      "path": "science/D_bounded/status.json",
+      "sha256": "876398d000d0ce9a61cdefccb433bd475fd05cd076a905abdc56f1f296ef7f48",
+      "size": 163
+    },
+    {
+      "path": "science/D_bounded/summary.json",
+      "sha256": "03d232e762c381a6c1cf4874afe66968521191b2f8dba27e6b1614bfb70734c9",
+      "size": 1728
+    },
+    {
+      "path": "science/D_bounded/tombstones.json",
+      "sha256": "b8f16474f0c4d75034397d87addc261b3d030ab6aedfe8b84c2f21b9d1a75268",
+      "size": 83
+    },
+    {
+      "path": "science/D_bounded/update_log.json",
+      "sha256": "ceca84bc0f3c73b21764f5698d48f578ebba108a95f1e002eeb287dfca022447",
+      "size": 770907
+    },
+    {
+      "path": "science/D_bounded/utility_checks.json",
+      "sha256": "9ed59e34c567719793b3b5a3df9b415ec4a5bc886525d9bc1e534514c6bd4b97",
+      "size": 460736
+    },
+    {
+      "path": "science/D_no_gc/birth_checks.json",
+      "sha256": "4b50ea8d3d3b82a96788a7ebb5d7b82a7cd397405dc3119aabd55be64de1eb48",
+      "size": 592
+    },
+    {
+      "path": "science/D_no_gc/candidate_decisions.json",
+      "sha256": "e16e64a490f5830919a715b233547ffd728a9cd079ca10ff8fb2aa22ceb058ba",
+      "size": 2426
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_0512.pt",
+      "sha256": "bdae89bc53efefa878a2357917587dce92450165afd5cdf49686c444541284a8",
+      "size": 8736112
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_0512.pt.json",
+      "sha256": "d67eebb96a717014b6b16e18b228f02cc309c9bc967d9eedd6a1e5981bffb9f3",
+      "size": 387
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_1024.pt",
+      "sha256": "a39acd047d724b12bada9c267fdccbeb4d343a89f2364220f994d961e6f78466",
+      "size": 8872112
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_1024.pt.json",
+      "sha256": "6d03c8485295c6ee2522ee0a85fe57b75bcc584d0dae59a6ba3a7bee9a3e4b8b",
+      "size": 388
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_1536.pt",
+      "sha256": "68470fe0d51641cf990060ee206e32d93b2e139f7c91d6511ac1ddf657712d55",
+      "size": 9040567
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_1536.pt.json",
+      "sha256": "4b55c05a844cfd21ea3bc30d1335b58b43cff7584fb5be5d63d05611534cffcb",
+      "size": 390
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_2048.pt",
+      "sha256": "32c40471a6a3da962a0d60cf3a07f52c9749f4c1489ffb314bf44b9d603545aa",
+      "size": 9158967
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_2048.pt.json",
+      "sha256": "45820bd68c28ccc16498fb7c4adb2ba0a9ab302258750630149f1143818dfc0f",
+      "size": 392
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_2560.pt",
+      "sha256": "4272553cc83015e981ddda9fce36d805a777fda42ab55a5ddfad18953b4563a6",
+      "size": 9322167
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_2560.pt.json",
+      "sha256": "6d4696fd468e36f1ea165a931a6268ac7a64c0c9bb3470b6454b178d1925d8da",
+      "size": 392
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_3072.pt",
+      "sha256": "060eb0b06cef90f3745339acda8d1403806ff720fcaa6c1ff0e60dbfe73d2dc3",
+      "size": 9480887
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_3072.pt.json",
+      "sha256": "c9d5d04dc758725ad07fabe6f712eefb6f5bc0f26742d65285d84b2a753b974d",
+      "size": 392
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_3584.pt",
+      "sha256": "c2041e98f03c6f68383b55da6c9105dd9b06d61991358ca5d31eb2585c2a941f",
+      "size": 9642423
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_3584.pt.json",
+      "sha256": "c9fefe6613a50a236f4ce6260ce1bf528715a55279373fb28d3dbc3c9dec4a43",
+      "size": 392
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_4096.pt",
+      "sha256": "e603a290223a06730a92412628371a40fb3b89fd67b5d33e566a678cac7009e2",
+      "size": 9803447
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_4096.pt.json",
+      "sha256": "727f9da63d3afe334f4fd25517581571ab6dca383e10aef9329f3dff65d085f7",
+      "size": 392
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_4608.pt",
+      "sha256": "3f8e9459db1e0e923b29067458fe781ac69ec84f6c4c6e47e4e2d6b3246c50b0",
+      "size": 9964983
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_4608.pt.json",
+      "sha256": "73e9345119be7301005de97c9d7d3e52e0b0b3176e5242c9437100b89507ff24",
+      "size": 392
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_5120.pt",
+      "sha256": "8b127249c977348569773f77f2ae59384fe88348dfd2b41d36559cf58bd09f0d",
+      "size": 10127479
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_5120.pt.json",
+      "sha256": "511d8252370591bd361fe054ffeeb7a46a841e2e8106f70b27e0ad7d7dd9c645",
+      "size": 392
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_5632.pt",
+      "sha256": "d8a3a208773fe4d0dcb589dcfda9bd174080b6ce7e3f4c361c11b7702b4f65fe",
+      "size": 10292087
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/cursor_5632.pt.json",
+      "sha256": "457ba7fcd4d317637ef3d2453b6499f2fc07f41ba25435db2f1424353128bba9",
+      "size": 392
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/latest.json",
+      "sha256": "dae71d1e8764657d82bddde82e820739dbb1e5b3fd281808cdecd034aaca2bf6",
+      "size": 391
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/latest.pt",
+      "sha256": "3cb935e0361608e1e5642ae75d4ec8798fd9d81f1eafc6d4158b3601836dd32c",
+      "size": 10400077
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/post_first_birth_t351.pt",
+      "sha256": "bfca6f6bffbb82707c9b630458b4bf1555cc91ea11ccb14dae62310e0cd7305f",
+      "size": 8681078
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/post_first_birth_t351.pt.json",
+      "sha256": "f7ac5a80f8149cdfa0ca5fb8e20545f5edeeeac71f7d046dd817ea2fdfcfe851",
+      "size": 398
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/post_sleep_t1615.pt",
+      "sha256": "9378ac3da72c350d0e01c0dc8eb3e85f9d1600f5a2dad164eb88a0fe3742bce8",
+      "size": 9024736
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/post_sleep_t1615.pt.json",
+      "sha256": "61e9b3a73f887a287337bda855a307420ba87ddd8cc6099612fdaa7c59042921",
+      "size": 399
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/reuse_accept_t2351.pt",
+      "sha256": "b2b18dbb183fa51c5476cf27904574d35b1b7cc0ef531d4bf7a7a6aefa562e14",
+      "size": 9225866
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/reuse_accept_t2351.pt.json",
+      "sha256": "55153d46cca34e5520b8e707e8b3c9da8fa644db7bf72171616ebed99eb47dd2",
+      "size": 403
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/shadow_01_t1055.pt",
+      "sha256": "1ed81afdecd36525727f8563faf5bbb25145fbcbaa9bb32207c556ac71ba1681",
+      "size": 8884875
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/shadow_01_t1055.pt.json",
+      "sha256": "c4441484d14552c6ed4554b94cf5c6f93d552b22f0ba288da3852e48d5f61eb7",
+      "size": 391
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/shadow_15_t1279.pt",
+      "sha256": "bf4ff3a4e14cdd5f4fec628b69c885e6fbfc2ec0b3f6deb5b8e7c08f4e52d92a",
+      "size": 8951947
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/shadow_15_t1279.pt.json",
+      "sha256": "8da419eed06760794c64dc0d975ea9f61d2de58294bc4b3f2b8f2c9c635e373d",
+      "size": 392
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/shadow_16_t1295.pt",
+      "sha256": "d884dd3f565ea6bc4625895c6952854efbed92ab614aec8f80879cd143121428",
+      "size": 8957003
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/shadow_16_t1295.pt.json",
+      "sha256": "53c9b9106c2306d02e0e3dca3d56ee809be4514f1ac3e2d02b3c0b864b7699c8",
+      "size": 392
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/shadow_accept_t1343.pt",
+      "sha256": "e82083bfd7b4ee45fb90ec11be64c424ad97ca89553e36699c558e85b83feb6f",
+      "size": 8958047
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/shadow_accept_t1343.pt.json",
+      "sha256": "a63a27fce0c4e2f2000f9e0c67ae503ab628b3b0d9f767016b4eef9f2bdc38e5",
+      "size": 401
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/shadow_start_t1055.pt",
+      "sha256": "68c0130e20629b517e67df9bfae484fd692955de2ece2a05cf60b0f6d331e155",
+      "size": 8881562
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/shadow_start_t1055.pt.json",
+      "sha256": "86574b3a2cd6e4575db4edc4fef443821d656510590a962da2a3a1c3fcf51b27",
+      "size": 399
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/terminal_done.pt",
+      "sha256": "1428e2e1d0dbea14770daedd3d11efa864597eb171693861d4297952826c942e",
+      "size": 10400161
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/terminal_done.pt.json",
+      "sha256": "af135227a49ce27d6a98bb54321ac7adbcf83b1a327fc0edba9a563d808a510c",
+      "size": 391
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/terminal_first_settle.pt",
+      "sha256": "78484b64141796e5011880f0fdfa6a2c1a59ce53083e846ff5658fdfe26cd1a5",
+      "size": 10400265
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/terminal_first_settle.pt.json",
+      "sha256": "04f0eaca5bfe0087bdf6a9bb12d2a6b6f4928ad852155b6b35bb1ab8b5ce8f74",
+      "size": 417
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/terminal_second_settle.pt",
+      "sha256": "5e66e6d9fa79d9daa4f7e183205b98f44af8aa2f719d4c9573bbc66b9fbaee00",
+      "size": 10400414
+    },
+    {
+      "path": "science/D_no_gc/checkpoints/terminal_second_settle.pt.json",
+      "sha256": "f15b4d3ea3a23b054df024edaca51c77c0604da7f251339e6c24903d12ece13f",
+      "size": 411
+    },
+    {
+      "path": "science/D_no_gc/lifecycle_events.json",
+      "sha256": "d4427045066aa26e3dae4f6dc0ddf843141defdf808a594dba7c5fd5ad16bce8",
+      "size": 4349
+    },
+    {
+      "path": "science/D_no_gc/opportunity_log.json",
+      "sha256": "993a7fb38b0ce03d611fb6aa8f68e7603a3e8d8150ec0d3fc2f7359da3592731",
+      "size": 134421
+    },
+    {
+      "path": "science/D_no_gc/predictions.npz",
+      "sha256": "905caecb73f0648ab59fb685f872944465d653ac6d743d405fb38af23a91f67e",
+      "size": 3580974
+    },
+    {
+      "path": "science/D_no_gc/pressure_checks.json",
+      "sha256": "a298c7efa544db321ecfc87a1c8312decb2db4d7a927c4186bdd81409a0c782c",
+      "size": 143281
+    },
+    {
+      "path": "science/D_no_gc/qualification_records.json",
+      "sha256": "0bef86104e2d6b4c9594aafb1ffb44ada030371a6edf21aa083e023f527b50fe",
+      "size": 1689
+    },
+    {
+      "path": "science/D_no_gc/reclamation_events.json",
+      "sha256": "b57931167bcc0d878739eb1d59c8a7dba2c14574512b931c5ca198b49111c62b",
+      "size": 77
+    },
+    {
+      "path": "science/D_no_gc/reuse_decisions.json",
+      "sha256": "8cb2048ccf91f2225b7865a9e905247e1d2dfc3a93412f5bbda8a69a35d94ec5",
+      "size": 22060
+    },
+    {
+      "path": "science/D_no_gc/reuse_history.json",
+      "sha256": "876abcb1282754bbac12a5d20a15e724469a4cc837fedc0c3391d1911edbf4b6",
+      "size": 18951
+    },
+    {
+      "path": "science/D_no_gc/run_audit.json",
+      "sha256": "ea92988ce78556a6a78ea19b3225ba7bb5355caae3621597fbf24146e57fd99f",
+      "size": 782
+    },
+    {
+      "path": "science/D_no_gc/runtime_state/action_journal.json",
+      "sha256": "31ad8873001b8d3d47543170814a5447f4c609100e66ba2aa564fe249dd59ce7",
+      "size": 724
+    },
+    {
+      "path": "science/D_no_gc/runtime_state/streams/candidate_decisions.jsonl",
+      "sha256": "79384f565f35ecc68d8ac1a33548810d02fa2d01abffccd1c336131c90d10a7a",
+      "size": 1649
+    },
+    {
+      "path": "science/D_no_gc/runtime_state/streams/control.jsonl",
+      "sha256": "327ae80526929499b519fbc1832bcf086955379d56fb0a3707022842bf4b6b7c",
+      "size": 82253
+    },
+    {
+      "path": "science/D_no_gc/runtime_state/streams/lifecycle.jsonl",
+      "sha256": "70aff2df8540ef8377b28b96021d5bb36e1696963a0d0a5e600fef90addbabc3",
+      "size": 3158
+    },
+    {
+      "path": "science/D_no_gc/runtime_state/streams/reuse_decisions.jsonl",
+      "sha256": "046e70fe364dce23c480cd2ee749a7847464b84f9063596cb7d3d98ca9e791e0",
+      "size": 14056
+    },
+    {
+      "path": "science/D_no_gc/runtime_state/streams/settlements.jsonl",
+      "sha256": "79ba9ea5926983a0fe08e8a7823468c084046ddd1f30b2f9ad41eac6a281c2fe",
+      "size": 1150000
+    },
+    {
+      "path": "science/D_no_gc/science_cost_raw.json",
+      "sha256": "eec8d7701ffe210e99dc6e7c100def4515f587713b9dd0c8cdd650db8df19c02",
+      "size": 562
+    },
+    {
+      "path": "science/D_no_gc/scientific_execution_complete.json",
+      "sha256": "26b0db471e78a20e1aed47824a91c19e6b376d3f23e18b5fb77523707357b279",
+      "size": 107
+    },
+    {
+      "path": "science/D_no_gc/settlement_log.json",
+      "sha256": "0740b02ae97ccae33f1b8d86bf10f7cfa184a9e6b530fdd378a9acb04e2c39c9",
+      "size": 1623156
+    },
+    {
+      "path": "science/D_no_gc/sleep_tables.json",
+      "sha256": "e883e8650c88d0a6df8a63051ba8428c83cc32293eba4d14adb14cf5b1fa032a",
+      "size": 578585
+    },
+    {
+      "path": "science/D_no_gc/source_lock.json",
+      "sha256": "6e3d9329b25e2e6186fb9d418097ae08cb28ca918022c9254d378247b59a32ca",
+      "size": 3184
+    },
+    {
+      "path": "science/D_no_gc/status.json",
+      "sha256": "3dfa56c958263c28b1304c6bf78e436dc35587b25d1014b50b57bf65763bff8e",
+      "size": 161
+    },
+    {
+      "path": "science/D_no_gc/summary.json",
+      "sha256": "2f99b56975bb81d468d6f7777f0f209ceab2ed37bfc0789b657e7b80b6002fc2",
+      "size": 1726
+    },
+    {
+      "path": "science/D_no_gc/tombstones.json",
+      "sha256": "cd8f04e8e84bfc74dd297b3124a3572e0caa3d6a88ea8a792cc662dda2ec4f48",
+      "size": 81
+    },
+    {
+      "path": "science/D_no_gc/update_log.json",
+      "sha256": "50e34f6f75907e2170de59f19798a3c70972a438d24050fa96d943a9cab2e901",
+      "size": 770905
+    },
+    {
+      "path": "science/D_no_gc/utility_checks.json",
+      "sha256": "dd3f5b079c7c4e7c9c97ff3e8bef8c30df5d413132d05a65130f0c6fe92275f9",
+      "size": 460734
+    },
+    {
+      "path": "science/budget_ledger.json",
+      "sha256": "68b00d0eb9a18da7fe2893de61af86033229c4fa545f128d8ea34d9e42f28379",
+      "size": 1295
+    },
+    {
+      "path": "science/cached/042_A_hist/predictions.npz",
+      "sha256": "7fdafa7cd0fbd5671d15b7f07668c1ed29b4a7d263a4379ca3bf0508d0eab551",
+      "size": 3624018
+    },
+    {
+      "path": "science/cached/042_A_win128/predictions.npz",
+      "sha256": "00fa533ff34da4ffe416138878df9a427ce29e812c8bf3547843f55d892447d4",
+      "size": 3580000
+    },
+    {
+      "path": "science/cached/B_ref/predictions.npz",
+      "sha256": "1ea811ed175817294f275505db85d0bf283c3d0aca6b883b036243ad7843bef6",
+      "size": 2370519
+    },
+    {
+      "path": "science/cached/C_ref/predictions.npz",
+      "sha256": "da02b63c4a6cf7a2e4fe7c5b98dcd872ca1fa08114bb029f46fce4053b9e9576",
+      "size": 3069116
+    },
+    {
+      "path": "science/cached/D_039/predictions.npz",
+      "sha256": "bc387d13721ed2e759a205ed3b4f6fa884c1ca105068a79a340148e1f5e96512",
+      "size": 2347018
+    },
+    {
+      "path": "science/cached/D_040/predictions.npz",
+      "sha256": "51a5ac7ec4e72f340ab1f051bb3707ad44e5540786a94bf0b10f9a8af9e7dd6a",
+      "size": 2330920
+    },
+    {
+      "path": "science/cached/D_keep/predictions.npz",
+      "sha256": "badf9005b2be9fc6436d1ff2b9377b27715e846d7d16f8e4bdfcbfa76f732e8c",
+      "size": 2382924
+    },
+    {
+      "path": "science/cached/summary.json",
+      "sha256": "bbe94fdb986cf939ca339994cb77729b77ba2c060a31fcf03f3888ea6bf87fbc",
+      "size": 214
+    },
+    {
+      "path": "science/engineering_preflight/crash_gc/action_journal.json",
+      "sha256": "6d10451166cc42ba90f5978c362ca07b46c20dd02f3a5103dd66eb2e6a06604d",
+      "size": 336
+    },
+    {
+      "path": "science/engineering_preflight/crash_gc/streams/control.jsonl",
+      "sha256": "e3f5c5abceb1cf1dc8da0f8ed125c4d25d17b1ddb5cc2e7a1a7014d47edd7d91",
+      "size": 4898
+    },
+    {
+      "path": "science/engineering_preflight/crash_gc/streams/reclamation.jsonl",
+      "sha256": "18a6ef56375df5fc4b56ca04e86853a383f385f6925e39487733edf7bc33afdf",
+      "size": 4681
+    },
+    {
+      "path": "science/engineering_preflight/crash_gc/streams/reuse_decisions.jsonl",
+      "sha256": "d9a447f9822e04de30f69a73176db66bc477944d2d8d3f403217d2a0d7940271",
+      "size": 8064
+    },
+    {
+      "path": "science/engineering_preflight/crash_gc/streams/settlements.jsonl",
+      "sha256": "e16be60394d91c4b2074ee014a0ef18df6feb2dfd75a09476116a7cd681be1f4",
+      "size": 68848
+    },
+    {
+      "path": "science/engineering_preflight/crash_gc_cp/latest.json",
+      "sha256": "bcb1fa0ee35bb867965380ef20793e5b204bd2328ae62517df6a6272eeeff37a",
+      "size": 399
+    },
+    {
+      "path": "science/engineering_preflight/crash_gc_cp/latest.pt",
+      "sha256": "7d14383968425ff7fbfad1de12a8716c236aadd9f8c722878aaaf8739be0c12d",
+      "size": 1301329
+    },
+    {
+      "path": "science/engineering_preflight/crash_gc_cp/safe_pre_gc.pt",
+      "sha256": "8fec041518aa8141b3cf35607471553429d2e2d58ab89bde59223b6d71680605",
+      "size": 1345779
+    },
+    {
+      "path": "science/engineering_preflight/crash_gc_cp/safe_pre_gc.pt.json",
+      "sha256": "c6aeff53e58345fdc6ec80b3d328ea067655da82371b3c46fb8705e67eac46dd",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/crash_step/action_journal.json",
+      "sha256": "12916085301313cc0410c88436d481aeaf64fd738b0c41cbb105b6030cc846b4",
+      "size": 406
+    },
+    {
+      "path": "science/engineering_preflight/crash_step/streams/control.jsonl",
+      "sha256": "5c1ec1766074c90a1aa1e4b0ba589d6757ef211c9551d3fcae80aa9bb0a05c42",
+      "size": 222
+    },
+    {
+      "path": "science/engineering_preflight/crash_step/streams/settlements.jsonl",
+      "sha256": "e8ff15e2571832caba940d48c2aa3b2698f58be55a34613dd6c25ed27fb67db8",
+      "size": 2600
+    },
+    {
+      "path": "science/engineering_preflight/crash_step_cp/latest.json",
+      "sha256": "5ee7e5c95bb86ace7419b2822e8cd9bcfaf30c950a7839628e493bfaa54416ac",
+      "size": 377
+    },
+    {
+      "path": "science/engineering_preflight/crash_step_cp/latest.pt",
+      "sha256": "0e6c2f6e5a7d3a4378222b71301955540803babcba29ddbf795a0811a3f8a070",
+      "size": 742490
+    },
+    {
+      "path": "science/engineering_preflight/crash_step_cp/safe.pt",
+      "sha256": "c5ae79d18fa4d86f47b6b5878b6c6ec800afa386e8f3ea9d7a2b663a59a3bed8",
+      "size": 742371
+    },
+    {
+      "path": "science/engineering_preflight/crash_step_cp/safe.pt.json",
+      "sha256": "3d4e9009922af0a922b4d12eab55e52b5e0a197f3c98d877f162d2cdc3552c28",
+      "size": 377
+    },
+    {
+      "path": "science/engineering_preflight/fixture_report.json",
+      "sha256": "9d7a9c72787c5bde03a0fe2506c2f4405467c44c9e640f40a8a3151fb9fde20b",
+      "size": 50977
+    },
+    {
+      "path": "science/engineering_preflight/future_a/action_journal.json",
+      "sha256": "f68ce61aca21470e5c50b2795edb603834a6fda459f497287a60e3accc80c3ec",
+      "size": 684
+    },
+    {
+      "path": "science/engineering_preflight/future_a/streams/control.jsonl",
+      "sha256": "7b7222af86db08b5263b2620e789bcf42de5d08ef063e3294a23d2d328f8cc00",
+      "size": 1778
+    },
+    {
+      "path": "science/engineering_preflight/future_a/streams/settlements.jsonl",
+      "sha256": "3f85028866326b3aca4d1f45b6a3c387169b422dc8dcac7adac2fdf41810ee03",
+      "size": 24424
+    },
+    {
+      "path": "science/engineering_preflight/future_b/action_journal.json",
+      "sha256": "f68ce61aca21470e5c50b2795edb603834a6fda459f497287a60e3accc80c3ec",
+      "size": 684
+    },
+    {
+      "path": "science/engineering_preflight/future_b/streams/control.jsonl",
+      "sha256": "7b7222af86db08b5263b2620e789bcf42de5d08ef063e3294a23d2d328f8cc00",
+      "size": 1778
+    },
+    {
+      "path": "science/engineering_preflight/future_b/streams/settlements.jsonl",
+      "sha256": "3f85028866326b3aca4d1f45b6a3c387169b422dc8dcac7adac2fdf41810ee03",
+      "size": 24424
+    },
+    {
+      "path": "science/engineering_preflight/gate_negative/false.json",
+      "sha256": "b32b6b763a1cdec230d721adace152c509ed62e72cdd8ba92a242299aa24df31",
+      "size": 1779
+    },
+    {
+      "path": "science/engineering_preflight/gate_negative/missing.json",
+      "sha256": "e74a637deb93a38e97ec5c0313765b055d335eeeb2fd01f629422e9879debe5d",
+      "size": 1758
+    },
+    {
+      "path": "science/engineering_preflight/gate_negative/revision.json",
+      "sha256": "ac2cc08027c2e8031335350ba174b5913a80ac92521ba526205ac8a61f283afd",
+      "size": 1778
+    },
+    {
+      "path": "science/engineering_preflight/gate_negative/string.json",
+      "sha256": "323cfbff3e5220b4aa5b9d8ecb6d32837e222cb66a8d133cf0045aa251683a35",
+      "size": 1780
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/action_journal.json",
+      "sha256": "fc693bf16dd19b555301dc5f01846093dd663bea876291d8380ca623ac27f454",
+      "size": 691
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/cursor_0512.pt",
+      "sha256": "e3825756e9216746ca3a129ea75eb48a72abce199bfc416ce7db24f3530b2abc",
+      "size": 1358457
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/cursor_0512.pt.json",
+      "sha256": "7563e4b4146604efb176476026c627003d7f19f13875bba0abbb547e2f351106",
+      "size": 390
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/latest.json",
+      "sha256": "ecb3386501ca180772610d53752d6c283cf1c78b65cd1eed99e549f6c92372d2",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/latest.pt",
+      "sha256": "fe72b0a5bb02f40772ad77a5c2392d0da1a1895a4a695d6c115836e3510bb605",
+      "size": 1464267
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/reclaim_create_t367.pt",
+      "sha256": "958ea2ad3974b3fbc145bb3dfef8e36b7bb6024947f03c080c3b8e08997aecd7",
+      "size": 1311355
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/reclaim_create_t367.pt.json",
+      "sha256": "046a94978d9f3eff96b49420df6b7e007dbc1f8b30f075275f193ea34c6497ec",
+      "size": 401
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/shadow_01_t367.pt",
+      "sha256": "60898f736b89051a5826625e66545579b81a3d9f34f4ce955522139f7458474d",
+      "size": 1317950
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/shadow_01_t367.pt.json",
+      "sha256": "22a68f2457d0dbd1eb93cc4d0331cc5956091ebf59faa51a04739ae664d8f22b",
+      "size": 391
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/shadow_15_t591.pt",
+      "sha256": "dd702dfa857b6afd8168383dd51b0b8af4bbf76f14c1a3d602385dae64c9f899",
+      "size": 1399294
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/shadow_15_t591.pt.json",
+      "sha256": "a22f63c2a53d6a5ad546ba05ad530db626ce5de7c5d07c4f5d9e48c4ec07204c",
+      "size": 392
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/shadow_16_t607.pt",
+      "sha256": "06587bff3953b6e1fde23839ea21e2a0e116c497ec4913669594036c60310f95",
+      "size": 1420094
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/shadow_16_t607.pt.json",
+      "sha256": "e43efc7258bcb7a42bd6509c5aaa0c8bf9d300b60aa7b4bae188ab66218b9833",
+      "size": 392
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/shadow_accept_t655.pt",
+      "sha256": "65d969d32848395e5e8469e4fdecece189d0e1740897f94f6a998fed3cfe4ac4",
+      "size": 1381338
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/shadow_accept_t655.pt.json",
+      "sha256": "6c085d937332b25494416a7984d498e04d65722c2f0c73354717ee8924dcd136",
+      "size": 401
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/terminal_done.pt",
+      "sha256": "1877d96017a247367a3fac6855013baae37622ee9a7ab99b7dfae788a94b7acd",
+      "size": 1464359
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/terminal_done.pt.json",
+      "sha256": "ece1f058ff93f9becdcbc03de13709e56a589418cf15c3b041b5f0a28857d810",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/terminal_first_settle.pt",
+      "sha256": "a0d84b34aa55f8ebfccdd6cc7a5787cb05ae77cb7ca3fd23dccd666fdef12829",
+      "size": 1464479
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/terminal_first_settle.pt.json",
+      "sha256": "4c340d234b1591e2c80db3941b8313f8231a4382605c680e6caeb8ec811f7f63",
+      "size": 415
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/terminal_second_settle.pt",
+      "sha256": "56d02895be6a86ee74148f62eef91fc9fe8dd9f8469d79988da99b4e4215934a",
+      "size": 1464630
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/checkpoints/terminal_second_settle.pt.json",
+      "sha256": "611f3f16fff91762d65697c5949ea3f1facb59efaa271ee9b6ed86c8208f208f",
+      "size": 409
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/streams/candidate_decisions.jsonl",
+      "sha256": "d3aa1e29c69a85cfff150143b4af1029f1deb3cbec8b38fdc7d7ed959ac5f9ac",
+      "size": 1202
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/streams/control.jsonl",
+      "sha256": "5464b94f5dcc8f0c06fff9bd5b1727d9fb8a308d4467f742dda2c530a5dd66fd",
+      "size": 11140
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/streams/lifecycle.jsonl",
+      "sha256": "f81f3ff95ef4e56e5e5ad1594ed223bdfe321168d5bbeec4d3b9146ebc00ead3",
+      "size": 606
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/streams/reclamation.jsonl",
+      "sha256": "50e62829150dcf2a4c772a4455e399c6f9d1df5c689836b089746f10aea9820d",
+      "size": 9614
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/streams/reuse_decisions.jsonl",
+      "sha256": "a61c2fe4760691844059dfe557bb4cf39fca9c62400a0047a0a7eb635cc39666",
+      "size": 14623
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_bounded/streams/settlements.jsonl",
+      "sha256": "978044e0f2b0717cb2bcc8ca11b9f2cd051ab98553f15b094997e5ed519bcc17",
+      "size": 154646
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_no_gc/action_journal.json",
+      "sha256": "5fd7070fa25f0e6a7785278bd8dff91163fe664888fd08f0da7bdb5f752eb1eb",
+      "size": 680
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_no_gc/checkpoints/cursor_0512.pt",
+      "sha256": "b0ff1876d8c0f05d3aa284ac4784c08be18453e692d8f7143c90d27f1b2b49bf",
+      "size": 1350451
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_no_gc/checkpoints/cursor_0512.pt.json",
+      "sha256": "a7d6d3c9bbbf2c79a39c289fe39a4d2d10ea7a67ba676198f7f676fc9c2ba9a6",
+      "size": 387
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_no_gc/checkpoints/latest.json",
+      "sha256": "27015d67d99623e0fa5f7c4ee841ae262fb362a2b1467205947821f76bd7a9c3",
+      "size": 386
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_no_gc/checkpoints/latest.pt",
+      "sha256": "4b95c358edc00ca275e0bee805163a96ebf418a8effc592a94904dfa5cae8f97",
+      "size": 1427793
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_no_gc/checkpoints/terminal_done.pt",
+      "sha256": "ad7d789eb3f0a1cd55f129df5cc0730df4f5399033fd5271fa35cb24de1d68dc",
+      "size": 1427861
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_no_gc/checkpoints/terminal_done.pt.json",
+      "sha256": "47bc3bd5ab7e0d6dd5b26d3c7f0c9ea98a7c369ef4a8150ac4bd2573a24d1b06",
+      "size": 386
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_no_gc/checkpoints/terminal_first_settle.pt",
+      "sha256": "58217bb0720468135477796c1ae4f1734ea55953d9d62c5224889d5494ebc99b",
+      "size": 1427933
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_no_gc/checkpoints/terminal_first_settle.pt.json",
+      "sha256": "ad365eddb47d560459d01e7030c5f3967b22b72773610385d1f087e70ce48dad",
+      "size": 412
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_no_gc/checkpoints/terminal_second_settle.pt",
+      "sha256": "93d8531ff3223e8a5591280202c92d1e3ff4b2a25d3fd9604bf841d67f0888af",
+      "size": 1428142
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_no_gc/checkpoints/terminal_second_settle.pt.json",
+      "sha256": "4519ab656058ab5c7f898b88cdd4a055d003e3f2ac67d39050f5af844be66fec",
+      "size": 406
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_no_gc/streams/control.jsonl",
+      "sha256": "6accb1c6db048db732c391ee41a2ae1cbf97daebb3313cf15c6bcbfe09447ca2",
+      "size": 11377
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_no_gc/streams/reclamation.jsonl",
+      "sha256": "fc93e4d1011bae7ba739e9ffbd2b73d164cc824d9e3bd81523b0cedc3702b8ff",
+      "size": 28704
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_no_gc/streams/reuse_decisions.jsonl",
+      "sha256": "0e1276449cacfafae4bea12a57b359edff47c46378855393cf880815d0f5f868",
+      "size": 26995
+    },
+    {
+      "path": "science/engineering_preflight/gc_D_no_gc/streams/settlements.jsonl",
+      "sha256": "6d2a7463c694933e5fe670c8395363f86a515c8e2521e082491f58d8385ffd18",
+      "size": 154144
+    },
+    {
+      "path": "science/engineering_preflight/guard_actual/action_journal.json",
+      "sha256": "877721f6cb21d15d3c98249cbc52edffd080e8515e0eaff71b07c8ea0d0febd8",
+      "size": 680
+    },
+    {
+      "path": "science/engineering_preflight/guard_actual/streams/control.jsonl",
+      "sha256": "5997f85117666ad230e92026232179442099d53ead54d511fc0ec00c27b01aa6",
+      "size": 4229
+    },
+    {
+      "path": "science/engineering_preflight/guard_actual/streams/reuse_decisions.jsonl",
+      "sha256": "5a4d64e82bf85363481827c02b8f2f745b650560f8fcea36f1898262c2a38ed7",
+      "size": 5312
+    },
+    {
+      "path": "science/engineering_preflight/guard_actual/streams/settlements.jsonl",
+      "sha256": "82f9c7ad5f54a62e3229c6b3292be45f528e57638e86feed6f116929e40afe6d",
+      "size": 59745
+    },
+    {
+      "path": "science/engineering_preflight/real_prefix/streams/control.jsonl",
+      "sha256": "4b6f35f143dd36a043cbad7c54704641f1e9a336a8dc5bce1d36e14b75c0296b",
+      "size": 1714
+    },
+    {
+      "path": "science/engineering_preflight/real_prefix/streams/settlements.jsonl",
+      "sha256": "b670e774c117dcaf5143334efdeed6cd016ed770d24e827f4f3e5574a69427ee",
+      "size": 23766
+    },
+    {
+      "path": "science/engineering_preflight/real_prefix_cp/latest.json",
+      "sha256": "d8393a085ee62814b835a0acb659927166a8dd4811e02fda89eebb0e05e98d20",
+      "size": 382
+    },
+    {
+      "path": "science/engineering_preflight/real_prefix_cp/latest.pt",
+      "sha256": "5e4a461a2a0a9272432ef7b0cb636d8effbe4b799482349e7875a4223f521345",
+      "size": 8642726
+    },
+    {
+      "path": "science/engineering_preflight/real_prefix_cp/real128.pt",
+      "sha256": "6c56d4e6da6b8636ef9fcaae7d00f238101e5da02bb290bf0cd628421e087c97",
+      "size": 8642716
+    },
+    {
+      "path": "science/engineering_preflight/real_prefix_cp/real128.pt.json",
+      "sha256": "506a480f6464b960158baeed4166305560ccfbe9d4a825f759aa09069a3ee9d6",
+      "size": 382
+    },
+    {
+      "path": "science/engineering_preflight/real_prefix_restore/streams/control.jsonl",
+      "sha256": "eec2432f0cd142f98e45d082a4a1e0a9a897d3a11fc47cb024461023127ba17c",
+      "size": 1720
+    },
+    {
+      "path": "science/engineering_preflight/real_prefix_restore/streams/settlements.jsonl",
+      "sha256": "bf12314082c7e039503f6e3e2d959d9c5624997a5efbeef7cba6e6a1b17b8847",
+      "size": 24448
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/action_journal.json",
+      "sha256": "d5fe7dfcfc8fe133ddb62948090e734b66906c69c46995bbb464e10f740f3141",
+      "size": 682
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/cursor_0512.pt",
+      "sha256": "e5a4c71e0c1e7fdc6cffa7a062266df8a72ba1244ccb74177a02b1afa880d3b3",
+      "size": 1374393
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/cursor_0512.pt.json",
+      "sha256": "4f8c14788a78ac18950d28262014b1247a00a10b96c5034f3f03f347422f63d0",
+      "size": 390
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/latest.json",
+      "sha256": "37023f15b6e047c6cd3f8fb70b1cef6d380e9062976783f05fe25ce53fea5e33",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/latest.pt",
+      "sha256": "10bdc2b0d646f3b4b116f41643899aa87a9d7829727b49aea318c2c877bf5bc0",
+      "size": 1452435
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/reclaim_create_t367.pt",
+      "sha256": "de9abb765181e3952d5cb8bb35cca398b5ee4f5f154f78fb44682ecb3d32d8af",
+      "size": 1321979
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/reclaim_create_t367.pt.json",
+      "sha256": "cbd52efa2e739c7ee507abe9a6f2831033586b937ffe39594c1950b7fb134e8f",
+      "size": 401
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/shadow_01_t367.pt",
+      "sha256": "9d498c2b59cf871f765c386da09b85a0618ad0c2d331c71eec7142e41f1cfe2f",
+      "size": 1328638
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/shadow_01_t367.pt.json",
+      "sha256": "41ff735c4f7be6da5e589d7c2291d85d54e6179f4a9f829c5091e30ee12be8bc",
+      "size": 391
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/shadow_15_t591.pt",
+      "sha256": "de520792449e49ba6d71c566fb6067ab804ec6f5adcd445e078c8210f3edc4af",
+      "size": 1417790
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/shadow_15_t591.pt.json",
+      "sha256": "b9cfc88a56d9b6398c0d6fd26b625d25af30d3166cec7f3bf235c13b7e2f2229",
+      "size": 392
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/shadow_16_t607.pt",
+      "sha256": "94a886f20f566aa68ca6deac913049a17c144f99f36a6306c73212ff3fc0d647",
+      "size": 1440318
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/shadow_16_t607.pt.json",
+      "sha256": "937d76e4b8c1aa6409be9d61ed2fc1e466a953d2fa86774167aa40ae4a1238ed",
+      "size": 392
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/shadow_reject_t655.pt",
+      "sha256": "128a1561400bf46de5ec4571f0dde0cd371789570053209d8d8eca7c9bf05dfd",
+      "size": 1426394
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/shadow_reject_t655.pt.json",
+      "sha256": "9b7968c5f4cf7eafa16e2a56750813c1eb6f54a4355ff441029926c33599ae2d",
+      "size": 401
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/terminal_done.pt",
+      "sha256": "78e6e0d9e4632a4db0af04fa14666684292fc3b84cc754f37c762d3007fb035a",
+      "size": 1452495
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/terminal_done.pt.json",
+      "sha256": "2af976b8420ff29974dece60a737b4417399b47fded1518dc67ed373079c2d5f",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/terminal_first_settle.pt",
+      "sha256": "e3592498078a0690d995ebbf5f57d3cb6d1033716b813651429412543e29d4a3",
+      "size": 1452551
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/terminal_first_settle.pt.json",
+      "sha256": "21642908c05548ec0408fa5a2ad32458ecd5f1025d3711f2a83bca28ffb819cb",
+      "size": 415
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/terminal_second_settle.pt",
+      "sha256": "f50dd350868d46d7d2fd3f9939147b316f9583a6bd46674508ae65bf26e597ce",
+      "size": 1452694
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/checkpoints/terminal_second_settle.pt.json",
+      "sha256": "c85b3892797675243f0bca462b8472bd5dc5a7268c5d9895f05eda4808067968",
+      "size": 409
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/streams/candidate_decisions.jsonl",
+      "sha256": "01aad382df0e39fff5a0b79af82f7db5bb4d1abf40cf41c9d05a856ea0b43cd6",
+      "size": 1216
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/streams/control.jsonl",
+      "sha256": "c50cc98c087db8bb3d0ab137c8f0a106be3d7afefbb5d43789e6fd7ba51dd98d",
+      "size": 11300
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/streams/reclamation.jsonl",
+      "sha256": "900c736b8c7b002d78976f9ce3e2c3d065709231f0939c3075d168a190033722",
+      "size": 9614
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/streams/reuse_decisions.jsonl",
+      "sha256": "335bcbd28a3e11e2be7f006d5217b6a2ea29c37c1608f7e257cb3b1c2eec18d5",
+      "size": 18852
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_bounded/streams/settlements.jsonl",
+      "sha256": "57a1b862977fdbfea4420ae332fb10b12ec43512474adaa805380d1915b96ade",
+      "size": 154200
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_no_gc/action_journal.json",
+      "sha256": "5fd7070fa25f0e6a7785278bd8dff91163fe664888fd08f0da7bdb5f752eb1eb",
+      "size": 680
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_no_gc/checkpoints/cursor_0512.pt",
+      "sha256": "7a8feacd6193c28c38e3dee4089bcc2fffda572fe32dd13cd245b5631d130c5e",
+      "size": 1366387
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_no_gc/checkpoints/cursor_0512.pt.json",
+      "sha256": "78725d2c43b8f187e5bbad79d46c28056ce6304ebf22c9c6aece59413c29744d",
+      "size": 387
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_no_gc/checkpoints/latest.json",
+      "sha256": "15a605c58056072ea9bbef635ddbeb94b9efa7867cc5492e37c0a1744a19b399",
+      "size": 386
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_no_gc/checkpoints/latest.pt",
+      "sha256": "21d206a439a6fd07b6aa86e57a616fb5375a1546fffbc220d6fe199bf6302320",
+      "size": 1450257
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_no_gc/checkpoints/terminal_done.pt",
+      "sha256": "2d8979f7e6c7f63e6cf6cd7cd5f6e2ee1254e5df11c7d5d810d730dae7868d62",
+      "size": 1450325
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_no_gc/checkpoints/terminal_done.pt.json",
+      "sha256": "edc9d03603eb333d647807f22d8db58229c2c3e0022c538c59394e00cf0d7be4",
+      "size": 386
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_no_gc/checkpoints/terminal_first_settle.pt",
+      "sha256": "ddbee46a01ed9887044dc011b51a18ae627b30beed02b6704aaddd034cf53322",
+      "size": 1450461
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_no_gc/checkpoints/terminal_first_settle.pt.json",
+      "sha256": "caa9a2b3356f2253f453c4106065ec586f7543e6ce83a184767a313f2d471d68",
+      "size": 412
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_no_gc/checkpoints/terminal_second_settle.pt",
+      "sha256": "52a0453430a186b5bf50973eb5293cf400f48ce0da44146f3eff180f2675adc8",
+      "size": 1450606
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_no_gc/checkpoints/terminal_second_settle.pt.json",
+      "sha256": "1caca81c8bd6579b8f1ce8396ebb834d064cbf392ab661deb4ac59fc5edb1961",
+      "size": 406
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_no_gc/streams/control.jsonl",
+      "sha256": "6accb1c6db048db732c391ee41a2ae1cbf97daebb3313cf15c6bcbfe09447ca2",
+      "size": 11377
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_no_gc/streams/reclamation.jsonl",
+      "sha256": "5375ced2e73d4e54c366d5cf0788f4184b060167fbc50d04b6a38973d865ccc9",
+      "size": 28688
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_no_gc/streams/reuse_decisions.jsonl",
+      "sha256": "d845a5f85e72dc423004142339d4c4625651c45e291cceb9a38ee2030cbe37d4",
+      "size": 26995
+    },
+    {
+      "path": "science/engineering_preflight/reject_pair/gc_D_no_gc/streams/settlements.jsonl",
+      "sha256": "57a1b862977fdbfea4420ae332fb10b12ec43512474adaa805380d1915b96ade",
+      "size": 154200
+    },
+    {
+      "path": "science/engineering_preflight/resume_base/action_journal.json",
+      "sha256": "fc693bf16dd19b555301dc5f01846093dd663bea876291d8380ca623ac27f454",
+      "size": 691
+    },
+    {
+      "path": "science/engineering_preflight/resume_base/streams/candidate_decisions.jsonl",
+      "sha256": "d3aa1e29c69a85cfff150143b4af1029f1deb3cbec8b38fdc7d7ed959ac5f9ac",
+      "size": 1202
+    },
+    {
+      "path": "science/engineering_preflight/resume_base/streams/control.jsonl",
+      "sha256": "5464b94f5dcc8f0c06fff9bd5b1727d9fb8a308d4467f742dda2c530a5dd66fd",
+      "size": 11140
+    },
+    {
+      "path": "science/engineering_preflight/resume_base/streams/lifecycle.jsonl",
+      "sha256": "f81f3ff95ef4e56e5e5ad1594ed223bdfe321168d5bbeec4d3b9146ebc00ead3",
+      "size": 606
+    },
+    {
+      "path": "science/engineering_preflight/resume_base/streams/reclamation.jsonl",
+      "sha256": "50e62829150dcf2a4c772a4455e399c6f9d1df5c689836b089746f10aea9820d",
+      "size": 9614
+    },
+    {
+      "path": "science/engineering_preflight/resume_base/streams/reuse_decisions.jsonl",
+      "sha256": "a61c2fe4760691844059dfe557bb4cf39fca9c62400a0047a0a7eb635cc39666",
+      "size": 14623
+    },
+    {
+      "path": "science/engineering_preflight/resume_base/streams/settlements.jsonl",
+      "sha256": "978044e0f2b0717cb2bcc8ca11b9f2cd051ab98553f15b094997e5ed519bcc17",
+      "size": 154646
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/cursor_0512.pt",
+      "sha256": "928cb9f69a3d98dc6e0e3106840df82c9ed7beb91cca09826b5d4ee4f4e4baad",
+      "size": 1358457
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/cursor_0512.pt.json",
+      "sha256": "92308434cf29fa43ff9497a4f88907232633ea504f3fb435e3eb04a4bf46f739",
+      "size": 390
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/latest.json",
+      "sha256": "c0d44da01573220190acd00d2bf41b9f79cb0a99502daed5ed52c737f9b86eb4",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/latest.pt",
+      "sha256": "2c916efd5cd2f581f0ffb2c3752828b0616ddf6ae9d680d92e4fab68e6009060",
+      "size": 1464267
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/manual_window_expiry.pt",
+      "sha256": "1c8a3a9ef897c6fa92646651d51ac98df65b4d3077a2f73a40f7a4374980a903",
+      "size": 1253196
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/manual_window_expiry.pt.json",
+      "sha256": "bad8e9ea19e7a8ade01f62e3fb0d1e65cfcb46794f097fa5062b87cf75d8bdda",
+      "size": 398
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/reclaim_create_t367.pt",
+      "sha256": "4bfddc3d3100f4b639002452f1761619e086e29cb36cffead1448a50389e9570",
+      "size": 1311355
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/reclaim_create_t367.pt.json",
+      "sha256": "9db957918608e6391f7644999b56295eecaca35357343c55e9c20bf38429cbd0",
+      "size": 401
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/shadow_01_t367.pt",
+      "sha256": "59cf621ffeb0abf44b039c732fb174f66aeabe6a3801148513598213e6093e86",
+      "size": 1317950
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/shadow_01_t367.pt.json",
+      "sha256": "c02dedf69392c2cd2cec260c1931473547bc5c846c50fbcfe14b09ffee6a8d5d",
+      "size": 391
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/shadow_15_t591.pt",
+      "sha256": "13b918a78bab118bfc8c29c0fcbf3ac065084fdcdee9cc3869a0536683319b66",
+      "size": 1399294
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/shadow_15_t591.pt.json",
+      "sha256": "f08e0983f0681c34cd0e9d8f61a9578b5f57d3899999e817d6c79e5dafdebf67",
+      "size": 392
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/shadow_16_t607.pt",
+      "sha256": "72019cc684b89ca908b42c6d04d962c27b48b708c474ed6752b3dbf62fcee53e",
+      "size": 1420094
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/shadow_16_t607.pt.json",
+      "sha256": "c36dac17a5a26e4598cd1359f64b7f624f375dcd8e5ff82bcb4cd196ba8b5283",
+      "size": 392
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/shadow_accept_t655.pt",
+      "sha256": "f72ba4f0fd00ae397bd6feb9b5e2a46239257f79b055054c165952a313314e4b",
+      "size": 1381338
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/shadow_accept_t655.pt.json",
+      "sha256": "3623651b8ea06b4328fce909a90849fd1772ef9fa0d6deea72657e534517ea93",
+      "size": 401
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/terminal_done.pt",
+      "sha256": "aed8fe89d1cedf30a1fd083dada80594567501eb2921999259a102b6b000af36",
+      "size": 1464359
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/terminal_done.pt.json",
+      "sha256": "b157afdf648c66de05a4b5fa3c35b7965d8d16e98301fe547913ea4ae0134a98",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/terminal_first_settle.pt",
+      "sha256": "e1e1c60d499fdaf4e37df0d5063fa2744daa0a18080e99b51211b24ff71ea2b2",
+      "size": 1464479
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/terminal_first_settle.pt.json",
+      "sha256": "c45fd82c63d8598702211fb7a930ec1b5c6623be0cb9fb1a27364628b543378c",
+      "size": 415
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/terminal_second_settle.pt",
+      "sha256": "cb69e50cd14537039adbdee31cfbd11bda439a872087a5789cd893ed3878350d",
+      "size": 1464630
+    },
+    {
+      "path": "science/engineering_preflight/resume_cp/terminal_second_settle.pt.json",
+      "sha256": "723daf21189e701f35a66a18bd8be9814c5a6e6f590985ba58110cfc0f661526",
+      "size": 409
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/action_journal.json",
+      "sha256": "fc693bf16dd19b555301dc5f01846093dd663bea876291d8380ca623ac27f454",
+      "size": 691
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/cursor_0512.pt",
+      "sha256": "96f162e72c458dbf7962b184ec7a0ada7f53ac9c75d9254ea0581d6de2b895e1",
+      "size": 1360825
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/cursor_0512.pt.json",
+      "sha256": "c10dfe07df61886f9a07b40983201b102e2838ff98fef905e55bc47d5fff9ddb",
+      "size": 390
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/latest.json",
+      "sha256": "356e9555384b09bf43bd54c287b0b11287d7c6e7062f473de5e7317f5f2d3904",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/latest.pt",
+      "sha256": "abb37651ca47d307f79ba0bd3ee63dba1d6a69cacea7a7cfa8de7c1d053e5cfd",
+      "size": 1467147
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/reclaim_create_t367.pt",
+      "sha256": "8aabcde1fab3422916a67101eef309f61584587bcdde29d4d0fa1561078dfa75",
+      "size": 1316539
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/reclaim_create_t367.pt.json",
+      "sha256": "7e150a1f9e27922e68116383b9175c477a0c89b0a0f1ccd09b991329ef4b94ad",
+      "size": 401
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/shadow_01_t367.pt",
+      "sha256": "e84bd5d90c8a36a2b986546a18cb240c83454b181c03a000c45d299730bf7ea7",
+      "size": 1320254
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/shadow_01_t367.pt.json",
+      "sha256": "cbd619eb713f101536d8ad48b20644e357541ec9d3854f39eaef5d4ad809bb67",
+      "size": 391
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/shadow_15_t591.pt",
+      "sha256": "04d92c0fc888336cd01f3e81a13ddad4bface262a5f6f11db1c198d3761d89d8",
+      "size": 1401790
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/shadow_15_t591.pt.json",
+      "sha256": "72c3d09b38250a1de3bf2207ca02300df39af632f2595c188f1ff93e5ce593cc",
+      "size": 392
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/shadow_16_t607.pt",
+      "sha256": "6a457277cacdfd9ca0dab287fdbcc03c70e5cd263a84a1556c00d60de6d35baa",
+      "size": 1422590
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/shadow_16_t607.pt.json",
+      "sha256": "c99374a66fb5d19f1a1e705f8d0cb801bfd0d19ba790285b5c6b2c39e92919bb",
+      "size": 392
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/shadow_accept_t655.pt",
+      "sha256": "493cc785e7231b87e6fa365c62d1d8e03359cc8692398bb00eeef525d6f71d6e",
+      "size": 1383962
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/shadow_accept_t655.pt.json",
+      "sha256": "810db4dec1c2d9897e26ce62347487d29f684e71a02439763a131190bdec9372",
+      "size": 401
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/terminal_done.pt",
+      "sha256": "5c3ea3864e3500841a4a3c35fe60969fbb02b1f2e8250322af4861b92c350bb2",
+      "size": 1467239
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/terminal_done.pt.json",
+      "sha256": "2eda2c9ad74b220059ccdb1719c81035c3ae1275f8906311b5a8e3f63c6ed0b3",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/terminal_first_settle.pt",
+      "sha256": "5be27ff7d923b23b3431a0c8c3daf0b1693c692b98d46b6d6c9d03c30acc9753",
+      "size": 1467359
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/terminal_first_settle.pt.json",
+      "sha256": "a65e47ca0c9fde1737f16989b96a1d481350a7b18151a0f52e8d8ccac92367a2",
+      "size": 415
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/terminal_second_settle.pt",
+      "sha256": "b192031300fd1ec92534839e1476b890d4a7205e68ebd682c337325a53d8610f",
+      "size": 1467510
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/cp/terminal_second_settle.pt.json",
+      "sha256": "b6a8a6e5529a532f20431ae512e4b6eb874ca1cf09207fbcf28cec3500f5cd0a",
+      "size": 409
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/streams/candidate_decisions.jsonl",
+      "sha256": "d3aa1e29c69a85cfff150143b4af1029f1deb3cbec8b38fdc7d7ed959ac5f9ac",
+      "size": 1202
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/streams/control.jsonl",
+      "sha256": "281847f7b914eb82d7d6d2da593755c10ad3854986bb70badec760856b3c7988",
+      "size": 8693
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/streams/lifecycle.jsonl",
+      "sha256": "f81f3ff95ef4e56e5e5ad1594ed223bdfe321168d5bbeec4d3b9146ebc00ead3",
+      "size": 606
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/streams/reclamation.jsonl",
+      "sha256": "50e62829150dcf2a4c772a4455e399c6f9d1df5c689836b089746f10aea9820d",
+      "size": 9614
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/streams/reuse_decisions.jsonl",
+      "sha256": "a61c2fe4760691844059dfe557bb4cf39fca9c62400a0047a0a7eb635cc39666",
+      "size": 14623
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_00/streams/settlements.jsonl",
+      "sha256": "1cd7508dda973c33c034b9c2bb5701d36344b5c6a81356af826d33197eaf8236",
+      "size": 121188
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/action_journal.json",
+      "sha256": "fc693bf16dd19b555301dc5f01846093dd663bea876291d8380ca623ac27f454",
+      "size": 691
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/cursor_0512.pt",
+      "sha256": "74d8bef2b294be94659136b077e95d614bfb74651db9448d050990990257a60b",
+      "size": 1361657
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/cursor_0512.pt.json",
+      "sha256": "5f7e0e830f69c02390576ae0faafd7d89ee56c226c6a18f011b789eee034fdf5",
+      "size": 390
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/latest.json",
+      "sha256": "ea2994a3bcc6806bd96fb106e5eed7245123cbbd1ac3356a3da0c427f28086fd",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/latest.pt",
+      "sha256": "74c719fc72050faaf718aa1471c16d7e7f84cc02748b930aed206972eadf3766",
+      "size": 1467915
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/shadow_01_t367.pt",
+      "sha256": "8de056fc41ce6526db6abe592fdf99c3ead7bd476663966d51c29f4b5b1564c5",
+      "size": 1319614
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/shadow_01_t367.pt.json",
+      "sha256": "54d24e9b8e54522468787ef8a17ebb1a4719c9e619ff1832f45015dc2db44ad0",
+      "size": 391
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/shadow_15_t591.pt",
+      "sha256": "e280a71f543465715030335a86b31fbc0e6b8498dcc3c50da702945c57b912eb",
+      "size": 1402686
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/shadow_15_t591.pt.json",
+      "sha256": "44417e35ee477a1e03d09eb9111846163463ab978be9ea1c430ef2cf89c6f278",
+      "size": 392
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/shadow_16_t607.pt",
+      "sha256": "d1c973323284dd5dc8eb26161a99045fb7471c52e05fb8a5ce0df89da2504071",
+      "size": 1423550
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/shadow_16_t607.pt.json",
+      "sha256": "56cfeede5bf63581eb4110a8e31344a1e93b43ddf69642e4fcd9868de5399356",
+      "size": 392
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/shadow_accept_t655.pt",
+      "sha256": "e2e989b296af0e3d0e66bbbd7f9d0d13dcc7382a46991a13eb78dae1eb062032",
+      "size": 1384730
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/shadow_accept_t655.pt.json",
+      "sha256": "d3a914fe80ce65bf884946f5c35bcc26454ea278a16066188f5fcf356acddf3c",
+      "size": 401
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/terminal_done.pt",
+      "sha256": "2ab9ddb38a72c2daa28c4d3f0ea3e21f50a38207f0ded2be434cc9c2c75a1443",
+      "size": 1468007
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/terminal_done.pt.json",
+      "sha256": "d53aa1b8c723b7b5b6914a46014a74ecb0d86d7eb07a1e2604871ef91a021522",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/terminal_first_settle.pt",
+      "sha256": "96f0995fe96d4fad3d3f0dab1f707c86ca3dc0dac6e11b2103fd4d867d543e61",
+      "size": 1468127
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/terminal_first_settle.pt.json",
+      "sha256": "703ab5d92a8b23ccb803b28d5ed56a8078dc6d8db201769c6da600aea801f104",
+      "size": 415
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/terminal_second_settle.pt",
+      "sha256": "950897dce648e5b5ba6f7a78c2b740eaf5fb675c8e8d319591569f4fcceb330f",
+      "size": 1468278
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/cp/terminal_second_settle.pt.json",
+      "sha256": "1e6387a2bc78c959d455f258305e52e7f2ccffe748b642cf8ae222fe781cefae",
+      "size": 409
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/streams/candidate_decisions.jsonl",
+      "sha256": "d3aa1e29c69a85cfff150143b4af1029f1deb3cbec8b38fdc7d7ed959ac5f9ac",
+      "size": 1202
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/streams/control.jsonl",
+      "sha256": "ae005a4e93b7f3eaac60d38a327db0cea4b9e46f9801145d92ae8a1dd099dcb1",
+      "size": 6023
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/streams/lifecycle.jsonl",
+      "sha256": "f81f3ff95ef4e56e5e5ad1594ed223bdfe321168d5bbeec4d3b9146ebc00ead3",
+      "size": 606
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/streams/reuse_decisions.jsonl",
+      "sha256": "c128b0005d05615e11546d114e4122b5f084fa757117d705b2c2f97688f33eb8",
+      "size": 6559
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_01/streams/settlements.jsonl",
+      "sha256": "0f7e9534662d9e8f207b635a1193ea5643a33d50d0dfeda2b4156111c50af0af",
+      "size": 85798
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/action_journal.json",
+      "sha256": "fc693bf16dd19b555301dc5f01846093dd663bea876291d8380ca623ac27f454",
+      "size": 691
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/cp/cursor_0512.pt",
+      "sha256": "b9118a9756caaff586450286cf2933be1462af1ffdc4fbab5ac863863776119b",
+      "size": 1361721
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/cp/cursor_0512.pt.json",
+      "sha256": "9ebfa165b36469dfe9b8a41ed1efe30c57ffc2481f49be557e6883f0f3dd15bd",
+      "size": 390
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/cp/latest.json",
+      "sha256": "731007864007d308c178a6f2075338724759a086a035b6f84366190b2200d553",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/cp/latest.pt",
+      "sha256": "b7b183e8c2262acdfe83a98d7b860aae6b2cc90348f71a3c8424790d2f50a901",
+      "size": 1467979
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/cp/shadow_15_t591.pt",
+      "sha256": "e02d60638b0a5880a0a805b53567e8ace599fa8f12a74c83165cc1cb6e02993f",
+      "size": 1402750
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/cp/shadow_15_t591.pt.json",
+      "sha256": "ec953253cf5ce10a4ed8ce62577673862913b97ff3bb7d1785d284f2c6c07313",
+      "size": 392
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/cp/shadow_16_t607.pt",
+      "sha256": "1de15a965f8bd23984516be1943eecc0eee25b8578204bd6534d88863c117d2c",
+      "size": 1423614
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/cp/shadow_16_t607.pt.json",
+      "sha256": "3888df430310c95753d8480dffa97223ec0741e12e56affb316142b37ac4220b",
+      "size": 392
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/cp/shadow_accept_t655.pt",
+      "sha256": "230ddfe086c60852833893ca2b34b27be4ed4357348800ece36f9ab520e0e9fd",
+      "size": 1384794
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/cp/shadow_accept_t655.pt.json",
+      "sha256": "8ec39f6adbcfdf3f105760f92b88f5b145928957f34d024a37ac74e78aa2d7ca",
+      "size": 401
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/cp/terminal_done.pt",
+      "sha256": "0a1db6675d2041c1319a0af08c684e75c521fb12433e7e1b4e772de072831334",
+      "size": 1468071
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/cp/terminal_done.pt.json",
+      "sha256": "bcceb7ad76d7e9a12858be6ca490c57813c85c7de86be8b276b2382a589d9955",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/cp/terminal_first_settle.pt",
+      "sha256": "6bc2acb0e6dd06dd052461ca3fc72e11b18c0898b984fa9c83916a6f7573e9d3",
+      "size": 1468191
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/cp/terminal_first_settle.pt.json",
+      "sha256": "f7417c342f27f0417a6546c14441947955b93a6fc35ffdb3515ada1352cb3e4a",
+      "size": 415
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/cp/terminal_second_settle.pt",
+      "sha256": "8890125a521caf709b0aad8e9bf97d26be66d6eaeb4970587460ed4b1e6c097a",
+      "size": 1468342
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/cp/terminal_second_settle.pt.json",
+      "sha256": "0f0fc66d8cbb362f6ece68155eb16349685257c107ae86343a004157e07ce654",
+      "size": 409
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/streams/candidate_decisions.jsonl",
+      "sha256": "d3aa1e29c69a85cfff150143b4af1029f1deb3cbec8b38fdc7d7ed959ac5f9ac",
+      "size": 1202
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/streams/control.jsonl",
+      "sha256": "ae005a4e93b7f3eaac60d38a327db0cea4b9e46f9801145d92ae8a1dd099dcb1",
+      "size": 6023
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/streams/lifecycle.jsonl",
+      "sha256": "f81f3ff95ef4e56e5e5ad1594ed223bdfe321168d5bbeec4d3b9146ebc00ead3",
+      "size": 606
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/streams/reuse_decisions.jsonl",
+      "sha256": "c128b0005d05615e11546d114e4122b5f084fa757117d705b2c2f97688f33eb8",
+      "size": 6559
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_02/streams/settlements.jsonl",
+      "sha256": "0f7e9534662d9e8f207b635a1193ea5643a33d50d0dfeda2b4156111c50af0af",
+      "size": 85798
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/action_journal.json",
+      "sha256": "fc693bf16dd19b555301dc5f01846093dd663bea876291d8380ca623ac27f454",
+      "size": 691
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/cp/latest.json",
+      "sha256": "5a46229ccff710cdd4ff5e8f1f6ebe74c9554b1b8de4b676a78720af613ddc6a",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/cp/latest.pt",
+      "sha256": "688d0d1769fc46fba0292a6b322aa60219c864a113dca25be505b4061c94497f",
+      "size": 1468427
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/cp/shadow_16_t607.pt",
+      "sha256": "738d5c85e307b154aa58a0e0e6679faee48aed31cbeaf96dca8071864198572e",
+      "size": 1423742
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/cp/shadow_16_t607.pt.json",
+      "sha256": "29f9cf9aec18a0786d96ca959ae7f2aa4234b6a0ad63eb6d0f27a27b3853853c",
+      "size": 392
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/cp/shadow_accept_t655.pt",
+      "sha256": "f3db87fee24469b6a5ad5eae818563fdd0e380c7176e8366ccfcd68a2e987956",
+      "size": 1385242
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/cp/shadow_accept_t655.pt.json",
+      "sha256": "1b4e4dd4bacfaed64d21020f6fa4bb68abd4d1ac43ba94f9839d91f74b8236b5",
+      "size": 401
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/cp/terminal_done.pt",
+      "sha256": "2595bf42a65f5812e93ba34d5edf62c665c4d1d5cdbd2ca43185e4b1191b62b1",
+      "size": 1468519
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/cp/terminal_done.pt.json",
+      "sha256": "5c095de307675bf723bec9f0b6549b8f56712fd20b1b91a401d41b51dcc6b147",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/cp/terminal_first_settle.pt",
+      "sha256": "5741c78d5b3fb434eb047be112dbabf2a0b414cc1ffac3d40427fefa141d0968",
+      "size": 1468639
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/cp/terminal_first_settle.pt.json",
+      "sha256": "11f1da70f0b7882f367c96a4ec270a729b993b79a5473dc6915da824131e5916",
+      "size": 415
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/cp/terminal_second_settle.pt",
+      "sha256": "16073a9913905c08f674fe5b5289c1994ec711e7fd972c6fd8f26ef5a33e7f11",
+      "size": 1468854
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/cp/terminal_second_settle.pt.json",
+      "sha256": "cc5cad086c0803671c982a0710605e826c30329e907f46aa963dcc80add1de85",
+      "size": 409
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/streams/candidate_decisions.jsonl",
+      "sha256": "d3aa1e29c69a85cfff150143b4af1029f1deb3cbec8b38fdc7d7ed959ac5f9ac",
+      "size": 1202
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/streams/control.jsonl",
+      "sha256": "37b0c26a742d7aaf5df38b6405db1e49fbd5b5df6aa1e7ebaec6d7029ef57905",
+      "size": 2942
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/streams/lifecycle.jsonl",
+      "sha256": "f81f3ff95ef4e56e5e5ad1594ed223bdfe321168d5bbeec4d3b9146ebc00ead3",
+      "size": 606
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/streams/reuse_decisions.jsonl",
+      "sha256": "1edd4bd066e57af5df20bcb69a589df2ceab65dff16b23ba16582b773529596a",
+      "size": 1702
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_03/streams/settlements.jsonl",
+      "sha256": "39b1f73a9f69d1b4503f470ccaf3fff23613a847afc6bdb709ad9ab13a4614b3",
+      "size": 43702
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_04/action_journal.json",
+      "sha256": "fc693bf16dd19b555301dc5f01846093dd663bea876291d8380ca623ac27f454",
+      "size": 691
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_04/cp/latest.json",
+      "sha256": "00bdc34308ab06bef6ebef9113c8f78a68d9dee991d16dbe39d8d7e0cffdbe04",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_04/cp/latest.pt",
+      "sha256": "da1cc79c2c11e4c207a200e287f5b6bbfd452a2053012dad44c6971706529ef8",
+      "size": 1468491
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_04/cp/shadow_accept_t655.pt",
+      "sha256": "6f0bd6dd95978ee8b2a9c288cdb3aa9d18cbb10f49787b5f0e6c15126024cce2",
+      "size": 1385306
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_04/cp/shadow_accept_t655.pt.json",
+      "sha256": "854da301dbbf5e58a44a3e76de616e6bbaa0ffa9f7d45c47ffac8a0b963e9ff5",
+      "size": 401
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_04/cp/terminal_done.pt",
+      "sha256": "ce008143a7b8a3bf446fe1ef221846f48dda819af682a0140bc0d80daa7ec36b",
+      "size": 1468583
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_04/cp/terminal_done.pt.json",
+      "sha256": "c5543a6c81738bcea64bc25c3755cb0e3177ce072eca0b4670e6e4c0219cbd12",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_04/cp/terminal_first_settle.pt",
+      "sha256": "f678bfae2b5a711557e37894658339a7004e1b27a8545dc57e7a65248533eff4",
+      "size": 1468703
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_04/cp/terminal_first_settle.pt.json",
+      "sha256": "f275b3001334277689d9cb0a3bf6eef044d71087c8c4290b8105195bb906ec20",
+      "size": 415
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_04/cp/terminal_second_settle.pt",
+      "sha256": "82cc1d82966938dd21ba8d615e5c3fcb6118ca7d19a94508949dd562cf8452fb",
+      "size": 1468854
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_04/cp/terminal_second_settle.pt.json",
+      "sha256": "23651b97bf4971a80383cc99fa80ed11bc256ab30c01f7569e1abfc2f8cf996a",
+      "size": 409
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_04/streams/candidate_decisions.jsonl",
+      "sha256": "ef04ee7b17821277da9c473865b2dd2ac3f7a15b39de0af4d9efdd579f8bccf3",
+      "size": 981
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_04/streams/control.jsonl",
+      "sha256": "90136adb9f20fa074755d1f13e3530f1eaaaee7bd6da65372d133dfc439ae6d0",
+      "size": 2721
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_04/streams/lifecycle.jsonl",
+      "sha256": "f81f3ff95ef4e56e5e5ad1594ed223bdfe321168d5bbeec4d3b9146ebc00ead3",
+      "size": 606
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_04/streams/reuse_decisions.jsonl",
+      "sha256": "1edd4bd066e57af5df20bcb69a589df2ceab65dff16b23ba16582b773529596a",
+      "size": 1702
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_04/streams/settlements.jsonl",
+      "sha256": "c2c50bfd0a4dda6919534cbd17b69655601ff50349f88a1b0d84b8a39ea375de",
+      "size": 40694
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_05/action_journal.json",
+      "sha256": "fc693bf16dd19b555301dc5f01846093dd663bea876291d8380ca623ac27f454",
+      "size": 691
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_05/cp/latest.json",
+      "sha256": "d8d783a13855ebb1a3e7ded6301253c427e81651884209320c4b9d1ac9dda4ef",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_05/cp/latest.pt",
+      "sha256": "5cdcbb94f1c9945589699aedca7b53ffe7aebedd88981c8ac44d1c82262b7512",
+      "size": 1467915
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_05/cp/terminal_done.pt",
+      "sha256": "708b090fb1ecf42672ab8f038477480025b8068f39a4229495c1fe757cee3066",
+      "size": 1468007
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_05/cp/terminal_done.pt.json",
+      "sha256": "a95ee63263462225345304d56ecd22c01f35c2511b323d49687a6216777b12fa",
+      "size": 389
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_05/cp/terminal_first_settle.pt",
+      "sha256": "e7679b6baa21505836c1efa4dfad020f75b7b16709877a37823de9efef451efc",
+      "size": 1468127
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_05/cp/terminal_first_settle.pt.json",
+      "sha256": "5f1bfc210c57ab3477d36c6a0c2cc00bd7960aadde8f486f017730e2e1706205",
+      "size": 415
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_05/cp/terminal_second_settle.pt",
+      "sha256": "16bc60cbc13203394ed2f8b50e4d0c7c34ef05883be541bbffb1ddb813ddc726",
+      "size": 1468342
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_05/cp/terminal_second_settle.pt.json",
+      "sha256": "92a8355d7bbdf4625c330d86a03115d9c9b67a8fc3531e336dd60c05a48be2c7",
+      "size": 409
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_05/streams/control.jsonl",
+      "sha256": "d8d532f6f954932aead7f5f1d5cc8887b27e719194fea2ed8929f54ed37fad98",
+      "size": 2280
+    },
+    {
+      "path": "science/engineering_preflight/resume_from_05/streams/settlements.jsonl",
+      "sha256": "a6b400aaff56b65d2a3c008e04304a9199ffa919a23332cc7429161abc4a36e0",
+      "size": 31670
+    },
+    {
+      "path": "science/engineering_preflight/reuse/action_journal.json",
+      "sha256": "36c66c4c4723717ac4dc700488390a203298aa058d280c6325a93b63de1c168d",
+      "size": 691
+    },
+    {
+      "path": "science/engineering_preflight/reuse/streams/control.jsonl",
+      "sha256": "95bfb4307ce7a374177c8bbc8c6ad2757f0b315a1bc2c3a503a168a8f5635e82",
+      "size": 3519
+    },
+    {
+      "path": "science/engineering_preflight/reuse/streams/lifecycle.jsonl",
+      "sha256": "8187b0eed37a95060809f84304eb52826104c1a9ebb262d9036dad4c2c41fbc2",
+      "size": 605
+    },
+    {
+      "path": "science/engineering_preflight/reuse/streams/reuse_decisions.jsonl",
+      "sha256": "0b6f85dd4be123ae14cddb6d01dccc98527a3cd30ffc928cd6142a5d2a9ccb64",
+      "size": 1499
+    },
+    {
+      "path": "science/engineering_preflight/reuse/streams/settlements.jsonl",
+      "sha256": "fa4b374c49a1d3a65f477a7ca444cf67aa4c4b2c77c8a25a7522da9318bfe97f",
+      "size": 52400
+    },
+    {
+      "path": "science/engineering_preflight/sleep_harmful/action_journal.json",
+      "sha256": "e031c557ff01cb6ecc048da27d60260f28051acc2cbb15abe4d63a39777c8862",
+      "size": 682
+    },
+    {
+      "path": "science/engineering_preflight/sleep_harmful/streams/control.jsonl",
+      "sha256": "fadad38bf3ea6192c655592d81be6ef339ad832bbd5814634e4447ba2bd2035a",
+      "size": 2664
+    },
+    {
+      "path": "science/engineering_preflight/sleep_harmful/streams/lifecycle.jsonl",
+      "sha256": "bfb837841ae42d7897d7da5607545d666d067e0bc0f94c0f734b8f507de1b7fe",
+      "size": 1248
+    },
+    {
+      "path": "science/engineering_preflight/sleep_harmful/streams/settlements.jsonl",
+      "sha256": "14966c3627f0c6594147021cd57ee4b5d2327d084205a8ff58f5babc261b8a18",
+      "size": 39562
+    },
+    {
+      "path": "science/engineering_preflight/sleep_unknown/action_journal.json",
+      "sha256": "d7a3d8df04462f6aa6b380915eef60bcca67eec81595ed511e23c5dcb784c247",
+      "size": 657
+    },
+    {
+      "path": "science/engineering_preflight/sleep_unknown/streams/control.jsonl",
+      "sha256": "c8b2ea347aeea4cddfeeb05313e2f3b74dfda5cbaa9057daaacc19e8e7a25b3e",
+      "size": 1332
+    },
+    {
+      "path": "science/engineering_preflight/sleep_unknown/streams/settlements.jsonl",
+      "sha256": "f89bce348495a9125557f6ace922b9b6b6254ef1bdeb08e67e0f71e4c3494f31",
+      "size": 20488
+    },
+    {
+      "path": "science/engineering_preflight/sleep_useful/action_journal.json",
+      "sha256": "89c31867ccf532e896f555b936dbfd5042a0aa7481178eec113d82a22f386735",
+      "size": 691
+    },
+    {
+      "path": "science/engineering_preflight/sleep_useful/streams/control.jsonl",
+      "sha256": "ded951c5f4a34dc844e72232cce3661f0aa465f6f0e7d93297c3d98e4f80eb38",
+      "size": 2893
+    },
+    {
+      "path": "science/engineering_preflight/sleep_useful/streams/settlements.jsonl",
+      "sha256": "71fbc58ce6e53db5ac43dda9b5b7d494d3dfd6f0ba9560dd68d6c0b6cc122b60",
+      "size": 39832
+    },
+    {
+      "path": "science/engineering_preflight/weak/action_journal.json",
+      "sha256": "81d6c4d70f2373912af7a34b0f4cd6cd483dc3ee9a499f8e9164804dcba1ca31",
+      "size": 682
+    },
+    {
+      "path": "science/engineering_preflight/weak/streams/control.jsonl",
+      "sha256": "f85c0ec52c5033075bd866cd9fe273d31b5393dead813a832274600f9be323dd",
+      "size": 4451
+    },
+    {
+      "path": "science/engineering_preflight/weak/streams/reuse_decisions.jsonl",
+      "sha256": "f9bb4b59c217a7f488713afabb1e5ce9dd6df80f9ceff9c19a6c92432ea74b36",
+      "size": 5631
+    },
+    {
+      "path": "science/engineering_preflight/weak/streams/settlements.jsonl",
+      "sha256": "e3eb21f6bfff77b76e4df57215151757a44ff626153786e8e646c557c36204f9",
+      "size": 59934
+    },
+    {
+      "path": "science/fixture_report.json",
+      "sha256": "9d7a9c72787c5bde03a0fe2506c2f4405467c44c9e640f40a8a3151fb9fde20b",
+      "size": 50977
+    },
+    {
+      "path": "science/gate_report.json",
+      "sha256": "bd8610d52589f7ee667349bae98c0e2ca7e40519c8b689520e7ef7edeb2fbb63",
+      "size": 536
+    },
+    {
+      "path": "science/implementation_manifest.json",
+      "sha256": "9a574492a2327754c51949672022bc26b33db62771e9b8618d758894c461e716",
+      "size": 8325
+    },
+    {
+      "path": "science/pip_freeze.txt",
+      "sha256": "8adb485eb88b140caee0aa4bae9718f6b8f910899d8f4c747940826fa9e8e50e",
+      "size": 179
+    },
+    {
+      "path": "science/protocol_status.json",
+      "sha256": "6f9d1de1f6412fc432873fb602d3f4f6efd96cf7f00fa1b1eb6047b354eb22c7",
+      "size": 220
+    },
+    {
+      "path": "science/provenance.json",
+      "sha256": "2e1e80aef4399374a7aafcdccfb9b4d7fd8dd3e76a3cd1e145e702551d60ea57",
+      "size": 1169
+    },
+    {
+      "path": "science/source_bundle/protocol043-source.tar.gz",
+      "sha256": "8f7fb2fa604a9b54d75cc1c3c26a2a62e040518192c0151f3d8a47235cd72dec",
+      "size": 64565
+    },
+    {
+      "path": "science/source_materialization.json",
+      "sha256": "b7d5b5dc01880bb350142acebb6231d7a5ed85e427005317721db4a06259b039",
+      "size": 7964
+    }
+  ]
+}

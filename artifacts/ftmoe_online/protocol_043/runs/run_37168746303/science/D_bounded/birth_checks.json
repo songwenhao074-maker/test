@@ -1,0 +1,29 @@
+{
+  "protocol": "043",
+  "revision": 1,
+  "arm": "D_bounded",
+  "checks": [
+    {
+      "at_interval": 335,
+      "m": 333,
+      "R": 0.28469476221074064,
+      "P": 0.036574763472872335,
+      "positive_support": 106,
+      "negative_support": 918,
+      "candidate": true,
+      "streak_before": 0,
+      "streak_after": 1
+    },
+    {
+      "at_interval": 351,
+      "m": 349,
+      "R": 0.4356407491900923,
+      "P": 0.039020716762194936,
+      "positive_support": 168,
+      "negative_support": 856,
+      "candidate": true,
+      "streak_before": 1,
+      "streak_after": 2
+    }
+  ]
+}

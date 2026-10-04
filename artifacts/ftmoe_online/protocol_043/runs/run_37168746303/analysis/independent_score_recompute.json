@@ -1,0 +1,18 @@
+{
+  "D_no_gc": {
+    "pass": true,
+    "checked": 592,
+    "mismatch_count": 0,
+    "mismatches": [],
+    "abs_tolerance": 1e-10,
+    "model_forwards": 0
+  },
+  "D_bounded": {
+    "pass": true,
+    "checked": 592,
+    "mismatch_count": 0,
+    "mismatches": [],
+    "abs_tolerance": 1e-10,
+    "model_forwards": 0
+  }
+}

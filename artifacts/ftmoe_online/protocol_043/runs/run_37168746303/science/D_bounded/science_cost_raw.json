@@ -1,0 +1,19 @@
+{
+  "protocol": "043",
+  "revision": 1,
+  "arm": "D_bounded",
+  "wall_seconds": 61.368351175000015,
+  "process_seconds": 60.554584142,
+  "prediction_seconds": 0.902564804999912,
+  "update_seconds": 0.3412539370002037,
+  "controller_cpu_seconds": 2.6884603430000062,
+  "io_seconds": 0.47119741100286205,
+  "live_optimizer_steps": 596,
+  "shadow_optimizer_steps": 16,
+  "deployed_forwards": 9504,
+  "reuse_forwards": 288,
+  "qualification_forwards": 32,
+  "live_training_forwards": 596,
+  "shadow_training_forwards": 16,
+  "peak_resident_tensor_bytes": 1792
+}

@@ -1,0 +1,155 @@
+{
+  "protocol": "043",
+  "revision": 1,
+  "run_id": "37168746303",
+  "execution_sha": "9d9320cf84ebaf034dca9e8257f0dc82171cc916",
+  "plan_sha256": "9cd9b6f63aed0e35361f763e532d7c785a7838c19d172ea0c97bbaae5b2b0d6b",
+  "directive_sha256": "eceb6a564ee27d1edf5f2cbc096d7a092f9826df53f4c3d72f06019e0178a096",
+  "workflow_sha256": "764453ceb17b33a22db7dac7f6177c3ceb9f948f540b7a362fa743cf0f9c2661",
+  "pip_freeze_sha256": "8adb485eb88b140caee0aa4bae9718f6b8f910899d8f4c747940826fa9e8e50e",
+  "python": "3.8.18 (default, Dec 12 2024, 19:15:30) \n[GCC 13.2.0]",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.34",
+  "source_bundle": {
+    "protocol043_common.py": "b2ecf5a899d76648d4d8765c3b97cc4bf4fd4b0b17defa61baaa9dc3f631b3ae",
+    "protocol043_engine.py": "5d0d39a89b6eec0e98964df326dbe5073d098120676d1dc515d8279263f68dbe",
+    "run_ftmoe_protocol043.py": "6d00e9307654e99c1225dddb4ca170289a19ed1f3dbd6ce2903ee5fb9bd0f757",
+    "analyze_ftmoe_protocol043.py": "7672db0d0be3df113cfeb1da51a8e38ece13cf497484f5016e15d763b10e7bdc",
+    "maintenance/validate_protocol043_plan.py": "ce4a70b7ee802e387fd8730a39785e05e8e72dbd2a5de623974894c980ea4d37",
+    "maintenance/materialize_protocol043_sources.py": "329c49506e831786a02938d858566f6def39f38bcde6501feec3e46db9d52fc6",
+    "maintenance/protocol043_audit042.py": "c61cc2d0b86d22f257efb532de4cf884a63aa899c4bc9c21102a441b39b45d3f",
+    "maintenance/protocol043_gate.py": "e2b8e84615b105e64574f1171bdc929a913c39e6b05518c277930672d82ed160",
+    "maintenance/protocol043_finalize.py": "ceb064ee77aefda7cbe92f46fc157250899ca77e7c02c006398b99e890b403d6",
+    "maintenance/protocol043_publish.py": "cfde5c5f46fca864d4a80eabccb8c973d07872cf22c46ace7705f65775cb48cd",
+    "artifacts/ftmoe_online/protocol_043/plan.json": "9cd9b6f63aed0e35361f763e532d7c785a7838c19d172ea0c97bbaae5b2b0d6b",
+    "artifacts/ftmoe_online/protocol_043/plan.sha256": "3a4067f67a36240e058555277e713b7a51f04be168b1910f7c7c741bdbdbc11b",
+    "docs/PROTOCOL043_BOUNDED_LIFECYCLE_20261003.md": "eceb6a564ee27d1edf5f2cbc096d7a092f9826df53f4c3d72f06019e0178a096",
+    ".github/workflows/protocol043-bounded-lifecycle.yml": "764453ceb17b33a22db7dac7f6177c3ceb9f948f540b7a362fa743cf0f9c2661"
+  },
+  "historical_locked_files": {
+    "run_ftmoe_protocol040.py": {
+      "expected": "613fa9729803c4084638a5efc42e78761b280997aaf881dec82a5a16010c7c82",
+      "actual": "613fa9729803c4084638a5efc42e78761b280997aaf881dec82a5a16010c7c82",
+      "pass": true
+    },
+    "analyze_ftmoe_protocol040.py": {
+      "expected": "dcac30b617fe4238220935f65bc17cbe94e13b91a2c4ddd8c7c97887a45e3ce9",
+      "actual": "dcac30b617fe4238220935f65bc17cbe94e13b91a2c4ddd8c7c97887a45e3ce9",
+      "pass": true
+    },
+    "maintenance/validate_protocol040_plan.py": {
+      "expected": "18af5e0eb0e80b9cbcc34d91ffd09b14fe863daa31950858fa98e1215832c7e7",
+      "actual": "18af5e0eb0e80b9cbcc34d91ffd09b14fe863daa31950858fa98e1215832c7e7",
+      "pass": true
+    },
+    "maintenance/materialize_protocol040_sources.py": {
+      "expected": "f7924ed346ca40a4b1398d7959f037a753d48228f861fc3af83a993884e99ae8",
+      "actual": "f7924ed346ca40a4b1398d7959f037a753d48228f861fc3af83a993884e99ae8",
+      "pass": true
+    },
+    "maintenance/protocol040_finalize.py": {
+      "expected": "dc75da7b70eb6852d6bafa301e752fbcf521d42f820dd6ad0ff241005c712e86",
+      "actual": "dc75da7b70eb6852d6bafa301e752fbcf521d42f820dd6ad0ff241005c712e86",
+      "pass": true
+    },
+    "run_ftmoe_protocol037.py": {
+      "expected": "541395fd5ec9f69007ef74b49a5270c472cb6785416022d759b66660b09fe747",
+      "actual": "541395fd5ec9f69007ef74b49a5270c472cb6785416022d759b66660b09fe747",
+      "pass": true
+    },
+    "run_ftmoe_protocol039.py": {
+      "expected": "1336e663abd9a8fd72c7008ed960e1ef33bcdba400dce36726a97904fbf4d5ab",
+      "actual": "1336e663abd9a8fd72c7008ed960e1ef33bcdba400dce36726a97904fbf4d5ab",
+      "pass": true
+    },
+    "analyze_ftmoe_protocol037.py": {
+      "expected": "4b484ccd1403d8b408b4c421848740efcd8acd25fbb5561027a95ed3ba3e7c81",
+      "actual": "4b484ccd1403d8b408b4c421848740efcd8acd25fbb5561027a95ed3ba3e7c81",
+      "pass": true
+    },
+    "analyze_ftmoe_protocol039.py": {
+      "expected": "c3d9f081a3d311e8515ba5c768f79808fd697d33df3778ab86beb23cc21cac48",
+      "actual": "c3d9f081a3d311e8515ba5c768f79808fd697d33df3778ab86beb23cc21cac48",
+      "pass": true
+    },
+    "protocol035_common.py": {
+      "expected": "5c99c7fd2b06cab274b86054d492fbca44176c48e7ac5ad0e6e286876c4ac94d",
+      "actual": "5c99c7fd2b06cab274b86054d492fbca44176c48e7ac5ad0e6e286876c4ac94d",
+      "pass": true
+    },
+    "run_ftmoe_protocol041.py": {
+      "expected": "5ea6aa2f6c6bc629f5933748b1ff24b76d423e193c406cb0839d8e7b944abbd4",
+      "actual": "5ea6aa2f6c6bc629f5933748b1ff24b76d423e193c406cb0839d8e7b944abbd4",
+      "pass": true
+    },
+    "analyze_ftmoe_protocol041.py": {
+      "expected": "38d3c7d2c716e4199e2bc6c6defc6fce746faad1d6f726cb22b2116fcbe9abf5",
+      "actual": "38d3c7d2c716e4199e2bc6c6defc6fce746faad1d6f726cb22b2116fcbe9abf5",
+      "pass": true
+    },
+    "maintenance/materialize_protocol041_sources.py": {
+      "expected": "0dd8d019dd796e50e0b7a8ff3a797ffbfc897970aedd95b0b01899197c09162e",
+      "actual": "0dd8d019dd796e50e0b7a8ff3a797ffbfc897970aedd95b0b01899197c09162e",
+      "pass": true
+    },
+    "maintenance/protocol041_finalize.py": {
+      "expected": "b8fb5d8f29c477d9a698378573928c431a693591f3857af612f44c3a69c8d8a4",
+      "actual": "b8fb5d8f29c477d9a698378573928c431a693591f3857af612f44c3a69c8d8a4",
+      "pass": true
+    },
+    "source042:protocol042_common.py": {
+      "expected": "763b4a18a4f4066286cb2bcaf049ff52c6670f3deed5eb123dbc30d8b4f6836c",
+      "actual": "763b4a18a4f4066286cb2bcaf049ff52c6670f3deed5eb123dbc30d8b4f6836c",
+      "pass": true
+    },
+    "source042:protocol042_engine.py": {
+      "expected": "50f6e8406a0ff40f982956d74cd716c5a40defd478a98805a0143eabaa5b1bc9",
+      "actual": "50f6e8406a0ff40f982956d74cd716c5a40defd478a98805a0143eabaa5b1bc9",
+      "pass": true
+    },
+    "source042:run_ftmoe_protocol042.py": {
+      "expected": "1d0dba4f0ed24edc34b260f504ded9d676db43a4a619f053dff683801b3386c3",
+      "actual": "1d0dba4f0ed24edc34b260f504ded9d676db43a4a619f053dff683801b3386c3",
+      "pass": true
+    },
+    "source042:analyze_ftmoe_protocol042.py": {
+      "expected": "124aff3c196e64ce8ff21830161792ebdafa929538a89aad61ed67a620f38801",
+      "actual": "124aff3c196e64ce8ff21830161792ebdafa929538a89aad61ed67a620f38801",
+      "pass": true
+    },
+    "source042:maintenance/materialize_protocol042_sources.py": {
+      "expected": "8d2f13826b05ca7c73518d7b1d982d801b5507385567da73602ad349595934e3",
+      "actual": "8d2f13826b05ca7c73518d7b1d982d801b5507385567da73602ad349595934e3",
+      "pass": true
+    },
+    "source042:maintenance/protocol042_finalize.py": {
+      "expected": "08a3e6690fc59ce031a2d9b8e67e511a5e37f7b7989f889d0752b07afbc0c801",
+      "actual": "08a3e6690fc59ce031a2d9b8e67e511a5e37f7b7989f889d0752b07afbc0c801",
+      "pass": true
+    },
+    "source042:run_ftmoe_protocol041.py": {
+      "expected": "5ea6aa2f6c6bc629f5933748b1ff24b76d423e193c406cb0839d8e7b944abbd4",
+      "actual": "5ea6aa2f6c6bc629f5933748b1ff24b76d423e193c406cb0839d8e7b944abbd4",
+      "pass": true
+    },
+    "source042:run_ftmoe_protocol040.py": {
+      "expected": "613fa9729803c4084638a5efc42e78761b280997aaf881dec82a5a16010c7c82",
+      "actual": "613fa9729803c4084638a5efc42e78761b280997aaf881dec82a5a16010c7c82",
+      "pass": true
+    },
+    "source042:run_ftmoe_protocol039.py": {
+      "expected": "1336e663abd9a8fd72c7008ed960e1ef33bcdba400dce36726a97904fbf4d5ab",
+      "actual": "1336e663abd9a8fd72c7008ed960e1ef33bcdba400dce36726a97904fbf4d5ab",
+      "pass": true
+    },
+    "source042:run_ftmoe_protocol037.py": {
+      "expected": "541395fd5ec9f69007ef74b49a5270c472cb6785416022d759b66660b09fe747",
+      "actual": "541395fd5ec9f69007ef74b49a5270c472cb6785416022d759b66660b09fe747",
+      "pass": true
+    }
+  },
+  "fixture_report_sha256": "9d7a9c72787c5bde03a0fe2506c2f4405467c44c9e640f40a8a3151fb9fde20b",
+  "audit042_gate_sha256": "214171ea919a11a49fc59570fafbd6f4975e780a282c966e3f32ab04f626e7bd",
+  "source_report_sha256": "b7d5b5dc01880bb350142acebb6231d7a5ed85e427005317721db4a06259b039",
+  "science_started": false,
+  "F_loaded": false
+}

@@ -1,0 +1,11 @@
+{
+  "pass": false,
+  "gc_exercised": false,
+  "whole_trajectory_exact": false,
+  "logs_exact": {
+    "lifecycle_events": true,
+    "candidate_decisions": true,
+    "reuse_decisions": true,
+    "update_log": true
+  }
+}

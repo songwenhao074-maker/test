@@ -1,0 +1,171 @@
+{
+  "protocol": "043",
+  "revision": 1,
+  "arm": "D_no_gc",
+  "events": [
+    {
+      "event": "first_birth",
+      "expert_id": 0,
+      "at_interval": 351,
+      "active_ids_before": [],
+      "active_ids_after": [
+        0
+      ],
+      "resident_ids_before": [],
+      "resident_ids_after": [
+        0
+      ],
+      "first_affected_prediction": 352,
+      "model_hash_before_update": "15878c9012c5667ff7c51f7098b333043e6d42f5df6d1bcac379b9d86a26017c",
+      "optimizer_hash_before_update": "48e60491ba79769a7ef420a44fd1fee40241bb9512e16ac6a187ee8a45a1ed40",
+      "optimizer_step_before_update": 0
+    },
+    {
+      "event": "epoch_transition",
+      "at_interval": 351,
+      "old_epoch": 0,
+      "new_epoch": 1,
+      "active_ids_before": [],
+      "active_ids_after": [
+        0
+      ],
+      "first_affected_prediction": 352,
+      "reason": "first_birth"
+    },
+    {
+      "event": "activate",
+      "expert_id": 1,
+      "at_interval": 1343,
+      "reason": "shadow_accept",
+      "active_ids_before": [
+        0
+      ],
+      "active_ids_after": [
+        0,
+        1
+      ],
+      "first_affected_prediction": 1344,
+      "dormant_predictions_before_reactivation": 0,
+      "model_hash": "66ffc22ea419c77ef0a8809a58b9f55f0f28c905d1ae99f30e91f2e75ac6f12f",
+      "optimizer_hash": "9d3ecd05bf10d84fb271a4f0ce83cb69caa5458c026e4bbc6fd8ba2c61712226",
+      "optimizer_step": 16
+    },
+    {
+      "event": "epoch_transition",
+      "at_interval": 1343,
+      "old_epoch": 1,
+      "new_epoch": 2,
+      "active_ids_before": [
+        0
+      ],
+      "active_ids_after": [
+        0,
+        1
+      ],
+      "first_affected_prediction": 1344,
+      "reason": "shadow_accept"
+    },
+    {
+      "event": "sleep",
+      "expert_id": 0,
+      "at_interval": 1615,
+      "reason": "nonuseful_three_checks",
+      "active_ids_before": [
+        0,
+        1
+      ],
+      "active_ids_after": [
+        1
+      ],
+      "resident_ids_before": [
+        0,
+        1
+      ],
+      "resident_ids_after": [
+        0,
+        1
+      ],
+      "dormant_from_prediction": 1616,
+      "last_active_prediction": 1615,
+      "utility": {
+        "at_interval": 1615,
+        "epoch": 2,
+        "expert_id": 0,
+        "valid": true,
+        "reason": "ok",
+        "score": -0.006240724630909177,
+        "score_pos": -0.0032167580140077257,
+        "score_neg": -0.006496992988273705,
+        "positive_host_rows": 160,
+        "negative_host_rows": 1888,
+        "positive_intervals": 101,
+        "fpr_live": 0.08739406779661017,
+        "fpr_removed": 0.0847457627118644,
+        "recall_live": 0.9625,
+        "recall_removed": 0.9625,
+        "removal_fpr_delta": -0.0026483050847457695,
+        "removal_recall_delta": 0.0,
+        "epoch_matured": 270,
+        "intervals": 128,
+        "first_i": 1486,
+        "last_i": 1613,
+        "eligible_now": true,
+        "streak_before": 2,
+        "streak_after": 3,
+        "eligible_three": true
+      },
+      "model_hash": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0",
+      "optimizer_hash": "bb4610f6c80d2ac04170d742d1e9e713555f176c9e5aa7d26afe7736810c3807",
+      "optimizer_step": 79,
+      "first_affected_prediction": 1616
+    },
+    {
+      "event": "epoch_transition",
+      "at_interval": 1615,
+      "old_epoch": 2,
+      "new_epoch": 3,
+      "active_ids_before": [
+        0,
+        1
+      ],
+      "active_ids_after": [
+        1
+      ],
+      "first_affected_prediction": 1616,
+      "reason": "sleep"
+    },
+    {
+      "event": "activate",
+      "expert_id": 0,
+      "at_interval": 2351,
+      "reason": "reuse_accept",
+      "active_ids_before": [
+        1
+      ],
+      "active_ids_after": [
+        0,
+        1
+      ],
+      "first_affected_prediction": 2352,
+      "dormant_predictions_before_reactivation": 736,
+      "model_hash": "fe741ad8f4a593b777b8d3e630b46d8c791b57093058343fc1e9e4ec73fb0fc0",
+      "optimizer_hash": "bb4610f6c80d2ac04170d742d1e9e713555f176c9e5aa7d26afe7736810c3807",
+      "optimizer_step": 79
+    },
+    {
+      "event": "epoch_transition",
+      "at_interval": 2351,
+      "old_epoch": 3,
+      "new_epoch": 4,
+      "active_ids_before": [
+        1
+      ],
+      "active_ids_after": [
+        0,
+        1
+      ],
+      "first_affected_prediction": 2352,
+      "reason": "reuse_accept"
+    }
+  ]
+}

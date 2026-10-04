@@ -1,0 +1,14 @@
+{
+  "rows": [
+    {
+      "index": 0,
+      "event": {
+        "event": "sleep",
+        "expert_id": 0,
+        "at_interval": 1615,
+        "reason": "nonuseful_three_checks",
+        "dormant_from_prediction": 1616
+      }
+    }
+  ]
+}
