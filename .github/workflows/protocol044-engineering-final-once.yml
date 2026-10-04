@@ -1,0 +1,79 @@
+name: Protocol044 engineering final once
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/protocol044-engineering-final-once.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  ecloseout:
+    if: contains(github.event.head_commit.message, '[p044-engineering-final]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      GH_TOKEN: ${{ github.token }}
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      PYTHONHASHSEED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/protocol-044-closeout-capacity-20261004
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8.18'
+      - name: Install fixed dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.4.1
+          python -m pip install numpy==1.24.4 psutil==5.9.8 dill==0.3.8
+          python -m py_compile run_ftmoe_protocol044_science.py maintenance/protocol044_ecloseout.py maintenance/protocol044_baseline_adapter.py
+      - name: Download locked E evidence
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/p044final && mkdir -p /tmp/p044final/{source,core,crash,failclosed,adapter}
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11292091800/zip" -o /tmp/p044final/source.zip
+          echo "1db5dd429b43759ad3e868012d8e8c850551d21e53f1cd86af0e7daf316ecf49  /tmp/p044final/source.zip" | sha256sum -c -
+          unzip -q /tmp/p044final/source.zip -d /tmp/p044final/source
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11292294757/zip" -o /tmp/p044final/core.zip
+          echo "35091be2e2e3ddb6d1c8d7da37496f85fcd6ce991d43f2e394e76d633032f27b  /tmp/p044final/core.zip" | sha256sum -c -
+          unzip -q /tmp/p044final/core.zip -d /tmp/p044final/core
+      - name: Run crash injection
+        run: |
+          set -euo pipefail
+          python maintenance/protocol044_ecloseout.py crash --out /tmp/p044final/crash
+      - name: Run actual-entry fail-closed cases
+        run: |
+          set -euo pipefail
+          python maintenance/protocol044_ecloseout.py failclosed --out /tmp/p044final/failclosed
+      - name: Run 5952 baseline adapter synthetic gate
+        run: |
+          set -euo pipefail
+          python maintenance/protocol044_baseline_adapter.py --out /tmp/p044final/adapter
+      - name: Build E gate evidence
+        run: |
+          set -euo pipefail
+          EXEC="$(git rev-parse HEAD)"
+          python maintenance/protocol044_ecloseout.py gate             --source-probe /tmp/p044final/source/source_probe.json             --fixed043 /tmp/p044final/core/fixed043_audit.json             --memory /tmp/p044final/core/memory_stress.json             --resume /tmp/p044final/core/resume_cases.json             --crash /tmp/p044final/crash/crash_cases.json             --failclosed /tmp/p044final/failclosed/failclosed.json             --adapter /tmp/p044final/adapter/baseline_adapter.json             --execution-sha "$EXEC" --out /tmp/p044final/E_gate.json
+          python - <<'PY'
+          import hashlib,json,pathlib,subprocess
+          def sha(p):
+              return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
+          x={"protocol":"044","revision":1,
+             "branch_head":subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip(),
+             "engine_sha256":sha("protocol044_engine.py"),"common_sha256":sha("protocol044_common.py"),
+             "runner_sha256":sha("run_ftmoe_protocol044.py"),"science_runner_sha256":sha("run_ftmoe_protocol044_science.py"),
+             "E_gate":json.load(open("/tmp/p044final/E_gate.json"))["E_gate"]}
+          pathlib.Path("/tmp/p044final/source_code_lock.json").write_text(json.dumps(x,indent=2)+"\n")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-engineering-final-${{ github.run_id }}
+          path: /tmp/p044final
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
