@@ -314,7 +314,7 @@ class Machine044:
         self.reuse_started+=1
         row={"event":"reuse_start","at_interval":int(t),"epoch":self.deployment_epoch,"candidate_ids":dormant,
           "candidate_hashes":hashes,"active_ids":list(self.active_ids),"slot_number":self.reuse_started,"prediction_start":int(t)+1}
-        self._record("reuse_decisions",self.reuse_decisions,row); self.save_checkpoint("reuse_start_t%d"%t,False); return True
+        self._record("reuse_decisions",self.reuse_decisions,row); self._defer_control_checkpoint("reuse_start_t%d"%t,False); return True
 
     def _evaluate_reuse(self,t):
         s=self.reuse_slot
@@ -338,7 +338,7 @@ class Machine044:
             self.last_reuse_quality_failure={"eval_t":int(t),"epoch":self.deployment_epoch,"candidate_ids":list(s["candidate_ids"]),
               "candidate_hashes":copy.deepcopy(s["candidate_hashes"]),"intervals":[keys[0],keys[-1]+1]}
         if winner is None:
-            self.reuse_slot=None; self.save_checkpoint("reuse_reject_t%d"%t,False); return False
+            self.reuse_slot=None; self._defer_control_checkpoint("reuse_reject_t%d"%t,False); return False
         eid=int(winner["candidate_id"]); before=list(self.active_ids); self.reuse_slot=None
         self._cancel_shadow(t,"cancelled_by_reuse_accept"); self._make_active(eid,t,"reuse_accept"); self._topology_cleanup(t,"reuse_accept",before,keep_reuse=True)
         self.save_checkpoint("reuse_accept_t%d"%t,True); return True
@@ -362,7 +362,7 @@ class Machine044:
                 s.pop(k,None)
             self.experts[eid]=s; self.shadow=None; self._make_active(eid,t,"shadow_accept"); self._topology_cleanup(t,"shadow_accept",before,keep_shadow=True)
             self.save_checkpoint("shadow_accept_t%d"%t,True); return True
-        self.shadow=None; self.save_checkpoint("shadow_reject_t%d"%t,True); return False
+        self.shadow=None; self._defer_control_checkpoint("shadow_reject_t%d"%t,True); return False
 
     def _cooldown_ok(self,t):
         if self.attempts_after_e0==0 or self.last_attempt_end_m is None: return True
@@ -431,7 +431,7 @@ class Machine044:
         ev={"event":"shadow_start","at_interval":int(t),"candidate_id":eid,"attempt":self.attempts_after_e0,"proposal_epoch":self.deployment_epoch,
           "retained_ids":list(self.active_ids),"created_by_reclamation":False,"resident_ids_before":sorted(self.experts),
           "resident_ids_after":sorted(list(self.experts)+[eid]),"model_hash":self._model_hash(self.shadow),"optimizer_state_empty":len(self.shadow["optimizer"].state)==0}
-        self._record("candidate_decisions",self.candidate_decisions,ev); self.save_checkpoint("shadow_start_t%d"%t,True); return True
+        self._record("candidate_decisions",self.candidate_decisions,ev); self._defer_control_checkpoint("shadow_start_t%d"%t,True); return True
 
     def _reclaim_and_start_shadow(self,t,victim,table):
         if self.arm!="D_bounded" or victim is None or self.resident_count()!=3: return False
@@ -457,7 +457,7 @@ class Machine044:
         self._record("candidate_decisions",self.candidate_decisions,ce)
         if self.crash_probe=="after_shadow_before_reclaim_commit": raise RuntimeError("injected_crash_after_shadow_before_reclaim_commit")
         self._commit_action(row,{"deleted_id":int(victim),"candidate_id":eid,"attempt_after":self.attempts_after_e0,"resident_after":self.resident_count()})
-        self.save_checkpoint("reclaim_create_t%d"%t,True); return True
+        self._defer_control_checkpoint("reclaim_create_t%d"%t,True); return True
 
     def _attempt_birth(self,t,pressure):
         gates=self._birth_noncapacity(t,pressure); ok=all(gates.values())
@@ -476,6 +476,14 @@ class Machine044:
             self._record("reclamation",self.reclamation_events,row2); return False
         return self._reclaim_and_start_shadow(t,victim,table)
 
+    def _defer_control_checkpoint(self,reason,named=False):
+        self.deferred_control_checkpoints.append((str(reason),bool(named)))
+
+    def _flush_deferred_control_checkpoints(self):
+        pending=list(self.deferred_control_checkpoints); self.deferred_control_checkpoints=[]
+        for reason,named in pending:
+            self.save_checkpoint(reason,named)
+
     def _control(self,t):
         if not self._due16(t): return False
         t0=time.process_time(); transitioned=False
@@ -492,7 +500,7 @@ class Machine044:
             if selected is not None:
                 score=next(r for r in table if int(r["expert_id"])==selected); self._sleep(selected,t,score); transitioned=True
         if transitioned:
-            self.controller_cpu_seconds+=time.process_time()-t0; return True
+            self.controller_cpu_seconds+=time.process_time()-t0; self._flush_deferred_control_checkpoints(); return True
         pressure=self._pressure_check(t)
         birth_started=self._attempt_birth(t,pressure) if pressure and pressure.get("current_pressure") else False
         reuse_started=False
@@ -500,7 +508,7 @@ class Machine044:
         row={"event":"due16","at_interval":int(t),"epoch":self.deployment_epoch,"pressure":None if pressure is None else bool(pressure.get("current_pressure")),
           "birth_started":birth_started,"reuse_started":reuse_started,"active_ids":list(self.active_ids),"resident_ids":sorted(self.experts),
           "resident":self.resident_count(),"attempts_after_e0":self.attempts_after_e0,"cooldown_ok":self._cooldown_ok(t)}
-        self._record("control",self.opportunity_log,row); self.controller_cpu_seconds+=time.process_time()-t0; return False
+        self._record("control",self.opportunity_log,row); self.controller_cpu_seconds+=time.process_time()-t0; self._flush_deferred_control_checkpoints(); return False
 
     def _batch(self,t):
         if t not in self.src["core"]["by_t"]: return None
