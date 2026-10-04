@@ -82,3 +82,5 @@ jobs:
 # diagnostic rerun after semantic diff instrumentation 49d7e156
 
 # retry after excluding elapsed rebuild timing from resume semantics 85aed9ba
+
+# retry after completed-control checkpoint boundary fix ebf41dab
