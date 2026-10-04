@@ -4,9 +4,9 @@
 
 ## 主结论
 
-- validity=True；D_over_C=True；core_lifecycle_exercised=True；gc_engineering_verified=True；resource_bounds_pass=True。
-- core_goal_supported=True；gc_exercised_on_stream=False；gc_admission_closed_loop=False；full_reclamation_demonstrated=False。
-- 系统标签：**core_goal_supported_gc_unexercised_on_stream**。
+- validity=False；D_over_C=True；core_lifecycle_exercised=True；gc_engineering_verified=True；resource_bounds_pass=True。
+- core_goal_supported=False；gc_exercised_on_stream=False；gc_admission_closed_loop=False；full_reclamation_demonstrated=False。
+- 系统标签：**invalid_execution**。
 - D_bounded相对C：full ΔAP +0.022906；six +0.016401；late4 +0.014640；prefix32 +0.016537；正向窗口 6/6；guardrails=True。
 
 ## 生命周期与回收
@@ -21,7 +21,7 @@
 
 ## 审计
 
-- 两臂独立128-window评分全量复算：True；首次真实控制分歧审计：True。
+- 两臂独立128-window评分全量复算：True；首次真实控制分歧审计：False。
 - 042旧报告保持原invalid_execution；043/audit042只读诊断不会覆盖旧结果。
 - 数据仍是已观察seed3601开发流；不声称独立泛化、最优结构/窗口、等算力胜C、永久删除永远安全或端到端加速。
 - Protocol-043 revision1 到此停止，不自动启动044。

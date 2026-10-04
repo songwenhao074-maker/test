@@ -1,0 +1,24 @@
+{
+  "protocol": "043",
+  "revision": 1,
+  "science_run_id": "37168746303",
+  "analysis_recovery_run_id": "37169250209",
+  "frozen_execution_sha": "9d9320cf84ebaf034dca9e8257f0dc82171cc916",
+  "raw_artifact_id": 11290523632,
+  "raw_artifact_digest": "sha256:6387aa37df285bf8b1842b5f1e57250a55cb3bff6004e9d4cd3b57ccde5877b3",
+  "original_analyzer_sha256": "7672db0d0be3df113cfeb1da51a8e38ece13cf497484f5016e15d763b10e7bdc",
+  "recovered_analyzer_sha256": "3088360a558f32df585bacda417640cb9a3f1624233ca79847e6eb9ae455566d",
+  "patch_scope": "no_gc_trajectory_equality_only_nan_aware_and_expanded_to_all_prediction_arrays_14_logs_and_summary",
+  "scientific_metrics_or_thresholds_changed": false,
+  "lifecycle_policy_changed": false,
+  "science_reexecuted": false,
+  "original_failure": "np.array_equal treats matching NaN contribution cells as unequal by default",
+  "raw_validation": {
+    "raw_manifest_file_count": 458,
+    "optimizer_steps": 1224,
+    "science_complete": true
+  },
+  "recovered_system_result_label": "core_goal_supported_gc_unexercised_on_stream",
+  "recovered_validity": true,
+  "recovered_core_goal_supported": true
+}

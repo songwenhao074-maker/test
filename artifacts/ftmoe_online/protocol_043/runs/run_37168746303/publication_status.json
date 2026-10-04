@@ -2,7 +2,10 @@
   "protocol": "043",
   "revision": 1,
   "run_id": "37168746303",
-  "publication_status": "synced_to_main",
-  "main_synced": true,
-  "science_reexecuted": false
+  "publication_status": "pending_main_sync",
+  "main_synced": false,
+  "science_reexecuted": false,
+  "analysis_recovery_run_id": "37169250209",
+  "original_analysis_label": "invalid_execution",
+  "analysis_recovery_reason": "matching NaN contribution cells compared unequal by original np.array_equal"
 }

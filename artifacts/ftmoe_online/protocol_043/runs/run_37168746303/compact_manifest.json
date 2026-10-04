@@ -1,23 +1,28 @@
 {
   "protocol": "043",
   "revision": 1,
-  "root": "artifacts/ftmoe_online/protocol_043/runs/run_37168746303",
-  "file_count": 76,
+  "root": "frozen/artifacts/ftmoe_online/protocol_043/runs/run_37168746303",
+  "file_count": 86,
   "files": [
     {
       "path": "analysis/PROTOCOL043_RESULTS.md",
-      "sha256": "c1627e31f25ca0866c21b73ea9c4dd6943a405e1fed715763bdfbd214dd0eb73",
-      "size": 1548
+      "sha256": "2270cb7da4ebf8c54281a6c524aa2973352592fa9f5b2f040f48c3b184c2b240",
+      "size": 1572
     },
     {
       "path": "analysis/analysis_manifest.json",
-      "sha256": "6d2364d1cd9e1649d98400cf3519d0b6e00c634f1d00a459a49bfbcfcdda116a",
-      "size": 1355
+      "sha256": "41d01b783fd31a203a4f6babc26b6a6620479b3c9af22575c7c43f69e0b34804",
+      "size": 1511
+    },
+    {
+      "path": "analysis/analysis_recovery.json",
+      "sha256": "c5b66dfd36e4c58d28bbc917f89b2583bb3b7239b3d68e194b2896d36001606e",
+      "size": 1138
     },
     {
       "path": "analysis/analysis_status.json",
-      "sha256": "e825a6bbef76f3996687141e5da397517acd6a6afaaca394ad90be42e5355016",
-      "size": 513
+      "sha256": "8ab91fa86a90666dd43925dd9358b69aeb03cdb8afe70a160e13c0041a957b4d",
+      "size": 538
     },
     {
       "path": "analysis/artifact_index.json",
@@ -26,8 +31,8 @@
     },
     {
       "path": "analysis/comparison.json",
-      "sha256": "70ec9315feebcf7ba760badb6b88354f4946fc320b60f5a2242aa95050112254",
-      "size": 169777
+      "sha256": "2b25825745f2dff8eb7fe098d23ef4a2b69a3dd9e44c901c87afe6e3a2aff710",
+      "size": 170696
     },
     {
       "path": "analysis/cost_profile.json",
@@ -36,8 +41,8 @@
     },
     {
       "path": "analysis/first_control_divergence.json",
-      "sha256": "182008074bb39eb091e9a9c6cf2d7449361aae80707c5beef70177f99f1e60dc",
-      "size": 218
+      "sha256": "96eca59858fddfc8edbf49dc9afbfcebbd2962d436db2576cde159d6e715183e",
+      "size": 1050
     },
     {
       "path": "analysis/independent_score_recompute.json",
@@ -46,6 +51,51 @@
     },
     {
       "path": "analysis/lifecycle_evidence.json",
+      "sha256": "031db3515c9cf07bbcd39f8845a6e0e57fec9ca7b8bdeb442c2cfe8c8dbdc577",
+      "size": 613
+    },
+    {
+      "path": "analysis_original_invalid_nan_equality/PROTOCOL043_RESULTS.md",
+      "sha256": "c1627e31f25ca0866c21b73ea9c4dd6943a405e1fed715763bdfbd214dd0eb73",
+      "size": 1548
+    },
+    {
+      "path": "analysis_original_invalid_nan_equality/analysis_manifest.json",
+      "sha256": "6d2364d1cd9e1649d98400cf3519d0b6e00c634f1d00a459a49bfbcfcdda116a",
+      "size": 1355
+    },
+    {
+      "path": "analysis_original_invalid_nan_equality/analysis_status.json",
+      "sha256": "e825a6bbef76f3996687141e5da397517acd6a6afaaca394ad90be42e5355016",
+      "size": 513
+    },
+    {
+      "path": "analysis_original_invalid_nan_equality/artifact_index.json",
+      "sha256": "175f891fbad2160ae8af2ff472f1483d9bbb7c68020a37ad485bdbe67b8e9964",
+      "size": 456
+    },
+    {
+      "path": "analysis_original_invalid_nan_equality/comparison.json",
+      "sha256": "70ec9315feebcf7ba760badb6b88354f4946fc320b60f5a2242aa95050112254",
+      "size": 169777
+    },
+    {
+      "path": "analysis_original_invalid_nan_equality/cost_profile.json",
+      "sha256": "11987e6dbce446b41f6628b96f0d430a70380170a63831f1a09393cb0cd0c4f4",
+      "size": 1453
+    },
+    {
+      "path": "analysis_original_invalid_nan_equality/first_control_divergence.json",
+      "sha256": "182008074bb39eb091e9a9c6cf2d7449361aae80707c5beef70177f99f1e60dc",
+      "size": 218
+    },
+    {
+      "path": "analysis_original_invalid_nan_equality/independent_score_recompute.json",
+      "sha256": "41eda00e99d1ec69e0cadd601ebbc9701813a01b91f4280061fa8f9df71b479e",
+      "size": 319
+    },
+    {
+      "path": "analysis_original_invalid_nan_equality/lifecycle_evidence.json",
       "sha256": "031db3515c9cf07bbcd39f8845a6e0e57fec9ca7b8bdeb442c2cfe8c8dbdc577",
       "size": 613
     },
@@ -86,8 +136,8 @@
     },
     {
       "path": "publication_status.json",
-      "sha256": "f6b8b7ce9ea16074548c3adafcf59c1e64653e7acfdf61d6a41bfa8c6b033710",
-      "size": 168
+      "sha256": "86595f910da95ddad2da23c31b608211d21c31cc9f3c4d9cf5e1c2f5b78711c9",
+      "size": 372
     },
     {
       "path": "science/D_bounded/birth_checks.json",

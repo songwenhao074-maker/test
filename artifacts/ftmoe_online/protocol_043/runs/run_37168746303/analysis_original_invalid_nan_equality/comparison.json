@@ -2,8 +2,8 @@
   "protocol": "043",
   "revision": 1,
   "run_id": "37168746303",
-  "validity": true,
-  "system_result_label": "core_goal_supported_gc_unexercised_on_stream",
+  "validity": false,
+  "system_result_label": "invalid_execution",
   "primary": {
     "D_bounded_vs_C_ref": {
       "base_full": {
@@ -5772,49 +5772,18 @@
   },
   "gc_engineering_verified": true,
   "resource_bounds_pass": true,
-  "core_goal_supported": true,
+  "core_goal_supported": false,
   "full_reclamation_demonstrated": false,
   "first_control_divergence_audit": {
-    "pass": true,
+    "pass": false,
     "gc_exercised": false,
-    "whole_trajectory_exact": true,
-    "array_exact": {
-      "probability": true,
-      "detection_logits": true,
-      "total_delta": true,
-      "live_margin": true,
-      "B_margin": true,
-      "deployment_epoch": true,
-      "active_ids": true,
-      "active_count": true,
-      "shadow_present": true,
-      "accepted_count": true,
-      "expert_versions": true,
-      "expert_hashes": true,
-      "contribution": true,
-      "labels": true,
-      "raw_labels": true,
-      "class_probability": true,
-      "model_version": true
-    },
+    "whole_trajectory_exact": false,
     "logs_exact": {
-      "birth_checks": true,
-      "pressure_checks": true,
-      "utility_checks": true,
-      "sleep_tables": true,
       "lifecycle_events": true,
       "candidate_decisions": true,
       "reuse_decisions": true,
-      "opportunity_log": true,
-      "update_log": true,
-      "settlement_log": true,
-      "qualification_records": true,
-      "reclamation_events": true,
-      "tombstones": true,
-      "reuse_history": true
-    },
-    "summaries_exact": true,
-    "nan_equality": "equal_nan_true_for_float_arrays"
+      "update_log": true
+    }
   },
   "independent_score_recompute": {
     "D_no_gc": {
