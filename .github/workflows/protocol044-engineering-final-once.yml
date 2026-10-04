@@ -40,7 +40,7 @@ jobs:
           echo "1db5dd429b43759ad3e868012d8e8c850551d21e53f1cd86af0e7daf316ecf49  /tmp/p044final/source.zip" | sha256sum -c -
           unzip -q /tmp/p044final/source.zip -d /tmp/p044final/source
           curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11292899397/zip" -o /tmp/p044final/core.zip
-          echo "35091be2e2e3ddb6d1c8d7da37496f85fcd6ce991d43f2e394e76d633032f27b  /tmp/p044final/core.zip" | sha256sum -c -
+          echo "1d01c2bd2e53ba5e9e419bcd83ca5014aaf27487c18c19d440284bf8fdb3de36  /tmp/p044final/core.zip" | sha256sum -c -
           unzip -q /tmp/p044final/core.zip -d /tmp/p044final/core
       - name: Run crash injection
         run: |
@@ -93,3 +93,5 @@ jobs:
 # retry after pandas dependency lock
 
 # retry after restoring locked Protocol032 guard dependency
+
+# final frozen Stage-S E gate
