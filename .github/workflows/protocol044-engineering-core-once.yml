@@ -74,3 +74,5 @@ jobs:
 # rerun after engine syntax/recovery fixes
 
 # retry after audit repo-root import fix c4ca5d98
+
+# retry after locked Protocol039 dependency restore 6ee81762
