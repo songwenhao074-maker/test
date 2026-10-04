@@ -124,7 +124,7 @@ class Machine044:
         if self.shadow is None: return
         row={"event":"shadow_cancel","at_interval":int(t),"candidate_id":int(self.shadow["id"]),"updates":int(self.shadow.get("updates",0)),
           "status":self.shadow.get("status"),"reason":reason}
-        self.candidate_decisions.append(row); self._stream("candidate_decisions",row)
+        self._record("candidate_decisions",self.candidate_decisions,row)
         if int(self.shadow["id"])>0: self.last_attempt_end_m=int(t)-2
         self.shadow=None
 
@@ -133,7 +133,7 @@ class Machine044:
         s=self.reuse_slot
         row={"event":"reuse_cancel","at_interval":int(t),"reason":reason,"start_t":s["start_t"],
           "candidate_ids":sorted(int(x) for x in s["candidate_ids"]),"issued_count":len(s.get("issued",{})),"settled_count":len(s.get("settled_rows",{}))}
-        self.reuse_decisions.append(row); self._stream("reuse_decisions",row); self.reuse_slot=None
+        self._record("reuse_decisions",self.reuse_decisions,row); self.reuse_slot=None
 
     def _topology_epoch(self,t,reason,active_before=None):
         old=self.deployment_epoch; self.deployment_epoch+=1; self.epoch_start_prediction=int(t)+1
@@ -142,7 +142,7 @@ class Machine044:
         row={"event":"epoch_transition","at_interval":int(t),"old_epoch":old,"new_epoch":self.deployment_epoch,
           "active_ids_before":list(active_before if active_before is not None else self.active_ids),"active_ids_after":list(self.active_ids),
           "first_affected_prediction":int(t)+1,"reason":reason}
-        self.lifecycle_events.append(row); self._stream("lifecycle",row)
+        self._record("lifecycle",self.lifecycle_events,row)
 
     def _topology_cleanup(self,t,reason,active_before,keep_shadow=False,keep_reuse=False):
         if not keep_shadow: self._cancel_shadow(t,"topology_"+reason)
@@ -163,7 +163,7 @@ class Machine044:
         row={"event":"activate","expert_id":eid,"at_interval":int(t),"reason":reason,"active_ids_before":before,"active_ids_after":list(self.active_ids),
           "first_affected_prediction":int(t)+1,"dormant_predictions_before_reactivation":dormant_predictions,
           "model_hash":self._model_hash(x),"optimizer_hash":self._opt_hash(x),"optimizer_step":c.opt_step(x["optimizer"])}
-        self.lifecycle_events.append(row); self._stream("lifecycle",row)
+        self._record("lifecycle",self.lifecycle_events,row)
 
     def _make_dormant(self,eid,t,reason,score):
         eid=int(eid); x=self.experts[eid]; before=list(self.active_ids)
@@ -175,7 +175,7 @@ class Machine044:
           "resident_ids_before":sorted(self.experts),"resident_ids_after":sorted(self.experts),"dormant_from_prediction":int(t)+1,
           "last_active_prediction":int(t),"utility":copy.deepcopy(score),"model_hash":x["dormant_model_hash"],
           "optimizer_hash":x["dormant_optimizer_hash"],"optimizer_step":x["dormant_optimizer_step"],"first_affected_prediction":int(t)+1}
-        self.lifecycle_events.append(row); self._stream("lifecycle",row)
+        self._record("lifecycle",self.lifecycle_events,row)
 
     def _epoch_matured(self,m):
         if m<self.epoch_start_prediction: return 0
@@ -193,7 +193,7 @@ class Machine044:
         before=self.birth_streak; self.birth_streak=before+1 if cand else 0
         row={"at_interval":int(t),"m":m,"R":R,"P":P,"positive_support":pos,"negative_support":neg,"candidate":cand,
           "streak_before":before,"streak_after":self.birth_streak}
-        self.birth_checks.append(row); return row
+        self._record("birth_checks",self.birth_checks,row); return row
 
     def _first_birth(self,t):
         if self.experts or self.next_id!=0: raise AssertionError("bad E0 state")
@@ -203,7 +203,7 @@ class Machine044:
         ev={"event":"first_birth","expert_id":0,"at_interval":int(t),"active_ids_before":[],"active_ids_after":[0],
           "resident_ids_before":[],"resident_ids_after":[0],"first_affected_prediction":int(t)+1,
           "model_hash_before_update":self._model_hash(x),"optimizer_hash_before_update":self._opt_hash(x),"optimizer_step_before_update":c.opt_step(x["optimizer"])}
-        self.lifecycle_events.append(ev); self._stream("lifecycle",ev)
+        self._record("lifecycle",self.lifecycle_events,ev)
         self._topology_epoch(t,"first_birth",[]); self._commit_action(row); self.save_checkpoint("post_first_birth_t%d"%t,True)
 
     def _predict_expert(self,x,t):
@@ -248,7 +248,7 @@ class Machine044:
         if ep==self.deployment_epoch: self.tracker.settle(i,ep,self.out["live_margin"][i],deltas,y)
         row={"at_interval":int(t),"settled_interval":i,"issued_epoch":ep,"current_epoch":self.deployment_epoch,
           "control_eligible":bool(ep==self.deployment_epoch),"B_bce":float(self.b_loss[i]),"D_bce":float(self.d_loss[i]),"active_ids":sorted(deltas)}
-        self.settlement_log.append(row); self._stream("settlements",row)
+        self._record("settlements",self.settlement_log,row)
         if self.shadow is not None and self.shadow.get("status")=="validating" and i in self.shadow.get("issued",{}):
             r=self.shadow["issued"][i]; self.shadow["settled_rows"][i]={**r,"y":np.asarray(y).copy()}
             if len(self.shadow["settled_rows"])==32: self.shadow["ready"]=True
@@ -272,13 +272,13 @@ class Machine044:
         row={"at_interval":int(t),"m":m,"epoch":self.deployment_epoch,"active_ids":list(self.active_ids),"eligible":eligible,
           "matured_current_epoch":matured,"R":R,"P":P,"positive_support":pos,"negative_support":neg,"candidate":cand,
           "streak_before":before,"streak_after":self.pressure_streak,"current_pressure":current}
-        self.pressure_checks.append(row); return row
+        self._record("pressure_checks",self.pressure_checks,row); return row
 
     def _update_sleep(self,t):
         m=int(t)-2; rows=[]; eligible=[]
         for eid in sorted(self.active_ids):
             r=self.tracker.check(eid,m); row={"at_interval":int(t),"epoch":self.deployment_epoch,"expert_id":eid,**r}
-            self.utility_checks.append(row); rows.append(row)
+            self._record("utility_checks",self.utility_checks,row); rows.append(row)
             if r.get("eligible_three"): eligible.append(row)
         if not eligible: return None,rows
         eligible.sort(key=lambda r:(float(r["score"]),int(r["expert_id"])))
@@ -300,7 +300,7 @@ class Machine044:
         self.reuse_started+=1
         row={"event":"reuse_start","at_interval":int(t),"epoch":self.deployment_epoch,"candidate_ids":dormant,
           "candidate_hashes":hashes,"active_ids":list(self.active_ids),"slot_number":self.reuse_started,"prediction_start":int(t)+1}
-        self.reuse_decisions.append(row); self._stream("reuse_decisions",row); self.save_checkpoint("reuse_start_t%d"%t,False); return True
+        self._record("reuse_decisions",self.reuse_decisions,row); self.save_checkpoint("reuse_start_t%d"%t,False); return True
 
     def _evaluate_reuse(self,t):
         s=self.reuse_slot
@@ -318,7 +318,7 @@ class Machine044:
         ev={"event":"reuse_evaluate","at_interval":int(t),"decision_t":int(t),"start_t":s["start_t"],"prediction_start":s["prediction_start"],
           "epoch":self.deployment_epoch,"intervals":[keys[0],keys[-1]+1],"candidate_ids":list(s["candidate_ids"]),
           "candidate_hashes":copy.deepcopy(s["candidate_hashes"]),"candidates":rows,"winner":None if winner is None else int(winner["candidate_id"])}
-        self.reuse_history.append(copy.deepcopy(ev)); self.reuse_decisions.append(ev); self._stream("reuse_decisions",ev)
+        self.reuse_history.append(copy.deepcopy(ev)); self._record("reuse_decisions",self.reuse_decisions,ev)
         all_quality_rejected=bool(rows and all(r.get("support") and r.get("finite") and not r.get("pass") for r in rows))
         if all_quality_rejected:
             self.last_reuse_quality_failure={"eval_t":int(t),"epoch":self.deployment_epoch,"candidate_ids":list(s["candidate_ids"]),
@@ -340,7 +340,7 @@ class Machine044:
         q=c.qualify_margin(cm,live,bm,y); q.update({"event":"shadow_evaluate","at_interval":int(t),"candidate_id":int(s["id"]),
           "intervals":[keys[0],keys[-1]+1],"updates":int(s["updates"]),"retained_ids":list(s["retained_ids"]),"proposal_epoch":s["proposal_epoch"],
           "created_by_reclamation":bool(s.get("created_by_reclamation")),"reclaimed_id":s.get("reclaimed_id")})
-        self.candidate_decisions.append(q); self.qualification_records.append(copy.deepcopy(q)); self._stream("candidate_decisions",q)
+        self._record("candidate_decisions",self.candidate_decisions,q); self._record("qualification_records",self.qualification_records,copy.deepcopy(q))
         eid=int(s["id"]); self.last_attempt_end_m=int(t)-2
         if q["pass"]:
             before=list(self.active_ids); s["accepted"]=True; s["role"]="active"
@@ -417,7 +417,7 @@ class Machine044:
         ev={"event":"shadow_start","at_interval":int(t),"candidate_id":eid,"attempt":self.attempts_after_e0,"proposal_epoch":self.deployment_epoch,
           "retained_ids":list(self.active_ids),"created_by_reclamation":False,"resident_ids_before":sorted(self.experts),
           "resident_ids_after":sorted(list(self.experts)+[eid]),"model_hash":self._model_hash(self.shadow),"optimizer_state_empty":len(self.shadow["optimizer"].state)==0}
-        self.candidate_decisions.append(ev); self._stream("candidate_decisions",ev); self.save_checkpoint("shadow_start_t%d"%t,True); return True
+        self._record("candidate_decisions",self.candidate_decisions,ev); self.save_checkpoint("shadow_start_t%d"%t,True); return True
 
     def _reclaim_and_start_shadow(self,t,victim,table):
         if self.arm!="D_bounded" or victim is None or self.resident_count()!=3: return False
@@ -447,18 +447,18 @@ class Machine044:
     def _attempt_birth(self,t,pressure):
         gates=self._birth_noncapacity(t,pressure); ok=all(gates.values())
         if not ok:
-            self.opportunity_log.append({"event":"birth_gate_blocked","at_interval":int(t),"gates":gates,"resident":self.resident_count(),"active_ids":list(self.active_ids)}); return False
+            self._record("control",self.opportunity_log,{"event":"birth_gate_blocked","at_interval":int(t),"gates":gates,"resident":self.resident_count(),"active_ids":list(self.active_ids)}); return False
         if self.resident_count()<3: return self._start_shadow_vacancy(t)
         victim,table=self._reclamation_table(t)
         row={"event":"capacity_full_birth_opportunity","at_interval":int(t),"arm":self.arm,"would_delete_id":victim,"table":table,
           "active_ids":list(self.active_ids),"resident_ids":sorted(self.experts),"attempts_after_e0":self.attempts_after_e0}
-        self.reclamation_events.append(copy.deepcopy(row)); self._stream("reclamation",row)
+        self._record("reclamation",self.reclamation_events,copy.deepcopy(row))
         if self.arm=="D_no_gc":
             row2={"event":"capacity_blocked_no_gc","at_interval":int(t),"would_delete_id":victim,"attempt_consumed":False}
-            self.reclamation_events.append(row2); self._stream("reclamation",row2); return False
+            self._record("reclamation",self.reclamation_events,row2); return False
         if victim is None:
             row2={"event":"capacity_blocked_no_safe_eviction","at_interval":int(t),"attempt_consumed":False,"table":table}
-            self.reclamation_events.append(row2); self._stream("reclamation",row2); return False
+            self._record("reclamation",self.reclamation_events,row2); return False
         return self._reclaim_and_start_shadow(t,victim,table)
 
     def _control(self,t):
@@ -473,7 +473,7 @@ class Machine044:
         selected=None; table=[]
         if not transitioned and self.active_ids:
             selected,table=self._update_sleep(t)
-            self.sleep_tables.append({"at_interval":int(t),"epoch":self.deployment_epoch,"active_ids_before":list(self.active_ids),"rows":copy.deepcopy(table),"selected":selected})
+            self._record("sleep_tables",self.sleep_tables,{"at_interval":int(t),"epoch":self.deployment_epoch,"active_ids_before":list(self.active_ids),"rows":copy.deepcopy(table),"selected":selected})
             if selected is not None:
                 score=next(r for r in table if int(r["expert_id"])==selected); self._sleep(selected,t,score); transitioned=True
         if transitioned:
@@ -485,7 +485,7 @@ class Machine044:
         row={"event":"due16","at_interval":int(t),"epoch":self.deployment_epoch,"pressure":None if pressure is None else bool(pressure.get("current_pressure")),
           "birth_started":birth_started,"reuse_started":reuse_started,"active_ids":list(self.active_ids),"resident_ids":sorted(self.experts),
           "resident":self.resident_count(),"attempts_after_e0":self.attempts_after_e0,"cooldown_ok":self._cooldown_ok(t)}
-        self.opportunity_log.append(row); self._stream("control",row); self.controller_cpu_seconds+=time.process_time()-t0; return False
+        self._record("control",self.opportunity_log,row); self.controller_cpu_seconds+=time.process_time()-t0; return False
 
     def _batch(self,t):
         if t not in self.src["core"]["by_t"]: return None
@@ -551,7 +551,7 @@ class Machine044:
             s["status"]="validating"; s["validation_start"]=int(t)+1; s["issued"]={}; s["settled_rows"]={}; s["ready"]=False
             q={"event":"shadow_training_complete","at_interval":int(t),"candidate_id":int(s["id"]),"updates":16,"validation_start":int(t)+1,
               "model_hash":self._model_hash(s),"optimizer_step":c.opt_step(s["optimizer"])}
-            self.candidate_decisions.append(q); self._stream("candidate_decisions",q)
+            self._record("candidate_decisions",self.candidate_decisions,q)
         self._commit_action(row,{"shadow_updates_after":int(s["updates"]),"status_after":s["status"],"optimizer_step_after":c.opt_step(s["optimizer"])})
         self.pending_train_context=None
         named=s["updates"] in (1,15,16); self.save_checkpoint("shadow_%02d_t%d"%(s["updates"],t),named); return True
