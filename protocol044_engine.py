@@ -697,6 +697,8 @@ def _arr_prefix_hash(a,cursor,axis0=True):
 def semantic_state(m):
     npstate=np.random.get_state(); pyst=random.getstate()
     tracker=m.tracker.online_payload() if hasattr(m.tracker,"online_payload") else copy.deepcopy(m.tracker.__dict__)
+    # Timing is resource evidence, not logical recovery state; elapsed time may differ after fresh-process restore.
+    if isinstance(tracker,dict): tracker.pop("rebuild_seconds",None)
     return {"arm":m.arm,"cursor":m.cursor,"next_substep":m.next_substep,"terminal_progress":m.terminal_progress,"epoch":m.deployment_epoch,
       "epoch_start":m.epoch_start_prediction,"active_ids":list(m.active_ids),"next_id":m.next_id,"deleted_ids":sorted(m.deleted_ids),
       "tombstones":m.tombstones,"attempts":m.attempts_after_e0,"first_birth_t":m.first_birth_t,
