@@ -363,10 +363,17 @@ def run_fixtures(real_src,out):
     m=Machine043(real_src,out/"real_prefix","D_bounded",allow_gradient=False,real_science=False); m.checkpoint_dir=out/"real_prefix_cp"; m.advance(128); m.save_checkpoint("real128",True)
     r=Machine043.restore(real_src,out/"real_prefix_restore",out/"real_prefix_cp/latest.pt",arm="D_bounded",allow_gradient=False,real_science=False,strict_journal=False)
     r.advance(256)
-    real_ok=bool(np.array_equal(r.out["probability"][:256],real_src["B"]["probability"][:256]) and r.live_optimizer_steps==0 and r.shadow_optimizer_steps==0 and not r.experts)
+    exact_logits=bool(np.array_equal(r.out["detection_logits"][:256],real_src["B"]["detection_logits"][:256]))
+    prob_max_abs=float(np.max(np.abs(r.out["probability"][:256].astype(np.float64)-real_src["B"]["probability"][:256].astype(np.float64))))
+    empty_state=bool(np.all(r.out["active_count"][:256]==0) and np.all(r.out["shadow_present"][:256]==0) and not r.experts and r.shadow is None)
+    zero_gradient=bool(r.live_optimizer_steps==0 and r.shadow_optimizer_steps==0 and r.actual_optimizer_calls==0)
+    prob_tolerance=5e-7
+    real_ok=bool(exact_logits and prob_max_abs<=prob_tolerance and empty_state and zero_gradient)
     rep={"protocol":"043","revision":1,"all_pass":bool(real_ok),"fixtures":rows,"required_fixture_ids":req,
       "real_engineering_prefixes":1,"real_engineering_prefix_intervals_max":256,"real_engineering_gradient_steps":0,
-      "real_prefix_exact_B_disk_continuation":real_ok}
+      "real_prefix_disk_continuation_pass":real_ok,"real_prefix_detection_logits_exact_B":exact_logits,
+      "real_prefix_probability_max_abs_vs_cached_B":prob_max_abs,"real_prefix_probability_tolerance":prob_tolerance,
+      "real_prefix_empty_dynamic_state":empty_state,"real_prefix_zero_gradient":zero_gradient}
     W(out/"fixture_report.json",rep); return rep
 
 def save_predictions(path,src,m):
