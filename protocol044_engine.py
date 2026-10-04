@@ -597,54 +597,72 @@ class Machine044:
         return self
 
     def snapshot(self):
-        return {"protocol":"043","revision":1,"arm":self.arm,"cursor":self.cursor,"next_substep":self.next_substep,"terminal_progress":self.terminal_progress,
+        self._flush_arrays()
+        return {"protocol":"044","revision":1,"arm":self.arm,"cursor":self.cursor,"next_substep":self.next_substep,"terminal_progress":self.terminal_progress,
           "deployment_epoch":self.deployment_epoch,"epoch_start_prediction":self.epoch_start_prediction,
           "experts":{int(k):c.pack_expert(v) for k,v in self.experts.items()},"active_ids":list(self.active_ids),
           "shadow":None if self.shadow is None else c.pack_expert(self.shadow),"next_id":self.next_id,"deleted_ids":sorted(self.deleted_ids),"tombstones":copy.deepcopy(self.tombstones),
           "attempts_after_e0":self.attempts_after_e0,"last_attempt_end_m":self.last_attempt_end_m,"first_birth_t":self.first_birth_t,
           "birth_streak":self.birth_streak,"pressure_streak":self.pressure_streak,"reuse_slot":copy.deepcopy(self.reuse_slot),"reuse_started":self.reuse_started,
-          "reuse_history":copy.deepcopy(self.reuse_history),"last_reuse_quality_failure":copy.deepcopy(self.last_reuse_quality_failure),
+          "reuse_history":list(copy.deepcopy(self.reuse_history)),"last_reuse_quality_failure":copy.deepcopy(self.last_reuse_quality_failure),
           "pending_train_context":copy.deepcopy(self.pending_train_context),"tracker":copy.deepcopy(self.tracker),
-          "out":{k:v.copy() for k,v in self.out.items()},"settled":self.settled.copy(),"b_loss":self.b_loss.copy(),"d_loss":self.d_loss.copy(),
-          "birth_checks":copy.deepcopy(self.birth_checks),"pressure_checks":copy.deepcopy(self.pressure_checks),"utility_checks":copy.deepcopy(self.utility_checks),
-          "sleep_tables":copy.deepcopy(self.sleep_tables),"lifecycle_events":copy.deepcopy(self.lifecycle_events),"candidate_decisions":copy.deepcopy(self.candidate_decisions),
-          "reuse_decisions":copy.deepcopy(self.reuse_decisions),"opportunity_log":copy.deepcopy(self.opportunity_log),"update_log":copy.deepcopy(self.update_log),
-          "settlement_log":copy.deepcopy(self.settlement_log),"qualification_records":copy.deepcopy(self.qualification_records),"reclamation_events":copy.deepcopy(self.reclamation_events),
+          "tails":{"birth_checks":list(self.birth_checks),"pressure_checks":list(self.pressure_checks),"utility_checks":list(self.utility_checks),
+            "sleep_tables":list(self.sleep_tables),"lifecycle_events":list(self.lifecycle_events),"candidate_decisions":list(self.candidate_decisions),
+            "reuse_decisions":list(self.reuse_decisions),"opportunity_log":list(self.opportunity_log),"update_log":list(self.update_log),
+            "settlement_log":list(self.settlement_log),"qualification_records":list(self.qualification_records),"reclamation_events":list(self.reclamation_events)},
+          "audit_state":copy.deepcopy(self.audit_state),
           "live_optimizer_steps":self.live_optimizer_steps,"shadow_optimizer_steps":self.shadow_optimizer_steps,"deployed_forwards":self.deployed_forwards,
           "reuse_preview_forwards":self.reuse_preview_forwards,"shadow_preview_forwards":self.shadow_preview_forwards,"live_training_forwards":self.live_training_forwards,
           "shadow_training_forwards":self.shadow_training_forwards,"controller_cpu_seconds":self.controller_cpu_seconds,"prediction_seconds":self.prediction_seconds,
           "update_seconds":self.update_seconds,"io_seconds":self.io_seconds,"max_active_seen":self.max_active_seen,"max_resident_seen":self.max_resident_seen,
           "peak_resident_tensor_bytes":self.peak_resident_tensor_bytes,"permanent_deletions":self.permanent_deletions,"actual_optimizer_calls":self.actual_optimizer_calls,
-          "near_threshold_recompute_count":self.near_threshold_recompute_count,"action_seq":self.action_seq,"completed_action_ids":copy.deepcopy(self.completed_action_ids),
+          "near_threshold_recompute_count":self.near_threshold_recompute_count,"action_seq":self.action_seq,
+          "completed_action_ids":list(self.completed_action_ids),"completed_action_count":self.completed_action_count,
           "torch_rng":torch.get_rng_state(),"numpy_rng":np.random.get_state(),"python_rng":random.getstate()}
+
+    def online_payload_bytes(self):
+        import pickle
+        x=self.snapshot()
+        return len(pickle.dumps(x,protocol=pickle.HIGHEST_PROTOCOL))
 
     def save_checkpoint(self,reason,named=False):
         if self.checkpoint_dir is None: return
         d=Path(self.checkpoint_dir); d.mkdir(parents=True,exist_ok=True); snap=self.snapshot(); tmp=d/"latest.pt.tmp"; final=d/"latest.pt"
-        torch.save(snap,tmp); os.replace(tmp,final)
-        meta={"protocol":"043","revision":1,"arm":self.arm,"cursor":self.cursor,"next_substep":self.next_substep,"terminal_progress":self.terminal_progress,
+        torch.save(snap,tmp)
+        if self.crash_probe=="checkpoint_before_atomic_replace": raise RuntimeError("injected_crash_checkpoint_before_atomic_replace")
+        os.replace(tmp,final)
+        meta={"protocol":"044","revision":1,"arm":self.arm,"cursor":self.cursor,"next_substep":self.next_substep,"terminal_progress":self.terminal_progress,
           "reason":reason,"live_steps":self.live_optimizer_steps,"shadow_steps":self.shadow_optimizer_steps,"actual_optimizer_calls":self.actual_optimizer_calls,
-          "attempts_after_e0":self.attempts_after_e0,"permanent_deletions":self.permanent_deletions,"action_seq":self.action_seq,"sha256":sha256_file(final)}
+          "attempts_after_e0":self.attempts_after_e0,"permanent_deletions":self.permanent_deletions,"action_seq":self.action_seq,
+          "completed_action_count":self.completed_action_count,"online_payload_bytes":self.online_payload_bytes(),
+          "audit_state":copy.deepcopy(self.audit_state),"sha256":sha256_file(final)}
         c.W(d/"latest.json",meta)
+        if self.crash_probe=="checkpoint_after_atomic_replace": raise RuntimeError("injected_crash_checkpoint_after_atomic_replace")
         if named:
-            safe="".join(ch if ch.isalnum() or ch in "_-" else "_" for ch in reason); q=d/(safe+".pt"); torch.save(snap,q); c.W(str(q)+".json",{**meta,"sha256":sha256_file(q)})
+            safe="".join(ch if ch.isalnum() or ch in "_-" else "_" for ch in reason); q=d/(safe+".pt"); qtmp=d/(safe+".pt.tmp")
+            torch.save(snap,qtmp); os.replace(qtmp,q); c.W(str(q)+".json",{**meta,"sha256":sha256_file(q)})
 
     @classmethod
     def restore(cls,src,work_dir,path,arm=None,allow_gradient=True,real_science=False,strict_journal=True):
-        x=torch.load(path,map_location="cpu")
-        if (x.get("protocol"),x.get("revision"))!=("043",1): raise AssertionError("bad checkpoint")
+        x=torch.load(path,map_location="cpu",weights_only=False)
+        if (x.get("protocol"),x.get("revision"))!=("044",1): raise AssertionError("bad checkpoint")
         if arm is not None and x.get("arm")!=arm: raise AssertionError("arm mismatch")
-        m=cls(src,work_dir,x["arm"],allow_gradient=allow_gradient,real_science=real_science)
+        m=cls(src,work_dir,x["arm"],allow_gradient=allow_gradient,real_science=real_science,resume=True)
         simple=["cursor","next_substep","terminal_progress","deployment_epoch","epoch_start_prediction","active_ids","next_id","deleted_ids","tombstones",
-          "attempts_after_e0","last_attempt_end_m","first_birth_t","birth_streak","pressure_streak","reuse_slot","reuse_started","reuse_history",
-          "last_reuse_quality_failure","pending_train_context","tracker","birth_checks","pressure_checks","utility_checks","sleep_tables","lifecycle_events",
-          "candidate_decisions","reuse_decisions","opportunity_log","update_log","settlement_log","qualification_records","reclamation_events",
+          "attempts_after_e0","last_attempt_end_m","first_birth_t","birth_streak","pressure_streak","reuse_slot","reuse_started",
+          "last_reuse_quality_failure","pending_train_context","tracker",
           "live_optimizer_steps","shadow_optimizer_steps","deployed_forwards","reuse_preview_forwards","shadow_preview_forwards","live_training_forwards",
           "shadow_training_forwards","controller_cpu_seconds","prediction_seconds","update_seconds","io_seconds","max_active_seen","max_resident_seen",
-          "peak_resident_tensor_bytes","permanent_deletions","actual_optimizer_calls","near_threshold_recompute_count","action_seq","completed_action_ids"]
+          "peak_resident_tensor_bytes","permanent_deletions","actual_optimizer_calls","near_threshold_recompute_count","action_seq","completed_action_count"]
         for k in simple: setattr(m,k,copy.deepcopy(x[k]))
-        m.deleted_ids=set(m.deleted_ids); m.experts={int(k):c.unpack_expert(v) for k,v in x["experts"].items()}; m.shadow=None if x["shadow"] is None else c.unpack_expert(x["shadow"])
-        m.out={k:v.copy() for k,v in x["out"].items()}; m.settled=x["settled"].copy(); m.b_loss=x["b_loss"].copy(); m.d_loss=x["d_loss"].copy()
+        m.deleted_ids=set(m.deleted_ids); m.reuse_history=deque(copy.deepcopy(x["reuse_history"]),maxlen=2)
+        m.completed_action_ids=deque(copy.deepcopy(x["completed_action_ids"]),maxlen=64)
+        tails=x["tails"]
+        for k in ("birth_checks","pressure_checks","utility_checks","sleep_tables","lifecycle_events","candidate_decisions","reuse_decisions",
+                  "opportunity_log","update_log","settlement_log","qualification_records","reclamation_events"):
+            setattr(m,k,deque(copy.deepcopy(tails[k]),maxlen=64))
+        m.experts={int(k):c.unpack_expert(v) for k,v in x["experts"].items()}; m.shadow=None if x["shadow"] is None else c.unpack_expert(x["shadow"])
+        m.audit_state=copy.deepcopy(x["audit_state"]); m._verify_stream_prefixes()
         torch.set_rng_state(x["torch_rng"]); np.random.set_state(x["numpy_rng"]); random.setstate(x["python_rng"])
         if strict_journal and m.action_journal.exists():
             j=c.J(m.action_journal)
