@@ -160,7 +160,7 @@ def cmd_functional(a):
     src2=lifecycle_source(300,2,None);r=active_dormant(src2,out/"reuse",True);before=(r._model_hash(r.experts[1]),r._opt_hash(r.experts[1]),c.opt_step(r.experts[1]["optimizer"]));r.advance()
     acts=[q for q in r.lifecycle_events if q.get("event")=="activate" and q.get("reason")=="reuse_accept"];same=bool(acts and (acts[0]["model_hash"],acts[0]["optimizer_hash"],acts[0]["optimizer_step"])==before)
     rows.append({"id":"same_id_adam_reuse","pass":same,"activation":None if not acts else acts[0]})
-    src3=lifecycle_source(820,20,256);bn=full_pool(src3,out/"gc_n","D_no_gc");bb=full_pool(src3,out/"gc_b","D_bounded");bn.advance();bb.advance()
+    src3=lifecycle_source(820,20,256);bn=full_pool(src3,out/"gc_n",arm="D_no_gc");bb=full_pool(src3,out/"gc_b",arm="D_bounded");bn.advance();bb.advance()
     gc=[q for q in bb.reclamation_events if q.get("event")=="permanent_reclaim_and_shadow_start"];blocks=[q for q in bn.reclamation_events if q.get("event")=="capacity_blocked_no_gc"]
     rows.append({"id":"paired_gc_control","pass":bool(gc and blocks and int(gc[0]["at_interval"])==int(blocks[0]["at_interval"])),"gc":list(gc),"block":list(blocks)[:2]})
     # crash ambiguity: actual optimizer already executed while journal remains pending.
