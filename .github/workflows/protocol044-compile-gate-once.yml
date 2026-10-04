@@ -20,9 +20,11 @@ jobs:
       - name: Compile current Protocol044 core
         run: |
           set -euo pipefail
-          python -m py_compile protocol044_common.py protocol044_engine.py reference_protocol036_locked.py reference_protocol036_stream_locked.py reference_protocol043_runner_locked.py run_ftmoe_protocol037.py run_ftmoe_protocol040.py protocol035_common.py run_ftmoe_protocol031_pilot.py run_ftmoe_protocol033.py run_ftmoe_protocol035.py run_ftmoe_protocol044.py maintenance/protocol044_source_probe.py maintenance/protocol044_audit043.py
+          python -m py_compile protocol044_common.py protocol044_engine.py reference_protocol036_locked.py reference_protocol036_stream_locked.py reference_protocol043_runner_locked.py run_ftmoe_protocol037.py run_ftmoe_protocol040.py protocol035_common.py run_ftmoe_protocol031_pilot.py run_ftmoe_protocol033.py run_ftmoe_protocol035.py run_ftmoe_protocol044.py maintenance/protocol044_source_probe.py maintenance/protocol044_audit043.py protocol044_stream.py
           python -c "import hashlib,json,pathlib; p=pathlib.Path('artifacts/ftmoe_online/protocol_044/plan.json'); h=hashlib.sha256(p.read_bytes()).hexdigest(); assert h=='a27a6cca6abde40b6395876eccd3db5f550a044e952a701fe63aa2e4306a5f51'; x=json.loads(p.read_text()); assert (x['protocol'],x['revision'])==('044',1); assert x['stageS']['sequence_order']==['C_ref','D_lin','D_no_gc','D_bounded']; print(h)"
 
 # retry after syntax fix 5faac19a
 
 # retry after malformed-line replacement d3cdb253
+
+# include seed4401 wrapper
