@@ -16,7 +16,7 @@ def _oh(x): return c.opt_digest(x["optimizer"])
 
 class Machine044:
     SUBSTEPS=("predict","settle","control","live_update","shadow_update","finish")
-    def __init__(self,src,work_dir,arm,allow_gradient=True,real_science=False):
+    def __init__(self,src,work_dir,arm,allow_gradient=True,real_science=False,resume=False):
         if arm not in c.ARMS: raise ValueError(arm)
         self.src=src; self.arm=arm; self.work_dir=Path(work_dir); self.work_dir.mkdir(parents=True,exist_ok=True)
         self.allow_gradient=bool(allow_gradient); self.real_science=bool(real_science)
@@ -28,23 +28,11 @@ class Machine044:
         self.reuse_slot=None; self.reuse_started=0; self.reuse_history=deque(maxlen=2); self.last_reuse_quality_failure=None
         self.pending_train_context=None
         self.tracker=c.UtilityTracker(); self.tracker.reset(0,0,[],"initial")
-        n=int(src["n"])
-        self.out={
-          "probability":np.full((n,c.HOSTS),np.nan,np.float32),
-          "detection_logits":np.full((n,c.HOSTS,2),np.nan,np.float32),
-          "total_delta":np.full((n,c.HOSTS),np.nan,np.float32),
-          "live_margin":np.full((n,c.HOSTS),np.nan,np.float32),
-          "B_margin":np.full((n,c.HOSTS),np.nan,np.float32),
-          "deployment_epoch":np.zeros(n,np.int32),
-          "active_ids":np.full((n,2),-1,np.int16),
-          "active_count":np.zeros(n,np.int8),
-          "shadow_present":np.zeros(n,np.int8),
-          "accepted_count":np.zeros(n,np.int8),
-          "expert_versions":np.full((n,2),-1,np.int32),
-          "expert_hashes":np.full((n,2),"",dtype="<U64"),
-          "contribution":np.full((5,n,c.HOSTS),np.nan,np.float32),
-        }
-        self.settled=np.zeros(n,np.int8); self.b_loss=np.full(n,np.nan,np.float64); self.d_loss=np.full(n,np.nan,np.float64)
+        n=int(src["n"]); self.audit_array_dir=self.work_dir/"audit_arrays"; self.audit_array_dir.mkdir(parents=True,exist_ok=True)
+        self.out=self._open_output_arrays(n,resume)
+        self.settled=self._open_array("settled",np.int8,(n,),0,resume)
+        self.b_loss=self._open_array("b_loss",np.float64,(n,),np.nan,resume)
+        self.d_loss=self._open_array("d_loss",np.float64,(n,),np.nan,resume)
         self.birth_checks=deque(maxlen=64); self.pressure_checks=deque(maxlen=64); self.utility_checks=deque(maxlen=64); self.sleep_tables=deque(maxlen=64)
         self.lifecycle_events=deque(maxlen=64); self.candidate_decisions=deque(maxlen=64); self.reuse_decisions=deque(maxlen=64); self.opportunity_log=deque(maxlen=64)
         self.update_log=deque(maxlen=64); self.settlement_log=deque(maxlen=64); self.qualification_records=deque(maxlen=64); self.reclamation_events=deque(maxlen=64)
@@ -56,6 +44,34 @@ class Machine044:
         self.action_seq=0; self.completed_action_ids=deque(maxlen=64); self.completed_action_count=0; self.action_journal=self.work_dir/"action_journal.json"; self.checkpoint_dir=None
         self.crash_probe=None; self.terminal_counter_delta=[]
         (self.work_dir/"streams").mkdir(parents=True,exist_ok=True)
+
+    def _open_array(self,name,dtype,shape,fill,resume):
+        p=self.audit_array_dir/(name+".npy")
+        if resume:
+            if not p.exists(): raise FileNotFoundError("audit array missing "+str(p))
+            return np.lib.format.open_memmap(p,mode="r+",dtype=dtype,shape=shape)
+        a=np.lib.format.open_memmap(p,mode="w+",dtype=dtype,shape=shape); a[...] = fill; a.flush(); return a
+
+    def _open_output_arrays(self,n,resume):
+        return {
+          "probability":self._open_array("probability",np.float32,(n,c.HOSTS),np.nan,resume),
+          "detection_logits":self._open_array("detection_logits",np.float32,(n,c.HOSTS,2),np.nan,resume),
+          "total_delta":self._open_array("total_delta",np.float32,(n,c.HOSTS),np.nan,resume),
+          "live_margin":self._open_array("live_margin",np.float32,(n,c.HOSTS),np.nan,resume),
+          "B_margin":self._open_array("B_margin",np.float32,(n,c.HOSTS),np.nan,resume),
+          "deployment_epoch":self._open_array("deployment_epoch",np.int32,(n,),0,resume),
+          "active_ids":self._open_array("active_ids",np.int16,(n,2),-1,resume),
+          "active_count":self._open_array("active_count",np.int8,(n,),0,resume),
+          "shadow_present":self._open_array("shadow_present",np.int8,(n,),0,resume),
+          "accepted_count":self._open_array("accepted_count",np.int8,(n,),0,resume),
+          "expert_versions":self._open_array("expert_versions",np.int32,(n,2),-1,resume),
+          "expert_hashes":self._open_array("expert_hashes",np.dtype("<U64"),(n,2),"",resume),
+          "contribution":self._open_array("contribution",np.float32,(5,n,c.HOSTS),np.nan,resume),
+        }
+
+    def _flush_arrays(self):
+        for a in list(self.out.values())+[self.settled,self.b_loss,self.d_loss]:
+            if hasattr(a,"flush"): a.flush()
 
     def _stream(self,name,row):
         t0=time.perf_counter()
