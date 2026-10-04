@@ -1,0 +1,312 @@
+name: Protocol044 closeout and capacity
+
+on:
+  workflow_dispatch:
+    inputs:
+      execution_sha:
+        description: Exact frozen Protocol044 execution SHA
+        required: true
+        type: string
+      engineering_artifact_id:
+        description: Successful final Stage-E artifact id
+        required: true
+        type: string
+      engineering_artifact_digest:
+        description: sha256 digest of final Stage-E artifact zip
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: protocol044-revision1
+  cancel-in-progress: false
+
+jobs:
+  science:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    env:
+      GH_TOKEN: ${{ github.token }}
+      EXECUTION_SHA: ${{ inputs.execution_sha }}
+      E_ARTIFACT_ID: ${{ inputs.engineering_artifact_id }}
+      E_ARTIFACT_DIGEST: ${{ inputs.engineering_artifact_digest }}
+      EXECUTION_REF: codex/protocol-044-closeout-capacity-20261004
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      PYTHONHASHSEED: "1"
+
+    steps:
+      - name: Checkout exact frozen Protocol044 code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.execution_sha }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.8.18"
+
+      - name: Install frozen runtime and verify execution
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXECUTION_SHA"
+          git branch -r --contains HEAD | grep -F "origin/$EXECUTION_REF"
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil==5.9.8 wget==3.2 pandas==2.0.3 scikit-learn==1.3.2
+          python -m py_compile protocol044_common.py protocol044_engine.py run_ftmoe_protocol044.py protocol044_stream.py run_ftmoe_protocol044_science.py analyze_ftmoe_protocol044.py maintenance/protocol044_finalize.py maintenance/protocol044_publish.py maintenance/protocol044_ecloseout.py
+          python -m pip freeze > /tmp/p044-pip-freeze.txt
+
+      - name: Download final Stage-E gate and verify code lock
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/p044 && mkdir -p /tmp/p044/{E,generation,data,evidence,stageS,analysis}
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$E_ARTIFACT_ID/zip" -o /tmp/p044/E.zip
+          DIG=$(echo "$E_ARTIFACT_DIGEST" | sed 's/^sha256://')
+          echo "$DIG  /tmp/p044/E.zip" | sha256sum -c -
+          unzip -q /tmp/p044/E.zip -d /tmp/p044/E
+          python - <<'PY'
+          import hashlib,json,os,pathlib
+          def sha(p): return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
+          g=json.load(open("/tmp/p044/E/E_gate.json")); s=json.load(open("/tmp/p044/E/source_code_lock.json")); exe=os.environ["EXECUTION_SHA"]
+          assert g["E_gate"] is True and g["execution_sha"]==exe
+          assert s["E_gate"] is True and s["branch_head"]==exe
+          assert s["engine_sha256"]==sha("protocol044_engine.py")
+          assert s["common_sha256"]==sha("protocol044_common.py")
+          assert s["runner_sha256"]==sha("run_ftmoe_protocol044.py")
+          assert s["science_runner_sha256"]==sha("run_ftmoe_protocol044_science.py")
+          assert g["required_cases_exact"] is True and len(g["resume_case_ids_passed"])==19
+          assert (g["active_max"],g["resident_max"],g["shadow_max"])==(2,3,1)
+          PY
+
+      - name: Materialize pinned Protocol036 source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git worktree add --detach /tmp/p044/source036 b620467aab4283e52d129924769c374124bbb4bf
+          python - <<'PY'
+          import hashlib,pathlib,json
+          exp={"protocol036_stream.py":"6ee73bbd16ba193164308db0a566843b4432f059f080d89e468ea6d7d7a6e4e7","run_ftmoe_protocol036.py":"1cfadb1a888af94e7d0ea060c72b0c12fee7f2fc3c32a133f1d675b05cd9e1b4","simulator/workload/BitbrainWorkloadProtocol025.py":"71ca206e80d9fd55e64a6526a3e538598ed19fe92e59fe28a691a0f1017ace7c"}
+          got={}
+          for p,h in exp.items():
+              q=pathlib.Path("/tmp/p044/source036")/p;x=hashlib.sha256(q.read_bytes()).hexdigest();got[p]=x;assert x==h
+          pathlib.Path("/tmp/p044/evidence/source036_lock.json").write_text(json.dumps(got,indent=2)+"\n")
+          PY
+
+      - name: Generate the one registered seed4401 stream
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '{"protocol":"044","revision":1,"seed":4401,"generation_key":"protocol044_revision1_seed4401","started":true,"completed":false,"restart_from_zero":false}\n' > /tmp/p044/generation_budget.json
+          for I in $(seq 1 30); do
+            python protocol044_stream.py segment --source036 /tmp/p044/source036 --output /tmp/p044/generation --max-intervals 200
+            N=$(python -c 'import json; print(json.load(open("/tmp/p044/generation/resume_manifest.json"))["next_t"])')
+            echo "generation next_t=$N"
+            if [ "$N" = "5953" ]; then break; fi
+          done
+          test "$(python -c 'import json; print(json.load(open("/tmp/p044/generation/resume_manifest.json"))["next_t"])')" = "5953"
+          python - <<'PY'
+          import json,pathlib
+          p=pathlib.Path("/tmp/p044/generation_budget.json");x=json.load(open(p));x["completed"]=True;p.write_text(json.dumps(x,indent=2)+"\n")
+          PY
+
+      - name: Fresh-process assemble and model-free input audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python protocol044_stream.py assemble --source036 /tmp/p044/source036 --generation-root /tmp/p044/generation --output /tmp/p044/data
+          python protocol044_stream.py audit --source036 /tmp/p044/source036 --generation-root /tmp/p044/generation --data-root /tmp/p044/data --evidence-root /tmp/p044/evidence
+          python - <<'PY'
+          import hashlib,json,os,pathlib
+          def sha(p):
+              h=hashlib.sha256()
+              with open(p,"rb") as f:
+                  for b in iter(lambda:f.read(1<<20),b""):h.update(b)
+              return h.hexdigest()
+          a=json.load(open("/tmp/p044/evidence/input_audit.json"));l=json.load(open("/tmp/p044/evidence/input_lock.json"));m=json.load(open("/tmp/p044/data/manifest.json"))
+          assert a["audit_pass"] is True and l["locked"] is True and m["audit_pass"] is True
+          d={"protocol":"044","revision":1,"seed":4401,"execution_sha":os.environ["EXECUTION_SHA"],"stream_sha256":l["stream_sha256"],"input_lock_sha256":sha("/tmp/p044/evidence/input_lock.json"),"manifest_sha256":sha("/tmp/p044/data/manifest.json"),"sealed_before_C":True}
+          pathlib.Path("/tmp/p044/evidence/data_lock.json").write_text(json.dumps(d,indent=2)+"\n")
+          pathlib.Path("/tmp/p044/stageS/input_lock.json").write_bytes(pathlib.Path("/tmp/p044/evidence/input_lock.json").read_bytes())
+          PY
+          python - <<'PY'
+          import run_ftmoe_protocol044_science as s
+          s.W("/tmp/p044/stageS/budget_ledger.json",s.default_ledger())
+          PY
+
+      - name: Upload immutable data before any model training
+        id: data_upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-data-${{ github.run_id }}
+          path: |
+            /tmp/p044/generation
+            /tmp/p044/data
+            /tmp/p044/evidence
+            /tmp/p044/generation_budget.json
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
+
+      - name: Record data artifact and implementation manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/${{ steps.data_upload.outputs.artifact-id }}" > /tmp/p044/stageS/data_artifact_info.json
+          python - <<'PY'
+          import hashlib,json,os,pathlib
+          def sha(p):return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
+          files=["protocol044_common.py","protocol044_engine.py","run_ftmoe_protocol044.py","protocol044_stream.py","run_ftmoe_protocol044_science.py","analyze_ftmoe_protocol044.py",".github/workflows/protocol044-closeout-capacity.yml"]
+          rows={p:sha(p) for p in files};e=json.load(open("/tmp/p044/E/E_gate.json"));d=json.load(open("/tmp/p044/evidence/data_lock.json"));a=json.load(open("/tmp/p044/stageS/data_artifact_info.json"))
+          x={"protocol":"044","revision":1,"execution_sha":os.environ["EXECUTION_SHA"],"E_gate":e,"data_lock":d,"data_artifact":{"id":a["id"],"name":a["name"],"digest":a.get("digest"),"size_in_bytes":a["size_in_bytes"]},"source_bundle_hashes":rows,"pip_freeze_sha256":sha("/tmp/p044-pip-freeze.txt")}
+          pathlib.Path("/tmp/p044/stageS/implementation_manifest.json").write_text(json.dumps(x,indent=2)+"\n")
+          pathlib.Path("/tmp/p044/stageS/science_status.json").write_text(json.dumps({"protocol":"044","revision":1,"science_status":"data_sealed_no_training_started","execution_sha":os.environ["EXECUTION_SHA"],"restart_from_zero":False},indent=2)+"\n")
+          PY
+
+      - name: Run C_ref once
+        shell: bash
+        run: |
+          set -euo pipefail
+          python run_ftmoe_protocol044_science.py C_ref --data /tmp/p044/data --input-lock /tmp/p044/evidence/input_lock.json --gate /tmp/p044/E/E_gate.json --execution-sha "$EXECUTION_SHA" --ledger /tmp/p044/stageS/budget_ledger.json --out /tmp/p044/stageS/C_ref --run-id "$GITHUB_RUN_ID"
+
+      - name: Preserve C_ref boundary
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-progress-C-${{ github.run_id }}
+          path: /tmp/p044/stageS
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
+
+      - name: Run D_lin once
+        shell: bash
+        run: |
+          set -euo pipefail
+          python run_ftmoe_protocol044_science.py D_lin --feature-tape /tmp/p044/stageS/C_ref/feature_tape.npz --update-batches /tmp/p044/stageS/C_ref/update_batches.json --input-lock /tmp/p044/evidence/input_lock.json --gate /tmp/p044/E/E_gate.json --execution-sha "$EXECUTION_SHA" --ledger /tmp/p044/stageS/budget_ledger.json --out /tmp/p044/stageS/D_lin --run-id "$GITHUB_RUN_ID"
+
+      - name: Preserve D_lin boundary
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-progress-Dlin-${{ github.run_id }}
+          path: /tmp/p044/stageS
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
+
+      - name: Run D_no_gc once
+        shell: bash
+        run: |
+          set -euo pipefail
+          python run_ftmoe_protocol044_science.py dynamic --arm D_no_gc --feature-tape /tmp/p044/stageS/C_ref/feature_tape.npz --b-predictions /tmp/p044/stageS/D_lin/predictions.npz --update-batches /tmp/p044/stageS/C_ref/update_batches.json --input-lock /tmp/p044/evidence/input_lock.json --gate /tmp/p044/E/E_gate.json --execution-sha "$EXECUTION_SHA" --ledger /tmp/p044/stageS/budget_ledger.json --out /tmp/p044/stageS/D_no_gc --run-id "$GITHUB_RUN_ID"
+
+      - name: Preserve D_no_gc boundary
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-progress-Dnogc-${{ github.run_id }}
+          path: /tmp/p044/stageS
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
+
+      - name: Run D_bounded once and seal science
+        shell: bash
+        run: |
+          set -euo pipefail
+          python run_ftmoe_protocol044_science.py dynamic --arm D_bounded --feature-tape /tmp/p044/stageS/C_ref/feature_tape.npz --b-predictions /tmp/p044/stageS/D_lin/predictions.npz --update-batches /tmp/p044/stageS/C_ref/update_batches.json --input-lock /tmp/p044/evidence/input_lock.json --gate /tmp/p044/E/E_gate.json --execution-sha "$EXECUTION_SHA" --ledger /tmp/p044/stageS/budget_ledger.json --out /tmp/p044/stageS/D_bounded --run-id "$GITHUB_RUN_ID"
+          python - <<'PY'
+          import json,os,pathlib
+          x=json.load(open("/tmp/p044/stageS/budget_ledger.json"));assert all(x["sequences"][s]["completed"] for s in ("C_ref","D_lin","D_no_gc","D_bounded"));assert x["total_optimizer_steps"]<=2360
+          pathlib.Path("/tmp/p044/stageS/science_status.json").write_text(json.dumps({"protocol":"044","revision":1,"science_status":"completed","science_rc":0,"execution_sha":os.environ["EXECUTION_SHA"],"total_optimizer_steps":x["total_optimizer_steps"],"restart_from_zero":False},indent=2)+"\n")
+          PY
+          python maintenance/protocol044_finalize.py manifest --root /tmp/p044/stageS --out /tmp/p044/stageS/scientific_raw_manifest.json
+
+      - name: Upload immutable scientific raw before analysis
+        id: raw_upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-science-raw-${{ github.run_id }}
+          path: |
+            /tmp/p044/stageS
+            /tmp/p044/evidence/input_lock.json
+            /tmp/p044/evidence/input_audit.json
+            /tmp/p044/evidence/data_lock.json
+            /tmp/p044/data/manifest.json
+            /tmp/p044/data/generation_manifest.json
+            /tmp/p044/E/E_gate.json
+            /tmp/p044/E/source_code_lock.json
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
+
+      - name: Frozen independent analysis
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/${{ steps.raw_upload.outputs.artifact-id }}" > /tmp/p044/analysis/raw_artifact_info.json
+          python analyze_ftmoe_protocol044.py --run-root /tmp/p044/stageS --data /tmp/p044/data --input-lock /tmp/p044/evidence/input_lock.json --e-gate /tmp/p044/E/E_gate.json --out /tmp/p044/analysis --docs docs/PROTOCOL044_RESULTS.md --run-id "$GITHUB_RUN_ID"
+          cp docs/PROTOCOL044_RESULTS.md /tmp/p044/analysis/PROTOCOL044_RESULTS.md
+          python maintenance/protocol044_finalize.py manifest --root /tmp/p044/analysis --out /tmp/p044/analysis/analysis_manifest.json
+
+      - name: Build compact handoff
+        shell: bash
+        run: |
+          set -euo pipefail
+          COMPACT="artifacts/ftmoe_online/protocol_044/runs/run_$GITHUB_RUN_ID"
+          python maintenance/protocol044_finalize.py compact --stage /tmp/p044/stageS --data /tmp/p044/data --evidence /tmp/p044/evidence --analysis /tmp/p044/analysis --dst "$COMPACT"
+          python maintenance/protocol044_publish.py prepare --root . --compact "$COMPACT" --analysis-status /tmp/p044/analysis/analysis_status.json --run-id "$GITHUB_RUN_ID"
+          python maintenance/protocol044_finalize.py manifest --root "$COMPACT" --out "$COMPACT/compact_manifest.json"
+
+      - name: Upload compact handoff
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-compact-${{ github.run_id }}
+          path: artifacts/ftmoe_online/protocol_044/runs/run_${{ github.run_id }}
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
+
+      - name: Publish result-only to execution branch and main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          COMPACT="artifacts/ftmoe_online/protocol_044/runs/run_$GITHUB_RUN_ID"
+          cp maintenance/protocol044_publish.py /tmp/protocol044_publish.py
+          git add docs/PROTOCOL044_RESULTS.md "$COMPACT" AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md docs/GITHUB_EXPERIMENT_HANDOFF.md README.md
+          git commit -m "results: Protocol044 revision1 science run $GITHUB_RUN_ID [skip ci]"
+          RESULT="$(git rev-parse HEAD)"
+          git push origin HEAD:"$EXECUTION_REF"
+          git fetch origin main
+          git checkout -B p044-publish origin/main
+          git checkout "$RESULT" -- docs/PROTOCOL044_RESULTS.md "$COMPACT" AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md docs/GITHUB_EXPERIMENT_HANDOFF.md README.md
+          git add docs/PROTOCOL044_RESULTS.md "$COMPACT" AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md docs/GITHUB_EXPERIMENT_HANDOFF.md README.md
+          git commit -m "results: publish Protocol044 revision1 science run $GITHUB_RUN_ID [skip ci]"
+          git push origin HEAD:main
+          python /tmp/protocol044_publish.py sync --compact "$COMPACT" --run-id "$GITHUB_RUN_ID"
+          git add "$COMPACT/publication_status.json"
+          git commit -m "results: mark Protocol044 publication synced [skip ci]"
+          git push origin HEAD:main
+
+      - name: Preserve exact interrupted state
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-interrupted-${{ github.run_id }}
+          path: |
+            /tmp/p044/generation
+            /tmp/p044/data
+            /tmp/p044/evidence
+            /tmp/p044/stageS
+            /tmp/p044/E
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: warn
