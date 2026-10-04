@@ -1,6 +1,7 @@
 """Protocol-044 revision1 transactional bounded-lifecycle production engine."""
 from __future__ import annotations
 import copy, hashlib, json, os, random, time
+from collections import deque
 from pathlib import Path
 import numpy as np
 import torch
@@ -24,7 +25,7 @@ class Machine044:
         self.experts={}; self.active_ids=[]; self.shadow=None; self.next_id=0; self.deleted_ids=set(); self.tombstones=[]
         self.attempts_after_e0=0; self.last_attempt_end_m=None; self.first_birth_t=None
         self.birth_streak=0; self.pressure_streak=0
-        self.reuse_slot=None; self.reuse_started=0; self.reuse_history=[]; self.last_reuse_quality_failure=None
+        self.reuse_slot=None; self.reuse_started=0; self.reuse_history=deque(maxlen=2); self.last_reuse_quality_failure=None
         self.pending_train_context=None
         self.tracker=c.UtilityTracker(); self.tracker.reset(0,0,[],"initial")
         n=int(src["n"])
@@ -44,15 +45,15 @@ class Machine044:
           "contribution":np.full((5,n,c.HOSTS),np.nan,np.float32),
         }
         self.settled=np.zeros(n,np.int8); self.b_loss=np.full(n,np.nan,np.float64); self.d_loss=np.full(n,np.nan,np.float64)
-        self.birth_checks=[]; self.pressure_checks=[]; self.utility_checks=[]; self.sleep_tables=[]
-        self.lifecycle_events=[]; self.candidate_decisions=[]; self.reuse_decisions=[]; self.opportunity_log=[]
-        self.update_log=[]; self.settlement_log=[]; self.qualification_records=[]; self.reclamation_events=[]
+        self.birth_checks=deque(maxlen=64); self.pressure_checks=deque(maxlen=64); self.utility_checks=deque(maxlen=64); self.sleep_tables=deque(maxlen=64)
+        self.lifecycle_events=deque(maxlen=64); self.candidate_decisions=deque(maxlen=64); self.reuse_decisions=deque(maxlen=64); self.opportunity_log=deque(maxlen=64)
+        self.update_log=deque(maxlen=64); self.settlement_log=deque(maxlen=64); self.qualification_records=deque(maxlen=64); self.reclamation_events=deque(maxlen=64)
         self.live_optimizer_steps=0; self.shadow_optimizer_steps=0; self.deployed_forwards=0
         self.reuse_preview_forwards=0; self.shadow_preview_forwards=0; self.live_training_forwards=0; self.shadow_training_forwards=0
         self.controller_cpu_seconds=0.; self.prediction_seconds=0.; self.update_seconds=0.; self.io_seconds=0.
         self.max_active_seen=0; self.max_resident_seen=0; self.peak_resident_tensor_bytes=0
         self.permanent_deletions=0; self.actual_optimizer_calls=0; self.near_threshold_recompute_count=0
-        self.action_seq=0; self.completed_action_ids=[]; self.action_journal=self.work_dir/"action_journal.json"; self.checkpoint_dir=None
+        self.action_seq=0; self.completed_action_ids=deque(maxlen=64); self.completed_action_count=0; self.action_journal=self.work_dir/"action_journal.json"; self.checkpoint_dir=None
         self.crash_probe=None; self.terminal_counter_delta=[]
         (self.work_dir/"streams").mkdir(parents=True,exist_ok=True)
 
@@ -82,7 +83,7 @@ class Machine044:
     def _commit_action(self,row,extra=None):
         z=dict(row); z["status"]="committed"
         if extra: z.update(extra)
-        c.W(self.action_journal,z); self.completed_action_ids.append(int(row["action_seq"]))
+        c.W(self.action_journal,z); self.completed_action_ids.append(int(row["action_seq"])); self.completed_action_count+=1
 
     def _cancel_shadow(self,t,reason):
         if self.shadow is None: return
