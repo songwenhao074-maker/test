@@ -169,7 +169,7 @@ def cmd_lin(a):
     with np.load(tp,allow_pickle=False) as q:T={k:q[k].copy() for k in q.files}
     if T["z"].shape!=(N,16,73): raise AssertionError("tape geometry")
     batches=J(a.update_batches)["updates"]; by={int(x["at_interval"]):x for x in batches}
-    b=r36.LinearCorrection(); opt=torch.optim.AdamW(b.parameters(),lr=1e-4,weight_decay=1e-4,betas=(.9,.999),eps=1e-8)
+    with torch.random.fork_rng(devices=[]):\n        torch.manual_seed(3501); b=r36.LinearCorrection()\n    opt=torch.optim.AdamW(b.parameters(),lr=1e-4,weight_decay=1e-4,betas=(.9,.999),eps=1e-8)
     pred=np.full((N,16),np.nan,np.float32);delta=np.full((N,16),np.nan,np.float32);logits=np.full((N,16,2),np.nan,np.float32)
     versions=np.zeros(N,np.int32);hashes=[];logs=[];ver=0;cursor=0
     if a.resume_from:
