@@ -54,3 +54,5 @@ jobs:
 # retry after settle-tick checkpoint fix 560be11b
 
 # compile Stage-S and E-final closeout scripts
+
+# retry after D_lin syntax repair 91f45383
