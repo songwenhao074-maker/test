@@ -221,11 +221,11 @@ def fixture_weak_gain(out):
 def fixture_eviction_guards(out,base_unused=None):
     # Generate two real, non-overlapping future reuse rejection windows through production tick.
     src=lifecycle_source(n=420,scale=20.0,switch=None)
-    m=setup_full_pool(src,"D_no_gc",Path(out)/"guard_actual",20.0); m.advance(256)
+    m=setup_full_pool(src,"D_no_gc",Path(out)/"guard_actual",20.0); m.advance(319)
     dormant=m.dormant_ids(); hashes={eid:m._model_hash(m.experts[eid]) for eid in dormant}
     relevant=[h for h in m.reuse_history if int(h["epoch"])==m.deployment_epoch and h["candidate_ids"]==dormant and h["candidate_hashes"]==hashes]
     base_hist=copy.deepcopy(m.reuse_history)
-    victim,base_table=m._reclamation_table(255)
+    victim,base_table=m._reclamation_table(318)
     baseline=bool(victim is not None and len(relevant)>=2)
     checks={"baseline_real_two_window_eligible":baseline}
     if baseline:
@@ -236,7 +236,7 @@ def fixture_eviction_guards(out,base_unused=None):
             m.reuse_history=copy.deepcopy(base_hist)
             matches=[h for h in m.reuse_history if int(h["epoch"])==m.deployment_epoch and h["candidate_ids"]==dormant and h["candidate_hashes"]==hashes]
             fn(matches[-2:])
-            return m._reclamation_table(255)
+            return m._reclamation_table(318)
         v,t=mutate_matching(lambda hs: hs[0]["intervals"].__setitem__(1,int(hs[1]["intervals"][0])+1))
         checks["overlap_blocks"]=v is None
         def unknown(hs):
@@ -251,7 +251,7 @@ def fixture_eviction_guards(out,base_unused=None):
         for h in m.reuse_history:
             if int(h["epoch"])==m.deployment_epoch and h["candidate_ids"]==dormant:
                 h["candidate_hashes"][target]="intentional_mismatch"
-        v,t=m._reclamation_table(255); checks["hash_mismatch_blocks"]=v is None
+        v,t=m._reclamation_table(318); checks["hash_mismatch_blocks"]=v is None
         m.reuse_history=base_hist
     else:
         checks.update({"overlap_blocks":False,"unknown_blocks":False,"stale_blocks":False,"hash_mismatch_blocks":False})
