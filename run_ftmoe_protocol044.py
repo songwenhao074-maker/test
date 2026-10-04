@@ -111,11 +111,23 @@ def cmd_resume(a):
     # recreate only deterministic source; all online state comes from checkpoint.
     src,_dummy,_=build(a.case,case_dir/"source_recreate_tmp");shutil.rmtree(case_dir/"source_recreate_tmp",ignore_errors=True)
     cp=root/"checkpoints/latest.pt";m=Machine044.restore(src,root,cp,arm="D_bounded",allow_gradient=True,real_science=False,strict_journal=True);m.checkpoint_dir=root/"checkpoints"
-    d=run_to_end(m);ref=J(case_dir/"continuous.json")["digest"];ok=d==ref
+    d=run_to_end(m);cont=J(case_dir/"continuous.json");ref=cont["digest"];cur=semantic_state(m);ok=d==ref
+    diff_keys=[]
+    if not ok:
+        old_state=cont["state"]
+        for k in sorted(set(old_state)|set(cur)):
+            if json.dumps(old_state.get(k),sort_keys=True,default=str)!=json.dumps(cur.get(k),sort_keys=True,default=str):
+                diff_keys.append(k)
     W(case_dir/"result.json",{"case":a.case,"pass":ok,"continuous_digest":ref,"resumed_digest":d,"fresh_process":True,
       "checkpoint_sha256":hashlib.sha256(cp.read_bytes()).hexdigest(),"optimizer_calls_final":m.actual_optimizer_calls,
-      "tracker":m.tracker.online_payload(),"audit_state":m.audit_state})
-    if not ok:raise RuntimeError("resume mismatch "+a.case)
+      "tracker":m.tracker.online_payload(),"audit_state":m.audit_state,"diff_keys":diff_keys,
+      "continuous_state_diff":{k:cont["state"].get(k) for k in diff_keys},
+      "resumed_state_diff":{k:cur.get(k) for k in diff_keys}})
+    if not ok:
+        print(json.dumps({"case":a.case,"diff_keys":diff_keys,
+          "continuous":{k:cont["state"].get(k) for k in diff_keys},
+          "resumed":{k:cur.get(k) for k in diff_keys}},indent=2,default=str))
+        raise RuntimeError("resume mismatch "+a.case)
 def cmd_collect(a):
     rows=[]
     for case in CASES:
