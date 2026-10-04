@@ -332,6 +332,10 @@ class Machine044:
             q=c.reuse_evidence(cm,live,bm,y); q.update({"candidate_id":int(eid),"candidate_hash":s["candidate_hashes"][int(eid)]})
             rows.append(q)
         passing=[r for r in rows if r["pass"]]; winner=None if not passing else sorted(passing,key=lambda r:(float(r["candidate"]["bce"]),int(r["candidate_id"])))[0]
+        raw={"kind":"reuse","at_interval":int(t),"decision_t":int(t),"epoch":self.deployment_epoch,"intervals":[keys[0],keys[-1]+1],
+          "live_margin":live.tolist(),"B_margin":bm.tolist(),"labels":y.tolist(),
+          "candidate_margin":{str(int(eid)):np.stack([s["settled_rows"][i]["candidates"][int(eid)]["margin"] for i in keys]).tolist() for eid in s["candidate_ids"]}}
+        self._stream("qualification_raw",raw)
         ev={"event":"reuse_evaluate","at_interval":int(t),"decision_t":int(t),"start_t":s["start_t"],"prediction_start":s["prediction_start"],
           "epoch":self.deployment_epoch,"intervals":[keys[0],keys[-1]+1],"candidate_ids":list(s["candidate_ids"]),
           "candidate_hashes":copy.deepcopy(s["candidate_hashes"]),"candidates":rows,"winner":None if winner is None else int(winner["candidate_id"])}
@@ -354,6 +358,9 @@ class Machine044:
         if len(keys)!=32: raise AssertionError("shadow ready count")
         cm=np.stack([s["settled_rows"][i]["candidate_margin"] for i in keys]); live=np.stack([s["settled_rows"][i]["live_margin"] for i in keys])
         bm=np.stack([s["settled_rows"][i]["B_margin"] for i in keys]); y=np.stack([s["settled_rows"][i]["y"] for i in keys])
+        self._stream("qualification_raw",{"kind":"shadow","at_interval":int(t),"candidate_id":int(s["id"]),"intervals":[keys[0],keys[-1]+1],
+          "candidate_margin":cm.tolist(),"live_margin":live.tolist(),"B_margin":bm.tolist(),"labels":y.tolist(),
+          "created_by_reclamation":bool(s.get("created_by_reclamation")),"reclaimed_id":s.get("reclaimed_id")})
         q=c.qualify_margin(cm,live,bm,y); q.update({"event":"shadow_evaluate","at_interval":int(t),"candidate_id":int(s["id"]),
           "intervals":[keys[0],keys[-1]+1],"updates":int(s["updates"]),"retained_ids":list(s["retained_ids"]),"proposal_epoch":s["proposal_epoch"],
           "created_by_reclamation":bool(s.get("created_by_reclamation")),"reclaimed_id":s.get("reclaimed_id")})
