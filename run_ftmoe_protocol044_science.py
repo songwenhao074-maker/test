@@ -17,7 +17,7 @@ N=5952
 SEQ=("C_ref","D_lin","D_no_gc","D_bounded")
 PLAN_SHA="a27a6cca6abde40b6395876eccd3db5f550a044e952a701fe63aa2e4306a5f51"
 SOURCE_PROBE_DIGEST="sha256:1db5dd429b43759ad3e868012d8e8c850551d21e53f1cd86af0e7daf316ecf49"
-ENGINEERING_CORE_DIGEST="sha256:35091be2e2e3ddb6d1c8d7da37496f85fcd6ce991d43f2e394e76d633032f27b"
+ENGINEERING_CORE_DIGEST="sha256:1d01c2bd2e53ba5e9e419bcd83ca5014aaf27487c18c19d440284bf8fdb3de36"
 REQUIRED_CASES=("birth_after","single_live_after","joint_live_after","shadow_update01_after","shadow_update15_after","shadow_update16_after",
 "qualification_ready_before_decision","shadow_accept_after","shadow_reject_after","sleep_after","reuse_pending","reuse_accept_after",
 "reuse_reject_after","window_expiry_after","late_old_epoch_settlement","reclaim_create_after","reclaimed_candidate_reject_after",
