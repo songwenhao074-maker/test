@@ -249,12 +249,23 @@ class Machine044:
             d=self.out["contribution"][eid,i]
             if np.isfinite(d).all(): deltas[eid]=d.copy()
         if ep==self.deployment_epoch: self.tracker.settle(i,ep,self.out["live_margin"][i],deltas,y)
+        if self.engineering_stop_prefix=="window_expiry_after" and ep==self.deployment_epoch and i>=128:
+            active=list(self.active_ids)
+            if active:
+                ss=self.tracker.score(active[0],i)
+                if ss.get("valid") and ss.get("first_i")==i-127 and i>=129:
+                    self.save_checkpoint("window_expiry_after_t%d"%t,True)
+        if self.engineering_stop_prefix=="late_old_epoch_settlement" and ep!=self.deployment_epoch:
+            self.save_checkpoint("late_old_epoch_settlement_t%d"%t,True)
         row={"at_interval":int(t),"settled_interval":i,"issued_epoch":ep,"current_epoch":self.deployment_epoch,
           "control_eligible":bool(ep==self.deployment_epoch),"B_bce":float(self.b_loss[i]),"D_bce":float(self.d_loss[i]),"active_ids":sorted(deltas)}
         self._record("settlements",self.settlement_log,row)
         if self.shadow is not None and self.shadow.get("status")=="validating" and i in self.shadow.get("issued",{}):
             r=self.shadow["issued"][i]; self.shadow["settled_rows"][i]={**r,"y":np.asarray(y).copy()}
-            if len(self.shadow["settled_rows"])==32: self.shadow["ready"]=True
+            if len(self.shadow["settled_rows"])==32:
+                self.shadow["ready"]=True
+                if self.engineering_stop_prefix=="qualification_ready_before_decision":
+                    self.save_checkpoint("qualification_ready_before_decision_t%d"%t,True)
         if self.reuse_slot is not None and i in self.reuse_slot.get("issued",{}):
             r=self.reuse_slot["issued"][i]; self.reuse_slot["settled_rows"][i]={"y":np.asarray(y).copy(),**r}
             if len(self.reuse_slot["settled_rows"])==32: self.reuse_slot["ready"]=True
