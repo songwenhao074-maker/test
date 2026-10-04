@@ -45,7 +45,7 @@ class Machine044:
         self.max_active_seen=0; self.max_resident_seen=0; self.peak_resident_tensor_bytes=0
         self.permanent_deletions=0; self.actual_optimizer_calls=0; self.near_threshold_recompute_count=0
         self.action_seq=0; self.completed_action_ids=deque(maxlen=64); self.completed_action_count=0; self.action_journal=self.work_dir/"action_journal.json"; self.checkpoint_dir=None
-        self.crash_probe=None; self.engineering_stop_prefix=None; self.terminal_counter_delta=[]
+        self.crash_probe=None; self.engineering_stop_prefix=None; self.terminal_counter_delta=[]; self.deferred_control_checkpoints=[]
         (self.work_dir/"streams").mkdir(parents=True,exist_ok=True); self.audit_state={}
 
     def _open_array(self,name,dtype,shape,fill,resume):
