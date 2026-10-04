@@ -112,7 +112,7 @@ def restore_c_ckpt(s,out,label):
 def cmd_c(a):
     runtime(); plan(); out=Path(a.out); out.mkdir(parents=True,exist_ok=True)
     validate_gate(a.gate,a.input_lock,a.execution_sha,"C_ref",a.ledger,0); start_seq(a.ledger,"C_ref",a.run_id,a.resume_label)
-    s,digest,m=make_c(a.data,out,a.run_id)
+    s,digest,m=make_c(a.data,a.input_lock,out,a.run_id)
     if a.resume_label: restore_c_ckpt(s,out,a.resume_label)
     ini=r36.initinfo(s); t0=time.perf_counter()
     while s.cursor<N:
