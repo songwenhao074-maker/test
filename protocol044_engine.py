@@ -14,6 +14,9 @@ import protocol044_common as c
 def _mh(x): return sha256_state_dict(x["model"].state_dict())
 def _oh(x): return c.opt_digest(x["optimizer"])
 
+class EngineeringCheckpointStop(RuntimeError):
+    pass
+
 class Machine044:
     SUBSTEPS=("predict","settle","control","live_update","shadow_update","finish")
     def __init__(self,src,work_dir,arm,allow_gradient=True,real_science=False,resume=False):
@@ -42,7 +45,7 @@ class Machine044:
         self.max_active_seen=0; self.max_resident_seen=0; self.peak_resident_tensor_bytes=0
         self.permanent_deletions=0; self.actual_optimizer_calls=0; self.near_threshold_recompute_count=0
         self.action_seq=0; self.completed_action_ids=deque(maxlen=64); self.completed_action_count=0; self.action_journal=self.work_dir/"action_journal.json"; self.checkpoint_dir=None
-        self.crash_probe=None; self.terminal_counter_delta=[]
+        self.crash_probe=None; self.engineering_stop_prefix=None; self.terminal_counter_delta=[]
         (self.work_dir/"streams").mkdir(parents=True,exist_ok=True); self.audit_state={}
 
     def _open_array(self,name,dtype,shape,fill,resume):
@@ -641,6 +644,8 @@ class Machine044:
         if named:
             safe="".join(ch if ch.isalnum() or ch in "_-" else "_" for ch in reason); q=d/(safe+".pt"); qtmp=d/(safe+".pt.tmp")
             torch.save(snap,qtmp); os.replace(qtmp,q); c.W(str(q)+".json",{**meta,"sha256":sha256_file(q)})
+        if self.engineering_stop_prefix and str(reason).startswith(str(self.engineering_stop_prefix)):
+            raise EngineeringCheckpointStop(str(reason))
 
     @classmethod
     def restore(cls,src,work_dir,path,arm=None,allow_gradient=True,real_science=False,strict_journal=True):
