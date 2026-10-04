@@ -2,7 +2,7 @@
   "protocol": "043",
   "revision": 1,
   "run_id": "37168746303",
-  "publication_status": "pending_main_sync",
-  "main_synced": false,
+  "publication_status": "synced_to_main",
+  "main_synced": true,
   "science_reexecuted": false
 }
