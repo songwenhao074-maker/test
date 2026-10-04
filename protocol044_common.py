@@ -1,4 +1,4 @@
-"""Protocol-043 revision1 common primitives: bounded float64 utility and immutable inputs."""
+"""Protocol-044 revision1 common primitives: incremental bounded utility and frozen policy."""
 from __future__ import annotations
 import copy, hashlib, json, math
 from collections import deque
@@ -11,9 +11,9 @@ import run_ftmoe_protocol040 as p40
 from protocol035_common import binary_metrics, dump_json, load_npz, sha256_file, sha256_state_dict
 
 ROOT=Path(__file__).resolve().parent
-PLAN=ROOT/"artifacts/ftmoe_online/protocol_043/plan.json"
-PLAN_SHA="9cd9b6f63aed0e35361f763e532d7c785a7838c19d172ea0c97bbaae5b2b0d6b"
-N,HOSTS,DIM=5968,16,73
+PLAN=ROOT/"artifacts/ftmoe_online/protocol_044/plan.json"
+PLAN_SHA="a27a6cca6abde40b6395876eccd3db5f550a044e952a701fe63aa2e4306a5f51"
+N,HOSTS,DIM=5952,16,73
 ARMS=("D_no_gc","D_bounded")
 SCORE_TOL=1e-10
 
@@ -137,62 +137,109 @@ def reuse_evidence(candidate_margin,live_margin,b_margin,y):
     return q
 
 class UtilityTracker:
-    """Current-epoch ring128 sufficient statistics; float64 operands before subtraction."""
+    """Current-epoch ring128 with incremental float64 sufficient statistics."""
+    FIELDS=("sum_u","sum_pos","sum_neg","pos","neg","positive_interval","live_tp","live_fp","live_fn","live_tn","rem_tp","rem_fp","rem_fn","rem_tn")
     def __init__(self):
-        self.epoch=0; self.epoch_start_prediction=0; self.rows={}; self.streak={}; self.reset_events=[]; self.fallback_count=0; self.fallback_seconds=0.0
+        self.epoch=0; self.epoch_start_prediction=0; self.rows={}; self.totals={}; self.streak={}; self.reset_events=[]
+        self.settlement_intervals=0; self.periodic_rebuild_count=0; self.near_threshold_rebuild_count=0; self.rank_rebuild_count=0; self.rebuild_seconds=0.0
+    @staticmethod
+    def _zero():
+        return {"sum_u":0.0,"sum_pos":0.0,"sum_neg":0.0,"pos":0,"neg":0,"positive_interval":0,
+          "live_tp":0,"live_fp":0,"live_fn":0,"live_tn":0,"rem_tp":0,"rem_fp":0,"rem_fn":0,"rem_tn":0}
     def reset(self,new_epoch,start_prediction,active_ids,reason):
         self.epoch=int(new_epoch); self.epoch_start_prediction=int(start_prediction)
-        self.rows={int(e):deque(maxlen=128) for e in active_ids}; self.streak={int(e):0 for e in active_ids}
+        self.rows={int(e):deque() for e in active_ids}; self.totals={int(e):self._zero() for e in active_ids}; self.streak={int(e):0 for e in active_ids}
         self.reset_events.append({"epoch":self.epoch,"start_prediction":int(start_prediction),"active_ids":sorted(int(x) for x in active_ids),"reason":reason})
+    def _apply(self,eid,row,sign):
+        t=self.totals[eid]
+        for k in self.FIELDS:
+            if k.startswith("sum_"): t[k]=float(t[k]+sign*float(row[k]))
+            else: t[k]=int(t[k]+sign*int(row[k]))
+    def _rebuild(self,eid,kind):
+        import time as _time
+        st=_time.perf_counter(); z=self._zero()
+        for r in self.rows.get(int(eid),()):
+            for k in self.FIELDS:
+                if k.startswith("sum_"): z[k]=float(z[k]+float(r[k]))
+                else: z[k]=int(z[k]+int(r[k]))
+        self.totals[int(eid)]=z; self.rebuild_seconds+=_time.perf_counter()-st
+        if kind=="periodic": self.periodic_rebuild_count+=1
+        elif kind=="near": self.near_threshold_rebuild_count+=1
+        elif kind=="rank": self.rank_rebuild_count+=1
     def settle(self,i,epoch,live_margin,deltas,y):
         if int(epoch)!=self.epoch: raise AssertionError("utility epoch mismatch")
-        live64=np.asarray(live_margin,dtype=np.float64); yy=(np.asarray(y)>0)
-        ll=stable_bce_rows(live64,yy)
-        lc=_conf(live64,yy)
+        live64=np.asarray(np.asarray(live_margin,dtype=np.float32),dtype=np.float64); yy=(np.asarray(y)>0)
+        ll=stable_bce_rows(live64,yy); lc=_conf(live64,yy)
         for eid,d in deltas.items():
             eid=int(eid)
             if eid not in self.rows: continue
-            d64=np.asarray(d,dtype=np.float64); rem=live64-d64; rl=stable_bce_rows(rem,yy); u=rl-ll
+            d64=np.asarray(np.asarray(d,dtype=np.float32),dtype=np.float64); rem=live64-d64; rl=stable_bce_rows(rem,yy); u=rl-ll
             pos=yy; neg=~yy; rc=_conf(rem,yy)
-            self.rows[eid].append({"i":int(i),"sum_u":float(u.sum()),"sum_pos":float(u[pos].sum()),"sum_neg":float(u[neg].sum()),
-              "pos":int(pos.sum()),"neg":int(neg.sum()),"positive_interval":bool(np.any(pos)),
+            row={"i":int(i),"sum_u":float(u.sum()),"sum_pos":float(u[pos].sum()),"sum_neg":float(u[neg].sum()),
+              "pos":int(pos.sum()),"neg":int(neg.sum()),"positive_interval":int(bool(np.any(pos))),
               "live_tp":lc["tp"],"live_fp":lc["fp"],"live_fn":lc["fn"],"live_tn":lc["tn"],
-              "rem_tp":rc["tp"],"rem_fp":rc["fp"],"rem_fn":rc["fn"],"rem_tn":rc["tn"]})
+              "rem_tp":rc["tp"],"rem_fp":rc["fp"],"rem_fn":rc["fn"],"rem_tn":rc["tn"]}
+            q=self.rows[eid]
+            if len(q)>=128:
+                old=q.popleft(); self._apply(eid,old,-1)
+            q.append(row); self._apply(eid,row,+1)
+        self.settlement_intervals+=1
+        if self.settlement_intervals%128==0:
+            for eid in list(self.rows): self._rebuild(eid,"periodic")
     @staticmethod
     def _ratio(a,b): return None if b==0 else float(a/b)
-    def score(self,eid,m):
-        eid=int(eid); rows=list(self.rows.get(eid,()))
-        if eid not in self.rows: return {"valid":False,"reason":"not_active","score":None,"score_pos":None,"score_neg":None}
+    def _score_raw(self,eid,m):
+        eid=int(eid); rows=self.rows.get(eid)
+        if rows is None: return {"valid":False,"reason":"not_active","score":None,"score_pos":None,"score_neg":None}
         matured=int(m)-self.epoch_start_prediction+1
         if matured<128: return {"valid":False,"reason":"epoch_mature_lt128","score":None,"score_pos":None,"score_neg":None,"epoch_matured":matured,"intervals":len(rows)}
         if len(rows)!=128 or rows[0]["i"]!=int(m)-127 or rows[-1]["i"]!=int(m):
             return {"valid":False,"reason":"window_not_full","score":None,"score_pos":None,"score_neg":None,"epoch_matured":matured,"intervals":len(rows)}
-        pos=sum(r["pos"] for r in rows); neg=sum(r["neg"] for r in rows); pint=sum(int(r["positive_interval"]) for r in rows)
+        t=self.totals[eid]; pos=t["pos"]; neg=t["neg"]; pint=t["positive_interval"]
         if pos<16 or neg<16 or pint<4:
             return {"valid":False,"reason":"insufficient_support","score":None,"score_pos":None,"score_neg":None,
               "positive_host_rows":pos,"negative_host_rows":neg,"positive_intervals":pint,"epoch_matured":matured,"intervals":128}
-        su=sum(r["sum_u"] for r in rows); sp=sum(r["sum_pos"] for r in rows); sn=sum(r["sum_neg"] for r in rows)
-        ltp=sum(r["live_tp"] for r in rows); lfp=sum(r["live_fp"] for r in rows); lfn=sum(r["live_fn"] for r in rows); ltn=sum(r["live_tn"] for r in rows)
-        rtp=sum(r["rem_tp"] for r in rows); rfp=sum(r["rem_fp"] for r in rows); rfn=sum(r["rem_fn"] for r in rows); rtn=sum(r["rem_tn"] for r in rows)
-        lfpr=self._ratio(lfp,lfp+ltn); rfpr=self._ratio(rfp,rfp+rtn); lrec=self._ratio(ltp,ltp+lfn); rrec=self._ratio(rtp,rtp+rfn)
+        lfpr=self._ratio(t["live_fp"],t["live_fp"]+t["live_tn"]); rfpr=self._ratio(t["rem_fp"],t["rem_fp"]+t["rem_tn"])
+        lrec=self._ratio(t["live_tp"],t["live_tp"]+t["live_fn"]); rrec=self._ratio(t["rem_tp"],t["rem_tp"]+t["rem_fn"])
         if None in (lfpr,rfpr,lrec,rrec): return {"valid":False,"reason":"confusion_support","score":None,"score_pos":None,"score_neg":None}
-        return {"valid":True,"reason":"ok","score":float(su/(pos+neg)),"score_pos":float(sp/pos),"score_neg":float(sn/neg),
+        return {"valid":True,"reason":"ok","score":float(t["sum_u"]/(pos+neg)),"score_pos":float(t["sum_pos"]/pos),"score_neg":float(t["sum_neg"]/neg),
           "positive_host_rows":pos,"negative_host_rows":neg,"positive_intervals":pint,"fpr_live":lfpr,"fpr_removed":rfpr,
           "recall_live":lrec,"recall_removed":rrec,"removal_fpr_delta":float(rfpr-lfpr),"removal_recall_delta":float(rrec-lrec),
           "epoch_matured":matured,"intervals":128,"first_i":int(rows[0]["i"]),"last_i":int(rows[-1]["i"])}
+    def score(self,eid,m): return self._score_raw(eid,m)
+    @staticmethod
+    def _near(s):
+        if not s.get("valid"): return False
+        vals=(s["score"],s["score_pos"],s["score_neg"],s["removal_fpr_delta"]-.01,s["removal_recall_delta"]+.02)
+        return any(abs(float(x))<=SCORE_TOL for x in vals)
     def check(self,eid,m):
-        s=self.score(eid,m); ok=bool(s.get("valid") and s["score"]<=0 and s["score_pos"]<=0 and s["score_neg"]<=0 and s["removal_fpr_delta"]<=.01 and s["removal_recall_delta"]>=-.02)
-        before=int(self.streak.get(int(eid),0)); after=before+1 if ok else 0; self.streak[int(eid)]=after
+        eid=int(eid); s=self._score_raw(eid,m)
+        if self._near(s):
+            self._rebuild(eid,"near"); s=self._score_raw(eid,m)
+        ok=bool(s.get("valid") and s["score"]<=0 and s["score_pos"]<=0 and s["score_neg"]<=0 and s["removal_fpr_delta"]<=.01 and s["removal_recall_delta"]>=-.02)
+        before=int(self.streak.get(eid,0)); after=before+1 if ok else 0; self.streak[eid]=after
         return {**s,"eligible_now":ok,"streak_before":before,"streak_after":after,"eligible_three":bool(ok and after>=3)}
     def victim(self,active_ids,m,update=True):
         rows=[]
         for eid in sorted(int(x) for x in active_ids):
-            s=self.check(eid,m) if update else {**self.score(eid,m),"eligible_three":self.streak.get(eid,0)>=3}
+            s=self.check(eid,m) if update else {**self._score_raw(eid,m),"eligible_three":self.streak.get(eid,0)>=3}
             rows.append({"expert_id":eid,**s})
         cand=[x for x in rows if x.get("eligible_three")]
         if not cand: return None,rows
         cand.sort(key=lambda x:(float(x["score"]),int(x["expert_id"])))
+        if len(cand)>1 and abs(float(cand[0]["score"])-float(cand[1]["score"]))<=SCORE_TOL:
+            for x in cand: self._rebuild(int(x["expert_id"]),"rank")
+            rows=[]
+            for eid in sorted(int(x) for x in active_ids):
+                ss={**self._score_raw(eid,m),"eligible_three":self.streak.get(eid,0)>=3}; rows.append({"expert_id":eid,**ss})
+            cand=[x for x in rows if x.get("eligible_three")]; cand.sort(key=lambda x:(float(x["score"]),int(x["expert_id"])))
         return int(cand[0]["expert_id"]),rows
+    def online_payload(self):
+        return {"epoch":self.epoch,"epoch_start_prediction":self.epoch_start_prediction,
+          "rows":{int(k):list(v) for k,v in self.rows.items()},"totals":copy.deepcopy(self.totals),"streak":copy.deepcopy(self.streak),
+          "settlement_intervals":self.settlement_intervals,"periodic_rebuild_count":self.periodic_rebuild_count,
+          "near_threshold_rebuild_count":self.near_threshold_rebuild_count,"rank_rebuild_count":self.rank_rebuild_count,
+          "rebuild_seconds":self.rebuild_seconds}
 
 def independent_score_from_arrays(live_margin,delta,labels,indices):
     ii=np.asarray(indices,dtype=np.int64)
