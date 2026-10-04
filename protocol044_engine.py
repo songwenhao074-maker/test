@@ -45,7 +45,7 @@ class Machine044:
         self.max_active_seen=0; self.max_resident_seen=0; self.peak_resident_tensor_bytes=0
         self.permanent_deletions=0; self.actual_optimizer_calls=0; self.near_threshold_recompute_count=0
         self.action_seq=0; self.completed_action_ids=deque(maxlen=64); self.completed_action_count=0; self.action_journal=self.work_dir/"action_journal.json"; self.checkpoint_dir=None
-        self.crash_probe=None; self.engineering_stop_prefix=None; self.terminal_counter_delta=[]; self.deferred_control_checkpoints=[]
+        self.crash_probe=None; self.engineering_stop_prefix=None; self.deferred_control_checkpoints=[]; self.terminal_counter_delta=[]; self.deferred_control_checkpoints=[]
         (self.work_dir/"streams").mkdir(parents=True,exist_ok=True); self.audit_state={}
 
     def _open_array(self,name,dtype,shape,fill,resume):
@@ -643,7 +643,7 @@ class Machine044:
           "update_seconds":self.update_seconds,"io_seconds":self.io_seconds,"max_active_seen":self.max_active_seen,"max_resident_seen":self.max_resident_seen,
           "peak_resident_tensor_bytes":self.peak_resident_tensor_bytes,"permanent_deletions":self.permanent_deletions,"actual_optimizer_calls":self.actual_optimizer_calls,
           "near_threshold_recompute_count":self.near_threshold_recompute_count,"action_seq":self.action_seq,
-          "completed_action_ids":list(self.completed_action_ids),"completed_action_count":self.completed_action_count,
+          "completed_action_ids":list(self.completed_action_ids),"completed_action_count":self.completed_action_count,"deferred_control_checkpoints":copy.deepcopy(self.deferred_control_checkpoints),
           "torch_rng":torch.get_rng_state(),"numpy_rng":np.random.get_state(),"python_rng":random.getstate()}
 
     def online_payload_bytes(self):
@@ -681,7 +681,7 @@ class Machine044:
           "last_reuse_quality_failure","pending_train_context","tracker",
           "live_optimizer_steps","shadow_optimizer_steps","deployed_forwards","reuse_preview_forwards","shadow_preview_forwards","live_training_forwards",
           "shadow_training_forwards","controller_cpu_seconds","prediction_seconds","update_seconds","io_seconds","max_active_seen","max_resident_seen",
-          "peak_resident_tensor_bytes","permanent_deletions","actual_optimizer_calls","near_threshold_recompute_count","action_seq","completed_action_count"]
+          "peak_resident_tensor_bytes","permanent_deletions","actual_optimizer_calls","near_threshold_recompute_count","action_seq","completed_action_count","deferred_control_checkpoints"]
         for k in simple: setattr(m,k,copy.deepcopy(x[k]))
         m.deleted_ids=set(m.deleted_ids); m.reuse_history=deque(copy.deepcopy(x["reuse_history"]),maxlen=2)
         m.completed_action_ids=deque(copy.deepcopy(x["completed_action_ids"]),maxlen=64)
