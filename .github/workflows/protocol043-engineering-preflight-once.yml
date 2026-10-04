@@ -95,3 +95,5 @@ jobs:
           retention-days: 90
           compression-level: 6
           if-no-files-found: error
+
+# retry after shadow->active state fix
