@@ -83,3 +83,5 @@ jobs:
 # retry after maintenance import path fix 1fa77dd6
 
 # retry after sklearn dependency lock
+
+# retry after restoring locked Protocol031 nonblocking reuse dependency
