@@ -30,7 +30,7 @@ jobs:
           set -euo pipefail
           python -m pip install --upgrade pip
           python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.4.1
-          python -m pip install numpy==1.24.4 psutil==5.9.8 dill==0.3.8
+          python -m pip install numpy==1.24.4 psutil==5.9.8 dill==0.3.8 scikit-learn==1.3.2
           python -m py_compile run_ftmoe_protocol044_science.py maintenance/protocol044_ecloseout.py maintenance/protocol044_baseline_adapter.py
       - name: Download locked E evidence
         run: |
@@ -81,3 +81,5 @@ jobs:
 # retry after D_lin syntax repair 91f45383
 
 # retry after maintenance import path fix 1fa77dd6
+
+# retry after sklearn dependency lock
