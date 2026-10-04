@@ -77,3 +77,5 @@ jobs:
           retention-days: 90
           compression-level: 6
           if-no-files-found: error
+
+# retry after D_lin syntax repair 91f45383
