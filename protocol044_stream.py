@@ -49,6 +49,7 @@ def runtime_registration():
  return r
 def set_registration_path(p):
  global REGISTRATION_PATH;REGISTRATION_PATH=Path(p).resolve()
+ if H is not None:H.REGISTRATION_PATH=REGISTRATION_PATH
 def registration():
  if REGISTRATION_PATH is None:raise RuntimeError("registration not configured")
  r=J(REGISTRATION_PATH)
