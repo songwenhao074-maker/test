@@ -1,0 +1,201 @@
+name: Protocol043 bounded lifecycle
+
+on:
+  workflow_dispatch:
+    inputs:
+      execution_sha:
+        description: Exact frozen Protocol043 execution commit
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: protocol043-revision1
+  cancel-in-progress: false
+
+jobs:
+  science:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      GH_TOKEN: ${{ github.token }}
+      EXECUTION_SHA: ${{ inputs.execution_sha }}
+      EXECUTION_REF: codex/protocol-043-bounded-lifecycle-20261003
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      PYTHONHASHSEED: "1"
+
+    steps:
+      - name: Checkout exact frozen Protocol043 commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.execution_sha }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.8.18"
+
+      - name: Verify freeze and install fixed dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXECUTION_SHA"
+          git branch -r --contains HEAD | grep -F "origin/$EXECUTION_REF"
+          python maintenance/validate_protocol043_plan.py
+          python -m py_compile protocol043_common.py protocol043_engine.py run_ftmoe_protocol043.py analyze_ftmoe_protocol043.py             maintenance/protocol043_audit042.py maintenance/protocol043_gate.py maintenance/protocol043_finalize.py maintenance/protocol043_publish.py
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.4.1
+          python -m pip install numpy==1.24.4 psutil==5.9.8
+          python -m pip freeze > /tmp/p043_pip_freeze.txt
+
+      - name: Download and verify all registered immutable artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/p043
+          mkdir -p /tmp/p043/{zip,extract036,extract041,extract042,source036,source041,preflight,audit042,raw/science,analysis}
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11147931152/zip" -o /tmp/p043/zip/036.zip
+          echo "040bacac8f23659f56599b71d6d6706b62a544e44161c7c42fb5af73650f56c0  /tmp/p043/zip/036.zip" | sha256sum -c -
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11269043834/zip" -o /tmp/p043/zip/041.zip
+          echo "baa36f1fbb3489f76d8f0ffb5d8e4ebc88317e231bd934146e185ac2e4ffde6e  /tmp/p043/zip/041.zip" | sha256sum -c -
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11276470062/zip" -o /tmp/p043/zip/042.zip
+          echo "764913d9ffb3e26d2895b1ba802595458b5efdeb46c8bc118c226c2c2c7bc991  /tmp/p043/zip/042.zip" | sha256sum -c -
+          unzip -q /tmp/p043/zip/036.zip -d /tmp/p043/extract036
+          unzip -q /tmp/p043/zip/041.zip -d /tmp/p043/extract041
+          unzip -q /tmp/p043/zip/042.zip -d /tmp/p043/extract042
+          python maintenance/materialize_protocol043_sources.py             --extracted036 /tmp/p043/extract036 --extracted041 /tmp/p043/extract041 --extracted042 /tmp/p043/extract042             --out036 /tmp/p043/source036 --out041 /tmp/p043/source041             --report /tmp/p043/raw/science/source_materialization.json
+
+      - name: Read-only full Protocol042 audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python maintenance/protocol043_audit042.py --raw042 /tmp/p043/extract042 --out /tmp/p043/audit042
+          test "$(python -c 'import json; x=json.load(open("/tmp/p043/audit042/gate.json")); print(str(type(x.get("all_pass")) is bool and x["all_pass"]).lower())')" = "true"
+
+      - name: Frozen production-entrypoint preflight
+        shell: bash
+        run: |
+          set -euo pipefail
+          python run_ftmoe_protocol043.py preflight             --source036 /tmp/p043/source036 --source041 /tmp/p043/source041 --out-dir /tmp/p043/preflight
+          cp /tmp/p043/preflight/fixture_report.json /tmp/p043/raw/science/fixture_report.json
+          cp -a /tmp/p043/preflight /tmp/p043/raw/science/engineering_preflight
+          cp -a /tmp/p043/audit042 /tmp/p043/raw/audit042
+
+      - name: Stage cached controls and frozen source bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          python run_ftmoe_protocol043.py copy-controls             --source036 /tmp/p043/source036 --source041 /tmp/p043/source041 --source042 /tmp/p043/extract042             --out-dir /tmp/p043/raw/science
+          mkdir -p /tmp/p043/raw/science/source_bundle
+          tar -czf /tmp/p043/raw/science/source_bundle/protocol043-source.tar.gz             protocol043_common.py protocol043_engine.py run_ftmoe_protocol043.py analyze_ftmoe_protocol043.py             maintenance/validate_protocol043_plan.py maintenance/materialize_protocol043_sources.py maintenance/protocol043_audit042.py             maintenance/protocol043_gate.py maintenance/protocol043_finalize.py maintenance/protocol043_publish.py             artifacts/ftmoe_online/protocol_043/plan.json artifacts/ftmoe_online/protocol_043/plan.sha256             docs/PROTOCOL043_BOUNDED_LIFECYCLE_20261003.md .github/workflows/protocol043-bounded-lifecycle.yml
+          cp /tmp/p043_pip_freeze.txt /tmp/p043/raw/science/pip_freeze.txt
+
+      - name: Build immutable implementation manifest and fail-closed gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python maintenance/protocol043_gate.py             --source-report /tmp/p043/raw/science/source_materialization.json             --audit-gate /tmp/p043/raw/audit042/gate.json             --fixture-report /tmp/p043/raw/science/fixture_report.json             --execution-sha "$EXECUTION_SHA"             --workflow .github/workflows/protocol043-bounded-lifecycle.yml             --pip-freeze /tmp/p043/raw/science/pip_freeze.txt             --implementation-out /tmp/p043/raw/science/implementation_manifest.json             --gate-out /tmp/p043/raw/science/gate_report.json             --run-id "$GITHUB_RUN_ID"
+          python maintenance/protocol043_finalize.py provenance             --out /tmp/p043/raw/science/provenance.json --run-id "$GITHUB_RUN_ID" --checkout-sha "$EXECUTION_SHA"             --plan artifacts/ftmoe_online/protocol_043/plan.json --workflow .github/workflows/protocol043-bounded-lifecycle.yml             --pip-freeze /tmp/p043/raw/science/pip_freeze.txt             --file protocol043_common.py --file protocol043_engine.py --file run_ftmoe_protocol043.py --file analyze_ftmoe_protocol043.py             --file maintenance/protocol043_audit042.py --file maintenance/protocol043_gate.py
+          printf '{"protocol":"043","revision":1,"science_status":"gated_not_started","analysis_status":"not_started","publication_status":"pending","execution_sha":"%s","restart_from_zero":false}\n' "$EXECUTION_SHA" > /tmp/p043/raw/science/protocol_status.json
+
+      - name: Run D_no_gc once
+        shell: bash
+        run: |
+          set -euo pipefail
+          python run_ftmoe_protocol043.py arm --arm D_no_gc             --source036 /tmp/p043/source036 --source041 /tmp/p043/source041             --out-dir /tmp/p043/raw/science             --fixture-report /tmp/p043/raw/science/fixture_report.json             --audit-gate /tmp/p043/raw/audit042/gate.json             --gate-report /tmp/p043/raw/science/gate_report.json             --execution-sha "$EXECUTION_SHA" --run-id "$GITHUB_RUN_ID"
+
+      - name: Preserve completed D_no_gc boundary
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol043-progress-D_no_gc-${{ github.run_id }}
+          path: /tmp/p043/raw
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
+
+      - name: Run D_bounded once
+        shell: bash
+        run: |
+          set -euo pipefail
+          python run_ftmoe_protocol043.py arm --arm D_bounded             --source036 /tmp/p043/source036 --source041 /tmp/p043/source041             --out-dir /tmp/p043/raw/science             --fixture-report /tmp/p043/raw/science/fixture_report.json             --audit-gate /tmp/p043/raw/audit042/gate.json             --gate-report /tmp/p043/raw/science/gate_report.json             --execution-sha "$EXECUTION_SHA" --run-id "$GITHUB_RUN_ID"
+          printf '{"protocol":"043","revision":1,"science_status":"completed","science_rc":0,"analysis_status":"pending","publication_status":"pending","execution_sha":"%s","restart_from_zero":false}\n' "$EXECUTION_SHA" > /tmp/p043/raw/science/protocol_status.json
+          python maintenance/protocol043_finalize.py manifest             --root /tmp/p043/raw --out /tmp/p043/raw/science/scientific_raw_manifest.json
+
+      - name: Upload immutable scientific raw before analysis
+        id: raw_upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol043-raw-${{ github.run_id }}
+          path: /tmp/p043/raw
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
+
+      - name: Query raw artifact and run frozen analysis
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/${{ steps.raw_upload.outputs.artifact-id }}" > /tmp/p043/raw_artifact_info.json
+          python analyze_ftmoe_protocol043.py             --science-root /tmp/p043/raw/science             --manifest /tmp/p043/source036/inputs/seed3601/manifest.json             --fixture-report /tmp/p043/raw/science/fixture_report.json             --audit042-gate /tmp/p043/raw/audit042/gate.json             --gate-report /tmp/p043/raw/science/gate_report.json             --output-dir /tmp/p043/analysis             --docs-output docs/PROTOCOL043_RESULTS.md             --run-id "$GITHUB_RUN_ID"
+          cp docs/PROTOCOL043_RESULTS.md /tmp/p043/analysis/PROTOCOL043_RESULTS.md
+          python maintenance/protocol043_finalize.py artifact-index             --info /tmp/p043/raw_artifact_info.json             --raw-manifest /tmp/p043/raw/science/scientific_raw_manifest.json             --out /tmp/p043/analysis/artifact_index.json             --run-id "$GITHUB_RUN_ID"
+          python maintenance/protocol043_finalize.py manifest             --root /tmp/p043/analysis --out /tmp/p043/analysis/analysis_manifest.json
+
+      - name: Build compact handoff and terminal pointers
+        shell: bash
+        run: |
+          set -euo pipefail
+          COMPACT="artifacts/ftmoe_online/protocol_043/runs/run_$GITHUB_RUN_ID"
+          python maintenance/protocol043_finalize.py compact             --science /tmp/p043/raw/science --analysis /tmp/p043/analysis --audit /tmp/p043/raw/audit042 --dst "$COMPACT"
+          python maintenance/protocol043_publish.py prepare             --root . --compact "$COMPACT" --analysis-status /tmp/p043/analysis/analysis_status.json --run-id "$GITHUB_RUN_ID"
+          python maintenance/protocol043_finalize.py manifest             --root "$COMPACT" --out "$COMPACT/compact_manifest.json"
+
+      - name: Upload compact Protocol043 handoff
+        id: compact_upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol043-compact-${{ github.run_id }}
+          path: artifacts/ftmoe_online/protocol_043/runs/run_${{ github.run_id }}
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
+
+      - name: Commit result to execution branch and publish result-only to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          COMPACT="artifacts/ftmoe_online/protocol_043/runs/run_$GITHUB_RUN_ID"
+          git add docs/PROTOCOL043_RESULTS.md "$COMPACT" AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md docs/GITHUB_EXPERIMENT_HANDOFF.md README.md
+          git commit -m "results: Protocol043 revision1 science run $GITHUB_RUN_ID [skip ci]"
+          RESULT="$(git rev-parse HEAD)"
+          cp maintenance/protocol043_publish.py /tmp/protocol043_publish.py
+          git push origin HEAD:"$EXECUTION_REF"
+
+          git fetch origin main
+          git checkout -B p043-publish origin/main
+          git checkout "$RESULT" -- docs/PROTOCOL043_RESULTS.md "$COMPACT" AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md docs/GITHUB_EXPERIMENT_HANDOFF.md README.md
+          git add docs/PROTOCOL043_RESULTS.md "$COMPACT" AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md docs/GITHUB_EXPERIMENT_HANDOFF.md README.md
+          git commit -m "results: publish Protocol043 revision1 science run $GITHUB_RUN_ID [skip ci]"
+          git push origin HEAD:main
+
+          python /tmp/protocol043_publish.py sync --compact "$COMPACT" --run-id "$GITHUB_RUN_ID"
+          git add "$COMPACT/publication_status.json"
+          git commit -m "results: mark Protocol043 publication synced [skip ci]"
+          git push origin HEAD:main
+
+      - name: Preserve interrupted exact-resume state
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol043-interrupted-${{ github.run_id }}
+          path: /tmp/p043/raw
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: warn
