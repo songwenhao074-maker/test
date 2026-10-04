@@ -86,3 +86,5 @@ jobs:
 # retry after completed-control checkpoint boundary fix ebf41dab
 
 # retry after deferred checkpoint queue initialization 2cbc8b4e
+
+# retry after settle-tick checkpoint fix 560be11b
