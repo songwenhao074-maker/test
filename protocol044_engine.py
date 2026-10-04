@@ -240,6 +240,7 @@ class Machine044:
         self._resource_sample()
 
     def _settle(self,t):
+        deferred_settle_checkpoint=None
         i=int(t)-2
         if i<0 or i>=self.src["n"]: return
         if self.settled[i]: raise AssertionError("duplicate settlement")
@@ -254,9 +255,9 @@ class Machine044:
             if active:
                 ss=self.tracker.score(active[0],i)
                 if ss.get("valid") and ss.get("first_i")==i-127 and i>=129:
-                    self.save_checkpoint("window_expiry_after_t%d"%t,True)
+                    deferred_settle_checkpoint=("window_expiry_after_t%d"%t,True)
         if self.engineering_stop_prefix=="late_old_epoch_settlement" and ep!=self.deployment_epoch:
-            self.save_checkpoint("late_old_epoch_settlement_t%d"%t,True)
+            deferred_settle_checkpoint=("late_old_epoch_settlement_t%d"%t,True)
         row={"at_interval":int(t),"settled_interval":i,"issued_epoch":ep,"current_epoch":self.deployment_epoch,
           "control_eligible":bool(ep==self.deployment_epoch),"B_bce":float(self.b_loss[i]),"D_bce":float(self.d_loss[i]),"active_ids":sorted(deltas)}
         self._record("settlements",self.settlement_log,row)
@@ -265,10 +266,12 @@ class Machine044:
             if len(self.shadow["settled_rows"])==32:
                 self.shadow["ready"]=True
                 if self.engineering_stop_prefix=="qualification_ready_before_decision":
-                    self.save_checkpoint("qualification_ready_before_decision_t%d"%t,True)
+                    deferred_settle_checkpoint=("qualification_ready_before_decision_t%d"%t,True)
         if self.reuse_slot is not None and i in self.reuse_slot.get("issued",{}):
             r=self.reuse_slot["issued"][i]; self.reuse_slot["settled_rows"][i]={"y":np.asarray(y).copy(),**r}
             if len(self.reuse_slot["settled_rows"])==32: self.reuse_slot["ready"]=True
+        if deferred_settle_checkpoint is not None:
+            self.save_checkpoint(deferred_settle_checkpoint[0],deferred_settle_checkpoint[1])
 
     def _pressure_check(self,t):
         if not self.experts: self.pressure_streak=0; return None
