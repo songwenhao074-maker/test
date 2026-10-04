@@ -16,6 +16,10 @@ from protocol035_common import sha256_file, sha256_state_dict
 N=5952
 SEQ=("C_ref","D_lin","D_no_gc","D_bounded")
 PLAN_SHA="a27a6cca6abde40b6395876eccd3db5f550a044e952a701fe63aa2e4306a5f51"
+R2_PLAN=Path("artifacts/ftmoe_online/protocol_044/revision_002/plan.json")
+R2_PLAN_SHA="823365226f0e418bcc5dbdc79e0e1b77f5adf72c3e404b67fb28fdffd9cc20b3"
+SCENARIO=Path("artifacts/ftmoe_online/protocol_044/scenario_registration.json")
+SCENARIO_SHA="6e6bd03efc0d84f5e885eacf36f1ac80e770198703463cc051216ad1a741683f"
 SOURCE_PROBE_DIGEST="sha256:1db5dd429b43759ad3e868012d8e8c850551d21e53f1cd86af0e7daf316ecf49"
 ENGINEERING_CORE_DIGEST="sha256:1d01c2bd2e53ba5e9e419bcd83ca5014aaf27487c18c19d440284bf8fdb3de36"
 REQUIRED_CASES=("birth_after","single_live_after","joint_live_after","shadow_update01_after","shadow_update15_after","shadow_update16_after",
@@ -35,9 +39,14 @@ def runtime():
     torch.use_deterministic_algorithms(True,warn_only=False)
 def plan():
     p=Path("artifacts/ftmoe_online/protocol_044/plan.json")
-    if sha256_file(p)!=PLAN_SHA: raise AssertionError("Protocol044 plan hash")
-    x=J(p)
-    if (x.get("protocol"),x.get("revision"))!=("044",1) or x["stageS"]["sequence_order"]!=list(SEQ): raise AssertionError("Protocol044 plan identity")
+    if sha256_file(p)!=PLAN_SHA: raise AssertionError("Protocol044 r1 plan hash")
+    if sha256_file(SCENARIO)!=SCENARIO_SHA: raise AssertionError("Protocol044 scenario hash")
+    if sha256_file(R2_PLAN)!=R2_PLAN_SHA: raise AssertionError("Protocol044 r2 plan hash")
+    x=J(p); r2=J(R2_PLAN)
+    if (x.get("protocol"),x.get("revision"))!=("044",1) or x["stageS"]["sequence_order"]!=list(SEQ): raise AssertionError("Protocol044 r1 plan identity")
+    if (r2.get("protocol"),r2.get("revision"))!=("044",2): raise AssertionError("Protocol044 r2 plan identity")
+    if r2["inherits"]["plan_sha256"]!=PLAN_SHA or r2["inherits"]["scenario_sha256"]!=SCENARIO_SHA: raise AssertionError("Protocol044 dual contract")
+    if r2["budget"]["science_key"]!="protocol044_revision1_stageS_seed4401_sequence": raise AssertionError("Protocol044 science key")
     return x
 def validate_input(data,input_lock):
     root=Path(data); m=J(root/"manifest.json"); lock=J(input_lock)
@@ -46,57 +55,83 @@ def validate_input(data,input_lock):
     if not (lock.get("protocol")=="044" and lock.get("revision")==1 and lock.get("seed")==4401 and lock.get("locked") is True): raise AssertionError("input lock")
     if digest!=lock.get("stream_sha256") or digest!=m.get("stream_sha256"): raise AssertionError("stream hash")
     return digest,m
-def validate_gate(gate,input_lock,execution_sha,sequence,ledger,optimizer_calls=0):
+def validate_gate(gate,input_lock,execution_sha,sequence,ledger,optimizer_calls=0,resume=False):
     if optimizer_calls!=0: raise AssertionError("gate called after optimizer")
+    plan()
     g=J(gate) if not isinstance(gate,dict) else gate
-    if (g.get("protocol"),g.get("revision"))!=("044",1): raise RuntimeError("gate identity")
-    for k in ("E_gate","source_lock_pass","engineering_core_pass","crash_pass","fail_closed_pass","baseline_adapter_pass"):
-        if type(g.get(k)) is not bool or not g[k]: raise RuntimeError("gate false "+k)
+    if (g.get("protocol"),g.get("execution_revision"),g.get("science_config_revision"))!=("044",2,1): raise RuntimeError("r2 gate identity")
+    for k in ("E_recovery_gate","inherited_E_pass","compatibility_pass","production_entrypoint_pass","generation_recovery_pass",
+              "remote_transaction_pass","budget_idempotency_pass","publication_pass"):
+        if type(g.get(k)) is not bool or not g[k]: raise RuntimeError("r2 gate false "+k)
     if g.get("execution_sha")!=str(execution_sha): raise RuntimeError("execution SHA mismatch")
-    if g.get("source_probe_artifact_digest")!=SOURCE_PROBE_DIGEST: raise RuntimeError("bad source hash")
-    if g.get("engineering_core_artifact_digest")!=ENGINEERING_CORE_DIGEST: raise RuntimeError("bad engineering hash")
-    if tuple(g.get("required_resume_case_ids") or ())!=REQUIRED_CASES or tuple(g.get("resume_case_ids_passed") or ())!=REQUIRED_CASES:
-        raise RuntimeError("missing required case")
+    if g.get("r1_plan_sha256")!=PLAN_SHA or g.get("r2_plan_sha256")!=R2_PLAN_SHA or g.get("scenario_sha256")!=SCENARIO_SHA:
+        raise RuntimeError("contract hash mismatch")
+    old=g.get("inherited_E") or {}
+    if old.get("artifact_id")!=11296492568 or old.get("artifact_digest")!="sha256:90b6bab6a149c46da0aa19e551c02f76b5665a27a83e97d7de192e21e08b6591":
+        raise RuntimeError("inherited E identity")
     lock=J(input_lock)
     if lock.get("locked") is not True or lock.get("seed")!=4401: raise RuntimeError("data lock")
     led=J(ledger); r=led["sequences"][sequence]
+    if led.get("execution_revision")!=2 or led.get("science_key")!="protocol044_revision1_stageS_seed4401_sequence": raise RuntimeError("ledger execution identity")
     if r.get("completed"): raise RuntimeError("duplicate completed sequence")
-    if r.get("started"): raise RuntimeError("duplicate start exact resume required")
-    if led.get("total_optimizer_steps",0)>=2360: raise RuntimeError("budget exhausted")
-    if g.get("active_max")!=2 or g.get("resident_max")!=3 or g.get("shadow_max")!=1: raise RuntimeError("illegal capacity gate")
+    if resume:
+        if r.get("started") is not True: raise RuntimeError("resume requires started sequence")
+        if not r.get("state_sha256") or r.get("cursor") is None: raise RuntimeError("resume state not committed")
+    else:
+        if r.get("started"): raise RuntimeError("duplicate start exact resume required")
+    used=int(led.get("total_optimizer_steps_used",0))
+    if used<0 or used>=2360: raise RuntimeError("budget exhausted")
+    if int(r.get("optimizer_steps_used",0))<0: raise RuntimeError("negative sequence budget")
     return True
+
 def default_ledger():
-    return {"protocol":"044","revision":1,"seed":4401,"order":list(SEQ),
-      "sequences":{s:{"started":False,"completed":False,"restart_from_zero":False,"resume_events":[]} for s in SEQ},
-      "total_optimizer_steps":0,"restart_from_zero":False,"extra_streams":0,"extra_seeds":0,"extra_arms":0,"F_loads":0}
+    return {"protocol":"044","revision":1,"execution_revision":2,"seed":4401,"order":list(SEQ),
+      "science_key":"protocol044_revision1_stageS_seed4401_sequence",
+      "sequences":{s:{"started":False,"completed":False,"restart_from_zero":False,"resume_events":[],
+                       "optimizer_steps_used":0,"cursor":0,"state_sha256":None,"inflight":None} for s in SEQ},
+      "total_optimizer_steps_used":0,"restart_from_zero":False,"extra_streams":0,"extra_seeds":0,"extra_arms":0,"F_loads":0}
 def load_ledger(path):
     p=Path(path)
     if not p.exists(): W(p,default_ledger())
     x=J(p)
-    if (x.get("protocol"),x.get("revision"),x.get("seed"))!=("044",1,4401): raise AssertionError("ledger identity")
+    if (x.get("protocol"),x.get("revision"),x.get("execution_revision"),x.get("seed"))!=("044",1,2,4401): raise AssertionError("ledger identity")
+    if x.get("science_key")!="protocol044_revision1_stageS_seed4401_sequence": raise AssertionError("science key")
+    total=sum(int(v.get("optimizer_steps_used",0)) for v in x["sequences"].values())
+    if total!=int(x.get("total_optimizer_steps_used",-1)) or total>2360: raise AssertionError("ledger optimizer accounting")
     return x
 def start_seq(path,name,run_id,resume=None):
     x=load_ledger(path); r=x["sequences"][name]
     if r["completed"]: raise RuntimeError("sequence already completed")
     if r["started"]:
         if not resume: raise RuntimeError("sequence already started exact resume required")
-        r["resume_events"].append({"run_id":str(run_id),"checkpoint":str(resume)})
+        r["resume_events"].append({"run_id":str(run_id),"checkpoint":str(resume),"cursor":int(r["cursor"]),"optimizer_steps_used":int(r["optimizer_steps_used"])})
     else:
         if resume: raise RuntimeError("resume before start")
-        r["started"]=True; r["started_run_id"]=str(run_id)
+        r["started"]=True; r["started_run_id"]=str(run_id); r["cursor"]=0; r["optimizer_steps_used"]=0
+    W(path,x)
+def record_progress(path,name,cursor,steps,state_sha256,inflight=None):
+    x=load_ledger(path); r=x["sequences"][name]
+    if not r["started"] or r["completed"]: raise RuntimeError("progress on illegal sequence state")
+    cursor=int(cursor); steps=int(steps)
+    if cursor<int(r.get("cursor",0)) or steps<int(r.get("optimizer_steps_used",0)): raise RuntimeError("nonmonotone progress")
+    r["cursor"]=cursor; r["optimizer_steps_used"]=steps; r["state_sha256"]=str(state_sha256); r["inflight"]=inflight
+    x["total_optimizer_steps_used"]=sum(int(v.get("optimizer_steps_used",0)) for v in x["sequences"].values())
+    if x["total_optimizer_steps_used"]>2360: raise RuntimeError("global optimizer budget")
     W(path,x)
 def complete_seq(path,name,steps,extra=None):
     x=load_ledger(path); r=x["sequences"][name]
     if not r["started"]: raise AssertionError("complete unstarted")
     if r["completed"]: raise AssertionError("duplicate complete")
-    r["completed"]=True; r["optimizer_steps"]=int(steps)
+    steps=int(steps)
+    if steps!=int(r.get("optimizer_steps_used",0)): raise AssertionError("final optimizer accounting mismatch")
+    r["completed"]=True; r["optimizer_steps"]=steps; r["inflight"]=None
     if extra:r.update(extra)
-    x["total_optimizer_steps"]=int(sum(int(v.get("optimizer_steps",0)) for v in x["sequences"].values()))
-    if x["total_optimizer_steps"]>2360: raise AssertionError("global optimizer budget")
+    x["total_optimizer_steps_used"]=sum(int(v.get("optimizer_steps_used",0)) for v in x["sequences"].values())
+    if x["total_optimizer_steps_used"]>2360: raise AssertionError("global optimizer budget")
     W(path,x)
 
-def make_c(data,out,run_id):
-    digest,m=validate_input(data,Path(out).parent/"input_lock.json")
+def make_c(data,input_lock,out,run_id):
+    digest,m=validate_input(data,input_lock)
     b=s4.build_replay(Path(data))
     if b["steps"]!=N or b["manifest"]["stream_sha256"]!=digest: raise AssertionError("replay identity")
     reg={"protocol":"044","revision":1,"arm":"C_ref","stream_sha256":digest,"replay_seed":4401,"model_seed":1}
