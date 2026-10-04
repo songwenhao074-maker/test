@@ -436,10 +436,11 @@ class Machine044:
           "resident_ids_after":sorted(list(self.experts)+[eid]),"released_tensor_bytes":released,"attempt":self.attempts_after_e0,
           "candidate_model_hash":self._model_hash(self.shadow),"candidate_optimizer_empty":len(self.shadow["optimizer"].state)==0,
           "first_candidate_prediction":None,"table":copy.deepcopy(table)}
-        self.reclamation_events.append(ev); self.candidate_decisions.append({"event":"shadow_start","at_interval":int(t),"candidate_id":eid,
+        self._record("reclamation",self.reclamation_events,ev)
+        ce={"event":"shadow_start","at_interval":int(t),"candidate_id":eid,
           "attempt":self.attempts_after_e0,"proposal_epoch":self.deployment_epoch,"retained_ids":list(self.active_ids),
-          "created_by_reclamation":True,"reclaimed_id":int(victim),"model_hash":self._model_hash(self.shadow),"optimizer_state_empty":True})
-        self._stream("reclamation",ev)
+          "created_by_reclamation":True,"reclaimed_id":int(victim),"model_hash":self._model_hash(self.shadow),"optimizer_state_empty":True}
+        self._record("candidate_decisions",self.candidate_decisions,ce)
         if self.crash_probe=="after_shadow_before_reclaim_commit": raise RuntimeError("injected_crash_after_shadow_before_reclaim_commit")
         self._commit_action(row,{"deleted_id":int(victim),"candidate_id":eid,"attempt_after":self.attempts_after_e0,"resident_after":self.resident_count()})
         self.save_checkpoint("reclaim_create_t%d"%t,True); return True
