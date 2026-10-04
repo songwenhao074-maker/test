@@ -1,0 +1,72 @@
+name: Protocol044 engineering core preflight once
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/protocol044-engineering-core-once.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  engineering:
+    if: contains(github.event.head_commit.message, '[p044-engineering-core]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    env:
+      GH_TOKEN: ${{ github.token }}
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      PYTHONHASHSEED: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/protocol-044-closeout-capacity-20261004
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8.18'
+      - name: Install fixed engineering dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.4.1
+          python -m pip install numpy==1.24.4 psutil==5.9.8
+          python -m py_compile protocol044_common.py protocol044_engine.py run_ftmoe_protocol044.py maintenance/protocol044_audit043.py
+          rm -rf /tmp/p044e && mkdir -p /tmp/p044e/{cases,functional,evidence,raw043}
+      - name: Download sealed Protocol043 raw for zero-forward fixed trace audit
+        run: |
+          set -euo pipefail
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11290523632/zip" -o /tmp/p044e/p043.zip
+          echo "6387aa37df285bf8b1842b5f1e57250a55cb3bff6004e9d4cd3b57ccde5877b3  /tmp/p044e/p043.zip" | sha256sum -c -
+          unzip -q /tmp/p044e/p043.zip -d /tmp/p044e/raw043
+          python maintenance/protocol044_audit043.py --raw043 /tmp/p044e/raw043 --out /tmp/p044e/evidence/fixed043_audit.json
+      - name: Run functional and bounded memory fixtures
+        run: |
+          set -euo pipefail
+          python run_ftmoe_protocol044.py functional --out /tmp/p044e/functional
+          python run_ftmoe_protocol044.py memory-stress --out /tmp/p044e/evidence/memory_stress.json
+      - name: Run nineteen exact fresh-process resume cases
+        run: |
+          set -euo pipefail
+          CASES="birth_after single_live_after joint_live_after shadow_update01_after shadow_update15_after shadow_update16_after qualification_ready_before_decision shadow_accept_after shadow_reject_after sleep_after reuse_pending reuse_accept_after reuse_reject_after window_expiry_after late_old_epoch_settlement reclaim_create_after reclaimed_candidate_reject_after terminal_first_before_second terminal_second_before_finalize"
+          for C in $CASES; do
+            echo "=== continuous $C ==="
+            python run_ftmoe_protocol044.py continuous-case --case "$C" --root /tmp/p044e/cases
+            echo "=== checkpoint $C ==="
+            python run_ftmoe_protocol044.py prepare-case --case "$C" --root /tmp/p044e/cases
+            echo "=== fresh restore $C ==="
+            python run_ftmoe_protocol044.py resume-case --case "$C" --root /tmp/p044e/cases
+          done
+          python run_ftmoe_protocol044.py collect-cases --root /tmp/p044e/cases --out /tmp/p044e/evidence/resume_cases.json
+      - name: Seal core engineering evidence
+        if: always()
+        run: |
+          set -euo pipefail
+          python -c "import hashlib,json,pathlib; root=pathlib.Path('/tmp/p044e'); rows=[]; [rows.append({'path':str(p.relative_to(root)),'size':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}) for p in sorted(root.rglob('*')) if p.is_file()]; pathlib.Path('/tmp/p044e/evidence/core_manifest.json').write_text(json.dumps({'protocol':'044','revision':1,'files':rows},indent=2)+'\n')"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: protocol044-engineering-core-${{ github.run_id }}
+          path: /tmp/p044e/evidence
+          retention-days: 90
+          if-no-files-found: error
