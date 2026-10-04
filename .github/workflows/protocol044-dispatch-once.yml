@@ -17,5 +17,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          gh workflow run protocol044-closeout-capacity.yml --repo "$GITHUB_REPOSITORY" --ref main -f execution_sha=d2e6328cc26c1b2f176406147f283a0288ec6d3f -f engineering_artifact_id=11293933853 -f engineering_artifact_digest=sha256:2ca97eabccce29161cb6eb49fd67f8759670bc892c234f09478101789da49830
-          echo "dispatched d2e6328cc26c1b2f176406147f283a0288ec6d3f"
+          gh workflow run protocol044-closeout-capacity.yml --repo "$GITHUB_REPOSITORY" --ref main -f execution_sha=0fb751738718d3d06aeeaa32cfcb593436fd7c87 -f engineering_artifact_id=11296492568 -f engineering_artifact_digest=sha256:90b6bab6a149c46da0aa19e551c02f76b5665a27a83e97d7de192e21e08b6591
+          echo "dispatched 0fb751738718d3d06aeeaa32cfcb593436fd7c87"
+
+# recovery dispatch after sealed pre-initialization generator repair
