@@ -34,6 +34,9 @@ jobs:
       E_ARTIFACT_ID: ${{ inputs.engineering_artifact_id }}
       E_ARTIFACT_DIGEST: ${{ inputs.engineering_artifact_digest }}
       EXECUTION_REF: codex/protocol-044-closeout-capacity-20261004
+      PRIOR_INTERRUPTED_ARTIFACT_ID: "11294125846"
+      PRIOR_INTERRUPTED_DIGEST: "sha256:9cf412b0c5e4f77186b3fb428f851d0e263c3cb4c05afe52f978ebe2d30eb103"
+      PRIOR_INTERRUPTED_RUN_ID: "37178041408"
       OMP_NUM_THREADS: "1"
       MKL_NUM_THREADS: "1"
       OPENBLAS_NUM_THREADS: "1"
@@ -73,6 +76,11 @@ jobs:
           DIG=$(echo "$E_ARTIFACT_DIGEST" | sed 's/^sha256://')
           echo "$DIG  /tmp/p044/E.zip" | sha256sum -c -
           unzip -q /tmp/p044/E.zip -d /tmp/p044/E
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$PRIOR_INTERRUPTED_ARTIFACT_ID/zip" -o /tmp/p044/prior_interrupted.zip
+          PDIG=$(echo "$PRIOR_INTERRUPTED_DIGEST" | sed 's/^sha256://')
+          echo "$PDIG  /tmp/p044/prior_interrupted.zip" | sha256sum -c -
+          mkdir -p /tmp/p044/prior_interrupted
+          unzip -q /tmp/p044/prior_interrupted.zip -d /tmp/p044/prior_interrupted
           python - <<'PY'
           import hashlib,json,os,pathlib
           def sha(p): return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
@@ -101,11 +109,37 @@ jobs:
           pathlib.Path("/tmp/p044/evidence/source036_lock.json").write_text(json.dumps(got,indent=2)+"\n")
           PY
 
-      - name: Generate the one registered seed4401 stream
+      - name: Continue the one registered seed4401 stream after pre-initialization repair
         shell: bash
         run: |
           set -euo pipefail
-          printf '{"protocol":"044","revision":1,"seed":4401,"generation_key":"protocol044_revision1_seed4401","started":true,"completed":false,"restart_from_zero":false}\n' > /tmp/p044/generation_budget.json
+          python - <<'PY'
+          import json,os,pathlib,shutil
+          root=pathlib.Path("/tmp/p044/prior_interrupted/generation")
+          fail=json.load(open(root/"failure.json"))
+          assert fail["protocol"]=="044" and fail["revision"]==1
+          assert fail["resume_available"] is False and fail["error_type"]=="TypeError"
+          assert not (root/"resume_state.dill").exists()
+          assert not (root/"resume_manifest.json").exists()
+          assert not (root/"chunks").exists() or not any((root/"chunks").iterdir())
+          led=(root/"generation_ledger.jsonl").read_text()
+          assert '"event": "segment_start"' in led and "segment_complete" not in led
+          dst=pathlib.Path("/tmp/p044/generation")
+          shutil.copytree(root,dst,dirs_exist_ok=True)
+          (dst/("failure_preinitialization_"+os.environ["PRIOR_INTERRUPTED_RUN_ID"]+".json")).write_bytes((dst/"failure.json").read_bytes())
+          (dst/"failure.json").unlink()
+          with (dst/"generation_ledger.jsonl").open("a",encoding="utf8") as f:
+              f.write(json.dumps({"protocol":"044","event":"preinitialization_engineering_repair_continue",
+                "prior_run_id":os.environ["PRIOR_INTERRUPTED_RUN_ID"],"prior_artifact_id":int(os.environ["PRIOR_INTERRUPTED_ARTIFACT_ID"]),
+                "prior_rows_generated":0,"prior_checkpoint_present":False,"same_generation_key":True,
+                "restart_from_zero":False,"reroll":False})+"\n")
+          pathlib.Path("/tmp/p044/generation_budget.json").write_text(json.dumps({
+            "protocol":"044","revision":1,"seed":4401,"generation_key":"protocol044_revision1_seed4401",
+            "started":True,"completed":False,"restart_from_zero":False,"reroll":False,
+            "continuation_of_run_id":os.environ["PRIOR_INTERRUPTED_RUN_ID"],
+            "continuation_of_artifact_id":int(os.environ["PRIOR_INTERRUPTED_ARTIFACT_ID"]),
+            "preinitialization_continuation":True,"prior_rows_generated":0},indent=2)+"\n")
+          PY
           for I in $(seq 1 30); do
             python protocol044_stream.py segment --source036 /tmp/p044/source036 --output /tmp/p044/generation --max-intervals 200
             N=$(python -c 'import json; print(json.load(open("/tmp/p044/generation/resume_manifest.json"))["next_t"])')
@@ -115,7 +149,7 @@ jobs:
           test "$(python -c 'import json; print(json.load(open("/tmp/p044/generation/resume_manifest.json"))["next_t"])')" = "5953"
           python - <<'PY'
           import json,pathlib
-          p=pathlib.Path("/tmp/p044/generation_budget.json");x=json.load(open(p));x["completed"]=True;p.write_text(json.dumps(x,indent=2)+"\n")
+          p=pathlib.Path("/tmp/p044/generation_budget.json");x=json.load(open(p));x["completed"]=True;x["completed_run_id"]=__import__("os").environ["GITHUB_RUN_ID"];p.write_text(json.dumps(x,indent=2)+"\n")
           PY
 
       - name: Fresh-process assemble and model-free input audit
