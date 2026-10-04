@@ -1,0 +1,832 @@
+{
+  "protocol": "044",
+  "revision": 2,
+  "date": "2026-10-05",
+  "timezone": "Asia/Shanghai",
+  "status": "registered_recovery_not_executed",
+  "instructions": "docs/PROTOCOL044_REVISION002_DURABLE_RECOVERY_20261005.md",
+  "instructions_sha256": "048aae24031284623789b8256ed9314b46263fb6fabd1c2bd1d4f87aef1ed873",
+  "scenario_registration": "artifacts/ftmoe_online/protocol_044/scenario_registration.json",
+  "scenario_sha256": "6e6bd03efc0d84f5e885eacf36f1ac80e770198703463cc051216ad1a741683f",
+  "registration_base_commit": "50b5685269dc95809fc18eba272d91ec866f08cc",
+  "objective": "Close engineering gaps without rerunning043; one fixed simulator capacity-pressure test of coherent D exceeding same-stream C. No optimization search.",
+  "authorization": {
+    "this_publication": "documents_only_no_generation_no_training_no_dispatch",
+    "execute_E_then_S_after_user_handoff": false,
+    "extra_permission_between_E_pass_and_registered_S": false,
+    "historical033_043_immutable": true,
+    "old_real_gradient_budget": 0,
+    "automatic045": false,
+    "execute_targeted_recovery_gate_then_remaining_S_after_user_handoff": true,
+    "extra_permission_after_recovery_gate": false,
+    "from_zero_exception": "one same-seed4401 reconstruction only if complete r1 checkpoint absent; no model sequence started; no performance selection",
+    "historical044r1_immutable": true
+  },
+  "source043": {
+    "science_run_id": 37168746303,
+    "execution_commit": "9d9320cf84ebaf034dca9e8257f0dc82171cc916",
+    "publication_commit": "a957385fff84a0029892882c1b3212272ae0f2ea",
+    "artifact_id": 11290523632,
+    "zip_sha256": "6387aa37df285bf8b1842b5f1e57250a55cb3bff6004e9d4cd3b57ccde5877b3",
+    "plan_sha256": "9cd9b6f63aed0e35361f763e532d7c785a7838c19d172ea0c97bbaae5b2b0d6b",
+    "source_bundle_hashes": {
+      "protocol043_common.py": "b2ecf5a899d76648d4d8765c3b97cc4bf4fd4b0b17defa61baaa9dc3f631b3ae",
+      "protocol043_engine.py": "5d0d39a89b6eec0e98964df326dbe5073d098120676d1dc515d8279263f68dbe",
+      "run_ftmoe_protocol043.py": "6d00e9307654e99c1225dddb4ca170289a19ed1f3dbd6ce2903ee5fb9bd0f757",
+      "analyze_ftmoe_protocol043.py": "7672db0d0be3df113cfeb1da51a8e38ece13cf497484f5016e15d763b10e7bdc",
+      "maintenance/validate_protocol043_plan.py": "ce4a70b7ee802e387fd8730a39785e05e8e72dbd2a5de623974894c980ea4d37",
+      "maintenance/materialize_protocol043_sources.py": "329c49506e831786a02938d858566f6def39f38bcde6501feec3e46db9d52fc6",
+      "maintenance/protocol043_audit042.py": "c61cc2d0b86d22f257efb532de4cf884a63aa899c4bc9c21102a441b39b45d3f",
+      "maintenance/protocol043_gate.py": "e2b8e84615b105e64574f1171bdc929a913c39e6b05518c277930672d82ed160",
+      "maintenance/protocol043_finalize.py": "ceb064ee77aefda7cbe92f46fc157250899ca77e7c02c006398b99e890b403d6",
+      "maintenance/protocol043_publish.py": "cfde5c5f46fca864d4a80eabccb8c973d07872cf22c46ace7705f65775cb48cd",
+      "artifacts/ftmoe_online/protocol_043/plan.json": "9cd9b6f63aed0e35361f763e532d7c785a7838c19d172ea0c97bbaae5b2b0d6b",
+      "artifacts/ftmoe_online/protocol_043/plan.sha256": "3a4067f67a36240e058555277e713b7a51f04be168b1910f7c7c741bdbdbc11b",
+      "docs/PROTOCOL043_BOUNDED_LIFECYCLE_20261003.md": "eceb6a564ee27d1edf5f2cbc096d7a092f9826df53f4c3d72f06019e0178a096",
+      ".github/workflows/protocol043-bounded-lifecycle.yml": "764453ceb17b33a22db7dac7f6177c3ceb9f948f540b7a362fa743cf0f9c2661"
+    },
+    "raw_manifest_path": "artifacts/ftmoe_online/protocol_043/runs/run_37168746303/science/scientific_raw_manifest.json",
+    "raw_manifest_git_blob_sha": "dbfe60df5b6c83dcac89a7127f7eef1063aff57a",
+    "purpose": "read-only evidence and pinned algorithm reference; no restore-and-train"
+  },
+  "source036": {
+    "execution_commit": "b620467aab4283e52d129924769c374124bbb4bf",
+    "source_files": {
+      "protocol036_stream.py": "6ee73bbd16ba193164308db0a566843b4432f059f080d89e468ea6d7d7a6e4e7",
+      "run_ftmoe_protocol036.py": "1cfadb1a888af94e7d0ea060c72b0c12fee7f2fc3c32a133f1d675b05cd9e1b4",
+      "simulator/workload/BitbrainWorkloadProtocol025.py": "71ca206e80d9fd55e64a6526a3e538598ed19fe92e59fe28a691a0f1017ace7c"
+    },
+    "transitive_dependencies": "same pinned commit; record all hashes before freeze",
+    "purpose": "generator C_fixed5 D_lin initialization and learning reference; only registered044 adapters may differ",
+    "frozen_input_providers": {
+      "protocol035": {
+        "run_id": 36585058415,
+        "artifact_id": 11041705829,
+        "zip_sha256": "849a8367727e00833a3ae92fda873a3989121d2f7ee207e66f9789357d538421",
+        "feature_tape_sha256": "60f3f898a70dc886cd9e5284c1c1e62f3e086aac52e4e829e9fb9232c69dc988",
+        "update_batches_sha256": "030114f1ff48bff0124d50b1bd4c9d23987ce62431502ae8c603bc6f4f39afc5"
+      },
+      "protocol033": {
+        "run_id": 36417604442,
+        "artifact_id": 10968752245,
+        "zip_sha256": "d92a3f9c8f1ebd292b86fbbe6e2300291135376f3564f2773975fd9203b55944"
+      }
+    }
+  },
+  "stage_order": [
+    "read_only_recovery_inventory",
+    "repair_production_entrypoints_and_durable_orchestration",
+    "verify_inherited_E_artifact_and_science_source_compatibility",
+    "targeted_synthetic_real_entrypoint_and_cross_job_tests",
+    "freeze_r2_code_and_analysis",
+    "E_recovery_gate",
+    "restore_valid_r1_or_single_authorized_same_seed_reconstruction",
+    "durable_initialized_state_before_first_generated_row",
+    "generate_with_remote_commit_before_next_segment",
+    "model_free_data_gate_and_remote_seal",
+    "C_ref",
+    "D_lin",
+    "D_no_gc",
+    "D_bounded",
+    "seal_analyze_publish_r2_stop"
+  ],
+  "stageE": {
+    "real_model_forwards": 0,
+    "real_gradient_steps": 0,
+    "old_science_reruns": 0,
+    "synthetic_training_only": true,
+    "required_resume_case_ids": [
+      "birth_after",
+      "single_live_after",
+      "joint_live_after",
+      "shadow_update01_after",
+      "shadow_update15_after",
+      "shadow_update16_after",
+      "qualification_ready_before_decision",
+      "shadow_accept_after",
+      "shadow_reject_after",
+      "sleep_after",
+      "reuse_pending",
+      "reuse_accept_after",
+      "reuse_reject_after",
+      "window_expiry_after",
+      "late_old_epoch_settlement",
+      "reclaim_create_after",
+      "reclaimed_candidate_reject_after",
+      "terminal_first_before_second",
+      "terminal_second_before_finalize"
+    ],
+    "each_case": {
+      "production_tick": true,
+      "new_process_disk_restore": true,
+      "continue_to_same_endpoint": true,
+      "snapshot_only": false,
+      "compare": [
+        "all_predictions_and_contributions",
+        "actual_batches",
+        "parameters",
+        "Adam",
+        "torch_numpy_python_RNG",
+        "window_members_sums_streak",
+        "pressure",
+        "pending_qualification",
+        "actions",
+        "tombstones",
+        "budget",
+        "audit_log_logical_prefix"
+      ]
+    },
+    "crash_cases": [
+      "first_of_two_joint_steps",
+      "step_before_counter_commit",
+      "delete_before_shadow_create",
+      "checkpoint_before_after_atomic_replace",
+      "budget_commit_and_audit_offset"
+    ],
+    "crash_outcome": "exact_resume_or_ambiguous_stop_no_unknown_replay",
+    "fail_closed_cases": [
+      "missing",
+      "empty",
+      "string_true",
+      "missing_required_case",
+      "bad_source_hash",
+      "bad_execution_SHA",
+      "bad_revision",
+      "duplicate_start",
+      "overbudget",
+      "illegal_capacity"
+    ],
+    "fail_closed_actual_science_entrypoint": true,
+    "negative_cases_optimizer_calls_required": 0,
+    "score": {
+      "window": 128,
+      "operands": "float32_issued_each_to_float64_before_subtraction",
+      "incremental_add_subtract": true,
+      "periodic_rebuild_every_settlements": 128,
+      "near_threshold_or_rank_gap_rebuild_abs": 1e-10,
+      "scientific_threshold_epsilon": 0,
+      "independent_atol": 1e-10,
+      "independent_rtol": 0,
+      "discrete_comparisons": "exact",
+      "independent_checker_not_production_aggregator": true
+    },
+    "online_bounds": {
+      "utility_intervals": 128,
+      "pressure_intervals": 320,
+      "training_mature_intervals": 64,
+      "label_delay_intervals": 2,
+      "qualification_intervals_per_slot": 32,
+      "reuse_evidence_completed_slots": 2,
+      "dynamic_resident_including_shadow": 3,
+      "full_history_in_online_lists": false,
+      "audit": "append_only_disk_fixed_IO_buffer",
+      "checkpoint": "online_state_offsets_hashes_no_full_history_copy"
+    },
+    "memory_stress": {
+      "synthetic_seed": 4411,
+      "lengths": [
+        8192,
+        32768,
+        131072
+      ],
+      "preload_full_sequence": false,
+      "storage_test_real_gradients": 0,
+      "storage_test_can_use_zero_synthetic_gradient": true,
+      "training_temporary_peaks_separate_fixture": true,
+      "matched_full_cache_payload_max_spread_bytes": 65536,
+      "online_state_linear_growth_allowed": false,
+      "RSS_separate": true,
+      "checkpoint_copies_in_peak": true
+    },
+    "old043_fixed_trace_audit": {
+      "both_arms": true,
+      "expected_checks_per_arm": 592,
+      "hardcode_outputs": false,
+      "all_scores_support_members_streak_rank_actions": true,
+      "full_future_qualification_audit": true,
+      "no_gradient": true,
+      "no_alternate_closed_loop_claim": true
+    },
+    "semantic_change": "stop_requires_new_registration_no_conditional_retraining_arm",
+    "gate": "all required cases AND bounded storage/resource audit AND score equivalence AND fixed043 decisions AND sources/schema pass",
+    "historical_report_rewrite": false,
+    "required_baseline_adapter_checks": [
+      "new_length_final_prediction_and_two_settles",
+      "C_Dlin_causal_access",
+      "actual_step_budget",
+      "gradient_RNG_isolation",
+      "disk_resume_issued_tape",
+      "resolve_base_checkpoint_hash_before_generation"
+    ]
+  },
+  "stageS": {
+    "data": {
+      "scenario_id": "protocol044_four_service_capacity_5953_seed4401_v1",
+      "replay_seed": 4401,
+      "N": 5952,
+      "raw_rows": 5953,
+      "hosts": 16,
+      "feature_dim": 73,
+      "new_streams": 1
+    },
+    "sequence_order": [
+      "C_ref",
+      "D_lin",
+      "D_no_gc",
+      "D_bounded"
+    ],
+    "primary": "D_bounded",
+    "C_ref": {
+      "algorithm": "036 C_fixed5 unchanged",
+      "model_seed": 1,
+      "initialization": "original frozen base checkpoint not043 online model",
+      "normalization": "original frozen values not new data",
+      "updates_every": 16,
+      "replay_mature_intervals": 64,
+      "batch_intervals": 32,
+      "gradient_steps_per_opportunity": 1,
+      "sample_order_duplicates_preserved": true,
+      "lr": 0.0001,
+      "distill": "inherit036 byte-locked kernel",
+      "source_hash_lock_before_generation": true
+    },
+    "D_lin": {
+      "definition": "036 zero-initialized 74-parameter correction to issued C",
+      "branch_seed": 3501,
+      "delta": "2*tanh((w dot issued_z+b)/2)",
+      "loss": "mean_BCE(issued_C_margin+delta,y)+.001*mean(delta^2)",
+      "optimizer": "AdamW",
+      "lr": 0.0001,
+      "weight_decay": 0.0001,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-8,
+      "clip": 1,
+      "same_actual_C_batches": true,
+      "training_sequences": 1
+    },
+    "B": {
+      "definition": "issued C plus issued D_lin correction",
+      "shared_exact_between_dynamic_arms": true,
+      "final_weights_reencode_past": false
+    },
+    "D_no_gc": {
+      "permanent_reclamation": false,
+      "only_difference": "GC enable flag",
+      "full_resident": "record would_delete and block",
+      "science_negative_does_not_stop_next": true
+    },
+    "D_bounded": {
+      "permanent_reclamation": true,
+      "primary": true
+    },
+    "structure": {
+      "feature_dim": 73,
+      "parameters_per_expert": 74,
+      "delta": "2*tanh((w dot issued_z+b)/2)",
+      "live_margin": "B_margin+sum(active_delta)",
+      "classification": "exact_B_ref_copy",
+      "renormalize": false,
+      "total_clip": false,
+      "resident_including_shadow_max": 3,
+      "active_max": 2,
+      "shadow_max": 1,
+      "dormant_max": "3-active-shadow",
+      "admission": "only_if_active_count_less_than_2_no_active_replacement",
+      "initial_birth": {
+        "inherit_protocol037": true,
+        "recent": 64,
+        "previous": 256,
+        "min_matured": 320,
+        "ratio_min": 1.25,
+        "denominator_floor": 0.000001,
+        "absolute_increase_min": 0.02,
+        "recent_min_positive": 16,
+        "recent_min_negative": 16,
+        "consecutive_checks": 2,
+        "force_t_forbidden": true,
+        "zero_initialized_direct_active": true,
+        "new_stream_expected_time": null
+      },
+      "candidate_attempts_after_E0_max": 4,
+      "ids_created_max": 5,
+      "ids_monotonic": true,
+      "id_reuse": false,
+      "attempt_rejection_or_cancel_consumes_budget": true,
+      "attempt_cooldown_intervals": 256,
+      "deleted_id_reload": false
+    },
+    "training": {
+      "optimizer": "AdamW",
+      "lr": 0.0001,
+      "weight_decay": 0.0001,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-8,
+      "clip_per_expert": 1,
+      "regularizer": 0.001,
+      "update_every": 16,
+      "batch_intervals": 32,
+      "hosts": 16,
+      "batch_source": "actual_C_batches_order_duplicates_preserved",
+      "live_loss": "mean_BCE(B_margin+sum(active_delta),y)+0.001*sum(mean(delta_i_squared))",
+      "shadow_loss": "mean_BCE(B_margin+detach(sum(retained_active_delta_before_same_t_updates))+delta_new,y)+0.001*mean(delta_new_squared)",
+      "shadow_updates_per_candidate": 16,
+      "extra_forward_to_compute_context": false,
+      "weighted_training": false
+    },
+    "score": {
+      "window_unit": "global_issued_time_intervals_with_mature_labels",
+      "fixed_window": 128,
+      "range": "[t-2-W+1,t-2]",
+      "formula": "BCE(issued_live_margin-issued_delta_i,y)-BCE(issued_live_margin,y)",
+      "dtype": "float64_from_issued_float32",
+      "reuse_current_parameters_for_old_predictions": false,
+      "active_epoch_mature_min": 128,
+      "positive_rows_min": 16,
+      "negative_rows_min": 16,
+      "positive_intervals_min": 4,
+      "positive_intervals_are_independent_events": false,
+      "current_epoch_only": true,
+      "topology_resets_statistics": true,
+      "weight_update_resets_epoch": false,
+      "missing": "null_not_zero",
+      "eligible": {
+        "overall_max": 0,
+        "positive_max": 0,
+        "negative_max": 0,
+        "removal_fpr_increase_max": 0.01,
+        "removal_recall_change_min": -0.02,
+        "consecutive_due16": 3
+      },
+      "tie": "minimum_score_then_lowest_id",
+      "extra_expert_forwards": 0,
+      "diagnostic_windows": [],
+      "historical_memory_score_controls_current_activity": false,
+      "implementation": "stageE_incremental_ring128_totals_with_frozen_rebuild_rules",
+      "subtraction": "cast_each_issued_operand_to_float64_before_subtraction",
+      "online_AP": false,
+      "unbounded_online_history": false,
+      "late_old_epoch_labels": "metrics_only_exclude_from_current_control",
+      "near_threshold_recompute": "stageE; absolute1e-10 triggers deterministic rebuild not threshold tolerance"
+    },
+    "controller": {
+      "clock16": "(t+1)%16==0",
+      "clock64": "(t+1)%64==0",
+      "pressure": {
+        "source": "this_arm_actual_issued_live_BCE",
+        "recent": 64,
+        "previous": 256,
+        "ratio_min": 1.25,
+        "denominator_floor": 0.000001,
+        "absolute_increase_min": 0.02,
+        "positive_min": 16,
+        "negative_min": 16,
+        "consecutive_due16_checks": 2,
+        "recent_same_deployment_epoch": true,
+        "active_epoch_matured_min": 256,
+        "no_active_epoch_matured_min": 64,
+        "previous_window_may_cross_epochs": true,
+        "reset_on_transition_or_failure": true,
+        "permanent_latching": false
+      },
+      "initial_birth": "first pressure bootstrap direct zero-initialized active; no hardcoded birth time",
+      "priority": [
+        "first_birth",
+        "reuse_accept",
+        "shadow_accept",
+        "sleep"
+      ],
+      "activity_transitions_per_due16_max": 1,
+      "topology_resets": "score_and_pressure_streak_and_pending_slots",
+      "not_topology_changes": [
+        "ordinary_gradient_update",
+        "shadow_creation",
+        "dormant_permanent_eviction"
+      ],
+      "admission_lock": [
+        "deployment_epoch",
+        "retained_active_ids",
+        "candidate_id_and_frozen_version_for_qualification"
+      ],
+      "victim_id": null,
+      "qualification": {
+        "positive_host_rows_min": 16,
+        "negative_host_rows_min": 16,
+        "all_finite": true,
+        "candidate_BCE_relative_to_live_max": 0.99,
+        "candidate_BCE_relative_to_B_max": 1,
+        "fpr_delta_vs_each_live_and_B_max": 0.01,
+        "recall_delta_vs_each_live_and_B_min": -0.02,
+        "threshold": 0.5,
+        "training_regularizer_in_validation": false,
+        "insufficient_support": "reject_no_extension",
+        "window_selection": "first32 consecutive new issued intervals only"
+      },
+      "qualification_intervals": 32,
+      "qualification_system": "issued_live_margin+candidate_delta",
+      "qualification_start": "first prediction after shadow training complete or reuse slot start",
+      "qualification_decision": "first due16 after all32 labels mature",
+      "reuse": {
+        "epoch_mature_min": 128,
+        "require_pressure": false,
+        "active_count_max_before_admission": 1,
+        "slots_max": 32,
+        "candidates": "all dormant current IDs/hashes up to3",
+        "candidate_training": false,
+        "retain_same_ID_Adam": true,
+        "can_overlap_shadow": true,
+        "topology_change_cancels": true,
+        "priority_over_shadow": true
+      },
+      "birth": {
+        "requires_pressure": true,
+        "requires_active_vacancy": true,
+        "no_pending_shadow_or_reuse": true,
+        "no_same_t_topology_transition": true,
+        "dormant_requires": "sufficient-support quality rejection of all dormant candidates in same epoch and ID/hash set; decision age<=64",
+        "unknown_reuse_does_not_authorize": true,
+        "attempt_before_reuse_start_if_fresh_rejection": true,
+        "no_active_replacement": true,
+        "remaining_stream_feasibility_before_eviction": true
+      },
+      "terminal": "two settle-only ticks; no training/control/acceptance"
+    },
+    "reclamation": {
+      "trigger": "all noncapacity birth gates pass AND resident_count==3",
+      "only_state": "dormant",
+      "minimum_dormant_predictions": 256,
+      "pending_slot_reference_forbidden": true,
+      "reuse_evidence": {
+        "latest_two_completed_slots": true,
+        "nonoverlapping": true,
+        "same_epoch": true,
+        "same_dormant_ID_hash_set": true,
+        "each_window_start_min": "t-255",
+        "latest_decision_age_max": 64,
+        "positive_rows_min": 16,
+        "negative_rows_min": 16,
+        "positive_intervals_min": 4,
+        "candidate_reuse_accept": false,
+        "Q": "BCE(issued_live)-BCE(issued_live+dormant_delta)",
+        "overall_Q_max": 0,
+        "positive_Q_max": 0,
+        "negative_Q_max": 0,
+        "support_unknown": "ineligible"
+      },
+      "sort": [
+        "last_active_prediction_ascending",
+        "expert_id_ascending"
+      ],
+      "one_delete_per_birth_max": 1,
+      "deletions_per_arm_max": 4,
+      "delete_and_create_atomic": true,
+      "pretraining_eviction_risk_explicit": true,
+      "rejected_new_candidate_restores_victim": false,
+      "no_eligible": "capacity_blocked_no_safe_eviction",
+      "no_periodic_age_only_deletion": true
+    },
+    "initial_experts": "empty_pool_no_preload_no043_checkpoint",
+    "old_first_birth_t351_gate": false,
+    "active_cap_change": false,
+    "threshold_changes": false,
+    "engineering_overrides": "stageE rolling statistics and bounded IO only; all statistical thresholds inherited",
+    "publication_comparison_only_required_vs": "C_ref"
+  },
+  "budget": {
+    "E_real_gradients": 0,
+    "E_real_model_forwards": 0,
+    "S_new_raw_streams": 1,
+    "S_seed_list": [
+      4401
+    ],
+    "S_full_training_sequences": 4,
+    "S_due16_max": 372,
+    "C_ref_optimizer_steps": 372,
+    "D_lin_optimizer_steps": 372,
+    "each_dynamic": {
+      "live_optimizer_steps": 744,
+      "shadow_optimizer_steps": 64,
+      "total_optimizer_steps": 808,
+      "post_E0_attempts": 4,
+      "max_ID_count": 5,
+      "reuse_slots": 32,
+      "permanent_deletions": 4,
+      "deployed_expert_interval_forwards": 11904,
+      "reuse_preview_forwards": 3072,
+      "shadow_qualification_forwards": 128,
+      "prediction_expert_forwards": 15104,
+      "training_expert_forwards": 808,
+      "max_live_steps_per_due16": 2,
+      "max_shadow_steps_per_due16": 1
+    },
+    "total": {
+      "scientific_optimizer_steps": 2360,
+      "dynamic_optimizer_steps": 1616,
+      "dynamic_deployed_forwards": 23808,
+      "dynamic_reuse_forwards": 6144,
+      "dynamic_qualification_forwards": 256,
+      "dynamic_prediction_expert_forwards": 30208,
+      "C_model_prediction_calls": 5952,
+      "D_lin_prediction_calls": 5952
+    },
+    "extra_streams": 0,
+    "extra_model_seeds": 0,
+    "extra_arms": 0,
+    "old043_retrain": 0,
+    "F_loads": 0,
+    "donor_training": 0,
+    "sweeps": 0,
+    "conditional_old_confirmation_arm": false,
+    "generation_key": "protocol044_revision2_seed4401_reconstruction1",
+    "science_key": "protocol044_revision1_stageS_seed4401_sequence",
+    "restart_from_zero_after_start": false,
+    "exact_resume_only": true,
+    "negative_performance_stops_next": false,
+    "engineering_failure_stops": true,
+    "generation_attempt_accounting": {
+      "prior_r1_partial_generation_retained": true,
+      "r2_from_zero_reconstruction_max": 1,
+      "conditional_on_no_recoverable_r1_state": true,
+      "additional_scientific_sequences": 0,
+      "additional_complete_datasets_for_selection": 0
+    },
+    "pre_r2_one_time_reconstruction_exception": "one same-seed4401 reconstruction only if complete r1 checkpoint absent; no model sequence started; no performance selection"
+  },
+  "analysis": {
+    "primary_arm": "D_bounded",
+    "required_superiority_baselines": [
+      "C_ref"
+    ],
+    "descriptive_baselines": [
+      "B",
+      "D_no_gc"
+    ],
+    "AP": "tie-grouped noninterpolated",
+    "threshold": 0.5,
+    "single_class_AP": null,
+    "primary_windows": [
+      [
+        "U_return_128",
+        3136,
+        3264
+      ],
+      [
+        "V_return_128",
+        3840,
+        3968
+      ],
+      [
+        "W_return_128",
+        4544,
+        4672
+      ],
+      [
+        "X_return_128",
+        5248,
+        5376
+      ]
+    ],
+    "late2": [
+      "W_return_128",
+      "X_return_128"
+    ],
+    "prefix_lengths": [
+      32,
+      64,
+      128
+    ],
+    "return_full_stage_secondary": true,
+    "all8_nonbaseline_stages": [
+      [
+        "U_first",
+        320,
+        1024
+      ],
+      [
+        "V_first",
+        1024,
+        1728
+      ],
+      [
+        "W_first",
+        1728,
+        2432
+      ],
+      [
+        "X_first",
+        2432,
+        3136
+      ],
+      [
+        "U_return",
+        3136,
+        3840
+      ],
+      [
+        "V_return",
+        3840,
+        4544
+      ],
+      [
+        "W_return",
+        4544,
+        5248
+      ],
+      [
+        "X_return",
+        5248,
+        5952
+      ]
+    ],
+    "D_over_C": {
+      "full_AP_delta_min": 0.002,
+      "return4_mean_AP_delta_min": 0.002,
+      "positive_primary_windows_min": 3,
+      "late2_mean_AP_delta_min": 0,
+      "prefix32_mean_AP_delta_min": -0.005,
+      "full_and_return4_pooled_FPR_delta_max": 0.01,
+      "full_and_return4_pooled_recall_delta_min": -0.01,
+      "each_primary_window_recall_delta_min": -0.02,
+      "each_prefix32_recall_delta_min": -0.03,
+      "all8_stage_mean_AP_delta_min": -0.02
+    },
+    "event_diagnostics": {
+      "before": 64,
+      "after": [
+        32,
+        64,
+        128
+      ],
+      "intervening_transitions_and_incomplete_tails_report": true
+    },
+    "lifecycle": {
+      "post_E0_candidate_accepted_and_active_min": 64,
+      "window_sleep_dormant_min": 64
+    },
+    "reuse": {
+      "dormant_min": 64,
+      "reactivated_active_min": 64
+    },
+    "gc_closed_loop": {
+      "proper_real_stream_reclaim": true,
+      "its_candidate_accepted": true,
+      "candidate_active_min": 64
+    },
+    "S_validity": "inputs causality hashes budgets state_machine independent_full_scores_qualification_selection divergence engineering all pass",
+    "new_stream_core_supported": "S_validity AND D_over_C AND lifecycle_on_stream AND resource_pass",
+    "full_lifecycle_goal_completed": "E_gate AND new_stream_core_supported AND gc_admission_closed_loop",
+    "no_GC": "report not exercised; preserve043 prior evidence; no forced event or extra run",
+    "GC_cost_allowed_if_still_over_C": true,
+    "require_win_no_gc": false,
+    "require_win_D_lin": false,
+    "two_arm_divergence": "equal before first legal GC control; whole trajectory equal if no GC",
+    "nan_equality": "only identical masks for proven inactive slots; active arrays finite",
+    "new_stream_not_independent_population_confirmation": true,
+    "no_best_structure_claim": true,
+    "no_equal_compute_claim": true,
+    "no_future_deleted_utility_oracle": true
+  },
+  "runtime": {
+    "branch": "codex/protocol-044-revision2-durable-recovery-20261005",
+    "workflow": "protocol044-revision2-durable-recovery.yml",
+    "trigger": "workflow_dispatch_only_after_user_handoff",
+    "this_publication_creates_workflow": false,
+    "python": "3.8.18",
+    "torch": "2.4.1+cpu",
+    "numpy": "1.24.4",
+    "cpu_threads": 1,
+    "code_and_analysis_frozen_before_new_generation": true,
+    "data_hash_in_separate_lock_before_C": true,
+    "gates_at_workflow_and_each_entrypoint": true,
+    "source_code_bundle_required": true,
+    "ambiguous_state": "preserve_stop",
+    "concurrency_key": "protocol044_revision1_stageS_seed4401_sequence",
+    "cancel_in_progress": false,
+    "generation": {
+      "initialized_t0_remote_verified_before_first_row": true,
+      "max_new_rows_per_job": 200,
+      "immutable_full_chunk_rows": 200,
+      "full_chunks": 29,
+      "final_chunk_rows": 153,
+      "job_timeout_minutes": 90,
+      "soft_deadline_minutes": 60,
+      "minimum_persistence_reserve_minutes": 20,
+      "transient_pause_allowed": true,
+      "remote_download_and_fresh_process_restore_before_next_segment": true,
+      "commit_receipts_before_advance": true,
+      "max_suffix_retries_per_parent": 2
+    },
+    "science": {
+      "one_arm_per_job": true,
+      "max_prediction_intervals_before_remote_commit": 512,
+      "job_timeout_minutes": 300,
+      "soft_deadline_minutes": 240,
+      "minimum_persistence_reserve_minutes": 30,
+      "initial_state_and_started_remote_before_optimizer": true,
+      "inflight_intent_and_budget_required": true,
+      "ambiguous_optimizer_or_state": "stop_no_replay_no_new_budget",
+      "resume_requires_completed_state_and_ledger_agreement": true
+    },
+    "artifacts": {
+      "immutable_names": true,
+      "retention_days_min": 90,
+      "verify_zip_and_internal_sha": true,
+      "verify_dependency_closure": true,
+      "fresh_restore": true,
+      "progress_receipts": "artifacts/ftmoe_online/protocol_044/revision_002/progress/",
+      "cache_only_forbidden": true,
+      "final_always_upload_is_supplemental_only": true
+    },
+    "root_r1_plan_remains_byte_identical": true,
+    "r2_sidecar_required": true,
+    "prior_E_gate_sha_must_not_be_rewritten": true,
+    "new_E_recovery_gate_required": true
+  },
+  "delivery": {
+    "results": "docs/PROTOCOL044_REVISION002_RESULTS.md",
+    "run_root": "artifacts/ftmoe_online/protocol_044/revision_002/runs/run_<id>/",
+    "engineering_subdir": "engineering_recovery",
+    "science_subdir": "stageS",
+    "raw_first": true,
+    "retention_days_min": 90,
+    "all_case_evidence_required": "inherited covered cases plus affected/targeted r2 evidence",
+    "science_analysis_publication_status_separate": true,
+    "old_reports_immutable": true,
+    "skip_ci_result_commit": true,
+    "no_force_push": true,
+    "stop_after_delivery_or_block": true,
+    "automatic_next_protocol": false,
+    "r1_results_immutable": true,
+    "progress_receipts": "artifacts/ftmoe_online/protocol_044/revision_002/progress/"
+  },
+  "science_config_revision": 1,
+  "scenario_revision": 1,
+  "inherits": {
+    "plan": "artifacts/ftmoe_online/protocol_044/plan.json",
+    "plan_sha256": "a27a6cca6abde40b6395876eccd3db5f550a044e952a701fe63aa2e4306a5f51",
+    "scenario": "artifacts/ftmoe_online/protocol_044/scenario_registration.json",
+    "scenario_sha256": "6e6bd03efc0d84f5e885eacf36f1ac80e770198703463cc051216ad1a741683f",
+    "science_execution_sha": "0fb751738718d3d06aeeaa32cfcb593436fd7c87",
+    "r1_results_immutable": "docs/PROTOCOL044_RESULTS.md",
+    "unchanged_science_fields": [
+      "source043",
+      "source036",
+      "stageE",
+      "stageS",
+      "analysis"
+    ],
+    "precedence": "revision2 overrides recovery authorization, orchestration and delivery only; inherited scientific fields and limits unchanged"
+  },
+  "recovery": {
+    "prior_run": 37184889231,
+    "last_observed_local_next_t": 5200,
+    "prior_raw_target": 5953,
+    "remote_artifact_count_at_review": 0,
+    "prior_models_started": 0,
+    "prior_scientific_optimizer_steps": 0,
+    "prior_preinitialization_run": 37178041408,
+    "disposition": "r1 remains incomplete; r2 not executed",
+    "generation_branches_mutually_exclusive": [
+      "restore discovered complete verified r1 checkpoint",
+      "one authorized from-zero reconstruction with seed4401"
+    ],
+    "from_zero_reconstructions_max": 1,
+    "reconstruct_if_checkpoint_unavailable_only": true,
+    "same_scientific_dataset_count": 1,
+    "post_r2_init_reseed_allowed": false,
+    "uncommitted_generation_suffix_retries_per_parent_max": 2,
+    "no_claim_lost_rows_byte_identity": true,
+    "record_prior_wasted_time": true,
+    "final_E_artifact": {
+      "run_id": 37184789603,
+      "id": 11296492568,
+      "zip_sha256": "90b6bab6a149c46da0aa19e551c02f76b5665a27a83e97d7de192e21e08b6591",
+      "execution_sha": "0fb751738718d3d06aeeaa32cfcb593436fd7c87"
+    },
+    "reuse_E": "verified artifact plus unchanged covered core only; no full E rerun unless affected; new gate for changed entrypoints",
+    "source_lock": "immutable r1 science contract plus r2 recovery sidecar; old gate not rewritten",
+    "required_static_repairs": [
+      "make_c explicit input_lock signature and caller agreement",
+      "started+verified-resume accepted through actual validate_gate; completed always rejected",
+      "mid-sequence optimizer accounting and durable receipts"
+    ],
+    "synthetic_acceptance": [
+      "actual C/D_lin/Dynamic CLI and handler signatures",
+      "all four real entrypoints start-checkpoint-new-process-resume-finish",
+      "continuous versus segmented full state/output/Adam/RNG/events equality",
+      "generation init0 cross-job restore including switch and final partial chunk",
+      "upload failure/digest mismatch and orphan uploaded receipt recovery",
+      "actual cancelled fixture job then different runner restore",
+      "duplicate/completed/budget/cursor/concurrency fail-closed",
+      "r1 immutable publication and raw-only analysis continuation"
+    ],
+    "engineering_real_model_forwards": 0,
+    "engineering_real_gradients": 0,
+    "engineering_synthetic_compute_recorded_separately": true
+  }
+}
