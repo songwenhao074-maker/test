@@ -120,3 +120,5 @@ jobs:
 # final frozen Stage-S E gate
 
 # rerun after pre-initialization registration adapter repair
+
+# final rerun to lock branch head 0fb75173 after workflow provenance assertion
