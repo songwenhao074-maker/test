@@ -1,0 +1,21 @@
+name: Protocol044 dispatch once
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol044-dispatch-once.yml'
+permissions:
+  contents: read
+  actions: write
+jobs:
+  dispatch:
+    if: contains(github.event.head_commit.message, '[p044-dispatch]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch frozen Protocol044 science
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh workflow run protocol044-closeout-capacity.yml --repo "$GITHUB_REPOSITORY" --ref main -f execution_sha=d2e6328cc26c1b2f176406147f283a0288ec6d3f -f engineering_artifact_id=11293933853 -f engineering_artifact_digest=sha256:2ca97eabccce29161cb6eb49fd67f8759670bc892c234f09478101789da49830
+          echo "dispatched d2e6328cc26c1b2f176406147f283a0288ec6d3f"
