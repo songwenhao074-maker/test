@@ -1,9 +1,15 @@
-# Active Experiment Directive — Protocol-044 revision 1 blocked and closed
+# Active Experiment Directive — Protocol-044 revision 2 registered, not executed
 
-Protocol-044 revision 1 Stage E completed successfully. Final E artifact 11296492568, execution SHA 0fb751738718d3d06aeeaa32cfcb593436fd7c87, E_gate=true. All 19 required fresh-process resume cases, crash/fail-closed gates, bounded-memory tests, baseline adapter checks and the read-only 043 fixed-trace audit passed.
+Read [NEXT_EXPERIMENT_LATEST.md](NEXT_EXPERIMENT_LATEST.md), [revision 2 instructions](docs/PROTOCOL044_REVISION002_DURABLE_RECOVERY_20261005.md), and `artifacts/ftmoe_online/protocol_044/revision_002/plan.json` with its SHA256 file.
 
-Stage S did not reach data lock or model training. The single registered seed4401 generation run 37184889231 advanced to the last observed complete boundary next_t=5200, then the GitHub Actions job hit the configured 350-minute timeout. Because cancellation skipped the failure-only interrupted-state upload, the 5200 simulator/RNG checkpoint was not persisted and the cancelled run has no artifacts.
+Current task is the constrained engineering recovery of 044 after user handoff: repair C constructor argument mismatch, unreachable production resume validation, and non-durable workflow checkpoints; pass actual-entrypoint synthetic and cross-runner recovery gates; then execute only the four remaining registered scientific sequences.
 
-The registration requires exact resume and forbids restart from zero after start. Therefore Protocol-044 is **stageS_incomplete_exact_resume_unavailable_after_timeout**. C_ref, D_lin, D_no_gc and D_bounded were not started; scientific optimizer steps=0.
+044 r1 remains closed incomplete: run 37184889231 reached local next_t=5200, hit the 350-minute timeout, retained zero artifacts, and started zero models/optimizer steps. Its E artifact passed covered tests. Reuse E only with verified source compatibility and new tests for modified entrypoints.
 
-Read docs/PROTOCOL044_RESULTS.md and artifacts/ftmoe_online/protocol_044/runs/run_37184889231/blockage_status.json. Historical033–043 remain read-only. Do not rerun seed4401 from zero, choose another seed, change thresholds, or automatically start Protocol-045. A new preregistered instruction and user handoff are required.
+r2 explicitly permits ONE same-seed4401 from-zero reconstruction only if no complete verified r1 state exists. Persist and restore the initialized t=0 state before generating data; thereafter no reinitialization. Each generation job advances at most 200 rows and must upload/download/verify its complete checkpoint before any next segment.
+
+Original root protocol_044/plan.json, plan.sha256, scenario_registration.json and docs/PROTOCOL044_RESULTS.md are immutable r1 scientific/historical files. The active r2 recovery plan is under revision_002; runtime must validate BOTH contracts. Never disable hashes or rewrite the old E gate to pass new code.
+
+Scientific settings, 4 sequences, total optimizer budget 2360 and D>C criteria are unchanged. No model restart on ambiguous optimizer state, no reseeding, threshold search, forced GC, extra arms or automatic045. Historical033–044r1 are read-only. Write r2 results to docs/PROTOCOL044_REVISION002_RESULTS.md.
+
+This publication is instructions only: no workflow creation, dispatch, generation or training. The executing model may implement and run this registered recovery after the user's handoff without asking for additional per-stage permission.

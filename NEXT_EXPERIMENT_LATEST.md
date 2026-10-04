@@ -1,9 +1,16 @@
-# Protocol-044 revision 1 已阻塞并关闭
+# 当前执行指示：Protocol-044 revision 2 工程恢复
 
-Stage E 已完成，E_gate=true；19/19 fresh-process 恢复 case、crash/fail-closed、内存有界、baseline adapter 与043固定轨迹复核均通过。
+**状态：已登记，尚未执行。** 本次仅发布指示，未触发 Actions。
 
-Stage S 唯一登记的 seed4401 流在 run 37184889231 中推进到最后完整边界 next_t=5200，随后命中 GitHub Actions 350 分钟超时。取消状态没有执行 failure-only interrupted artifact 上传，因此5200的 simulator/RNG checkpoint 未持久化，当前无法按登记要求精确续跑。
+请执行 [完整修订指示](docs/PROTOCOL044_REVISION002_DURABLE_RECOVERY_20261005.md) 和 [机器可读计划](artifacts/ftmoe_online/protocol_044/revision_002/plan.json)。
 
-044明确要求 exact_resume_only=true 且 restart_from_zero_after_start=false，因此不能从0重放seed4401，也不能换seed。数据锁与四条训练序列均未开始，scientific optimizer.step=0。
+已确认：r1 的数据生成到本地 5200/5953 行后因350分钟超时取消；中断上传仅在 failure 时运行，被跳过，远端artifact=0，四条模型序列均未开始。另发现正式 C 入口 make_c 参数数目不符，以及 validate_gate 阻止所有已开始序列恢复。
 
-结果与阻塞证据见 docs/PROTOCOL044_RESULTS.md 和 artifacts/ftmoe_online/protocol_044/runs/run_37184889231/blockage_status.json。到此停止，不自动启动045。
+执行顺序：
+1. 只读核查旧状态；修复实际入口和远端持久化，验证旧 E artifact 与源码兼容性。
+2. 合成数据通过真实入口、跨进程/跨runner恢复及预算幂等验收，冻结r2代码。
+3. 若有完整旧状态则恢复；若无，只允许一次同seed4401重建。先远端保存初始化t=0状态，每job至多200行，每段先上传、下载核验，再继续。
+4. 完成5953行并锁定数据，顺序运行 C_ref、D_lin、D_no_gc、D_bounded，训练中途同样持久化。
+5. 保持原2360总梯度预算与全部阈值，发布r2独立报告后停止。
+
+原r1 plan/scenario原字节保留作为科学合同；它不是新的恢复授权入口。r1历史结果保持未完成，不覆盖。禁止换seed、反复从零训练、加实验或自动045。

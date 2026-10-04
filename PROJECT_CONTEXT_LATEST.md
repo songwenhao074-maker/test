@@ -1,11 +1,11 @@
 # Project Context Latest
 
-## Protocol-044 revision 1 terminal status
+Active instruction: [Protocol-044 revision 2 recovery](docs/PROTOCOL044_REVISION002_DURABLE_RECOVERY_20261005.md); machine plan: `artifacts/ftmoe_online/protocol_044/revision_002/plan.json`. Status: registered, not executed.
 
-Protocol-044 Stage E completed successfully: E_gate=true, 19/19 required resume cases passed, bounded online-state stress passed, crash/fail-closed gates passed, baseline adapter passed, and the read-only Protocol-043 fixed-trace audit found no semantic decision change.
+The user wants a coherent full D that beats C, with recent-window utility, removing useless experts and adding experts when suitable capacity is missing. Scientific settings remain exactly those in 044 r1.
 
-Stage S is incomplete. The single registered seed4401 generation run 37184889231 reached the last observed complete boundary next_t=5200 and then hit the workflow's 350-minute timeout. The timeout conclusion was cancelled, so the workflow's failure-only interrupted-state upload was skipped; no artifact exists for that run and the 5200 simulator/RNG checkpoint is unavailable.
+044 r1 Stage E reports passing covered engineering cases. Stage S generation run 37184889231 was cancelled after approximately 350 minutes at last completed local cursor5200/5953. No artifact persisted. No data lock, model sequence or scientific optimizer step occurred. History remains in docs/PROTOCOL044_RESULTS.md.
 
-Because the registration requires exact resume and forbids restart-from-zero after generation start, Protocol-044 cannot legally continue. No data lock and no C_ref/D_lin/D_no_gc/D_bounded training occurred; scientific optimizer steps=0. See docs/PROTOCOL044_RESULTS.md.
+Review additionally found unreachable production resume (started is unconditionally rejected) and a 3-versus-4 argument mismatch in make_c. r2 must fix/test actual entrypoints as well as runner persistence. Prior core E evidence is inherited only after artifact/hash/compatibility verification.
 
-Historical033–043 remain read-only. No automatic Protocol-045 is authorized.
+A limited recovery exception permits one same-seed reconstruction if no verified old state exists. It is not exact recovery of lost rows and not an extra scientific trial. Root r1 scientific plan/scenario remain immutable; r2 sidecar controls execution. Persist initialized state, upload and freshly verify every segment, retain receipts across jobs. Four scientific sequences and optimizer budget2360 unchanged. r2 results get a new path; no automatic045.

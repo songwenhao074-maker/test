@@ -1,0 +1,48 @@
+{
+  "review_date": "2026-10-05",
+  "review_method": "GitHub workflow job logs, run artifact API, immutable source static review; no experiments executed",
+  "source_commit": "0fb751738718d3d06aeeaa32cfcb593436fd7c87",
+  "workflow_commit": "500e3060c2f7871495d21bf8db18eda50656c6a4",
+  "run": 37184889231,
+  "job": 111384653278,
+  "observed_last_complete_next_t": 5200,
+  "raw_target": 5953,
+  "cancelled_at_UTC": "2026-10-04T12:58:47Z",
+  "configured_job_timeout_minutes": 350,
+  "artifact_count": 0,
+  "interrupted_state_step_condition": "failure()",
+  "interrupted_state_step_conclusion": "skipped",
+  "formal_models_started": 0,
+  "formal_optimizer_calls": 0,
+  "findings": [
+    {
+      "kind": "observed_failure",
+      "detail": "All generation segments scheduled serially in one job; timeout cancellation skipped failure-only upload; no durable state."
+    },
+    {
+      "kind": "static_unreached_blocker",
+      "file": "run_ftmoe_protocol044_science.py",
+      "definition_line": 98,
+      "call_line": 125,
+      "detail": "make_c declares 3 positional parameters, cmd_c supplies 4."
+    },
+    {
+      "kind": "static_unreached_blocker",
+      "file": "run_ftmoe_protocol044_science.py",
+      "line": 64,
+      "detail": "validate_gate rejects any started sequence before all handlers can reach their resume branches."
+    },
+    {
+      "kind": "recovery_accounting_risk",
+      "file": "run_ftmoe_protocol044_science.py",
+      "line": 88,
+      "detail": "Total optimizer budget aggregated at complete_seq; interrupted actual consumption must be durably accounted."
+    }
+  ],
+  "limits": [
+    "No r1 t5200 state available to verify identity with reconstruction.",
+    "Existing E report inherited conditionally; r2 compatibility/tests have not run.",
+    "No Protocol044 model performance result exists."
+  ],
+  "new_directive": "docs/PROTOCOL044_REVISION002_DURABLE_RECOVERY_20261005.md"
+}
