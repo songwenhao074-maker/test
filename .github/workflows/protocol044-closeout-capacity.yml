@@ -91,6 +91,7 @@ jobs:
           assert s["common_sha256"]==sha("protocol044_common.py")
           assert s["runner_sha256"]==sha("run_ftmoe_protocol044.py")
           assert s["science_runner_sha256"]==sha("run_ftmoe_protocol044_science.py")
+          assert s["stream_sha256"]==sha("protocol044_stream.py")
           assert g["required_cases_exact"] is True and len(g["resume_case_ids_passed"])==19
           assert (g["active_max"],g["resident_max"],g["shadow_max"])==(2,3,1)
           PY
