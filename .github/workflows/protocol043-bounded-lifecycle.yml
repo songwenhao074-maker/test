@@ -175,6 +175,7 @@ jobs:
           git add docs/PROTOCOL043_RESULTS.md "$COMPACT" AGENTS.md NEXT_EXPERIMENT_LATEST.md PROJECT_CONTEXT_LATEST.md docs/GITHUB_EXPERIMENT_HANDOFF.md README.md
           git commit -m "results: Protocol043 revision1 science run $GITHUB_RUN_ID [skip ci]"
           RESULT="$(git rev-parse HEAD)"
+          cp maintenance/protocol043_publish.py /tmp/protocol043_publish.py
           git push origin HEAD:"$EXECUTION_REF"
 
           git fetch origin main
@@ -184,7 +185,7 @@ jobs:
           git commit -m "results: publish Protocol043 revision1 science run $GITHUB_RUN_ID [skip ci]"
           git push origin HEAD:main
 
-          python maintenance/protocol043_publish.py sync --compact "$COMPACT" --run-id "$GITHUB_RUN_ID"
+          python /tmp/protocol043_publish.py sync --compact "$COMPACT" --run-id "$GITHUB_RUN_ID"
           git add "$COMPACT/publication_status.json"
           git commit -m "results: mark Protocol043 publication synced [skip ci]"
           git push origin HEAD:main
