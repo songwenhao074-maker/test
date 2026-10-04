@@ -522,10 +522,11 @@ class Machine044:
             if self.crash_probe=="after_first_joint_step" and j==0: raise RuntimeError("injected_crash_after_first_joint_step")
         self.update_seconds+=time.perf_counter()-t0
         for eid in active:
-            x=self.experts[eid]; self.update_log.append({"at_interval":int(t),"kind":"live","expert_id":eid,"joint_active_ids":active,"batch_indices":batch,
+            x=self.experts[eid]; ur={"at_interval":int(t),"kind":"live","expert_id":eid,"joint_active_ids":active,"batch_indices":batch,
               "loss":float(loss.detach()),"regularizer":float(reg.detach()),"objective":float(objective.detach()),"grad_norm":gns[eid],
               "model_hash_before":before[eid]["model"],"model_hash_after":self._model_hash(x),"optimizer_hash_before":before[eid]["opt"],
-              "optimizer_hash_after":self._opt_hash(x),"optimizer_step_before":before[eid]["step"],"optimizer_step_after":c.opt_step(x["optimizer"]),"version_after":x["version"]})
+              "optimizer_hash_after":self._opt_hash(x),"optimizer_step_before":before[eid]["step"],"optimizer_step_after":c.opt_step(x["optimizer"]),"version_after":x["version"]}
+            self._record("updates",self.update_log,ur)
         self._commit_action(row,{"optimizer_calls":len(active),"live_steps_after":self.live_optimizer_steps}); self.save_checkpoint("live_update_t%d"%t,False); return True
 
     def _shadow_update(self,t):
@@ -547,7 +548,7 @@ class Machine044:
           "model_hash_before":before["model"],"model_hash_after":self._model_hash(s),"optimizer_hash_before":before["opt"],
           "optimizer_hash_after":self._opt_hash(s),"optimizer_step_before":before["step"],"optimizer_step_after":c.opt_step(s["optimizer"]),
           "version_after":s["version"],"shadow_update_after":s["updates"]}
-        self.update_log.append(ev)
+        self._record("updates",self.update_log,ev)
         if s["updates"]==16:
             s["status"]="validating"; s["validation_start"]=int(t)+1; s["issued"]={}; s["settled_rows"]={}; s["ready"]=False
             q={"event":"shadow_training_complete","at_interval":int(t),"candidate_id":int(s["id"]),"updates":16,"validation_start":int(t)+1,
@@ -585,10 +586,10 @@ class Machine044:
         if self.terminal_progress==2:
             if self.reuse_slot is not None:
                 ev={"event":"reuse_censored","at_interval":self.src["n"]+1,"start_t":self.reuse_slot["start_t"],"issued_count":len(self.reuse_slot.get("issued",{})),"settled_count":len(self.reuse_slot.get("settled_rows",{}))}
-                self.reuse_decisions.append(ev); self.reuse_slot=None
+                self._record("reuse_decisions",self.reuse_decisions,ev); self.reuse_slot=None
             if self.shadow is not None:
                 ev={"event":"shadow_censored","at_interval":self.src["n"]+1,"candidate_id":int(self.shadow["id"]),"status":self.shadow.get("status"),"updates":int(self.shadow.get("updates",0)),"issued_count":len(self.shadow.get("issued",{}))}
-                self.candidate_decisions.append(ev)
+                self._record("candidate_decisions",self.candidate_decisions,ev)
             self.terminal_progress=3; self.next_substep="done"; self.save_checkpoint("terminal_done",True)
         after=(self.live_optimizer_steps,self.shadow_optimizer_steps,self.deployed_forwards,self.reuse_preview_forwards,self.shadow_preview_forwards,self.actual_optimizer_calls,self.permanent_deletions)
         self.terminal_counter_delta=[after[i]-counters[i] for i in range(len(after))]
