@@ -43,7 +43,7 @@ class Machine044:
         self.permanent_deletions=0; self.actual_optimizer_calls=0; self.near_threshold_recompute_count=0
         self.action_seq=0; self.completed_action_ids=deque(maxlen=64); self.completed_action_count=0; self.action_journal=self.work_dir/"action_journal.json"; self.checkpoint_dir=None
         self.crash_probe=None; self.terminal_counter_delta=[]
-        (self.work_dir/"streams").mkdir(parents=True,exist_ok=True)
+        (self.work_dir/"streams").mkdir(parents=True,exist_ok=True); self.audit_state={}
 
     def _open_array(self,name,dtype,shape,fill,resume):
         p=self.audit_array_dir/(name+".npy")
@@ -75,9 +75,28 @@ class Machine044:
 
     def _stream(self,name,row):
         t0=time.perf_counter()
-        with open(self.work_dir/"streams"/(name+".jsonl"),"a",encoding="utf8") as f:
-            f.write(json.dumps(row,ensure_ascii=False,allow_nan=False,default=str)+"\n")
+        line=json.dumps(row,ensure_ascii=False,allow_nan=False,default=str,separators=(",",":"))+"\n"
+        p=self.work_dir/"streams"/(name+".jsonl"); st=self.audit_state.get(name,{"count":0,"chain":"0"*64,"offset":0})
+        with open(p,"a",encoding="utf8") as f:
+            f.write(line); off=f.tell()
+        chain=hashlib.sha256((st["chain"]+line).encode("utf8")).hexdigest()
+        self.audit_state[name]={"count":int(st["count"])+1,"chain":chain,"offset":int(off)}
         self.io_seconds+=time.perf_counter()-t0
+
+    def _record(self,name,buf,row):
+        buf.append(copy.deepcopy(row)); self._stream(name,row)
+
+    def _verify_stream_prefixes(self):
+        for name,st in self.audit_state.items():
+            p=self.work_dir/"streams"/(name+".jsonl")
+            if not p.exists() or p.stat().st_size!=int(st["offset"]):
+                raise RuntimeError("ambiguous_state: audit offset mismatch "+name)
+            chain="0"*64; count=0
+            with open(p,"r",encoding="utf8") as f:
+                for line in f:
+                    chain=hashlib.sha256((chain+line).encode("utf8")).hexdigest(); count+=1
+            if count!=int(st["count"]) or chain!=st["chain"]:
+                raise RuntimeError("ambiguous_state: audit hash mismatch "+name)
 
     def _model_hash(self,x): return _mh(x)
     def _opt_hash(self,x): return _oh(x)
