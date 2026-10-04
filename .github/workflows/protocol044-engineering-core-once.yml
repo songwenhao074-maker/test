@@ -72,3 +72,5 @@ jobs:
           if-no-files-found: error
 
 # rerun after engine syntax/recovery fixes
+
+# retry after audit repo-root import fix c4ca5d98
