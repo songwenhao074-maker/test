@@ -541,7 +541,11 @@ class Machine044:
               "model_hash_before":before[eid]["model"],"model_hash_after":self._model_hash(x),"optimizer_hash_before":before[eid]["opt"],
               "optimizer_hash_after":self._opt_hash(x),"optimizer_step_before":before[eid]["step"],"optimizer_step_after":c.opt_step(x["optimizer"]),"version_after":x["version"]}
             self._record("updates",self.update_log,ur)
-        if self.crash_probe=="after_audit_before_action_commit": raise RuntimeError("injected_crash_after_audit_before_action_commit")\n        self._commit_action(row,{"optimizer_calls":len(active),"live_steps_after":self.live_optimizer_steps}); self.save_checkpoint("live_update_t%d"%t,False); return True
+        if self.crash_probe=="after_audit_before_action_commit":
+            raise RuntimeError("injected_crash_after_audit_before_action_commit")
+        self._commit_action(row,{"optimizer_calls":len(active),"live_steps_after":self.live_optimizer_steps})
+        self.save_checkpoint("live_update_t%d"%t,False)
+        return True
 
     def _shadow_update(self,t):
         s=self.shadow; batch=self._batch(t)
