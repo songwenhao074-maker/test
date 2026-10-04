@@ -307,7 +307,7 @@ class Machine043:
         self.candidate_decisions.append(q); self.qualification_records.append(copy.deepcopy(q)); self._stream("candidate_decisions",q)
         eid=int(s["id"]); self.last_attempt_end_m=int(t)-2
         if q["pass"]:
-            before=list(self.active_ids); s["accepted"]=True; s["role"]="dormant"
+            before=list(self.active_ids); s["accepted"]=True; s["role"]="active"
             for k in ("status","updates","validation_start","issued","settled_rows","ready","proposal_epoch","retained_ids","candidate_id"):
                 s.pop(k,None)
             self.experts[eid]=s; self.shadow=None; self._make_active(eid,t,"shadow_accept"); self._topology_cleanup(t,"shadow_accept",before,keep_shadow=True)
