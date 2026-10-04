@@ -80,3 +80,5 @@ jobs:
 # retry after functional GC arm keyword fix 512b20a2
 
 # diagnostic rerun after semantic diff instrumentation 49d7e156
+
+# retry after excluding elapsed rebuild timing from resume semantics 85aed9ba
