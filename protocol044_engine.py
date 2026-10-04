@@ -670,14 +670,44 @@ class Machine044:
             if int(j.get("action_seq",0))>m.action_seq: raise RuntimeError("ambiguous_state: journal newer than checkpoint")
         return m
 
+def _arr_prefix_hash(a,cursor,axis0=True):
+    x=np.asarray(a[:int(cursor)] if axis0 else a[:, :int(cursor)])
+    return hashlib.sha256(x.tobytes()).hexdigest()
+
+def semantic_state(m):
+    npstate=np.random.get_state(); pyst=random.getstate()
+    tracker=m.tracker.online_payload() if hasattr(m.tracker,"online_payload") else copy.deepcopy(m.tracker.__dict__)
+    return {"arm":m.arm,"cursor":m.cursor,"next_substep":m.next_substep,"terminal_progress":m.terminal_progress,"epoch":m.deployment_epoch,
+      "epoch_start":m.epoch_start_prediction,"active_ids":list(m.active_ids),"next_id":m.next_id,"deleted_ids":sorted(m.deleted_ids),
+      "tombstones":m.tombstones,"attempts":m.attempts_after_e0,"first_birth_t":m.first_birth_t,
+      "birth_streak":m.birth_streak,"pressure_streak":m.pressure_streak,"reuse_started":m.reuse_started,
+      "reuse_history":list(m.reuse_history),"reuse_slot":m.reuse_slot,"last_reuse_quality_failure":m.last_reuse_quality_failure,
+      "pending_train_context":m.pending_train_context,"tracker":tracker,
+      "experts":{str(k):{"role":v["role"],"version":v["version"],"model":m._model_hash(v),"opt":m._opt_hash(v),
+        "step":c.opt_step(v["optimizer"]),"first_active_t":v.get("first_active_t"),"last_active_prediction":v.get("last_active_prediction"),
+        "dormant_since_prediction":v.get("dormant_since_prediction"),"reactivations":v.get("reactivations")} for k,v in sorted(m.experts.items())},
+      "shadow":None if m.shadow is None else {"id":m.shadow["id"],"status":m.shadow.get("status"),"updates":m.shadow.get("updates"),
+        "model":m._model_hash(m.shadow),"opt":m._opt_hash(m.shadow),"step":c.opt_step(m.shadow["optimizer"]),
+        "proposal_epoch":m.shadow.get("proposal_epoch"),"retained_ids":m.shadow.get("retained_ids"),"issued":m.shadow.get("issued"),
+        "settled_rows":m.shadow.get("settled_rows"),"ready":m.shadow.get("ready")},
+      "counters":[m.live_optimizer_steps,m.shadow_optimizer_steps,m.deployed_forwards,m.reuse_preview_forwards,
+        m.shadow_preview_forwards,m.live_training_forwards,m.shadow_training_forwards,m.actual_optimizer_calls,m.permanent_deletions],
+      "audit_state":copy.deepcopy(m.audit_state),"completed_action_count":m.completed_action_count,"action_seq":m.action_seq,
+      "out_hashes":{
+        "probability":_arr_prefix_hash(m.out["probability"],m.cursor),
+        "detection_logits":_arr_prefix_hash(m.out["detection_logits"],m.cursor),
+        "total_delta":_arr_prefix_hash(m.out["total_delta"],m.cursor),
+        "live_margin":_arr_prefix_hash(m.out["live_margin"],m.cursor),
+        "B_margin":_arr_prefix_hash(m.out["B_margin"],m.cursor),
+        "deployment_epoch":_arr_prefix_hash(m.out["deployment_epoch"],m.cursor),
+        "active_ids":_arr_prefix_hash(m.out["active_ids"],m.cursor),
+        "expert_versions":_arr_prefix_hash(m.out["expert_versions"],m.cursor),
+        "expert_hashes":_arr_prefix_hash(m.out["expert_hashes"],m.cursor),
+        "contribution":_arr_prefix_hash(m.out["contribution"],m.cursor,False),
+        "settled":_arr_prefix_hash(m.settled,min(m.cursor+2,m.src["n"])),
+        "b_loss":_arr_prefix_hash(m.b_loss,min(m.cursor+2,m.src["n"])),
+        "d_loss":_arr_prefix_hash(m.d_loss,min(m.cursor+2,m.src["n"]))},
+      "rng":{"torch":hashlib.sha256(torch.get_rng_state().numpy().tobytes()).hexdigest(),
+        "numpy":hashlib.sha256(repr(npstate).encode()).hexdigest(),"python":hashlib.sha256(repr(pyst).encode()).hexdigest()}}
 def semantic_digest(m):
-    rows={"arm":m.arm,"cursor":m.cursor,"next_substep":m.next_substep,"terminal_progress":m.terminal_progress,"epoch":m.deployment_epoch,
-      "active_ids":list(m.active_ids),"next_id":m.next_id,"deleted_ids":sorted(m.deleted_ids),"tombstones":m.tombstones,
-      "attempts":m.attempts_after_e0,"first_birth_t":m.first_birth_t,
-      "experts":{str(k):{"role":v["role"],"version":v["version"],"model":m._model_hash(v),"opt":m._opt_hash(v),"step":c.opt_step(v["optimizer"])} for k,v in sorted(m.experts.items())},
-      "shadow":None if m.shadow is None else {"id":m.shadow["id"],"status":m.shadow.get("status"),"updates":m.shadow.get("updates"),"model":m._model_hash(m.shadow),"opt":m._opt_hash(m.shadow),"step":c.opt_step(m.shadow["optimizer"])},
-      "counters":[m.live_optimizer_steps,m.shadow_optimizer_steps,m.deployed_forwards,m.reuse_preview_forwards,m.shadow_preview_forwards,m.actual_optimizer_calls,m.permanent_deletions],
-      "events":[m.lifecycle_events,m.candidate_decisions,m.reuse_decisions,m.reclamation_events,m.update_log],
-      "out_hash":hashlib.sha256(m.out["probability"].tobytes()).hexdigest(),"contrib_hash":hashlib.sha256(m.out["contribution"].tobytes()).hexdigest(),
-      "rng":hashlib.sha256(torch.get_rng_state().numpy().tobytes()).hexdigest()}
-    return hashlib.sha256(json.dumps(rows,sort_keys=True,default=str).encode()).hexdigest()
+    return hashlib.sha256(json.dumps(semantic_state(m),sort_keys=True,default=str).encode()).hexdigest()
