@@ -43,7 +43,7 @@ def main():
     bundle_paths=[
       "protocol043_common.py","protocol043_engine.py","run_ftmoe_protocol043.py","analyze_ftmoe_protocol043.py",
       "maintenance/validate_protocol043_plan.py","maintenance/materialize_protocol043_sources.py","maintenance/protocol043_audit042.py",
-      "maintenance/protocol043_gate.py","maintenance/protocol043_finalize.py",
+      "maintenance/protocol043_gate.py","maintenance/protocol043_finalize.py","maintenance/protocol043_publish.py",
       "artifacts/ftmoe_online/protocol_043/plan.json","artifacts/ftmoe_online/protocol_043/plan.sha256",
       "docs/PROTOCOL043_BOUNDED_LIFECYCLE_20261003.md",a.workflow
     ]
