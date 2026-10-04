@@ -1,0 +1,195 @@
+{
+  "protocol": "044",
+  "revision": 1,
+  "status": "registered_not_generated",
+  "date": "2026-10-04",
+  "scenario_id": "protocol044_four_service_capacity_5953_seed4401_v1",
+  "purpose": "one fixed full simulator stream for bounded expert turnover and return cost; no guaranteed GC",
+  "replay_seed": 4401,
+  "model_seed": 1,
+  "branch_seed": 3501,
+  "hosts": 16,
+  "prediction_intervals": 5952,
+  "guard_rows": 1,
+  "raw_rows": 5953,
+  "timeline": [
+    {
+      "name": "F0",
+      "service": "baseline",
+      "source_service": null,
+      "start": 0,
+      "end": 320,
+      "length": 320,
+      "event_probability": 0
+    },
+    {
+      "name": "U_first",
+      "service": "U",
+      "source_service": "S1",
+      "start": 320,
+      "end": 1024,
+      "length": 704,
+      "event_probability": 0.3
+    },
+    {
+      "name": "V_first",
+      "service": "V",
+      "source_service": "S3",
+      "start": 1024,
+      "end": 1728,
+      "length": 704,
+      "event_probability": 0.3
+    },
+    {
+      "name": "W_first",
+      "service": "W",
+      "source_service": "S4",
+      "start": 1728,
+      "end": 2432,
+      "length": 704,
+      "event_probability": 0.3
+    },
+    {
+      "name": "X_first",
+      "service": "X",
+      "source_service": "S2",
+      "start": 2432,
+      "end": 3136,
+      "length": 704,
+      "event_probability": 0.3
+    },
+    {
+      "name": "U_return",
+      "service": "U",
+      "source_service": "S1",
+      "start": 3136,
+      "end": 3840,
+      "length": 704,
+      "event_probability": 0.3
+    },
+    {
+      "name": "V_return",
+      "service": "V",
+      "source_service": "S3",
+      "start": 3840,
+      "end": 4544,
+      "length": 704,
+      "event_probability": 0.3
+    },
+    {
+      "name": "W_return",
+      "service": "W",
+      "source_service": "S4",
+      "start": 4544,
+      "end": 5248,
+      "length": 704,
+      "event_probability": 0.3
+    },
+    {
+      "name": "X_return",
+      "service": "X",
+      "source_service": "S2",
+      "start": 5248,
+      "end": 5952,
+      "length": 704,
+      "event_probability": 0.3
+    }
+  ],
+  "logical_to_source_service": {
+    "U": "S1",
+    "V": "S3",
+    "W": "S4",
+    "X": "S2"
+  },
+  "law_source": {
+    "commit": "b620467aab4283e52d129924769c374124bbb4bf",
+    "path": "simulator/workload/BitbrainWorkloadProtocol025.py",
+    "sha256": "71ca206e80d9fd55e64a6526a3e538598ed19fe92e59fe28a691a0f1017ace7c",
+    "parameters": "inherit full SERVICE_LAWS byte-locked implementation including S4 decay floor, no amplitude/capacity change"
+  },
+  "generation": {
+    "reference_commit": "b620467aab4283e52d129924769c374124bbb4bf",
+    "reference_entry": "protocol036_stream.py",
+    "reference_sha256": "6ee73bbd16ba193164308db0a566843b4432f059f080d89e468ea6d7d7a6e4e7",
+    "event_probability": 0.3,
+    "F0_probability": 0,
+    "chunk_raw_rows": 200,
+    "full_chunks": 29,
+    "last_chunk_raw_rows": 153,
+    "chunks_total": 30,
+    "full_streams_max": 1,
+    "simulator": "Bitbrain/GOBI/RPiEdge/simulationStep",
+    "switch_resets_state": false,
+    "old_tasks_continue": true,
+    "npz_splicing": false,
+    "reroll": false,
+    "prefilled_experts": false,
+    "preset_deletion_times": false,
+    "force_event_by_prediction_perturbation": false,
+    "guard": "continue X no score",
+    "checkpoint_includes": [
+      "simulator",
+      "scheduler",
+      "workload",
+      "all_RNG",
+      "creation_ids",
+      "chunk_hashes",
+      "next_t"
+    ],
+    "registration_and_implementation_must_match_on_resume": true
+  },
+  "model_free_gates": {
+    "label_recompute_exact": true,
+    "finite_causal_features": true,
+    "scheduler_capacity_audit": true,
+    "all_chunks_rows_complete": true,
+    "all_four_services_have_events": true,
+    "per_nonbaseline704_positive_rows_min": 32,
+    "per_nonbaseline704_negative_rows_min": 32,
+    "per_primary_return128_positive_rows_min": 32,
+    "per_primary_return128_negative_rows_min": 32,
+    "failed_gate": "stop_no_reroll_no_training"
+  },
+  "causality": {
+    "target": "same_host_raw[i+1]>0",
+    "label_available_at": "i+2",
+    "prediction_visible_labels": "i+2<t",
+    "control_update_visible_labels": "i+2<=t",
+    "issued_z_dimension": 73,
+    "preprocessing": "frozen base checkpoint normalization plus causal pressure/delta/slope9; no full-stream fitting",
+    "phase_service_event_ids": "offline_audit_only",
+    "future_switch_times_online": false,
+    "terminal_training": false
+  },
+  "primary_windows": [
+    [
+      "U_return_128",
+      3136,
+      3264
+    ],
+    [
+      "V_return_128",
+      3840,
+      3968
+    ],
+    [
+      "W_return_128",
+      4544,
+      4672
+    ],
+    [
+      "X_return_128",
+      5248,
+      5376
+    ]
+  ],
+  "actual_stream_sha256": null,
+  "hash_sealed_in_separate_data_lock_before_C": true,
+  "already_exposed_seed": "report exposure; no substitute seed",
+  "interpretation": {
+    "full_simulator_not_handcrafted_fixture": true,
+    "real_production_capture": false,
+    "guaranteed_capacity_event": false,
+    "broad_generalization_claim": false
+  }
+}
