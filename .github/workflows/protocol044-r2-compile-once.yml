@@ -1,0 +1,28 @@
+name: Protocol044 r2 compile gate once
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol044-r2-compile-once.yml'
+permissions:
+  contents: read
+jobs:
+  compile:
+    if: contains(github.event.head_commit.message, '[p044r2-compile]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/protocol-044-revision2-durable-recovery-20261005
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.8.18"
+      - name: Verify contracts and compile changed entrypoints
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "a27a6cca6abde40b6395876eccd3db5f550a044e952a701fe63aa2e4306a5f51  artifacts/ftmoe_online/protocol_044/plan.json" | sha256sum -c -
+          echo "6e6bd03efc0d84f5e885eacf36f1ac80e770198703463cc051216ad1a741683f  artifacts/ftmoe_online/protocol_044/scenario_registration.json" | sha256sum -c -
+          echo "823365226f0e418bcc5dbdc79e0e1b77f5adf72c3e404b67fb28fdffd9cc20b3  artifacts/ftmoe_online/protocol_044/revision_002/plan.json" | sha256sum -c -
+          python -m py_compile protocol044_common.py protocol044_engine.py protocol044_stream.py run_ftmoe_protocol044.py run_ftmoe_protocol044_science.py analyze_ftmoe_protocol044.py maintenance/protocol044_ecloseout.py
