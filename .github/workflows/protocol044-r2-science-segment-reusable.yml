@@ -1,0 +1,191 @@
+name: Protocol044 r2 science segment reusable
+on:
+  workflow_call:
+    inputs:
+      execution_sha: {required: true, type: string}
+      gate_artifact_id: {required: true, type: string}
+      gate_digest: {required: true, type: string}
+      data_state_id: {required: true, type: string}
+      data_receipt_id: {required: true, type: string}
+      data_receipt_sha: {required: true, type: string}
+      parent_stage_id: {required: true, type: string}
+      parent_receipt_id: {required: true, type: string}
+      parent_receipt_sha: {required: true, type: string}
+      parent_cursor: {required: true, type: string}
+      arm: {required: true, type: string}
+      mode: {required: true, type: string}
+      segment_index: {required: true, type: string}
+    outputs:
+      state_id: {value: ${{ jobs.segment.outputs.state_id }}}
+      receipt_id: {value: ${{ jobs.segment.outputs.receipt_id }}}
+      receipt_sha: {value: ${{ jobs.segment.outputs.receipt_sha }}}
+      cursor: {value: ${{ jobs.segment.outputs.cursor }}}
+      state_digest: {value: ${{ jobs.segment.outputs.state_digest }}}
+permissions:
+  contents: write
+  actions: read
+jobs:
+  segment:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 300
+    outputs:
+      state_id: ${{ steps.state_up.outputs.artifact-id }}
+      receipt_id: ${{ steps.receipt_up.outputs.artifact-id }}
+      receipt_sha: ${{ steps.commit.outputs.receipt_sha }}
+      cursor: ${{ steps.work.outputs.cursor }}
+      state_digest: ${{ steps.commit.outputs.state_digest }}
+    env:
+      GH_TOKEN: ${{ github.token }}
+      EXECUTION_SHA: ${{ inputs.execution_sha }}
+      EXECUTION_REF: codex/protocol-044-revision2-durable-recovery-20261005
+      ARM: ${{ inputs.arm }}
+      MODE: ${{ inputs.mode }}
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      PYTHONHASHSEED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.execution_sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.8.18"
+      - name: Install frozen runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXECUTION_SHA"
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/req.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/req.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil==5.9.8 wget==3.2 pandas==2.0.3 scikit-learn==1.3.2
+      - name: Verify E recovery gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/gate
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.gate_artifact_id }}/zip" -o /tmp/gate.zip
+          echo "${{ inputs.gate_digest }}" | sed 's/^sha256://' | awk '{print $1"  /tmp/gate.zip"}' | sha256sum -c -
+          unzip -q /tmp/gate.zip -d /tmp/gate
+          python - <<'PY'
+          import json,os
+          g=json.load(open("/tmp/gate/E_recovery_gate.json"))
+          assert g["E_recovery_gate"] is True and g["execution_sha"]==os.environ["EXECUTION_SHA"] and g["fixture_mode"] is False
+          PY
+      - name: Download committed parent science state
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/stage /tmp/preceipt
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.parent_stage_id }}" > /tmp/pinfo.json
+          PDIG=$(python -c 'import json; print(json.load(open("/tmp/pinfo.json"))["digest"].split(":",1)[1])')
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.parent_stage_id }}/zip" -o /tmp/stage.zip
+          echo "$PDIG  /tmp/stage.zip" | sha256sum -c -
+          unzip -q /tmp/stage.zip -d /tmp/stage
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.parent_receipt_id }}/zip" -o /tmp/preceipt.zip
+          unzip -q /tmp/preceipt.zip -d /tmp/preceipt
+          test "$(sha256sum /tmp/preceipt/receipt.json | awk '{print $1}')" = "${{ inputs.parent_receipt_sha }}"
+          python maintenance/protocol044_r2_durable.py verify --root /tmp/stage --manifest /tmp/stage/state_manifest.json
+          python maintenance/protocol044_r2_durable.py verify-receipt --receipt /tmp/preceipt/receipt.json --manifest /tmp/stage/state_manifest.json
+          python - <<'PY'
+          import json
+          r=json.load(open("/tmp/preceipt/receipt.json"));i=json.load(open("/tmp/pinfo.json"))
+          assert r["artifact_id"]==i["id"] and r["artifact_digest"]==i["digest"]
+          PY
+      - name: Download committed model-free data for C verification
+        if: inputs.arm == 'C_ref'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/data /tmp/dreceipt
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.data_state_id }}" > /tmp/dinfo.json
+          DDIG=$(python -c 'import json; print(json.load(open("/tmp/dinfo.json"))["digest"].split(":",1)[1])')
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.data_state_id }}/zip" -o /tmp/data.zip
+          echo "$DDIG  /tmp/data.zip" | sha256sum -c -
+          unzip -q /tmp/data.zip -d /tmp/data
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.data_receipt_id }}/zip" -o /tmp/dreceipt.zip
+          unzip -q /tmp/dreceipt.zip -d /tmp/dreceipt
+          test "$(sha256sum /tmp/dreceipt/data_receipt.json | awk '{print $1}')" = "${{ inputs.data_receipt_sha }}"
+          python maintenance/protocol044_r2_durable.py verify --root /tmp/data --manifest /tmp/data/state_manifest.json
+          python maintenance/protocol044_r2_durable.py verify-receipt --receipt /tmp/dreceipt/data_receipt.json --manifest /tmp/data/state_manifest.json
+          cmp /tmp/stage/input_lock.json /tmp/data/evidence/input_lock.json
+      - name: Advance or initialize exactly one science segment
+        id: work
+        shell: bash
+        run: |
+          set -euo pipefail
+          PARENT=${{ inputs.parent_cursor }}
+          if [ "$MODE" = "start" ]; then
+            TARGET=0
+          else
+            TARGET=$((PARENT+512)); if [ "$TARGET" -gt 5952 ]; then TARGET=5952; fi
+          fi
+          COMMON=(--input-lock /tmp/stage/input_lock.json --gate /tmp/gate/E_recovery_gate.json --execution-sha "$EXECUTION_SHA" --ledger /tmp/stage/budget_ledger.json --run-id "$GITHUB_RUN_ID" --stop-cursor "$TARGET")
+          if [ "$ARM" = "C_ref" ]; then
+            CMD=(python run_ftmoe_protocol044_science.py C_ref --data /tmp/data/data --out /tmp/stage/C_ref "${COMMON[@]}")
+            if [ "$MODE" = "resume" ]; then CMD+=(--resume-label "cursor_$(printf '%04d' "$PARENT")"); fi
+          elif [ "$ARM" = "D_lin" ]; then
+            CMD=(python run_ftmoe_protocol044_science.py D_lin --feature-tape /tmp/stage/C_ref/feature_tape.npz --update-batches /tmp/stage/C_ref/update_batches.json --out /tmp/stage/D_lin "${COMMON[@]}")
+            if [ "$MODE" = "resume" ]; then CMD+=(--resume-from "/tmp/stage/D_lin/checkpoints/cursor_$(printf '%04d' "$PARENT").pt"); fi
+          else
+            CMD=(python run_ftmoe_protocol044_science.py dynamic --arm "$ARM" --feature-tape /tmp/stage/C_ref/feature_tape.npz --b-predictions /tmp/stage/D_lin/predictions.npz --update-batches /tmp/stage/C_ref/update_batches.json --out "/tmp/stage/$ARM" "${COMMON[@]}")
+            if [ "$MODE" = "resume" ]; then CMD+=(--resume-from "/tmp/stage/$ARM/checkpoints/latest.pt"); fi
+          fi
+          "${CMD[@]}"
+          CUR=$(python -c "import json; print(json.load(open('/tmp/stage/$ARM/segment_status.json'))['cursor'])")
+          if [ "$MODE" = "start" ]; then test "$CUR" = "0"; else test "$CUR" -gt "$PARENT"; test $((CUR-PARENT)) -le 512; fi
+          python maintenance/protocol044_r2_durable.py manifest --root /tmp/stage --kind science --execution-sha "$EXECUTION_SHA"             --cursor "$CUR" --arm "$ARM" --parent-receipt /tmp/preceipt/receipt.json --out /tmp/stage/state_manifest.json
+          python maintenance/protocol044_r2_durable.py verify --root /tmp/stage --manifest /tmp/stage/state_manifest.json             --expected-parent "${{ inputs.parent_receipt_sha }}"
+          echo "cursor=$CUR" >> "$GITHUB_OUTPUT"
+      - id: state_up
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-r2-science-${{ inputs.arm }}-${{ steps.work.outputs.cursor }}-${{ github.run_id }}-${{ inputs.segment_index }}
+          path: /tmp/stage
+          retention-days: 90
+          compression-level: 6
+      - name: Fresh download and actual checkpoint restore verification
+        id: commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          ID="${{ steps.state_up.outputs.artifact-id }}"
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$ID" > /tmp/ninfo.json
+          DIG=$(python -c 'import json; print(json.load(open("/tmp/ninfo.json"))["digest"].split(":",1)[1])')
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$ID/zip" -o /tmp/fresh.zip
+          echo "$DIG  /tmp/fresh.zip" | sha256sum -c -
+          mkdir /tmp/fresh && unzip -q /tmp/fresh.zip -d /tmp/fresh
+          python maintenance/protocol044_r2_durable.py verify --root /tmp/fresh --manifest /tmp/fresh/state_manifest.json             --expected-parent "${{ inputs.parent_receipt_sha }}"
+          if [ "$ARM" = "C_ref" ]; then
+            python maintenance/protocol044_r2_science_state_verify.py --arm "$ARM" --stage /tmp/fresh --data /tmp/data/data --out /tmp/restore_verify.json
+          else
+            python maintenance/protocol044_r2_science_state_verify.py --arm "$ARM" --stage /tmp/fresh --out /tmp/restore_verify.json
+          fi
+          python maintenance/protocol044_r2_durable.py receipt --info /tmp/ninfo.json --manifest /tmp/fresh/state_manifest.json             --run-id "$GITHUB_RUN_ID" --attempt "$GITHUB_RUN_ATTEMPT" --out /tmp/receipt.json --parent /tmp/preceipt/receipt.json
+          python maintenance/protocol044_r2_durable.py verify-receipt --receipt /tmp/receipt.json --manifest /tmp/fresh/state_manifest.json
+          echo "receipt_sha=$(sha256sum /tmp/receipt.json | awk '{print $1}')" >> "$GITHUB_OUTPUT"
+          echo "state_digest=$(python -c 'import json; print(json.load(open("/tmp/ninfo.json"))["digest"])')" >> "$GITHUB_OUTPUT"
+      - id: receipt_up
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-r2-science-receipt-${{ inputs.arm }}-${{ steps.work.outputs.cursor }}-${{ github.run_id }}-${{ inputs.segment_index }}
+          path: /tmp/receipt.json
+          retention-days: 90
+          compression-level: 6
+      - name: Persist science receipt to execution branch
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin "$EXECUTION_REF"
+          git worktree add /tmp/progress "origin/$EXECUTION_REF"
+          cd /tmp/progress
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          P="artifacts/ftmoe_online/protocol_044/revision_002/progress/science_${{ inputs.arm }}_cursor_${{ steps.work.outputs.cursor }}.json"
+          mkdir -p "$(dirname "$P")"; cp /tmp/receipt.json "$P"
+          git add "$P"; git commit -m "progress: Protocol044 r2 ${{ inputs.arm }} cursor ${{ steps.work.outputs.cursor }} [skip ci]"
+          git push origin HEAD:"$EXECUTION_REF"
