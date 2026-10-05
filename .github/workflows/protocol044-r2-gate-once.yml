@@ -54,6 +54,9 @@ jobs:
           for p in root.rglob('*.json'):
               try: x=json.loads(p.read_text())
               except Exception: continue
+              if not isinstance(x,dict): continue
+              if 'E_gate' in x or 'execution_sha' in x or 'branch_head' in x:
+                  print('candidate',p,'E_gate=',x.get('E_gate'),'execution_sha=',x.get('execution_sha'),'branch_head=',x.get('branch_head'))
               if x.get('E_gate') is True and x.get('execution_sha')=='0fb751738718d3d06aeeaa32cfcb593436fd7c87':
                   gates.append(p)
               if x.get('E_gate') is True and x.get('branch_head')=='0fb751738718d3d06aeeaa32cfcb593436fd7c87':
