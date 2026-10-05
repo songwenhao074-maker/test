@@ -86,3 +86,5 @@ jobs:
           if-no-files-found: error
 
 # retry after acceptance import-path fix
+
+# retry after Dlin checkpoint diff diagnostics and stronger negative cases
