@@ -1,0 +1,23 @@
+{
+  "protocol": "044",
+  "execution_revision": 2,
+  "status": "fail_closed",
+  "last_committed_generation_cursor": 5800,
+  "target_cursor": 5953,
+  "failed_run_id": 37286376523,
+  "failed_job_id": 111880441388,
+  "last_state_artifact": {
+    "id": 11359402846,
+    "name": "protocol044-r2-gen-state-5800-37286376523-29",
+    "digest": "sha256:01473d61115acbe742fffc2ef71340a7cc056549b5545dee51e61d99133cd4b3"
+  },
+  "last_receipt_artifact": {
+    "id": 11359547713,
+    "name": "protocol044-r2-gen-receipt-5800-37286376523-29",
+    "digest": "sha256:f47a0ad5c573d36f503b0b19112e0948f60f494dfe1182f64dc665f829ec1b56"
+  },
+  "failure": "g30 restored committed cursor 5800, then collector exited rc=1 during advance; immutable upload and receipt steps were skipped",
+  "orphan_post_5800_state_found": false,
+  "blocker": "The active instruction forbids restarting an already-started generation segment. g30 started the 5800-to-5953 segment but left no durable post-5800 artifact, so exact recovery is impossible without new authorization.",
+  "downstream_started": false
+}
