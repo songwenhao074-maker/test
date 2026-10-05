@@ -1,0 +1,171 @@
+name: Protocol044 r2 continue generation 3800 to 5953
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol044-r2-continue-generation-once.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: protocol044_revision1_stageS_seed4401_sequence
+  cancel-in-progress: false
+
+jobs:
+  g20:
+    if: contains(github.event.head_commit.message, '[p044r2-continue-generation]')
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: 57ecaadb22dac117f5004c782ad5a27a03d84efc
+      gate_artifact_id: "11323195440"
+      gate_digest: "sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed"
+      parent_state_id: "11332873940"
+      parent_receipt_id: "11334208042"
+      parent_receipt_sha: "cbc0a56511b9377d4c57789798a1069b0eb099dc3374aa9071f03149802930be"
+      parent_cursor: "3800"
+      segment_index: "20"
+    secrets: inherit
+
+  g21:
+    needs: g20
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: 57ecaadb22dac117f5004c782ad5a27a03d84efc
+      gate_artifact_id: "11323195440"
+      gate_digest: "sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed"
+      parent_state_id: ${{ needs.g20.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g20.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g20.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g20.outputs.next_t }}
+      segment_index: "21"
+    secrets: inherit
+
+  g22:
+    needs: g21
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: 57ecaadb22dac117f5004c782ad5a27a03d84efc
+      gate_artifact_id: "11323195440"
+      gate_digest: "sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed"
+      parent_state_id: ${{ needs.g21.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g21.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g21.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g21.outputs.next_t }}
+      segment_index: "22"
+    secrets: inherit
+
+  g23:
+    needs: g22
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: 57ecaadb22dac117f5004c782ad5a27a03d84efc
+      gate_artifact_id: "11323195440"
+      gate_digest: "sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed"
+      parent_state_id: ${{ needs.g22.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g22.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g22.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g22.outputs.next_t }}
+      segment_index: "23"
+    secrets: inherit
+
+  g24:
+    needs: g23
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: 57ecaadb22dac117f5004c782ad5a27a03d84efc
+      gate_artifact_id: "11323195440"
+      gate_digest: "sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed"
+      parent_state_id: ${{ needs.g23.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g23.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g23.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g23.outputs.next_t }}
+      segment_index: "24"
+    secrets: inherit
+
+  g25:
+    needs: g24
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: 57ecaadb22dac117f5004c782ad5a27a03d84efc
+      gate_artifact_id: "11323195440"
+      gate_digest: "sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed"
+      parent_state_id: ${{ needs.g24.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g24.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g24.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g24.outputs.next_t }}
+      segment_index: "25"
+    secrets: inherit
+
+  g26:
+    needs: g25
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: 57ecaadb22dac117f5004c782ad5a27a03d84efc
+      gate_artifact_id: "11323195440"
+      gate_digest: "sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed"
+      parent_state_id: ${{ needs.g25.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g25.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g25.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g25.outputs.next_t }}
+      segment_index: "26"
+    secrets: inherit
+
+  g27:
+    needs: g26
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: 57ecaadb22dac117f5004c782ad5a27a03d84efc
+      gate_artifact_id: "11323195440"
+      gate_digest: "sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed"
+      parent_state_id: ${{ needs.g26.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g26.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g26.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g26.outputs.next_t }}
+      segment_index: "27"
+    secrets: inherit
+
+  g28:
+    needs: g27
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: 57ecaadb22dac117f5004c782ad5a27a03d84efc
+      gate_artifact_id: "11323195440"
+      gate_digest: "sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed"
+      parent_state_id: ${{ needs.g27.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g27.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g27.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g27.outputs.next_t }}
+      segment_index: "28"
+    secrets: inherit
+
+  g29:
+    needs: g28
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: 57ecaadb22dac117f5004c782ad5a27a03d84efc
+      gate_artifact_id: "11323195440"
+      gate_digest: "sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed"
+      parent_state_id: ${{ needs.g28.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g28.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g28.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g28.outputs.next_t }}
+      segment_index: "29"
+    secrets: inherit
+
+  g30:
+    needs: g29
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: 57ecaadb22dac117f5004c782ad5a27a03d84efc
+      gate_artifact_id: "11323195440"
+      gate_digest: "sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed"
+      parent_state_id: ${{ needs.g29.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g29.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g29.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g29.outputs.next_t }}
+      segment_index: "30"
+    secrets: inherit
+
