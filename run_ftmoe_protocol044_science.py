@@ -175,13 +175,15 @@ def cmd_c(a):
     runtime(); plan(); out=Path(a.out); out.mkdir(parents=True,exist_ok=True)
     resume=bool(a.resume_label)
     validate_gate(a.gate,a.input_lock,a.execution_sha,"C_ref",a.ledger,0,resume=resume)
-    start_seq(a.ledger,"C_ref",a.run_id,a.resume_label)
-    s,digest,m=make_c(a.data,a.input_lock,out,a.run_id)
     if a.resume_label:
         meta_path=out/"checkpoints"/(a.resume_label+".meta.json")
         if not meta_path.is_file(): raise FileNotFoundError(meta_path)
         meta=J(meta_path); assert_resume_binding(a.ledger,"C_ref",meta["cursor"],sha256_file(meta_path))
+    start_seq(a.ledger,"C_ref",a.run_id,a.resume_label)
+    s,digest,m=make_c(a.data,a.input_lock,out,a.run_id)
+    if a.resume_label:
         restore_c_ckpt(s,out,a.resume_label)
+        if int(s.updates)!=int(load_ledger(a.ledger)["sequences"]["C_ref"]["optimizer_steps_used"]): raise RuntimeError("C optimizer ledger mismatch")
     target=N if a.stop_cursor is None else min(N,int(a.stop_cursor))
     if target<int(s.cursor) or target-int(s.cursor)>512: raise RuntimeError("C segment cursor bound")
     ini=r36.initinfo(s); t0=time.perf_counter()
@@ -231,6 +233,8 @@ def restore_branch(path,b,opt,tape_sha):
 def cmd_lin(a):
     runtime(); plan(); resume=bool(a.resume_from)
     validate_gate(a.gate,a.input_lock,a.execution_sha,"D_lin",a.ledger,0,resume=resume); out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
+    if a.resume_from:
+        rp0=Path(a.resume_from); assert_resume_binding(a.ledger,"D_lin",J(str(rp0)+".json")["cursor"],sha256_file(rp0))
     start_seq(a.ledger,"D_lin",a.run_id,a.resume_from)
     tp=Path(a.feature_tape); tape_sha=sha256_file(tp)
     with np.load(tp,allow_pickle=False) as q:T={k:q[k].copy() for k in q.files}
@@ -242,7 +246,7 @@ def cmd_lin(a):
     pred=np.full((N,16),np.nan,np.float32);delta=np.full((N,16),np.nan,np.float32);logits=np.full((N,16,2),np.nan,np.float32)
     versions=np.zeros(N,np.int32);hashes=[];logs=[];ver=0;cursor=0
     if a.resume_from:
-        rp=Path(a.resume_from); assert_resume_binding(a.ledger,"D_lin",J(str(rp)+".json")["cursor"],sha256_file(rp))
+        rp=Path(a.resume_from)
         x=restore_branch(rp,b,opt,tape_sha);cursor=x["cursor"];ver=x["version"];pred[:cursor]=x["pred"];delta[:cursor]=x["delta"];logits[:cursor]=x["logits"];versions[:cursor]=x["versions"];hashes=list(x["hashes"]);logs=list(x["logs"])
         if ver!=int(load_ledger(a.ledger)["sequences"]["D_lin"]["optimizer_steps_used"]): raise RuntimeError("D_lin optimizer ledger mismatch")
     target=N if a.stop_cursor is None else min(N,int(a.stop_cursor))
@@ -278,10 +282,14 @@ def load_dynamic_source(feature_tape,b_pred,update_batches):
 
 def cmd_dynamic(a):
     runtime(); plan(); arm=a.arm; resume=bool(a.resume_from)
-    validate_gate(a.gate,a.input_lock,a.execution_sha,arm,a.ledger,0,resume=resume); start_seq(a.ledger,arm,a.run_id,a.resume_from)
-    out=Path(a.out);out.mkdir(parents=True,exist_ok=True);src=load_dynamic_source(a.feature_tape,a.b_predictions,a.update_batches)
+    validate_gate(a.gate,a.input_lock,a.execution_sha,arm,a.ledger,0,resume=resume)
+    out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
     if a.resume_from:
-        rp=Path(a.resume_from); assert_resume_binding(a.ledger,arm,J(checkpoint_meta_path(rp))["cursor"],sha256_file(rp))
+        rp0=Path(a.resume_from); assert_resume_binding(a.ledger,arm,J(checkpoint_meta_path(rp0))["cursor"],sha256_file(rp0))
+    start_seq(a.ledger,arm,a.run_id,a.resume_from)
+    src=load_dynamic_source(a.feature_tape,a.b_predictions,a.update_batches)
+    if a.resume_from:
+        rp=Path(a.resume_from)
         m=Machine044.restore(src,out,rp,arm=arm,allow_gradient=True,real_science=True,strict_journal=True)
         if m.actual_optimizer_calls!=int(load_ledger(a.ledger)["sequences"][arm]["optimizer_steps_used"]): raise RuntimeError("dynamic optimizer ledger mismatch")
     else:
