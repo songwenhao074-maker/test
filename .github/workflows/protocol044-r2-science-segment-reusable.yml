@@ -16,11 +16,16 @@ on:
       mode: {required: true, type: string}
       segment_index: {required: true, type: string}
     outputs:
-      state_id: {value: ${{ jobs.segment.outputs.state_id }}}
-      receipt_id: {value: ${{ jobs.segment.outputs.receipt_id }}}
-      receipt_sha: {value: ${{ jobs.segment.outputs.receipt_sha }}}
-      cursor: {value: ${{ jobs.segment.outputs.cursor }}}
-      state_digest: {value: ${{ jobs.segment.outputs.state_digest }}}
+      state_id:
+        value: ${{ jobs.segment.outputs.state_id }}
+      receipt_id:
+        value: ${{ jobs.segment.outputs.receipt_id }}
+      receipt_sha:
+        value: ${{ jobs.segment.outputs.receipt_sha }}
+      cursor:
+        value: ${{ jobs.segment.outputs.cursor }}
+      state_digest:
+        value: ${{ jobs.segment.outputs.state_digest }}
 permissions:
   contents: write
   actions: read
