@@ -73,6 +73,9 @@ def validate_gate(gate,input_lock,execution_sha,sequence,ledger,optimizer_calls=
     lock=J(input_lock)
     if lock.get("locked") is not True or lock.get("seed")!=4401: raise RuntimeError("data lock")
     led=J(ledger); r=led["sequences"][sequence]
+    idx=SEQ.index(sequence)
+    for prev in SEQ[:idx]:
+        if led["sequences"][prev].get("completed") is not True: raise RuntimeError("previous sequence incomplete "+prev)
     if led.get("execution_revision")!=2 or led.get("science_key")!="protocol044_revision1_stageS_seed4401_sequence": raise RuntimeError("ledger execution identity")
     if r.get("completed"): raise RuntimeError("duplicate completed sequence")
     if resume:
