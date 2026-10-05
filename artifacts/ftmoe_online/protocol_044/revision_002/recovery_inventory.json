@@ -1,0 +1,44 @@
+{
+  "protocol": "044",
+  "execution_revision": 2,
+  "science_config_revision": 1,
+  "reviewed_at": "2026-10-05",
+  "prior_r1_generation": {
+    "run_id": 37184889231,
+    "conclusion": "cancelled",
+    "last_observed_log_next_t": 5200,
+    "remote_artifact_count": 0,
+    "complete_verified_checkpoint_found": false,
+    "log_cursor_is_checkpoint": false
+  },
+  "prior_preinitialization": {
+    "run_id": 37178041408,
+    "artifact_id": 11294125846,
+    "artifact_digest": "sha256:9cf412b0c5e4f77186b3fb428f851d0e263c3cb4c05afe52f978ebe2d30eb103",
+    "generated_rows": 0,
+    "resume_state_present": false,
+    "resume_manifest_present": false,
+    "chunks_present": false,
+    "failure_type": "TypeError",
+    "failure_before_simulator_checkpoint": true
+  },
+  "inherited_E": {
+    "run_id": 37184789603,
+    "artifact_id": 11296492568,
+    "artifact_digest": "sha256:90b6bab6a149c46da0aa19e551c02f76b5665a27a83e97d7de192e21e08b6591",
+    "E_gate": true,
+    "science_execution_sha": "0fb751738718d3d06aeeaa32cfcb593436fd7c87"
+  },
+  "branch_selected": "one_authorized_same_seed4401_from_zero_reconstruction",
+  "generation_key": "protocol044_revision2_seed4401_reconstruction1",
+  "science_key": "protocol044_revision1_stageS_seed4401_sequence",
+  "reconstruction_allowance_consumed": false,
+  "reason": "No complete verified r1 simulator/RNG/chunk state exists remotely; the only retained r1 interrupted artifact is pre-initialization with zero rows and no checkpoint.",
+  "forbidden": [
+    "claim_exact_resume_from_5200",
+    "new_seed",
+    "multiple_complete_datasets",
+    "restart_after_r2_init",
+    "performance_based_reroll"
+  ]
+}
