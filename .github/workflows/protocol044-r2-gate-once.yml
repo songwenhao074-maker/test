@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-22.04
     env:
       GH_TOKEN: ${{ github.token }}
-      EXECUTION_SHA: "b1f501d9db6cbd3bd5e7968c4ed43e45a34aae78"
+      EXECUTION_SHA: "57ecaadb22dac117f5004c782ad5a27a03d84efc"
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: b1f501d9db6cbd3bd5e7968c4ed43e45a34aae78
+          ref: 57ecaadb22dac117f5004c782ad5a27a03d84efc
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
@@ -34,7 +34,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          rm -rf /tmp/eold /tmp/entry /tmp/durable /tmp/gate && mkdir -p /tmp/eold /tmp/entry /tmp/durable /tmp/gate
+          rm -rf /tmp/eold /tmp/entry /tmp/durable /tmp/init /tmp/gate && mkdir -p /tmp/eold /tmp/entry /tmp/durable /tmp/init /tmp/gate
           curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11296492568/zip" -o /tmp/eold.zip
           echo "90b6bab6a149c46da0aa19e551c02f76b5665a27a83e97d7de192e21e08b6591  /tmp/eold.zip" | sha256sum -c -
           unzip -q /tmp/eold.zip -d /tmp/eold
@@ -44,6 +44,10 @@ jobs:
           curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11320542913/zip" -o /tmp/durable.zip
           echo "8b8f19ca370a0ba32ee181cf2eb1bc0268c3745d4ae3860643741698dab58731  /tmp/durable.zip" | sha256sum -c -
           unzip -q /tmp/durable.zip -d /tmp/durable
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11322458100/zip" -o /tmp/init.zip
+          echo "bbde8f44d8a50c3487119e3a29307de89d494be1db4049b85c1f324826cf023c  /tmp/init.zip" | sha256sum -c -
+          unzip -q /tmp/init.zip -d /tmp/init
       - name: Locate inherited E gate and lock by content
         shell: bash
         run: |
