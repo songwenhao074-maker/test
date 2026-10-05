@@ -1,7 +1,9 @@
 """Protocol-044 revision2 durable artifact/receipt primitives for generation and science."""
 from __future__ import annotations
-import argparse, hashlib, json, os, pathlib, shutil, time
+import argparse, hashlib, json, os, pathlib, shutil, time, sys
 import numpy as np
+ROOT=pathlib.Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path: sys.path.insert(0,str(ROOT))
 
 GEN_KEY="protocol044_revision2_seed4401_reconstruction1"
 SCI_KEY="protocol044_revision1_stageS_seed4401_sequence"
