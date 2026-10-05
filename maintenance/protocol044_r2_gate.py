@@ -25,14 +25,14 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--old-e-gate",required=True);ap.add_argument("--old-e-lock",required=True)
     ap.add_argument("--compatibility",required=True);ap.add_argument("--entry",required=True);ap.add_argument("--durable",required=True)
-    ap.add_argument("--publication",required=True);ap.add_argument("--inventory",required=True)
+    ap.add_argument("--publication",required=True);ap.add_argument("--inventory",required=True);ap.add_argument("--init-restore",required=True)
     ap.add_argument("--entry-artifact-id",type=int,required=True);ap.add_argument("--entry-artifact-digest",required=True)
     ap.add_argument("--durable-artifact-id",type=int,required=True);ap.add_argument("--durable-artifact-digest",required=True)
     ap.add_argument("--execution-sha",required=True);ap.add_argument("--out",required=True);a=ap.parse_args()
     if sha(ROOT/"artifacts/ftmoe_online/protocol_044/plan.json")!=R1_PLAN:raise RuntimeError("r1 plan")
     if sha(ROOT/"artifacts/ftmoe_online/protocol_044/revision_002/plan.json")!=R2_PLAN:raise RuntimeError("r2 plan")
     if sha(ROOT/"artifacts/ftmoe_online/protocol_044/scenario_registration.json")!=SCENARIO:raise RuntimeError("scenario")
-    old=J(a.old_e_gate);lock=J(a.old_e_lock);comp=J(a.compatibility);entry=J(a.entry);dur=J(a.durable);pub=J(a.publication);inv=J(a.inventory)
+    old=J(a.old_e_gate);lock=J(a.old_e_lock);comp=J(a.compatibility);entry=J(a.entry);dur=J(a.durable);pub=J(a.publication);inv=J(a.inventory);initr=J(a.init_restore)
     inherited=bool(T(old,"E_gate") and old.get("execution_sha")==OLD_E_EXEC and T(lock,"E_gate") and lock.get("branch_head")==OLD_E_EXEC)
     compat=bool(comp.get("inherited_E_artifact_id")==OLD_E_ID and comp.get("inherited_E_digest")==OLD_E_DIGEST and T(comp,"inherited_core_compatible"))
     by={r["file"]:r for r in comp.get("files",[])}
@@ -52,6 +52,9 @@ def main():
     durable_ok=bool((dur.get("protocol"),dur.get("execution_revision"))==("044",2) and T(dur,"all_pass") and
                     all(T(dur,k) for k in ("state0_remote_verified","fault_after_remote_upload","orphan_artifact_discovered",
                       "orphan_receipt_recovered","different_runner_continued","corruption_rejected","stale_parent_rejected")))
+    init_restore_ok=bool((initr.get("protocol"),initr.get("execution_revision"))==("044",2) and T(initr,"all_pass") and
+                         initr.get("next_t")==0 and initr.get("generated_rows")==0 and initr.get("model_runs_started")==0 and
+                         T(initr,"fresh_generation_restore_pass"))
     publication_ok=bool((pub.get("protocol"),pub.get("execution_revision"))==("044",2) and T(pub,"all_pass") and
                         pub.get("model_forwards")==0 and pub.get("gradient_steps")==0 and pub.get("source_code_lock_reused_as_new_execution_proof") is False)
     recovery_ok=bool((inv.get("protocol"),inv.get("execution_revision"))==("044",2) and
@@ -73,10 +76,10 @@ def main():
       "entrypoint_evidence":{"artifact_id":a.entry_artifact_id,"artifact_digest":a.entry_artifact_digest},
       "durable_evidence":{"artifact_id":a.durable_artifact_id,"artifact_digest":a.durable_artifact_digest},
       "inherited_E_pass":bool(inherited),"compatibility_pass":bool(compat),"production_entrypoint_pass":bool(entry_ok),
-      "generation_recovery_pass":bool(durable_ok),"remote_transaction_pass":bool(durable_ok),
+      "generation_recovery_pass":bool(durable_ok and init_restore_ok),"remote_transaction_pass":bool(durable_ok),
       "budget_idempotency_pass":bool(entry_ok and durable_ok),"publication_pass":bool(publication_ok),"recovery_inventory_pass":bool(recovery_ok),
       "source_bundle_hashes":bundle,"fixture_mode":False}
-    gate["E_recovery_gate"]=bool(inherited and compat and entry_ok and durable_ok and publication_ok and recovery_ok and execution_ok)
+    gate["E_recovery_gate"]=bool(inherited and compat and entry_ok and durable_ok and init_restore_ok and publication_ok and recovery_ok and execution_ok)
     W(a.out,gate);print(json.dumps(gate,indent=2))
     if not gate["E_recovery_gate"]:raise SystemExit(2)
 if __name__=="__main__":main()
