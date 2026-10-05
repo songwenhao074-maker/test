@@ -1,0 +1,66 @@
+name: Protocol044 r2 init restore acceptance once
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol044-r2-init-restore-once.yml'
+permissions:
+  contents: read
+jobs:
+  accept:
+    if: contains(github.event.head_commit.message, '[p044r2-init-restore]')
+    runs-on: ubuntu-22.04
+    timeout-minutes: 90
+    env:
+      EXECUTION_SHA: "57ecaadb22dac117f5004c782ad5a27a03d84efc"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      PYTHONHASHSEED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 57ecaadb22dac117f5004c782ad5a27a03d84efc
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.8.18"
+      - name: Install frozen runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXECUTION_SHA"
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/req.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/req.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil==5.9.8 wget==3.2 pandas==2.0.3 scikit-learn==1.3.2
+          git worktree add --detach /tmp/source036 b620467aab4283e52d129924769c374124bbb4bf
+      - name: Init-only production entrypoint and fresh restore
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/state0 /tmp/evidence && mkdir -p /tmp/evidence
+          python protocol044_stream.py init --source036 /tmp/source036 --output /tmp/state0
+          test "$(python -c 'import json; print(json.load(open("/tmp/state0/resume_manifest.json"))["next_t"])')" = "0"
+          test "$(find /tmp/state0 -maxdepth 1 -name 'chunk_*.npz' | wc -l)" = "0"
+          python maintenance/protocol044_r2_durable.py manifest             --root /tmp/state0 --kind generation --execution-sha "$EXECUTION_SHA" --next-t 0 --out /tmp/state0/state_manifest.json
+          python maintenance/protocol044_r2_durable.py verify --root /tmp/state0 --manifest /tmp/state0/state_manifest.json
+          python maintenance/protocol044_r2_durable.py fresh-generation-restore             --source036 /tmp/source036 --root /tmp/state0 --manifest /tmp/state0/state_manifest.json --out /tmp/evidence/restore.json
+          python - <<'PY'
+          import json,pathlib
+          r=json.load(open('/tmp/evidence/restore.json'))
+          assert r['next_t']==0 and r['chunk_end']==0 and r['fresh_restore'] is True
+          x={"protocol":"044","execution_revision":2,"science_config_revision":1,
+             "kind":"init_only_real_entrypoint_acceptance","execution_sha":"57ecaadb22dac117f5004c782ad5a27a03d84efc",
+             "next_t":0,"generated_rows":0,"model_runs_started":0,
+             "fresh_generation_restore_pass":True,"all_pass":True}
+          pathlib.Path('/tmp/evidence/init_restore_acceptance.json').write_text(json.dumps(x,indent=2)+"\n")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-r2-init-restore-${{ github.run_id }}
+          path: /tmp/evidence
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
