@@ -13,7 +13,7 @@ import protocol044_common as c
 from protocol044_engine import Machine044
 from protocol035_common import sha256_file, sha256_state_dict
 
-N=5952
+N=5952 if os.environ.get("P044_R2_ENGINEERING_FIXTURE")!="1" else int(os.environ.get("P044_R2_ENGINEERING_FIXTURE_N","64"))
 SEQ=("C_ref","D_lin","D_no_gc","D_bounded")
 PLAN_SHA="a27a6cca6abde40b6395876eccd3db5f550a044e952a701fe63aa2e4306a5f51"
 R2_PLAN=Path("artifacts/ftmoe_online/protocol_044/revision_002/plan.json")
