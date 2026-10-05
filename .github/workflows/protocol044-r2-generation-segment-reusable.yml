@@ -1,0 +1,169 @@
+name: Protocol044 r2 generation segment reusable
+on:
+  workflow_call:
+    inputs:
+      execution_sha: {required: true, type: string}
+      gate_artifact_id: {required: true, type: string}
+      gate_digest: {required: true, type: string}
+      parent_state_id: {required: true, type: string}
+      parent_receipt_id: {required: true, type: string}
+      parent_receipt_sha: {required: true, type: string}
+      parent_cursor: {required: true, type: string}
+      segment_index: {required: true, type: string}
+    outputs:
+      state_id: {value: ${{ jobs.segment.outputs.state_id }}}
+      receipt_id: {value: ${{ jobs.segment.outputs.receipt_id }}}
+      receipt_sha: {value: ${{ jobs.segment.outputs.receipt_sha }}}
+      next_t: {value: ${{ jobs.segment.outputs.next_t }}}
+      state_digest: {value: ${{ jobs.segment.outputs.state_digest }}}
+permissions:
+  contents: write
+  actions: read
+jobs:
+  segment:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 90
+    outputs:
+      state_id: ${{ steps.state_up.outputs.artifact-id }}
+      receipt_id: ${{ steps.receipt_up.outputs.artifact-id }}
+      receipt_sha: ${{ steps.commit.outputs.receipt_sha }}
+      next_t: ${{ steps.work.outputs.next_t }}
+      state_digest: ${{ steps.commit.outputs.state_digest }}
+    env:
+      GH_TOKEN: ${{ github.token }}
+      EXECUTION_SHA: ${{ inputs.execution_sha }}
+      EXECUTION_REF: codex/protocol-044-revision2-durable-recovery-20261005
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      PYTHONHASHSEED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.execution_sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.8.18"
+      - name: Install frozen runtime and verify contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXECUTION_SHA"
+          echo "a27a6cca6abde40b6395876eccd3db5f550a044e952a701fe63aa2e4306a5f51  artifacts/ftmoe_online/protocol_044/plan.json" | sha256sum -c -
+          echo "823365226f0e418bcc5dbdc79e0e1b77f5adf72c3e404b67fb28fdffd9cc20b3  artifacts/ftmoe_online/protocol_044/revision_002/plan.json" | sha256sum -c -
+          echo "6e6bd03efc0d84f5e885eacf36f1ac80e770198703463cc051216ad1a741683f  artifacts/ftmoe_online/protocol_044/scenario_registration.json" | sha256sum -c -
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/req.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/req.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil==5.9.8 wget==3.2 pandas==2.0.3 scikit-learn==1.3.2
+      - name: Verify recovery gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/gate
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.gate_artifact_id }}/zip" -o /tmp/gate.zip
+          echo "${{ inputs.gate_digest }}" | sed 's/^sha256://' | awk '{print $1"  /tmp/gate.zip"}' | sha256sum -c -
+          unzip -q /tmp/gate.zip -d /tmp/gate
+          python - <<'PY'
+          import json,os
+          g=json.load(open("/tmp/gate/E_recovery_gate.json"))
+          assert g["E_recovery_gate"] is True and g["fixture_mode"] is False
+          assert g["execution_sha"]==os.environ["EXECUTION_SHA"]
+          assert g["generation_key"]=="protocol044_revision2_seed4401_reconstruction1"
+          assert g["science_key"]=="protocol044_revision1_stageS_seed4401_sequence"
+          PY
+      - name: Materialize frozen Protocol036 source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git worktree add --detach /tmp/source036 b620467aab4283e52d129924769c374124bbb4bf
+      - name: Download and verify committed parent state
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/parent /tmp/preceipt
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.parent_state_id }}" > /tmp/pinfo.json
+          PDIG=$(python -c 'import json; print(json.load(open("/tmp/pinfo.json"))["digest"].split(":",1)[1])')
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.parent_state_id }}/zip" -o /tmp/parent.zip
+          echo "$PDIG  /tmp/parent.zip" | sha256sum -c -
+          unzip -q /tmp/parent.zip -d /tmp/parent
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.parent_receipt_id }}/zip" -o /tmp/preceipt.zip
+          unzip -q /tmp/preceipt.zip -d /tmp/preceipt
+          test "$(sha256sum /tmp/preceipt/receipt.json | awk '{print $1}')" = "${{ inputs.parent_receipt_sha }}"
+          python maintenance/protocol044_r2_durable.py verify --root /tmp/parent --manifest /tmp/parent/state_manifest.json
+          python maintenance/protocol044_r2_durable.py verify-receipt --receipt /tmp/preceipt/receipt.json --manifest /tmp/parent/state_manifest.json
+          python - <<'PY'
+          import json,os
+          r=json.load(open("/tmp/preceipt/receipt.json"));i=json.load(open("/tmp/pinfo.json"))
+          assert r["artifact_id"]==i["id"] and r["artifact_digest"]==i["digest"]
+          assert int(r["next_t"])==int(os.environ["PARENT_CURSOR"])
+          PY
+          python maintenance/protocol044_r2_durable.py fresh-generation-restore --source036 /tmp/source036 --root /tmp/parent --manifest /tmp/parent/state_manifest.json
+        env:
+          PARENT_CURSOR: ${{ inputs.parent_cursor }}
+      - name: Advance at most 200 new rows
+        id: work
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp -a /tmp/parent /tmp/newstate
+          START=${{ inputs.parent_cursor }}
+          python maintenance/protocol044_r2_generation_segment.py --source036 /tmp/source036 --output /tmp/newstate             --max-new-rows 200 --subsegment-rows 50 --soft-deadline-seconds 3600 --status /tmp/newstate/job_status.json
+          NEXT=$(python -c 'import json; print(json.load(open("/tmp/newstate/job_status.json"))["next_t"])')
+          test "$NEXT" -gt "$START"
+          test $((NEXT-START)) -le 200
+          python maintenance/protocol044_r2_durable.py manifest --root /tmp/newstate --kind generation --execution-sha "$EXECUTION_SHA"             --next-t "$NEXT" --parent-receipt /tmp/preceipt/receipt.json --out /tmp/newstate/state_manifest.json
+          python maintenance/protocol044_r2_durable.py verify --root /tmp/newstate --manifest /tmp/newstate/state_manifest.json             --expected-parent "${{ inputs.parent_receipt_sha }}"
+          python maintenance/protocol044_r2_durable.py fresh-generation-restore --source036 /tmp/source036 --root /tmp/newstate --manifest /tmp/newstate/state_manifest.json
+          echo "next_t=$NEXT" >> "$GITHUB_OUTPUT"
+      - name: Upload immutable new state
+        id: state_up
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-r2-gen-state-${{ steps.work.outputs.next_t }}-${{ github.run_id }}-${{ inputs.segment_index }}
+          path: /tmp/newstate
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
+      - name: Fresh download new state and create committed receipt
+        id: commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          ID="${{ steps.state_up.outputs.artifact-id }}"
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$ID" > /tmp/ninfo.json
+          DIG=$(python -c 'import json; print(json.load(open("/tmp/ninfo.json"))["digest"].split(":",1)[1])')
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$ID/zip" -o /tmp/new.zip
+          echo "$DIG  /tmp/new.zip" | sha256sum -c -
+          mkdir /tmp/fresh && unzip -q /tmp/new.zip -d /tmp/fresh
+          python maintenance/protocol044_r2_durable.py verify --root /tmp/fresh --manifest /tmp/fresh/state_manifest.json             --expected-parent "${{ inputs.parent_receipt_sha }}"
+          python maintenance/protocol044_r2_durable.py fresh-generation-restore --source036 /tmp/source036 --root /tmp/fresh --manifest /tmp/fresh/state_manifest.json
+          python maintenance/protocol044_r2_durable.py receipt --info /tmp/ninfo.json --manifest /tmp/fresh/state_manifest.json             --run-id "$GITHUB_RUN_ID" --attempt "$GITHUB_RUN_ATTEMPT" --out /tmp/receipt.json --parent /tmp/preceipt/receipt.json
+          python maintenance/protocol044_r2_durable.py verify-receipt --receipt /tmp/receipt.json --manifest /tmp/fresh/state_manifest.json
+          echo "receipt_sha=$(sha256sum /tmp/receipt.json | awk '{print $1}')" >> "$GITHUB_OUTPUT"
+          echo "state_digest=$(python -c 'import json; print(json.load(open("/tmp/ninfo.json"))["digest"])')" >> "$GITHUB_OUTPUT"
+      - name: Upload immutable receipt
+        id: receipt_up
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-r2-gen-receipt-${{ steps.work.outputs.next_t }}-${{ github.run_id }}-${{ inputs.segment_index }}
+          path: /tmp/receipt.json
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
+      - name: Persist compact receipt to execution branch
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin "$EXECUTION_REF"
+          git worktree add /tmp/progress "origin/$EXECUTION_REF"
+          cd /tmp/progress
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          P="artifacts/ftmoe_online/protocol_044/revision_002/progress/generation_cursor_${{ steps.work.outputs.next_t }}.json"
+          mkdir -p "$(dirname "$P")"; cp /tmp/receipt.json "$P"
+          git add "$P"; git commit -m "progress: Protocol044 r2 generation cursor ${{ steps.work.outputs.next_t }} [skip ci]"
+          git push origin HEAD:"$EXECUTION_REF"
