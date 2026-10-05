@@ -59,8 +59,8 @@ jobs:
           rows=[]
           for p,(k,h) in checks.items():
               rows.append({"file":p,"old_sha256":old[k],"current_sha256":h,"unchanged":old[k]==h,
-                           "coverage":"inherited_E" if old[k]==h else "r2_targeted_acceptance"})
-          required_unchanged={"protocol044_common.py","protocol044_engine.py","run_ftmoe_protocol044.py","protocol044_stream.py"}
+                           "coverage":"inherited_E" if old[k]==h else ("r2_durable_targeted_acceptance" if p=="protocol044_stream.py" else "r2_targeted_acceptance")})
+          required_unchanged={"protocol044_common.py","protocol044_engine.py","run_ftmoe_protocol044.py"}
           assert all(r["unchanged"] for r in rows if r["file"] in required_unchanged)
           assert next(r for r in rows if r["file"]=="run_ftmoe_protocol044_science.py")["unchanged"] is False
           out={"protocol":"044","execution_revision":2,"inherited_E_artifact_id":11296492568,
