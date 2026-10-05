@@ -142,6 +142,10 @@ def assert_resume_binding(path,name,cursor,state_sha256):
     if int(r.get("optimizer_steps_used",-1))<0: raise RuntimeError("resume budget invalid")
     return r
 
+def checkpoint_meta_path(path):
+    p=Path(path)
+    return p.with_name("latest.json") if p.name=="latest.pt" else Path(str(p)+".json")
+
 
 def make_c(data,input_lock,out,run_id):
     digest,m=validate_input(data,input_lock)
@@ -277,7 +281,7 @@ def cmd_dynamic(a):
     validate_gate(a.gate,a.input_lock,a.execution_sha,arm,a.ledger,0,resume=resume); start_seq(a.ledger,arm,a.run_id,a.resume_from)
     out=Path(a.out);out.mkdir(parents=True,exist_ok=True);src=load_dynamic_source(a.feature_tape,a.b_predictions,a.update_batches)
     if a.resume_from:
-        rp=Path(a.resume_from); assert_resume_binding(a.ledger,arm,J(str(rp)+".json")["cursor"],sha256_file(rp))
+        rp=Path(a.resume_from); assert_resume_binding(a.ledger,arm,J(checkpoint_meta_path(rp))["cursor"],sha256_file(rp))
         m=Machine044.restore(src,out,rp,arm=arm,allow_gradient=True,real_science=True,strict_journal=True)
         if m.actual_optimizer_calls!=int(load_ledger(a.ledger)["sequences"][arm]["optimizer_steps_used"]): raise RuntimeError("dynamic optimizer ledger mismatch")
     else:
