@@ -1,0 +1,86 @@
+name: Protocol044 r2 entrypoint acceptance once
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol044-r2-entrypoint-once.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  accept:
+    if: contains(github.event.head_commit.message, '[p044r2-entry]')
+    runs-on: ubuntu-22.04
+    timeout-minutes: 180
+    env:
+      GH_TOKEN: ${{ github.token }}
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      PYTHONHASHSEED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/protocol-044-revision2-durable-recovery-20261005
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.8.18"
+      - name: Install frozen runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/requirements-online-ci.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/requirements-online-ci.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil==5.9.8 wget==3.2 pandas==2.0.3 scikit-learn==1.3.2
+          python -m py_compile run_ftmoe_protocol044_science.py maintenance/protocol044_r2_acceptance.py
+      - name: Verify inherited E artifact and source compatibility
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/p044r2/{E,evidence}
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11296492568/zip" -o /tmp/p044r2/E.zip
+          echo "90b6bab6a149c46da0aa19e551c02f76b5665a27a83e97d7de192e21e08b6591  /tmp/p044r2/E.zip" | sha256sum -c -
+          unzip -q /tmp/p044r2/E.zip -d /tmp/p044r2/E
+          python - <<'PY'
+          import hashlib,json,pathlib
+          def sha(p): return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
+          old=json.load(open("/tmp/p044r2/E/source_code_lock.json")); gate=json.load(open("/tmp/p044r2/E/E_gate.json"))
+          assert gate["E_gate"] is True and old["E_gate"] is True
+          checks={
+            "protocol044_common.py":("common_sha256",sha("protocol044_common.py")),
+            "protocol044_engine.py":("engine_sha256",sha("protocol044_engine.py")),
+            "run_ftmoe_protocol044.py":("runner_sha256",sha("run_ftmoe_protocol044.py")),
+            "protocol044_stream.py":("stream_sha256",sha("protocol044_stream.py")),
+            "run_ftmoe_protocol044_science.py":("science_runner_sha256",sha("run_ftmoe_protocol044_science.py")),
+          }
+          rows=[]
+          for p,(k,h) in checks.items():
+              rows.append({"file":p,"old_sha256":old[k],"current_sha256":h,"unchanged":old[k]==h,
+                           "coverage":"inherited_E" if old[k]==h else "r2_targeted_acceptance"})
+          required_unchanged={"protocol044_common.py","protocol044_engine.py","run_ftmoe_protocol044.py","protocol044_stream.py"}
+          assert all(r["unchanged"] for r in rows if r["file"] in required_unchanged)
+          assert next(r for r in rows if r["file"]=="run_ftmoe_protocol044_science.py")["unchanged"] is False
+          out={"protocol":"044","execution_revision":2,"inherited_E_artifact_id":11296492568,
+               "inherited_E_digest":"sha256:90b6bab6a149c46da0aa19e551c02f76b5665a27a83e97d7de192e21e08b6591",
+               "old_execution_sha":old["branch_head"],"files":rows,"inherited_core_compatible":True}
+          pathlib.Path("/tmp/p044r2/evidence/E_compatibility.json").write_text(json.dumps(out,indent=2)+"\n")
+          PY
+      - name: Run actual-entrypoint segmented acceptance
+        shell: bash
+        run: |
+          set -euo pipefail
+          SHA="$(git rev-parse HEAD)"
+          python maintenance/protocol044_r2_acceptance.py --root /tmp/p044r2/entry --execution-sha "$SHA"
+          cp /tmp/p044r2/entry/acceptance.json /tmp/p044r2/evidence/entrypoint_acceptance.json
+      - name: Upload targeted evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-r2-entrypoint-${{ github.run_id }}
+          path: /tmp/p044r2/evidence
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
