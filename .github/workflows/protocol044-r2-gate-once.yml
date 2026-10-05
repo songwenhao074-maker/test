@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-22.04
     env:
       GH_TOKEN: ${{ github.token }}
-      EXECUTION_SHA: "08f5d82ca3158987f21702e643656e8dd2e74e19"
+      EXECUTION_SHA: "b1f501d9db6cbd3bd5e7968c4ed43e45a34aae78"
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 08f5d82ca3158987f21702e643656e8dd2e74e19
+          ref: b1f501d9db6cbd3bd5e7968c4ed43e45a34aae78
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
