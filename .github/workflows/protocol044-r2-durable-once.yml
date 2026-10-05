@@ -168,3 +168,5 @@ jobs:
           name: protocol044-r2-durable-evidence-${{ github.run_id }}
           path: /tmp/transaction.json
           retention-days: 90
+
+# retry after synthetic receipt-kind fix
