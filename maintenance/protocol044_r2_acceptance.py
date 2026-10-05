@@ -32,11 +32,13 @@ def run(cmd,cwd=ROOT,expect=0):
     if q.returncode!=expect:
         raise RuntimeError("command rc=%d expected=%d\n%s"%(q.returncode,expect,q.stdout[-12000:]))
     return q.stdout
-def npz_equal(a,b):
+def npz_equal(a,b,ignore=()):
+    ignore=set(ignore)
     with np.load(a,allow_pickle=False) as x,np.load(b,allow_pickle=False) as y:
         if set(x.files)!=set(y.files): return False,{"keys_a":x.files,"keys_b":y.files}
         bad=[]
         for k in x.files:
+            if k in ignore: continue
             aa=x[k];bb=y[k]
             if aa.dtype.kind=="f": ok=np.array_equal(aa,bb,equal_nan=True)
             else: ok=np.array_equal(aa,bb)
@@ -137,7 +139,14 @@ def compare(root):
         details={}
         ok=True
         for fn in files:
-            x,d=npz_equal(a/arm/fn,b/arm/fn);details[fn]=d;ok&=x
+            ignore=("prediction_seconds",) if arm=="C_ref" and fn=="predictions.npz" else ()
+            x,d=npz_equal(a/arm/fn,b/arm/fn,ignore=ignore);details[fn]={**d,"ignored_resource_timing":list(ignore)};ok&=x
+        if arm=="C_ref":
+            with np.load(a/arm/"predictions.npz",allow_pickle=False) as qa,np.load(b/arm/"predictions.npz",allow_pickle=False) as qb:
+                timing_ok=bool(np.isfinite(qa["prediction_seconds"]).all() and np.isfinite(qb["prediction_seconds"]).all() and
+                               (qa["prediction_seconds"]>=0).all() and (qb["prediction_seconds"]>=0).all())
+            details["prediction_seconds_resource_check"]={"finite_nonnegative":timing_ok,"exact_required":False}
+            ok &= timing_ok
         rows.append({"id":arm+"_outputs_exact","pass":bool(ok),"details":details})
     rows.append({"id":"C_updates_exact","pass":J(a/"C_ref/update_batches.json")==J(b/"C_ref/update_batches.json")})
     rows.append({"id":"Dlin_updates_exact","pass":J(a/"D_lin/update_log.json")==J(b/"D_lin/update_log.json")})
