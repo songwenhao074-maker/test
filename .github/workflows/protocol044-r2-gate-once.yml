@@ -1,0 +1,89 @@
+name: Protocol044 r2 recovery gate once
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol044-r2-gate-once.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  gate:
+    if: contains(github.event.head_commit.message, '[p044r2-gate]')
+    runs-on: ubuntu-22.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+      EXECUTION_SHA: "08f5d82ca3158987f21702e643656e8dd2e74e19"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 08f5d82ca3158987f21702e643656e8dd2e74e19
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8.18'
+      - name: Verify frozen contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXECUTION_SHA"
+          echo "a27a6cca6abde40b6395876eccd3db5f550a044e952a701fe63aa2e4306a5f51  artifacts/ftmoe_online/protocol_044/plan.json" | sha256sum -c -
+          echo "823365226f0e418bcc5dbdc79e0e1b77f5adf72c3e404b67fb28fdffd9cc20b3  artifacts/ftmoe_online/protocol_044/revision_002/plan.json" | sha256sum -c -
+          echo "6e6bd03efc0d84f5e885eacf36f1ac80e770198703463cc051216ad1a741683f  artifacts/ftmoe_online/protocol_044/scenario_registration.json" | sha256sum -c -
+      - name: Download immutable evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/eold /tmp/entry /tmp/durable /tmp/gate && mkdir -p /tmp/eold /tmp/entry /tmp/durable /tmp/gate
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11296492568/zip" -o /tmp/eold.zip
+          echo "90b6bab6a149c46da0aa19e551c02f76b5665a27a83e97d7de192e21e08b6591  /tmp/eold.zip" | sha256sum -c -
+          unzip -q /tmp/eold.zip -d /tmp/eold
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11320637935/zip" -o /tmp/entry.zip
+          echo "63abd6dcdc3434f81d61b3d2612a84d76961caa108c0356f7b40e0f0acca74d8  /tmp/entry.zip" | sha256sum -c -
+          unzip -q /tmp/entry.zip -d /tmp/entry
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/11320542913/zip" -o /tmp/durable.zip
+          echo "8b8f19ca370a0ba32ee181cf2eb1bc0268c3745d4ae3860643741698dab58731  /tmp/durable.zip" | sha256sum -c -
+          unzip -q /tmp/durable.zip -d /tmp/durable
+      - name: Locate inherited E gate and lock by content
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,pathlib,shutil
+          root=pathlib.Path('/tmp/eold'); gates=[]; locks=[]
+          for p in root.rglob('*.json'):
+              try: x=json.loads(p.read_text())
+              except Exception: continue
+              if x.get('E_gate') is True and x.get('execution_sha')=='0fb751738718d3d06aeeaa32cfcb593436fd7c87':
+                  gates.append(p)
+              if x.get('E_gate') is True and x.get('branch_head')=='0fb751738718d3d06aeeaa32cfcb593436fd7c87':
+                  locks.append(p)
+          assert gates, 'old E gate not found'
+          assert locks, 'old E lock not found'
+          shutil.copy2(gates[0],'/tmp/gate/old_e_gate.json')
+          shutil.copy2(locks[0],'/tmp/gate/old_e_lock.json')
+          print('gate',gates[0]); print('lock',locks[0])
+          PY
+      - name: Publication and recovery inventory acceptance
+        shell: bash
+        run: |
+          set -euo pipefail
+          python maintenance/protocol044_r2_publication_acceptance.py --out /tmp/gate/publication.json
+          cp artifacts/ftmoe_online/protocol_044/revision_002/recovery_inventory.json /tmp/gate/recovery_inventory.json
+      - name: Build final non-fixture E recovery gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python maintenance/protocol044_r2_gate.py             --old-e-gate /tmp/gate/old_e_gate.json             --old-e-lock /tmp/gate/old_e_lock.json             --compatibility /tmp/entry/E_compatibility.json             --entry /tmp/entry/entrypoint_acceptance.json             --durable /tmp/durable/transaction.json             --publication /tmp/gate/publication.json             --inventory /tmp/gate/recovery_inventory.json             --entry-artifact-id 11320637935             --entry-artifact-digest sha256:63abd6dcdc3434f81d61b3d2612a84d76961caa108c0356f7b40e0f0acca74d8             --durable-artifact-id 11320542913             --durable-artifact-digest sha256:8b8f19ca370a0ba32ee181cf2eb1bc0268c3745d4ae3860643741698dab58731             --execution-sha "$EXECUTION_SHA"             --out /tmp/gate/E_recovery_gate.json
+          python - <<'PY'
+          import json
+          g=json.load(open('/tmp/gate/E_recovery_gate.json'))
+          assert g['E_recovery_gate'] is True and g['fixture_mode'] is False
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-r2-E-recovery-gate-${{ github.run_id }}
+          path: /tmp/gate
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
