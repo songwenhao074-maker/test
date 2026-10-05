@@ -60,6 +60,7 @@ def validate_gate(gate,input_lock,execution_sha,sequence,ledger,optimizer_calls=
     plan()
     g=J(gate) if not isinstance(gate,dict) else gate
     if (g.get("protocol"),g.get("execution_revision"),g.get("science_config_revision"))!=("044",2,1): raise RuntimeError("r2 gate identity")
+    if g.get("fixture_mode") is True and os.environ.get("P044_R2_ENGINEERING_FIXTURE")!="1": raise RuntimeError("engineering fixture gate forbidden in production")
     for k in ("E_recovery_gate","inherited_E_pass","compatibility_pass","production_entrypoint_pass","generation_recovery_pass",
               "remote_transaction_pass","budget_idempotency_pass","publication_pass"):
         if type(g.get(k)) is not bool or not g[k]: raise RuntimeError("r2 gate false "+k)
