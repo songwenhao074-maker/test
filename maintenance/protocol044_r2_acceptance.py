@@ -147,7 +147,8 @@ def compare(root):
     # Dlin model/Adam/RNG payload exact.
     xa=torch.load(a/"D_lin/checkpoints/cursor_0064.pt",map_location="cpu",weights_only=False)
     xb=torch.load(b/"D_lin/checkpoints/cursor_0064.pt",map_location="cpu",weights_only=False)
-    rows.append({"id":"Dlin_full_checkpoint_state_exact","pass":obj_equal(xa,xb)})
+    dlin_diff=[k for k in sorted(set(xa)|set(xb)) if k not in xa or k not in xb or not obj_equal(xa.get(k),xb.get(k))]
+    rows.append({"id":"Dlin_full_checkpoint_state_exact","pass":len(dlin_diff)==0,"diff_keys":dlin_diff})
     # Dynamic semantic endpoint incl. model/Adam/RNG/output/audit chain.
     import run_ftmoe_protocol044_science as s
     from protocol044_engine import Machine044,semantic_digest
@@ -197,6 +198,22 @@ def negative(root):
     try:s.assert_resume_binding(p,"C_ref",32,"good");ok=False
     except Exception:ok=True
     rows.append({"id":"wrong_state_hash_rejected","pass":ok,"optimizer_calls":0})
+    # Old cursor progress is rejected.
+    x=s.default_ledger();x["sequences"]["C_ref"].update({"started":True,"cursor":32,"optimizer_steps_used":2,"state_sha256":"x"});x["total_optimizer_steps_used"]=2;W(p,x)
+    try:s.record_progress(p,"C_ref",31,2,"y");ok=False
+    except Exception:ok=True
+    rows.append({"id":"old_cursor_rejected","pass":ok,"optimizer_calls":0})
+    # Exact budget exhaustion is rejected before optimizer.
+    x=s.default_ledger();x["sequences"]["C_ref"].update({"optimizer_steps_used":2360});x["total_optimizer_steps_used"]=2360;W(p,x)
+    try:s.validate_gate(gate,root/"input_lock.json",gate["execution_sha"],"C_ref",p,0,resume=False);ok=False
+    except Exception:ok=True
+    rows.append({"id":"global_budget_exhausted_rejected","pass":ok,"optimizer_calls":0})
+    # Wrong dynamic arm checkpoint rejected by real restore path.
+    from protocol044_engine import Machine044
+    src=s.load_dynamic_source(root/"segmented/C_ref/feature_tape.npz",root/"segmented/D_lin/predictions.npz",root/"segmented/C_ref/update_batches.json")
+    try:Machine044.restore(src,root/"segmented/D_no_gc",root/"segmented/D_no_gc/checkpoints/latest.pt",arm="D_bounded",allow_gradient=True,real_science=False,strict_journal=True);ok=False
+    except Exception:ok=True
+    rows.append({"id":"wrong_arm_checkpoint_rejected","pass":ok,"optimizer_calls":0})
     return rows
 
 def main():
