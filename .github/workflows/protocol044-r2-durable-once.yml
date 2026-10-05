@@ -1,0 +1,170 @@
+name: Protocol044 r2 durable transaction once
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol044-r2-durable-once.yml'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: protocol044-r2-durable-engineering
+  cancel-in-progress: false
+jobs:
+  state0:
+    if: contains(github.event.head_commit.message, '[p044r2-durable]')
+    runs-on: ubuntu-latest
+    outputs:
+      state_id: ${{ steps.up.outputs.artifact-id }}
+      receipt_id: ${{ steps.rup.outputs.artifact-id }}
+      receipt_sha: ${{ steps.meta.outputs.receipt_sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/protocol-044-revision2-durable-recovery-20261005
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.8.18"
+      - run: python -m pip install numpy==1.24.4
+      - name: Create synthetic initialized state
+        run: |
+          set -euo pipefail
+          SHA="$(git rev-parse HEAD)"
+          python maintenance/protocol044_r2_durable.py synthetic-init --root /tmp/s0
+          python maintenance/protocol044_r2_durable.py synthetic-manifest --root /tmp/s0 --execution-sha "$SHA" --out /tmp/s0/state_manifest.json
+          python maintenance/protocol044_r2_durable.py synthetic-verify --root /tmp/s0 --manifest /tmp/s0/state_manifest.json
+      - id: up
+        uses: actions/upload-artifact@v4
+        with:
+          name: p044r2-fixture-state0-${{ github.run_id }}
+          path: /tmp/s0
+          retention-days: 90
+      - name: Fresh download verify and create receipt
+        id: meta
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          ID="${{ steps.up.outputs.artifact-id }}"
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$ID" > /tmp/info0.json
+          DIG=$(python -c 'import json; print(json.load(open("/tmp/info0.json"))["digest"].split(":",1)[1])')
+          curl -L --fail -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$ID/zip" -o /tmp/s0.zip
+          echo "$DIG  /tmp/s0.zip" | sha256sum -c -
+          mkdir /tmp/v0 && unzip -q /tmp/s0.zip -d /tmp/v0
+          python maintenance/protocol044_r2_durable.py synthetic-verify --root /tmp/v0 --manifest /tmp/v0/state_manifest.json
+          python maintenance/protocol044_r2_durable.py receipt --info /tmp/info0.json --manifest /tmp/v0/state_manifest.json             --run-id "$GITHUB_RUN_ID" --attempt "$GITHUB_RUN_ATTEMPT" --out /tmp/r0.json
+          python maintenance/protocol044_r2_durable.py verify-receipt --receipt /tmp/r0.json --manifest /tmp/v0/state_manifest.json
+          echo "receipt_sha=$(sha256sum /tmp/r0.json | awk '{print $1}')" >> "$GITHUB_OUTPUT"
+      - id: rup
+        uses: actions/upload-artifact@v4
+        with:
+          name: p044r2-fixture-receipt0-${{ github.run_id }}
+          path: /tmp/r0.json
+          retention-days: 90
+
+  faulted_segment:
+    needs: state0
+    runs-on: ubuntu-latest
+    outputs:
+      fault_outcome: ${{ steps.fault.outcome }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/protocol-044-revision2-durable-recovery-20261005
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.8.18"
+      - run: python -m pip install numpy==1.24.4
+      - name: Download committed parent
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl -L --fail -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ needs.state0.outputs.state_id }}/zip" -o /tmp/p.zip
+          mkdir /tmp/p && unzip -q /tmp/p.zip -d /tmp/p
+          curl -L --fail -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ needs.state0.outputs.receipt_id }}/zip" -o /tmp/pr.zip
+          mkdir /tmp/pr && unzip -q /tmp/pr.zip -d /tmp/pr
+          test "$(sha256sum /tmp/pr/r0.json | awk '{print $1}')" = "${{ needs.state0.outputs.receipt_sha }}"
+          python maintenance/protocol044_r2_durable.py synthetic-verify --root /tmp/p --manifest /tmp/p/state_manifest.json
+          python maintenance/protocol044_r2_durable.py verify-receipt --receipt /tmp/pr/r0.json --manifest /tmp/p/state_manifest.json
+          cp -a /tmp/p /tmp/s7
+          python maintenance/protocol044_r2_durable.py synthetic-advance --root /tmp/s7 --rows 7
+          SHA="$(git rev-parse HEAD)"
+          python maintenance/protocol044_r2_durable.py synthetic-manifest --root /tmp/s7 --execution-sha "$SHA" --parent /tmp/pr/r0.json --out /tmp/s7/state_manifest.json
+          python maintenance/protocol044_r2_durable.py synthetic-verify --root /tmp/s7 --manifest /tmp/s7/state_manifest.json --expected-parent "${{ needs.state0.outputs.receipt_sha }}"
+      - id: orphan
+        uses: actions/upload-artifact@v4
+        with:
+          name: p044r2-fixture-orphan7-${{ github.run_id }}
+          path: /tmp/s7
+          retention-days: 90
+      - name: Inject fault after durable upload and before receipt
+        id: fault
+        continue-on-error: true
+        run: |
+          echo "intentional fault after artifact commit"
+          exit 41
+      - name: Assert fault actually occurred
+        run: |
+          test "${{ steps.fault.outcome }}" = "failure"
+          test ! -e /tmp/r7.json
+
+  recover_runner:
+    needs: [state0,faulted_segment]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/protocol-044-revision2-durable-recovery-20261005
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.8.18"
+      - run: python -m pip install numpy==1.24.4
+      - name: Discover orphan, recover receipt, and continue in new runner
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl -L --fail -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ needs.state0.outputs.receipt_id }}/zip" -o /tmp/pr.zip
+          mkdir /tmp/pr && unzip -q /tmp/pr.zip -d /tmp/pr
+          R0=/tmp/pr/r0.json
+          test "$(sha256sum "$R0" | awk '{print $1}')" = "${{ needs.state0.outputs.receipt_sha }}"
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts?per_page=100" > /tmp/list.json
+          python - <<'PY'
+          import json
+          x=json.load(open("/tmp/list.json"))
+          q=[a for a in x["artifacts"] if a["name"].startswith("p044r2-fixture-orphan7-")]
+          assert len(q)==1,q
+          json.dump(q[0],open("/tmp/orphan_info.json","w"),indent=2)
+          PY
+          OID=$(python -c 'import json; print(json.load(open("/tmp/orphan_info.json"))["id"])')
+          ODIG=$(python -c 'import json; print(json.load(open("/tmp/orphan_info.json"))["digest"].split(":",1)[1])')
+          curl -L --fail -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$OID/zip" -o /tmp/o.zip
+          echo "$ODIG  /tmp/o.zip" | sha256sum -c -
+          mkdir /tmp/o && unzip -q /tmp/o.zip -d /tmp/o
+          python maintenance/protocol044_r2_durable.py synthetic-verify --root /tmp/o --manifest /tmp/o/state_manifest.json --expected-parent "${{ needs.state0.outputs.receipt_sha }}"
+          python maintenance/protocol044_r2_durable.py receipt --info /tmp/orphan_info.json --manifest /tmp/o/state_manifest.json             --run-id "$GITHUB_RUN_ID" --attempt "$GITHUB_RUN_ATTEMPT" --out /tmp/r7.json --parent "$R0"
+          python maintenance/protocol044_r2_durable.py verify-receipt --receipt /tmp/r7.json --manifest /tmp/o/state_manifest.json
+          # Corruption and stale-parent negative controls.
+          cp -a /tmp/o /tmp/bad
+          printf X >> /tmp/bad/synthetic_rng.npy
+          if python maintenance/protocol044_r2_durable.py synthetic-verify --root /tmp/bad --manifest /tmp/bad/state_manifest.json; then exit 51; fi
+          if python maintenance/protocol044_r2_durable.py synthetic-verify --root /tmp/o --manifest /tmp/o/state_manifest.json --expected-parent "$(printf wrong | sha256sum | awk '{print $1}')"; then exit 52; fi
+          cp -a /tmp/o /tmp/s12
+          python maintenance/protocol044_r2_durable.py synthetic-advance --root /tmp/s12 --rows 5
+          SHA="$(git rev-parse HEAD)"
+          python maintenance/protocol044_r2_durable.py synthetic-manifest --root /tmp/s12 --execution-sha "$SHA" --parent /tmp/r7.json --out /tmp/s12/state_manifest.json
+          python maintenance/protocol044_r2_durable.py synthetic-verify --root /tmp/s12 --manifest /tmp/s12/state_manifest.json --expected-parent "$(sha256sum /tmp/r7.json | awk '{print $1}')"
+          python - <<'PY'
+          import json,pathlib
+          x={"protocol":"044","execution_revision":2,"kind":"cross_runner_durable_transaction",
+             "state0_remote_verified":True,"fault_after_remote_upload":True,"orphan_artifact_discovered":True,
+             "orphan_receipt_recovered":True,"different_runner_continued":True,"final_cursor":12,
+             "corruption_rejected":True,"stale_parent_rejected":True,"all_pass":True}
+          pathlib.Path("/tmp/transaction.json").write_text(json.dumps(x,indent=2)+"\n")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-r2-durable-evidence-${{ github.run_id }}
+          path: /tmp/transaction.json
+          retention-days: 90
