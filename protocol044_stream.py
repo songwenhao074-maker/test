@@ -121,6 +121,25 @@ def patch_historical(source):
  H.registration=registration;H.phase_table=phase_table;H.phase_at=phase_at;H.json_sha=json_sha;H.source_identity=lambda:source_identity(source)
  H.write_checkpoint=write_checkpoint;H.read_checkpoint=read_checkpoint;H.finalize=finalize
  BASE.P=H;BASE.initialize=H.initialize;BASE.write_checkpoint=write_checkpoint;BASE.read_checkpoint=read_checkpoint
+def cmd_init(a):
+ source,_=configure_source(a.source036);patch_historical(source);out=Path(a.output)
+ if out.exists() and any(out.iterdir()): raise RuntimeError("r2 init requires empty generation directory")
+ out.mkdir(parents=True,exist_ok=True);rp=out/"registration.json";W(rp,runtime_registration());set_registration_path(rp)
+ snap=out/"registration_snapshot.json";snap.write_bytes(rp.read_bytes());reg=registration();reg_sha=sha(rp)
+ process_guard=None
+ try:
+  H.configure();H.guard();process_guard=H.assert_no_other_experiment();os.chdir(H.ROOT)
+  arrays=H._allocate(ROWS);H.initialize(out,reg,reg_sha,arrays)
+  m=J(out/"resume_manifest.json")
+  if int(m.get("next_t",-1))!=0 or m.get("chunks")!=[] or m.get("engineering_transient_checkpoint") is not None:
+   raise AssertionError("r2 init checkpoint geometry")
+  res={"protocol":"044","revision":1,"execution_revision":2,"seed":SEED,"initialized":True,"next_t":0,
+       "registration_sha256":reg_sha,"state_sha256":m["state_sha256"],"model_runs_started":0}
+  W(out/"generation_status.json",res);append_event(out,{"event":"r2_init_only_complete","next_t":0,"model_runs_started":0})
+  print(json.dumps(res,indent=2))
+ finally:
+  _=process_guard
+
 def cmd_segment(a):
  source,_=configure_source(a.source036);patch_historical(source);out=Path(a.output);out.mkdir(parents=True,exist_ok=True);rp=out/"registration.json"
  if not rp.exists():W(rp,runtime_registration())
@@ -194,6 +213,7 @@ def cmd_audit(a):
  if not passed:raise SystemExit(2)
 def main():
  ap=argparse.ArgumentParser();sub=ap.add_subparsers(dest="cmd",required=True)
+ p=sub.add_parser("init");p.add_argument("--source036",required=True);p.add_argument("--output",required=True);p.set_defaults(fn=cmd_init)
  p=sub.add_parser("segment");p.add_argument("--source036",required=True);p.add_argument("--output",required=True);p.add_argument("--max-intervals",type=int,default=200);p.set_defaults(fn=cmd_segment)
  p=sub.add_parser("assemble");p.add_argument("--source036",required=True);p.add_argument("--generation-root",required=True);p.add_argument("--output",required=True);p.set_defaults(fn=cmd_assemble)
  p=sub.add_parser("audit");p.add_argument("--source036",required=True);p.add_argument("--generation-root",required=True);p.add_argument("--data-root",required=True);p.add_argument("--evidence-root",required=True);p.set_defaults(fn=cmd_audit)
