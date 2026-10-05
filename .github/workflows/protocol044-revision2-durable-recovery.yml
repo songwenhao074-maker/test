@@ -1,0 +1,636 @@
+name: Protocol044 revision2 durable recovery generation
+on:
+  workflow_dispatch:
+    inputs:
+      execution_sha: {description: Exact frozen r2 execution SHA, required: true, type: string}
+      gate_artifact_id: {description: E recovery gate artifact id, required: true, type: string}
+      gate_digest: {description: E recovery gate zip sha256 digest, required: true, type: string}
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: protocol044_revision1_stageS_seed4401_sequence
+  cancel-in-progress: false
+jobs:
+  init:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 90
+    outputs:
+      state_id: ${{ steps.state_up.outputs.artifact-id }}
+      receipt_id: ${{ steps.receipt_up.outputs.artifact-id }}
+      receipt_sha: ${{ steps.commit.outputs.receipt_sha }}
+      next_t: "0"
+      state_digest: ${{ steps.commit.outputs.state_digest }}
+    env:
+      GH_TOKEN: ${{ github.token }}
+      EXECUTION_SHA: ${{ inputs.execution_sha }}
+      EXECUTION_REF: codex/protocol-044-revision2-durable-recovery-20261005
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      PYTHONHASHSEED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.execution_sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.8.18"
+      - name: Install frozen runtime and verify no prior r2 initialization
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXECUTION_SHA"
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/req.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/req.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil==5.9.8 wget==3.2 pandas==2.0.3 scikit-learn==1.3.2
+          python - <<'PY'
+          import json
+          x=json.load(open("artifacts/ftmoe_online/protocol_044/revision_002/recovery_inventory.json"))
+          assert x["branch_selected"]=="one_authorized_same_seed4401_from_zero_reconstruction"
+          assert x["reconstruction_allowance_consumed"] is False
+          PY
+          git fetch origin "$EXECUTION_REF"
+          P="artifacts/ftmoe_online/protocol_044/revision_002/progress/generation_cursor_0000.json"
+          if git cat-file -e "origin/$EXECUTION_REF:$P" 2>/dev/null; then echo "r2 t0 already committed; refuse reinitialization"; exit 31; fi
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?name=protocol044-r2-generation-state0&per_page=100" > /tmp/existing.json
+          python - <<'PY'
+          import json
+          x=json.load(open("/tmp/existing.json"))
+          live=[a for a in x.get("artifacts",[]) if not a.get("expired")]
+          assert not live,("existing r2 initialization artifact",[(a["id"],a["name"]) for a in live])
+          PY
+      - name: Verify E recovery gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/gate
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.gate_artifact_id }}/zip" -o /tmp/gate.zip
+          echo "${{ inputs.gate_digest }}" | sed 's/^sha256://' | awk '{print $1"  /tmp/gate.zip"}' | sha256sum -c -
+          unzip -q /tmp/gate.zip -d /tmp/gate
+          python - <<'PY'
+          import json,os
+          g=json.load(open("/tmp/gate/E_recovery_gate.json"))
+          assert g["E_recovery_gate"] is True and g["execution_sha"]==os.environ["EXECUTION_SHA"] and g["fixture_mode"] is False
+          PY
+      - name: Materialize frozen Protocol036 source
+        run: git worktree add --detach /tmp/source036 b620467aab4283e52d129924769c374124bbb4bf
+      - name: Create initialization-only t0 simulator state
+        run: |
+          set -euo pipefail
+          python protocol044_stream.py init --source036 /tmp/source036 --output /tmp/state0
+          test "$(python -c 'import json; print(json.load(open("/tmp/state0/resume_manifest.json"))["next_t"])')" = "0"
+          python maintenance/protocol044_r2_durable.py manifest --root /tmp/state0 --kind generation --execution-sha "$EXECUTION_SHA" --next-t 0 --out /tmp/state0/state_manifest.json
+          python maintenance/protocol044_r2_durable.py verify --root /tmp/state0 --manifest /tmp/state0/state_manifest.json
+          python maintenance/protocol044_r2_durable.py fresh-generation-restore --source036 /tmp/source036 --root /tmp/state0 --manifest /tmp/state0/state_manifest.json
+      - id: state_up
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-r2-generation-state0
+          path: /tmp/state0
+          retention-days: 90
+          compression-level: 6
+      - name: Fresh download t0 and build receipt
+        id: commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          ID="${{ steps.state_up.outputs.artifact-id }}"
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$ID" > /tmp/info.json
+          DIG=$(python -c 'import json; print(json.load(open("/tmp/info.json"))["digest"].split(":",1)[1])')
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$ID/zip" -o /tmp/state0.zip
+          echo "$DIG  /tmp/state0.zip" | sha256sum -c -
+          mkdir /tmp/fresh && unzip -q /tmp/state0.zip -d /tmp/fresh
+          python maintenance/protocol044_r2_durable.py verify --root /tmp/fresh --manifest /tmp/fresh/state_manifest.json
+          python maintenance/protocol044_r2_durable.py fresh-generation-restore --source036 /tmp/source036 --root /tmp/fresh --manifest /tmp/fresh/state_manifest.json
+          python maintenance/protocol044_r2_durable.py receipt --info /tmp/info.json --manifest /tmp/fresh/state_manifest.json             --run-id "$GITHUB_RUN_ID" --attempt "$GITHUB_RUN_ATTEMPT" --out /tmp/receipt.json
+          python maintenance/protocol044_r2_durable.py verify-receipt --receipt /tmp/receipt.json --manifest /tmp/fresh/state_manifest.json
+          echo "receipt_sha=$(sha256sum /tmp/receipt.json | awk '{print $1}')" >> "$GITHUB_OUTPUT"
+          echo "state_digest=$(python -c 'import json; print(json.load(open("/tmp/info.json"))["digest"])')" >> "$GITHUB_OUTPUT"
+      - id: receipt_up
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-r2-generation-receipt0
+          path: /tmp/receipt.json
+          retention-days: 90
+          compression-level: 6
+      - name: Persist t0 receipt to execution branch
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin "$EXECUTION_REF"
+          git worktree add /tmp/progress "origin/$EXECUTION_REF"
+          cd /tmp/progress
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          P="artifacts/ftmoe_online/protocol_044/revision_002/progress/generation_cursor_0000.json"
+          mkdir -p "$(dirname "$P")"; cp /tmp/receipt.json "$P"
+          git add "$P"; git commit -m "progress: Protocol044 r2 generation initialized t0 [skip ci]"
+          git push origin HEAD:"$EXECUTION_REF"
+  g01:
+    needs: init
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.init.outputs.state_id }}
+      parent_receipt_id: ${{ needs.init.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.init.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.init.outputs.next_t }}
+      segment_index: "01"
+    secrets: inherit
+  g02:
+    needs: g01
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g01.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g01.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g01.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g01.outputs.next_t }}
+      segment_index: "02"
+    secrets: inherit
+  g03:
+    needs: g02
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g02.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g02.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g02.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g02.outputs.next_t }}
+      segment_index: "03"
+    secrets: inherit
+  g04:
+    needs: g03
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g03.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g03.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g03.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g03.outputs.next_t }}
+      segment_index: "04"
+    secrets: inherit
+  g05:
+    needs: g04
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g04.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g04.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g04.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g04.outputs.next_t }}
+      segment_index: "05"
+    secrets: inherit
+  g06:
+    needs: g05
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g05.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g05.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g05.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g05.outputs.next_t }}
+      segment_index: "06"
+    secrets: inherit
+  g07:
+    needs: g06
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g06.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g06.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g06.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g06.outputs.next_t }}
+      segment_index: "07"
+    secrets: inherit
+  g08:
+    needs: g07
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g07.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g07.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g07.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g07.outputs.next_t }}
+      segment_index: "08"
+    secrets: inherit
+  g09:
+    needs: g08
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g08.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g08.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g08.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g08.outputs.next_t }}
+      segment_index: "09"
+    secrets: inherit
+  g10:
+    needs: g09
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g09.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g09.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g09.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g09.outputs.next_t }}
+      segment_index: "10"
+    secrets: inherit
+  g11:
+    needs: g10
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g10.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g10.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g10.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g10.outputs.next_t }}
+      segment_index: "11"
+    secrets: inherit
+  g12:
+    needs: g11
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g11.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g11.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g11.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g11.outputs.next_t }}
+      segment_index: "12"
+    secrets: inherit
+  g13:
+    needs: g12
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g12.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g12.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g12.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g12.outputs.next_t }}
+      segment_index: "13"
+    secrets: inherit
+  g14:
+    needs: g13
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g13.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g13.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g13.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g13.outputs.next_t }}
+      segment_index: "14"
+    secrets: inherit
+  g15:
+    needs: g14
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g14.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g14.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g14.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g14.outputs.next_t }}
+      segment_index: "15"
+    secrets: inherit
+  g16:
+    needs: g15
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g15.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g15.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g15.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g15.outputs.next_t }}
+      segment_index: "16"
+    secrets: inherit
+  g17:
+    needs: g16
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g16.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g16.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g16.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g16.outputs.next_t }}
+      segment_index: "17"
+    secrets: inherit
+  g18:
+    needs: g17
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g17.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g17.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g17.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g17.outputs.next_t }}
+      segment_index: "18"
+    secrets: inherit
+  g19:
+    needs: g18
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g18.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g18.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g18.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g18.outputs.next_t }}
+      segment_index: "19"
+    secrets: inherit
+  g20:
+    needs: g19
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g19.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g19.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g19.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g19.outputs.next_t }}
+      segment_index: "20"
+    secrets: inherit
+  g21:
+    needs: g20
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g20.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g20.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g20.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g20.outputs.next_t }}
+      segment_index: "21"
+    secrets: inherit
+  g22:
+    needs: g21
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g21.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g21.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g21.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g21.outputs.next_t }}
+      segment_index: "22"
+    secrets: inherit
+  g23:
+    needs: g22
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g22.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g22.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g22.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g22.outputs.next_t }}
+      segment_index: "23"
+    secrets: inherit
+  g24:
+    needs: g23
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g23.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g23.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g23.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g23.outputs.next_t }}
+      segment_index: "24"
+    secrets: inherit
+  g25:
+    needs: g24
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g24.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g24.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g24.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g24.outputs.next_t }}
+      segment_index: "25"
+    secrets: inherit
+  g26:
+    needs: g25
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g25.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g25.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g25.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g25.outputs.next_t }}
+      segment_index: "26"
+    secrets: inherit
+  g27:
+    needs: g26
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g26.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g26.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g26.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g26.outputs.next_t }}
+      segment_index: "27"
+    secrets: inherit
+  g28:
+    needs: g27
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g27.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g27.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g27.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g27.outputs.next_t }}
+      segment_index: "28"
+    secrets: inherit
+  g29:
+    needs: g28
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g28.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g28.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g28.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g28.outputs.next_t }}
+      segment_index: "29"
+    secrets: inherit
+  g30:
+    needs: g29
+    uses: ./.github/workflows/protocol044-r2-generation-segment-reusable.yml
+    with:
+      execution_sha: ${{ inputs.execution_sha }}
+      gate_artifact_id: ${{ inputs.gate_artifact_id }}
+      gate_digest: ${{ inputs.gate_digest }}
+      parent_state_id: ${{ needs.g29.outputs.state_id }}
+      parent_receipt_id: ${{ needs.g29.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.g29.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.g29.outputs.next_t }}
+      segment_index: "30"
+    secrets: inherit
+  data_seal:
+    needs: g30
+    runs-on: ubuntu-22.04
+    timeout-minutes: 120
+    env:
+      GH_TOKEN: ${{ github.token }}
+      EXECUTION_SHA: ${{ inputs.execution_sha }}
+      EXECUTION_REF: codex/protocol-044-revision2-durable-recovery-20261005
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      PYTHONHASHSEED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.execution_sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.8.18"
+      - name: Install frozen runtime
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          grep -v '^torch==' requirements-online.txt | grep -v '^dgl==' > /tmp/req.txt
+          python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r /tmp/req.txt
+          python -m pip install dgl==1.1.3 dill==0.3.8 psutil==5.9.8 wget==3.2 pandas==2.0.3 scikit-learn==1.3.2
+          git worktree add --detach /tmp/source036 b620467aab4283e52d129924769c374124bbb4bf
+      - name: Restore final committed generation state
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${{ needs.g30.outputs.next_t }}" = "5953"
+          mkdir -p /tmp/final /tmp/pr
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/${{ needs.g30.outputs.state_id }}" > /tmp/info.json
+          DIG=$(python -c 'import json; print(json.load(open("/tmp/info.json"))["digest"].split(":",1)[1])')
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ needs.g30.outputs.state_id }}/zip" -o /tmp/final.zip
+          echo "$DIG  /tmp/final.zip" | sha256sum -c -
+          unzip -q /tmp/final.zip -d /tmp/final
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ needs.g30.outputs.receipt_id }}/zip" -o /tmp/pr.zip
+          unzip -q /tmp/pr.zip -d /tmp/pr
+          test "$(sha256sum /tmp/pr/receipt.json | awk '{print $1}')" = "${{ needs.g30.outputs.receipt_sha }}"
+          python maintenance/protocol044_r2_durable.py verify --root /tmp/final --manifest /tmp/final/state_manifest.json
+          python maintenance/protocol044_r2_durable.py verify-receipt --receipt /tmp/pr/receipt.json --manifest /tmp/final/state_manifest.json
+          python maintenance/protocol044_r2_durable.py fresh-generation-restore --source036 /tmp/source036 --root /tmp/final --manifest /tmp/final/state_manifest.json
+      - name: Fresh-process assemble and model-free audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/seal
+          cp -a /tmp/final /tmp/seal/generation
+          python protocol044_stream.py assemble --source036 /tmp/source036 --generation-root /tmp/seal/generation --output /tmp/seal/data
+          python protocol044_stream.py audit --source036 /tmp/source036 --generation-root /tmp/seal/generation --data-root /tmp/seal/data --evidence-root /tmp/seal/evidence
+          python - <<'PY'
+          import hashlib,json,os,pathlib
+          def sha(p):
+              h=hashlib.sha256()
+              with open(p,"rb") as f:
+                  for b in iter(lambda:f.read(1<<20),b""):h.update(b)
+              return h.hexdigest()
+          a=json.load(open("/tmp/seal/evidence/input_audit.json"));l=json.load(open("/tmp/seal/evidence/input_lock.json"));m=json.load(open("/tmp/seal/data/manifest.json"))
+          assert a["audit_pass"] is True and l["locked"] is True and m["audit_pass"] is True
+          assert sha("/tmp/seal/data/stream.npz")==l["stream_sha256"]==m["stream_sha256"]
+          x={"protocol":"044","revision":1,"execution_revision":2,"science_config_revision":1,"seed":4401,
+             "execution_sha":os.environ["EXECUTION_SHA"],"stream_sha256":l["stream_sha256"],
+             "input_lock_sha256":sha("/tmp/seal/evidence/input_lock.json"),"manifest_sha256":sha("/tmp/seal/data/manifest.json"),
+             "model_runs_started":0,"sealed_before_C":True}
+          pathlib.Path("/tmp/seal/evidence/data_lock_r2.json").write_text(json.dumps(x,indent=2)+"\n")
+          PY
+          python maintenance/protocol044_r2_durable.py manifest --root /tmp/seal --kind data --execution-sha "$EXECUTION_SHA"             --parent-receipt /tmp/pr/receipt.json --out /tmp/seal/state_manifest.json
+          python maintenance/protocol044_r2_durable.py verify --root /tmp/seal --manifest /tmp/seal/state_manifest.json             --expected-parent "${{ needs.g30.outputs.receipt_sha }}"
+      - name: Upload immutable model-free data seal
+        id: data_up
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-r2-data-${{ github.run_id }}
+          path: /tmp/seal
+          retention-days: 90
+          compression-level: 6
+          if-no-files-found: error
+      - name: Fresh download data seal and create receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          ID="${{ steps.data_up.outputs.artifact-id }}"
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$ID" > /tmp/dinfo.json
+          DIG=$(python -c 'import json; print(json.load(open("/tmp/dinfo.json"))["digest"].split(":",1)[1])')
+          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$ID/zip" -o /tmp/data.zip
+          echo "$DIG  /tmp/data.zip" | sha256sum -c -
+          mkdir /tmp/datafresh && unzip -q /tmp/data.zip -d /tmp/datafresh
+          python maintenance/protocol044_r2_durable.py verify --root /tmp/datafresh --manifest /tmp/datafresh/state_manifest.json             --expected-parent "${{ needs.g30.outputs.receipt_sha }}"
+          python maintenance/protocol044_r2_durable.py receipt --info /tmp/dinfo.json --manifest /tmp/datafresh/state_manifest.json             --run-id "$GITHUB_RUN_ID" --attempt "$GITHUB_RUN_ATTEMPT" --out /tmp/data_receipt.json --parent /tmp/pr/receipt.json
+          python maintenance/protocol044_r2_durable.py verify-receipt --receipt /tmp/data_receipt.json --manifest /tmp/datafresh/state_manifest.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: protocol044-r2-data-receipt-${{ github.run_id }}
+          path: /tmp/data_receipt.json
+          retention-days: 90
+          compression-level: 6
+      - name: Persist data receipt to execution branch
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          git fetch origin "$EXECUTION_REF"
+          git worktree add /tmp/progress "origin/$EXECUTION_REF"
+          cd /tmp/progress
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          P="artifacts/ftmoe_online/protocol_044/revision_002/progress/data_lock_receipt.json"
+          mkdir -p "$(dirname "$P")"; cp /tmp/data_receipt.json "$P"
+          git add "$P"; git commit -m "progress: Protocol044 r2 model-free data sealed [skip ci]"
+          git push origin HEAD:"$EXECUTION_REF"
