@@ -1,0 +1,20 @@
+name: Protocol044 r2 dispatch once
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protocol044-r2-dispatch-once.yml'
+permissions:
+  contents: read
+  actions: write
+jobs:
+  dispatch:
+    if: contains(github.event.head_commit.message, '[p044r2-dispatch]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch frozen Protocol044 r2 durable recovery
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh workflow run protocol044-revision2-durable-recovery.yml             --repo "$GITHUB_REPOSITORY" --ref main             -f execution_sha=08f5d82ca3158987f21702e643656e8dd2e74e19             -f gate_artifact_id=11322776194             -f gate_digest=sha256:8d3ffa4caf7239eb297a4e72aa5d7fa2f1a64409891de4061346b8bf08892c4f
