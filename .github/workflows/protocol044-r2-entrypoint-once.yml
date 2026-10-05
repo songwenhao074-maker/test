@@ -92,3 +92,5 @@ jobs:
 # retry with Dlin RNG hash diagnostics
 
 # retry after deterministic Dlin global RNG initialization
+
+# retry after resource-timing exclusion from logical equality
