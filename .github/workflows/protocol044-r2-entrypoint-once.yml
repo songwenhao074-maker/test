@@ -90,3 +90,5 @@ jobs:
 # retry after Dlin checkpoint diff diagnostics and stronger negative cases
 
 # retry with Dlin RNG hash diagnostics
+
+# retry after deterministic Dlin global RNG initialization
