@@ -48,6 +48,12 @@ def build_manifest(root,kind,execution_sha,next_t=None,cursor=None,arm=None,pare
         if not all((root/x).is_file() for x in required): raise RuntimeError("generation state incomplete")
     elif kind=="science":
         if cursor is None or arm is None: raise ValueError("science manifest requires cursor/arm")
+    elif kind=="data":
+        required=("data/manifest.json","data/stream.npz","evidence/input_lock.json","evidence/input_audit.json","generation/resume_manifest.json")
+        if not all((root/x).is_file() for x in required): raise RuntimeError("data seal incomplete")
+        dm=J(root/"data/manifest.json");lk=J(root/"evidence/input_lock.json")
+        if dm.get("audit_pass") is not True or lk.get("locked") is not True: raise RuntimeError("data gate not locked")
+        if sha(root/"data/stream.npz")!=dm.get("stream_sha256") or dm.get("stream_sha256")!=lk.get("stream_sha256"): raise RuntimeError("data stream hash")
     else: raise ValueError(kind)
     rows=files(root)
     if not rows: raise RuntimeError("empty state")
@@ -56,7 +62,10 @@ def build_manifest(root,kind,execution_sha,next_t=None,cursor=None,arm=None,pare
        "scenario_sha256":SCENARIO_SHA,"parent_receipt_sha256":parent_sha,"files":rows,"file_count":len(rows),
        "total_bytes":sum(x["size"] for x in rows),"created_unix":time.time()}
     if kind=="generation":m.update({"next_t":int(next_t),"model_runs_started":0})
-    else:m.update({"arm":str(arm),"cursor":int(cursor)})
+    elif kind=="science":m.update({"arm":str(arm),"cursor":int(cursor)})
+    elif kind=="data":
+        dm=J(root/"data/manifest.json");lk=J(root/"evidence/input_lock.json")
+        m.update({"stream_sha256":dm["stream_sha256"],"input_lock_sha256":sha(root/"evidence/input_lock.json"),"model_runs_started":0})
     out=pathlib.Path(out or root/"state_manifest.json");W(out,m);return m
 def verify_manifest(root,manifest,expected_parent=None):
     root=pathlib.Path(root);m=J(manifest)
@@ -93,6 +102,7 @@ def receipt(info,manifest,run_id,attempt,out,parent=None):
        "artifact_expires_at":info.get("expires_at"),"state_manifest_sha256":sha(manifest),"committed":True,"model_runs_started":0 if m["kind"]=="generation" else None}
     if m["kind"]=="generation":r["next_t"]=int(m["next_t"])
     elif m["kind"]=="science":r.update({"arm":m["arm"],"cursor":int(m["cursor"])})
+    elif m["kind"]=="data":r.update({"stream_sha256":m["stream_sha256"],"input_lock_sha256":m["input_lock_sha256"],"model_runs_started":0})
     elif m["kind"]=="synthetic_transaction_fixture":r.update({"cursor":int(m["cursor"]),"fixture_mode":True})
     else:raise RuntimeError("unsupported receipt kind "+str(m.get("kind")))
     W(out,r);return r
@@ -102,6 +112,7 @@ def verify_receipt(receipt_path,manifest):
     if r.get("parent_receipt_sha256")!=m.get("parent_receipt_sha256"):raise RuntimeError("receipt parent mismatch")
     if r["kind"]=="generation" and int(r["next_t"])!=int(m["next_t"]):raise RuntimeError("receipt cursor")
     if r["kind"]=="science" and (r.get("arm")!=m.get("arm") or int(r["cursor"])!=int(m["cursor"])):raise RuntimeError("science receipt cursor")
+    if r["kind"]=="data" and (r.get("stream_sha256")!=m.get("stream_sha256") or r.get("input_lock_sha256")!=m.get("input_lock_sha256")):raise RuntimeError("data receipt identity")
     if r["kind"]=="synthetic_transaction_fixture" and int(r["cursor"])!=int(m["cursor"]):raise RuntimeError("fixture receipt cursor")
     return r
 
@@ -136,7 +147,7 @@ def synthetic_verify(root,manifest,expected_parent=None):
 
 def main():
     ap=argparse.ArgumentParser();sp=ap.add_subparsers(dest="cmd",required=True)
-    p=sp.add_parser("manifest");p.add_argument("--root",required=True);p.add_argument("--kind",choices=("generation","science"),required=True);p.add_argument("--execution-sha",required=True);p.add_argument("--next-t",type=int);p.add_argument("--cursor",type=int);p.add_argument("--arm");p.add_argument("--parent-receipt");p.add_argument("--out",required=True)
+    p=sp.add_parser("manifest");p.add_argument("--root",required=True);p.add_argument("--kind",choices=("generation","science","data"),required=True);p.add_argument("--execution-sha",required=True);p.add_argument("--next-t",type=int);p.add_argument("--cursor",type=int);p.add_argument("--arm");p.add_argument("--parent-receipt");p.add_argument("--out",required=True)
     p=sp.add_parser("verify");p.add_argument("--root",required=True);p.add_argument("--manifest",required=True);p.add_argument("--expected-parent")
     p=sp.add_parser("fresh-generation-restore");p.add_argument("--source036",required=True);p.add_argument("--root",required=True);p.add_argument("--manifest",required=True);p.add_argument("--out")
     p=sp.add_parser("receipt");p.add_argument("--info",required=True);p.add_argument("--manifest",required=True);p.add_argument("--run-id",required=True);p.add_argument("--attempt",type=int,required=True);p.add_argument("--out",required=True);p.add_argument("--parent")
