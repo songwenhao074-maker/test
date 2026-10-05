@@ -1,0 +1,21 @@
+{
+  "protocol": "044",
+  "execution_revision": 2,
+  "science_config_revision": 1,
+  "kind": "generation",
+  "generation_key": "protocol044_revision2_seed4401_reconstruction1",
+  "science_key": "protocol044_revision1_stageS_seed4401_sequence",
+  "execution_sha": "57ecaadb22dac117f5004c782ad5a27a03d84efc",
+  "parent_receipt_sha256": "b0c95bbff72c1c09ccbe5223acdff7e55f65c6c164d2c091b6f5923140c3c848",
+  "run_id": "37256440169",
+  "attempt": 1,
+  "artifact_id": 11328187322,
+  "artifact_name": "protocol044-r2-gen-state-2800-37256440169-14",
+  "artifact_digest": "sha256:d3ff72d517e600ccec59382568684823a6ecffed27a4734e37f5aa1ef00f8714",
+  "artifact_size": 109818660,
+  "artifact_expires_at": "2027-01-03T02:42:24Z",
+  "state_manifest_sha256": "3a7d4912af1323fc0bbf10fb2e8f41f82fec9edf15dd92336e92e3b8d3383b92",
+  "committed": true,
+  "model_runs_started": 0,
+  "next_t": 2800
+}
