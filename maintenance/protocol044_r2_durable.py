@@ -92,13 +92,17 @@ def receipt(info,manifest,run_id,attempt,out,parent=None):
        "artifact_id":int(info["id"]),"artifact_name":info["name"],"artifact_digest":info["digest"],"artifact_size":int(info["size_in_bytes"]),
        "artifact_expires_at":info.get("expires_at"),"state_manifest_sha256":sha(manifest),"committed":True,"model_runs_started":0 if m["kind"]=="generation" else None}
     if m["kind"]=="generation":r["next_t"]=int(m["next_t"])
-    else:r.update({"arm":m["arm"],"cursor":int(m["cursor"])})
+    elif m["kind"]=="science":r.update({"arm":m["arm"],"cursor":int(m["cursor"])})
+    elif m["kind"]=="synthetic_transaction_fixture":r.update({"cursor":int(m["cursor"]),"fixture_mode":True})
+    else:raise RuntimeError("unsupported receipt kind "+str(m.get("kind")))
     W(out,r);return r
 def verify_receipt(receipt_path,manifest):
     r=J(receipt_path);m=J(manifest)
     if r.get("committed") is not True or r.get("state_manifest_sha256")!=sha(manifest):raise RuntimeError("receipt state mismatch")
     if r.get("parent_receipt_sha256")!=m.get("parent_receipt_sha256"):raise RuntimeError("receipt parent mismatch")
     if r["kind"]=="generation" and int(r["next_t"])!=int(m["next_t"]):raise RuntimeError("receipt cursor")
+    if r["kind"]=="science" and (r.get("arm")!=m.get("arm") or int(r["cursor"])!=int(m["cursor"])):raise RuntimeError("science receipt cursor")
+    if r["kind"]=="synthetic_transaction_fixture" and int(r["cursor"])!=int(m["cursor"]):raise RuntimeError("fixture receipt cursor")
     return r
 
 # Synthetic backend used only for cross-runner transaction tests.
