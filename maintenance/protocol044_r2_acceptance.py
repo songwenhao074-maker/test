@@ -148,7 +148,11 @@ def compare(root):
     xa=torch.load(a/"D_lin/checkpoints/cursor_0064.pt",map_location="cpu",weights_only=False)
     xb=torch.load(b/"D_lin/checkpoints/cursor_0064.pt",map_location="cpu",weights_only=False)
     dlin_diff=[k for k in sorted(set(xa)|set(xb)) if k not in xa or k not in xb or not obj_equal(xa.get(k),xb.get(k))]
-    rows.append({"id":"Dlin_full_checkpoint_state_exact","pass":len(dlin_diff)==0,"diff_keys":dlin_diff})
+    def H(v):
+        import pickle
+        return hashlib.sha256(pickle.dumps(v,protocol=pickle.HIGHEST_PROTOCOL)).hexdigest()
+    rng_hashes={k:{"continuous":H(xa[k]),"segmented":H(xb[k])} for k in ("torch_rng","numpy_rng","python_rng")}
+    rows.append({"id":"Dlin_full_checkpoint_state_exact","pass":len(dlin_diff)==0,"diff_keys":dlin_diff,"rng_hashes":rng_hashes})
     # Dynamic semantic endpoint incl. model/Adam/RNG/output/audit chain.
     import run_ftmoe_protocol044_science as s
     from protocol044_engine import Machine044,semantic_digest
