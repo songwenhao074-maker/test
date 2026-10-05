@@ -17,4 +17,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          gh workflow run protocol044-revision2-durable-recovery.yml             --repo "$GITHUB_REPOSITORY" --ref main             -f execution_sha=b1f501d9db6cbd3bd5e7968c4ed43e45a34aae78             -f gate_artifact_id=11322806544             -f gate_digest=sha256:c2888a4f7f7168bf77d3a523694b1eb67ba7b692713510c5f89f2d792db9159a
+          gh workflow run protocol044-revision2-durable-recovery.yml             --repo "$GITHUB_REPOSITORY" --ref main             -f execution_sha=57ecaadb22dac117f5004c782ad5a27a03d84efc             -f gate_artifact_id=11323195440             -f gate_digest=sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed
