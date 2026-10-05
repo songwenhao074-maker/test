@@ -5,6 +5,7 @@ import numpy as np
 import torch
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path: sys.path.insert(0,str(ROOT))
 N=64
 SCI=ROOT/"run_ftmoe_protocol044_science.py"
 PLAN_SHA="a27a6cca6abde40b6395876eccd3db5f550a044e952a701fe63aa2e4306a5f51"
