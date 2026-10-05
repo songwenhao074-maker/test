@@ -81,7 +81,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python maintenance/protocol044_r2_gate.py             --old-e-gate /tmp/gate/old_e_gate.json             --old-e-lock /tmp/gate/old_e_lock.json             --compatibility /tmp/entry/E_compatibility.json             --entry /tmp/entry/entrypoint_acceptance.json             --durable /tmp/durable/transaction.json             --publication /tmp/gate/publication.json             --inventory /tmp/gate/recovery_inventory.json             --entry-artifact-id 11320637935             --entry-artifact-digest sha256:63abd6dcdc3434f81d61b3d2612a84d76961caa108c0356f7b40e0f0acca74d8             --durable-artifact-id 11320542913             --durable-artifact-digest sha256:8b8f19ca370a0ba32ee181cf2eb1bc0268c3745d4ae3860643741698dab58731             --execution-sha "$EXECUTION_SHA"             --out /tmp/gate/E_recovery_gate.json
+          python maintenance/protocol044_r2_gate.py             --old-e-gate /tmp/gate/old_e_gate.json             --old-e-lock /tmp/gate/old_e_lock.json             --compatibility /tmp/entry/E_compatibility.json             --entry /tmp/entry/entrypoint_acceptance.json             --durable /tmp/durable/transaction.json             --publication /tmp/gate/publication.json             --inventory /tmp/gate/recovery_inventory.json \
+            --init-restore /tmp/init/init_restore_acceptance.json             --entry-artifact-id 11320637935             --entry-artifact-digest sha256:63abd6dcdc3434f81d61b3d2612a84d76961caa108c0356f7b40e0f0acca74d8             --durable-artifact-id 11320542913             --durable-artifact-digest sha256:8b8f19ca370a0ba32ee181cf2eb1bc0268c3745d4ae3860643741698dab58731             --execution-sha "$EXECUTION_SHA"             --out /tmp/gate/E_recovery_gate.json
           python - <<'PY'
           import json
           g=json.load(open('/tmp/gate/E_recovery_gate.json'))
