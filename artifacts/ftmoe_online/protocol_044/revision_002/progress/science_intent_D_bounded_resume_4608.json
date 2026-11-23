@@ -1,0 +1,11 @@
+{
+  "run_id": "45236302789",
+  "attempt": "1",
+  "arm": "D_bounded",
+  "mode": "resume",
+  "from_cursor": 4608,
+  "target": 5120,
+  "parent_receipt": "7d3d720e29c579e4a7f7d2ce3260f7ee3256513080b1f890486504163afe3ef8",
+  "optimizer_steps_before": 242,
+  "budget_remaining": 1040
+}
