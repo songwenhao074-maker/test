@@ -116,7 +116,7 @@ def finalize(output,reg,phases,arrays,workload,chunks,applied_switches,scheduler
    "chunk_count":len(chunks),"last_chunk_rows":FINAL,"chunks":list(chunks),"registration_sha256":reg_sha,
    "source_identity":source_identity(Path(H.__file__).resolve().parent),"scheduler_checkpoint":str(scheduler_weight),
    "scheduler_checkpoint_sha256":sha(scheduler_weight),"elapsed_seconds":float(time.perf_counter()-started),"assembly_pending":True,"input_audit_pending":True}
- W(out/"generation_manifest.json",g);return {"stream_sha256":None,**g},{"audit_pass":False}
+ W(out/"generation_manifest.json",g);return {"stream_sha256":None,**g},{"audit_pass":False,"gates":{}}
 def patch_historical(source):
  H.registration=registration;H.phase_table=phase_table;H.phase_at=phase_at;H.json_sha=json_sha;H.source_identity=lambda:source_identity(source)
  H.write_checkpoint=write_checkpoint;H.read_checkpoint=read_checkpoint;H.finalize=finalize
