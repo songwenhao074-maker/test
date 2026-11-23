@@ -72,7 +72,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p /tmp/gate
-          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.gate_artifact_id }}/zip" -o /tmp/gate.zip
+          curl -L --fail --retry 6 --retry-all-errors --retry-delay 5 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.gate_artifact_id }}/zip" -o /tmp/gate.zip
           echo "${{ inputs.gate_digest }}" | sed 's/^sha256://' | awk '{print $1"  /tmp/gate.zip"}' | sha256sum -c -
           unzip -q /tmp/gate.zip -d /tmp/gate
           python - <<'PY'
@@ -88,10 +88,10 @@ jobs:
           mkdir -p /tmp/stage /tmp/preceipt
           gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.parent_stage_id }}" > /tmp/pinfo.json
           PDIG=$(python -c 'import json; print(json.load(open("/tmp/pinfo.json"))["digest"].split(":",1)[1])')
-          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.parent_stage_id }}/zip" -o /tmp/stage.zip
+          curl -L --fail --retry 6 --retry-all-errors --retry-delay 5 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.parent_stage_id }}/zip" -o /tmp/stage.zip
           echo "$PDIG  /tmp/stage.zip" | sha256sum -c -
           unzip -q /tmp/stage.zip -d /tmp/stage
-          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.parent_receipt_id }}/zip" -o /tmp/preceipt.zip
+          curl -L --fail --retry 6 --retry-all-errors --retry-delay 5 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.parent_receipt_id }}/zip" -o /tmp/preceipt.zip
           unzip -q /tmp/preceipt.zip -d /tmp/preceipt
           test "$(sha256sum /tmp/preceipt/receipt.json | awk '{print $1}')" = "${{ inputs.parent_receipt_sha }}"
           python maintenance/protocol044_r2_durable.py verify --root /tmp/stage --manifest /tmp/stage/state_manifest.json
@@ -109,10 +109,10 @@ jobs:
           mkdir -p /tmp/data /tmp/dreceipt
           gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.data_state_id }}" > /tmp/dinfo.json
           DDIG=$(python -c 'import json; print(json.load(open("/tmp/dinfo.json"))["digest"].split(":",1)[1])')
-          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.data_state_id }}/zip" -o /tmp/data.zip
+          curl -L --fail --retry 6 --retry-all-errors --retry-delay 5 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.data_state_id }}/zip" -o /tmp/data.zip
           echo "$DDIG  /tmp/data.zip" | sha256sum -c -
           unzip -q /tmp/data.zip -d /tmp/data
-          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.data_receipt_id }}/zip" -o /tmp/dreceipt.zip
+          curl -L --fail --retry 6 --retry-all-errors --retry-delay 5 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/${{ inputs.data_receipt_id }}/zip" -o /tmp/dreceipt.zip
           unzip -q /tmp/dreceipt.zip -d /tmp/dreceipt
           test "$(sha256sum /tmp/dreceipt/data_receipt.json | awk '{print $1}')" = "${{ inputs.data_receipt_sha }}"
           python maintenance/protocol044_r2_durable.py verify --root /tmp/data --manifest /tmp/data/state_manifest.json
@@ -204,9 +204,10 @@ jobs:
         run: |
           set -euo pipefail
           ID="${{ steps.state_up.outputs.artifact-id }}"
-          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$ID" > /tmp/ninfo.json
+          for delay in 0 3 8 15 30 60 90; do sleep "$delay"; if gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$ID" > /tmp/ninfo.json; then break; fi; done
+          jq -e --arg id "$ID" '(.id|tostring)==$id and (.expired==false) and (.digest|startswith("sha256:"))' /tmp/ninfo.json >/dev/null
           DIG=$(python -c 'import json; print(json.load(open("/tmp/ninfo.json"))["digest"].split(":",1)[1])')
-          curl -L --fail --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$ID/zip" -o /tmp/fresh.zip
+          curl -L --fail --retry 6 --retry-all-errors --retry-delay 5 -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$ID/zip" -o /tmp/fresh.zip
           echo "$DIG  /tmp/fresh.zip" | sha256sum -c -
           mkdir /tmp/fresh && unzip -q /tmp/fresh.zip -d /tmp/fresh
           mv /tmp/stage /tmp/issued-stage
