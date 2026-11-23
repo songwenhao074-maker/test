@@ -1,0 +1,245 @@
+name: Protocol044 verified arm
+on:
+  workflow_call:
+    inputs:
+      arm: {required: true, type: string}
+      parent_stage_id: {required: true, type: string}
+      parent_receipt_id: {required: true, type: string}
+      parent_receipt_sha: {required: true, type: string}
+      parent_cursor: {required: true, type: string}
+      data_state_id: {required: true, type: string}
+      data_receipt_id: {required: true, type: string}
+      data_receipt_sha: {required: true, type: string}
+    outputs:
+      state_id:
+        value: ${{ jobs.seg12.outputs.state_id }}
+      receipt_id:
+        value: ${{ jobs.seg12.outputs.receipt_id }}
+      receipt_sha:
+        value: ${{ jobs.seg12.outputs.receipt_sha }}
+      cursor:
+        value: ${{ jobs.seg12.outputs.cursor }}
+permissions:
+  contents: write
+  actions: read
+jobs:
+  seg00:
+    uses: ./.github/workflows/protocol044-science-verified-segment.yml
+    with:
+      execution_sha: '57ecaadb22dac117f5004c782ad5a27a03d84efc'
+      gate_artifact_id: '11323195440'
+      gate_digest: 'sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed'
+      data_state_id: ${{ inputs.data_state_id }}
+      data_receipt_id: ${{ inputs.data_receipt_id }}
+      data_receipt_sha: ${{ inputs.data_receipt_sha }}
+      arm: ${{ inputs.arm }}
+      parent_stage_id: ${{ inputs.parent_stage_id }}
+      parent_receipt_id: ${{ inputs.parent_receipt_id }}
+      parent_receipt_sha: ${{ inputs.parent_receipt_sha }}
+      parent_cursor: ${{ inputs.parent_cursor }}
+      mode: start
+      segment_index: '0'
+  seg01:
+    needs: seg00
+    uses: ./.github/workflows/protocol044-science-verified-segment.yml
+    with:
+      execution_sha: '57ecaadb22dac117f5004c782ad5a27a03d84efc'
+      gate_artifact_id: '11323195440'
+      gate_digest: 'sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed'
+      data_state_id: ${{ inputs.data_state_id }}
+      data_receipt_id: ${{ inputs.data_receipt_id }}
+      data_receipt_sha: ${{ inputs.data_receipt_sha }}
+      arm: ${{ inputs.arm }}
+      parent_stage_id: ${{ needs.seg00.outputs.state_id }}
+      parent_receipt_id: ${{ needs.seg00.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.seg00.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.seg00.outputs.cursor }}
+      mode: resume
+      segment_index: '1'
+  seg02:
+    needs: seg01
+    uses: ./.github/workflows/protocol044-science-verified-segment.yml
+    with:
+      execution_sha: '57ecaadb22dac117f5004c782ad5a27a03d84efc'
+      gate_artifact_id: '11323195440'
+      gate_digest: 'sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed'
+      data_state_id: ${{ inputs.data_state_id }}
+      data_receipt_id: ${{ inputs.data_receipt_id }}
+      data_receipt_sha: ${{ inputs.data_receipt_sha }}
+      arm: ${{ inputs.arm }}
+      parent_stage_id: ${{ needs.seg01.outputs.state_id }}
+      parent_receipt_id: ${{ needs.seg01.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.seg01.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.seg01.outputs.cursor }}
+      mode: resume
+      segment_index: '2'
+  seg03:
+    needs: seg02
+    uses: ./.github/workflows/protocol044-science-verified-segment.yml
+    with:
+      execution_sha: '57ecaadb22dac117f5004c782ad5a27a03d84efc'
+      gate_artifact_id: '11323195440'
+      gate_digest: 'sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed'
+      data_state_id: ${{ inputs.data_state_id }}
+      data_receipt_id: ${{ inputs.data_receipt_id }}
+      data_receipt_sha: ${{ inputs.data_receipt_sha }}
+      arm: ${{ inputs.arm }}
+      parent_stage_id: ${{ needs.seg02.outputs.state_id }}
+      parent_receipt_id: ${{ needs.seg02.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.seg02.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.seg02.outputs.cursor }}
+      mode: resume
+      segment_index: '3'
+  seg04:
+    needs: seg03
+    uses: ./.github/workflows/protocol044-science-verified-segment.yml
+    with:
+      execution_sha: '57ecaadb22dac117f5004c782ad5a27a03d84efc'
+      gate_artifact_id: '11323195440'
+      gate_digest: 'sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed'
+      data_state_id: ${{ inputs.data_state_id }}
+      data_receipt_id: ${{ inputs.data_receipt_id }}
+      data_receipt_sha: ${{ inputs.data_receipt_sha }}
+      arm: ${{ inputs.arm }}
+      parent_stage_id: ${{ needs.seg03.outputs.state_id }}
+      parent_receipt_id: ${{ needs.seg03.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.seg03.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.seg03.outputs.cursor }}
+      mode: resume
+      segment_index: '4'
+  seg05:
+    needs: seg04
+    uses: ./.github/workflows/protocol044-science-verified-segment.yml
+    with:
+      execution_sha: '57ecaadb22dac117f5004c782ad5a27a03d84efc'
+      gate_artifact_id: '11323195440'
+      gate_digest: 'sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed'
+      data_state_id: ${{ inputs.data_state_id }}
+      data_receipt_id: ${{ inputs.data_receipt_id }}
+      data_receipt_sha: ${{ inputs.data_receipt_sha }}
+      arm: ${{ inputs.arm }}
+      parent_stage_id: ${{ needs.seg04.outputs.state_id }}
+      parent_receipt_id: ${{ needs.seg04.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.seg04.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.seg04.outputs.cursor }}
+      mode: resume
+      segment_index: '5'
+  seg06:
+    needs: seg05
+    uses: ./.github/workflows/protocol044-science-verified-segment.yml
+    with:
+      execution_sha: '57ecaadb22dac117f5004c782ad5a27a03d84efc'
+      gate_artifact_id: '11323195440'
+      gate_digest: 'sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed'
+      data_state_id: ${{ inputs.data_state_id }}
+      data_receipt_id: ${{ inputs.data_receipt_id }}
+      data_receipt_sha: ${{ inputs.data_receipt_sha }}
+      arm: ${{ inputs.arm }}
+      parent_stage_id: ${{ needs.seg05.outputs.state_id }}
+      parent_receipt_id: ${{ needs.seg05.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.seg05.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.seg05.outputs.cursor }}
+      mode: resume
+      segment_index: '6'
+  seg07:
+    needs: seg06
+    uses: ./.github/workflows/protocol044-science-verified-segment.yml
+    with:
+      execution_sha: '57ecaadb22dac117f5004c782ad5a27a03d84efc'
+      gate_artifact_id: '11323195440'
+      gate_digest: 'sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed'
+      data_state_id: ${{ inputs.data_state_id }}
+      data_receipt_id: ${{ inputs.data_receipt_id }}
+      data_receipt_sha: ${{ inputs.data_receipt_sha }}
+      arm: ${{ inputs.arm }}
+      parent_stage_id: ${{ needs.seg06.outputs.state_id }}
+      parent_receipt_id: ${{ needs.seg06.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.seg06.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.seg06.outputs.cursor }}
+      mode: resume
+      segment_index: '7'
+  seg08:
+    needs: seg07
+    uses: ./.github/workflows/protocol044-science-verified-segment.yml
+    with:
+      execution_sha: '57ecaadb22dac117f5004c782ad5a27a03d84efc'
+      gate_artifact_id: '11323195440'
+      gate_digest: 'sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed'
+      data_state_id: ${{ inputs.data_state_id }}
+      data_receipt_id: ${{ inputs.data_receipt_id }}
+      data_receipt_sha: ${{ inputs.data_receipt_sha }}
+      arm: ${{ inputs.arm }}
+      parent_stage_id: ${{ needs.seg07.outputs.state_id }}
+      parent_receipt_id: ${{ needs.seg07.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.seg07.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.seg07.outputs.cursor }}
+      mode: resume
+      segment_index: '8'
+  seg09:
+    needs: seg08
+    uses: ./.github/workflows/protocol044-science-verified-segment.yml
+    with:
+      execution_sha: '57ecaadb22dac117f5004c782ad5a27a03d84efc'
+      gate_artifact_id: '11323195440'
+      gate_digest: 'sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed'
+      data_state_id: ${{ inputs.data_state_id }}
+      data_receipt_id: ${{ inputs.data_receipt_id }}
+      data_receipt_sha: ${{ inputs.data_receipt_sha }}
+      arm: ${{ inputs.arm }}
+      parent_stage_id: ${{ needs.seg08.outputs.state_id }}
+      parent_receipt_id: ${{ needs.seg08.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.seg08.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.seg08.outputs.cursor }}
+      mode: resume
+      segment_index: '9'
+  seg10:
+    needs: seg09
+    uses: ./.github/workflows/protocol044-science-verified-segment.yml
+    with:
+      execution_sha: '57ecaadb22dac117f5004c782ad5a27a03d84efc'
+      gate_artifact_id: '11323195440'
+      gate_digest: 'sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed'
+      data_state_id: ${{ inputs.data_state_id }}
+      data_receipt_id: ${{ inputs.data_receipt_id }}
+      data_receipt_sha: ${{ inputs.data_receipt_sha }}
+      arm: ${{ inputs.arm }}
+      parent_stage_id: ${{ needs.seg09.outputs.state_id }}
+      parent_receipt_id: ${{ needs.seg09.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.seg09.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.seg09.outputs.cursor }}
+      mode: resume
+      segment_index: '10'
+  seg11:
+    needs: seg10
+    uses: ./.github/workflows/protocol044-science-verified-segment.yml
+    with:
+      execution_sha: '57ecaadb22dac117f5004c782ad5a27a03d84efc'
+      gate_artifact_id: '11323195440'
+      gate_digest: 'sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed'
+      data_state_id: ${{ inputs.data_state_id }}
+      data_receipt_id: ${{ inputs.data_receipt_id }}
+      data_receipt_sha: ${{ inputs.data_receipt_sha }}
+      arm: ${{ inputs.arm }}
+      parent_stage_id: ${{ needs.seg10.outputs.state_id }}
+      parent_receipt_id: ${{ needs.seg10.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.seg10.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.seg10.outputs.cursor }}
+      mode: resume
+      segment_index: '11'
+  seg12:
+    needs: seg11
+    uses: ./.github/workflows/protocol044-science-verified-segment.yml
+    with:
+      execution_sha: '57ecaadb22dac117f5004c782ad5a27a03d84efc'
+      gate_artifact_id: '11323195440'
+      gate_digest: 'sha256:c4af8bc5504c7db65822539134a0f31a580c2b99f0c4746d5912b9fc6dccdeed'
+      data_state_id: ${{ inputs.data_state_id }}
+      data_receipt_id: ${{ inputs.data_receipt_id }}
+      data_receipt_sha: ${{ inputs.data_receipt_sha }}
+      arm: ${{ inputs.arm }}
+      parent_stage_id: ${{ needs.seg11.outputs.state_id }}
+      parent_receipt_id: ${{ needs.seg11.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.seg11.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.seg11.outputs.cursor }}
+      mode: resume
+      segment_index: '12'

@@ -1,0 +1,87 @@
+name: Protocol044 - train four registered arms on the sealed data
+on: workflow_dispatch
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: protocol044_revision1_stageS_seed4401_sequence
+  cancel-in-progress: false
+jobs:
+  data:
+    runs-on: ubuntu-22.04
+    outputs:
+      data_state_id: ${{ steps.data.outputs.data_state_id }}
+      data_receipt_id: ${{ steps.data.outputs.data_receipt_id }}
+      data_receipt_sha: ${{ steps.data.outputs.data_receipt_sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/protocol-044-revision2-durable-recovery-20261005
+      - name: Resolve the immutable 5953-row data seal
+        id: data
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN: '45223489789'
+        run: |
+          set -euo pipefail
+          P=artifacts/ftmoe_online/protocol_044/revision_002/progress
+          test "$(jq -r .next_t "$P/generation_cursor_5953.json")" = 5953
+          test "$(jq -r .committed "$P/data_lock_receipt.json")" = true
+          test "$(jq -r .model_runs_started "$P/data_lock_receipt.json")" = 0
+          test "$(jq -r .run_id "$P/data_lock_receipt.json")" = "$SOURCE_RUN"
+          test "$(jq -r .parent_receipt_sha256 "$P/data_lock_receipt.json")" = "$(sha256sum "$P/generation_cursor_5953.json" | cut -d' ' -f1)"
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$SOURCE_RUN/artifacts?per_page=100" > /tmp/artifacts.json
+          NAME="protocol044-r2-data-receipt-$SOURCE_RUN"
+          RID=$(jq -er --arg n "$NAME" '[.artifacts[]|select(.name==$n and .expired==false)]|if length==1 then .[0].id else error("receipt lookup") end' /tmp/artifacts.json)
+          test -z "$(find "$P" -name 'science_*' -print -quit)"
+          echo "data_state_id=$(jq -r .artifact_id "$P/data_lock_receipt.json")" >> "$GITHUB_OUTPUT"
+          echo "data_receipt_id=$RID" >> "$GITHUB_OUTPUT"
+          echo "data_receipt_sha=$(sha256sum "$P/data_lock_receipt.json" | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+  C_ref:
+    needs: [data]
+    uses: ./.github/workflows/protocol044-science-verified-arm.yml
+    with:
+      arm: C_ref
+      data_state_id: ${{ needs.data.outputs.data_state_id }}
+      data_receipt_id: ${{ needs.data.outputs.data_receipt_id }}
+      data_receipt_sha: ${{ needs.data.outputs.data_receipt_sha }}
+      parent_stage_id: 'sealed-data'
+      parent_receipt_id: ${{ needs.data.outputs.data_receipt_id }}
+      parent_receipt_sha: ${{ needs.data.outputs.data_receipt_sha }}
+      parent_cursor: '0'
+  D_lin:
+    needs: [data, C_ref]
+    uses: ./.github/workflows/protocol044-science-verified-arm.yml
+    with:
+      arm: D_lin
+      data_state_id: ${{ needs.data.outputs.data_state_id }}
+      data_receipt_id: ${{ needs.data.outputs.data_receipt_id }}
+      data_receipt_sha: ${{ needs.data.outputs.data_receipt_sha }}
+      parent_stage_id: ${{ needs.C_ref.outputs.state_id }}
+      parent_receipt_id: ${{ needs.C_ref.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.C_ref.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.C_ref.outputs.cursor }}
+  D_no_gc:
+    needs: [data, D_lin]
+    uses: ./.github/workflows/protocol044-science-verified-arm.yml
+    with:
+      arm: D_no_gc
+      data_state_id: ${{ needs.data.outputs.data_state_id }}
+      data_receipt_id: ${{ needs.data.outputs.data_receipt_id }}
+      data_receipt_sha: ${{ needs.data.outputs.data_receipt_sha }}
+      parent_stage_id: ${{ needs.D_lin.outputs.state_id }}
+      parent_receipt_id: ${{ needs.D_lin.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.D_lin.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.D_lin.outputs.cursor }}
+  D_bounded:
+    needs: [data, D_no_gc]
+    uses: ./.github/workflows/protocol044-science-verified-arm.yml
+    with:
+      arm: D_bounded
+      data_state_id: ${{ needs.data.outputs.data_state_id }}
+      data_receipt_id: ${{ needs.data.outputs.data_receipt_id }}
+      data_receipt_sha: ${{ needs.data.outputs.data_receipt_sha }}
+      parent_stage_id: ${{ needs.D_no_gc.outputs.state_id }}
+      parent_receipt_id: ${{ needs.D_no_gc.outputs.receipt_id }}
+      parent_receipt_sha: ${{ needs.D_no_gc.outputs.receipt_sha }}
+      parent_cursor: ${{ needs.D_no_gc.outputs.cursor }}
