@@ -1,0 +1,22 @@
+{
+  "protocol": "044",
+  "execution_revision": 2,
+  "science_config_revision": 1,
+  "kind": "science",
+  "generation_key": "protocol044_revision2_seed4401_reconstruction1",
+  "science_key": "protocol044_revision1_stageS_seed4401_sequence",
+  "execution_sha": "57ecaadb22dac117f5004c782ad5a27a03d84efc",
+  "parent_receipt_sha256": "0640da9266c57e81cfe8d50158c9b1d5b44aff12489d787ca99c478ded414067",
+  "run_id": "45236302789",
+  "attempt": 1,
+  "artifact_id": 14852039454,
+  "artifact_name": "protocol044-r2-science-D_lin-3072-45236302789-6",
+  "artifact_digest": "sha256:3591709c968be540f77fbdb569e5d68136ad82e04c8e691757afe0eeef73a9a9",
+  "artifact_size": 205951823,
+  "artifact_expires_at": "2027-02-21T18:14:50Z",
+  "state_manifest_sha256": "bdde8c0c90c3e290bc869372d9767440d2b005272ccf680c00ea2e14301bf7fb",
+  "committed": true,
+  "model_runs_started": null,
+  "arm": "D_lin",
+  "cursor": 3072
+}
