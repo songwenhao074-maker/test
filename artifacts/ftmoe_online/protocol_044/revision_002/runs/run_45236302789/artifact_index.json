@@ -1,0 +1,114 @@
+{
+  "protocol": "044",
+  "execution_revision": 2,
+  "science_run_id": 45236302789,
+  "frozen_science_sha": "57ecaadb22dac117f5004c782ad5a27a03d84efc",
+  "generation_terminal_repair": "1191f2932960c0ce18273bca245ea14b078f4721",
+  "orchestration_sha": "f98e7b923f040d5ac4f42c8444c00bb58b8e2f26",
+  "artifacts": [
+    {
+      "id": 14858056486,
+      "name": "protocol044-r2-science-receipt-D_bounded-5952-45236302789-12",
+      "bytes": 621,
+      "digest": "sha256:6ef2e1229e0113cea1e363fa62789450183690029242c19c4419a851a1689ad3",
+      "expires_at": "2027-02-21T18:14:50Z",
+      "url": "https://github.com/songwenhao074-maker/test/actions/runs/45236302789/artifacts/14858056486"
+    },
+    {
+      "id": 14857631696,
+      "name": "protocol044-r2-analysis-45236302789",
+      "bytes": 10740,
+      "digest": "sha256:5818a2146c08e926cfe4349f181a7ecf05ccfde71912d47f7de5ab32ec0b4d4e",
+      "expires_at": "2027-02-21T18:14:50Z",
+      "url": "https://github.com/songwenhao074-maker/test/actions/runs/45236302789/artifacts/14857631696"
+    },
+    {
+      "id": 14857491844,
+      "name": "protocol044-r2-science-D_bounded-5952-45236302789-12",
+      "bytes": 231637346,
+      "digest": "sha256:a2f73131f8442b2e50af433ecb4ae27365d80abff9e9eff4233673df2545031f",
+      "expires_at": "2027-02-21T18:14:50Z",
+      "url": "https://github.com/songwenhao074-maker/test/actions/runs/45236302789/artifacts/14857491844"
+    },
+    {
+      "id": 14856322060,
+      "name": "protocol044-r2-science-receipt-D_no_gc-5952-45236302789-12",
+      "bytes": 618,
+      "digest": "sha256:4821d69c4a99a8f85a73c9efeaecd80ef376ea45f0b475da6b1a4350f34edf1c",
+      "expires_at": "2027-02-21T18:14:50Z",
+      "url": "https://github.com/songwenhao074-maker/test/actions/runs/45236302789/artifacts/14856322060"
+    },
+    {
+      "id": 14854873135,
+      "name": "protocol044-r2-science-D_no_gc-5952-45236302789-12",
+      "bytes": 224080709,
+      "digest": "sha256:ebbcd3599f73c4dd909708c379aeaad6f63a7370a0555c26d44087166a071c17",
+      "expires_at": "2027-02-21T18:14:50Z",
+      "url": "https://github.com/songwenhao074-maker/test/actions/runs/45236302789/artifacts/14854873135"
+    },
+    {
+      "id": 14853722511,
+      "name": "protocol044-r2-science-receipt-D_lin-5952-45236302789-12",
+      "bytes": 618,
+      "digest": "sha256:03fd617ad41fcc64c5d7b2b81411e581ef422897fff34d4209888ec0e7def813",
+      "expires_at": "2027-02-21T18:14:50Z",
+      "url": "https://github.com/songwenhao074-maker/test/actions/runs/45236302789/artifacts/14853722511"
+    },
+    {
+      "id": 14853328041,
+      "name": "protocol044-r2-science-D_lin-5952-45236302789-12",
+      "bytes": 216524209,
+      "digest": "sha256:0c7742fe9c8ca9e15e9d2f42386f91e2c855aa05441e7e764ca51dca908a63a8",
+      "expires_at": "2027-02-21T18:14:50Z",
+      "url": "https://github.com/songwenhao074-maker/test/actions/runs/45236302789/artifacts/14853328041"
+    },
+    {
+      "id": 14850978793,
+      "name": "protocol044-r2-science-receipt-C_ref-5952-45236302789-12",
+      "bytes": 619,
+      "digest": "sha256:ab7f28aaf472a0ca1f333e8e12a6caa27ac037a41cc24fb48b7e39d14a2472ad",
+      "expires_at": "2027-02-21T18:14:50Z",
+      "url": "https://github.com/songwenhao074-maker/test/actions/runs/45236302789/artifacts/14850978793"
+    },
+    {
+      "id": 14850843942,
+      "name": "protocol044-r2-science-C_ref-5952-45236302789-12",
+      "bytes": 202871290,
+      "digest": "sha256:d9b75338fb6004edb4f553b4a53e567283227467dc18fb8c41cebe4b051d69a3",
+      "expires_at": "2027-02-21T18:14:50Z",
+      "url": "https://github.com/songwenhao074-maker/test/actions/runs/45236302789/artifacts/14850843942"
+    },
+    {
+      "id": 14849651823,
+      "name": "protocol044-r2-data-receipt-45236302789",
+      "bytes": 690,
+      "digest": "sha256:e563d981f9b5a2322d6b5c47a7031755390f468c5ffb7e468b3e76fa082788fe",
+      "expires_at": "2027-02-21T18:14:50Z",
+      "url": "https://github.com/songwenhao074-maker/test/actions/runs/45236302789/artifacts/14849651823"
+    },
+    {
+      "id": 14848938521,
+      "name": "protocol044-r2-data-45236302789",
+      "bytes": 238811067,
+      "digest": "sha256:bc9e4a32554baf943cbc4bc3cf08b3ce28d2c0c411a5c00b9239c812a9bcbf80",
+      "expires_at": "2027-02-21T18:14:50Z",
+      "url": "https://github.com/songwenhao074-maker/test/actions/runs/45236302789/artifacts/14848938521"
+    },
+    {
+      "id": 14846784080,
+      "name": "protocol044-r2-gen-state-5953-45223489789-30",
+      "bytes": 231566280,
+      "digest": "sha256:4977f82fdc76ab446ea8dfbaecd9041dad80674bc35f22e72ffc1a15ade1f8e5",
+      "expires_at": "2027-02-21T17:03:57Z",
+      "url": "https://github.com/songwenhao074-maker/test/actions/runs/45223489789/artifacts/14846784080"
+    },
+    {
+      "id": 14846839960,
+      "name": "protocol044-r2-gen-receipt-5953-recovered-45234143775",
+      "bytes": 604,
+      "digest": "sha256:a869b652573748b1f2607ac9c3fd304067748988ea5f3ef51562b65b71d0fd5b",
+      "expires_at": "2027-02-21T18:02:50Z",
+      "url": "https://github.com/songwenhao074-maker/test/actions/runs/45234143775/artifacts/14846839960"
+    }
+  ]
+}

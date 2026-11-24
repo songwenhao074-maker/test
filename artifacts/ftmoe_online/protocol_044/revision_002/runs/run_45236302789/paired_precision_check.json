@@ -1,0 +1,49 @@
+{
+  "probability": {
+    "different_entries": 1889,
+    "first_prediction": 434,
+    "max_absolute_difference": 5.960464477539063e-08
+  },
+  "detection_logits": {
+    "different_entries": 6553,
+    "first_prediction": 386,
+    "max_absolute_difference": 4.76837158203125e-07
+  },
+  "live_margin": {
+    "different_entries": 3261,
+    "first_prediction": 389,
+    "max_absolute_difference": 9.5367431640625e-07
+  },
+  "total_delta": {
+    "different_entries": 46558,
+    "first_prediction": 368,
+    "max_absolute_difference": 1.1920928955078125e-07
+  },
+  "B_margin": {
+    "different_entries": 0,
+    "first_prediction": null,
+    "max_absolute_difference": 0.0
+  },
+  "deployment_epoch": {
+    "different_entries": 0,
+    "first_prediction": null,
+    "max_absolute_difference": null
+  },
+  "active_ids": {
+    "different_entries": 0,
+    "first_prediction": null,
+    "max_absolute_difference": null
+  },
+  "expert_versions": {
+    "different_entries": 0,
+    "first_prediction": null,
+    "max_absolute_difference": null
+  },
+  "expert_hashes": {
+    "different_entries": 4960,
+    "first_prediction": 368,
+    "max_absolute_difference": null
+  },
+  "threshold_0.5_disagreements": 0,
+  "absolute_AP_difference": 2.849964375606362e-09
+}

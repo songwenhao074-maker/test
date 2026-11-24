@@ -1,0 +1,12 @@
+{
+  "protocol": "044",
+  "revision": 1,
+  "execution_revision": 2,
+  "arm": "D_lin",
+  "completed": true,
+  "updates": 372,
+  "feature_tape_sha256": "377295b202120d0b4ed5801537d0b86beca849a66bfc7fe9f99e7b22f49222c3",
+  "predictions_sha256": "c2ad04f4cf92d200fce931fd635a7fd28d183096cf7595df245d67fb11cce427",
+  "parameter_count": 74,
+  "zero_initialized": true
+}

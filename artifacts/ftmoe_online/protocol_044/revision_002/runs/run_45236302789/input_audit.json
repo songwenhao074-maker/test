@@ -1,0 +1,77 @@
+{
+  "protocol": "044",
+  "revision": 1,
+  "kind": "pre_model_input_audit",
+  "seed": 4401,
+  "model_results_seen": false,
+  "audit_pass": true,
+  "reroll": false,
+  "gates": {
+    "all_chunks_rows_complete": true,
+    "label_recompute_exact": true,
+    "overload_ratio_recompute_exact": true,
+    "finite_causal_features": true,
+    "scheduler_capacity_audit": true,
+    "common_features_causal_exact": true,
+    "coverage_U_first": true,
+    "coverage_V_first": true,
+    "coverage_W_first": true,
+    "coverage_X_first": true,
+    "coverage_U_return": true,
+    "coverage_V_return": true,
+    "coverage_W_return": true,
+    "coverage_X_return": true,
+    "phase_annotation": true,
+    "service_annotation": true,
+    "return128_U_return": true,
+    "return128_V_return": true,
+    "return128_W_return": true,
+    "return128_X_return": true,
+    "all_four_services_have_events": true,
+    "last_prediction_guard": true
+  },
+  "coverage": {
+    "F0": {
+      "positive": 3,
+      "negative": 5117
+    },
+    "U_first": {
+      "positive": 3039,
+      "negative": 8225
+    },
+    "V_first": {
+      "positive": 1178,
+      "negative": 10086
+    },
+    "W_first": {
+      "positive": 2158,
+      "negative": 9106
+    },
+    "X_first": {
+      "positive": 587,
+      "negative": 10677
+    },
+    "U_return": {
+      "positive": 3015,
+      "negative": 8249
+    },
+    "V_return": {
+      "positive": 1110,
+      "negative": 10154
+    },
+    "W_return": {
+      "positive": 2020,
+      "negative": 9244
+    },
+    "X_return": {
+      "positive": 511,
+      "negative": 10753
+    }
+  },
+  "service_event_counts": {
+    "U": 573,
+    "V": 576,
+    "W": 592,
+    "X": 622
+  }
+}

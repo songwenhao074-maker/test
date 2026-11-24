@@ -1,0 +1,19 @@
+{
+  "gc_exercised": false,
+  "whole_trajectory_exact": false,
+  "array_exact": {
+    "probability": false,
+    "detection_logits": false,
+    "total_delta": false,
+    "live_margin": false,
+    "B_margin": true,
+    "deployment_epoch": true,
+    "active_ids": true,
+    "active_count": true,
+    "shadow_present": true,
+    "accepted_count": true,
+    "expert_versions": true,
+    "expert_hashes": false
+  },
+  "pass": false
+}

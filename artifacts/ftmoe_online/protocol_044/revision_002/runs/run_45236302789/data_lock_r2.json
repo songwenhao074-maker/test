@@ -1,0 +1,13 @@
+{
+  "protocol": "044",
+  "revision": 1,
+  "execution_revision": 2,
+  "science_config_revision": 1,
+  "seed": 4401,
+  "execution_sha": "1191f2932960c0ce18273bca245ea14b078f4721",
+  "stream_sha256": "e5ba0df8f98685703daf9eb09ba0b7e7e506fe97c011c822f245329adf716e14",
+  "input_lock_sha256": "788c47371bb7e1b1778cc2c05610f998d96d070918b744f5bb3b4ade0422f0b0",
+  "manifest_sha256": "54237b5ff368fbfabbe88aeb27f8d4fcc85a6a363b53d9a2766b79357fc9483e",
+  "model_runs_started": 0,
+  "sealed_before_C": true
+}

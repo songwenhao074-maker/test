@@ -1,0 +1,367 @@
+{
+  "protocol": "044",
+  "revision": 1,
+  "execution_revision": 2,
+  "seed": 4401,
+  "order": [
+    "C_ref",
+    "D_lin",
+    "D_no_gc",
+    "D_bounded"
+  ],
+  "science_key": "protocol044_revision1_stageS_seed4401_sequence",
+  "sequences": {
+    "C_ref": {
+      "started": true,
+      "completed": true,
+      "restart_from_zero": false,
+      "resume_events": [
+        {
+          "run_id": "45236302789",
+          "checkpoint": "cursor_0000",
+          "cursor": 0,
+          "optimizer_steps_used": 0
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "cursor_0512",
+          "cursor": 512,
+          "optimizer_steps_used": 32
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "cursor_1024",
+          "cursor": 1024,
+          "optimizer_steps_used": 64
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "cursor_1536",
+          "cursor": 1536,
+          "optimizer_steps_used": 96
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "cursor_2048",
+          "cursor": 2048,
+          "optimizer_steps_used": 128
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "cursor_2560",
+          "cursor": 2560,
+          "optimizer_steps_used": 160
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "cursor_3072",
+          "cursor": 3072,
+          "optimizer_steps_used": 192
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "cursor_3584",
+          "cursor": 3584,
+          "optimizer_steps_used": 224
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "cursor_4096",
+          "cursor": 4096,
+          "optimizer_steps_used": 256
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "cursor_4608",
+          "cursor": 4608,
+          "optimizer_steps_used": 288
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "cursor_5120",
+          "cursor": 5120,
+          "optimizer_steps_used": 320
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "cursor_5632",
+          "cursor": 5632,
+          "optimizer_steps_used": 352
+        }
+      ],
+      "optimizer_steps_used": 372,
+      "cursor": 5952,
+      "state_sha256": "a95669c089fb69d8c448314bc5960a621d1ccbffadf7167c03261a3fe26d013e",
+      "inflight": null,
+      "started_run_id": "45236302789",
+      "optimizer_steps": 372,
+      "feature_tape_sha256": "377295b202120d0b4ed5801537d0b86beca849a66bfc7fe9f99e7b22f49222c3"
+    },
+    "D_lin": {
+      "started": true,
+      "completed": true,
+      "restart_from_zero": false,
+      "resume_events": [
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_lin/checkpoints/cursor_0000.pt",
+          "cursor": 0,
+          "optimizer_steps_used": 0
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_lin/checkpoints/cursor_0512.pt",
+          "cursor": 512,
+          "optimizer_steps_used": 32
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_lin/checkpoints/cursor_1024.pt",
+          "cursor": 1024,
+          "optimizer_steps_used": 64
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_lin/checkpoints/cursor_1536.pt",
+          "cursor": 1536,
+          "optimizer_steps_used": 96
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_lin/checkpoints/cursor_2048.pt",
+          "cursor": 2048,
+          "optimizer_steps_used": 128
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_lin/checkpoints/cursor_2560.pt",
+          "cursor": 2560,
+          "optimizer_steps_used": 160
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_lin/checkpoints/cursor_3072.pt",
+          "cursor": 3072,
+          "optimizer_steps_used": 192
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_lin/checkpoints/cursor_3584.pt",
+          "cursor": 3584,
+          "optimizer_steps_used": 224
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_lin/checkpoints/cursor_4096.pt",
+          "cursor": 4096,
+          "optimizer_steps_used": 256
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_lin/checkpoints/cursor_4608.pt",
+          "cursor": 4608,
+          "optimizer_steps_used": 288
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_lin/checkpoints/cursor_5120.pt",
+          "cursor": 5120,
+          "optimizer_steps_used": 320
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_lin/checkpoints/cursor_5632.pt",
+          "cursor": 5632,
+          "optimizer_steps_used": 352
+        }
+      ],
+      "optimizer_steps_used": 372,
+      "cursor": 5952,
+      "state_sha256": "4a067c6827308cfd825d2ebf69942c2589143c1174131b8e224340f10a9c7de8",
+      "inflight": null,
+      "started_run_id": "45236302789",
+      "optimizer_steps": 372,
+      "predictions_sha256": "c2ad04f4cf92d200fce931fd635a7fd28d183096cf7595df245d67fb11cce427"
+    },
+    "D_no_gc": {
+      "started": true,
+      "completed": true,
+      "restart_from_zero": false,
+      "resume_events": [
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_no_gc/checkpoints/latest.pt",
+          "cursor": 0,
+          "optimizer_steps_used": 0
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_no_gc/checkpoints/latest.pt",
+          "cursor": 512,
+          "optimizer_steps_used": 10
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_no_gc/checkpoints/latest.pt",
+          "cursor": 1024,
+          "optimizer_steps_used": 42
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_no_gc/checkpoints/latest.pt",
+          "cursor": 1536,
+          "optimizer_steps_used": 61
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_no_gc/checkpoints/latest.pt",
+          "cursor": 2048,
+          "optimizer_steps_used": 86
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_no_gc/checkpoints/latest.pt",
+          "cursor": 2560,
+          "optimizer_steps_used": 118
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_no_gc/checkpoints/latest.pt",
+          "cursor": 3072,
+          "optimizer_steps_used": 144
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_no_gc/checkpoints/latest.pt",
+          "cursor": 3584,
+          "optimizer_steps_used": 170
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_no_gc/checkpoints/latest.pt",
+          "cursor": 4096,
+          "optimizer_steps_used": 202
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_no_gc/checkpoints/latest.pt",
+          "cursor": 4608,
+          "optimizer_steps_used": 242
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_no_gc/checkpoints/latest.pt",
+          "cursor": 5120,
+          "optimizer_steps_used": 282
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_no_gc/checkpoints/latest.pt",
+          "cursor": 5632,
+          "optimizer_steps_used": 314
+        }
+      ],
+      "optimizer_steps_used": 334,
+      "cursor": 5952,
+      "state_sha256": "2f815fc67eb513cb2b56308ba5dfb2a1eabcab7bd54673afe680e0f224594f06",
+      "inflight": null,
+      "started_run_id": "45236302789",
+      "optimizer_steps": 334,
+      "predictions_sha256": "717e45acf395a8870026bd188bd384a0a2629a40840795c517bb67e32016207f",
+      "permanent_deletions": 0
+    },
+    "D_bounded": {
+      "started": true,
+      "completed": true,
+      "restart_from_zero": false,
+      "resume_events": [
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_bounded/checkpoints/latest.pt",
+          "cursor": 0,
+          "optimizer_steps_used": 0
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_bounded/checkpoints/latest.pt",
+          "cursor": 512,
+          "optimizer_steps_used": 10
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_bounded/checkpoints/latest.pt",
+          "cursor": 1024,
+          "optimizer_steps_used": 42
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_bounded/checkpoints/latest.pt",
+          "cursor": 1536,
+          "optimizer_steps_used": 61
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_bounded/checkpoints/latest.pt",
+          "cursor": 2048,
+          "optimizer_steps_used": 86
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_bounded/checkpoints/latest.pt",
+          "cursor": 2560,
+          "optimizer_steps_used": 118
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_bounded/checkpoints/latest.pt",
+          "cursor": 3072,
+          "optimizer_steps_used": 144
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_bounded/checkpoints/latest.pt",
+          "cursor": 3584,
+          "optimizer_steps_used": 170
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_bounded/checkpoints/latest.pt",
+          "cursor": 4096,
+          "optimizer_steps_used": 202
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_bounded/checkpoints/latest.pt",
+          "cursor": 4608,
+          "optimizer_steps_used": 242
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_bounded/checkpoints/latest.pt",
+          "cursor": 5120,
+          "optimizer_steps_used": 282
+        },
+        {
+          "run_id": "45236302789",
+          "checkpoint": "/tmp/stage/D_bounded/checkpoints/latest.pt",
+          "cursor": 5632,
+          "optimizer_steps_used": 314
+        }
+      ],
+      "optimizer_steps_used": 334,
+      "cursor": 5952,
+      "state_sha256": "62669a5efa3bb22776445de9898a2c35e371898e968aa77f6af6530e64e073aa",
+      "inflight": null,
+      "started_run_id": "45236302789",
+      "optimizer_steps": 334,
+      "predictions_sha256": "aff1176db4c2ca585669f2be88135ad72dc4de5bb73966ac2f24cddda49d0f6b",
+      "permanent_deletions": 0
+    }
+  },
+  "total_optimizer_steps_used": 1412,
+  "restart_from_zero": false,
+  "extra_streams": 0,
+  "extra_seeds": 0,
+  "extra_arms": 0,
+  "F_loads": 0
+}

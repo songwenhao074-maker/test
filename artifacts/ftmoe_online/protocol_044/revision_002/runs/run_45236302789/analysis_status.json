@@ -1,0 +1,22 @@
+{
+  "protocol": "044",
+  "revision": 1,
+  "execution_revision": 2,
+  "science_config_revision": 1,
+  "run_id": "45236302789",
+  "E_gate": true,
+  "input_gate": true,
+  "budget_pass": true,
+  "independent_audit_pass": true,
+  "divergence_pass": false,
+  "S_validity": false,
+  "D_over_C": true,
+  "lifecycle_on_stream": false,
+  "reuse_on_stream": true,
+  "gc_on_stream": false,
+  "gc_admission_closed_loop": false,
+  "resource_pass": true,
+  "new_stream_core_supported": false,
+  "full_lifecycle_goal_completed": false,
+  "system_result_label": "invalid_execution"
+}

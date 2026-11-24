@@ -1,0 +1,29 @@
+{
+  "protocol": "044",
+  "revision": 1,
+  "execution_revision": 2,
+  "arm": "C_ref",
+  "stream_sha256": "e5ba0df8f98685703daf9eb09ba0b7e7e506fe97c011c822f245329adf716e14",
+  "completed": true,
+  "initialization": {
+    "shared_first4_expert_and_router_rows_sha256": "37162160ee73730ea551f2917414dcea927a8076345384405e8046559098e86b",
+    "all5_learner_state_sha256": "1e8f79b2fe5a0f7033ba2f6a04a575af65c0bf32fb2bab85de7d79075ff59f2d",
+    "frozen_base_sha256": "ddf996d3060e9c0c8bc8c1983764c4e9392570fd92979e246a0548acdc9e2e58",
+    "normalization_buffers_sha256": "28b40256ac35b649fd9865677685ef860d0262c100ce7183fad563e7bed0ab0c",
+    "model_seed": 1
+  },
+  "feature_tape_sha256": "377295b202120d0b4ed5801537d0b86beca849a66bfc7fe9f99e7b22f49222c3",
+  "predictions_sha256": "136e6522e10421aedcf78298574b9472a5dfdb7694e96d9e5d11413dbef98066",
+  "checks": {
+    "final_prediction_index": 5951,
+    "all_settled": true,
+    "terminal_training_steps": 0,
+    "visible_exact": true,
+    "label_cutoff_exact": true,
+    "optimizer_steps": 372,
+    "optimizer_budget": true,
+    "frozen_base_sha256": "ddf996d3060e9c0c8bc8c1983764c4e9392570fd92979e246a0548acdc9e2e58",
+    "normalization_buffers_sha256": "28b40256ac35b649fd9865677685ef860d0262c100ce7183fad563e7bed0ab0c"
+  },
+  "wall_seconds": 4.377994703000013
+}

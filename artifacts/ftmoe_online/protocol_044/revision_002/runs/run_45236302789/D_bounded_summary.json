@@ -1,0 +1,41 @@
+{
+  "protocol": "044",
+  "revision": 1,
+  "execution_revision": 2,
+  "arm": "D_bounded",
+  "completed": true,
+  "first_birth_t": 367,
+  "ids_created": 3,
+  "accepted_ids": [
+    0
+  ],
+  "active_ids_final": [
+    0
+  ],
+  "deleted_ids": [],
+  "permanent_deletions": 0,
+  "live_optimizer_steps": 311,
+  "shadow_optimizer_steps": 23,
+  "actual_optimizer_calls": 334,
+  "deployed_forwards": 4960,
+  "reuse_preview_forwards": 128,
+  "shadow_preview_forwards": 32,
+  "max_active_seen": 1,
+  "max_resident_seen": 2,
+  "online_payload_bytes": 133150,
+  "tracker_rebuilds": {
+    "periodic": 21,
+    "near": 0,
+    "rank": 0
+  },
+  "terminal_counter_delta": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "predictions_sha256": "aff1176db4c2ca585669f2be88135ad72dc4de5bb73966ac2f24cddda49d0f6b"
+}
